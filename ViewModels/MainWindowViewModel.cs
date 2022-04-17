@@ -1,8 +1,6 @@
 using Avalonia.Controls;
 using ReactiveUI;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using TextGameRPG.Views;
 
 namespace TextGameRPG.ViewModels
 {
@@ -24,7 +22,9 @@ namespace TextGameRPG.ViewModels
 
         private void LaunchEditor()
         {
-            mainContentView = null;
+            mainContentView = new Views.Editor.MainEditorView();
+            mainContentView.DataContext = new ViewModels.Editor.MainEditorViewModel();
+            MainWindow.instance.WindowState = WindowState.Maximized;
         }
 
 

@@ -1,0 +1,40 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="600"
+             x:Class="TextGameRPG.Views.Editor.MainEditorView">
+
+  <Border Classes="Default">
+    <Grid>
+
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="auto"/>
+        <ColumnDefinition/>
+      </Grid.ColumnDefinitions>
+      
+      <StackPanel Grid.Column="0" Classes="Content" MinWidth="200"
+                  Background="SlateGray">
+        <ListBox Items="{Binding categories}" 
+                 SelectedItem="{Binding selectedCategory}"
+                 Background="SlateGray">
+          <ListBox.ItemTemplate>
+            
+            <DataTemplate>
+              <StackPanel Orientation="Vertical">
+                <TextBlock Text="{Binding name}" VerticalAlignment="Center"
+                           FontStyle="Oblique" FontWeight="DemiBold"/>
+              </StackPanel>              
+            </DataTemplate>
+            
+          </ListBox.ItemTemplate>
+        </ListBox>
+      </StackPanel>
+
+      <UserControl Grid.Column="1" 
+                   Content="{Binding selectedCategory.view, Mode=TwoWay}"/>
+      
+    </Grid>
+  </Border>
+  
+</UserControl>

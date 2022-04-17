@@ -8,8 +8,7 @@
         Icon="/Assets/avalonia-logo.ico"
         Title="TextGameRPG"
         Width="800" Height="600"
-        WindowStartupLocation="CenterScreen"
-        WindowState="Maximized">
+        WindowStartupLocation="CenterScreen">
 
     <Design.DataContext>
         <vm:MainWindowViewModel/>

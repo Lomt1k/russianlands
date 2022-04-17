@@ -2,38 +2,35 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="600"
+             mc:Ignorable="d" Width="800" Height="600"
              x:Class="TextGameRPG.Views.GameDataLoaderView">
 
   <Border Classes="Default">
-    <StackPanel Orientation="Vertical" Classes="Content"
-                VerticalAlignment="Center" HorizontalAlignment="Center">
+    <Grid>
+      <Grid.RowDefinitions>
+        <RowDefinition MaxHeight="40"/>
+        <RowDefinition Height="*"/>
+        <RowDefinition MaxHeight="40"/>
+      </Grid.RowDefinitions>
 
-      <TextBlock Text="Data Loader" Classes="h1"/>
+      <TextBlock Grid.Row="0" Text="Data Loader" Classes="h1" VerticalAlignment="Top"/>
 
-      <ListBox Items="{Binding items}" Width="700" MinHeight="400" Margin="0,15,0,0">
+      <ListBox Items="{Binding items}" Grid.Row="1">
         <ListBox.ItemTemplate>
           <DataTemplate>
-            <StackPanel Orientation="Horizontal" MaxHeight="15">
-              <TextBox Text="{Binding fullInfo}" IsReadOnly="True"
-                       Padding="5" Margin="0"/>
-            </StackPanel>
+            <Label Content="{Binding fullInfo}" Padding="0" FontWeight="Bold"/>
           </DataTemplate>
         </ListBox.ItemTemplate>
       </ListBox>
 
-      <StackPanel Orientation="Horizontal" Classes="Header" Margin="0">
+      <StackPanel Orientation="Horizontal" Classes="Header" Grid.Row="2" VerticalAlignment="Bottom">
         <TextBlock Text="{Binding currentState.info}" Classes="h3"/>
-        <Button Classes="Neutral" Content="Launch Editor" Margin="5"
+        <Button Classes="Primary" Content="Launch Editor" Margin="5"
                 IsVisible="{Binding isGameDataLoaded}"
                 Command="{Binding launchEditorCommand}"/>
       </StackPanel>
-
-
-    </StackPanel>
+      
+    </Grid>
   </Border>
-
-
-
 
 </UserControl>
