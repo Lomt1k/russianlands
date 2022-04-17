@@ -2,33 +2,38 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="500"
+             mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="600"
              x:Class="TextGameRPG.Views.GameDataLoaderView">
 
-  <StackPanel Orientation="Vertical"
-              VerticalAlignment="Center" HorizontalAlignment="Center">
-    
-    <TextBlock Text="Data Loader"/>
-    
-    <ListBox Items="{Binding items}" Width="700" Height="400" Margin="0,15,0,0">
-      <ListBox.ItemTemplate>
-        <DataTemplate>
-          <StackPanel Orientation="Horizontal" MaxHeight="15">
-            <TextBox Text="{Binding fullInfo}" IsReadOnly="True"/>
-          </StackPanel>
-        </DataTemplate>
-      </ListBox.ItemTemplate>
-    </ListBox>
+  <Border Classes="Default">
+    <StackPanel Orientation="Vertical" Classes="Content"
+                VerticalAlignment="Center" HorizontalAlignment="Center">
 
-    <StackPanel Orientation="Horizontal" Background="DarkCyan" MinHeight="30">
-      <TextBlock Text="{Binding currentState.info}" VerticalAlignment="Center"
-                 Padding="10,0" FontWeight="Bold"/>
-      <Button Content="Launch Editor" Margin="5" FontWeight="Bold"
-              IsVisible="{Binding isGameDataLoaded}"
-              Command="{Binding launchEditorCommand}"/>
+      <TextBlock Text="Data Loader" Classes="h1"/>
+
+      <ListBox Items="{Binding items}" Width="700" MinHeight="400" Margin="0,15,0,0">
+        <ListBox.ItemTemplate>
+          <DataTemplate>
+            <StackPanel Orientation="Horizontal" MaxHeight="15">
+              <TextBox Text="{Binding fullInfo}" IsReadOnly="True"
+                       Padding="5" Margin="0"/>
+            </StackPanel>
+          </DataTemplate>
+        </ListBox.ItemTemplate>
+      </ListBox>
+
+      <StackPanel Orientation="Horizontal" Classes="Header" Margin="0">
+        <TextBlock Text="{Binding currentState.info}" Classes="h3"/>
+        <Button Classes="Neutral" Content="Launch Editor" Margin="5"
+                IsVisible="{Binding isGameDataLoaded}"
+                Command="{Binding launchEditorCommand}"/>
+      </StackPanel>
+
+
     </StackPanel>
+  </Border>
 
 
-  </StackPanel>
+
 
 </UserControl>

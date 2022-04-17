@@ -8,5 +8,68 @@
 
     <Application.Styles>
         <FluentTheme Mode="Light"/>
+
+      <Style Selector="Border.Default">
+        <Setter Property="Background" Value="#EDEEF0" />
+      </Style>
+      <Style Selector="Border.Content">
+        <Setter Property="Background" Value="WhiteSmoke" />
+      </Style>
+      
+      
+      
+      <Style Selector="StackPanel.Default">
+        <Setter Property="Background" Value="#EDEEF0" />
+      </Style>
+      <Style Selector="StackPanel.Content">
+        <Setter Property="Background" Value="WhiteSmoke" />
+      </Style>
+      <Style Selector="StackPanel.Header">
+        <Setter Property="Background" Value="DarkGray" />
+      </Style>
+      
+      
+
+      <Style Selector="TextBlock.h1">
+        <Setter Property="Padding" Value="5" />
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontSize" Value="24"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Background" Value="SlateGray"/>
+      </Style>
+
+      <Style Selector="TextBlock.h2">
+        <Setter Property="Padding" Value="5" />
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+      </Style>
+      
+      
+
+      <Style Selector="TextBlock.h3">
+        <Setter Property="Padding" Value="5" />
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+      </Style>
+      
+      
+
+      <Style Selector="Button.Primary">
+        <Setter Property="Background" Value="#FFCC00"/>
+        <Setter Property="Padding" Value="5" />
+      </Style>
+      <Style Selector="Button.Secondary">
+        <Setter Property="Background" Value="#007FFF"/>
+        <Setter Property="Foreground" Value="WhiteSmoke"/>
+        <Setter Property="Padding" Value="5" />
+      </Style>
+      <Style Selector="Button.Neutral">
+        <Setter Property="Background" Value="Gray"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Padding" Value="5" />
+      </Style>
+      
     </Application.Styles>
 </Application>
