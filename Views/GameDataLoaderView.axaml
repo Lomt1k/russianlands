@@ -1,0 +1,31 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="500"
+             x:Class="TextGameRPG.Views.GameDataLoaderView">
+
+  <StackPanel Orientation="Vertical"
+              VerticalAlignment="Center" HorizontalAlignment="Center">
+    
+    <TextBlock Text="Loading Game Data..."/>
+    
+    <ListBox Items="{Binding items}" Width="700" Height="400" Margin="0,15,0,0">
+      <ListBox.ItemTemplate>
+        <DataTemplate>
+          <StackPanel Orientation="Horizontal">
+            <TextBox Text="{Binding fullInfo}" IsReadOnly="True"/>
+          </StackPanel>
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
+
+    <StackPanel Orientation="Horizontal" Background="DarkCyan" MinHeight="30">
+      <TextBlock Text="{Binding currentState.info}" VerticalAlignment="Center"
+                 Padding="10,0" />
+    </StackPanel>
+
+
+  </StackPanel>
+
+</UserControl>
