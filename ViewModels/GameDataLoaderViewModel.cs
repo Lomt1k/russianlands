@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Reactive;
 using ReactiveUI;
 using TextGameRPG.Models;
 
@@ -15,32 +16,40 @@ namespace TextGameRPG.ViewModels
             get => _currentState;
             set => this.RaiseAndSetIfChanged(ref _currentState, value);
         }
+        public bool isGameDataLoaded { get; private set; }
 
-        public GameDataLoaderViewModel(Action onSuccess, Action onFailed)
-        {
-            InitializeItems();
+        public ReactiveCommand<Unit, Unit> launchEditorCommand { get; }
 
-            //bool result = true;//TODO Loading logic
-            //if (result)
-            //{
-            //    onSuccess();
-            //}
-            //else
-            //{
-            //    onFailed();
-            //}
-        }
-
-        private void InitializeItems()
+        public GameDataLoaderViewModel(Action launchEditor)
         {
             items = new ObservableCollection<GameDataLoaderStateInfo>();
-            AddNext( new GameDataLoaderStateInfo("Application started.") );
+            launchEditorCommand = ReactiveCommand.Create(launchEditor);
+
+            AddNext("Application started");
+            LoadGameData();
         }
 
-        private void AddNext(GameDataLoaderStateInfo stateInfo)
+        private void LoadGameData()
         {
-            items.Add(stateInfo);
-            currentState = stateInfo;
+            Scripts.GameCore.GameDataBase.GameDataBase.LoadAllData(this);
+        }
+
+        public void AddNext(string stateInfo)
+        {
+            var state = new GameDataLoaderStateInfo(stateInfo);
+            items.Add(state);
+            currentState = state;
+        }
+
+        public void AddInfoToCurrentState(string text)
+        {
+            currentState?.AddInfo(text);
+        }
+
+        public void OnGameDataLoaded()
+        {
+            isGameDataLoaded = true;
+            AddNext("All Game Data successfully loaded");
         }
 
 

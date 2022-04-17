@@ -19,17 +19,12 @@ namespace TextGameRPG.ViewModels
         public MainWindowViewModel()
         {
             _mainContentView = new Views.GameDataLoaderView();
-            _mainContentView.DataContext = new GameDataLoaderViewModel(OnSuccessGameDataLoaded, OnFailGameDataLoading);
+            _mainContentView.DataContext = new GameDataLoaderViewModel(LaunchEditor);
         }
 
-        private void OnSuccessGameDataLoaded()
+        private void LaunchEditor()
         {
-
-        }
-
-        private void OnFailGameDataLoading()
-        {
-
+            mainContentView = null;
         }
 
 

@@ -8,12 +8,12 @@
   <StackPanel Orientation="Vertical"
               VerticalAlignment="Center" HorizontalAlignment="Center">
     
-    <TextBlock Text="Loading Game Data..."/>
+    <TextBlock Text="Data Loader"/>
     
     <ListBox Items="{Binding items}" Width="700" Height="400" Margin="0,15,0,0">
       <ListBox.ItemTemplate>
         <DataTemplate>
-          <StackPanel Orientation="Horizontal">
+          <StackPanel Orientation="Horizontal" MaxHeight="15">
             <TextBox Text="{Binding fullInfo}" IsReadOnly="True"/>
           </StackPanel>
         </DataTemplate>
@@ -22,7 +22,10 @@
 
     <StackPanel Orientation="Horizontal" Background="DarkCyan" MinHeight="30">
       <TextBlock Text="{Binding currentState.info}" VerticalAlignment="Center"
-                 Padding="10,0" />
+                 Padding="10,0" FontWeight="Bold"/>
+      <Button Content="Launch Editor" Margin="5" FontWeight="Bold"
+              IsVisible="{Binding isGameDataLoaded}"
+              Command="{Binding launchEditorCommand}"/>
     </StackPanel>
 
 

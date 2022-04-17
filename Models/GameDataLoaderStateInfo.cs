@@ -5,7 +5,7 @@ namespace TextGameRPG.Models
     public class GameDataLoaderStateInfo
     {
         public string startTime { get; }
-        public string info { get; }
+        public string info { get; private set; }
 
         public string fullInfo => $"{startTime} {info}";
 
@@ -13,6 +13,11 @@ namespace TextGameRPG.Models
         {
             startTime = $"[{DateTime.Now.ToLongTimeString()}]";
             info = _info;
+        }
+
+        public void AddInfo(string _info)
+        {
+            info += $"   {_info}";
         }
     }
 
