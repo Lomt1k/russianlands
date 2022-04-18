@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using TextGameRPG.ViewModels.Editor.ItemsEditor;
 
 namespace TextGameRPG.Views.Editor.ItemsEditor
 {
@@ -9,6 +10,7 @@ namespace TextGameRPG.Views.Editor.ItemsEditor
         public ItemsEditorView()
         {
             InitializeComponent();
+            DataContext = new ItemsEditorViewModel();
         }
 
         private void InitializeComponent()
