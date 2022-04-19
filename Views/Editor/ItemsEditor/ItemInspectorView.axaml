@@ -1,0 +1,41 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="600"
+             x:Class="TextGameRPG.Views.Editor.ItemsEditor.ItemInspectorView"
+             Background="WhiteSmoke" Padding="10">
+
+  <Grid>    
+    <Grid.RowDefinitions>
+      <RowDefinition Height="50"/>
+      <RowDefinition Height="auto"/>
+      <RowDefinition Height="100"/>
+    </Grid.RowDefinitions>
+
+    <!-- Row 1: Header -->
+    <StackPanel Grid.Row="0" Orientation="Vertical">
+      <TextBlock Text="{Binding header}" Classes="h2"/>
+      <TextBlock Text="{Binding currentItem.id, StringFormat='ID: {0}'}"
+                 Classes="h3" Foreground="SlateGray"/>
+    </StackPanel>
+
+    <!-- Row 1: Content -->
+    <StackPanel Grid.Row="1" Orientation="Vertical" Margin="0,20">
+      
+      <TextBlock Text="Properties:" Classes="h3" Foreground="DarkCyan"/>
+      <ListBox Items="{Binding itemProperties}">
+        <ListBox.ItemTemplate>
+          <DataTemplate>
+            <TextBlock Text="{Binding}"/>
+          </DataTemplate>          
+        </ListBox.ItemTemplate>
+      </ListBox>
+      
+    </StackPanel>
+
+
+
+  </Grid>
+  
+</UserControl>
