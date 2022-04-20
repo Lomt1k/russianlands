@@ -48,6 +48,12 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
             itemInspector.DataContext = itemInspectorViewModel = new ItemInspectorViewModel();
 
             RefreshShowedItems();
+            Scripts.GameCore.GameDataBase.GameDataBase.instance.itemsGenerators.onDataChanged += OnDataBaseChanged;
+        }
+
+        private void OnDataBaseChanged()
+        {
+            RefreshShowedItems();
         }
 
         private void RefreshShowedItems()
@@ -59,7 +65,6 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
                 items = items.Where(x => x.itemType == _selectedCategory.itemType);
             }
 
-            showedItems = new ObservableCollection<ItemGeneratorBase>(items);
             RefreshShowedItems(items);
         }
 

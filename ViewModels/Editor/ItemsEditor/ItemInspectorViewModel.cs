@@ -2,6 +2,8 @@
 using ReactiveUI;
 using System.Collections.ObjectModel;
 using TextGameRPG.Scripts.GameCore.Items.ItemGenerators.ItemPropertyGenerators;
+using System.Reactive;
+using TextGameRPG.Models.RegularDialogs;
 
 namespace TextGameRPG.ViewModels.Editor.ItemsEditor
 {
@@ -22,10 +24,18 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
         }
         public ObservableCollection<ItemPropertyGeneratorBase> itemProperties { get; private set; } = new ObservableCollection<ItemPropertyGeneratorBase>();
 
+        public ReactiveCommand<Unit, Unit> removeItemCommand { get; private set; }
+        public ReactiveCommand<Unit, Unit> editItemCommand { get; private set; }
+
+        public ItemInspectorViewModel()
+        {
+            removeItemCommand = ReactiveCommand.Create(OnRemoveItemClick);
+            editItemCommand = ReactiveCommand.Create(OnEditItemClick);
+        }
+
         public void ShowItem(ItemGeneratorBase item)
         {
             currentItem = item;
-
             RefreshHeader();
             RefreshItemProperties();
         }
@@ -42,6 +52,20 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
             {
                 itemProperties.Add(item);
             }
+        }
+
+        private void OnRemoveItemClick()
+        {
+            RegularDialogHelper.ShowConfirmDialog("Are you sure you want to delete this item?", () => 
+            {
+                var itemsDataBase = Scripts.GameCore.GameDataBase.GameDataBase.instance.itemsGenerators;
+                itemsDataBase.RemoveData(_currentItem.id);
+            });
+        }
+
+        private void OnEditItemClick()
+        {
+            //TODO
         }
 
 

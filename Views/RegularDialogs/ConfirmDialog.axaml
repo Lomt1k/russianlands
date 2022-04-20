@@ -1,0 +1,32 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" Width="400" Height="200"
+        x:Class="TextGameRPG.Views.RegularDialogs.ConfirmDialog"
+        Title="Confirm your action"
+        WindowStartupLocation="CenterOwner">
+
+  <Grid>
+    
+    <Grid.RowDefinitions>
+      <RowDefinition MinHeight="100"/>
+      <RowDefinition Height="auto"/>
+    </Grid.RowDefinitions>
+
+    <!-- Row 1: Content -->
+    <TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center"
+               Text="{Binding description}"/>
+
+    <!-- Row 2: Controls -->
+    <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom"
+                Spacing="20" Margin="20" Orientation="Horizontal">
+      <Button Classes="Secondary" Content="Yes" Padding="30, 10"
+              Command="{Binding confirmCommand}"/>
+      <Button Classes="Neutral" Content="No" Padding="30,10" 
+              Command="{Binding declineCommand}"/>
+    </StackPanel>
+    
+  </Grid>
+  
+</Window>

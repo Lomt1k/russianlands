@@ -58,17 +58,23 @@
 
       <Style Selector="Button.Primary">
         <Setter Property="Background" Value="#FFCC00"/>
-        <Setter Property="Padding" Value="5" />
+        <Setter Property="Padding" Value="15,5" />
       </Style>
       <Style Selector="Button.Secondary">
         <Setter Property="Background" Value="#007FFF"/>
         <Setter Property="Foreground" Value="WhiteSmoke"/>
-        <Setter Property="Padding" Value="5" />
+        <Setter Property="Padding" Value="15,5" />
       </Style>
       <Style Selector="Button.Neutral">
         <Setter Property="Background" Value="Gray"/>
-        <Setter Property="FontWeight" Value="Bold"/>
-        <Setter Property="Padding" Value="5" />
+        <Setter Property="Foreground" Value="WhiteSmoke"/>
+        <Setter Property="Padding" Value="15,5" />
+      </Style>
+
+      <Style Selector="Button.Negative">
+        <Setter Property="Background" Value="DarkRed"/>
+        <Setter Property="Foreground" Value="WhiteSmoke"/>
+        <Setter Property="Padding" Value="15,5" />
       </Style>
       
     </Application.Styles>

@@ -17,10 +17,12 @@ namespace TextGameRPG
         {
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                desktop.MainWindow = new MainWindow
+                var mainWindow = new MainWindow
                 {
                     DataContext = new MainWindowViewModel(),
                 };
+                desktop.MainWindow = mainWindow;
+                Program.mainWindow = mainWindow;
             }
 
             base.OnFrameworkInitializationCompleted();
