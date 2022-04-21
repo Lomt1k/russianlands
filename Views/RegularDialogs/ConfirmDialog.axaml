@@ -21,9 +21,9 @@
     <!-- Row 2: Controls -->
     <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom"
                 Spacing="20" Margin="20" Orientation="Horizontal">
-      <Button Classes="Secondary" Content="Yes" Padding="30, 10"
+      <Button Classes="SecondaryBig" Content="Yes"
               Command="{Binding confirmCommand}"/>
-      <Button Classes="Neutral" Content="No" Padding="30,10" 
+      <Button Classes="NeutralBig" Content="No" IsCancel="True"
               Command="{Binding declineCommand}"/>
     </StackPanel>
     

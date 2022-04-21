@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using TextGameRPG.Scripts.GameCore.Items.ItemGenerators.ItemPropertyGenerators;
 using System.Reactive;
 using TextGameRPG.Models.RegularDialogs;
+using TextGameRPG.Views.Editor.ItemsEditor;
 
 namespace TextGameRPG.ViewModels.Editor.ItemsEditor
 {
@@ -56,7 +57,8 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
 
         private void OnRemoveItemClick()
         {
-            RegularDialogHelper.ShowConfirmDialog("Are you sure you want to delete this item?", () => 
+            RegularDialogHelper.ShowConfirmDialog("Are you sure you want to delete this item?" +
+                $"\n\n[ID {_currentItem.id}] {_currentItem.debugName} ({_currentItem.itemRarity}, Lvl {_currentItem.requiredLevel})", () => 
             {
                 var itemsDataBase = Scripts.GameCore.GameDataBase.GameDataBase.instance.itemsGenerators;
                 itemsDataBase.RemoveData(_currentItem.id);
@@ -65,7 +67,9 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
 
         private void OnEditItemClick()
         {
-            //TODO
+            var editWindow = new EditItemWindow();
+            editWindow.DataContext = new EditItemWindowViewModel(editWindow, _currentItem);
+            editWindow.ShowDialog(Program.mainWindow);
         }
 
 

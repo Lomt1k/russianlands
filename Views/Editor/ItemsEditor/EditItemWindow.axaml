@@ -1,0 +1,73 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" Width="400" MinHeight="400"
+        x:Class="TextGameRPG.Views.Editor.ItemsEditor.EditItemWindow"
+        Title="EditItemWindow"
+        WindowStartupLocation="CenterOwner">
+
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="auto"/>
+      <RowDefinition/>
+      <RowDefinition/>
+    </Grid.RowDefinitions>
+
+    <!-- Row 1: Main Item Data -->
+    <StackPanel Grid.Row="0" Orientation="Vertical" Margin="20" Spacing="5">
+
+      <StackPanel Orientation="Horizontal">
+        <TextBlock Text="Debug Name" Width="120" VerticalAlignment="Center"/>
+        <TextBox Text="{Binding editableItem.debugName}"/>
+      </StackPanel>
+      <StackPanel Orientation="Horizontal">
+        <TextBlock Text="Type" Width="120" VerticalAlignment="Center"/>
+        <ComboBox/>
+      </StackPanel>
+      <StackPanel Orientation="Horizontal">
+        <TextBlock Text="Rarity" Width="120" VerticalAlignment="Center"/>
+        <ComboBox/>
+      </StackPanel>
+      <StackPanel Orientation="Horizontal">
+        <TextBlock Text="Required Level" Width="120" VerticalAlignment="Center"/>
+        <TextBox Text="{Binding editableItem.requiredLevel}"/>
+      </StackPanel>
+      
+    </StackPanel>
+
+    <!-- Row 2: Item Propertes -->
+    <StackPanel Grid.Row="1" Orientation="Vertical" Margin="20,10">
+      
+      <TextBlock Text="Properties:"/>
+      <ListBox>
+        <ListBox.ItemTemplate>
+          <DataTemplate>
+            <TextBlock Text="{Binding}"/>
+          </DataTemplate>
+        </ListBox.ItemTemplate>
+      </ListBox>
+
+      <StackPanel Orientation="Horizontal">
+        <Button Content="Add Property" Classes="Neutral" HorizontalAlignment="Left"
+                Command="{Binding addPropertyCommand}"/>
+        <Button Content="Remove Property" Classes="Negative" Margin="100,10, 0, 10"
+                Command="{Binding removePropertyCommand}"/>
+      </StackPanel>
+      
+    </StackPanel>
+
+    <!-- Row 3: Controls -->
+    <StackPanel Grid.Row="2" Orientation="Vertical" Margin="20" 
+                VerticalAlignment="Bottom" HorizontalAlignment="Center">
+
+      <StackPanel Orientation="Horizontal" Spacing="20">
+        <Button Content="Save" Classes="SecondaryBig" Command="{Binding saveCommand}"/>
+        <Button Content="Cancel" Classes="NeutralBig" Command="{Binding cancelCommand}"/>
+      </StackPanel>
+      
+    </StackPanel>
+    
+  </Grid>
+  
+</Window>
