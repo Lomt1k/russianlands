@@ -23,11 +23,13 @@
       </StackPanel>
       <StackPanel Orientation="Horizontal">
         <TextBlock Text="Type" Width="120" VerticalAlignment="Center"/>
-        <ComboBox/>
+        <ComboBox Items="{Binding itemTypeList}" 
+                  SelectedItem="{Binding selectedItemType}"/>
       </StackPanel>
       <StackPanel Orientation="Horizontal">
         <TextBlock Text="Rarity" Width="120" VerticalAlignment="Center"/>
-        <ComboBox/>
+        <ComboBox Items="{Binding itemRarityList}"
+                  SelectedItem="{Binding selectedItemRarity}"/>
       </StackPanel>
       <StackPanel Orientation="Horizontal">
         <TextBlock Text="Required Level" Width="120" VerticalAlignment="Center"/>
@@ -39,8 +41,7 @@
     <!-- Row 2: Item Propertes -->
     <StackPanel Grid.Row="1" Orientation="Vertical" Margin="20,10">
       
-      <TextBlock Text="Properties:"/>
-      <ListBox>
+      <ListBox Items="{Binding editableItem.properties}">
         <ListBox.ItemTemplate>
           <DataTemplate>
             <TextBlock Text="{Binding}"/>
