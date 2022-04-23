@@ -1,0 +1,39 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" Width="400"
+        x:Class="TextGameRPG.Views.Editor.ItemsEditor.EditItemPropertyWindow"
+        Title="Select Property">
+
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="120"/>
+      <RowDefinition />
+      <RowDefinition Height="80"/>
+    </Grid.RowDefinitions>
+
+    <!-- Row 1: Property Type Selection -->
+    <StackPanel Grid.Row="0" Orientation="Vertical" Margin="20"
+                Spacing="10" HorizontalAlignment="Left">
+      <StackPanel Margin="2" Orientation="Horizontal">
+        <TextBlock Text="Property Type: " Width="180" VerticalAlignment="Center"/>
+        <ComboBox Items="{Binding propertyTypesList}"
+                  SelectedItem="{Binding selectedPropertyType}"/>
+      </StackPanel>
+      <TextBlock Text="{Binding tempProperty.debugDescription}"/>
+    </StackPanel>
+
+    <!-- Row 2: Property Fields -->
+    <StackPanel Grid.Row="1" Orientation="Vertical" Margin="20">
+    </StackPanel>
+
+    <!-- Row 3: Controls -->
+    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+      <Button Content="Save" Command="{Binding saveCommand}" Classes="SecondaryBig" Margin="0,0,60,0"/>
+      <Button Content="Cancel" Command="{Binding cancelCommand}" Classes="NeutralBig"/>
+    </StackPanel>
+    
+  </Grid>
+  
+</Window>

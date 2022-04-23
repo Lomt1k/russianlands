@@ -41,7 +41,9 @@
     <!-- Row 2: Item Propertes -->
     <StackPanel Grid.Row="1" Orientation="Vertical" Margin="20,10">
       
-      <ListBox Items="{Binding editableItem.properties}">
+      <TextBlock Text="Properties:" Classes="h3"/>
+      <ListBox Items="{Binding editableItem.properties}"
+               SelectedItem="{Binding selectedProperty}">
         <ListBox.ItemTemplate>
           <DataTemplate>
             <TextBlock Text="{Binding}"/>
@@ -50,10 +52,14 @@
       </ListBox>
 
       <StackPanel Orientation="Horizontal">
-        <Button Content="Add Property" Classes="Neutral" HorizontalAlignment="Left"
-                Command="{Binding addPropertyCommand}"/>
-        <Button Content="Remove Property" Classes="Negative" Margin="100,10, 0, 10"
-                Command="{Binding removePropertyCommand}"/>
+        <Button Content="Edit Property" Classes="Neutral"
+                Command="{Binding editPropertyCommand}"
+                IsEnabled="{Binding selectedProperty, Converter={x:Static ObjectConverters.IsNotNull}}"/>
+        <Button Content="+" Classes="Positive" Margin="175,10, 0, 10"
+                Padding="10,5" Command="{Binding addPropertyCommand}"/>
+        <Button Content="-" Classes="Negative" Margin="5"
+                Padding="10,5" Command="{Binding removePropertyCommand}"
+                IsEnabled="{Binding selectedProperty, Converter={x:Static ObjectConverters.IsNotNull}}"/>
       </StackPanel>
       
     </StackPanel>

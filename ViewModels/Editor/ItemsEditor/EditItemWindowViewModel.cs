@@ -1,17 +1,22 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Reactive;
+using Avalonia.Controls;
 using ReactiveUI;
 using TextGameRPG.Models;
 using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.GameCore.Items.ItemGenerators;
+using TextGameRPG.Scripts.GameCore.Items.ItemGenerators.ItemPropertyGenerators;
 using TextGameRPG.Views.Editor.ItemsEditor;
 
 namespace TextGameRPG.ViewModels.Editor.ItemsEditor
 {
     internal class EditItemWindowViewModel : ViewModelBase
     {
+        private EditItemWindow _window;
         private EnumValueModel<ItemType> _selectedItemType;
         private EnumValueModel<ItemRarity> _selectedItemRarity;
+        private ItemPropertyGeneratorBase? _selectedProperty;
 
         public ItemGeneratorBase editableItem { get; }
         public ObservableCollection<EnumValueModel<ItemType>> itemTypeList { get; }
@@ -37,15 +42,23 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
             }
         }
 
+        public ItemPropertyGeneratorBase? selectedProperty
+        {
+            get => _selectedProperty;
+            set => this.RaiseAndSetIfChanged(ref _selectedProperty, value);
+        }
+
         private System.Action closeWindow { get; }
         public ReactiveCommand<Unit, Unit> addPropertyCommand { get; }
+        public ReactiveCommand<Unit, Unit> editPropertyCommand { get; }
         public ReactiveCommand<Unit, Unit> removePropertyCommand { get; }
         public ReactiveCommand<Unit, Unit> saveCommand { get; }
         public ReactiveCommand<Unit, Unit> cancelCommand { get; }
 
         public EditItemWindowViewModel(EditItemWindow window, ItemGeneratorBase item)
         {
-            window.Title = $"[ID {item.id}] {item.debugName}";
+            window.Title = $"{item.debugName} [ID {item.id}]";
+            _window = window;
 
             editableItem = item.Clone();
             var excludeTypes = new ItemType[] { ItemType.Any };
@@ -57,6 +70,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
 
             closeWindow = () => window.Close();
             addPropertyCommand = ReactiveCommand.Create(AddNewProperty);
+            editPropertyCommand = ReactiveCommand.Create(EditSelectedProperty);
             removePropertyCommand = ReactiveCommand.Create(RemoveSelectedProperty);
             saveCommand = ReactiveCommand.Create(SaveItemChanges + closeWindow);
             cancelCommand = ReactiveCommand.Create(closeWindow);
@@ -65,6 +79,17 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
         private void AddNewProperty()
         {
             //TODO
+        }
+
+        private void EditSelectedProperty()
+        {
+            var window = new EditItemPropertyWindow();
+            window.DataContext = new EditItemPropertyWindowViewModel(window, _selectedProperty, (modifiedProperty) => 
+            {
+                var index = Array.IndexOf(editableItem.properties, _selectedProperty);
+                editableItem.properties[index] = modifiedProperty;
+            });
+            window.ShowDialog(_window);
         }
 
         private void RemoveSelectedProperty()

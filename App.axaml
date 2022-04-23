@@ -69,9 +69,13 @@
         <Setter Property="Foreground" Value="WhiteSmoke"/>
         <Setter Property="Padding" Value="15,5" />
       </Style>
-
       <Style Selector="Button.Negative">
         <Setter Property="Background" Value="DarkRed"/>
+        <Setter Property="Foreground" Value="WhiteSmoke"/>
+        <Setter Property="Padding" Value="15,5" />
+      </Style>
+      <Style Selector="Button.Positive">
+        <Setter Property="Background" Value="DarkGreen"/>
         <Setter Property="Foreground" Value="WhiteSmoke"/>
         <Setter Property="Padding" Value="15,5" />
       </Style>
@@ -91,9 +95,13 @@
         <Setter Property="Foreground" Value="WhiteSmoke"/>
         <Setter Property="Padding" Value="30,10" />
       </Style>
-
       <Style Selector="Button.NegativeBig">
         <Setter Property="Background" Value="DarkRed"/>
+        <Setter Property="Foreground" Value="WhiteSmoke"/>
+        <Setter Property="Padding" Value="30,10" />
+      </Style>
+      <Style Selector="Button.PositiveBig">
+        <Setter Property="Background" Value="DarkGreen"/>
         <Setter Property="Foreground" Value="WhiteSmoke"/>
         <Setter Property="Padding" Value="30,10" />
       </Style>
