@@ -36,8 +36,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
         {
             tempProperty = property.Clone();
 
-            var excludeTypes = new ItemPropertyGeneratorType[] { ItemPropertyGeneratorType.None };
-            propertyTypesList = EnumValueModel<ItemPropertyGeneratorType>.CreateCollection(excludeTypes);
+            propertyTypesList = EnumValueModel<ItemPropertyGeneratorType>.CreateCollection(excludeValue: ItemPropertyGeneratorType.None);
             _selectedPropertyType = EnumValueModel<ItemPropertyGeneratorType>.GetModel(propertyTypesList, tempProperty.propertyType);
 
             closeWindow = () => window.Close();

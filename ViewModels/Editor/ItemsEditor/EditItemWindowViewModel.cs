@@ -61,8 +61,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
             _window = window;
 
             editableItem = item.Clone();
-            var excludeTypes = new ItemType[] { ItemType.Any };
-            itemTypeList = EnumValueModel<ItemType>.CreateCollection(excludeTypes);
+            itemTypeList = EnumValueModel<ItemType>.CreateCollection(excludeValue: ItemType.Any);
             itemRarityList = EnumValueModel<ItemRarity>.CreateCollection();
 
             _selectedItemType = EnumValueModel<ItemType>.GetModel(itemTypeList, editableItem.itemType);
