@@ -15,12 +15,12 @@
     <Grid.RowDefinitions>
       <RowDefinition Height="50"/>
       <RowDefinition Height="auto"/>
-      <RowDefinition Height="100"/>
     </Grid.RowDefinitions>
 
     <!-- Column 1: Category -->
     <TextBlock Text="Category" Grid.Column="0" Grid.Row="0" Classes="h3"/>
     <ListBox Grid.Column="0" Grid.Row="1" VerticalAlignment="Top"
+             MaxHeight="600"
              ScrollViewer.VerticalScrollBarVisibility="Disabled"
              Items="{Binding categories}"
              SelectedItem="{Binding selectedCategory}">
@@ -40,25 +40,33 @@
       <TextBlock Text="Item" MinWidth="200" Classes="h3" Padding="10"/>
       <TextBlock Text="Level" Width="80" Classes="h3" Padding="10"/>
       <TextBlock Text="Rarity" Width="120" Classes="h3" Padding="10"/>
-    </StackPanel>    
-    
-    <ListBox Grid.Column="1" Grid.Row="1" Margin="40,0" VerticalAlignment="Top"
-             Items="{Binding showedItems}"
-             SelectedItem="{Binding selectedItem}">
-      <ListBox.ItemTemplate>
+    </StackPanel>
 
-        <DataTemplate>
-          <StackPanel Orientation="Horizontal">
-            <TextBlock Text="{Binding id}" Width="80"/>
-            <TextBlock Text="{Binding debugName}" MinWidth="200"/>
-            <TextBlock Text="{Binding requiredLevel, StringFormat='Lvl {0}'}"
-                       Width="80"/>
-            <TextBlock Text="{Binding itemRarity}" Width="120"/>
-          </StackPanel>
-        </DataTemplate>
+    <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical"
+                Margin="40,0" VerticalAlignment="Top">
 
-      </ListBox.ItemTemplate>
-    </ListBox>
+      <ListBox MaxHeight="600" 
+               Items="{Binding showedItems}" 
+               SelectedItem="{Binding selectedItem}">
+        <ListBox.ItemTemplate>
+
+          <DataTemplate>
+            <StackPanel Orientation="Horizontal">
+              <TextBlock Text="{Binding id}" Width="80"/>
+              <TextBlock Text="{Binding debugName}" MinWidth="200"/>
+              <TextBlock Text="{Binding requiredLevel, StringFormat='Lvl {0}'}"
+                         Width="80"/>
+              <TextBlock Text="{Binding itemRarity}" Width="120"/>
+            </StackPanel>
+          </DataTemplate>
+
+        </ListBox.ItemTemplate>
+      </ListBox>
+
+      <Button Content="Add New" Classes="Neutral" Margin="0,20"
+              Command="{Binding addNewItemCommand}"/>
+      
+    </StackPanel>
 
     <!-- Column 3: Item Inspector -->
     <UserControl Grid.Column="2" Grid.Row="1" Margin="40,0" VerticalAlignment="Top"

@@ -5,6 +5,9 @@ using TextGameRPG.Scripts.GameCore.Items.ItemGenerators;
 using ReactiveUI;
 using System.Linq;
 using TextGameRPG.Views.Editor.ItemsEditor;
+using System.Reactive;
+using TextGameRPG.Scripts.GameCore.Items;
+using TextGameRPG.Scripts.GameCore.GameDataBase;
 
 namespace TextGameRPG.ViewModels.Editor.ItemsEditor
 {
@@ -39,6 +42,8 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
         public ItemInspectorView itemInspector { get; }
         public ItemInspectorViewModel itemInspectorViewModel { get; }
 
+        public ReactiveCommand<Unit, Unit> addNewItemCommand { get; }
+
         public ItemsEditorViewModel()
         {
             categories = ItemCategory.GetAllCategories();
@@ -47,8 +52,10 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
             itemInspector = new ItemInspectorView();
             itemInspector.DataContext = itemInspectorViewModel = new ItemInspectorViewModel();
 
+            addNewItemCommand = ReactiveCommand.Create(AddNewItem);
+
             RefreshShowedItems();
-            Scripts.GameCore.GameDataBase.GameDataBase.instance.itemsGenerators.onDataChanged += OnDataBaseChanged;
+            GameDataBase.instance.itemsGenerators.onDataChanged += OnDataBaseChanged;
         }
 
         private void OnDataBaseChanged()
@@ -58,7 +65,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
 
         private void RefreshShowedItems()
         {
-            var items = Scripts.GameCore.GameDataBase.GameDataBase.instance.itemsGenerators.GetAllData();
+            var items = GameDataBase.instance.itemsGenerators.GetAllData();
 
             if (_selectedCategory != null && _selectedCategory.itemType != Scripts.GameCore.Items.ItemType.Any)
             {
@@ -75,6 +82,23 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
             {
                 showedItems.Add(item);
             }
+        }
+
+        private void AddNewItem()
+        {
+            var allItems = GameDataBase.instance.itemsGenerators.GetAllData().ToList();
+
+            int newItemId = allItems.Count > 0 ? allItems.Max(x => x.id) + 1 : 1;
+            var newItemType = selectedCategory.itemType == ItemType.Any
+                ? ItemType.MeleeWeapon
+                : selectedCategory.itemType;
+
+            var newItem = new ItemGeneratorBase("[NEW ITEM]", newItemId, newItemType, ItemRarity.Common, 0);
+            GameDataBase.instance.itemsGenerators.AddData(newItemId, newItem);
+            selectedItem = newItem;
+
+            var inspectorViewModel = itemInspector.DataContext as ItemInspectorViewModel;
+            inspectorViewModel.StartEditItem(isNewItem: true);
         }
 
     }

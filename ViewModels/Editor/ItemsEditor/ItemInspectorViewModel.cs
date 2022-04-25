@@ -67,8 +67,13 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
 
         private void OnEditItemClick()
         {
+            StartEditItem(isNewItem: false);
+        }
+
+        public void StartEditItem(bool isNewItem)
+        {
             var editWindow = new EditItemWindow();
-            editWindow.DataContext = new EditItemWindowViewModel(editWindow, _currentItem);
+            editWindow.DataContext = new EditItemWindowViewModel(editWindow, _currentItem, isNewItem);
             editWindow.ShowDialog(Program.mainWindow);
         }
 

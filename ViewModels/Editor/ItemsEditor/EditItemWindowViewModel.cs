@@ -13,6 +13,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
     internal class EditItemWindowViewModel : ViewModelBase
     {
         private EditItemWindow _window;
+        private bool _isNewItem;
         private EnumValueModel<ItemType> _selectedItemType;
         private EnumValueModel<ItemRarity> _selectedItemRarity;
         private ItemPropertyGeneratorBase? _selectedProperty;
@@ -48,17 +49,17 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
             set => this.RaiseAndSetIfChanged(ref _selectedProperty, value);
         }
 
-        private Action closeWindow { get; }
         public ReactiveCommand<Unit, Unit> addPropertyCommand { get; }
         public ReactiveCommand<Unit, Unit> editPropertyCommand { get; }
         public ReactiveCommand<Unit, Unit> removePropertyCommand { get; }
         public ReactiveCommand<Unit, Unit> saveCommand { get; }
         public ReactiveCommand<Unit, Unit> cancelCommand { get; }
 
-        public EditItemWindowViewModel(EditItemWindow window, ItemGeneratorBase item)
+        public EditItemWindowViewModel(EditItemWindow window, ItemGeneratorBase item, bool isNewItem)
         {
             window.Title = $"{item.debugName} [ID {item.id}]";
             _window = window;
+            _isNewItem = isNewItem;
 
             editableItem = item.Clone();
             itemTypeList = EnumValueModel<ItemType>.CreateCollection(excludeValue: ItemType.Any);
@@ -68,12 +69,11 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
             _selectedItemType = EnumValueModel<ItemType>.GetModel(itemTypeList, editableItem.itemType);
             _selectedItemRarity = EnumValueModel<ItemRarity>.GetModel(itemRarityList, editableItem.itemRarity);
 
-            closeWindow = () => window.Close();
             addPropertyCommand = ReactiveCommand.Create(AddNewProperty);
             editPropertyCommand = ReactiveCommand.Create(EditSelectedProperty);
             removePropertyCommand = ReactiveCommand.Create(RemoveSelectedProperty);
             saveCommand = ReactiveCommand.Create(SaveItem);
-            cancelCommand = ReactiveCommand.Create(closeWindow);
+            cancelCommand = ReactiveCommand.Create(OnCancelSaving);
         }
 
         private void AddNewProperty()
@@ -103,6 +103,15 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
             itemProperties.RemoveAt(index);
         }
 
+        private void OnCancelSaving()
+        {
+            if (_isNewItem)
+            {
+                Scripts.GameCore.GameDataBase.GameDataBase.instance.itemsGenerators.RemoveData(editableItem.id);
+            }
+            _window.Close();
+        }
+
         private void SaveItem()
         {
             foreach (var property in itemProperties)
@@ -113,7 +122,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
 
             var dataBase = Scripts.GameCore.GameDataBase.GameDataBase.instance.itemsGenerators;
             dataBase.ChangeData(editableItem.id, editableItem);
-            closeWindow();
+            _window.Close();
         }
 
     }
