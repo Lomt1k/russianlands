@@ -72,13 +72,16 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
             addPropertyCommand = ReactiveCommand.Create(AddNewProperty);
             editPropertyCommand = ReactiveCommand.Create(EditSelectedProperty);
             removePropertyCommand = ReactiveCommand.Create(RemoveSelectedProperty);
-            saveCommand = ReactiveCommand.Create(SaveItemChanges + closeWindow);
+            saveCommand = ReactiveCommand.Create(SaveItem);
             cancelCommand = ReactiveCommand.Create(closeWindow);
         }
 
         private void AddNewProperty()
         {
-            //TODO
+            var newProperty = editableItem.AddEmptyProperty();
+            itemProperties.Add(newProperty);
+            selectedProperty = newProperty;
+            EditSelectedProperty();
         }
 
         private void EditSelectedProperty()
@@ -95,13 +98,22 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
 
         private void RemoveSelectedProperty()
         {
-            //TODO
+            var index = Array.IndexOf(editableItem.properties, _selectedProperty);
+            editableItem.RemoveProperty(index);
+            itemProperties.RemoveAt(index);
         }
 
-        private void SaveItemChanges()
+        private void SaveItem()
         {
+            foreach (var property in itemProperties)
+            {
+                if (property.propertyType == ItemPropertyGeneratorType.None)
+                    return;
+            }
+
             var dataBase = Scripts.GameCore.GameDataBase.GameDataBase.instance.itemsGenerators;
             dataBase.ChangeData(editableItem.id, editableItem);
+            closeWindow();
         }
 
     }
