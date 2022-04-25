@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Reactive;
-using Avalonia.Controls;
 using ReactiveUI;
 using TextGameRPG.Models;
 using TextGameRPG.Scripts.GameCore.Items;
@@ -21,6 +20,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
         public ItemGeneratorBase editableItem { get; }
         public ObservableCollection<EnumValueModel<ItemType>> itemTypeList { get; }
         public ObservableCollection<EnumValueModel<ItemRarity>> itemRarityList { get; }
+        public ObservableCollection<ItemPropertyGeneratorBase> itemProperties { get; }
 
         public EnumValueModel<ItemType> selectedItemType
         {
@@ -48,7 +48,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
             set => this.RaiseAndSetIfChanged(ref _selectedProperty, value);
         }
 
-        private System.Action closeWindow { get; }
+        private Action closeWindow { get; }
         public ReactiveCommand<Unit, Unit> addPropertyCommand { get; }
         public ReactiveCommand<Unit, Unit> editPropertyCommand { get; }
         public ReactiveCommand<Unit, Unit> removePropertyCommand { get; }
@@ -63,6 +63,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
             editableItem = item.Clone();
             itemTypeList = EnumValueModel<ItemType>.CreateCollection(excludeValue: ItemType.Any);
             itemRarityList = EnumValueModel<ItemRarity>.CreateCollection();
+            itemProperties = new ObservableCollection<ItemPropertyGeneratorBase>(editableItem.properties);
 
             _selectedItemType = EnumValueModel<ItemType>.GetModel(itemTypeList, editableItem.itemType);
             _selectedItemRarity = EnumValueModel<ItemRarity>.GetModel(itemRarityList, editableItem.itemRarity);
@@ -87,6 +88,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
             {
                 var index = Array.IndexOf(editableItem.properties, _selectedProperty);
                 editableItem.properties[index] = modifiedProperty;
+                itemProperties[index] = modifiedProperty;
             });
             window.ShowDialog(_window);
         }

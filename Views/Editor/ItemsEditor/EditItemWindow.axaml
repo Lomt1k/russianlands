@@ -42,7 +42,7 @@
     <StackPanel Grid.Row="1" Orientation="Vertical" Margin="20,10">
       
       <TextBlock Text="Properties:" Classes="h3"/>
-      <ListBox Items="{Binding editableItem.properties}"
+      <ListBox Items="{Binding itemProperties}"
                SelectedItem="{Binding selectedProperty}">
         <ListBox.ItemTemplate>
           <DataTemplate>

@@ -25,8 +25,19 @@
     </StackPanel>
 
     <!-- Row 2: Property Fields -->
-    <StackPanel Grid.Row="1" Orientation="Vertical" Margin="20">
-    </StackPanel>
+    <ListBox Grid.Row="1"  Margin="20" Items="{Binding propertyFields}">
+      
+      <ListBox.ItemTemplate>
+        <DataTemplate>
+          <StackPanel Orientation="Horizontal">
+            <TextBlock Text="{Binding name}" Width="120" VerticalAlignment="Center"/>
+            <TextBlock Text="{Binding typeView}" Width="80" VerticalAlignment="Center"/>
+            <TextBox Text="{Binding unparsedValue}"/>
+          </StackPanel>
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+      
+    </ListBox>
 
     <!-- Row 3: Controls -->
     <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
