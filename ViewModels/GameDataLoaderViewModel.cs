@@ -19,11 +19,13 @@ namespace TextGameRPG.ViewModels
         public bool isGameDataLoaded { get; private set; }
 
         public ReactiveCommand<Unit, Unit> launchEditorCommand { get; }
+        public ReactiveCommand<Unit, Unit> launchBotCommand { get; }
 
-        public GameDataLoaderViewModel(Action launchEditor)
+        public GameDataLoaderViewModel(Action launchEditor, Action launchBotDataSelector)
         {
             items = new ObservableCollection<GameDataLoaderStateInfo>();
             launchEditorCommand = ReactiveCommand.Create(launchEditor);
+            launchBotCommand = ReactiveCommand.Create(launchBotDataSelector);
 
             AddNext("Application started");
             LoadGameData();

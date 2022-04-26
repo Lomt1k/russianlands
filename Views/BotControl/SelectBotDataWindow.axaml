@@ -1,0 +1,49 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" Width="500" Height="300"
+        x:Class="TextGameRPG.Views.BotControl.SelectBotDataWindow"
+        Title="Select Bot Data"
+        WindowStartupLocation="CenterOwner">
+
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition/>
+      <RowDefinition/>
+    </Grid.RowDefinitions>
+
+    <!-- Row 1: Bot Data Selection -->
+    <StackPanel Grid.Row="0" Margin="40" Orientation="Vertical" Spacing="25">
+      
+      <StackPanel Orientation="Horizontal" Spacing="15">
+        <TextBlock Text="Select Bot Data:" Classes="h3"/>
+        <ComboBox Items="{Binding dataPathCollection}"
+                  SelectedItem="{Binding selectedDataPath}"/>
+      </StackPanel>
+
+      <StackPanel Orientation="Horizontal" Spacing="40">
+        <Button Content="Add New" Classes="Neutral"
+                Command="{Binding addNewDataCommand}"/>
+        <Button Content="Delete" Classes="Negative"
+                Command="{Binding removeSelectedDataCommand}"
+                IsEnabled="{Binding selectedDataPath, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+      </StackPanel>
+      
+    </StackPanel>
+
+    <!-- Row 2: Controls -->
+    <StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="40" Margin="20"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom">
+      <Button Content="Select" Classes="SecondaryBig"
+              Command="{Binding startBotCommand}"
+              IsEnabled="{Binding selectedDataPath, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+      <Button Content="Cancel" Classes="NeutralBig"
+              Command="{Binding cancelCommand}"/>
+    </StackPanel>
+    
+    
+  </Grid>
+  
+</Window>

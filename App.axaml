@@ -57,6 +57,7 @@
       <!-- Buttons -->
       <Style Selector="Button.Primary">
         <Setter Property="Background" Value="#FFCC00"/>
+        <Setter Property="Foreground" Value="WhiteSmoke"/>
         <Setter Property="Padding" Value="15,5" />
       </Style>
       <Style Selector="Button.Secondary">
@@ -83,6 +84,7 @@
       <!-- Buttons BIG -->
       <Style Selector="Button.PrimaryBig">
         <Setter Property="Background" Value="#FFCC00"/>
+        <Setter Property="Foreground" Value="WhiteSmoke"/>
         <Setter Property="Padding" Value="30,10" />
       </Style>
       <Style Selector="Button.SecondaryBig">

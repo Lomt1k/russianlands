@@ -13,7 +13,7 @@
         <RowDefinition MaxHeight="40"/>
       </Grid.RowDefinitions>
 
-      <TextBlock Grid.Row="0" Text="Data Loader" Classes="h1" VerticalAlignment="Top"/>
+      <TextBlock Grid.Row="0" Text="Mark One" Classes="h1" VerticalAlignment="Top" Padding="10,0"/>
 
       <ListBox Items="{Binding items}" Grid.Row="1">
         <ListBox.ItemTemplate>
@@ -25,9 +25,12 @@
 
       <StackPanel Orientation="Horizontal" Classes="Header" Grid.Row="2" VerticalAlignment="Bottom">
         <TextBlock Text="{Binding currentState.info}" Classes="h3"/>
-        <Button Classes="Primary" Content="Launch Editor" Margin="5"
+        <Button Classes="Secondary" Content="Launch Editor" Margin="5" Foreground="Black"
                 IsVisible="{Binding isGameDataLoaded}"
                 Command="{Binding launchEditorCommand}"/>
+        <Button Classes="Primary" Content="Launch Bot" Margin="5" Foreground="Black"
+                IsVisible="{Binding isGameDataLoaded}"
+                Command="{Binding launchBotCommand}"/>
       </StackPanel>
       
     </Grid>
