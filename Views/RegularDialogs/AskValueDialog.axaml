@@ -1,0 +1,35 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" Width="400" Height="200"
+        x:Class="TextGameRPG.Views.RegularDialogs.AskValueDialog"
+        Title="Enter Value"
+        WindowStartupLocation="CenterOwner">
+
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition/>
+      <RowDefinition/>
+    </Grid.RowDefinitions>
+
+    <!-- Row 1: Input Zone -->
+    <StackPanel Grid.Row="0" Orientation="Vertical" Spacing="10"
+                VerticalAlignment="Center" HorizontalAlignment="Center">
+      <TextBlock Text="{Binding description}" Margin="0,20,0,0"/>
+      <TextBox Text="{Binding inputValue}"/>
+    </StackPanel>
+
+    <!-- Row 2: Controls -->
+    <StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="40" Margin="20"
+                VerticalAlignment="Center" HorizontalAlignment="Center">
+      <Button Content="Accept" Classes="SecondaryBig"
+              Command="{Binding acceptCommand}"
+              IsEnabled="{Binding isValidInput}"/>
+      <Button Content="Cancel" Classes="NeutralBig"
+              Command="{Binding cancelCommand}"/>
+    </StackPanel>
+    
+  </Grid>
+  
+</Window>

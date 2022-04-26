@@ -28,8 +28,6 @@ namespace TextGameRPG.ViewModels.BotControl
         public ReactiveCommand<Unit, Unit> startBotCommand { get; }
         public ReactiveCommand<Unit, Unit> cancelCommand { get; }
 
-        
-
 
         public SelectBotDataWindowViewModel(SelectBotDataWindow window, Action<string> onBotDataSelected)
         {
@@ -56,7 +54,19 @@ namespace TextGameRPG.ViewModels.BotControl
 
         private void AddNewBotData()
         {
+            Models.RegularDialogs.RegularDialogHelper.ShowAskValueDialog("Enter new folder name:", (string folderName) => 
+            {
+                string fullPath = botDatasPath + "\\" + folderName;
+                if (Directory.Exists(fullPath))
+                {
+                    selectedDataPath = fullPath;
+                    return;
+                }
 
+                Directory.CreateDirectory(fullPath);
+                dataPathCollection.Add(fullPath);
+                selectedDataPath = fullPath;
+            });
         }
 
         private void RemoveSelectedBotData()
