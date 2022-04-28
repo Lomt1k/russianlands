@@ -7,7 +7,7 @@
         x:Class="TextGameRPG.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
         Title="TextGameRPG"
-        Width="800" Height="600"
+        Width="700" Height="600"
         WindowStartupLocation="CenterScreen">
 
     <Design.DataContext>

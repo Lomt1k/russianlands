@@ -41,6 +41,7 @@ namespace TextGameRPG.ViewModels
             var state = new GameDataLoaderStateInfo(stateInfo);
             items.Add(state);
             currentState = state;
+            Program.logger.Info(stateInfo);
         }
 
         public void AddInfoToCurrentState(string text)

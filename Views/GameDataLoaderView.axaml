@@ -2,18 +2,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" Width="800" Height="600"
+             mc:Ignorable="d" Width="700" Height="600"
              x:Class="TextGameRPG.Views.GameDataLoaderView">
 
   <Border Classes="Default">
     <Grid>
       <Grid.RowDefinitions>
-        <RowDefinition MaxHeight="40"/>
+        <RowDefinition MaxHeight="60"/>
         <RowDefinition Height="*"/>
         <RowDefinition MaxHeight="40"/>
       </Grid.RowDefinitions>
 
-      <TextBlock Grid.Row="0" Text="Mark One" Classes="h1" VerticalAlignment="Top" Padding="10,0"/>
+      <TextBlock Grid.Row="0" Text="Mark One" Classes="h1" VerticalAlignment="Top" Padding="10"/>
 
       <ListBox Items="{Binding items}" Grid.Row="1">
         <ListBox.ItemTemplate>

@@ -17,7 +17,6 @@ namespace TextGameRPG.Scripts.TelegramBot
         public static TelegramBot instance { get; private set; }
 
         public string dataPath { get; }
-        public string shortName { get; }
         public TelegramBotConfig config { get; private set; }
         public TelegramBotClient client { get; private set; }
         public TelegramBotReceiving botReceiving { get; private set; }
@@ -25,11 +24,10 @@ namespace TextGameRPG.Scripts.TelegramBot
 
         public bool isReceiving => botReceiving != null && botReceiving.isReceiving;
 
-        public TelegramBot(string botDataPath, string botShortName)
+        public TelegramBot(string botDataPath)
         {
             instance = this;
             dataPath = botDataPath;
-            shortName = botShortName;
             config = GetConfig();
         }
 
