@@ -18,7 +18,7 @@ namespace TextGameRPG.Scripts.TelegramBot
             {
                 str += " Message: " + update.Message.Text;
             }
-            //MyConsole.Log(str);
+            Program.logger.Info(str);
 
             return Task.CompletedTask;
         }
@@ -28,7 +28,7 @@ namespace TextGameRPG.Scripts.TelegramBot
             switch (exception)
             {
                 case ApiRequestException apiRequestException:
-                    //MyConsole.LogError($"Telegram API Error:\n[{apiRequestException.ErrorCode}]\n{apiRequestException.Message}");
+                    Program.logger.Error($"Telegram API Error:\n[{apiRequestException.ErrorCode}]\n{apiRequestException.Message}");
                     break;
             }
 

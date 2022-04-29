@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 using System.IO;
 using Newtonsoft.Json;
 using Telegram.Bot;
 using Telegram.Bot.Types;
-using Telegram.Bot.Extensions.Polling;
-using System.Threading;
 
 namespace TextGameRPG.Scripts.TelegramBot
 {
@@ -28,6 +22,10 @@ namespace TextGameRPG.Scripts.TelegramBot
         {
             instance = this;
             dataPath = botDataPath;
+        }
+
+        public void Init()
+        {
             config = GetConfig();
         }
 
@@ -42,7 +40,7 @@ namespace TextGameRPG.Scripts.TelegramBot
                 {
                     writer.Write(jsonStr);
                 }
-                //MyConsole.LogWarning($"Created new bot config {configPath} \nYou need to enter a token!");
+                Program.logger.Warn($"Created new bot config {configPath} \nYou need to enter a token!");
                 return newConfig;
             }
 
@@ -54,15 +52,21 @@ namespace TextGameRPG.Scripts.TelegramBot
             }
         }
 
-        public async void StartAsync()
+        public async void StartListeningAsync()
         {
             config = GetConfig(); //reload config: maybe something was changed before start
-            //MyConsole.Log($"Starting {shortName} bot...");
+            Program.logger.Info($"Starting bot with data... {dataPath}");
             client = new TelegramBotClient(config.token);
             mineUser = await client.GetMeAsync();
             mineUser.CanJoinGroups = false;
+            Program.mainWindow.Title = $"{mineUser.Username} [{dataPath}]";
             botReceiving = new TelegramBotReceiving(this);
             botReceiving.StartReceiving();
+        }
+
+        public void StopListening()
+        {
+            botReceiving.StopReceiving();
         }
 
 

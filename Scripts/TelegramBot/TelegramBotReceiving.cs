@@ -25,7 +25,7 @@ namespace TextGameRPG.Scripts.TelegramBot
             };
             _bot.client.ReceiveAsync<TelegramBotUpdateHandler>(receiverOptions, _cts.Token);
             isReceiving = true;
-            //MyConsole.Log($"Listening for @{_bot.mineUser.Username}");
+            Program.logger.Info($"Start listening for @{_bot.mineUser.Username}");
         }
 
         public void StopReceiving()
@@ -35,7 +35,7 @@ namespace TextGameRPG.Scripts.TelegramBot
 
             _cts.Cancel();
             isReceiving = false;
-            //MyConsole.Log($"Stop listening for @{_bot.mineUser.Username}");
+            Program.logger.Info($"Stop listening for @{_bot.mineUser.Username}");
         }
 
 

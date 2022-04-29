@@ -4,5 +4,22 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" Width="700" Height="600"
              x:Class="TextGameRPG.Views.BotControl.BotControl">
-  Welcome to Bot Control!
+
+  <StackPanel Orientation="Vertical" Spacing="20" Margin="20">
+
+    <!-- Console Output -->
+    <TextBox Height="400" IsReadOnly="true" Text="{Binding consoleOutput}"/>
+
+    <!-- Controls -->
+    <StackPanel Orientation="Horizontal" Spacing="20">
+      <Button Content="Start bot" Classes="Secondary"
+              Command="{Binding startListening}"
+              IsVisible="{Binding !isBotListening}"/>
+      <Button Content="Stop listening" Classes="Negative"
+              Command="{Binding stopListening}"
+              IsVisible="{Binding isBotListening}"/>
+    </StackPanel>
+    
+  </StackPanel>
+  
 </UserControl>
