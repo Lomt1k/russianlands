@@ -8,17 +8,42 @@ namespace TextGameRPG.Scripts.TelegramBot
     using Telegram.Bot.Exceptions;
     using Telegram.Bot.Extensions.Polling;
     using Telegram.Bot.Types;
+    using Telegram.Bot.Types.Enums;
+    using TextGameRPG.Scripts.TelegramBot.Sessions;
 
     public class TelegramBotUpdateHandler : IUpdateHandler
     {
+        private SessionManager _sessionManager;
+
+        public TelegramBotUpdateHandler()
+        {
+            _sessionManager = TelegramBot.instance.sessionManager;
+        }
+
         public Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
         {
-            string str = $"HandleUpdateAsync {update.Id} Type: {update.Type}";
-            if (update.Message != null && update.Message.Text != null)
+            string str = $"Handle Update ID: {update.Id} Type: {update.Type}";
+            Program.logger.Debug(str);
+
+            User? fromUser = null;
+            switch (update.Type)
             {
-                str += " Message: " + update.Message.Text;
+                case UpdateType.Message: fromUser = update.Message?.From; break;
+                case UpdateType.CallbackQuery: fromUser = update.CallbackQuery?.From; break;
+
+                default:
+                    Program.logger.Warn($"Unhandled Update {update.Id} (unhandled type)");
+                    return Task.CompletedTask;
             }
-            Program.logger.Info(str);
+
+            if (fromUser == null)
+            {
+                Program.logger.Warn($"Unhandled Update {update.Id} (User is NULL)");
+                return Task.CompletedTask;
+            }
+
+            var gameSession = _sessionManager.GetOrCreateSession(fromUser);
+            gameSession.HandleUpdateAsync(fromUser, update);
 
             return Task.CompletedTask;
         }

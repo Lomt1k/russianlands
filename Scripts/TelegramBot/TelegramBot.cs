@@ -6,6 +6,8 @@ using Telegram.Bot.Types;
 
 namespace TextGameRPG.Scripts.TelegramBot
 {
+    using Sessions;
+
     public class TelegramBot
     {
         public static TelegramBot instance { get; private set; }
@@ -13,8 +15,9 @@ namespace TextGameRPG.Scripts.TelegramBot
         public string dataPath { get; }
         public TelegramBotConfig config { get; private set; }
         public TelegramBotClient client { get; private set; }
-        public TelegramBotReceiving botReceiving { get; private set; }
         public User mineUser { get; private set; }
+        public SessionManager sessionManager { get; private set; }
+        public TelegramBotReceiving botReceiving { get; private set; }
 
         public bool isReceiving => botReceiving != null && botReceiving.isReceiving;
 
@@ -60,8 +63,12 @@ namespace TextGameRPG.Scripts.TelegramBot
             mineUser = await client.GetMeAsync();
             mineUser.CanJoinGroups = false;
             Program.mainWindow.Title = $"{mineUser.Username} [{dataPath}]";
+
+            sessionManager = new SessionManager(this);
             botReceiving = new TelegramBotReceiving(this);
             botReceiving.StartReceiving();
+
+            Program.logger.Info($"sesion timeout: {config.sessionTimeoutInHours} hours");
         }
 
         public void StopListening()
