@@ -31,7 +31,7 @@ namespace TextGameRPG.Scripts.TelegramBot
 
         private TelegramBotConfig GetConfig()
         {
-            string configPath = dataPath + "\\config.json";
+            string configPath = Path.Combine(dataPath, "config.json");
             if (!System.IO.File.Exists(configPath))
             {
                 var newConfig = new TelegramBotConfig();

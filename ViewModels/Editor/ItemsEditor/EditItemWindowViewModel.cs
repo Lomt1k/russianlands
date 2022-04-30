@@ -107,7 +107,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
         {
             if (_isNewItem)
             {
-                Scripts.GameCore.GameDataBase.GameDataBase.instance.itemsGenerators.RemoveData(editableItem.id);
+                Scripts.GameCore.GameDataBase.GameDataBase.instance.itemGenerators.RemoveData(editableItem.id);
             }
             _window.Close();
         }
@@ -120,7 +120,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
                     return;
             }
 
-            var dataBase = Scripts.GameCore.GameDataBase.GameDataBase.instance.itemsGenerators;
+            var dataBase = Scripts.GameCore.GameDataBase.GameDataBase.instance.itemGenerators;
             dataBase.ChangeData(editableItem.id, editableItem);
             _window.Close();
         }

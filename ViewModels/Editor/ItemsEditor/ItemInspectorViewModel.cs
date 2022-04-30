@@ -60,7 +60,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
             RegularDialogHelper.ShowConfirmDialog("Are you sure you want to delete this item?" +
                 $"\n\n[ID {_currentItem.id}] {_currentItem.debugName} ({_currentItem.itemRarity}, Lvl {_currentItem.requiredLevel})", () => 
             {
-                var itemsDataBase = Scripts.GameCore.GameDataBase.GameDataBase.instance.itemsGenerators;
+                var itemsDataBase = Scripts.GameCore.GameDataBase.GameDataBase.instance.itemGenerators;
                 itemsDataBase.RemoveData(_currentItem.id);
             });
         }

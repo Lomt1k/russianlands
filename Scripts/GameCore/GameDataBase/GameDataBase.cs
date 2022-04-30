@@ -13,24 +13,28 @@ namespace TextGameRPG.Scripts.GameCore.GameDataBase
 
     public class GameDataBase
     {
-        private const string itemGeneratorsPath = "gameData\\itemGenerators.json";
+        private const string gameDataPath = "gameData";
+        private static GameDataBase _instance;
+        public static GameDataBase instance => _instance ??= new GameDataBase();
 
-        public static GameDataBase instance;
-        public DataDictionaryWithIntegerID<ItemGeneratorBase> itemsGenerators;
+        private GameDataLoaderViewModel _loaderVM;
+        
+        public DataDictionaryWithIntegerID<ItemGeneratorBase> itemGenerators { get; private set; }
 
-        public static void LoadAllData(GameDataLoaderViewModel? loaderVM = null)
+        public void LoadAllData(GameDataLoaderViewModel loaderVM)
         {
-            instance = new GameDataBase();
-            instance.LoadDataBases(loaderVM);
+            _loaderVM = loaderVM;
+            itemGenerators = LoadDataBaseWithIntegerID<ItemGeneratorBase>("itemGenerators");
+            _loaderVM.OnGameDataLoaded();
         }
 
-        private void LoadDataBases(GameDataLoaderViewModel? loaderVM = null)
+        private DataDictionaryWithIntegerID<T> LoadDataBaseWithIntegerID<T>(string fileName) where T : IDataWithIntegerID
         {
-            loaderVM?.AddNext("Loading Item Generators...");
-            itemsGenerators = DataDictionaryWithIntegerID<ItemGeneratorBase>.LoadFromJSON<ItemGeneratorBase>(itemGeneratorsPath);
-            loaderVM?.AddInfoToCurrentState( itemsGenerators.count.ToString() );
-
-            loaderVM?.OnGameDataLoaded();
+            _loaderVM.AddNextState($"Loading {fileName}...");
+            string fullPath = Path.Combine(gameDataPath, fileName + ".json");
+            var dataBase = DataDictionaryWithIntegerID<T>.LoadFromJSON<T>(fullPath);
+            _loaderVM.AddInfoToCurrentState(dataBase.count.ToString());
+            return dataBase;
         }
 
         //private void TestWriteItemGenerators()

@@ -55,7 +55,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
             addNewItemCommand = ReactiveCommand.Create(AddNewItem);
 
             RefreshShowedItems();
-            GameDataBase.instance.itemsGenerators.onDataChanged += OnDataBaseChanged;
+            GameDataBase.instance.itemGenerators.onDataChanged += OnDataBaseChanged;
         }
 
         private void OnDataBaseChanged()
@@ -65,7 +65,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
 
         private void RefreshShowedItems()
         {
-            var items = GameDataBase.instance.itemsGenerators.GetAllData();
+            var items = GameDataBase.instance.itemGenerators.GetAllData();
 
             if (_selectedCategory != null && _selectedCategory.itemType != Scripts.GameCore.Items.ItemType.Any)
             {
@@ -86,7 +86,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
 
         private void AddNewItem()
         {
-            var allItems = GameDataBase.instance.itemsGenerators.GetAllData().ToList();
+            var allItems = GameDataBase.instance.itemGenerators.GetAllData().ToList();
 
             int newItemId = allItems.Count > 0 ? allItems.Max(x => x.id) + 1 : 1;
             var newItemType = selectedCategory.itemType == ItemType.Any
@@ -94,7 +94,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
                 : selectedCategory.itemType;
 
             var newItem = new ItemGeneratorBase("[NEW ITEM]", newItemId, newItemType, ItemRarity.Common, 0);
-            GameDataBase.instance.itemsGenerators.AddData(newItemId, newItem);
+            GameDataBase.instance.itemGenerators.AddData(newItemId, newItem);
             selectedItem = newItem;
 
             var inspectorViewModel = itemInspector.DataContext as ItemInspectorViewModel;

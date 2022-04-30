@@ -27,16 +27,16 @@ namespace TextGameRPG.ViewModels
             launchEditorCommand = ReactiveCommand.Create(launchEditor);
             launchBotCommand = ReactiveCommand.Create(launchBotDataSelector);
 
-            AddNext("Application started");
+            AddNextState("Application started");
             LoadGameData();
         }
 
         private void LoadGameData()
         {
-            Scripts.GameCore.GameDataBase.GameDataBase.LoadAllData(this);
+            Scripts.GameCore.GameDataBase.GameDataBase.instance.LoadAllData(this);
         }
 
-        public void AddNext(string stateInfo)
+        public void AddNextState(string stateInfo)
         {
             var state = new GameDataLoaderStateInfo(stateInfo);
             items.Add(state);
@@ -52,7 +52,7 @@ namespace TextGameRPG.ViewModels
         public void OnGameDataLoaded()
         {
             isGameDataLoaded = true;
-            AddNext("All Game Data successfully loaded");
+            AddNextState("All Game Data successfully loaded");
         }
 
 

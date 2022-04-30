@@ -56,7 +56,7 @@ namespace TextGameRPG.ViewModels.BotControl
         {
             Models.RegularDialogs.RegularDialogHelper.ShowAskValueDialog("Enter new folder name:", (string folderName) => 
             {
-                string fullPath = botDatasPath + "\\" + folderName;
+                string fullPath = Path.Combine(botDatasPath, folderName);
                 if (Directory.Exists(fullPath))
                 {
                     selectedDataPath = fullPath;
