@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Text;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
 using TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData;
@@ -53,5 +54,23 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase.TablesStructure
                 return null;
             }
         }
+
+        public async Task<bool> UpdateInDatabase(Profile profile)
+        {
+            var sb = new StringBuilder();
+            sb.Append($"UPDATE {tableName} SET ");
+            var fields = profile.GetType().GetFields();
+            for (int i = 0; i < fields.Length; i++)
+            {
+                var field = fields[i];
+                sb.Append($"{field.Name} = '{field.GetValue(profile)}'");
+                sb.Append(i < fields.Length - 1 ? ", " : " ");
+            }
+            sb.Append($"WHERE dbid='{profile.dbid}' LIMIT 1");
+            string query = sb.ToString();
+            var command = await database.ExecuteQueryAsync(query);
+            return command != null;
+        }
+
     }
 }

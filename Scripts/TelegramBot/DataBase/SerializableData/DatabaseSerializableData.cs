@@ -1,12 +1,16 @@
 ﻿using System.Data;
+using System.Threading.Tasks;
 
 namespace TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData
 {
-    public abstract class BaseSerializableData
+    public abstract class DatabaseSerializableData
     {
-        public BaseSerializableData(DataRow data)
+        protected bool isDeserializationCompleted { get; private set; } = false;
+
+        public DatabaseSerializableData(DataRow data)
         {
             Deserialize(data);
+            isDeserializationCompleted = true;
         }
 
         private void Deserialize(DataRow data)
@@ -25,6 +29,8 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData
                 }
             }
         }
+
+        public abstract Task<bool> UpdateInDatabase();
 
     }
 }

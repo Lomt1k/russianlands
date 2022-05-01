@@ -8,7 +8,9 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
     public class SessionManager
     {
         private const int millisecondsInHour = 3_600_000;
+        private const int millisecondsInMinute = 60_000;
         private readonly int sessionTimeoutInMilliseconds;
+        private readonly int periodicSaveDatabaseInMinutes;
 
         private TelegramBot _telegramBot;
         private Dictionary<long, GameSession> _sessions = new Dictionary<long, GameSession>();
@@ -17,6 +19,10 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
         {
             _telegramBot = telegramBot;
             sessionTimeoutInMilliseconds = telegramBot.config.sessionTimeoutInHours * millisecondsInHour;
+            periodicSaveDatabaseInMinutes = telegramBot.config.periodicSaveDatabaseInMinutes * millisecondsInMinute;
+
+            Task.Run(() => PeriodicSaveProfilesAsync());
+            Task.Run(() => CloseSessionsWithTimeoutAsync());
         }
 
         public GameSession GetOrCreateSession(User user)
@@ -25,7 +31,6 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
             {
                 session = new GameSession(user);
                 _sessions.Add(user.Id, session);
-                Task.Run(() => CloseSessionsWithTimeoutAsync());
             }            
             return session;
         }
@@ -35,27 +40,44 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
             return _sessions.ContainsKey(userId);
         }
 
-        private async void CloseSessionsWithTimeoutAsync()
+        private async Task PeriodicSaveProfilesAsync()
+        {
+            while (true)
+            {
+                await Task.Delay(periodicSaveDatabaseInMinutes);
+                Program.logger.Info("Saving changes in database for active users...");
+                foreach (var session in _sessions.Values)
+                {
+                    session.SaveProfileIfNeed();
+                }
+            }
+        }
+
+        private async Task CloseSessionsWithTimeoutAsync()
         {
             while (true)
             {
                 await Task.Delay(10_000);
-                foreach (var kvp in _sessions)
+                List<long> sessionsToClose = new List<long>();
+                foreach (var userId in _sessions.Keys)
                 {
-                    CloseSessionIfTimeout(kvp.Key);
+                    if (IsTimeout(userId))
+                    {
+                        sessionsToClose.Add(userId);
+                    }
+                }
+                foreach (var userId in sessionsToClose)
+                {
+                    CloseSession(userId);
                 }
             }
-            
         }
 
-        private void CloseSessionIfTimeout(long userId)
+        private bool IsTimeout(long userId)
         {
             var session = _sessions[userId];
             var millisecondsFromLastActivity = (int)(DateTime.UtcNow - session.lastActivityTime).TotalMilliseconds;
-            if (millisecondsFromLastActivity > sessionTimeoutInMilliseconds)
-            {
-                CloseSession(userId);
-            }
+            return millisecondsFromLastActivity > sessionTimeoutInMilliseconds;
         }
 
         public void CloseSession(long userId)

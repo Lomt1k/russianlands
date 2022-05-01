@@ -11,6 +11,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
         public long userId { get; }
         public DateTime startTime { get; }
         public DateTime lastActivityTime { get; private set; }
+        public DateTime lastSaveProfileTime { get; private set; }
         public Profile profile { get; private set; }
 
         public GameSession(User user)
@@ -50,7 +51,17 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
 
         public void OnCloseSession()
         {
+            SaveProfileIfNeed();
             Program.logger.Info($"Session closed for ID {userId}");
+        }
+
+        public void SaveProfileIfNeed()
+        {
+            if (profile != null && lastSaveProfileTime < lastActivityTime)
+            {
+                profile.UpdateInDatabase();
+                lastSaveProfileTime = DateTime.UtcNow;
+            }
         }
 
     }
