@@ -22,6 +22,7 @@ namespace TextGameRPG.Scripts.TelegramBot
             var receiverOptions = new ReceiverOptions
             {
                 AllowedUpdates = { }, // receive all update types
+                Offset = -1 // После рестарта бота обработает только последнее сообщение, отправленное за время офлайна (оно запустит новую сессию)
             };
             _bot.client.ReceiveAsync<TelegramBotUpdateHandler>(receiverOptions, _cts.Token);
             isReceiving = true;
