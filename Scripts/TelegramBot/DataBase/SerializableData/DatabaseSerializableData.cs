@@ -13,7 +13,7 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData
             isDeserializationCompleted = true;
         }
 
-        private void Deserialize(DataRow data)
+        protected virtual void Deserialize(DataRow data)
         {
             var fields = GetType().GetFields();
             foreach (var field in fields)

@@ -2,6 +2,7 @@
 {
     public enum Table
     {
-        Profiles = 0
+        Profiles = 0,
+        ProfilesDynamic = 1
     }
 }
