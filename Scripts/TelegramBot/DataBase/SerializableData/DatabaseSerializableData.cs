@@ -89,6 +89,9 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData
                     unparsed.TryParse<char>(out var charResult);
                     parsed = charResult;
                     break;
+                case TypeCode.String:
+                    parsed = unparsed;
+                    break;
             }
 
             return parsed;

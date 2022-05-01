@@ -78,11 +78,15 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
             }
             profile = new Profile(profileData, profileDynamicData);
 
-            //TODO start game
+            //TODO start session
             Program.logger.Info($"Start new game logic... (dbid {profileData.dbid}, telegram_id {profileData.telegram_id}, username {profileData.username})");
             if (!profileData.isTutorialCompleted)
             {
-                new TutorialEnterNameDialog().Init(actualUser.Id);
+                TutorialManager.StartCurrentStage(actualUser, profile);
+            }
+            else
+            {
+                //TODO
             }
         }
 
