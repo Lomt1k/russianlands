@@ -19,6 +19,7 @@ namespace TextGameRPG.Scripts.TelegramBot
         public TelegramBotClient client { get; private set; }
         public User mineUser { get; private set; }
         public BotDataBase dataBase { get; private set; }
+        public MessageSender messageSender { get; private set; }
         public SessionManager sessionManager { get; private set; }
         public TelegramBotReceiving botReceiving { get; private set; }
 
@@ -74,6 +75,7 @@ namespace TextGameRPG.Scripts.TelegramBot
                 return false;
             }
 
+            messageSender = new MessageSender(client);
             sessionManager = new SessionManager(this);
             botReceiving = new TelegramBotReceiving(this);
             botReceiving.StartReceiving();

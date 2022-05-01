@@ -1,8 +1,10 @@
 ﻿using System;
-using System.Threading.Tasks;
 using Telegram.Bot.Types;
+using Telegram.Bot.Types.Enums;
 using TextGameRPG.Scripts.GameCore.Profiles;
 using TextGameRPG.Scripts.TelegramBot.DataBase.TablesStructure;
+using TextGameRPG.Scripts.TelegramBot.Dialogs;
+using TextGameRPG.Scripts.TelegramBot.Dialogs.Tutorial;
 
 namespace TextGameRPG.Scripts.TelegramBot.Sessions
 {
@@ -12,6 +14,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
         public DateTime startTime { get; }
         public DateTime lastActivityTime { get; private set; }
         public Profile profile { get; private set; }
+        public DialogBase currentDialog { get; private set; }
 
         public GameSession(User user)
         {
@@ -21,7 +24,12 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
             Program.logger.Info($"Started a new session for @{user.Username} (ID {user.Id})");
         }
 
-        public async void HandleUpdateAsync(User actualUser, Update update)
+        public void SetupActiveDialog(DialogBase dialog)
+        {
+            currentDialog = dialog;
+        }
+
+        public void HandleUpdateAsync(User actualUser, Update update)
         {
             lastActivityTime = DateTime.UtcNow;
             if (profile == null)
@@ -30,9 +38,26 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
                 return;
             }
 
+            switch (update.Type)
+            {
+                case UpdateType.Message:
+                    HandleMessage(actualUser, update.Message);
+                    break;
+                case UpdateType.CallbackQuery:
+                    HandleQuery(actualUser, update.CallbackQuery);
+                    break;
+            }
+        }
+
+        public void HandleMessage(User actualUser, Message message)
+        {
+            //TODO: add command logic ( /start and etc )
+            currentDialog.HandleMessage(actualUser, message);
+        }
+
+        public void HandleQuery(User actualUser, CallbackQuery query)
+        {
             //TODO
-            Program.logger.Info($"Ingame update for logged user " +
-                $"(dbid {profile.data.dbid}, telegram_id {profile.data.telegram_id}, username {profile.data.username})");
         }
 
         private async void OnStartNewSession(User actualUser)
@@ -55,6 +80,10 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
 
             //TODO start game
             Program.logger.Info($"Start new game logic... (dbid {profileData.dbid}, telegram_id {profileData.telegram_id}, username {profileData.username})");
+            if (!profileData.isTutorialCompleted)
+            {
+                new TutorialEnterNameDialog().Init(actualUser.Id);
+            }
         }
 
         public void OnCloseSession()

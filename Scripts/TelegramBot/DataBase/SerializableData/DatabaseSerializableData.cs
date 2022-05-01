@@ -1,5 +1,7 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Threading.Tasks;
+using TextGameRPG.Scripts.Utils;
 
 namespace TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData
 {
@@ -21,7 +23,9 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData
                 var dbValue = data[field.Name];
                 if (dbValue != null)
                 {
-                    field.SetValue(this, dbValue);
+                    string unparsed = dbValue.ToString();
+                    var parsedValue = Parse(field.FieldType, unparsed);
+                    field.SetValue(this, parsedValue);
                 }
                 else
                 {
@@ -31,6 +35,64 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData
         }
 
         public abstract Task<bool> UpdateInDatabase();
+
+        private object Parse(Type type, string unparsed)
+        {
+            object parsed = null;
+            switch (Type.GetTypeCode(type))
+            {
+                case TypeCode.Boolean:
+                    unparsed.TryParse<bool>(out var boolResult);
+                    parsed = boolResult;
+                    break;
+                case TypeCode.Int32:
+                    unparsed.TryParse<int>(out var intResult);
+                    parsed = intResult;
+                    break;
+                case TypeCode.Int64:
+                    unparsed.TryParse<long>(out var longResult);
+                    parsed = longResult;
+                    break;
+                case TypeCode.SByte:
+                    unparsed.TryParse<sbyte>(out var sbyteResult);
+                    parsed = sbyteResult;
+                    break;
+                case TypeCode.UInt16:
+                    unparsed.TryParse<ushort>(out var ushortResult);
+                    parsed = ushortResult;
+                    break;
+                case TypeCode.UInt32:
+                    unparsed.TryParse<uint>(out var uintResult);
+                    parsed = uintResult;
+                    break;
+                case TypeCode.UInt64:
+                    unparsed.TryParse<ulong>(out var ulongResult);
+                    parsed = ulongResult;
+                    break;
+                case TypeCode.Int16:
+                    unparsed.TryParse<short>(out var shortResult);
+                    parsed = shortResult;
+                    break;
+                case TypeCode.Byte:
+                    unparsed.TryParse<byte>(out var byteResult);
+                    parsed = byteResult;
+                    break;
+                case TypeCode.Double:
+                    unparsed.TryParse<double>(out var doubleResult);
+                    parsed = doubleResult;
+                    break;
+                case TypeCode.DateTime:
+                    unparsed.TryParse<DateTime>(out var dateTimeResult);
+                    parsed = dateTimeResult;
+                    break;
+                case TypeCode.Char:
+                    unparsed.TryParse<char>(out var charResult);
+                    parsed = charResult;
+                    break;
+            }
+
+            return parsed;
+        }
 
     }
 }
