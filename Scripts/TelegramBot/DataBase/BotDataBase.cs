@@ -4,20 +4,27 @@ using System.Data;
 using System.Data.SQLite;
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.TelegramBot.DataBase.TablesStructure;
+using System.Collections.Generic;
 
 namespace TextGameRPG.Scripts.TelegramBot.DataBase
 {
     public class BotDataBase
-    {
-        private SQLiteConnection _connection;
+    {        
+        private Dictionary<Table,DataTableBase> _tables;
 
         public string dataBasePath { get; }
-        public ConnectionState connectionState => _connection.State;
+        public SQLiteConnection connection { get; private set; }
+        public ConnectionState connectionState => connection.State;
 
+        public DataTableBase this[Table index] => _tables[index];
 
         public BotDataBase(string botDataPath)
         {
             dataBasePath = Path.Combine(botDataPath, "database.sqlite");
+            _tables = new Dictionary<Table, DataTableBase>()
+            {
+                { Table.Profiles, new ProfilesTable(this) }
+            };
         }
 
         public async Task<bool> Connect()
@@ -25,27 +32,29 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase
             Program.logger.Info("Connecting to bot database...");
             try
             {
-                _connection = new SQLiteConnection("Data Source=" + dataBasePath);
-                await _connection.OpenAsync();
+                connection = new SQLiteConnection("Data Source=" + dataBasePath);
+                await connection.OpenAsync();
                 await RefreshTableStructure();
                 Program.logger.Info("Successfully connected to database");
-                return _connection.State == ConnectionState.Open;
+                return connection.State == ConnectionState.Open;
             }
             catch (Exception ex)
             {
-                Program.logger.Fatal(ex.Message);
+                Program.logger.Fatal(ex);
             }
             return false;
         }
 
         private async Task<int> RefreshTableStructure()
         {
-            await ExecuteQueryAsync(new ProfilesTable().GetAllCommandsToRefreshStructure());
-
+            foreach (var table in _tables.Values)
+            {
+                await ExecuteQueryAsync(table.GetAllCommandsToRefreshStructure());
+            }
             return 0;
         }
 
-        private async Task<int> ExecuteQueryAsync(string[] querries)
+        public async Task<int> ExecuteQueryAsync(string[] querries)
         {
             foreach (var query in querries)
             {
@@ -54,20 +63,21 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase
             return 0;
         }
 
-        private async Task<int> ExecuteQueryAsync(string commandText)
+        public async Task<SQLiteCommand?> ExecuteQueryAsync(string commandText)
         {
             try
             {
-                var command = new SQLiteCommand(commandText, _connection);
-                return await command.ExecuteNonQueryAsync();
+                var command = new SQLiteCommand(commandText, connection);
+                await command.ExecuteNonQueryAsync();
+                return command;
             }
             catch (Exception ex)
             {
                 if (ex.Message.Contains("duplicate column name"))
-                    return 0;
+                    return null;
 
-                Program.logger.Error(ex.Message);
-                return 0;
+                Program.logger.Error(ex);
+                return null;
             }
         }
 

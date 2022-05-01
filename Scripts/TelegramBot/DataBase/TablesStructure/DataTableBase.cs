@@ -17,10 +17,17 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase.TablesStructure
         }
     }
 
-    public abstract class TableStructureBase
+    public abstract class DataTableBase
     {
         public abstract string tableName { get; }
         public abstract TableColumn[] columns { get; }
+
+        protected BotDataBase database;
+
+        public DataTableBase(BotDataBase _database)
+        {
+            database = _database;
+        }
 
         public string[] GetAllCommandsToRefreshStructure()
         {
