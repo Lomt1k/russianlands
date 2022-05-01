@@ -7,17 +7,17 @@ using TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData;
 
 namespace TextGameRPG.Scripts.TelegramBot.DataBase.TablesStructure
 {
-    public class ProfilesTable : DataTableBase
+    public class ProfilesDataTable : DataTableBase
     {
         public override string tableName => "Profiles";
 
-        public override TableColumn[] columns => Profile.GetTableColumns();
+        public override TableColumn[] columns => ProfileData.GetTableColumns();
 
-        public ProfilesTable(BotDataBase _database) : base(_database)
+        public ProfilesDataTable(BotDataBase _database) : base(_database)
         {
         }
 
-        public async Task<Profile?> GetOrCreateProfile(User user)
+        public async Task<ProfileData?> GetOrCreateProfileData(User user)
         {
             try
             {
@@ -31,7 +31,7 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase.TablesStructure
                     var table = new DataTable();
                     table.Load(reader);
                     var profileRow = table.Rows[0];
-                    return new Profile(profileRow);
+                    return new ProfileData(profileRow);
                 }
                 else
                 {
@@ -42,7 +42,7 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase.TablesStructure
                     var insertCommand = await database.ExecuteQueryAsync(insertQuery);
                     if (insertCommand != null)
                     {
-                        var createdProfile = await GetOrCreateProfile(user);
+                        var createdProfile = await GetOrCreateProfileData(user);
                         return createdProfile;
                     }
                     return null;
@@ -55,7 +55,7 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase.TablesStructure
             }
         }
 
-        public async Task<bool> UpdateInDatabase(Profile profile)
+        public async Task<bool> UpdateDataInDatabase(ProfileData profile)
         {
             var sb = new StringBuilder();
             sb.Append($"UPDATE {tableName} SET ");

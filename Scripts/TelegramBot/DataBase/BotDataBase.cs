@@ -23,7 +23,7 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase
             dataBasePath = Path.Combine(botDataPath, "database.sqlite");
             _tables = new Dictionary<Table, DataTableBase>()
             {
-                { Table.Profiles, new ProfilesTable(this) }
+                { Table.Profiles, new ProfilesDataTable(this) }
             };
         }
 

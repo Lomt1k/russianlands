@@ -4,7 +4,7 @@ using TextGameRPG.Scripts.TelegramBot.DataBase.TablesStructure;
 
 namespace TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData
 {
-    public class Profile : DatabaseSerializableData
+    public class ProfileData : DatabaseSerializableData
     {
         public long dbid;
         public long telegram_id;
@@ -20,7 +20,7 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData
             };
         }
 
-        public Profile(DataRow data) : base(data) 
+        public ProfileData(DataRow data) : base(data) 
         {
         }
 
@@ -29,8 +29,8 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData
             if (!isDeserializationCompleted)
                 return true;
 
-            var profilesTable = TelegramBot.instance.dataBase[Table.Profiles] as ProfilesTable;
-            var success = await profilesTable.UpdateInDatabase(this);
+            var profilesTable = TelegramBot.instance.dataBase[Table.Profiles] as ProfilesDataTable;
+            var success = await profilesTable.UpdateDataInDatabase(this);
             return success;
         }
 
