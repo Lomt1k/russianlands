@@ -2,24 +2,30 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" Width="700" Height="600"
+             mc:Ignorable="d" MinWidth="700" MinHeight="600"
              x:Class="TextGameRPG.Views.BotControl.BotControl">
 
-  <StackPanel Orientation="Vertical" Spacing="20" Margin="20">
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="auto"/>
+      <RowDefinition/>
+    </Grid.RowDefinitions>
 
-    <!-- Console Output -->
-    <TextBox Height="400" IsReadOnly="true" Text="{Binding consoleOutput}"/>
+      <!-- Console Output -->
+      <TextBox Grid.Row="0" Height="400" IsReadOnly="true" Margin="20" 
+               Text="{Binding consoleOutput}" VerticalAlignment="Top"/>
 
-    <!-- Controls -->
-    <StackPanel Orientation="Horizontal" Spacing="20">
-      <Button Content="Start bot" Classes="Secondary"
-              Command="{Binding startListening}"
-              IsVisible="{Binding !isBotListening}"/>
-      <Button Content="Stop listening" Classes="Negative"
-              Command="{Binding stopListening}"
-              IsVisible="{Binding isBotListening}"/>
-    </StackPanel>
+      <!-- Controls -->
+      <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Top"
+                  Margin="20,0" Spacing="20">
+        <Button Content="Start bot" Classes="Secondary"
+                Command="{Binding startListening}"
+                IsVisible="{Binding !isBotListening}"/>
+        <Button Content="Stop listening" Classes="Negative"
+                Command="{Binding stopListening}"
+                IsVisible="{Binding isBotListening}"/>
+      </StackPanel>
     
-  </StackPanel>
+  </Grid>
   
 </UserControl>
