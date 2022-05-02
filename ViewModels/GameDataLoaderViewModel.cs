@@ -46,7 +46,7 @@ namespace TextGameRPG.ViewModels
 
         public void AddInfoToCurrentState(string text)
         {
-            currentState?.AddInfo(text);
+            currentState?.AddInfo(" " + text);
         }
 
         public void OnGameDataLoaded()
