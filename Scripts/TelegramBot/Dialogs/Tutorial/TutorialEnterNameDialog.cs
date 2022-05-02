@@ -1,16 +1,13 @@
-﻿using System.Collections.Generic;
-using Telegram.Bot.Types;
+﻿using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
+using TextGameRPG.Scripts.TelegramBot.Sessions;
 
 namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Tutorial
 {
     public class TutorialEnterNameDialog : DialogBase
     {
-        private string _fullName;
-
-        public TutorialEnterNameDialog(User user)
+        public TutorialEnterNameDialog(GameSession _session) : base(_session)
         {
-            _fullName = $"{user.FirstName} {user.LastName}";
         }
 
         protected override void Start()
@@ -22,17 +19,18 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Tutorial
         {
             string text = "Привет, авантюрист! Как тебя зовут?\n\n" + "Введите имя в ответном сообщении. Так вас будут видеть другие игроки.";
 
-            var row1 = new KeyboardButton[] { new KeyboardButton(session.profile.data.username) };
-            var row2 = new KeyboardButton[] { new KeyboardButton(_fullName) };
+            string fullname = $"{session.actualUser.FirstName} {session.actualUser.LastName}";
+            var row1 = new KeyboardButton[] { new KeyboardButton(fullname) };
+            var row2 = new KeyboardButton[] { new KeyboardButton(session.profile.data.username) };
             var markup = new KeyboardButton[][] { row1, row2 };
             var keyboard = new ReplyKeyboardMarkup(markup);
 
-            await messageSender.SendTextDialog(chatId, text, replyKeyboard: keyboard);
+            await messageSender.SendTextDialog(session.chatId, text, replyKeyboard: keyboard);
         }
 
-        public override void HandleMessage(User actualUser, Message message)
+        public override void HandleMessage(Message message)
         {
-            Program.logger.Debug($"HandleMessage in TutorialEnterNameDialog: {message.Text}");
+            base.HandleMessage(message);
         }
 
 

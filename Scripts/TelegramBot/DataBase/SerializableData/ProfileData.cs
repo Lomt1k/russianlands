@@ -9,6 +9,7 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData
         public long dbid;
         public long telegram_id;
         public string username;
+        public string language;
         public string nickname;
         public short tutorialStage;
 
@@ -19,6 +20,7 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData
                 new TableColumn("dbid", "INTEGER PRIMARY KEY AUTOINCREMENT", "0"),
                 new TableColumn("telegram_id", "INTEGER", "na"),
                 new TableColumn("username", "TEXT", "na"),
+                new TableColumn("language", "TEXT", "ru"),
                 new TableColumn("nickname", "TEXT", "na"),
                 new TableColumn("tutorialStage", "INTEGER", "0"),
             };

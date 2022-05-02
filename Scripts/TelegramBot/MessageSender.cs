@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Telegram.Bot;
 using Telegram.Bot.Types;
-using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
 
 namespace TextGameRPG.Scripts.TelegramBot
@@ -18,9 +14,9 @@ namespace TextGameRPG.Scripts.TelegramBot
             _botClient = botClient;
         }
 
-        public async Task SendTextMessage(ChatId id, string text, bool silent = false, InlineKeyboardMarkup? inlineKeyboard = null)
+        public async Task SendTextMessage(ChatId id, string text, InlineKeyboardMarkup? inlineKeyboard = null, bool silent = false)
         {
-            await _botClient.SendTextMessageAsync(id, text, disableNotification: silent, replyMarkup: inlineKeyboard);
+            await _botClient.SendTextMessageAsync(id, text, replyMarkup: inlineKeyboard, disableNotification: silent);
         }
 
         public async Task SendEditedMessage(ChatId id, int messageId, string text, InlineKeyboardMarkup? inlineKeyboard = null)
@@ -28,9 +24,9 @@ namespace TextGameRPG.Scripts.TelegramBot
             await _botClient.EditMessageTextAsync(id, messageId, text, replyMarkup: inlineKeyboard);
         }
 
-        public async Task SendTextDialog(ChatId id, string text, bool silent = false, ReplyKeyboardMarkup? replyKeyboard = null)
+        public async Task SendTextDialog(ChatId id, string text, ReplyKeyboardMarkup? replyKeyboard = null, bool silent = false)
         {
-            await _botClient.SendTextMessageAsync(id, text, disableNotification: silent, replyMarkup: replyKeyboard);
+            await _botClient.SendTextMessageAsync(id, text, replyMarkup: replyKeyboard, disableNotification: silent);
         }
 
     }

@@ -1,6 +1,7 @@
 ﻿using System;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
+using TextGameRPG.Scripts.GameCore.Localization;
 using TextGameRPG.Scripts.GameCore.Profiles;
 using TextGameRPG.Scripts.TelegramBot.DataBase.TablesStructure;
 using TextGameRPG.Scripts.TelegramBot.Dialogs;
@@ -10,15 +11,17 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
 {
     public class GameSession
     {
-        public long userId { get; }
+        public ChatId chatId { get; }
         public DateTime startTime { get; }
         public DateTime lastActivityTime { get; private set; }
+        public User actualUser { get; private set; }
         public Profile profile { get; private set; }
+        public LanguageCode language { get; private set; }
         public DialogBase currentDialog { get; private set; }
 
         public GameSession(User user)
         {
-            userId = user.Id;
+            chatId = user.Id;
             startTime = DateTime.UtcNow;
             lastActivityTime = DateTime.UtcNow;
             Program.logger.Info($"Started a new session for @{user.Username} (ID {user.Id})");
@@ -29,9 +32,10 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
             currentDialog = dialog;
         }
 
-        public void HandleUpdateAsync(User actualUser, Update update)
+        public void HandleUpdateAsync(User refreshedUser, Update update)
         {
             lastActivityTime = DateTime.UtcNow;
+            actualUser = refreshedUser;
             if (profile == null)
             {
                 OnStartNewSession(actualUser);
@@ -41,21 +45,21 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
             switch (update.Type)
             {
                 case UpdateType.Message:
-                    HandleMessage(actualUser, update.Message);
+                    HandleMessage(update.Message);
                     break;
                 case UpdateType.CallbackQuery:
-                    HandleQuery(actualUser, update.CallbackQuery);
+                    HandleQuery(update.CallbackQuery);
                     break;
             }
         }
 
-        public void HandleMessage(User actualUser, Message message)
+        public void HandleMessage(Message message)
         {
             //TODO: add command logic ( /start and etc )
-            currentDialog.HandleMessage(actualUser, message);
+            currentDialog.HandleMessage(message);
         }
 
-        public void HandleQuery(User actualUser, CallbackQuery query)
+        public void HandleQuery(CallbackQuery query)
         {
             //TODO
         }
@@ -77,12 +81,13 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
                 return;
             }
             profile = new Profile(profileData, profileDynamicData);
+            language = Enum.Parse<LanguageCode>(profileData.language);
 
             //TODO start session
             Program.logger.Info($"Start new game logic... (dbid {profileData.dbid}, telegram_id {profileData.telegram_id}, username {profileData.username})");
             if (!profileData.isTutorialCompleted)
             {
-                TutorialManager.StartCurrentStage(actualUser, profile);
+                TutorialManager.StartCurrentStage(this);
             }
             else
             {
@@ -93,12 +98,17 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
         public void OnCloseSession()
         {
             SaveProfileIfNeed();
-            Program.logger.Info($"Session closed for ID {userId}");
+            Program.logger.Info($"Session closed for ID {chatId}");
         }
 
         public void SaveProfileIfNeed()
         {
             profile?.SaveProfileIfNeed(lastActivityTime);
+        }
+
+        public void SetupLanguage(LanguageCode languageCode)
+        {
+            language = languageCode;
         }
 
     }
