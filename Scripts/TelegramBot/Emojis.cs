@@ -8,12 +8,22 @@ namespace TextGameRPG.Scripts.TelegramBot
         Russian
     }
 
+    public enum Location
+    {
+        Camp
+    }
+
     public static class Emojis
     {
         public static readonly Dictionary<FlagCode, string> flags = new Dictionary<FlagCode, string>()
         {
             { FlagCode.English, "\ud83c\uddec\ud83c\udde7" },
             { FlagCode.Russian, "\ud83c\uddf7\ud83c\uddfa" }
+        };
+
+        public static readonly Dictionary<Location, string> locations = new Dictionary<Location, string>()
+        {
+            { Location.Camp, "\u26fa\ufe0f" }
         };
 
     }

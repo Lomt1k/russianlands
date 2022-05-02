@@ -13,7 +13,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
         protected static MessageSender messageSender => TelegramBot.instance.messageSender;
         protected GameSession session { get; }
 
-        private Dictionary<KeyboardButton, Action> registeredButtons = new Dictionary<KeyboardButton, Action>();
+        private Dictionary<KeyboardButton, Action?> registeredButtons = new Dictionary<KeyboardButton, Action?>();
 
         public DialogBase(GameSession _session)
         {
@@ -22,7 +22,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
             Start();
         }
 
-        protected void RegisterButton(string text, Action callback)
+        protected void RegisterButton(string text, Action? callback)
         {
             registeredButtons.Add(text, callback);
         }
@@ -55,8 +55,11 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
                 {
                     if (button.Text.Equals(text))
                     {
-                        var buttonCallback = registeredButtons[button];
-                        buttonCallback();
+                        var callback = registeredButtons[button];
+                        if (callback != null)
+                        {
+                            callback();
+                        }
                     }
                 }
             }

@@ -3,9 +3,9 @@ using TextGameRPG.Scripts.TelegramBot.Sessions;
 
 namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Tutorial
 {
-    public class TutorialSelectLanguage : DialogBase
+    public class TutorialSelectLanguageDialog : DialogBase
     {
-        public TutorialSelectLanguage(GameSession _session) : base(_session)
+        public TutorialSelectLanguageDialog(GameSession _session) : base(_session)
         {
         }
 
