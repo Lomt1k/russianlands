@@ -6,6 +6,7 @@ using TextGameRPG.Scripts.GameCore.Localization;
 using TextGameRPG.Scripts.GameCore.Profiles;
 using TextGameRPG.Scripts.TelegramBot.DataBase.TablesStructure;
 using TextGameRPG.Scripts.TelegramBot.Dialogs;
+using TextGameRPG.Scripts.TelegramBot.Dialogs.Camp;
 using TextGameRPG.Scripts.TelegramBot.Dialogs.Tutorial;
 
 namespace TextGameRPG.Scripts.TelegramBot.Sessions
@@ -84,15 +85,13 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
             profile = new Profile(profileData, profileDynamicData);
             language = Enum.Parse<LanguageCode>(profileData.language);
 
-            //TODO start session
-            Program.logger.Info($"Start new game logic... (dbid {profileData.dbid}, telegram_id {profileData.telegram_id}, username {profileData.username})");
             if (!profileData.isTutorialCompleted)
             {
                 TutorialManager.StartCurrentStage(this);
             }
             else
             {
-                //TODO
+                new CampEntryDialog(this, CampEntryReason.StartNewSession).Start();
             }
         }
 

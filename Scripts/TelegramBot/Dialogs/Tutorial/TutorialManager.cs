@@ -1,4 +1,5 @@
-﻿using TextGameRPG.Scripts.TelegramBot.Sessions;
+﻿using TextGameRPG.Scripts.TelegramBot.Dialogs.Camp;
+using TextGameRPG.Scripts.TelegramBot.Sessions;
 
 namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Tutorial
 {
@@ -9,13 +10,13 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Tutorial
             switch (session.profile.data.tutorialStage)
             {
                 case 0:
-                    new TutorialSelectLanguageDialog(session);
+                    new TutorialSelectLanguageDialog(session).Start();
                     break;
                 case 100:
-                    new TutorialEnterNameDialog(session);
+                    new TutorialEnterNameDialog(session).Start();
                     break;
                 case 32000:
-                    new TutorialEndDialog(session);
+                    new TutorialEndDialog(session).Start();
                     break;
             }
         }
@@ -40,7 +41,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Tutorial
         public static void CompleteTutorial(GameSession session)
         {
             session.profile.data.tutorialStage = -1;
-            //TODO
+            new CampEntryDialog(session, CampEntryReason.EndTutorial).Start();
         }
 
     }

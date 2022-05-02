@@ -14,12 +14,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Tutorial
         {
         }
 
-        protected override void Start()
-        {
-            SendEnterNameDialog();
-        }
-
-        private async void SendEnterNameDialog()
+        public async override void Start()
         {
             string text = Localization.Get(session, "dialog_tutorial_enterName_text");
 

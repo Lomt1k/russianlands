@@ -9,7 +9,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Tutorial
         {
         }
 
-        protected async override void Start()
+        public async override void Start()
         {
             string text = "Пожалуйста, выберите ваш язык:\n" +
                 "-----------------------\n" +

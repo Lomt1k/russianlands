@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
@@ -19,7 +18,6 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
         {
             session = _session;
             session.SetupActiveDialog(this);
-            Start();
         }
 
         protected void RegisterButton(string text, Action? callback)
@@ -44,7 +42,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
             return new ReplyKeyboardMarkup(linesArray);
         }
 
-        protected abstract void Start();
+        public abstract void Start();
 
         public virtual void HandleMessage(Message message)
         {

@@ -9,7 +9,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Tutorial
         {
         }
 
-        protected override async void Start()
+        public override async void Start()
         {
             string localization = Localization.Get(session, "dialog_tutorial_end_text");
             string text = string.Format(localization, session.profile.data.nickname);
