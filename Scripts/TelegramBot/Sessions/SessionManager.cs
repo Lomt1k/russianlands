@@ -105,8 +105,10 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
         public async Task CloseAllSessions()
         {
             Program.logger.Info($"Closing all sessions...");
+
             _periodicSaveCTS.Cancel();
             _closeTimeoutSessionsCTS.Cancel();
+
             foreach (var chatId in _sessions.Keys)
             {
                 await CloseSession(chatId);
