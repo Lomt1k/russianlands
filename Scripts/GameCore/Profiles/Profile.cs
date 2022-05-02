@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData;
 
 namespace TextGameRPG.Scripts.GameCore.Profiles
@@ -15,7 +16,7 @@ namespace TextGameRPG.Scripts.GameCore.Profiles
             dynamicData = _dynamicData;
         }
 
-        public async void SaveProfileIfNeed(DateTime lastActivityTime)
+        public async Task SaveProfileIfNeed(DateTime lastActivityTime)
         {
             if (lastSaveProfileTime < lastActivityTime)
             {

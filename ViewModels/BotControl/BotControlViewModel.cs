@@ -3,6 +3,7 @@ using TextGameRPG.Scripts.TelegramBot;
 using ReactiveUI;
 using TextGameRPG.Scripts.Utils;
 using System.Reactive;
+using System.Threading.Tasks;
 
 namespace TextGameRPG.ViewModels.BotControl
 {
@@ -10,7 +11,9 @@ namespace TextGameRPG.ViewModels.BotControl
     {
         private string _consoleOutput = string.Empty;
         private TelegramBot _bot;
-        private bool _isBotListening;        
+        private bool _isBotListening;
+        private bool _canStartListening = true;
+        private bool _canStopListening;
 
         public string consoleOutput
         {
@@ -24,8 +27,20 @@ namespace TextGameRPG.ViewModels.BotControl
             set => this.RaiseAndSetIfChanged(ref _isBotListening, value);
         }
 
-        public ReactiveCommand<Unit, Unit> startListening { get; }
-        public ReactiveCommand<Unit, Unit> stopListening { get; }
+        public bool canStartListening
+        {
+            get => _canStartListening;
+            set => this.RaiseAndSetIfChanged(ref _canStartListening, value);
+        }
+
+        public bool canStopListening
+        {
+            get => _canStopListening;
+            set => this.RaiseAndSetIfChanged(ref _canStopListening, value);
+        }
+
+        public ReactiveCommand<Unit, Task> startListening { get; }
+        public ReactiveCommand<Unit, Task> stopListening { get; }
 
         public BotControlViewModel(TelegramBot bot)
         {
@@ -44,16 +59,25 @@ namespace TextGameRPG.ViewModels.BotControl
             Console.SetOut(textWriter);
         }
 
-        private void StartBotListening()
+        private async Task StartBotListening()
         {
-            _bot.StartListeningAsync();
-            isBotListening = true;
+            canStartListening = false;
+
+            bool success = await _bot.StartListeningAsync();
+            isBotListening = success;
+
+            canStartListening = !success;
+            canStopListening = success;
         }
 
-        private void StopBotListening()
+        private async Task StopBotListening()
         {
-            _bot.StopListening();
+            canStopListening = false;
+
+            await _bot.StopListening();
             isBotListening = false;
+
+            canStartListening = true;
         }
 
     }

@@ -20,10 +20,10 @@
                   Margin="20,0" Spacing="20">
         <Button Content="Start bot" Classes="Secondary"
                 Command="{Binding startListening}"
-                IsVisible="{Binding !isBotListening}"/>
+                IsVisible="{Binding canStartListening}"/>
         <Button Content="Stop listening" Classes="Negative"
                 Command="{Binding stopListening}"
-                IsVisible="{Binding isBotListening}"/>
+                IsVisible="{Binding canStopListening}"/>
       </StackPanel>
     
   </Grid>

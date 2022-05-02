@@ -13,7 +13,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
         private readonly int periodicSaveDatabaseInMinutes;
 
         private TelegramBot _telegramBot;
-        private Dictionary<long, GameSession> _sessions = new Dictionary<long, GameSession>();
+        private Dictionary<ChatId, GameSession> _sessions = new Dictionary<ChatId, GameSession>();
 
         public SessionManager(TelegramBot telegramBot)
         {
@@ -35,15 +35,15 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
             return session;
         }
 
-        public GameSession? GetSessionIfExists(long userId)
+        public GameSession? GetSessionIfExists(ChatId chatId)
         {
-            _sessions.TryGetValue(userId, out GameSession? session);
+            _sessions.TryGetValue(chatId, out GameSession? session);
             return session;
         }
 
-        public bool HasActiveSession(long userId)
+        public bool HasActiveSession(ChatId chatId)
         {
-            return _sessions.ContainsKey(userId);
+            return _sessions.ContainsKey(chatId);
         }
 
         private async Task PeriodicSaveProfilesAsync()
@@ -64,35 +64,45 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
             while (true)
             {
                 await Task.Delay(10_000);
-                List<long> sessionsToClose = new List<long>();
-                foreach (var userId in _sessions.Keys)
+                List<ChatId> sessionsToClose = new List<ChatId>();
+                foreach (var chatId in _sessions.Keys)
                 {
-                    if (IsTimeout(userId))
+                    if (IsTimeout(chatId))
                     {
-                        sessionsToClose.Add(userId);
+                        sessionsToClose.Add(chatId);
                     }
                 }
-                foreach (var userId in sessionsToClose)
+                foreach (var chatId in sessionsToClose)
                 {
-                    CloseSession(userId);
+                    CloseSession(chatId);
                 }
             }
         }
 
-        private bool IsTimeout(long userId)
+        private bool IsTimeout(ChatId chatId)
         {
-            var session = _sessions[userId];
+            var session = _sessions[chatId];
             var millisecondsFromLastActivity = (int)(DateTime.UtcNow - session.lastActivityTime).TotalMilliseconds;
             return millisecondsFromLastActivity > sessionTimeoutInMilliseconds;
         }
 
-        public void CloseSession(long userId)
+        public async Task CloseSession(ChatId chatId)
         {
-            if (_sessions.TryGetValue(userId, out var session))
+            if (_sessions.TryGetValue(chatId, out var session))
             {
-                session.OnCloseSession();
-                _sessions.Remove(userId);
+                _sessions.Remove(chatId);
+                await session.OnCloseSession();                
             }
+        }
+
+        public async Task CloseAllSessions()
+        {
+            Program.logger.Info($"Closing all sessions...");
+            foreach (var chatId in _sessions.Keys)
+            {
+                await CloseSession(chatId);
+            }
+            Program.logger.Info($"All sessions closed. Profiles data saved.");
         }
 
 

@@ -83,9 +83,10 @@ namespace TextGameRPG.Scripts.TelegramBot
             return true;
         }
 
-        public void StopListening()
+        public async Task StopListening()
         {
             botReceiving.StopReceiving();
+            await sessionManager.CloseAllSessions();
         }
 
 

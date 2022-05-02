@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using TextGameRPG.Scripts.GameCore.Localization;
@@ -95,15 +96,15 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
             }
         }
 
-        public void OnCloseSession()
+        public async Task OnCloseSession()
         {
-            SaveProfileIfNeed();
+            await SaveProfileIfNeed();
             Program.logger.Info($"Session closed for ID {chatId}");
         }
 
-        public void SaveProfileIfNeed()
+        public async Task SaveProfileIfNeed()
         {
-            profile?.SaveProfileIfNeed(lastActivityTime);
+            await profile?.SaveProfileIfNeed(lastActivityTime);
         }
 
         public void SetupLanguage(LanguageCode languageCode)
