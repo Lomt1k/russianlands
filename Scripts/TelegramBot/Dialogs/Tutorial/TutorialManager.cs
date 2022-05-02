@@ -1,4 +1,4 @@
-﻿using TextGameRPG.Scripts.TelegramBot.Dialogs.Camp;
+﻿using TextGameRPG.Scripts.TelegramBot.Dialogs.Town;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 
 namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Tutorial
@@ -41,7 +41,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Tutorial
         public static void CompleteTutorial(GameSession session)
         {
             session.profile.data.tutorialStage = -1;
-            new CampEntryDialog(session, CampEntryReason.EndTutorial).Start();
+            new TownEntryDialog(session, TownEntryReason.EndTutorial).Start();
         }
 
     }

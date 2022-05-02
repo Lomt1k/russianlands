@@ -6,7 +6,7 @@ using TextGameRPG.Scripts.GameCore.Localization;
 using TextGameRPG.Scripts.GameCore.Profiles;
 using TextGameRPG.Scripts.TelegramBot.DataBase.TablesStructure;
 using TextGameRPG.Scripts.TelegramBot.Dialogs;
-using TextGameRPG.Scripts.TelegramBot.Dialogs.Camp;
+using TextGameRPG.Scripts.TelegramBot.Dialogs.Town;
 using TextGameRPG.Scripts.TelegramBot.Dialogs.Tutorial;
 
 namespace TextGameRPG.Scripts.TelegramBot.Sessions
@@ -91,7 +91,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
             }
             else
             {
-                new CampEntryDialog(this, CampEntryReason.StartNewSession).Start();
+                new TownEntryDialog(this, TownEntryReason.StartNewSession).Start();
             }
         }
 

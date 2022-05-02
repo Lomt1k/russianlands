@@ -13,12 +13,12 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Tutorial
         {
             string localization = Localization.Get(session, "dialog_tutorial_end_text");
             string text = string.Format(localization, session.profile.data.nickname);
-            string campButtonText = $"{Emojis.locations[Location.Camp]} " + Localization.Get(session, "location_camp");
-            RegisterButton(campButtonText, OnCampButtonPressed);
-            await messageSender.SendTextDialog(session.chatId, text, GetKeyboard());
+            string campButtonText = $"{Emojis.locations[Location.Town]} " + Localization.Get(session, "location_town");
+            RegisterButton(campButtonText, OnTownButtonPressed);
+            await messageSender.SendTextDialog(session.chatId, text, GetOneLineKeyboard());
         }
 
-        private void OnCampButtonPressed()
+        private void OnTownButtonPressed()
         {
             TutorialManager.CompleteTutorial(session);
         }

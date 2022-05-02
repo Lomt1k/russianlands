@@ -22,7 +22,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Tutorial
             RegisterButton(fullname, null);
             RegisterButton(session.profile.data.username, null);
 
-            await messageSender.SendTextDialog(session.chatId, text, GetKeyboardMultiline());
+            await messageSender.SendTextDialog(session.chatId, text, GetMultilineKeyboard());
         }
 
         public override async void HandleMessage(Message message)

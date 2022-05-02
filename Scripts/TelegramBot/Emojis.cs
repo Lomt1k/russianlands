@@ -10,7 +10,7 @@ namespace TextGameRPG.Scripts.TelegramBot
 
     public enum Location
     {
-        Camp
+        Town
     }
 
     public static class Emojis
@@ -23,7 +23,7 @@ namespace TextGameRPG.Scripts.TelegramBot
 
         public static readonly Dictionary<Location, string> locations = new Dictionary<Location, string>()
         {
-            { Location.Camp, "\u26fa\ufe0f" }
+            { Location.Town, "\u26fa\ufe0f" }
         };
 
     }

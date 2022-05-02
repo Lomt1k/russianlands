@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
@@ -25,12 +26,12 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
             registeredButtons.Add(text, callback);
         }
 
-        protected ReplyKeyboardMarkup GetKeyboard()
+        protected ReplyKeyboardMarkup GetOneLineKeyboard()
         {
             return new ReplyKeyboardMarkup(registeredButtons.Keys);
         }
 
-        protected ReplyKeyboardMarkup GetKeyboardMultiline()
+        protected ReplyKeyboardMarkup GetMultilineKeyboard()
         {
             var linesArray = new KeyboardButton[registeredButtons.Count][];
             int i = 0;
@@ -40,6 +41,26 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
                 i++;
             }
             return new ReplyKeyboardMarkup(linesArray);
+        }
+
+        protected ReplyKeyboardMarkup GetKeyboardWithRowSizes(params int[] args)
+        {
+            var rows = new List<List<KeyboardButton>>();
+            var buttons = registeredButtons.Keys.ToList();
+
+            int startIndex = 0;
+            foreach (var count in args)
+            {
+                rows.Add(buttons.GetRange(startIndex, count));
+                startIndex += count;
+            }
+
+            return new ReplyKeyboardMarkup(rows);
+        }
+
+        protected List<KeyboardButton> GetButtons()
+        {
+            return registeredButtons.Keys.ToList();
         }
 
         public abstract void Start();

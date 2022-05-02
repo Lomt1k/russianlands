@@ -18,7 +18,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Tutorial
             RegisterButton($"{Emojis.flags[Flag.Russia]} Русский", OnSelectRussian);
             RegisterButton($"{Emojis.flags[Flag.GreatBritain]} English", OnSelectEnglish);
 
-            await messageSender.SendTextDialog(session.chatId, text, GetKeyboardMultiline());
+            await messageSender.SendTextDialog(session.chatId, text, GetMultilineKeyboard());
         }
 
         private void OnSelectRussian()
