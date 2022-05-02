@@ -19,19 +19,31 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town
         {
             _reason = reason;
 
-            RegisterButton("Карта", null);
-            RegisterButton("Жители", null);
-            RegisterButton("Инвентарь", null);
-            RegisterButton("Задания", null);
-            RegisterButton("Почта", null);
-            RegisterButton("Настройки", null);
+            RegisterButton($"{Emojis.townMenu[TownMenu.Map]} "
+                + Localization.Get(session, "menu_item_map"),
+                null);
+            RegisterButton($"{Emojis.townMenu[TownMenu.Residents]} "
+                + Localization.Get(session, "menu_item_residents"),
+                null);
+            RegisterButton($"{Emojis.townMenu[TownMenu.Character]} "
+                + Localization.Get(session, "menu_item_character"),
+                null);
+            RegisterButton($"{Emojis.townMenu[TownMenu.Quests]} "
+                + Localization.Get(session, "menu_item_quests"),
+                null);
+            RegisterButton($"{Emojis.townMenu[TownMenu.Mail]} "
+                + Localization.Get(session, "menu_item_mail"),
+                null);
+            RegisterButton($"{Emojis.townMenu[TownMenu.Options]} "
+                + Localization.Get(session, "town_menu_item_options"),
+                null);
 
             _keyboard = GetKeyboardWithRowSizes(1, 2, 3);
         }
 
         public async override void Start()
         {
-            string header = $"{Emojis.locations[Location.Town]} <b>" + Localization.Get(session, "location_town") + "</b>\n\n";
+            string header = $"{Emojis.townMenu[TownMenu.Town]} <b>" + Localization.Get(session, "menu_item_town") + "</b>\n\n";
             string text;
             switch (_reason)
             {
