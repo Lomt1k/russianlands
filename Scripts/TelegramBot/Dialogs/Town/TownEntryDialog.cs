@@ -22,8 +22,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town
             RegisterButton($"{Emojis.townMenu[TownMenu.Map]} "
                 + Localization.Get(session, "menu_item_map"),
                 null);
-            RegisterButton($"{Emojis.townMenu[TownMenu.Residents]} "
-                + Localization.Get(session, "menu_item_residents"),
+            RegisterButton($"{Emojis.townMenu[TownMenu.Buildings]} "
+                + Localization.Get(session, "menu_item_buildings"),
                 null);
             RegisterButton($"{Emojis.townMenu[TownMenu.Character]} "
                 + Localization.Get(session, "menu_item_character"),

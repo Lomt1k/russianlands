@@ -12,7 +12,7 @@ namespace TextGameRPG.Scripts.TelegramBot
     {
         Town,
         Map,
-        Residents,
+        Buildings,
         Character,
         Quests,
         Mail,
@@ -29,9 +29,9 @@ namespace TextGameRPG.Scripts.TelegramBot
 
         public static readonly Dictionary<TownMenu, string> townMenu = new Dictionary<TownMenu, string>()
         {
-            { TownMenu.Town, "\ud83c\udfe0" },
+            { TownMenu.Town, "\ud83c\udfd8" },
             { TownMenu.Map, "\ud83d\uddfa" },
-            { TownMenu.Residents, "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66" },
+            { TownMenu.Buildings, "\ud83d\uded6" },
             { TownMenu.Character, "\ud83d\ude4e\u200d\u2642\ufe0f" },
             { TownMenu.Quests, "\ud83d\udccc" },
             { TownMenu.Mail, "\ud83d\udceb" },
