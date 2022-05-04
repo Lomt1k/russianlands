@@ -1,20 +1,31 @@
-﻿namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties
+﻿using TextGameRPG.Scripts.Utils;
+
+namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties
 {
     class PhysicalDamageItemProperty : ItemPropertyBase
     {
         public override string debugDescription => "Физический Урон";
         public override ItemPropertyType propertyType => ItemPropertyType.PhysicalDamage;
 
-        public int physicalDamage;
+        public int minDamage;
+        public int maxDamage;
 
-        public PhysicalDamageItemProperty(int damage)
+        public PhysicalDamageItemProperty(int minDamage, int maxDamage)
         {
-            physicalDamage = damage;
+            this.minDamage = minDamage;
+            this.maxDamage = maxDamage;
+        }
+
+        public int GetRandomValue()
+        {
+            return Randomizer.random.Next(minDamage, maxDamage + 1);
         }
 
         public override string ToString()
         {
-            return $"{debugDescription}: {physicalDamage}";
+            return minDamage == maxDamage 
+                ? $"{debugDescription}: {minDamage}"
+                : $"{debugDescription}: {minDamage} - {maxDamage}";
         }
     }
 }

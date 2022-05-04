@@ -10,7 +10,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties
         {
             _properties = new Dictionary<ItemPropertyType, ItemPropertyBase>
             {
-                { ItemPropertyType.PhysicalDamage, new PhysicalDamageItemProperty(10) },
+                { ItemPropertyType.PhysicalDamage, new PhysicalDamageItemProperty(0, 0) },
             };
         }
 

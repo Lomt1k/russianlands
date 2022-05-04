@@ -42,7 +42,7 @@ namespace TextGameRPG.Scripts.GameCore.Items
 
         public ItemPropertyBase AddEmptyProperty()
         {
-            var property = new PhysicalDamageItemProperty(0);
+            var property = new PhysicalDamageItemProperty(0, 0);
             properties.Add(property);
             return property;
         }
