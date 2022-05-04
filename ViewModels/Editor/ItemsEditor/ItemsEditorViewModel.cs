@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using TextGameRPG.Models.Editor.ItemsEditor;
-using TextGameRPG.Scripts.GameCore.Items.ItemGenerators;
 using ReactiveUI;
 using System.Linq;
 using TextGameRPG.Views.Editor.ItemsEditor;
@@ -14,10 +13,10 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
     internal class ItemsEditorViewModel : ViewModelBase
     {
         private ItemCategory _selectedCategory;
-        private ItemGeneratorBase? _selectedItem;
+        private ItemBase? _selectedItem;
 
         public ObservableCollection<ItemCategory> categories { get; }
-        public ObservableCollection<ItemGeneratorBase> showedItems { get; private set; } = new ObservableCollection<ItemGeneratorBase>();
+        public ObservableCollection<ItemBase> showedItems { get; private set; } = new ObservableCollection<ItemBase>();
         public ItemCategory selectedCategory 
         {
             get => _selectedCategory;
@@ -27,7 +26,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
                 RefreshShowedItems();
             }
         }
-        public ItemGeneratorBase? selectedItem
+        public ItemBase? selectedItem
         {
             get => _selectedItem;
             set
@@ -55,7 +54,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
             addNewItemCommand = ReactiveCommand.Create(AddNewItem);
 
             RefreshShowedItems();
-            GameDataBase.instance.itemGenerators.onDataChanged += OnDataBaseChanged;
+            GameDataBase.instance.items.onDataChanged += OnDataBaseChanged;
         }
 
         private void OnDataBaseChanged()
@@ -65,7 +64,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
 
         private void RefreshShowedItems()
         {
-            var items = GameDataBase.instance.itemGenerators.GetAllData();
+            var items = GameDataBase.instance.items.GetAllData();
 
             if (_selectedCategory != null && _selectedCategory.itemType != Scripts.GameCore.Items.ItemType.Any)
             {
@@ -75,7 +74,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
             RefreshShowedItems(items);
         }
 
-        private void RefreshShowedItems(IEnumerable<ItemGeneratorBase> items)
+        private void RefreshShowedItems(IEnumerable<ItemBase> items)
         {
             showedItems.Clear();
             foreach (var item in items)
@@ -86,15 +85,15 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
 
         private void AddNewItem()
         {
-            var allItems = GameDataBase.instance.itemGenerators.GetAllData().ToList();
+            var allItems = GameDataBase.instance.items.GetAllData().ToList();
 
             int newItemId = allItems.Count > 0 ? allItems.Max(x => x.id) + 1 : 1;
             var newItemType = selectedCategory.itemType == ItemType.Any
                 ? ItemType.MeleeWeapon
                 : selectedCategory.itemType;
 
-            var newItem = new ItemGeneratorBase("[NEW ITEM]", newItemId, newItemType, ItemRarity.Common, 0);
-            GameDataBase.instance.itemGenerators.AddData(newItemId, newItem);
+            var newItem = new ItemBase("[NEW ITEM]", newItemId, newItemType, ItemRarity.Common, 0);
+            GameDataBase.instance.items.AddData(newItemId, newItem);
             selectedItem = newItem;
 
             var inspectorViewModel = itemInspector.DataContext as ItemInspectorViewModel;

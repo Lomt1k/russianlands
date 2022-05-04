@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Reactive;
 using ReactiveUI;
 using TextGameRPG.Models;
 using TextGameRPG.Scripts.GameCore.Items;
-using TextGameRPG.Scripts.GameCore.Items.ItemGenerators;
-using TextGameRPG.Scripts.GameCore.Items.ItemGenerators.ItemPropertyGenerators;
+using TextGameRPG.Scripts.GameCore.Items.ItemProperties;
 using TextGameRPG.Views.Editor.ItemsEditor;
 
 namespace TextGameRPG.ViewModels.Editor.ItemsEditor
@@ -16,12 +14,12 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
         private bool _isNewItem;
         private EnumValueModel<ItemType> _selectedItemType;
         private EnumValueModel<ItemRarity> _selectedItemRarity;
-        private ItemPropertyGeneratorBase? _selectedProperty;
+        private ItemPropertyBase? _selectedProperty;
 
-        public ItemGeneratorBase editableItem { get; }
+        public ItemBase editableItem { get; }
         public ObservableCollection<EnumValueModel<ItemType>> itemTypeList { get; }
         public ObservableCollection<EnumValueModel<ItemRarity>> itemRarityList { get; }
-        public ObservableCollection<ItemPropertyGeneratorBase> itemProperties { get; }
+        public ObservableCollection<ItemPropertyBase> itemProperties { get; }
 
         public EnumValueModel<ItemType> selectedItemType
         {
@@ -43,7 +41,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
             }
         }
 
-        public ItemPropertyGeneratorBase? selectedProperty
+        public ItemPropertyBase? selectedProperty
         {
             get => _selectedProperty;
             set => this.RaiseAndSetIfChanged(ref _selectedProperty, value);
@@ -55,7 +53,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
         public ReactiveCommand<Unit, Unit> saveCommand { get; }
         public ReactiveCommand<Unit, Unit> cancelCommand { get; }
 
-        public EditItemWindowViewModel(EditItemWindow window, ItemGeneratorBase item, bool isNewItem)
+        public EditItemWindowViewModel(EditItemWindow window, ItemBase item, bool isNewItem)
         {
             window.Title = $"{item.debugName} [ID {item.id}]";
             _window = window;
@@ -64,7 +62,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
             editableItem = item.Clone();
             itemTypeList = EnumValueModel<ItemType>.CreateCollection(excludeValue: ItemType.Any);
             itemRarityList = EnumValueModel<ItemRarity>.CreateCollection();
-            itemProperties = new ObservableCollection<ItemPropertyGeneratorBase>(editableItem.properties);
+            itemProperties = new ObservableCollection<ItemPropertyBase>(editableItem.properties);
 
             _selectedItemType = EnumValueModel<ItemType>.GetModel(itemTypeList, editableItem.itemType);
             _selectedItemRarity = EnumValueModel<ItemRarity>.GetModel(itemRarityList, editableItem.itemRarity);
@@ -89,7 +87,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
             var window = new EditItemPropertyWindow();
             window.DataContext = new EditItemPropertyWindowViewModel(window, _selectedProperty, (modifiedProperty) => 
             {
-                var index = Array.IndexOf(editableItem.properties, _selectedProperty);
+                var index = editableItem.properties.IndexOf(_selectedProperty);
                 editableItem.properties[index] = modifiedProperty;
                 itemProperties[index] = modifiedProperty;
             });
@@ -98,7 +96,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
 
         private void RemoveSelectedProperty()
         {
-            var index = Array.IndexOf(editableItem.properties, _selectedProperty);
+            var index = editableItem.properties.IndexOf(_selectedProperty);
             editableItem.RemoveProperty(index);
             itemProperties.RemoveAt(index);
         }
@@ -107,7 +105,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
         {
             if (_isNewItem)
             {
-                Scripts.GameCore.GameDataBase.GameDataBase.instance.itemGenerators.RemoveData(editableItem.id);
+                Scripts.GameCore.GameDataBase.GameDataBase.instance.items.RemoveData(editableItem.id);
             }
             _window.Close();
         }
@@ -116,11 +114,11 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
         {
             foreach (var property in itemProperties)
             {
-                if (property.propertyType == ItemPropertyGeneratorType.None)
+                if (property.propertyType == ItemPropertyType.None)
                     return;
             }
 
-            var dataBase = Scripts.GameCore.GameDataBase.GameDataBase.instance.itemGenerators;
+            var dataBase = Scripts.GameCore.GameDataBase.GameDataBase.instance.items;
             dataBase.ChangeData(editableItem.id, editableItem);
             _window.Close();
         }

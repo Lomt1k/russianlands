@@ -1,5 +1,4 @@
 ﻿using System;
-using TextGameRPG.Scripts.GameCore.Items.ItemGenerators.ItemPropertyGenerators;
 using TextGameRPG.Views.Editor.ItemsEditor;
 using ReactiveUI;
 using System.Reactive;
@@ -7,16 +6,17 @@ using System.Collections.ObjectModel;
 using TextGameRPG.Models;
 using TextGameRPG.Models.Editor.ItemsEditor;
 using System.Linq;
+using TextGameRPG.Scripts.GameCore.Items.ItemProperties;
 
 namespace TextGameRPG.ViewModels.Editor.ItemsEditor
 {
     internal class EditItemPropertyWindowViewModel : ViewModelBase
     {
-        private ItemPropertyGeneratorBase _tempProperty;
-        private EnumValueModel<ItemPropertyGeneratorType> _selectedPropertyType;
-        private Action<ItemPropertyGeneratorBase> _onEditEnd;
+        private ItemPropertyBase _tempProperty;
+        private EnumValueModel<ItemPropertyType> _selectedPropertyType;
+        private Action<ItemPropertyBase> _onEditEnd;
 
-        public ItemPropertyGeneratorBase tempProperty
+        public ItemPropertyBase tempProperty
         {
             get => _tempProperty;
             set
@@ -26,14 +26,14 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
             }
         }
 
-        public ObservableCollection<EnumValueModel<ItemPropertyGeneratorType>> propertyTypesList { get; }
-        public EnumValueModel<ItemPropertyGeneratorType> selectedPropertyType
+        public ObservableCollection<EnumValueModel<ItemPropertyType>> propertyTypesList { get; }
+        public EnumValueModel<ItemPropertyType> selectedPropertyType
         {
             get => _selectedPropertyType;
             set
             {
                 this.RaiseAndSetIfChanged(ref _selectedPropertyType, value);
-                tempProperty = ItemPropertyGeneratorRegistry.GetProperty(value.value).Clone();
+                tempProperty = ItemPropertyRegistry.GetProperty(value.value).Clone();
             }
         }
 
@@ -43,13 +43,13 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
         public ReactiveCommand<Unit, Unit> saveCommand { get; }
         public ReactiveCommand<Unit, Unit> cancelCommand { get; }
 
-        public EditItemPropertyWindowViewModel(EditItemPropertyWindow window, ItemPropertyGeneratorBase property, Action<ItemPropertyGeneratorBase> onEditEnd)
+        public EditItemPropertyWindowViewModel(EditItemPropertyWindow window, ItemPropertyBase property, Action<ItemPropertyBase> onEditEnd)
         {
             propertyFields = new ObservableCollection<PropertyFieldModel>();
             _tempProperty = tempProperty = property.Clone();
 
-            propertyTypesList = EnumValueModel<ItemPropertyGeneratorType>.CreateCollection(excludeValue: ItemPropertyGeneratorType.None);
-            _selectedPropertyType = EnumValueModel<ItemPropertyGeneratorType>.GetModel(propertyTypesList, tempProperty.propertyType);
+            propertyTypesList = EnumValueModel<ItemPropertyType>.CreateCollection(excludeValue: ItemPropertyType.None);
+            _selectedPropertyType = EnumValueModel<ItemPropertyType>.GetModel(propertyTypesList, tempProperty.propertyType);
 
             _onEditEnd = onEditEnd;
             closeWindow = () => window.Close();

@@ -5,11 +5,16 @@
         public override string debugDescription => "Физический Урон";
         public override ItemPropertyType propertyType => ItemPropertyType.PhysicalDamage;
 
-        public int physicalDamage { get; }
+        public int physicalDamage;
 
         public PhysicalDamageItemProperty(int damage)
         {
             physicalDamage = damage;
+        }
+
+        public override string ToString()
+        {
+            return $"{debugDescription}: {physicalDamage}";
         }
     }
 }

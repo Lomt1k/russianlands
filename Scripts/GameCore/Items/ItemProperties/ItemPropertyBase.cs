@@ -6,8 +6,15 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties
     [JsonConverter(typeof(JsonKnownTypesConverter<ItemPropertyBase>))]
     public abstract class ItemPropertyBase
     {
-        public virtual string debugDescription { get; }
-        public virtual ItemPropertyType propertyType { get; }
+        public abstract string debugDescription { get; }
+        [JsonIgnore]
+        public abstract ItemPropertyType propertyType { get; }
+
+        public ItemPropertyBase Clone()
+        {
+            return (ItemPropertyBase)MemberwiseClone();
+        }
+
     }
 
 }

@@ -1,19 +1,19 @@
-﻿using TextGameRPG.Scripts.GameCore.Items.ItemGenerators;
-using ReactiveUI;
+﻿using ReactiveUI;
 using System.Collections.ObjectModel;
-using TextGameRPG.Scripts.GameCore.Items.ItemGenerators.ItemPropertyGenerators;
 using System.Reactive;
 using TextGameRPG.Models.RegularDialogs;
 using TextGameRPG.Views.Editor.ItemsEditor;
+using TextGameRPG.Scripts.GameCore.Items;
+using TextGameRPG.Scripts.GameCore.Items.ItemProperties;
 
 namespace TextGameRPG.ViewModels.Editor.ItemsEditor
 {
     internal class ItemInspectorViewModel : ViewModelBase
     {
-        private ItemGeneratorBase _currentItem;
+        private ItemBase _currentItem;
         private string? _header;
 
-        public ItemGeneratorBase currentItem
+        public ItemBase currentItem
         {
             get => _currentItem;
             set => this.RaiseAndSetIfChanged(ref _currentItem, value);
@@ -23,7 +23,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
             get => _header;
             set => this.RaiseAndSetIfChanged(ref _header, value);
         }
-        public ObservableCollection<ItemPropertyGeneratorBase> itemProperties { get; private set; } = new ObservableCollection<ItemPropertyGeneratorBase>();
+        public ObservableCollection<ItemPropertyBase> itemProperties { get; private set; } = new ObservableCollection<ItemPropertyBase>();
 
         public ReactiveCommand<Unit, Unit> removeItemCommand { get; private set; }
         public ReactiveCommand<Unit, Unit> editItemCommand { get; private set; }
@@ -34,7 +34,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
             editItemCommand = ReactiveCommand.Create(OnEditItemClick);
         }
 
-        public void ShowItem(ItemGeneratorBase item)
+        public void ShowItem(ItemBase item)
         {
             currentItem = item;
             RefreshHeader();
@@ -60,7 +60,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
             RegularDialogHelper.ShowConfirmDialog("Are you sure you want to delete this item?" +
                 $"\n\n[ID {_currentItem.id}] {_currentItem.debugName} ({_currentItem.itemRarity}, Lvl {_currentItem.requiredLevel})", () => 
             {
-                var itemsDataBase = Scripts.GameCore.GameDataBase.GameDataBase.instance.itemGenerators;
+                var itemsDataBase = Scripts.GameCore.GameDataBase.GameDataBase.instance.items;
                 itemsDataBase.RemoveData(_currentItem.id);
             });
         }

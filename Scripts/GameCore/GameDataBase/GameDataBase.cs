@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 
 namespace TextGameRPG.Scripts.GameCore.GameDataBase
 {
-    using Items.ItemGenerators;
+    using Items;
     using TextGameRPG.ViewModels;
 
     public class GameDataBase
@@ -19,12 +19,12 @@ namespace TextGameRPG.Scripts.GameCore.GameDataBase
 
         private GameDataLoaderViewModel _loaderVM;
         
-        public DataDictionaryWithIntegerID<ItemGeneratorBase> itemGenerators { get; private set; }
+        public DataDictionaryWithIntegerID<ItemBase> items { get; private set; }
 
         public void LoadAllData(GameDataLoaderViewModel loaderVM)
         {
             _loaderVM = loaderVM;
-            itemGenerators = LoadDataBaseWithIntegerID<ItemGeneratorBase>("itemGenerators");
+            items = LoadDataBaseWithIntegerID<ItemBase>("items");
             Localization.Localization.LoadAll(_loaderVM, gameDataPath);
             _loaderVM.OnGameDataLoaded();
         }
