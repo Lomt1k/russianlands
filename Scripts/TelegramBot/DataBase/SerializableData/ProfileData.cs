@@ -13,6 +13,13 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData
         public string nickname;
         public short tutorialStage;
         public byte level;
+        public short attributeStrength;
+        public short attributeVitality;
+        public short attributeSorcery;
+        public short attributeLuck;
+        public int resourceGold;
+        public int resourceFood;
+        public int resourceDiamonds;
 
         public static TableColumn[] GetTableColumns()
         {
@@ -25,6 +32,13 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData
                 new TableColumn("nickname", "TEXT", "na"),
                 new TableColumn("tutorialStage", "INTEGER", "0"),
                 new TableColumn("level", "INTEGER", "1"),
+                new TableColumn("attributeStrength", "INTEGER", "1"),
+                new TableColumn("attributeVitality", "INTEGER", "1"),
+                new TableColumn("attributeSorcery", "INTEGER", "1"),
+                new TableColumn("attributeLuck", "INTEGER", "1"),
+                new TableColumn("resourceGold", "INTEGER", "0"),
+                new TableColumn("resourceFood", "INTEGER", "0"),
+                new TableColumn("resourceDiamonds", "INTEGER", "0"),                
             };
         }
 

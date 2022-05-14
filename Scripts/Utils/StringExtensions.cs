@@ -56,6 +56,32 @@ namespace TextGameRPG.Scripts.Utils
             return true;
         }
 
+        public static string View(this int input)
+        {
+            if (input < 1_000)
+                return input.ToString();
+
+            if (input < 1_000_000)
+            {
+                var rounded = (float)input / 1_000;
+                var rest = rounded - (int)rounded;
+                return rest < 0.1f ? $"{rounded:F0}K" : $"{rounded:F1}K";
+            }
+
+            if (input < 1_000_000_000)
+            {
+                var rounded = (float)input / 1_000_000;
+                var rest = rounded - (int)rounded;
+                return rest < 0.1f ? $"{rounded:F0}KK" : $"{rounded:F1}KK";
+            }
+            else
+            {
+                var rounded = (float)input / 1_000_000_000;
+                var rest = rounded - (int)rounded;
+                return rest < 0.1f ? $"{rounded:F0}KKK" : $"{rounded:F1}KKK";
+            }
+        }
+
 
     }
 }
