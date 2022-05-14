@@ -13,10 +13,10 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
     internal class ItemsEditorViewModel : ViewModelBase
     {
         private ItemCategory _selectedCategory;
-        private ItemBase? _selectedItem;
+        private ItemData? _selectedItem;
 
         public ObservableCollection<ItemCategory> categories { get; }
-        public ObservableCollection<ItemBase> showedItems { get; private set; } = new ObservableCollection<ItemBase>();
+        public ObservableCollection<ItemData> showedItems { get; private set; } = new ObservableCollection<ItemData>();
         public ItemCategory selectedCategory 
         {
             get => _selectedCategory;
@@ -26,7 +26,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
                 RefreshShowedItems();
             }
         }
-        public ItemBase? selectedItem
+        public ItemData? selectedItem
         {
             get => _selectedItem;
             set
@@ -74,7 +74,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
             RefreshShowedItems(items);
         }
 
-        private void RefreshShowedItems(IEnumerable<ItemBase> items)
+        private void RefreshShowedItems(IEnumerable<ItemData> items)
         {
             showedItems.Clear();
             foreach (var item in items)
@@ -92,7 +92,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
                 ? ItemType.MeleeWeapon
                 : selectedCategory.itemType;
 
-            var newItem = new ItemBase("[NEW ITEM]", newItemId, newItemType, ItemRarity.Common, 0);
+            var newItem = new ItemData("[NEW ITEM]", newItemId, newItemType, ItemRarity.Common, 0);
             GameDataBase.instance.items.AddData(newItemId, newItem);
             selectedItem = newItem;
 

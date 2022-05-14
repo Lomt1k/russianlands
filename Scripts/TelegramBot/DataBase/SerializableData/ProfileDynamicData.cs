@@ -9,7 +9,7 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData
     public class ProfileDynamicData : DatabaseSerializableData
     {
         public long dbid;
-        public InventoryBase inventory;
+        public Inventory inventory;
 
         public static TableColumn[] GetTableColumns()
         {
@@ -28,7 +28,7 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData
         {
             dbid = (long)data["dbid"];
             var inventoryJson = (string)data["inventory"];
-            inventory = JsonConvert.DeserializeObject<InventoryBase>(inventoryJson);
+            inventory = JsonConvert.DeserializeObject<Inventory>(inventoryJson);
         }
 
         public override async Task<bool> UpdateInDatabase()

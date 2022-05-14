@@ -19,12 +19,12 @@ namespace TextGameRPG.Scripts.GameCore.GameDataBase
 
         private GameDataLoaderViewModel _loaderVM;
         
-        public DataDictionaryWithIntegerID<ItemBase> items { get; private set; }
+        public DataDictionaryWithIntegerID<ItemData> items { get; private set; }
 
         public void LoadAllData(GameDataLoaderViewModel loaderVM)
         {
             _loaderVM = loaderVM;
-            items = LoadDataBaseWithIntegerID<ItemBase>("items");
+            items = LoadDataBaseWithIntegerID<ItemData>("items");
             Localization.Localization.LoadAll(_loaderVM, gameDataPath);
             _loaderVM.OnGameDataLoaded();
         }

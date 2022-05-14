@@ -10,10 +10,10 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
 {
     internal class ItemInspectorViewModel : ViewModelBase
     {
-        private ItemBase _currentItem;
+        private ItemData _currentItem;
         private string? _header;
 
-        public ItemBase currentItem
+        public ItemData currentItem
         {
             get => _currentItem;
             set => this.RaiseAndSetIfChanged(ref _currentItem, value);
@@ -34,7 +34,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
             editItemCommand = ReactiveCommand.Create(OnEditItemClick);
         }
 
-        public void ShowItem(ItemBase item)
+        public void ShowItem(ItemData item)
         {
             currentItem = item;
             RefreshHeader();

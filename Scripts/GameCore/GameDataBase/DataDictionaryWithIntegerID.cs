@@ -32,10 +32,7 @@ namespace TextGameRPG.Scripts.GameCore.GameDataBase
             }
         }
 
-        public T GetData(int id)
-        {
-            return _dictionary[id];
-        }
+        public T this[int id] => _dictionary[id];
 
         public IEnumerable<T> GetAllData()
         {

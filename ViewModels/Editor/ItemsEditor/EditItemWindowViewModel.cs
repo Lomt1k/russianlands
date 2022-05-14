@@ -16,7 +16,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
         private EnumValueModel<ItemRarity> _selectedItemRarity;
         private ItemPropertyBase? _selectedProperty;
 
-        public ItemBase editableItem { get; }
+        public ItemData editableItem { get; }
         public ObservableCollection<EnumValueModel<ItemType>> itemTypeList { get; }
         public ObservableCollection<EnumValueModel<ItemRarity>> itemRarityList { get; }
         public ObservableCollection<ItemPropertyBase> itemProperties { get; }
@@ -53,7 +53,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
         public ReactiveCommand<Unit, Unit> saveCommand { get; }
         public ReactiveCommand<Unit, Unit> cancelCommand { get; }
 
-        public EditItemWindowViewModel(EditItemWindow window, ItemBase item, bool isNewItem)
+        public EditItemWindowViewModel(EditItemWindow window, ItemData item, bool isNewItem)
         {
             window.Title = $"{item.debugName} [ID {item.id}]";
             _window = window;
