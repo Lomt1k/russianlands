@@ -4,6 +4,7 @@ using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using TextGameRPG.Scripts.GameCore.Localization;
 using TextGameRPG.Scripts.GameCore.Profiles;
+using TextGameRPG.Scripts.GameCore.Units;
 using TextGameRPG.Scripts.TelegramBot.DataBase.TablesStructure;
 using TextGameRPG.Scripts.TelegramBot.Dialogs;
 using TextGameRPG.Scripts.TelegramBot.Dialogs.Town;
@@ -18,6 +19,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
         public DateTime lastActivityTime { get; private set; }
         public User actualUser { get; private set; }
         public Profile profile { get; private set; }
+        public Player player { get; private set; }
         public LanguageCode language { get; private set; }
         public DialogBase currentDialog { get; private set; }
 
@@ -84,6 +86,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
             }
             profile = new Profile(profileData, profileDynamicData);
             language = Enum.Parse<LanguageCode>(profileData.language);
+            player = new Player(this);
 
             if (!profileData.isTutorialCompleted)
             {

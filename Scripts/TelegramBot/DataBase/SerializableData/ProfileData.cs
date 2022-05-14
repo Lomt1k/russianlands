@@ -12,6 +12,7 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData
         public string language;
         public string nickname;
         public short tutorialStage;
+        public byte level;
 
         public static TableColumn[] GetTableColumns()
         {
@@ -23,6 +24,7 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData
                 new TableColumn("language", "TEXT", "ru"),
                 new TableColumn("nickname", "TEXT", "na"),
                 new TableColumn("tutorialStage", "INTEGER", "0"),
+                new TableColumn("level", "INTEGER", "1"),
             };
         }
 
