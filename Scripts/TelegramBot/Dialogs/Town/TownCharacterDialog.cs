@@ -8,6 +8,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town
         {
             RegisterButton("* Атрибуты *", null);
             RegisterButton("* Инвентарь *", null);
+            RegisterButton("<< Назад", () => new TownEntryDialog(session, TownEntryReason.BackFromInnerDialog).Start());
         }
 
         public async override void Start()
