@@ -59,7 +59,11 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
 
         public void HandleMessage(Message message)
         {
-            //TODO: add command logic ( /start and etc )
+            if (message.Text != null && message.Text.StartsWith('/'))
+            {
+                Commands.CommandHandler.HandleCommand(this, message.Text);
+                return;
+            }
             currentDialog.HandleMessage(message);
         }
 
