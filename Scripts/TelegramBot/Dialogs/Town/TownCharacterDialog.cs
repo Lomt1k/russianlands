@@ -1,4 +1,5 @@
-﻿using TextGameRPG.Scripts.TelegramBot.Sessions;
+﻿using TextGameRPG.Scripts.GameCore.Localization;
+using TextGameRPG.Scripts.TelegramBot.Sessions;
 
 namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town
 {
@@ -6,15 +7,18 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town
     {
         public TownCharacterDialog(GameSession _session) : base(_session)
         {
-            RegisterButton("* Атрибуты *", null);
-            RegisterButton("* Инвентарь *", null);
-            RegisterButton("<< Назад", () => new TownEntryDialog(session, TownEntryReason.BackFromInnerDialog).Start());
+            RegisterButton($"{Emojis.menuItems[MenuItem.Attributes]} " + Localization.Get(session, "menu_item_attributes"),
+                null);
+            RegisterButton($"{Emojis.menuItems[MenuItem.Inventory]} " + Localization.Get(session, "menu_item_inventory"),
+                null);
+            RegisterButton(Localization.Get(session, "menu_item_backButton"), 
+                () => new TownEntryDialog(session, TownEntryReason.BackFromInnerDialog).Start());
         }
 
         public async override void Start()
         {
             var text = session.player.GetUnitView();
-            await messageSender.SendTextDialog(session.chatId, text, GetMultilineKeyboard());
+            await messageSender.SendTextDialog(session.chatId, text, GetKeyboardWithRowSizes(2, 1));
         }
     }
 }

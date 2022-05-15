@@ -8,7 +8,7 @@ namespace TextGameRPG.Scripts.TelegramBot
         Russia
     }
 
-    public enum TownMenu
+    public enum MenuItem
     {
         Town,
         Map,
@@ -16,7 +16,9 @@ namespace TextGameRPG.Scripts.TelegramBot
         Character,
         Quests,
         Mail,
-        Options
+        Options,
+        Attributes,
+        Inventory
     }
 
     public enum Attribute
@@ -69,15 +71,17 @@ namespace TextGameRPG.Scripts.TelegramBot
             { Flag.Russia, "\ud83c\uddf7\ud83c\uddfa" }
         };
 
-        public static readonly Dictionary<TownMenu, string> townMenu = new Dictionary<TownMenu, string>
+        public static readonly Dictionary<MenuItem, string> menuItems = new Dictionary<MenuItem, string>
         {
-            { TownMenu.Town, "\ud83c\udfd8" },
-            { TownMenu.Map, "\ud83d\uddfa" },
-            { TownMenu.Buildings, "\ud83d\uded6" },
-            { TownMenu.Character, "\ud83d\ude4e\u200d\u2642\ufe0f" },
-            { TownMenu.Quests, "\ud83d\udccc" },
-            { TownMenu.Mail, "\ud83d\udceb" },
-            { TownMenu.Options, "\u2699\ufe0f" }
+            { MenuItem.Town, "\ud83c\udfd8" },
+            { MenuItem.Map, "\ud83d\uddfa" },
+            { MenuItem.Buildings, "\ud83d\uded6" },
+            { MenuItem.Character, "\ud83d\ude4e\u200d\u2642\ufe0f" },
+            { MenuItem.Quests, "\ud83d\udccc" },
+            { MenuItem.Mail, "\ud83d\udceb" },
+            { MenuItem.Options, "\u2699\ufe0f" },
+            { MenuItem.Attributes, "\ud83c\udfaf" },
+            { MenuItem.Inventory, "\ud83c\udf92" },
         };
 
         public static readonly Dictionary<Attribute, string> atributes = new Dictionary<Attribute, string>

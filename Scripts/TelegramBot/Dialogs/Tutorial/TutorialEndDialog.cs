@@ -13,7 +13,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Tutorial
         {
             string localization = Localization.Get(session, "dialog_tutorial_end_text");
             string text = string.Format(localization, session.profile.data.nickname);
-            string campButtonText = $"{Emojis.townMenu[TownMenu.Town]} " + Localization.Get(session, "menu_item_town");
+            string campButtonText = $"{Emojis.menuItems[MenuItem.Town]} " + Localization.Get(session, "menu_item_town");
             RegisterButton(campButtonText, OnTownButtonPressed);
             await messageSender.SendTextDialog(session.chatId, text, GetOneLineKeyboard());
         }

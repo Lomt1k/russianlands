@@ -21,7 +21,7 @@ namespace TextGameRPG.Scripts.GameCore.Units
         public string GetUnitView()
         {
             var sb = new StringBuilder();
-            sb.AppendLine($"<b>{nickname}{Emojis.townMenu[TownMenu.Character]}</b>");
+            sb.AppendLine($"<b>{nickname}{Emojis.menuItems[MenuItem.Character]}</b>");
             string levelStr = string.Format(Localization.Localization.Get(session, "unit_view_level"), session.profile.data.level);
             sb.AppendLine(levelStr);
             sb.AppendLine($"\n{Emojis.atributes[Attribute.Health]} {unitStats.currentHP} / {unitStats.maxHP}" +

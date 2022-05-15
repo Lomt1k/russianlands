@@ -20,22 +20,22 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town
         {
             _reason = reason;
 
-            RegisterButton($"{Emojis.townMenu[TownMenu.Map]} "
+            RegisterButton($"{Emojis.menuItems[MenuItem.Map]} "
                 + Localization.Get(session, "menu_item_map"),
                 null);
-            RegisterButton($"{Emojis.townMenu[TownMenu.Buildings]} "
+            RegisterButton($"{Emojis.menuItems[MenuItem.Buildings]} "
                 + Localization.Get(session, "menu_item_buildings"),
                 null);
-            RegisterButton($"{Emojis.townMenu[TownMenu.Character]} "
+            RegisterButton($"{Emojis.menuItems[MenuItem.Character]} "
                 + Localization.Get(session, "menu_item_character"),
                 () => new TownCharacterDialog(session).Start());
-            RegisterButton($"{Emojis.townMenu[TownMenu.Quests]} "
+            RegisterButton($"{Emojis.menuItems[MenuItem.Quests]} "
                 + Localization.Get(session, "menu_item_quests"),
                 null);
-            RegisterButton($"{Emojis.townMenu[TownMenu.Mail]} "
+            RegisterButton($"{Emojis.menuItems[MenuItem.Mail]} "
                 + Localization.Get(session, "menu_item_mail"),
                 null);
-            RegisterButton($"{Emojis.townMenu[TownMenu.Options]} "
+            RegisterButton($"{Emojis.menuItems[MenuItem.Options]} "
                 + Localization.Get(session, "menu_item_options"),
                 null);
 
@@ -44,7 +44,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town
 
         public async override void Start()
         {
-            string header = $"{Emojis.townMenu[TownMenu.Town]} <b>" + Localization.Get(session, "menu_item_town") + "</b>\n\n";
+            string header = $"{Emojis.menuItems[MenuItem.Town]} <b>" + Localization.Get(session, "menu_item_town") + "</b>\n\n";
             string text;
             switch (_reason)
             {
