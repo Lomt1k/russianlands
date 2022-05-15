@@ -35,5 +35,10 @@ namespace TextGameRPG.Scripts.TelegramBot
             return await _botClient.SendTextMessageAsync(id, text, ParseMode.Html, replyMarkup: replyKeyboard, disableNotification: silent);
         }
 
+        public async Task AnswerQuery(string queryId, string? text = null)
+        {
+            await _botClient.AnswerCallbackQueryAsync(queryId, text);
+        }
+
     }
 }

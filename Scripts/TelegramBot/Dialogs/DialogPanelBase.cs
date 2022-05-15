@@ -20,6 +20,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
 
         private Dictionary<int, InlineKeyboardButton> _registeredButtons = new Dictionary<int, InlineKeyboardButton>();
         private Dictionary<int, Action?> _registeredCallbacks = new Dictionary<int, Action?>();
+        private Dictionary<int, string?> _registeredQueryAnswers = new Dictionary<int, string?>();
         private int _freeButtonId;
 
         protected int buttonsCount => _registeredButtons.Count;
@@ -31,7 +32,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
             panelId = _panelId;
         }
 
-        protected void RegisterButton(string text, Action? callback)
+        protected void RegisterButton(string text, Action? callback, string? queryAnswer = null)
         {
             var callbackData = new DialogPanelButtonCallbackData()
             {
@@ -42,6 +43,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
 
             _registeredButtons.Add(_freeButtonId, InlineKeyboardButton.WithCallbackData(text, callbackDataJson));
             _registeredCallbacks.Add(_freeButtonId, callback);
+            _registeredQueryAnswers.Add(_freeButtonId, queryAnswer);
             _freeButtonId++;
         }
 
@@ -49,6 +51,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
         {
             _registeredButtons.Clear();
             _registeredCallbacks.Clear();
+            _registeredQueryAnswers.Clear();
             _freeButtonId = 0;
         }
 
@@ -87,14 +90,15 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
         public abstract Task SendAsync();
         public abstract void OnDialogClose();
 
-        public virtual void HandleButtonPress(int buttonId)
+        public virtual void HandleButtonPress(int buttonId, string queryId)
         {
             if (_registeredCallbacks.TryGetValue(buttonId, out var callback))
             {
+                messageSender.AnswerQuery(queryId, _registeredQueryAnswers[buttonId]);
                 if (callback != null)
                 {
                     callback();
-                }
+                }                
             }
         }
 

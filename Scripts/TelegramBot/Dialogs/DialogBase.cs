@@ -95,11 +95,11 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
             }
         }
 
-        public virtual void HandleCallbackQuery(DialogPanelButtonCallbackData callback)
+        public virtual void HandleCallbackQuery(string queryId, DialogPanelButtonCallbackData callback)
         {
             if (registeredPanels.TryGetValue(callback.panelId, out var panel))
             {
-                panel.HandleButtonPress(callback.buttonId);
+                panel.HandleButtonPress(callback.buttonId, queryId);
             }
         }
 

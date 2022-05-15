@@ -80,7 +80,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
             switch (callbackData)
             {
                 case DialogPanelButtonCallbackData dialogPanelButtonCallback:
-                    currentDialog.HandleCallbackQuery(dialogPanelButtonCallback);
+                    currentDialog.HandleCallbackQuery(query.Id, dialogPanelButtonCallback);
                     return;
             }
         }
