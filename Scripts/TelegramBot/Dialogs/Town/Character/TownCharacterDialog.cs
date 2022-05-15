@@ -1,14 +1,14 @@
 ﻿using TextGameRPG.Scripts.GameCore.Localization;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 
-namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town
+namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
 {
     internal class TownCharacterDialog : DialogBase
     {
         public TownCharacterDialog(GameSession _session) : base(_session)
         {
             RegisterButton($"{Emojis.menuItems[MenuItem.Attributes]} " + Localization.Get(session, "menu_item_attributes"),
-                null);
+                () => new AttributesDialog(session).Start());
             RegisterButton($"{Emojis.menuItems[MenuItem.Inventory]} " + Localization.Get(session, "menu_item_inventory"),
                 null);
             RegisterButton(Localization.Get(session, "menu_item_backButton"), 

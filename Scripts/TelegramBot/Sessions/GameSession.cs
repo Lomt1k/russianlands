@@ -1,10 +1,13 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using JsonKnownTypes;
+using System;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using TextGameRPG.Scripts.GameCore.Localization;
 using TextGameRPG.Scripts.GameCore.Profiles;
 using TextGameRPG.Scripts.GameCore.Units;
+using TextGameRPG.Scripts.TelegramBot.CallbackData;
 using TextGameRPG.Scripts.TelegramBot.DataBase.TablesStructure;
 using TextGameRPG.Scripts.TelegramBot.Dialogs;
 using TextGameRPG.Scripts.TelegramBot.Dialogs.Town;
@@ -33,6 +36,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
 
         public void SetupActiveDialog(DialogBase dialog)
         {
+            currentDialog?.OnClose();
             currentDialog = dialog;
         }
 
@@ -69,7 +73,16 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
 
         public void HandleQuery(CallbackQuery query)
         {
-            //TODO
+            if (query == null || query.Data == null)
+                return;
+
+            var callbackData = JsonConvert.DeserializeObject<CallbackDataBase>(query.Data);
+            switch (callbackData)
+            {
+                case DialogPanelButtonCallbackData dialogPanelButtonCallback:
+                    currentDialog.HandleCallbackQuery(dialogPanelButtonCallback);
+                    return;
+            }
         }
 
         private async void OnStartNewSession(User actualUser)

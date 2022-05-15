@@ -8,6 +8,11 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
 
         private Player _player;
 
+        public int currentStrength { get; protected set; }
+        public int currentVitality { get; protected set; }
+        public int currentSorcery { get; protected set; }
+        public int currentLuck { get; protected set; }
+
         public PlayerStats(Player player)
         {
             _player = player;
@@ -24,10 +29,16 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
 
         private void CalculateBaseValues()
         {
-            var playerLevel = _player.session.profile.data.level;
-            var defaultHealthAndMana = DEFAULT_HEALTH + HEALTH_AND_MANA_PER_LEVEL * (playerLevel - 1);
+            var profileData = _player.session.profile.data;
+
+            var defaultHealthAndMana = DEFAULT_HEALTH + HEALTH_AND_MANA_PER_LEVEL * (profileData.level - 1);
             maxHP = defaultHealthAndMana;
             maxMP = defaultHealthAndMana;
+
+            currentStrength = profileData.attributeStrength;
+            currentVitality = profileData.attributeVitality;
+            currentSorcery = profileData.attributeSorcery;
+            currentLuck = profileData.attributeLuck;
         }
 
 

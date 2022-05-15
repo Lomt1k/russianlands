@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
+using TextGameRPG.Scripts.TelegramBot.CallbackData;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 
 namespace TextGameRPG.Scripts.TelegramBot.Dialogs
@@ -11,9 +13,10 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
     {
         protected static SessionManager sessionManager => TelegramBot.instance.sessionManager;
         protected static MessageSender messageSender => TelegramBot.instance.messageSender;
-        protected GameSession session { get; }
+        public GameSession session { get; }
 
         private Dictionary<KeyboardButton, Action?> registeredButtons = new Dictionary<KeyboardButton, Action?>();
+        private Dictionary<byte, DialogPanelBase> registeredPanels = new Dictionary<byte, DialogPanelBase>();
 
         public DialogBase(GameSession _session)
         {
@@ -24,6 +27,11 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
         protected void RegisterButton(string text, Action? callback)
         {
             registeredButtons.Add(text, callback);
+        }
+
+        protected void RegisterPanel(DialogPanelBase dialogPanel)
+        {
+            registeredPanels.Add(dialogPanel.panelId, dialogPanel);
         }
 
         protected ReplyKeyboardMarkup GetOneLineKeyboard()
@@ -58,9 +66,12 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
             return new ReplyKeyboardMarkup(rows);
         }
 
-        protected List<KeyboardButton> GetButtons()
+        protected async Task SendPanelsAsync()
         {
-            return registeredButtons.Keys.ToList();
+            foreach (var panel in registeredPanels.Values)
+            {
+                await panel.SendAsync();
+            }
         }
 
         public abstract void Start();
@@ -81,6 +92,22 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
                         }
                     }
                 }
+            }
+        }
+
+        public virtual void HandleCallbackQuery(DialogPanelButtonCallbackData callback)
+        {
+            if (registeredPanels.TryGetValue(callback.panelId, out var panel))
+            {
+                panel.HandleButtonPress(callback.buttonId);
+            }
+        }
+
+        public virtual void OnClose()
+        {
+            foreach (var panel in registeredPanels.Values)
+            {
+                panel.OnDialogClose();
             }
         }
 
