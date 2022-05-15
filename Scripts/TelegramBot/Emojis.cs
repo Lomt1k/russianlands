@@ -58,7 +58,9 @@ namespace TextGameRPG.Scripts.TelegramBot
         WarningRed,
         WarningGrey,
         QuestionRed,
-        QuestionGrey
+        QuestionGrey,
+        Back,
+        Info
     }
 
     public static class Emojis
@@ -121,7 +123,9 @@ namespace TextGameRPG.Scripts.TelegramBot
             { Element.WarningRed, "\u2757\ufe0f" },
             { Element.WarningGrey, "\u2755" },
             { Element.QuestionRed, "\u2753" },
-            { Element.QuestionGrey, "\u2754" }
+            { Element.QuestionGrey, "\u2754" },
+            { Element.Back, "\u25c0\ufe0f" },
+            { Element.Info, "\u2139\ufe0f" }
         };
 
     }

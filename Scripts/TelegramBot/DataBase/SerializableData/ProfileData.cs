@@ -17,6 +17,7 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData
         public short attributeVitality;
         public short attributeSorcery;
         public short attributeLuck;
+        public short attributePoints;
         public int resourceGold;
         public int resourceFood;
         public int resourceDiamonds;
@@ -36,6 +37,7 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData
                 new TableColumn("attributeVitality", "INTEGER", "1"),
                 new TableColumn("attributeSorcery", "INTEGER", "1"),
                 new TableColumn("attributeLuck", "INTEGER", "1"),
+                new TableColumn("attributePoints", "INTEGER", "4"), //4 - for test!
                 new TableColumn("resourceGold", "INTEGER", "0"),
                 new TableColumn("resourceFood", "INTEGER", "0"),
                 new TableColumn("resourceDiamonds", "INTEGER", "0"),                

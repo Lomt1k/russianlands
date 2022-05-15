@@ -15,15 +15,19 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
         protected static SessionManager sessionManager => TelegramBot.instance.sessionManager;
         protected static MessageSender messageSender => TelegramBot.instance.messageSender;
         public DialogBase dialog { get; }
+        public GameSession session { get; }
         public byte panelId { get; }
 
         private Dictionary<int, InlineKeyboardButton> _registeredButtons = new Dictionary<int, InlineKeyboardButton>();
         private Dictionary<int, Action?> _registeredCallbacks = new Dictionary<int, Action?>();
         private int _freeButtonId;
 
+        protected int buttonsCount => _registeredButtons.Count;
+
         public DialogPanelBase(DialogBase _dialog, byte _panelId)
         {
             dialog = _dialog;
+            session = _dialog.session;
             panelId = _panelId;
         }
 
@@ -39,6 +43,13 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
             _registeredButtons.Add(_freeButtonId, InlineKeyboardButton.WithCallbackData(text, callbackDataJson));
             _registeredCallbacks.Add(_freeButtonId, callback);
             _freeButtonId++;
+        }
+
+        protected void ClearButtons()
+        {
+            _registeredButtons.Clear();
+            _registeredCallbacks.Clear();
+            _freeButtonId = 0;
         }
 
         protected InlineKeyboardMarkup GetOneLineKeyboard()
@@ -73,7 +84,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
             return new InlineKeyboardMarkup(rows);
         }
 
-        public abstract Task<Message> SendAsync();
+        public abstract Task SendAsync();
         public abstract void OnDialogClose();
 
         public virtual void HandleButtonPress(int buttonId)
