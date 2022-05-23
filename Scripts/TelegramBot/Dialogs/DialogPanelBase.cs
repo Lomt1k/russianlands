@@ -5,7 +5,6 @@ using TextGameRPG.Scripts.TelegramBot.CallbackData;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 using Newtonsoft.Json;
 using System.Linq;
-using Telegram.Bot.Types;
 using System.Threading.Tasks;
 
 namespace TextGameRPG.Scripts.TelegramBot.Dialogs
@@ -20,7 +19,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
 
         private Dictionary<int, InlineKeyboardButton> _registeredButtons = new Dictionary<int, InlineKeyboardButton>();
         private Dictionary<int, Action?> _registeredCallbacks = new Dictionary<int, Action?>();
-        private Dictionary<int, string?> _registeredQueryAnswers = new Dictionary<int, string?>();
+        private Dictionary<int, Func<string?>> _registeredQueryAnswers = new Dictionary<int, Func<string?>>();
         private int _freeButtonId;
 
         protected int buttonsCount => _registeredButtons.Count;
@@ -32,7 +31,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
             panelId = _panelId;
         }
 
-        protected void RegisterButton(string text, Action? callback, string? queryAnswer = null)
+        protected void RegisterButton(string text, Action? callback, Func<string?>? queryAnswer = null)
         {
             var callbackData = new DialogPanelButtonCallbackData()
             {
@@ -94,7 +93,10 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
         {
             if (_registeredCallbacks.TryGetValue(buttonId, out var callback))
             {
-                messageSender.AnswerQuery(queryId, _registeredQueryAnswers[buttonId]);
+                var generateQueryFunc = _registeredQueryAnswers[buttonId];
+                var query = generateQueryFunc != null ? generateQueryFunc() : null;
+                messageSender.AnswerQuery(queryId, query);
+
                 if (callback != null)
                 {
                     callback();

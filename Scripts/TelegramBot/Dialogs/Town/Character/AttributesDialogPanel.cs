@@ -1,6 +1,5 @@
 ﻿using System.Text;
 using System.Threading.Tasks;
-using Telegram.Bot.Types.ReplyMarkups;
 using TextGameRPG.Scripts.GameCore.Localization;
 using TextGameRPG.Scripts.GameCore.Units.Stats;
 
@@ -11,7 +10,6 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
         private int? _messageId;
         private bool _isInfoOpened;
         private bool _isClosing;
-        private InlineKeyboardMarkup _lastKeyboard;
 
         public AttributesDialogPanel(DialogBase _dialog, byte _panelId) : base(_dialog, _panelId)
         {            
