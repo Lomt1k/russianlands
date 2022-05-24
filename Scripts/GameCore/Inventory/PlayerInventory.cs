@@ -6,16 +6,16 @@ using JsonKnownTypes;
 
 namespace TextGameRPG.Scripts.GameCore.Inventory
 {
-    [JsonConverter(typeof(JsonKnownTypesConverter<Inventory>))]
-    public class Inventory
+    [JsonConverter(typeof(JsonKnownTypesConverter<PlayerInventory>))]
+    public class PlayerInventory
     {
         public List<InventoryItem> items { get; private set; } = new List<InventoryItem>();
 
-        public Inventory()
+        public PlayerInventory()
         {
         }
 
-        public Inventory(IEnumerable<InventoryItem> items) : this()
+        public PlayerInventory(IEnumerable<InventoryItem> items) : this()
         {
             this.items = items.ToList();
         }

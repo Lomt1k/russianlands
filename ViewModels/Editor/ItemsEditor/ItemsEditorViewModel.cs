@@ -89,7 +89,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
 
             int newItemId = allItems.Count > 0 ? allItems.Max(x => x.id) + 1 : 1;
             var newItemType = selectedCategory.itemType == ItemType.Any
-                ? ItemType.MeleeWeapon
+                ? ItemType.Sword
                 : selectedCategory.itemType;
 
             var newItem = new ItemData("[NEW ITEM]", newItemId, newItemType, ItemRarity.Common, 0);

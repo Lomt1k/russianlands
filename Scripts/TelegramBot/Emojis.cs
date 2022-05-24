@@ -27,6 +27,23 @@ namespace TextGameRPG.Scripts.TelegramBot
         Mana
     }
 
+    public enum Inventory
+    {
+        Sword,
+        Bow,
+        Stick,
+        Armor,
+        Helmet,
+        Boots,
+        Shield,
+        Amulet,
+        Ring,
+        Poison,
+        Spells,
+        Tome,
+        Scroll
+    }
+
     public enum Resource
     {
         Gold,
@@ -90,6 +107,23 @@ namespace TextGameRPG.Scripts.TelegramBot
         {
             { Attribute.Health, "\u2764\ufe0f" },
             { Attribute.Mana, "\ud83d\udd2e" }
+        };
+
+        public static readonly Dictionary<Inventory, string> inventory = new Dictionary<Inventory, string>
+        {
+            { Inventory.Sword, "\ud83d\udde1" },
+            { Inventory.Bow, "\ud83c\udff9" },
+            { Inventory.Stick, "\ud83e\ude84" },
+            { Inventory.Helmet, "\ud83e\ude96" },
+            { Inventory.Armor, "\ud83e\udd4b" },
+            { Inventory.Boots, "\ud83e\udd7e" },
+            { Inventory.Shield, "\ud83d\udee1" },
+            { Inventory.Amulet, "\ud83d\udcff" },
+            { Inventory.Ring, "\ud83d\udc8d" },
+            { Inventory.Poison, "\ud83e\uddea" },
+            { Inventory.Spells, "\ud83d\udcab" },
+            { Inventory.Tome, "\ud83d\udcd6" },
+            { Inventory.Scroll, "\ud83d\udcdc" }
         };
 
         public static readonly Dictionary<Resource, string> resources = new Dictionary<Resource, string>

@@ -10,7 +10,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
             RegisterButton($"{Emojis.menuItems[MenuItem.Attributes]} " + Localization.Get(session, "menu_item_attributes"),
                 () => new AttributesDialog(session).Start());
             RegisterButton($"{Emojis.menuItems[MenuItem.Inventory]} " + Localization.Get(session, "menu_item_inventory"),
-                null);
+                () => new InventoryDialog(session).Start());
             RegisterButton($"{Emojis.elements[Element.Back]} " + Localization.Get(session, "menu_item_backButton"), 
                 () => new TownEntryDialog(session, TownEntryReason.BackFromInnerDialog).Start());
         }
