@@ -7,13 +7,14 @@ namespace TextGameRPG.Scripts.GameCore.Items
         Sword = 0,
         Bow = 1,
         Stick = 2,
-        Armour = 3,
+        Armor = 3,
         Helmet = 4,
         Boots = 5,
         Shield = 6,
-        Ring = 7,
-        Amulet = 8,
-        Tome = 9,
-        Scroll = 10
+        Amulet = 7,
+        Ring = 8,        
+        Poison = 9,
+        Tome = 10,
+        Scroll = 11
     }
 }
