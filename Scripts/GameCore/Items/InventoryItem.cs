@@ -39,5 +39,10 @@ namespace TextGameRPG.Scripts.GameCore.Items
             return clone;
         }
 
+        public void SetEquippedState(bool state)
+        {
+            isEquipped = state;
+        }
+
     }
 }

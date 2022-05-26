@@ -17,4 +17,33 @@ namespace TextGameRPG.Scripts.GameCore.Items
         Tome = 10,
         Scroll = 11
     }
+
+    static class ItemTypeExtensions
+    {
+        public static bool IsMultiSlot(this ItemType itemType)
+        {
+            return itemType == ItemType.Ring
+                || itemType == ItemType.Poison
+                || itemType == ItemType.Tome
+                || itemType == ItemType.Scroll;
+        }
+
+        public static int GetSlotsCount(this ItemType itemType)
+        {
+            switch (itemType)
+            {
+                case ItemType.Any:
+                    return 0;
+                case ItemType.Ring:
+                    return 2;
+                case ItemType.Poison:
+                case ItemType.Tome:
+                case ItemType.Scroll:
+                    return 4;
+
+                default:
+                    return 1;
+            }
+        }
+    }    
 }
