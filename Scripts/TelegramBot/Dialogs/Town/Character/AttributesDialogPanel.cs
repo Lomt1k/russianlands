@@ -64,10 +64,10 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
 
             var sb = new StringBuilder();
             string attributeStart = $"\n{Emojis.elements[Element.SmallWhite]} ";
-            AppendAttribute("unit_attribute_strength", stats.currentStrength, profileData.attributeStrength);
-            AppendAttribute("unit_attribute_vitality", stats.currentVitality, profileData.attributeVitality);
-            AppendAttribute("unit_attribute_sorcery", stats.currentSorcery, profileData.attributeSorcery);
-            AppendAttribute("unit_attribute_luck", stats.currentLuck, profileData.attributeLuck);
+            AppendAttribute("unit_attribute_strength", stats.attributeStrength, profileData.attributeStrength);
+            AppendAttribute("unit_attribute_vitality", stats.attributeVitality, profileData.attributeVitality);
+            AppendAttribute("unit_attribute_sorcery", stats.attributeSorcery, profileData.attributeSorcery);
+            AppendAttribute("unit_attribute_luck", stats.attributeLuck, profileData.attributeLuck);
 
             var attributePoints = session.profile.data.attributePoints;
             if (!_isClosing && attributePoints > 0)

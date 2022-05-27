@@ -1,4 +1,6 @@
 ﻿
+using TextGameRPG.Scripts.GameCore.Items.ItemProperties;
+
 namespace TextGameRPG.Scripts.GameCore.Units.Stats
 {
     public class PlayerStats : UnitStats
@@ -8,10 +10,11 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
 
         private Player _player;
 
-        public int currentStrength { get; protected set; }
-        public int currentVitality { get; protected set; }
-        public int currentSorcery { get; protected set; }
-        public int currentLuck { get; protected set; }
+        // Attributes
+        public int attributeStrength { get; protected set; }
+        public int attributeVitality { get; protected set; }
+        public int attributeSorcery { get; protected set; }
+        public int attributeLuck { get; protected set; }
 
         public PlayerStats(Player player)
         {
@@ -31,6 +34,7 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
         public void Recalculate()
         {
             CalculateBaseValues();
+            ApplyItemProperties();
         }
 
         private void CalculateBaseValues()
@@ -41,10 +45,46 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
             maxHP = defaultHealthAndMana;
             maxMP = defaultHealthAndMana;
 
-            currentStrength = profileData.attributeStrength;
-            currentVitality = profileData.attributeVitality;
-            currentSorcery = profileData.attributeSorcery;
-            currentLuck = profileData.attributeLuck;
+            attributeStrength = profileData.attributeStrength;
+            attributeVitality = profileData.attributeVitality;
+            attributeSorcery = profileData.attributeSorcery;
+            attributeLuck = profileData.attributeLuck;
+
+            physicalResist = 0;
+            fireResist = 0;
+            coldResist = 0;
+            lightningResist = 0;
+        }
+
+        private void ApplyItemProperties()
+        {
+            var equippedItems = _player.inventory.equipped.allEquipped;
+            foreach (var item in equippedItems)
+            {
+                foreach (var property in item.data.properties)
+                {
+                    ApplyProperty(property);
+                }
+            }
+        }
+
+        private void ApplyProperty(ItemPropertyBase property)
+        {
+            switch (property)
+            {
+                case PhysicalDamageResistItemProperty physicalDamageResist:
+                    this.physicalResist += physicalDamageResist.value;
+                    break;
+                case FireDamageResistItemProperty fireDamageResist:
+                    this.fireResist += fireDamageResist.value;
+                    break;
+                case ColdDamageResistItemProperty coldDamageResist:
+                    this.coldResist += coldDamageResist.value;
+                    break;
+                case LightningDamageResistItemProperty lightningDamageResist:
+                    this.lightningResist += lightningDamageResist.value;
+                    break;
+            }
         }
 
 

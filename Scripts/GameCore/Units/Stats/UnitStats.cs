@@ -36,6 +36,7 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
         public int physicalResist { get; protected set; }
         public int fireResist { get; protected set; }
         public int coldResist { get; protected set; }
+        public int lightningResist { get; protected set; }
 
         public void SetFullHealth()
         {

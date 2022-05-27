@@ -11,6 +11,13 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties
             _properties = new Dictionary<ItemPropertyType, ItemPropertyBase>
             {
                 { ItemPropertyType.PhysicalDamage, new PhysicalDamageItemProperty(0, 0) },
+                { ItemPropertyType.PhysicalDamageResist, new PhysicalDamageResistItemProperty(0) },
+                { ItemPropertyType.FireDamage, new FireDamageItemProperty(0, 0) },
+                { ItemPropertyType.FireDamageResist, new FireDamageResistItemProperty(0) },
+                { ItemPropertyType.ColdDamage, new ColdDamageItemProperty(0, 0) },
+                { ItemPropertyType.ColdDamageResist, new ColdDamageResistItemProperty(0) },
+                { ItemPropertyType.LightningDamage, new LightningDamageItemProperty(0, 0) },
+                { ItemPropertyType.LightningDamageResist, new LightningDamageResistItemProperty(0) },
             };
         }
 
