@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using TextGameRPG.Scripts.GameCore.Items;
 
@@ -24,6 +25,16 @@ namespace TextGameRPG.Scripts.GameCore.Inventory
             { ItemType.Scroll, new InventoryItem?[ItemType.Scroll.GetSlotsCount()] },
         };
 
+        private List<InventoryItem> _allEquipped = new List<InventoryItem>();
+
+        public InventoryItem[] allEquipped => _allEquipped.ToArray();
+
+        public InventoryItem? this[ItemType type] => _singleEquipped[type];
+
+        public InventoryItem? this[ItemType type, int slot] => _multiEquipped[type][slot];
+
+        public Action? onUpdateEquippedItems;
+
         public EquippedItems(PlayerInventory inventory)
         {
             var allEquipped = inventory.GetAllItems().Where(x => x.isEquipped);
@@ -33,7 +44,7 @@ namespace TextGameRPG.Scripts.GameCore.Inventory
             }
         }
 
-        // only on init (исправляет "лишние" экипированные предметы в случае некорректной даты)
+        // в том числе исправляет "лишние" экипированные предметы в случае некорректной даты
         private void TrySetupAsEquipped(InventoryItem item)
         {
             var itemType = item.data.itemType;
@@ -44,6 +55,7 @@ namespace TextGameRPG.Scripts.GameCore.Inventory
                     if (_multiEquipped[itemType][i] == null)
                     {
                         _multiEquipped[itemType][i] = item;
+                        _allEquipped.Add(item);
                         return;
                     }
                 }
@@ -54,6 +66,7 @@ namespace TextGameRPG.Scripts.GameCore.Inventory
                 if (!_singleEquipped.ContainsKey(itemType))
                 {
                     _singleEquipped.Add(itemType, item);
+                    _allEquipped.Add(item);
                 }
                 else
                 {
@@ -74,11 +87,13 @@ namespace TextGameRPG.Scripts.GameCore.Inventory
             var currentItem = _singleEquipped[itemType];
             if (currentItem != null)
             {
-                Unequip(currentItem);
+                Unequip(currentItem, withInvokeEvent: false);
             }
 
             _singleEquipped[itemType] = item;
+            _allEquipped.Add(item);
             item.SetEquippedState(true);
+            OnUpdateEquippedItems();
         }
 
         public void EquipMultiSlot(InventoryItem item, int slot)
@@ -93,14 +108,16 @@ namespace TextGameRPG.Scripts.GameCore.Inventory
             var currentItem = _multiEquipped[itemType][slot];
             if (currentItem != null)
             {
-                Unequip(currentItem);
+                Unequip(currentItem, withInvokeEvent: false);
             }
 
             _multiEquipped[itemType][slot] = item;
+            _allEquipped.Add(item);
             item.SetEquippedState(true);
+            OnUpdateEquippedItems();
         }
 
-        public void Unequip(InventoryItem item)
+        public void Unequip(InventoryItem item, bool withInvokeEvent = true)
         {
             var itemType = item.data.itemType;
             if (itemType.IsMultiSlot())
@@ -119,8 +136,20 @@ namespace TextGameRPG.Scripts.GameCore.Inventory
                 _singleEquipped[itemType] = null;
             }
 
+            _allEquipped.Remove(item);
             item.SetEquippedState(false);
+
+            if (withInvokeEvent)
+            {
+                OnUpdateEquippedItems();
+            }
         }
 
+        private void OnUpdateEquippedItems()
+        {
+            onUpdateEquippedItems?.Invoke();
+        }
+
+        
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using TextGameRPG.Scripts.GameCore.Inventory;
 using TextGameRPG.Scripts.GameCore.Units.Stats;
 using TextGameRPG.Scripts.TelegramBot;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
@@ -10,6 +11,7 @@ namespace TextGameRPG.Scripts.GameCore.Units
     {
         public GameSession session { get; private set; }
         public UnitStats unitStats { get; private set; }
+        public PlayerInventory inventory => session.profile.dynamicData.inventory;
         public string nickname => session.profile.data.nickname;
 
         public Player(GameSession _session)

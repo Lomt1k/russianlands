@@ -77,5 +77,13 @@ namespace TextGameRPG.Scripts.GameCore.Inventory
             equipped.Unequip(item);
         }
 
+        public void AddNewItemSlots(int count)
+        {
+            if (count < 1)
+                return;
+
+            inventorySize += count;
+        }
+
     }
 }

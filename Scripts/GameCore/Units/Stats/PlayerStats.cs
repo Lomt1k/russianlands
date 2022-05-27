@@ -16,10 +16,16 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
         public PlayerStats(Player player)
         {
             _player = player;
+            SubscribeEvents();
             Recalculate();
 
             SetFullHealth();
             SetFullMana();
+        }
+
+        public void SubscribeEvents()
+        {
+            _player.inventory.equipped.onUpdateEquippedItems += Recalculate;
         }
 
         public void Recalculate()
