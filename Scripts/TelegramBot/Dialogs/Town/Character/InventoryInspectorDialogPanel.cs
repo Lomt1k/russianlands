@@ -2,6 +2,7 @@
 using System.Text;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
+using Telegram.Bot.Types.ReplyMarkups;
 using TextGameRPG.Scripts.GameCore.Inventory;
 using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.GameCore.Localization;
@@ -10,7 +11,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
 {
     internal class InventoryInspectorDialogPanel : DialogPanelBase
     {
-        private int browsedItemsOnPage = 5;
+        private const int browsedItemsOnPage = 5;
 
         private readonly string _mainItemsInfo;
 
@@ -126,13 +127,22 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
                 RegisterButton(item.data.debugName, () => OnItemClick(item));
             }
 
+            RegisterButton(Emojis.menuItems[MenuItem.Inventory], async() => await OnClickCloseCategory());
+            if (_pagesCount > 1)
+            {
+                if (_currentPage > 0)
+                    RegisterButton("<<", async() => await OnClickPreviousPage());
+                if (_currentPage < _pagesCount - 1)
+                    RegisterButton(">>", async() => await OnClickNextPage());
+            }
+
             if (asNewMessage)
             {
-                _lastMessage = await messageSender.SendTextMessage(session.chatId, text.ToString(), GetMultilineKeyboard());
+                _lastMessage = await messageSender.SendTextMessage(session.chatId, text.ToString(), GetItemsPageKeyboard());
             }
             else
             {
-                await messageSender.EditTextMessage(session.chatId, _lastMessage.MessageId, text.ToString(), GetMultilineKeyboard());
+                _lastMessage = await messageSender.EditTextMessage(session.chatId, _lastMessage.MessageId, text.ToString(), GetItemsPageKeyboard());
             }
         }
 
@@ -148,7 +158,39 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
 
         private void OnItemClick(InventoryItem item)
         {
+            //TODO
             Program.logger.Debug($"OnItemClick {item.data.debugName}");
+        }
+
+        private async Task OnClickCloseCategory()
+        {
+            await ShowMainInfo();
+        }
+
+        private async Task OnClickPreviousPage()
+        {
+            _currentPage--;
+            await ShowItemsPage(asNewMessage: false);
+        }
+
+        private async Task OnClickNextPage()
+        {
+            _currentPage++;
+            await ShowItemsPage(asNewMessage: false);
+        }
+
+        private InlineKeyboardMarkup GetItemsPageKeyboard()
+        {
+            if (_pagesCount < 2)
+                return GetMultilineKeyboard();
+
+            int lastRowButtons = _currentPage == _pagesCount - 1 || _currentPage == 0 ? 2 : 3;
+            var paramers = new int[buttonsCount - lastRowButtons + 1];
+            for (int i = 0; i < paramers.Length; i++)
+            {
+                paramers[i] = i < paramers.Length - 1 ? 1 : lastRowButtons;
+            }
+            return GetKeyboardWithRowSizes(paramers);
         }
 
         private async Task RemoveKeyboardFromLastMessage()
