@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using TextGameRPG.Scripts.GameCore.Items;
 
 namespace TextGameRPG.Scripts.TelegramBot
 {
@@ -18,30 +19,14 @@ namespace TextGameRPG.Scripts.TelegramBot
         Mail,
         Options,
         Attributes,
-        Inventory
+        Inventory,
+        Spells
     }
 
     public enum Attribute
     {
         Health,
         Mana
-    }
-
-    public enum Inventory
-    {
-        Sword,
-        Bow,
-        Stick,
-        Armor,
-        Helmet,
-        Boots,
-        Shield,
-        Amulet,
-        Ring,
-        Poison,
-        Spells,
-        Tome,
-        Scroll
     }
 
     public enum Resource
@@ -101,6 +86,7 @@ namespace TextGameRPG.Scripts.TelegramBot
             { MenuItem.Options, "\u2699\ufe0f" },
             { MenuItem.Attributes, "\ud83c\udfaf" },
             { MenuItem.Inventory, "\ud83c\udf92" },
+            { MenuItem.Spells, "\ud83d\udcab" },
         };
 
         public static readonly Dictionary<Attribute, string> atributes = new Dictionary<Attribute, string>
@@ -109,21 +95,21 @@ namespace TextGameRPG.Scripts.TelegramBot
             { Attribute.Mana, "\ud83d\udd2e" }
         };
 
-        public static readonly Dictionary<Inventory, string> inventory = new Dictionary<Inventory, string>
+        public static readonly Dictionary<ItemType, string> items = new Dictionary<ItemType, string>
         {
-            { Inventory.Sword, "\ud83d\udde1" },
-            { Inventory.Bow, "\ud83c\udff9" },
-            { Inventory.Stick, "\ud83e\ude84" },
-            { Inventory.Helmet, "\ud83e\ude96" },
-            { Inventory.Armor, "\ud83e\udd4b" },
-            { Inventory.Boots, "\ud83e\udd7e" },
-            { Inventory.Shield, "\ud83d\udee1" },
-            { Inventory.Amulet, "\ud83d\udcff" },
-            { Inventory.Ring, "\ud83d\udc8d" },
-            { Inventory.Poison, "\ud83e\uddea" },
-            { Inventory.Spells, "\ud83d\udcab" },
-            { Inventory.Tome, "\ud83d\udcd6" },
-            { Inventory.Scroll, "\ud83d\udcdc" }
+            { ItemType.Sword, "\ud83d\udde1" },
+            { ItemType.Bow, "\ud83c\udff9" },
+            { ItemType.Stick, "\ud83e\ude84" },
+            { ItemType.Helmet, "\ud83e\ude96" },
+            { ItemType.Armor, "\ud83e\udd4b" },
+            { ItemType.Boots, "\ud83e\udd7e" },
+            { ItemType.Shield, "\ud83d\udee1" },
+            { ItemType.Amulet, "\ud83d\udcff" },
+            { ItemType.Ring, "\ud83d\udc8d" },
+            { ItemType.Poison, "\ud83e\uddea" },            
+            { ItemType.Tome, "\ud83d\udcd6" },
+            { ItemType.Scroll, "\ud83d\udcdc" },
+            { ItemType.Any, ""}
         };
 
         public static readonly Dictionary<Resource, string> resources = new Dictionary<Resource, string>

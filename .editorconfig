@@ -1,0 +1,4 @@
+﻿[*.cs]
+
+# CS8605: Распаковка-преобразование вероятного значения NULL.
+dotnet_diagnostic.CS8605.severity = none

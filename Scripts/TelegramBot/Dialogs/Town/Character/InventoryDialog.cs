@@ -1,33 +1,43 @@
-﻿using TextGameRPG.Scripts.GameCore.Localization;
+﻿using TextGameRPG.Scripts.GameCore.Inventory;
+using TextGameRPG.Scripts.GameCore.Localization;
+using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 
 namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
 {
     internal class InventoryDialog : DialogBase
     {
+        private PlayerInventory _inventory;
+        private InventoryInspectorDialogPanel _inspectorPanel;
+
         public InventoryDialog(GameSession _session) : base(_session)
         {
-            RegisterButton($"{Emojis.inventory[Inventory.Sword]} " + Localization.Get(session, "menu_item_swords"),
+            _inventory = session.player.inventory;
+
+            _inspectorPanel = new InventoryInspectorDialogPanel(this, 0);
+            RegisterPanel(_inspectorPanel);
+
+            RegisterButton($"{Emojis.items[ItemType.Sword]} " + Localization.Get(session, "menu_item_swords"),
+                async () => await _inspectorPanel.ShowCategory(ItemType.Sword));
+            RegisterButton($"{Emojis.items[ItemType.Bow]} " + Localization.Get(session, "menu_item_bows"),
+                async () => await _inspectorPanel.ShowCategory(ItemType.Bow));
+            RegisterButton($"{Emojis.items[ItemType.Stick]} " + Localization.Get(session, "menu_item_sticks"),
+                async () => await _inspectorPanel.ShowCategory(ItemType.Stick));
+            RegisterButton($"{Emojis.items[ItemType.Helmet]} " + Localization.Get(session, "menu_item_helmets"),
+                async () => await _inspectorPanel.ShowCategory(ItemType.Helmet));
+            RegisterButton($"{Emojis.items[ItemType.Armor]} " + Localization.Get(session, "menu_item_armors"),
+                async () => await _inspectorPanel.ShowCategory(ItemType.Armor));
+            RegisterButton($"{Emojis.items[ItemType.Boots]} " + Localization.Get(session, "menu_item_boots"),
+                async () => await _inspectorPanel.ShowCategory(ItemType.Boots));
+            RegisterButton($"{Emojis.items[ItemType.Shield]} " + Localization.Get(session, "menu_item_shields"),
+                async () => await _inspectorPanel.ShowCategory(ItemType.Shield));
+            RegisterButton($"{Emojis.items[ItemType.Amulet]} " + Localization.Get(session, "menu_item_amulets"),
+                async () => await _inspectorPanel.ShowCategory(ItemType.Amulet));
+            RegisterButton($"{Emojis.items[ItemType.Ring]} " + Localization.Get(session, "menu_item_rings"),
                 null);
-            RegisterButton($"{Emojis.inventory[Inventory.Bow]} " + Localization.Get(session, "menu_item_bows"),
+            RegisterButton($"{Emojis.items[ItemType.Poison]} " + Localization.Get(session, "menu_item_poisons"),
                 null);
-            RegisterButton($"{Emojis.inventory[Inventory.Stick]} " + Localization.Get(session, "menu_item_sticks"),
-                null);
-            RegisterButton($"{Emojis.inventory[Inventory.Helmet]} " + Localization.Get(session, "menu_item_helmets"),
-                null);
-            RegisterButton($"{Emojis.inventory[Inventory.Armor]} " + Localization.Get(session, "menu_item_armors"),
-                null);
-            RegisterButton($"{Emojis.inventory[Inventory.Boots]} " + Localization.Get(session, "menu_item_boots"),
-                null);
-            RegisterButton($"{Emojis.inventory[Inventory.Shield]} " + Localization.Get(session, "menu_item_shields"),
-                null);
-            RegisterButton($"{Emojis.inventory[Inventory.Amulet]} " + Localization.Get(session, "menu_item_amulets"),
-                null);
-            RegisterButton($"{Emojis.inventory[Inventory.Ring]} " + Localization.Get(session, "menu_item_rings"),
-                null);
-            RegisterButton($"{Emojis.inventory[Inventory.Poison]} " + Localization.Get(session, "menu_item_poisons"),
-                null);
-            RegisterButton($"{Emojis.inventory[Inventory.Spells]} " + Localization.Get(session, "menu_item_spells"),
+            RegisterButton($"{Emojis.menuItems[MenuItem.Spells]} " + Localization.Get(session, "menu_item_spells"),
                 null);
             RegisterButton($"{Emojis.elements[Element.Back]} " + Localization.Get(session, "menu_item_backButton"),
                 () => new TownCharacterDialog(session).Start());
@@ -35,7 +45,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
 
         public override async void Start()
         {
-            string header = $"{Emojis.menuItems[MenuItem.Inventory]} <b>{Localization.Get(session, "menu_item_inventory")}</b>";
+            var itemsCount = $"{_inventory.itemsCount} / {_inventory.inventorySize}";
+            string header = $"{Emojis.menuItems[MenuItem.Inventory]} <b>{Localization.Get(session, "menu_item_inventory")} ({itemsCount})</b>";
             await messageSender.SendTextDialog(session.chatId, header, GetKeyboardWithRowSizes(3, 3, 3, 3));
             await SendPanelsAsync();
         }
