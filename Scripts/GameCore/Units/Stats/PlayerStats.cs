@@ -35,6 +35,9 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
         {
             CalculateBaseValues();
             ApplyItemProperties();
+
+            currentHP = currentHP > maxHP ? maxHP : currentHP;
+            currentMP = currentMP > maxMP ? maxMP : currentMP;
         }
 
         private void CalculateBaseValues()
