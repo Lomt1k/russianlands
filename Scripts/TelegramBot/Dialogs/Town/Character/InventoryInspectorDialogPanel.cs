@@ -10,6 +10,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
 {
     internal class InventoryInspectorDialogPanel : DialogPanelBase
     {
+        private int browsedItemsOnPage = 5;
+
         private readonly string _mainItemsInfo;
 
         private PlayerInventory _inventory;
@@ -17,6 +19,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
 
         private ItemType? _browsedCategory;
         private InventoryItem[]? _browsedItems;
+        private int _currentPage;
+        private int _pagesCount;
         
 
         public InventoryInspectorDialogPanel(DialogBase _dialog, byte _panelId) : base(_dialog, _panelId)
@@ -72,10 +76,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
             text.AppendLine();
             text.Append(_mainItemsInfo);
 
-            if (_lastMessage?.ReplyMarkup != null)
-            {
-                await messageSender.EditMessageKeyboard(session.chatId, _lastMessage.MessageId, null);
-            }
+            await RemoveKeyboardFromLastMessage();
             _lastMessage = await messageSender.SendTextMessage(session.chatId, text.ToString(), GetMultilineKeyboard());
         }
 
@@ -84,33 +85,79 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
             if (_lastMessage == null)
                 return;
 
-            if (_lastMessage.ReplyMarkup != null)
-            {
-                await messageSender.EditMessageKeyboard(session.chatId, _lastMessage.MessageId, null);
-            }
-            
+            await RemoveKeyboardFromLastMessage();
+
             _browsedCategory = category;
             _browsedItems = _inventory.GetItemsByType(category).ToArray();
 
             if (_browsedItems.Length == 0)
             {
-                string stringCategory = category.ToString().ToLower();
-                if (!stringCategory.EndsWith('s'))
-                {
-                    stringCategory = stringCategory + 's';
-                }
-
-                var text = $"<b>{Localization.Get(session, $"menu_item_{stringCategory}")}:</b> "
+                var categoryLocalization = GetCategoryLocalization(category);
+                var text = $"<b>{categoryLocalization}:</b> "
                     + Localization.Get(session, "dialog_inventory_has_not_items");
                 _lastMessage = await messageSender.SendTextMessage(session.chatId, text);
                 return;
             }
-            await ShowItemsList(0, asNewMessage: true);
+
+            _currentPage = 0;
+            _pagesCount = _browsedItems.Length % browsedItemsOnPage > 0
+                ? _browsedItems.Length / browsedItemsOnPage + 1
+                : _browsedItems.Length / browsedItemsOnPage;
+
+            await ShowItemsPage(asNewMessage: true);
         }
 
-        private async Task ShowItemsList(int startIndex, bool asNewMessage)
+        private async Task ShowItemsPage(bool asNewMessage)
         {
-            //TODO
+            var categoryLocalization = GetCategoryLocalization(_browsedCategory.Value);
+
+            var text = new StringBuilder();
+            text.AppendLine($"<b>{categoryLocalization}:</b> {_browsedItems.Length}");
+            if (_pagesCount > 1)
+            {
+                text.AppendLine(string.Format(Localization.Get(session, "dialog_inventory_current_page"), _currentPage + 1, _pagesCount));
+            }
+
+            ClearButtons();
+            int startIndex = _currentPage * browsedItemsOnPage;
+            for (int i = startIndex; i < startIndex + browsedItemsOnPage && i < _browsedItems.Length; i++)
+            {
+                var item = _browsedItems[i];
+                RegisterButton(item.data.debugName, () => OnItemClick(item));
+            }
+
+            if (asNewMessage)
+            {
+                _lastMessage = await messageSender.SendTextMessage(session.chatId, text.ToString(), GetMultilineKeyboard());
+            }
+            else
+            {
+                await messageSender.EditTextMessage(session.chatId, _lastMessage.MessageId, text.ToString(), GetMultilineKeyboard());
+            }
+        }
+
+        private string GetCategoryLocalization(ItemType category)
+        {
+            string stringCategory = category.ToString().ToLower();
+            if (!stringCategory.EndsWith('s'))
+            {
+                stringCategory = stringCategory + 's';
+            }
+            return Localization.Get(session, $"menu_item_{stringCategory}");
+        }
+
+        private void OnItemClick(InventoryItem item)
+        {
+            Program.logger.Debug($"OnItemClick {item.data.debugName}");
+        }
+
+        private async Task RemoveKeyboardFromLastMessage()
+        {
+            ClearButtons();
+            if (_lastMessage?.ReplyMarkup != null)
+            {                
+                await messageSender.EditMessageKeyboard(session.chatId, _lastMessage.MessageId, null);
+            }
         }
 
         public override void OnDialogClose()

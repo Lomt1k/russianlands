@@ -34,6 +34,11 @@ namespace TextGameRPG.Scripts.GameCore.GameDataBase
 
         public T this[int id] => _dictionary[id];
 
+        public bool ContainsKey(int id)
+        {
+            return _dictionary.ContainsKey(id);
+        }
+
         public IEnumerable<T> GetAllData()
         {
             return _dictionary.Values;

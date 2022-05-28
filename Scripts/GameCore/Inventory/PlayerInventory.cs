@@ -81,6 +81,9 @@ namespace TextGameRPG.Scripts.GameCore.Inventory
             if (isFull)
                 return null;
 
+            if (!GameDataBase.GameDataBase.instance.items.ContainsKey(itemId))
+                return null;
+
             var item = new InventoryItem(itemId);
             items.Add(item);
             _itemsByType[item.data.itemType].Add(item);

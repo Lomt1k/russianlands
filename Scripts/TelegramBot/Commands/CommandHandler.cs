@@ -13,7 +13,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Commands
         {
             _commandsDictionary = new Dictionary<string, CommandBase>
             {
-                { "/language", new LanguageCommand() }
+                { "/language", new LanguageCommand() },
+                { "/additem", new AddItemCommand() }
             };
         }
 
