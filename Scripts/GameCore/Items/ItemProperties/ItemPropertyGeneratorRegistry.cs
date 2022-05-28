@@ -18,6 +18,12 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties
                 { ItemPropertyType.ColdDamageResist, new ColdDamageResistItemProperty(0) },
                 { ItemPropertyType.LightningDamage, new LightningDamageItemProperty(0, 0) },
                 { ItemPropertyType.LightningDamageResist, new LightningDamageResistItemProperty(0) },
+                { ItemPropertyType.IncreaseAttributeStrength, new IncreaseAttributeStrengthItemProperty(0) },
+                { ItemPropertyType.IncreaseAttributeVitality, new IncreaseAttributeVitalityItemProperty(0) },
+                { ItemPropertyType.IncreaseAttributeSorcery, new IncreaseAttributeSorceryItemProperty(0) },
+                { ItemPropertyType.IncreaseAttributeLuck, new IncreaseAttributeLuckItemProperty(0) },
+                { ItemPropertyType.IncreaseMaxHealth, new IncreaseMaxHealthItemProperty(0) },
+                { ItemPropertyType.IncreaseMaxMana, new IncreaseMaxManaProperty(0) }
             };
         }
 

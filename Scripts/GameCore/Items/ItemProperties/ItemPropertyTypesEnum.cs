@@ -11,6 +11,12 @@
         ColdDamageResist = 6,
         LightningDamage = 7,
         LightningDamageResist = 8,
+        IncreaseAttributeStrength = 9,
+        IncreaseAttributeVitality = 10,
+        IncreaseAttributeSorcery = 11,
+        IncreaseAttributeLuck = 12,
+        IncreaseMaxHealth = 13,
+        IncreaseMaxMana = 14
     }
 
 }
