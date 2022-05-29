@@ -1,4 +1,6 @@
-﻿namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties
+﻿using TextGameRPG.Scripts.TelegramBot.Sessions;
+
+namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties
 {
     internal class IncreaseMaxManaProperty : ItemPropertyBase
     {
@@ -14,8 +16,13 @@
 
         public override string ToString()
         {
-            var prefix = value >= 0 ? "+" : string.Empty;
-            return $"{prefix}{value} к максимальному запасу маны";
+            return $"{value} к максимальному запасу маны";
         }
+
+        public override string GetView(GameSession session)
+        {
+            return string.Format(Localization.Localization.Get(session, "property_view_increase_max_mana"), value);
+        }
+
     }
 }

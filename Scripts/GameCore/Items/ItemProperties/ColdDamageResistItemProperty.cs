@@ -1,4 +1,7 @@
-﻿namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties
+﻿using TextGameRPG.Scripts.TelegramBot;
+using TextGameRPG.Scripts.TelegramBot.Sessions;
+
+namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties
 {
     internal class ColdDamageResistItemProperty : ItemPropertyBase
     {
@@ -16,5 +19,11 @@
         {
             return $"{debugDescription}: {value}";
         }
+
+        public override string GetView(GameSession session)
+        {
+            return $"{Emojis.stats[Stat.ColdDamage]} {value}";
+        }
+
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using JsonKnownTypes;
+using TextGameRPG.Scripts.TelegramBot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties
 {
@@ -13,6 +14,8 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties
         {
             return (ItemPropertyBase)MemberwiseClone();
         }
+
+        public abstract string GetView(GameSession session);
 
     }
 

@@ -1,4 +1,6 @@
-﻿using TextGameRPG.Scripts.Utils;
+﻿using TextGameRPG.Scripts.TelegramBot;
+using TextGameRPG.Scripts.TelegramBot.Sessions;
+using TextGameRPG.Scripts.Utils;
 
 namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties
 {
@@ -23,9 +25,18 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties
 
         public override string ToString()
         {
-            return minDamage == maxDamage
-                ? $"{debugDescription}: {minDamage}"
-                : $"{debugDescription}: {minDamage} - {maxDamage}";
+            return $"{debugDescription}: {GetStringValue()}";
         }
+
+        public override string GetView(GameSession session)
+        {
+            return $"{Emojis.stats[Stat.FireDamage]} {GetStringValue()}";
+        }
+
+        private string GetStringValue()
+        {
+            return minDamage == maxDamage ? minDamage.ToString() : $"{minDamage} - {maxDamage}";
+        }
+
     }
 }

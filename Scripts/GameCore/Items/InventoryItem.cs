@@ -14,7 +14,7 @@ namespace TextGameRPG.Scripts.GameCore.Items
         public bool isNew { get; set; } = true;
 
         [JsonIgnore]
-        public ItemData? data { get; private set; }
+        public ItemData data { get; private set; }
 
         [JsonConstructor]
         private InventoryItem()
