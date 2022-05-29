@@ -23,10 +23,14 @@ namespace TextGameRPG.Scripts.TelegramBot
         Spells
     }
 
-    public enum Attribute
+    public enum Stat
     {
         Health,
-        Mana
+        Mana,
+        PhysicalDamage,
+        FireDamage,
+        ColdDamage,
+        LightningDamage
     }
 
     public enum Resource
@@ -89,10 +93,14 @@ namespace TextGameRPG.Scripts.TelegramBot
             { MenuItem.Spells, "\ud83d\udcab" },
         };
 
-        public static readonly Dictionary<Attribute, string> atributes = new Dictionary<Attribute, string>
+        public static readonly Dictionary<Stat, string> stats = new Dictionary<Stat, string>
         {
-            { Attribute.Health, "\u2764\ufe0f" },
-            { Attribute.Mana, "\ud83d\udd2e" }
+            { Stat.Health, "\u2764\ufe0f" },
+            { Stat.Mana, "\ud83d\udd2e" },
+            { Stat.PhysicalDamage, "\ud83d\udc4a" },
+            { Stat.FireDamage, "\ud83d\udd25" },
+            { Stat.ColdDamage, "\ud83e\uddca" },
+            { Stat.LightningDamage, "\u26a1\ufe0f" },
         };
 
         public static readonly Dictionary<ItemType, string> items = new Dictionary<ItemType, string>

@@ -140,7 +140,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
             for (int i = startIndex; i < startIndex + browsedItemsOnPage && i < _browsedItems.Length; i++)
             {
                 var item = _browsedItems[i];
-                RegisterButton(item.data.debugName, () => OnItemClick(item));
+                RegisterButton(item.GetFullName(session), async() => await OnItemClick(item));
             }
 
             RegisterButton(Emojis.menuItems[MenuItem.Inventory], async() => await OnClickCloseCategory());
@@ -172,10 +172,9 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
             return Localization.Get(session, $"menu_item_{stringCategory}");
         }
 
-        private void OnItemClick(InventoryItem item)
+        private async Task OnItemClick(InventoryItem item)
         {
-            //TODO
-            Program.logger.Debug($"OnItemClick {item.data.debugName}");
+            await ShowItemInspector(item);
         }
 
         private async Task OnClickCloseCategory()
@@ -207,6 +206,13 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
                 paramers[i] = i < paramers.Length - 1 ? 1 : lastRowButtons;
             }
             return GetKeyboardWithRowSizes(paramers);
+        }
+
+        private async Task ShowItemInspector(InventoryItem item)
+        {
+            var text = item.GetView(session);
+
+            _lastMessage = await messageSender.EditTextMessage(session.chatId, _lastMessage.MessageId, text);
         }
 
         private async Task RemoveKeyboardFromLastMessage()

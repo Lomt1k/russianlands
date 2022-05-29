@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using TextGameRPG.Scripts.GameCore.Items;
 using Newtonsoft.Json;
+using System.Runtime.Serialization;
 
 namespace TextGameRPG.Scripts.GameCore.Inventory
 {
@@ -14,7 +15,7 @@ namespace TextGameRPG.Scripts.GameCore.Inventory
         public List<InventoryItem> items { get; private set; } = new List<InventoryItem>(DEFAULT_SIZE);
 
         [JsonIgnore]
-        public EquippedItems equipped { get; }
+        public EquippedItems? equipped { get; private set; }
 
         [JsonIgnore]
         public bool isFull => items.Count >= inventorySize;
@@ -23,7 +24,12 @@ namespace TextGameRPG.Scripts.GameCore.Inventory
         public int itemsCount => items.Count;
 
         [JsonConstructor]
-        public PlayerInventory()
+        private PlayerInventory()
+        {
+        }
+
+        [OnDeserialized]
+        internal void OnDeserialized(StreamingContext context)
         {
             equipped = new EquippedItems(this);
             SortItemsByType();

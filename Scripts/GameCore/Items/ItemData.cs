@@ -1,9 +1,11 @@
 ﻿using TextGameRPG.Scripts.GameCore.GameDataBase;
+using Newtonsoft.Json;
 
 namespace TextGameRPG.Scripts.GameCore.Items
 {
     using ItemProperties;
     using System.Collections.Generic;
+    using System.Linq;
 
     public class ItemData : IDataWithIntegerID
     {
@@ -14,6 +16,10 @@ namespace TextGameRPG.Scripts.GameCore.Items
         public int requiredLevel { get; set; }
         public List<ItemPropertyBase> properties { get; private set; }
 
+        [JsonIgnore]
+        public Dictionary<ItemPropertyType, ItemPropertyBase> propertyByType;
+
+        [JsonConstructor]
         public ItemData(string debugName, int id, ItemType type, ItemRarity rarity, int requiredLevel,
             List<ItemPropertyBase>? properties = null)
         {
@@ -23,6 +29,8 @@ namespace TextGameRPG.Scripts.GameCore.Items
             this.itemRarity = rarity;
             this.requiredLevel = requiredLevel;
             this.properties = properties ?? new List<ItemPropertyBase>();
+
+            propertyByType = properties.ToDictionary(x => x.propertyType);
         }
 
         public ItemData Clone()
@@ -48,5 +56,38 @@ namespace TextGameRPG.Scripts.GameCore.Items
         {
             properties.RemoveAt(index);
         }
+
+        public bool HasDamageProperties()
+        {
+            foreach (var property in properties)
+            {
+                switch (property.propertyType)
+                {
+                    case ItemPropertyType.PhysicalDamage:
+                    case ItemPropertyType.FireDamage:
+                    case ItemPropertyType.ColdDamage:
+                    case ItemPropertyType.LightningDamage:
+                        return true;
+                }
+            }
+            return false;
+        }
+
+        public bool HasDamageResistProperties()
+        {
+            foreach (var property in properties)
+            {
+                switch (property.propertyType)
+                {
+                    case ItemPropertyType.PhysicalDamageResist:
+                    case ItemPropertyType.FireDamageResist:
+                    case ItemPropertyType.ColdDamageResist:
+                    case ItemPropertyType.LightningDamageResist:
+                        return true;
+                }
+            }
+            return false;
+        }
+
     }
 }
