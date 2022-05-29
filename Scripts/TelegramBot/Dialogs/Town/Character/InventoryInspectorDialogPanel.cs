@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
@@ -89,7 +90,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
             await RemoveKeyboardFromLastMessage();
 
             _browsedCategory = category;
-            _browsedItems = _inventory.GetItemsByType(category).ToArray();
+            _browsedItems = GetBrowsedItems(category);
 
             if (_browsedItems.Length == 0)
             {
@@ -106,6 +107,21 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
                 : _browsedItems.Length / browsedItemsOnPage;
 
             await ShowItemsPage(asNewMessage: true);
+        }
+
+        private InventoryItem[] GetBrowsedItems(ItemType category)
+        {
+            if (category == ItemType.Tome)
+            {
+                var magicItems = new List<InventoryItem>();
+                magicItems.AddRange(_inventory.GetItemsByType(category));
+                magicItems.AddRange(_inventory.GetItemsByType(ItemType.Scroll));
+                return magicItems.ToArray();
+            }
+            else
+            {
+                return _inventory.GetItemsByType(category).ToArray();
+            }
         }
 
         private async Task ShowItemsPage(bool asNewMessage)

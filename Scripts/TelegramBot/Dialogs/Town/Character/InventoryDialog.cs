@@ -34,11 +34,11 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
             RegisterButton($"{Emojis.items[ItemType.Amulet]} " + Localization.Get(session, "menu_item_amulets"),
                 async () => await _inspectorPanel.ShowCategory(ItemType.Amulet));
             RegisterButton($"{Emojis.items[ItemType.Ring]} " + Localization.Get(session, "menu_item_rings"),
-                null);
+                async () => await _inspectorPanel.ShowCategory(ItemType.Ring));
             RegisterButton($"{Emojis.items[ItemType.Poison]} " + Localization.Get(session, "menu_item_poisons"),
-                null);
+                async () => await _inspectorPanel.ShowCategory(ItemType.Poison));
             RegisterButton($"{Emojis.menuItems[MenuItem.Spells]} " + Localization.Get(session, "menu_item_spells"),
-                null);
+                async () => await _inspectorPanel.ShowCategory(ItemType.Tome));
             RegisterButton($"{Emojis.elements[Element.Back]} " + Localization.Get(session, "menu_item_backButton"),
                 () => new TownCharacterDialog(session).Start());
         }

@@ -110,13 +110,13 @@ namespace TextGameRPG.Scripts.GameCore.Inventory
             _itemsByType[item.data.itemType].Remove(item);
         }
 
-        // На данный момент можно временно экипировать предмет, который не находится в инвентаре! Не баг, а фича
+        // Можно экипировать даже предмет, который не находится в инвентаре! Не баг, а фича
         public void EquipSingleSlot(InventoryItem item)
         {
             equipped.EquipSingleSlot(item);
         }
 
-        // На данный момент можно временно экипировать предмет, который не находится в инвентаре! Не баг, а фича
+        // Можно экипировать даже предмет, который не находится в инвентаре! Не баг, а фича
         public void EquipMultiSlot(InventoryItem item, int slot)
         {
             equipped.EquipMultiSlot(item, slot);
