@@ -7,6 +7,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties
     {
         public override string debugDescription => "Сопротивление физическому урону";
         public override ItemPropertyType propertyType => ItemPropertyType.PhysicalDamageResist;
+        public override bool isSupportLevelUp => true;
 
         public int value;
 

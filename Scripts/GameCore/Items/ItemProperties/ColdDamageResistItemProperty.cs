@@ -7,6 +7,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties
     {
         public override string debugDescription => "Сопротивление урону от холода";
         public override ItemPropertyType propertyType => ItemPropertyType.ColdDamageResist;
+        public override bool isSupportLevelUp => true;
 
         public int value;
 

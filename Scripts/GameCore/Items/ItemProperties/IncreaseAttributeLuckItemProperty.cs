@@ -6,6 +6,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties
     {
         public override string debugDescription => "Повышает удачу";
         public override ItemPropertyType propertyType => ItemPropertyType.IncreaseAttributeLuck;
+        public override bool isSupportLevelUp => false;
 
         public int value;
 

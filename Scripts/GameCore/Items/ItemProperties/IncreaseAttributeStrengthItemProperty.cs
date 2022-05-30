@@ -6,6 +6,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties
     {
         public override string debugDescription => "Повышает силу";
         public override ItemPropertyType propertyType => ItemPropertyType.IncreaseAttributeStrength;
+        public override bool isSupportLevelUp => false;
 
         public int value;
 

@@ -7,6 +7,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties
     {
         public override string debugDescription => "Сопротивление урону от молнии";
         public override ItemPropertyType propertyType => ItemPropertyType.LightningDamageResist;
+        public override bool isSupportLevelUp => true;
 
         public int value;
 

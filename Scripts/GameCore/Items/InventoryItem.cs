@@ -47,6 +47,15 @@ namespace TextGameRPG.Scripts.GameCore.Items
             return clone;
         }
 
+        private void RecalculateDynamicData()
+        {
+            data = GameDataBase.GameDataBase.instance.items[itemId].Clone();
+            foreach (var property in data.properties)
+            {
+                property.ApplyItemLevel(itemLevel);
+            }
+        }
+
         public void SetEquippedState(bool state)
         {
             isEquipped = state;
@@ -75,13 +84,14 @@ namespace TextGameRPG.Scripts.GameCore.Items
             return sb.ToString();
         }
 
-        private void RecalculateDynamicData()
+        public bool IsSupportLevelUp()
         {
-            data = GameDataBase.GameDataBase.instance.items[itemId].Clone();
             foreach (var property in data.properties)
             {
-                property.ApplyItemLevel(itemLevel);
+                if (property.isSupportLevelUp)
+                    return true;
             }
+            return false;
         }
 
     }

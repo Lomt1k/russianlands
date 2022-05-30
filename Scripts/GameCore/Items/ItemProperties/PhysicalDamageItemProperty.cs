@@ -8,6 +8,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties
     {
         public override string debugDescription => "Физический Урон";
         public override ItemPropertyType propertyType => ItemPropertyType.PhysicalDamage;
+        public override bool isSupportLevelUp => true;
 
         public int minDamage;
         public int maxDamage;

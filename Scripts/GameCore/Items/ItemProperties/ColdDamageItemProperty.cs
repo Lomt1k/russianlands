@@ -8,6 +8,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties
     {
         public override string debugDescription => "Урон холодом";
         public override ItemPropertyType propertyType => ItemPropertyType.ColdDamage;
+        public override bool isSupportLevelUp => true;
 
         public int minDamage;
         public int maxDamage;

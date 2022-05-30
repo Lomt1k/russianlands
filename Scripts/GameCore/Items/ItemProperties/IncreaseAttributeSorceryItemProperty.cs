@@ -6,6 +6,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties
     {
         public override string debugDescription => "Повышает колдовство";
         public override ItemPropertyType propertyType => ItemPropertyType.IncreaseAttributeSorcery;
+        public override bool isSupportLevelUp => false;
 
         public int value;
 
