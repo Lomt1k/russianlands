@@ -1,7 +1,7 @@
 ﻿
 namespace TextGameRPG.Scripts.GameCore.Items
 {
-    public enum ItemType
+    public enum ItemType : sbyte
     {
         Any = -1,
         Sword = 0,

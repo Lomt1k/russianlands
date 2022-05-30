@@ -31,42 +31,47 @@ namespace TextGameRPG.Scripts.GameCore.Items
         #region DamageInfo
         private static void AppendDamageInfo(StringBuilder sb, GameSession session, InventoryItem item)
         {
-            if (!item.data.HasDamageProperties())
+            var data = item.data;
+            if (!data.HasDamageProperties())
                 return;
 
             sb.AppendLine();
             sb.AppendLine(Localization.Get(session, "item_view_deals_damage"));
 
-            if (item.dynamicDamageProperties.ContainsKey(ItemPropertyType.PhysicalDamage))
+            data.propertyByType.TryGetValue(ItemPropertyType.PhysicalDamage, out var physicalDamage);
+            if (physicalDamage != null)
             {
-                var property = item.dynamicDamageProperties[ItemPropertyType.PhysicalDamage];
+                var property = (PhysicalDamageItemProperty)physicalDamage;
                 string value = property.minDamage == property.maxDamage
                     ? property.maxDamage.ToString()
                     : $"{property.minDamage} - {property.maxDamage}";
                 sb.AppendLine($"{Emojis.stats[Stat.PhysicalDamage]} {value}");
             }
 
-            if (item.dynamicDamageProperties.ContainsKey(ItemPropertyType.FireDamage))
+            data.propertyByType.TryGetValue(ItemPropertyType.FireDamage, out var fireDamage);
+            if (fireDamage != null)
             {
-                var property = item.dynamicDamageProperties[ItemPropertyType.FireDamage];
+                var property = (FireDamageItemProperty)fireDamage;
                 string value = property.minDamage == property.maxDamage
                     ? property.maxDamage.ToString()
                     : $"{property.minDamage} - {property.maxDamage}";
                 sb.AppendLine($"{Emojis.stats[Stat.FireDamage]} {value}");
             }
 
-            if (item.dynamicDamageProperties.ContainsKey(ItemPropertyType.ColdDamage))
+            data.propertyByType.TryGetValue(ItemPropertyType.ColdDamage, out var coidDamage);
+            if (coidDamage != null)
             {
-                var property = item.dynamicDamageProperties[ItemPropertyType.ColdDamage];
+                var property = (ColdDamageItemProperty)coidDamage;
                 string value = property.minDamage == property.maxDamage
                     ? property.maxDamage.ToString()
                     : $"{property.minDamage} - {property.maxDamage}";
                 sb.AppendLine($"{Emojis.stats[Stat.ColdDamage]} {value}");
             }
 
-            if (item.dynamicDamageProperties.ContainsKey(ItemPropertyType.LightningDamage))
+            data.propertyByType.TryGetValue(ItemPropertyType.LightningDamage, out var lightningDamage);
+            if (lightningDamage != null)
             {
-                var property = item.dynamicDamageProperties[ItemPropertyType.LightningDamage];
+                var property = (LightningDamageItemProperty)lightningDamage;
                 string value = property.minDamage == property.maxDamage
                     ? property.maxDamage.ToString()
                     : $"{property.minDamage} - {property.maxDamage}";
@@ -78,34 +83,39 @@ namespace TextGameRPG.Scripts.GameCore.Items
         #region DamageResistanceInfo
         private static void AppendDamageResistanceInfo(StringBuilder sb, GameSession session, InventoryItem item)
         {
-            if (!item.data.HasDamageResistProperties())
+            var data = item.data;
+            if (!data.HasDamageResistProperties())
                 return;
 
             sb.AppendLine();
             sb.AppendLine(Localization.Get(session, "item_view_protects_from_damage"));
 
-            if (item.dynamicDamageResistProperties.ContainsKey(ItemPropertyType.PhysicalDamageResist))
+            data.propertyByType.TryGetValue(ItemPropertyType.PhysicalDamageResist, out var physicalDamage);
+            if (physicalDamage != null)
             {
-                var property = item.dynamicDamageResistProperties[ItemPropertyType.PhysicalDamageResist];
+                var property = (PhysicalDamageResistItemProperty)physicalDamage;
                 sb.AppendLine($"{Emojis.stats[Stat.PhysicalDamage]} {property.value}");
             }
 
-            if (item.dynamicDamageResistProperties.ContainsKey(ItemPropertyType.FireDamageResist))
+            data.propertyByType.TryGetValue(ItemPropertyType.FireDamageResist, out var fireDamage);
+            if (fireDamage != null)
             {
-                var property = item.dynamicDamageResistProperties[ItemPropertyType.FireDamageResist];
-                sb.AppendLine($"{Emojis.stats[Stat.FireDamage]} {property.value}");
+                var property = (FireDamageResistItemProperty)fireDamage;
+                sb.AppendLine($"{Emojis.stats[Stat.PhysicalDamage]} {property.value}");
             }
 
-            if (item.dynamicDamageResistProperties.ContainsKey(ItemPropertyType.ColdDamageResist))
+            data.propertyByType.TryGetValue(ItemPropertyType.ColdDamageResist, out var coidDamage);
+            if (coidDamage != null)
             {
-                var property = item.dynamicDamageResistProperties[ItemPropertyType.ColdDamageResist];
-                sb.AppendLine($"{Emojis.stats[Stat.ColdDamage]} {property.value}");
+                var property = (ColdDamageResistItemProperty)coidDamage;
+                sb.AppendLine($"{Emojis.stats[Stat.PhysicalDamage]} {property.value}");
             }
 
-            if (item.dynamicDamageResistProperties.ContainsKey(ItemPropertyType.LightningDamageResist))
+            data.propertyByType.TryGetValue(ItemPropertyType.LightningDamageResist, out var lightningDamage);
+            if (lightningDamage != null)
             {
-                var property = item.dynamicDamageResistProperties[ItemPropertyType.LightningDamageResist];
-                sb.AppendLine($"{Emojis.stats[Stat.LightningDamage]} {property.value}");
+                var property = (LightningDamageResistItemProperty)lightningDamage;
+                sb.AppendLine($"{Emojis.stats[Stat.PhysicalDamage]} {property.value}");
             }
         }
         #endregion

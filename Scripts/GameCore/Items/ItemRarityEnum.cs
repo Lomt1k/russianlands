@@ -3,7 +3,7 @@ using TextGameRPG.Scripts.TelegramBot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Items
 {
-    public enum ItemRarity
+    public enum ItemRarity : byte
     {
         Common = 0,
         Rare = 1,

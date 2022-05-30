@@ -14,6 +14,8 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties
             this.value = value;
         }
 
+        public override void ApplyItemLevel(byte level) { }
+
         public override string ToString()
         {
             return $"{value} к Удаче";

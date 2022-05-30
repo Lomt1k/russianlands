@@ -9,18 +9,18 @@ namespace TextGameRPG.Scripts.GameCore.Items
 
     public class ItemData : IDataWithIntegerID
     {
-        public string debugName { get; set; }
+        public string debugName { get; set; } //TODO: для продакшна очень важно отказаться от этого поля (как вариант при старте бота присваивать string.empty)
         public int id { get; }
         public ItemType itemType { get; set; }
         public ItemRarity itemRarity { get; set; }
-        public int requiredLevel { get; set; }
+        public ushort requiredLevel { get; set; }
         public List<ItemPropertyBase> properties { get; private set; }
 
         [JsonIgnore]
         public Dictionary<ItemPropertyType, ItemPropertyBase> propertyByType;
 
         [JsonConstructor]
-        public ItemData(string debugName, int id, ItemType type, ItemRarity rarity, int requiredLevel,
+        public ItemData(string debugName, int id, ItemType type, ItemRarity rarity, ushort requiredLevel,
             List<ItemPropertyBase>? properties = null)
         {
             this.debugName = debugName;
@@ -29,8 +29,7 @@ namespace TextGameRPG.Scripts.GameCore.Items
             this.itemRarity = rarity;
             this.requiredLevel = requiredLevel;
             this.properties = properties ?? new List<ItemPropertyBase>();
-
-            propertyByType = this.properties.ToDictionary(x => x.propertyType);
+            RebuildPropertyByTypeDictionary();
         }
 
         public ItemData Clone()
@@ -42,7 +41,13 @@ namespace TextGameRPG.Scripts.GameCore.Items
                 cloneProperties.Add(property.Clone());
             }
             clone.properties = cloneProperties;
+            clone.RebuildPropertyByTypeDictionary();
             return clone;
+        }
+
+        private void RebuildPropertyByTypeDictionary()
+        {
+            propertyByType = properties.ToDictionary(x => x.propertyType);
         }
 
         public ItemPropertyBase AddEmptyProperty()

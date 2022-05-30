@@ -15,6 +15,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties
             return (ItemPropertyBase)MemberwiseClone();
         }
 
+        public abstract void ApplyItemLevel(byte level);
         public abstract string GetView(GameSession session);
 
     }

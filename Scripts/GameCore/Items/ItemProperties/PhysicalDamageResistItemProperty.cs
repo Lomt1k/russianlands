@@ -15,6 +15,12 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties
             this.value = value;
         }
 
+        public override void ApplyItemLevel(byte level)
+        {
+            float bonusPerLevel = value / 10 > 0 ? (float)value / 10 : 1;
+            value += (int)(bonusPerLevel * level);
+        }
+
         public override string ToString()
         {
             return $"{debugDescription}: {value}";

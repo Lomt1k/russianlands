@@ -21,7 +21,15 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties
         public int GetRandomValue()
         {
             return Randomizer.random.Next(minDamage, maxDamage + 1);
-        }        
+        }
+
+        public override void ApplyItemLevel(byte level)
+        {
+            float minDamageBonusPerLevel = minDamage / 10 > 0 ? (float)minDamage / 10 : 1;
+            float maxDamageBonusPerLevel = maxDamage / 10 > 0 ? (float)maxDamage / 10 : 1;
+            minDamage += (int)(minDamageBonusPerLevel * level);
+            maxDamage += (int)(maxDamageBonusPerLevel * level);
+        }
 
         public override string ToString()
         {
