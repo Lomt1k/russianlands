@@ -10,6 +10,15 @@ using TextGameRPG.Scripts.GameCore.Localization;
 
 namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
 {
+    internal struct CompareData
+    {
+        public InventoryItem comparedItem;
+        public Message comparedItemMessage;
+        public ItemType? categoryOnStartCompare;
+        public int currentPageOnStartCompare;
+        public int pagesCountOnStartCompare;
+    }
+
     internal class InventoryInspectorDialogPanel : DialogPanelBase
     {
         private const int browsedItemsOnPage = 5;
@@ -23,7 +32,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
         private InventoryItem[]? _browsedItems;
         private int _currentPage;
         private int _pagesCount;
-        
+
+        private CompareData? _compareData;
 
         public InventoryInspectorDialogPanel(DialogBase _dialog, byte _panelId) : base(_dialog, _panelId)
         {
@@ -86,6 +96,11 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
         {
             if (_lastMessage == null)
                 return;
+
+            if (_compareData != null)
+            {
+                await ResendComparedItemMessage();
+            }
 
             await RemoveKeyboardFromLastMessage();
 
@@ -164,6 +179,11 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
 
         private string GetCategoryLocalization(ItemType category)
         {
+            if (category == ItemType.Tome)
+            {
+                return Localization.Get(session, $"menu_item_spells");
+            }
+
             string stringCategory = category.ToString().ToLower();
             if (!stringCategory.EndsWith('s'))
             {
@@ -174,6 +194,11 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
 
         private async Task OnItemClick(InventoryItem item)
         {
+            if (_compareData != null)
+            {
+                await ShowComparingItems(item);
+                return;
+            }
             await ShowItemInspector(item);
         }
 
@@ -222,7 +247,9 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
             {
                 RegisterButton(Localization.Get(session, "menu_item_equip_button"), null);
             }
-            RegisterButton(Localization.Get(session, "menu_item_compare_button"), null);
+            RegisterButton(Localization.Get(session, "menu_item_compare_button"), 
+                async() => await StartSelectItemForCompare(item),
+                () => Localization.Get(session, "menu_item_compare_button_callback"));
 
             var categoryIcon = _browsedCategory == ItemType.Tome
                 ? Emojis.menuItems[MenuItem.Spells]
@@ -232,6 +259,64 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
                 async() => await ShowItemsPage(asNewMessage: false));
 
             _lastMessage = await messageSender.EditTextMessage(session.chatId, _lastMessage.MessageId, text, GetKeyboardWithRowSizes(2, 1));
+        }
+
+        private async Task StartSelectItemForCompare(InventoryItem item)
+        {
+            _compareData = new CompareData
+            {
+                comparedItem = item,
+                categoryOnStartCompare = _browsedCategory,
+                currentPageOnStartCompare = _currentPage,
+                pagesCountOnStartCompare = _pagesCount,
+                comparedItemMessage = await messageSender.EditMessageKeyboard(session.chatId, _lastMessage.MessageId, null)
+            };
+
+            await ShowItemsPage(asNewMessage: true);
+        }
+
+        private async Task ShowComparingItems(InventoryItem secondItem)
+        {
+            var text = secondItem.GetView(session);
+            ClearButtons();
+
+            RegisterButton(Localization.Get(session, "menu_item_compare_another_button"),
+                async () => await ShowItemsPage(asNewMessage: false),
+                () => Localization.Get(session, "menu_item_compare_button_callback"));
+
+            RegisterButton(Localization.Get(session, "menu_item_compare_end_button"), 
+                async() => await EndComparison());
+
+            _lastMessage = await messageSender.EditTextMessage(session.chatId, _lastMessage.MessageId, text, GetMultilineKeyboard());
+        }
+
+        private async Task EndComparison()
+        {
+            await messageSender.DeleteMessage(session.chatId, _compareData.Value.comparedItemMessage.MessageId);
+
+            _browsedCategory = _compareData.Value.categoryOnStartCompare;
+            _currentPage = _compareData.Value.currentPageOnStartCompare;
+            _pagesCount = _compareData.Value.pagesCountOnStartCompare;
+            var inspectedItem = _compareData.Value.comparedItem;
+            _compareData = null;
+
+            await ShowItemInspector(inspectedItem);
+        }
+
+        private async Task ResendComparedItemMessage()
+        {
+            if (_compareData == null)
+                return;
+
+            var messageToResend = _compareData.Value.comparedItemMessage;
+            _compareData = new CompareData
+            {
+                comparedItem = _compareData.Value.comparedItem,
+                categoryOnStartCompare = _compareData.Value.categoryOnStartCompare,
+                currentPageOnStartCompare = _compareData.Value.currentPageOnStartCompare,
+                pagesCountOnStartCompare = _compareData.Value.pagesCountOnStartCompare,
+                comparedItemMessage = await messageSender.ResendMessage(session.chatId, messageToResend)
+            };
         }
 
         private async Task RemoveKeyboardFromLastMessage()

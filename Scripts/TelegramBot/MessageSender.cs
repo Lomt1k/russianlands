@@ -25,7 +25,22 @@ namespace TextGameRPG.Scripts.TelegramBot
             return await _botClient.EditMessageTextAsync(id, messageId, text, ParseMode.Html, replyMarkup: inlineKeyboard);
         }
 
-        public async Task<Message> EditMessageKeyboard(ChatId id, int messageId, InlineKeyboardMarkup? inlineKeyboard = null)
+        //TODO: Надо избавиться от метода, т.к. не поддерживает ParseMode (теряются тэги)
+        public async Task<Message> ResendMessage(ChatId id, Message message, bool deleteOld = true)
+        {
+            if (deleteOld)
+            {
+                await DeleteMessage(id, message.MessageId);
+            }
+            return await SendTextMessage(id, message.Text, message.ReplyMarkup);
+        }
+
+        public async Task DeleteMessage(ChatId id, int messageId)
+        {
+            await _botClient.DeleteMessageAsync(id, messageId);
+        }
+
+        public async Task<Message> EditMessageKeyboard(ChatId id, int messageId, InlineKeyboardMarkup? inlineKeyboard)
         {
             return await _botClient.EditMessageReplyMarkupAsync(id, messageId, inlineKeyboard);
         }
