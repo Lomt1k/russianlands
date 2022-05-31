@@ -36,31 +36,31 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
             var sb = new StringBuilder();
 
             sb.Append($"{Emojis.items[ItemType.Sword]} {_inventory.GetItemsCountByType(ItemType.Sword)}");
-            sb.Append(Emojis.space);
+            sb.Append(Emojis.bigSpace);
             sb.Append($"{Emojis.items[ItemType.Bow]} {_inventory.GetItemsCountByType(ItemType.Bow)}");
-            sb.Append(Emojis.space);
+            sb.Append(Emojis.bigSpace);
             sb.Append($"{Emojis.items[ItemType.Stick]} {_inventory.GetItemsCountByType(ItemType.Stick)}");
 
 
             sb.AppendLine();
             sb.Append($"{Emojis.items[ItemType.Helmet]} {_inventory.GetItemsCountByType(ItemType.Helmet)}");
-            sb.Append(Emojis.space);
+            sb.Append(Emojis.bigSpace);
             sb.Append($"{Emojis.items[ItemType.Armor]} {_inventory.GetItemsCountByType(ItemType.Armor)}");
-            sb.Append(Emojis.space);
+            sb.Append(Emojis.bigSpace);
             sb.Append($"{Emojis.items[ItemType.Boots]} {_inventory.GetItemsCountByType(ItemType.Boots)}");
 
             sb.AppendLine();
             sb.Append($"{Emojis.items[ItemType.Shield]} {_inventory.GetItemsCountByType(ItemType.Shield)}");
-            sb.Append(Emojis.space);
+            sb.Append(Emojis.bigSpace);
             sb.Append($"{Emojis.items[ItemType.Amulet]} {_inventory.GetItemsCountByType(ItemType.Amulet)}");
-            sb.Append(Emojis.space);
+            sb.Append(Emojis.bigSpace);
             sb.Append($"{Emojis.items[ItemType.Ring]} {_inventory.GetItemsCountByType(ItemType.Ring)}");
 
             sb.AppendLine();
             sb.Append($"{Emojis.items[ItemType.Poison]} {_inventory.GetItemsCountByType(ItemType.Poison)}");
-            sb.Append(Emojis.space);
+            sb.Append(Emojis.bigSpace);
             sb.Append($"{Emojis.items[ItemType.Tome]} {_inventory.GetItemsCountByType(ItemType.Tome)}");
-            sb.Append(Emojis.space);
+            sb.Append(Emojis.bigSpace);
             sb.Append($"{Emojis.items[ItemType.Scroll]} {_inventory.GetItemsCountByType(ItemType.Scroll)}");
 
             return sb.ToString();
@@ -212,7 +212,26 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
         {
             var text = item.GetView(session);
 
-            _lastMessage = await messageSender.EditTextMessage(session.chatId, _lastMessage.MessageId, text);
+            ClearButtons();
+
+            if (item.isEquipped)
+            {
+                RegisterButton(Localization.Get(session, "menu_item_unequip_button"), null);
+            }
+            else
+            {
+                RegisterButton(Localization.Get(session, "menu_item_equip_button"), null);
+            }
+            RegisterButton(Localization.Get(session, "menu_item_compare_button"), null);
+
+            var categoryIcon = _browsedCategory == ItemType.Tome
+                ? Emojis.menuItems[MenuItem.Spells]
+                : Emojis.items[_browsedCategory.Value];
+
+            RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_back_to_list_button")} {categoryIcon}",
+                async() => await ShowItemsPage(asNewMessage: false));
+
+            _lastMessage = await messageSender.EditTextMessage(session.chatId, _lastMessage.MessageId, text, GetKeyboardWithRowSizes(2, 1));
         }
 
         private async Task RemoveKeyboardFromLastMessage()

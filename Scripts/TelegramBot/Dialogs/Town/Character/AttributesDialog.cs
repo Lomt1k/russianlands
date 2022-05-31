@@ -7,7 +7,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
     {
         public AttributesDialog(GameSession _session) : base(_session)
         {
-            RegisterButton($"{Emojis.elements[Element.Back]} " + Localization.Get(session, "menu_item_backButton"),
+            RegisterButton($"{Emojis.elements[Element.Back]} " + Localization.Get(session, "menu_item_back_button"),
                 () => new TownCharacterDialog(session).Start());
             
             RegisterPanel(new AttributesDialogPanel(this, 0));

@@ -39,7 +39,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
                 async () => await _inspectorPanel.ShowCategory(ItemType.Poison));
             RegisterButton($"{Emojis.menuItems[MenuItem.Spells]} " + Localization.Get(session, "menu_item_spells"),
                 async () => await _inspectorPanel.ShowCategory(ItemType.Tome));
-            RegisterButton($"{Emojis.elements[Element.Back]} " + Localization.Get(session, "menu_item_backButton"),
+            RegisterButton($"{Emojis.elements[Element.Back]} " + Localization.Get(session, "menu_item_back_button"),
                 () => new TownCharacterDialog(session).Start());
         }
 

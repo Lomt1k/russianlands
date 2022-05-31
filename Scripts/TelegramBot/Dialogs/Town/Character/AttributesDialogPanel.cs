@@ -50,7 +50,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
         {
             _isInfoOpened = true;
             ClearButtons();
-            RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_backButton")}", () => Task.Run(ShowAttributes) );
+            RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_back_button")}", () => Task.Run(ShowAttributes) );
 
             var text = Localization.Get(session, "dialog_attributes_info");
 
@@ -84,7 +84,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
                 var additiveStat = currentStat - profileStat;
                 if (additiveStat > 0)
                 {
-                    sb.Append($"{Emojis.space}<i>(+{additiveStat})</i>");
+                    sb.Append($"{Emojis.bigSpace}<i>(+{additiveStat})</i>");
                 }
             }
         }

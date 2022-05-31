@@ -27,12 +27,12 @@ namespace TextGameRPG.Scripts.GameCore.Units
             string levelStr = string.Format(Localization.Localization.Get(session, "unit_view_level"), session.profile.data.level);
             sb.AppendLine(levelStr);
             sb.AppendLine($"\n{Emojis.stats[Stat.Health]} {unitStats.currentHP} / {unitStats.maxHP}" +
-                $"{Emojis.space}{Emojis.stats[Stat.Mana]} {unitStats.currentMP} / {unitStats.maxMP}");
+                $"{Emojis.bigSpace}{Emojis.stats[Stat.Mana]} {unitStats.currentMP} / {unitStats.maxMP}");
 
             sb.AppendLine( Localization.Localization.Get(session, "unit_view_header_resources") );
             sb.AppendLine($"{Emojis.resources[Resource.Gold]} {session.profile.data.resourceGold.View()}" +
-                $"{Emojis.space}{Emojis.resources[Resource.Food]} {session.profile.data.resourceFood.View()}" +
-                $"{Emojis.space}{Emojis.resources[Resource.Diamond]} {session.profile.data.resourceDiamonds.View()}");
+                $"{Emojis.bigSpace}{Emojis.resources[Resource.Food]} {session.profile.data.resourceFood.View()}" +
+                $"{Emojis.bigSpace}{Emojis.resources[Resource.Diamond]} {session.profile.data.resourceDiamonds.View()}");
 
             return sb.ToString();
         }
