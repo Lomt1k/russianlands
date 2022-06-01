@@ -1,5 +1,4 @@
-﻿using TextGameRPG.Scripts.GameCore.Inventory;
-using TextGameRPG.Scripts.GameCore.Localization;
+﻿using TextGameRPG.Scripts.GameCore.Localization;
 using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 
@@ -7,13 +6,10 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
 {
     internal class InventoryDialog : DialogBase
     {
-        private PlayerInventory _inventory;
         private InventoryInspectorDialogPanel _inspectorPanel;
 
         public InventoryDialog(GameSession _session) : base(_session)
         {
-            _inventory = session.player.inventory;
-
             _inspectorPanel = new InventoryInspectorDialogPanel(this, 0);
             RegisterPanel(_inspectorPanel);
 

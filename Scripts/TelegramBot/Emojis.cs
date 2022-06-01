@@ -69,6 +69,11 @@ namespace TextGameRPG.Scripts.TelegramBot
         Info
     }
 
+    public enum Smile
+    {
+        Sad
+    }
+
     public static class Emojis
     {
         public const char space = ' ';
@@ -118,7 +123,8 @@ namespace TextGameRPG.Scripts.TelegramBot
             { ItemType.Poison, "\ud83e\uddea" },            
             { ItemType.Tome, "\ud83d\udcd6" },
             { ItemType.Scroll, "\ud83d\udcdc" },
-            { ItemType.Any, ""}
+            { ItemType.Any, ""},
+            { ItemType.Equipped, "\ud83d\udc4b" }
         };
 
         public static readonly Dictionary<Resource, string> resources = new Dictionary<Resource, string>
@@ -155,6 +161,11 @@ namespace TextGameRPG.Scripts.TelegramBot
             { Element.QuestionGrey, "\u2754" },
             { Element.Back, "\u25c0\ufe0f" },
             { Element.Info, "\u2139\ufe0f" }
+        };
+
+        public static readonly Dictionary<Smile, string> smiles = new Dictionary<Smile, string>
+        {
+            { Smile.Sad, "\ud83d\ude15" }
         };
 
     }

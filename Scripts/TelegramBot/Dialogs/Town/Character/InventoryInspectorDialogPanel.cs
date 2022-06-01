@@ -152,7 +152,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
             for (int i = startIndex; i < startIndex + browsedItemsOnPage && i < _browsedItems.Length; i++)
             {
                 var item = _browsedItems[i];
-                RegisterButton(item.GetFullName(session), async () => await OnItemClick(item));
+                var prefix = item.isEquipped ? Emojis.items[ItemType.Equipped] : string.Empty;
+                RegisterButton(prefix + item.GetFullName(session), async () => await OnItemClick(item));
             }
 
             RegisterButton(Emojis.menuItems[MenuItem.Inventory], async () => await OnClickCloseCategory());
@@ -241,11 +242,13 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
             {
                 if (item.isEquipped)
                 {
-                    RegisterButton(Localization.Get(session, "menu_item_unequip_button"), null);
+                    RegisterButton(Localization.Get(session, "menu_item_unequip_button"),
+                        async() => await UnequipItem(item));
                 }
                 else
                 {
-                    RegisterButton(Localization.Get(session, "menu_item_equip_button"), null);
+                    RegisterButton(Localization.Get(session, "menu_item_equip_button"),
+                        async() => await StartEquipLogic(item));
                 }
                 firstRowButtons++;
             }
@@ -264,6 +267,41 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
 
             _lastMessage = await messageSender.EditTextMessage(session.chatId, _lastMessage.MessageId, text, GetKeyboardWithRowSizes(firstRowButtons, 1));
         }
+
+        //--- equip logic
+
+        private async Task StartEquipLogic(InventoryItem item)
+        {
+            var profileLevel = session.profile.data.level;
+            var requiredLevel = item.data.requiredLevel;
+            if (profileLevel < requiredLevel)
+            {
+                var messageText = $"<b>{item.GetFullName(session)}</b>\n\n"
+                    + string.Format(Localization.Get(session, "dialog_inventory_required_level"), requiredLevel) + $" {Emojis.smiles[Smile.Sad]}";
+                ClearButtons();
+                RegisterButton(Localization.Get(session, "menu_item_ok_button"), async() => await ShowItemInspector(item));
+                _lastMessage = await messageSender.EditTextMessage(session.chatId, _lastMessage.MessageId, messageText, GetOneLineKeyboard());
+                return;
+            }
+
+            if (item.data.itemType.IsMultiSlot())
+            {
+                //TODO
+            }
+            else
+            {
+                _inventory.EquipSingleSlot(item);
+            }
+            await ShowItemInspector(item);
+        }
+
+        private async Task UnequipItem(InventoryItem item)
+        {
+            _inventory.Unequip(item);
+            await ShowItemInspector(item);
+        }
+
+        //--- equip logic
 
         private async Task StartSelectItemForCompare(InventoryItem item)
         {

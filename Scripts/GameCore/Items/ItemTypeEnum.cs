@@ -3,7 +3,11 @@ namespace TextGameRPG.Scripts.GameCore.Items
 {
     public enum ItemType : sbyte
     {
+        //for category! not used in item data
         Any = -1,
+        Equipped = -2,
+
+        //normal item types
         Sword = 0,
         Bow = 1,
         Stick = 2,

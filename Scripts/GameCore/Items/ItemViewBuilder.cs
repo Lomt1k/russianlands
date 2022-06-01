@@ -19,6 +19,7 @@ namespace TextGameRPG.Scripts.GameCore.Items
             AppendDamageResistanceInfo(sb, session, item);
             AppendSpecificProperties(sb, session, item);
 
+            AppendEquippedState(sb, session, item);
             return sb.ToString();
         }
 
@@ -131,6 +132,15 @@ namespace TextGameRPG.Scripts.GameCore.Items
             foreach (var property in specificProperties)
             {
                 sb.AppendLine($"{Emojis.elements[Element.SmallWhite]} " + property.GetView(session));
+            }
+        }
+
+        private static void AppendEquippedState(StringBuilder sb, GameSession session, InventoryItem item)
+        {
+            if (item.isEquipped)
+            {
+                sb.AppendLine();
+                sb.AppendLine(Localization.Get(session, "dialog_inventory_equipped_state"));
             }
         }
 
