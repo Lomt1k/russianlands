@@ -44,7 +44,9 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
         private string BuildMainItemsInfo()
         {
             var sb = new StringBuilder();
+            sb.AppendLine(string.Format(Localization.Get(session, "dialog_inventory_header_total_items"), _inventory.itemsCount, _inventory.inventorySize));
 
+            sb.AppendLine();
             sb.Append($"{Emojis.items[ItemType.Sword]} {_inventory.GetItemsCountByType(ItemType.Sword)}");
             sb.Append(Emojis.bigSpace);
             sb.Append($"{Emojis.items[ItemType.Bow]} {_inventory.GetItemsCountByType(ItemType.Bow)}");
@@ -83,13 +85,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
 
         public async Task ShowMainInfo()
         {
-            StringBuilder text = new StringBuilder();
-            text.AppendLine(Localization.Get(session, "dialog_inventory_header_all_items"));
-            text.AppendLine();
-            text.Append(_mainItemsInfo);
-
             await RemoveKeyboardFromLastMessage();
-            _lastMessage = await messageSender.SendTextMessage(session.chatId, text.ToString(), GetMultilineKeyboard());
+            _lastMessage = await messageSender.SendTextMessage(session.chatId, _mainItemsInfo, GetMultilineKeyboard());
         }
 
         public async Task ShowCategory(ItemType category)
@@ -129,7 +126,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
             if (category == ItemType.Tome)
             {
                 var magicItems = new List<InventoryItem>();
-                magicItems.AddRange(_inventory.GetItemsByType(category));
+                magicItems.AddRange(_inventory.GetItemsByType(ItemType.Tome));
                 magicItems.AddRange(_inventory.GetItemsByType(ItemType.Scroll));
                 return magicItems.ToArray();
             }
@@ -239,14 +236,21 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
 
             ClearButtons();
 
-            if (item.isEquipped)
+            int firstRowButtons = 1;
+            if (item.data.itemType.IsEquippable())
             {
-                RegisterButton(Localization.Get(session, "menu_item_unequip_button"), null);
+                if (item.isEquipped)
+                {
+                    RegisterButton(Localization.Get(session, "menu_item_unequip_button"), null);
+                }
+                else
+                {
+                    RegisterButton(Localization.Get(session, "menu_item_equip_button"), null);
+                }
+                firstRowButtons++;
             }
-            else
-            {
-                RegisterButton(Localization.Get(session, "menu_item_equip_button"), null);
-            }
+
+            
             RegisterButton(Localization.Get(session, "menu_item_compare_button"),
                 async () => await StartSelectItemForCompare(item),
                 () => Localization.Get(session, "menu_item_compare_button_callback"));
@@ -258,7 +262,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
             RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_back_to_list_button")} {categoryIcon}",
                 async () => await ShowItemsPage(asNewMessage: false));
 
-            _lastMessage = await messageSender.EditTextMessage(session.chatId, _lastMessage.MessageId, text, GetKeyboardWithRowSizes(2, 1));
+            _lastMessage = await messageSender.EditTextMessage(session.chatId, _lastMessage.MessageId, text, GetKeyboardWithRowSizes(firstRowButtons, 1));
         }
 
         private async Task StartSelectItemForCompare(InventoryItem item)

@@ -45,8 +45,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
 
         public override async void Start()
         {
-            var itemsCount = $"{_inventory.itemsCount} / {_inventory.inventorySize}";
-            string header = $"{Emojis.menuItems[MenuItem.Inventory]} <b>{Localization.Get(session, "menu_item_inventory")} ({itemsCount})</b>";
+            string header = $"{Emojis.menuItems[MenuItem.Inventory]} <b>{Localization.Get(session, "menu_item_inventory")}</b>";
             await messageSender.SendTextDialog(session.chatId, header, GetKeyboardWithRowSizes(3, 3, 3, 3));
             await SendPanelsAsync();
         }
