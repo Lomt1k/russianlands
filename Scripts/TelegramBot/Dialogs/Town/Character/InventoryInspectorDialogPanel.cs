@@ -102,7 +102,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
             await RemoveKeyboardFromLastMessage();
 
             _browsedCategory = category;
-            _browsedItems = GetBrowsedItems(category);
+            RefreshBrowsedItems(category);
 
             if (_browsedItems.Length == 0)
             {
@@ -113,27 +113,32 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
                 return;
             }
 
-            _currentPage = 0;
-            _pagesCount = _browsedItems.Length % browsedItemsOnPage > 0
-                ? _browsedItems.Length / browsedItemsOnPage + 1
-                : _browsedItems.Length / browsedItemsOnPage;
-
             await ShowItemsPage(asNewMessage: true);
         }
 
-        private InventoryItem[] GetBrowsedItems(ItemType category)
+        private void RefreshBrowsedItems(ItemType? category)
         {
             if (category == ItemType.Tome)
             {
                 var magicItems = new List<InventoryItem>();
                 magicItems.AddRange(_inventory.GetItemsByType(ItemType.Tome));
                 magicItems.AddRange(_inventory.GetItemsByType(ItemType.Scroll));
-                return magicItems.ToArray();
+                _browsedItems = magicItems.ToArray();
             }
             else
             {
-                return _inventory.GetItemsByType(category).ToArray();
+                _browsedItems = _inventory.GetItemsByType(category.Value).ToArray();
             }
+
+            _currentPage = 0;
+            _pagesCount = 0;
+
+            if (_browsedItems.Length < 1)
+                return;
+
+            _pagesCount = _browsedItems.Length % browsedItemsOnPage > 0
+                ? _browsedItems.Length / browsedItemsOnPage + 1
+                : _browsedItems.Length / browsedItemsOnPage;
         }
 
         private async Task ShowItemsPage(bool asNewMessage)
@@ -268,8 +273,6 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
             _lastMessage = await messageSender.EditTextMessage(session.chatId, _lastMessage.MessageId, text, GetKeyboardWithRowSizes(firstRowButtons, 1));
         }
 
-        //--- equip logic
-
         private async Task StartEquipLogic(InventoryItem item)
         {
             var profileLevel = session.profile.data.level;
@@ -290,8 +293,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
                 return;
             }
 
-            _inventory.EquipSingleSlot(item);
-            await ShowItemInspector(item);
+            await EquipSingleSlot(item);
         }
 
         private async Task SelectSlotForEquip(InventoryItem item)
@@ -317,19 +319,26 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
             _lastMessage = await messageSender.EditTextMessage(session.chatId, _lastMessage.MessageId, text, GetMultilineKeyboard());
         }
 
+        private async Task EquipSingleSlot(InventoryItem item)
+        {
+            _inventory.EquipSingleSlot(item);
+            RefreshBrowsedItems(_browsedCategory);
+            await ShowItemInspector(item);
+        }
+
         private async Task EquipMultiSlot(InventoryItem item, int slotId)
         {
             _inventory.EquipMultiSlot(item, slotId);
+            RefreshBrowsedItems(_browsedCategory);
             await ShowItemInspector(item);
         }
 
         private async Task UnequipItem(InventoryItem item)
         {
             _inventory.Unequip(item);
+            RefreshBrowsedItems(_browsedCategory);
             await ShowItemInspector(item);
         }
-
-        //--- equip logic
 
         private async Task StartSelectItemForCompare(InventoryItem item)
         {

@@ -37,7 +37,6 @@ namespace TextGameRPG.Scripts.GameCore.Inventory
 
         private void SortItemsByType()
         {
-            
             var itemTypes = System.Enum.GetValues(typeof(ItemType));
             foreach (var element in itemTypes)
             {
@@ -58,7 +57,8 @@ namespace TextGameRPG.Scripts.GameCore.Inventory
                 {
                     _itemsByType.Add(itemType, new List<InventoryItem>());
                 }
-                _itemsByType[itemType].Add(item);
+                var index = item.isEquipped ? 0 : _itemsByType[itemType].Count;
+                _itemsByType[itemType].Insert(index, item);
             }
         }
 
@@ -120,17 +120,42 @@ namespace TextGameRPG.Scripts.GameCore.Inventory
         public void EquipSingleSlot(InventoryItem item)
         {
             equipped.EquipSingleSlot(item);
+            SetFirstIndexForItem(item);
         }
 
         // Можно экипировать даже предмет, который не находится в инвентаре! Не баг, а фича
         public void EquipMultiSlot(InventoryItem item, int slot)
         {
             equipped.EquipMultiSlot(item, slot);
+            SetFirstIndexForItem(item);
         }
 
         public void Unequip(InventoryItem item)
         {
             equipped.Unequip(item);
+            SetFirstUnequippedIndexForItem(item);
+        }
+
+        private void SetFirstIndexForItem(InventoryItem item)
+        {
+            _itemsByType[item.data.itemType].Remove(item);
+            _itemsByType[item.data.itemType].Insert(0, item);
+        }
+
+        private void SetFirstUnequippedIndexForItem(InventoryItem item)
+        {
+            var itemType = item.data.itemType;
+            _itemsByType[itemType].Remove(item);
+            int index = 0;
+            for (int i = 0; i < _itemsByType[itemType].Count; i++)
+            {
+                if (!_itemsByType[itemType][i].isEquipped)
+                {
+                    index = i;
+                    break;
+                }
+            }
+            _itemsByType[itemType].Insert(index, item);
         }
 
         public void AddNewItemSlots(int count)
