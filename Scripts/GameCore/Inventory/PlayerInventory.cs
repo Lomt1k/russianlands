@@ -41,7 +41,7 @@ namespace TextGameRPG.Scripts.GameCore.Inventory
             foreach (var element in itemTypes)
             {
                 var itemType = (ItemType)element;
-                if (itemType == ItemType.Any)
+                if (itemType < 0)
                     continue;
 
                 _itemsByType[itemType] = new List<InventoryItem>();

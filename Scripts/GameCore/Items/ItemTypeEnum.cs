@@ -3,7 +3,7 @@ namespace TextGameRPG.Scripts.GameCore.Items
 {
     public enum ItemType : sbyte
     {
-        //for category! not used in item data
+        //for category! Types with negative values not used in item data
         Any = -1,
         Equipped = -2,
 
