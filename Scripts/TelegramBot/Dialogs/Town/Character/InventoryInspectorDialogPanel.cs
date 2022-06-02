@@ -286,12 +286,40 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
 
             if (item.data.itemType.IsMultiSlot())
             {
-                //TODO
+                await SelectSlotForEquip(item);
+                return;
             }
-            else
+
+            _inventory.EquipSingleSlot(item);
+            await ShowItemInspector(item);
+        }
+
+        private async Task SelectSlotForEquip(InventoryItem item)
+        {
+            var type = item.data.itemType;
+            var slotsCount = type.GetSlotsCount();
+            var category = GetCategoryLocalization(type);
+            var text = string.Format(Localization.Get(session, "dialog_inventory_select_slot_for_equip"), category, slotsCount, item.GetFullName(session));
+
+            ClearButtons();
+            for (int i = 0; i < slotsCount; i++)
             {
-                _inventory.EquipSingleSlot(item);
+                int slotId = i;
+                var equippedItem = _inventory.equipped[type, slotId];
+                var buttonText = equippedItem != null 
+                    ? equippedItem.GetFullName(session) 
+                    : $"{Emojis.items[type]} {Localization.Get(session, "menu_item_empty_slot_button")}";
+                RegisterButton(buttonText, async () => await EquipMultiSlot(item, slotId));
             }
+            RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_back_button")}",
+                async() => await ShowItemInspector(item));
+
+            _lastMessage = await messageSender.EditTextMessage(session.chatId, _lastMessage.MessageId, text, GetMultilineKeyboard());
+        }
+
+        private async Task EquipMultiSlot(InventoryItem item, int slotId)
+        {
+            _inventory.EquipMultiSlot(item, slotId);
             await ShowItemInspector(item);
         }
 
