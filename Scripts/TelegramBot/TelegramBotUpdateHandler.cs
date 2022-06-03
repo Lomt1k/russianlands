@@ -22,8 +22,7 @@ namespace TextGameRPG.Scripts.TelegramBot
 
         public Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
         {
-            string str = $"Handle Update ID: {update.Id} Type: {update.Type}";
-            Program.logger.Debug(str);
+            //Program.logger.Debug($"Handle Update ID: {update.Id} Type: {update.Type}");
 
             User? fromUser = null;
             switch (update.Type)
@@ -32,7 +31,7 @@ namespace TextGameRPG.Scripts.TelegramBot
                 case UpdateType.CallbackQuery: fromUser = update.CallbackQuery?.From; break;
 
                 default:
-                    Program.logger.Warn($"Unhandled Update {update.Id} (unhandled type)");
+                    Program.logger.Warn($"Unhandled Update {update.Id} (unsupported type)");
                     return Task.CompletedTask;
             }
 

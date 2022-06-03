@@ -16,6 +16,7 @@ namespace TextGameRPG.Scripts.GameCore.Inventory
             { ItemType.Armor, null },
             { ItemType.Boots, null },
             { ItemType.Shield, null },
+            { ItemType.Amulet, null }
         };
         private Dictionary<ItemType, InventoryItem?[]> _multiEquipped = new Dictionary<ItemType, InventoryItem?[]>
         {
@@ -37,7 +38,7 @@ namespace TextGameRPG.Scripts.GameCore.Inventory
 
         public EquippedItems(PlayerInventory inventory)
         {
-            var allEquipped = inventory.GetAllItems().Where(x => x.isEquipped);
+            var allEquipped = inventory.GetAllItems().Where(x => x.isEquipped).OrderBy(x => x.data.itemType);
             foreach (var item in allEquipped)
             {
                 TrySetupAsEquipped(item);
@@ -91,7 +92,7 @@ namespace TextGameRPG.Scripts.GameCore.Inventory
             }
 
             _singleEquipped[itemType] = item;
-            _allEquipped.Add(item);
+            InsertToAllEquippedWithItemTypeOrdering(item);
             item.SetEquippedState(true);
             OnUpdateEquippedItems();
         }
@@ -112,9 +113,23 @@ namespace TextGameRPG.Scripts.GameCore.Inventory
             }
 
             _multiEquipped[itemType][slot] = item;
-            _allEquipped.Add(item);
+            InsertToAllEquippedWithItemTypeOrdering(item);
             item.SetEquippedState(true);
             OnUpdateEquippedItems();
+        }
+
+        private void InsertToAllEquippedWithItemTypeOrdering(InventoryItem item)
+        {
+            int index = _allEquipped.Count;
+            for (int i = 0; i < _allEquipped.Count; i++)
+            {
+                if ((sbyte)_allEquipped[i].data.itemType > (sbyte)item.data.itemType)
+                {
+                    index = i;
+                    break;
+                }
+            }
+            _allEquipped.Insert(index, item);
         }
 
         public void Unequip(InventoryItem item, bool withInvokeEvent = true)

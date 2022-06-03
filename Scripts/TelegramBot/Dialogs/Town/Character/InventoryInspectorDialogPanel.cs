@@ -86,6 +86,10 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
         public async Task ShowMainInfo()
         {
             await RemoveKeyboardFromLastMessage();
+
+            RegisterButton($"{Emojis.items[ItemType.Equipped]} {Localization.Get(session, "menu_item_equipped")}",
+                async() => await ShowCategory(ItemType.Equipped));
+
             _lastMessage = await messageSender.SendTextMessage(session.chatId, _mainItemsInfo, GetMultilineKeyboard());
         }
 
@@ -99,35 +103,27 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
                 await ResendComparedItemMessage();
             }
 
-            await RemoveKeyboardFromLastMessage();
-
             _browsedCategory = category;
             RefreshBrowsedItems(category);
-
-            if (_browsedItems.Length == 0)
-            {
-                var categoryLocalization = GetCategoryLocalization(category);
-                var text = $"<b>{categoryLocalization}:</b> "
-                    + Localization.Get(session, "dialog_inventory_has_not_items");
-                _lastMessage = await messageSender.SendTextMessage(session.chatId, text);
-                return;
-            }
-
             await ShowItemsPage(asNewMessage: true);
         }
 
         private void RefreshBrowsedItems(ItemType? category)
         {
-            if (category == ItemType.Tome)
+            switch (category)
             {
-                var magicItems = new List<InventoryItem>();
-                magicItems.AddRange(_inventory.GetItemsByType(ItemType.Tome));
-                magicItems.AddRange(_inventory.GetItemsByType(ItemType.Scroll));
-                _browsedItems = magicItems.ToArray();
-            }
-            else
-            {
-                _browsedItems = _inventory.GetItemsByType(category.Value).ToArray();
+                case ItemType.Equipped:
+                    _browsedItems = _inventory.equipped.allEquipped;
+                    break;
+                case ItemType.Tome:
+                    var magicItems = new List<InventoryItem>();
+                    magicItems.AddRange(_inventory.GetItemsByType(ItemType.Tome));
+                    magicItems.AddRange(_inventory.GetItemsByType(ItemType.Scroll));
+                    _browsedItems = magicItems.ToArray();
+                    break;
+                default:
+                    _browsedItems = _inventory.GetItemsByType(category.Value).ToArray();
+                    break;
             }
 
             _currentPage = 0;
@@ -143,56 +139,58 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
 
         private async Task ShowItemsPage(bool asNewMessage)
         {
+            await RemoveKeyboardFromLastMessage();
             var categoryLocalization = GetCategoryLocalization(_browsedCategory.Value);
-
             var text = new StringBuilder();
-            text.AppendLine($"<b>{categoryLocalization}:</b> {_browsedItems.Length}");
-            if (_pagesCount > 1)
-            {
-                text.AppendLine(string.Format(Localization.Get(session, "dialog_inventory_current_page"), _currentPage + 1, _pagesCount));
-            }
+            text.Append($"<b>{categoryLocalization}:</b> ");
 
-            ClearButtons();
-            int startIndex = _currentPage * browsedItemsOnPage;
-            for (int i = startIndex; i < startIndex + browsedItemsOnPage && i < _browsedItems.Length; i++)
+            if (_pagesCount == 0)
             {
-                var item = _browsedItems[i];
-                var prefix = item.isEquipped ? Emojis.items[ItemType.Equipped] : string.Empty;
-                RegisterButton(prefix + item.GetFullName(session), async () => await OnItemClick(item));
+                text.Append(Localization.Get(session, "dialog_inventory_has_not_items"));
+            }
+            else
+            {
+                text.AppendLine(_browsedItems.Length.ToString());
+                int startIndex = _currentPage * browsedItemsOnPage;
+                for (int i = startIndex; i < startIndex + browsedItemsOnPage && i < _browsedItems.Length; i++)
+                {
+                    var item = _browsedItems[i];
+                    var prefix = item.isEquipped ? Emojis.items[ItemType.Equipped] : string.Empty;
+                    RegisterButton(prefix + item.GetFullName(session), async () => await OnItemClick(item));
+                }
             }
 
             RegisterButton(Emojis.menuItems[MenuItem.Inventory], async () => await OnClickCloseCategory());
             if (_pagesCount > 1)
             {
+                text.AppendLine(string.Format(Localization.Get(session, "dialog_inventory_current_page"), _currentPage + 1, _pagesCount));
                 if (_currentPage > 0)
                     RegisterButton("<<", async () => await OnClickPreviousPage());
                 if (_currentPage < _pagesCount - 1)
                     RegisterButton(">>", async () => await OnClickNextPage());
             }
 
-            if (asNewMessage)
-            {
-                _lastMessage = await messageSender.SendTextMessage(session.chatId, text.ToString(), GetItemsPageKeyboard());
-            }
-            else
-            {
-                _lastMessage = await messageSender.EditTextMessage(session.chatId, _lastMessage.MessageId, text.ToString(), GetItemsPageKeyboard());
-            }
+            _lastMessage = asNewMessage
+                ? await messageSender.SendTextMessage(session.chatId, text.ToString(), GetItemsPageKeyboard())
+                : await messageSender.EditTextMessage(session.chatId, _lastMessage.MessageId, text.ToString(), GetItemsPageKeyboard());
         }
 
         private string GetCategoryLocalization(ItemType category)
         {
-            if (category == ItemType.Tome)
+            switch (category)
             {
-                return Localization.Get(session, $"menu_item_spells");
-            }
-
-            string stringCategory = category.ToString().ToLower();
-            if (!stringCategory.EndsWith('s'))
-            {
-                stringCategory = stringCategory + 's';
-            }
-            return Localization.Get(session, $"menu_item_{stringCategory}");
+                case ItemType.Equipped:
+                    return Localization.Get(session, $"menu_item_equipped");
+                case ItemType.Tome:
+                    return Localization.Get(session, $"menu_item_spells");
+                default:
+                    string stringCategory = category.ToString().ToLower();
+                    if (!stringCategory.EndsWith('s'))
+                    {
+                        stringCategory = stringCategory + 's';
+                    }
+                    return Localization.Get(session, $"menu_item_{stringCategory}");
+            }            
         }
 
         private async Task OnItemClick(InventoryItem item)
