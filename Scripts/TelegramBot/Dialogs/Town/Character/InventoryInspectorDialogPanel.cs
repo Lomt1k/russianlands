@@ -14,7 +14,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
     {
         public InventoryItem comparedItem;
         public Message comparedItemMessage;
-        public ItemType? categoryOnStartCompare;
+        public ItemType categoryOnStartCompare;
         public int currentPageOnStartCompare;
         public int pagesCountOnStartCompare;
     }
@@ -28,8 +28,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
         private PlayerInventory _inventory;
         private Message? _lastMessage;
 
-        private ItemType? _browsedCategory;
-        private InventoryItem[]? _browsedItems;
+        private ItemType _browsedCategory;
+        private InventoryItem[] _browsedItems;
         private int _currentPage;
         private int _pagesCount;
 
@@ -104,13 +104,13 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
             }
 
             _browsedCategory = category;
-            RefreshBrowsedItems(category);
+            RefreshBrowsedItems();
             await ShowItemsPage(asNewMessage: true);
         }
 
-        private void RefreshBrowsedItems(ItemType? category)
+        private void RefreshBrowsedItems()
         {
-            switch (category)
+            switch (_browsedCategory)
             {
                 case ItemType.Equipped:
                     _browsedItems = _inventory.equipped.allEquipped;
@@ -122,7 +122,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
                     _browsedItems = magicItems.ToArray();
                     break;
                 default:
-                    _browsedItems = _inventory.GetItemsByType(category.Value).ToArray();
+                    _browsedItems = _inventory.GetItemsByType(_browsedCategory).ToArray();
                     break;
             }
 
@@ -140,7 +140,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
         private async Task ShowItemsPage(bool asNewMessage)
         {
             await RemoveKeyboardFromLastMessage();
-            var categoryLocalization = GetCategoryLocalization(_browsedCategory.Value);
+            var categoryLocalization = GetCategoryLocalization(_browsedCategory);
             var text = new StringBuilder();
             text.Append($"<b>{categoryLocalization}:</b> ");
 
@@ -237,7 +237,6 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
         private async Task ShowItemInspector(InventoryItem item)
         {
             var text = item.GetView(session);
-
             ClearButtons();
 
             int firstRowButtons = 1;
@@ -256,14 +255,13 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
                 firstRowButtons++;
             }
 
-            
             RegisterButton(Localization.Get(session, "menu_item_compare_button"),
                 async () => await StartSelectItemForCompare(item),
                 () => Localization.Get(session, "menu_item_compare_button_callback"));
 
             var categoryIcon = _browsedCategory == ItemType.Tome
                 ? Emojis.menuItems[MenuItem.Spells]
-                : Emojis.items[_browsedCategory.Value];
+                : Emojis.items[_browsedCategory];
 
             RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_back_to_list_button")} {categoryIcon}",
                 async () => await ShowItemsPage(asNewMessage: false));
@@ -320,21 +318,21 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
         private async Task EquipSingleSlot(InventoryItem item)
         {
             _inventory.EquipSingleSlot(item);
-            RefreshBrowsedItems(_browsedCategory);
+            RefreshBrowsedItems();
             await ShowItemInspector(item);
         }
 
         private async Task EquipMultiSlot(InventoryItem item, int slotId)
         {
             _inventory.EquipMultiSlot(item, slotId);
-            RefreshBrowsedItems(_browsedCategory);
+            RefreshBrowsedItems();
             await ShowItemInspector(item);
         }
 
         private async Task UnequipItem(InventoryItem item)
         {
             _inventory.Unequip(item);
-            RefreshBrowsedItems(_browsedCategory);
+            RefreshBrowsedItems();
             await ShowItemInspector(item);
         }
 
@@ -348,6 +346,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
                 pagesCountOnStartCompare = _pagesCount,
                 comparedItemMessage = await messageSender.EditMessageKeyboard(session.chatId, _lastMessage.MessageId, null)
             };
+            _lastMessage = _compareData.Value.comparedItemMessage;
 
             await ShowItemsPage(asNewMessage: true);
         }
@@ -377,6 +376,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
             var inspectedItem = _compareData.Value.comparedItem;
             _compareData = null;
 
+            RefreshBrowsedItems();
             await ShowItemInspector(inspectedItem);
         }
 
