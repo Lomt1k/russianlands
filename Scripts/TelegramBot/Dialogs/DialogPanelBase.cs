@@ -18,7 +18,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
         public byte panelId { get; }
 
         private Dictionary<int, InlineKeyboardButton> _registeredButtons = new Dictionary<int, InlineKeyboardButton>();
-        private Dictionary<int, Action?> _registeredCallbacks = new Dictionary<int, Action?>();
+        private Dictionary<int, Task?> _registeredCallbacks = new Dictionary<int, Task?>();
         private Dictionary<int, Func<string?>> _registeredQueryAnswers = new Dictionary<int, Func<string?>>();
         private int _freeButtonId;
 
@@ -31,7 +31,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
             panelId = _panelId;
         }
 
-        protected void RegisterButton(string text, Action? callback, Func<string?>? queryAnswer = null)
+        protected void RegisterButton(string text, Task? callback, Func<string?>? queryAnswer = null)
         {
             var callbackData = new DialogPanelButtonCallbackData()
             {
@@ -89,18 +89,29 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
         public abstract Task SendAsync();
         public abstract void OnDialogClose();
 
-        public virtual void HandleButtonPress(int buttonId, string queryId)
+        public virtual async void HandleButtonPress(int buttonId, string queryId)
         {
-            if (_registeredCallbacks.TryGetValue(buttonId, out var callback))
+            try
             {
-                var generateQueryFunc = _registeredQueryAnswers[buttonId];
-                var query = generateQueryFunc != null ? generateQueryFunc() : null;
-                messageSender.AnswerQuery(queryId, query);
-
-                if (callback != null)
+                if (_registeredCallbacks.TryGetValue(buttonId, out var callback))
                 {
-                    callback();
-                }                
+                    var generateQueryFunc = _registeredQueryAnswers[buttonId];
+                    var query = generateQueryFunc != null ? generateQueryFunc() : null;                    
+
+                    if (callback != null)
+                    {
+                        await callback;
+                    }
+                    await messageSender.AnswerQuery(queryId, query);
+                }
+            }
+            catch (Exception ex)
+            {
+                var error = $"Exception in DialogPanel (HandleButtonPress)\nSession for @{session.actualUser.Username} (userId {session.actualUser.Id})\n{ex}";
+                Program.logger.Error(error + "\n");
+
+                await messageSender.SendErrorMessage(session.chatId, ex.ToString());
+                await messageSender.AnswerQuery(queryId);
             }
         }
 

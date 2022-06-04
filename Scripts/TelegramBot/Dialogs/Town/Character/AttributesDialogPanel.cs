@@ -5,6 +5,8 @@ using TextGameRPG.Scripts.GameCore.Units.Stats;
 
 namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
 {
+    internal enum Attribute { Strength, Vitality, Sorcery, Luck }
+
     internal class AttributesDialogPanel : DialogPanelBase
     {
         private int? _messageId;
@@ -23,16 +25,15 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
             if (!_isClosing && session.profile.data.attributePoints > 0)
             {
                 RegisterButton($"{Emojis.elements[Element.Plus]} {Localization.Get(session, "unit_attribute_strength")}",
-                () => TryUpAttribute(ref session.profile.data.attributeStrength));
+                    TryUpAttribute(Attribute.Strength));
                 RegisterButton($"{Emojis.elements[Element.Plus]} {Localization.Get(session, "unit_attribute_vitality")}",
-                    () => TryUpAttribute(ref session.profile.data.attributeVitality));
+                    TryUpAttribute(Attribute.Vitality));
                 RegisterButton($"{Emojis.elements[Element.Plus]} {Localization.Get(session, "unit_attribute_sorcery")}",
-                    () => TryUpAttribute(ref session.profile.data.attributeSorcery));
+                    TryUpAttribute(Attribute.Sorcery));
                 RegisterButton($"{Emojis.elements[Element.Plus]} {Localization.Get(session, "unit_attribute_luck")}",
-                    () => TryUpAttribute(ref session.profile.data.attributeLuck));
+                    TryUpAttribute(Attribute.Luck));
             }
-            RegisterButton($"{Emojis.elements[Element.Info]} {Localization.Get(session, "dialog_attributes_tooltip")}",
-                () => Task.Run(ShowInfo));
+            RegisterButton($"{Emojis.elements[Element.Info]} {Localization.Get(session, "dialog_attributes_tooltip")}", ShowInfo());
 
             var keyboard = buttonsCount > 1 ? GetKeyboardWithRowSizes(2, 2, 1) : GetOneLineKeyboard();
             if (_messageId.HasValue)
@@ -50,7 +51,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
         {
             _isInfoOpened = true;
             ClearButtons();
-            RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_back_button")}", () => Task.Run(ShowAttributes) );
+            RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_back_button")}", ShowAttributes());
 
             var text = Localization.Get(session, "dialog_attributes_info");
 
@@ -110,21 +111,27 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
             await ShowAttributes();
         }
 
-        private void TryUpAttribute(ref short attribute)
+        private async Task TryUpAttribute(Attribute attribute)
         {
             if (session.profile.data.attributePoints > 0)
             {
-                attribute++;
+                switch (attribute)
+                {
+                    case Attribute.Strength: session.profile.data.attributeStrength++; break;
+                    case Attribute.Vitality: session.profile.data.attributeVitality++; break;
+                    case Attribute.Sorcery: session.profile.data.attributeSorcery++; break;
+                    case Attribute.Luck: session.profile.data.attributeLuck++; break;
+                }
                 session.profile.data.attributePoints--;
             }
-            RecalculateStatsAndShowAttributes();
+            await RecalculateStatsAndShowAttributes();
         }
 
-        private void RecalculateStatsAndShowAttributes()
+        private async Task RecalculateStatsAndShowAttributes()
         {
             var playerStats = (PlayerStats)session.player.unitStats;
             playerStats.Recalculate();
-            ShowAttributes();
+            await ShowAttributes();
         }
 
 

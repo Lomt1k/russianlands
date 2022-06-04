@@ -88,7 +88,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
             await RemoveKeyboardFromLastMessage();
 
             RegisterButton($"{Emojis.items[ItemType.Equipped]} {Localization.Get(session, "menu_item_equipped")}",
-                async() => await ShowCategory(ItemType.Equipped));
+                ShowCategory(ItemType.Equipped));
 
             _lastMessage = await messageSender.SendTextMessage(session.chatId, _mainItemsInfo, GetMultilineKeyboard());
         }
@@ -156,18 +156,18 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
                 {
                     var item = _browsedItems[i];
                     var prefix = item.isEquipped ? Emojis.items[ItemType.Equipped] : string.Empty;
-                    RegisterButton(prefix + item.GetFullName(session), async () => await OnItemClick(item));
+                    RegisterButton(prefix + item.GetFullName(session), OnItemClick(item));
                 }
             }
 
-            RegisterButton(Emojis.menuItems[MenuItem.Inventory], async () => await OnClickCloseCategory());
+            RegisterButton(Emojis.menuItems[MenuItem.Inventory], OnClickCloseCategory());
             if (_pagesCount > 1)
             {
                 text.AppendLine(string.Format(Localization.Get(session, "dialog_inventory_current_page"), _currentPage + 1, _pagesCount));
                 if (_currentPage > 0)
-                    RegisterButton("<<", async () => await OnClickPreviousPage());
+                    RegisterButton("<<", OnClickPreviousPage());
                 if (_currentPage < _pagesCount - 1)
-                    RegisterButton(">>", async () => await OnClickNextPage());
+                    RegisterButton(">>", OnClickNextPage());
             }
 
             _lastMessage = asNewMessage
@@ -244,19 +244,17 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
             {
                 if (item.isEquipped)
                 {
-                    RegisterButton(Localization.Get(session, "menu_item_unequip_button"),
-                        async() => await UnequipItem(item));
+                    RegisterButton(Localization.Get(session, "menu_item_unequip_button"), UnequipItem(item));
                 }
                 else
                 {
-                    RegisterButton(Localization.Get(session, "menu_item_equip_button"),
-                        async() => await StartEquipLogic(item));
+                    RegisterButton(Localization.Get(session, "menu_item_equip_button"), StartEquipLogic(item));
                 }
                 firstRowButtons++;
             }
 
             RegisterButton(Localization.Get(session, "menu_item_compare_button"),
-                async () => await StartSelectItemForCompare(item),
+                StartSelectItemForCompare(item),
                 () => Localization.Get(session, "menu_item_compare_button_callback"));
 
             var categoryIcon = _browsedCategory == ItemType.Tome
@@ -264,7 +262,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
                 : Emojis.items[_browsedCategory];
 
             RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_back_to_list_button")} {categoryIcon}",
-                async () => await ShowItemsPage(asNewMessage: false));
+                ShowItemsPage(asNewMessage: false));
 
             _lastMessage = await messageSender.EditTextMessage(session.chatId, _lastMessage.MessageId, text, GetKeyboardWithRowSizes(firstRowButtons, 1));
         }
@@ -278,7 +276,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
                 var messageText = $"<b>{item.GetFullName(session)}</b>\n\n"
                     + string.Format(Localization.Get(session, "dialog_inventory_required_level"), requiredLevel) + $" {Emojis.smiles[Smile.Sad]}";
                 ClearButtons();
-                RegisterButton(Localization.Get(session, "menu_item_ok_button"), async() => await ShowItemInspector(item));
+                RegisterButton(Localization.Get(session, "menu_item_ok_button"), ShowItemInspector(item));
                 _lastMessage = await messageSender.EditTextMessage(session.chatId, _lastMessage.MessageId, messageText, GetOneLineKeyboard());
                 return;
             }
@@ -307,10 +305,9 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
                 var buttonText = equippedItem != null 
                     ? equippedItem.GetFullName(session) 
                     : $"{Emojis.items[type]} {Localization.Get(session, "menu_item_empty_slot_button")}";
-                RegisterButton(buttonText, async () => await EquipMultiSlot(item, slotId));
+                RegisterButton(buttonText, EquipMultiSlot(item, slotId));
             }
-            RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_back_button")}",
-                async() => await ShowItemInspector(item));
+            RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_back_button")}", ShowItemInspector(item));
 
             _lastMessage = await messageSender.EditTextMessage(session.chatId, _lastMessage.MessageId, text, GetMultilineKeyboard());
         }
@@ -356,12 +353,10 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
             var text = secondItem.GetView(session);
             ClearButtons();
 
-            RegisterButton(Localization.Get(session, "menu_item_compare_another_button"),
-                async () => await ShowItemsPage(asNewMessage: false),
+            RegisterButton(Localization.Get(session, "menu_item_compare_another_button"), ShowItemsPage(asNewMessage: false),
                 () => Localization.Get(session, "menu_item_compare_button_callback"));
 
-            RegisterButton(Localization.Get(session, "menu_item_compare_end_button"),
-                async () => await EndComparison());
+            RegisterButton(Localization.Get(session, "menu_item_compare_end_button"), EndComparison());
 
             _lastMessage = await messageSender.EditTextMessage(session.chatId, _lastMessage.MessageId, text, GetMultilineKeyboard());
         }
