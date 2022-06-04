@@ -25,15 +25,15 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
             if (!_isClosing && session.profile.data.attributePoints > 0)
             {
                 RegisterButton($"{Emojis.elements[Element.Plus]} {Localization.Get(session, "unit_attribute_strength")}",
-                    TryUpAttribute(Attribute.Strength));
+                    () => TryUpAttribute(Attribute.Strength));
                 RegisterButton($"{Emojis.elements[Element.Plus]} {Localization.Get(session, "unit_attribute_vitality")}",
-                    TryUpAttribute(Attribute.Vitality));
+                    () => TryUpAttribute(Attribute.Vitality));
                 RegisterButton($"{Emojis.elements[Element.Plus]} {Localization.Get(session, "unit_attribute_sorcery")}",
-                    TryUpAttribute(Attribute.Sorcery));
+                    () => TryUpAttribute(Attribute.Sorcery));
                 RegisterButton($"{Emojis.elements[Element.Plus]} {Localization.Get(session, "unit_attribute_luck")}",
-                    TryUpAttribute(Attribute.Luck));
+                    () => TryUpAttribute(Attribute.Luck));
             }
-            RegisterButton($"{Emojis.elements[Element.Info]} {Localization.Get(session, "dialog_attributes_tooltip")}", ShowInfo());
+            RegisterButton($"{Emojis.elements[Element.Info]} {Localization.Get(session, "dialog_attributes_tooltip")}", () => ShowInfo());
 
             var keyboard = buttonsCount > 1 ? GetKeyboardWithRowSizes(2, 2, 1) : GetOneLineKeyboard();
             if (_messageId.HasValue)
@@ -51,7 +51,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
         {
             _isInfoOpened = true;
             ClearButtons();
-            RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_back_button")}", ShowAttributes());
+            RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_back_button")}", () => ShowAttributes());
 
             var text = Localization.Get(session, "dialog_attributes_info");
 

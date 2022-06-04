@@ -1,4 +1,5 @@
-﻿using TextGameRPG.Scripts.GameCore.Localization;
+﻿using System.Threading.Tasks;
+using TextGameRPG.Scripts.GameCore.Localization;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 
 namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
@@ -13,7 +14,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
             RegisterPanel(new AttributesDialogPanel(this, 0));
         }
 
-        public override async void Start()
+        public override async Task Start()
         {
             string header = $"{Emojis.menuItems[MenuItem.Attributes]} <b>{Localization.Get(session, "menu_item_attributes")}</b>";
             await messageSender.SendTextDialog(session.chatId, header, GetOneLineKeyboard());

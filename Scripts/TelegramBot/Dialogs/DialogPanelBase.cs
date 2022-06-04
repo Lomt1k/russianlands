@@ -18,7 +18,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
         public byte panelId { get; }
 
         private Dictionary<int, InlineKeyboardButton> _registeredButtons = new Dictionary<int, InlineKeyboardButton>();
-        private Dictionary<int, Task?> _registeredCallbacks = new Dictionary<int, Task?>();
+        private Dictionary<int, Func<Task>?> _registeredCallbacks = new Dictionary<int, Func<Task>?>();
         private Dictionary<int, Func<string?>> _registeredQueryAnswers = new Dictionary<int, Func<string?>>();
         private int _freeButtonId;
 
@@ -31,7 +31,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
             panelId = _panelId;
         }
 
-        protected void RegisterButton(string text, Task? callback, Func<string?>? queryAnswer = null)
+        protected void RegisterButton(string text, Func<Task>? callback, Func<string?>? queryAnswer = null)
         {
             var callbackData = new DialogPanelButtonCallbackData()
             {
@@ -89,21 +89,21 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
         public abstract Task SendAsync();
         public abstract void OnDialogClose();
 
-        public virtual async void HandleButtonPress(int buttonId, string queryId)
+        public virtual async Task HandleButtonPress(int buttonId, string queryId)
         {
             try
             {
-                if (_registeredCallbacks.TryGetValue(buttonId, out var callback))
-                {
-                    var generateQueryFunc = _registeredQueryAnswers[buttonId];
-                    var query = generateQueryFunc != null ? generateQueryFunc() : null;                    
+                if (!_registeredCallbacks.TryGetValue(buttonId, out var callback))
+                    return;
 
-                    if (callback != null)
-                    {
-                        await callback;
-                    }
-                    await messageSender.AnswerQuery(queryId, query);
+                var generateQueryFunc = _registeredQueryAnswers[buttonId];
+                var query = generateQueryFunc != null ? generateQueryFunc() : null;
+
+                if (callback != null)
+                {
+                    await callback();
                 }
+                await messageSender.AnswerQuery(queryId, query);
             }
             catch (Exception ex)
             {

@@ -1,4 +1,5 @@
-﻿using TextGameRPG.Scripts.GameCore.Localization;
+﻿using System.Threading.Tasks;
+using TextGameRPG.Scripts.GameCore.Localization;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 
 namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Tutorial
@@ -9,33 +10,33 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Tutorial
         {
         }
 
-        public async override void Start()
+        public override async Task Start()
         {
             string text = "Пожалуйста, выберите ваш язык:\n" +
                 "-----------------------\n" +
                 "Please select your language:";
 
-            RegisterButton($"{Emojis.flags[Flag.Russia]} Русский", OnSelectRussian);
-            RegisterButton($"{Emojis.flags[Flag.GreatBritain]} English", OnSelectEnglish);
+            RegisterButton($"{Emojis.flags[Flag.Russia]} Русский", () => OnSelectRussian());
+            RegisterButton($"{Emojis.flags[Flag.GreatBritain]} English", () => OnSelectEnglish());
 
             await messageSender.SendTextDialog(session.chatId, text, GetMultilineKeyboard());
         }
 
-        private void OnSelectRussian()
+        private async Task OnSelectRussian()
         {
-            SetupLanguage(LanguageCode.ru);
+            await SetupLanguage(LanguageCode.ru);
         }
 
-        private void OnSelectEnglish()
+        private async Task OnSelectEnglish()
         {
-            SetupLanguage(LanguageCode.en);
+            await SetupLanguage(LanguageCode.en);
         }
 
-        private void SetupLanguage(LanguageCode language)
+        private async Task SetupLanguage(LanguageCode language)
         {
             session.profile.data.language = language.ToString();
             session.SetupLanguage(language);
-            TutorialManager.StartNextStage(session);
+            await TutorialManager.StartNextStage(session);
         }
     }
 }

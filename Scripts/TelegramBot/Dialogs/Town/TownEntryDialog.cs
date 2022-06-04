@@ -1,4 +1,5 @@
-﻿using Telegram.Bot.Types.ReplyMarkups;
+﻿using System.Threading.Tasks;
+using Telegram.Bot.Types.ReplyMarkups;
 using TextGameRPG.Scripts.GameCore.Localization;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 
@@ -20,29 +21,23 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town
         {
             _reason = reason;
 
-            RegisterButton($"{Emojis.menuItems[MenuItem.Map]} "
-                + Localization.Get(session, "menu_item_map"),
+            RegisterButton($"{Emojis.menuItems[MenuItem.Map]} " + Localization.Get(session, "menu_item_map"),
                 null);
-            RegisterButton($"{Emojis.menuItems[MenuItem.Buildings]} "
-                + Localization.Get(session, "menu_item_buildings"),
+            RegisterButton($"{Emojis.menuItems[MenuItem.Buildings]} " + Localization.Get(session, "menu_item_buildings"),
                 null);
-            RegisterButton($"{Emojis.menuItems[MenuItem.Character]} "
-                + Localization.Get(session, "menu_item_character"),
+            RegisterButton($"{Emojis.menuItems[MenuItem.Character]} " + Localization.Get(session, "menu_item_character"),
                 () => new Character.TownCharacterDialog(session).Start());
-            RegisterButton($"{Emojis.menuItems[MenuItem.Quests]} "
-                + Localization.Get(session, "menu_item_quests"),
+            RegisterButton($"{Emojis.menuItems[MenuItem.Quests]} " + Localization.Get(session, "menu_item_quests"),
                 null);
-            RegisterButton($"{Emojis.menuItems[MenuItem.Mail]} "
-                + Localization.Get(session, "menu_item_mail"),
+            RegisterButton($"{Emojis.menuItems[MenuItem.Mail]} " + Localization.Get(session, "menu_item_mail"),
                 null);
-            RegisterButton($"{Emojis.menuItems[MenuItem.Options]} "
-                + Localization.Get(session, "menu_item_options"),
+            RegisterButton($"{Emojis.menuItems[MenuItem.Options]} " + Localization.Get(session, "menu_item_options"),
                 null);
 
             _keyboard = GetKeyboardWithRowSizes(1, 2, 3);
         }
 
-        public async override void Start()
+        public override async Task Start()
         {
             string header = $"{Emojis.menuItems[MenuItem.Town]} <b>" + Localization.Get(session, "menu_item_town") + "</b>\n\n";
             string text;

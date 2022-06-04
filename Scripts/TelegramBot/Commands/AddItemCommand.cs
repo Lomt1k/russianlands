@@ -1,11 +1,12 @@
-﻿using TextGameRPG.Scripts.GameCore.Items;
+﻿using System.Threading.Tasks;
+using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 
 namespace TextGameRPG.Scripts.TelegramBot.Commands
 {
     internal class AddItemCommand : CommandBase
     {
-        public override async void Execute(GameSession session, string[] args)
+        public override async Task Execute(GameSession session, string[] args)
         {
             if (args.Length < 1 || args.Length > 2)
                 return;

@@ -15,7 +15,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
         protected static MessageSender messageSender => TelegramBot.instance.messageSender;
         public GameSession session { get; }
 
-        private Dictionary<KeyboardButton, Action?> registeredButtons = new Dictionary<KeyboardButton, Action?>();
+        private Dictionary<KeyboardButton, Func<Task>?> registeredButtons = new Dictionary<KeyboardButton, Func<Task>?>();
         private Dictionary<byte, DialogPanelBase> registeredPanels = new Dictionary<byte, DialogPanelBase>();
 
         public DialogBase(GameSession _session)
@@ -24,7 +24,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
             session.SetupActiveDialog(this);
         }
 
-        protected void RegisterButton(string text, Action? callback)
+        protected void RegisterButton(string text, Func<Task>? callback)
         {
             registeredButtons.Add(text, callback);
         }
@@ -74,32 +74,44 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
             }
         }
 
-        public abstract void Start();
+        public abstract Task Start();
 
-        public virtual void HandleMessage(Message message)
+        public virtual async Task HandleMessage(Message message)
         {
             var text = message.Text;
-            if (text != null)
+            if (text == null)
+                return;
+
+            Func<Task>? callback = null;
+            foreach (var button in registeredButtons.Keys)
             {
-                foreach (var button in registeredButtons.Keys)
+                if (button.Text.Equals(text))
                 {
-                    if (button.Text.Equals(text))
-                    {
-                        var callback = registeredButtons[button];
-                        if (callback != null)
-                        {
-                            callback();
-                        }
-                    }
+                    if (registeredButtons.TryGetValue(button, out callback))
+                        break;
                 }
+            }
+
+            if (callback == null)
+                return;
+
+            try
+            {
+                await Task.Run(callback);
+            }
+            catch (Exception ex)
+            {
+                var error = $"Exception in Dialog (HandleMessage)\nSession for @{session.actualUser.Username} (userId {session.actualUser.Id})\n{ex}";
+                Program.logger.Error(error + "\n");
+                await messageSender.SendErrorMessage(session.chatId, ex.ToString());
             }
         }
 
-        public virtual void HandleCallbackQuery(string queryId, DialogPanelButtonCallbackData callback)
+        public virtual async Task HandleCallbackQuery(string queryId, DialogPanelButtonCallbackData callback)
         {
             if (registeredPanels.TryGetValue(callback.panelId, out var panel))
             {
-                panel.HandleButtonPress(callback.buttonId, queryId);
+                await panel.HandleButtonPress(callback.buttonId, queryId);
             }
         }
 

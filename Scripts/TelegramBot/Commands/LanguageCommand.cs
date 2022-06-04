@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Localization;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 
@@ -6,7 +7,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Commands
 {
     public class LanguageCommand : CommandBase
     {
-        public override void Execute(GameSession session, string[] args)
+        public override async Task Execute(GameSession session, string[] args)
         {
             if (args.Length != 1)
                 return;
@@ -15,7 +16,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Commands
                 return;
 
             session.SetupLanguage(code);
-            messageSender.SendTextMessage(session.chatId, $"Language changed to {code}");
+            await messageSender.SendTextMessage(session.chatId, $"Language changed to {code}");
         }
     }
 }

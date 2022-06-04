@@ -1,4 +1,5 @@
-﻿using TextGameRPG.Scripts.TelegramBot.Sessions;
+﻿using System.Threading.Tasks;
+using TextGameRPG.Scripts.TelegramBot.Sessions;
 
 namespace TextGameRPG.Scripts.TelegramBot.Commands
 {
@@ -6,6 +7,6 @@ namespace TextGameRPG.Scripts.TelegramBot.Commands
     {
         protected static MessageSender messageSender => TelegramBot.instance.messageSender;
 
-        public abstract void Execute(GameSession session, string[] args);
+        public abstract Task Execute(GameSession session, string[] args);
     }
 }

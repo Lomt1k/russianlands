@@ -2,6 +2,7 @@
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 using TextGameRPG.Scripts.GameCore.Localization;
 using TextGameRPG.Scripts.Utils;
+using System.Threading.Tasks;
 
 namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Tutorial
 {
@@ -14,7 +15,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Tutorial
         {
         }
 
-        public async override void Start()
+        public override async Task Start()
         {
             string text = Localization.Get(session, "dialog_tutorial_enterName_text");
 
@@ -25,9 +26,9 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Tutorial
             await messageSender.SendTextDialog(session.chatId, text, GetMultilineKeyboard());
         }
 
-        public override async void HandleMessage(Message message)
+        public override async Task HandleMessage(Message message)
         {
-            base.HandleMessage(message);
+            await base.HandleMessage(message);
 
             if (message.Text == null)
                 return;
@@ -48,7 +49,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Tutorial
             }
 
             session.profile.data.nickname = nickname;
-            TutorialManager.StartNextStage(session);
+            await TutorialManager.StartNextStage(session);
         }
 
 

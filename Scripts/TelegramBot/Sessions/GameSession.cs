@@ -40,38 +40,38 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
             currentDialog = dialog;
         }
 
-        public void HandleUpdateAsync(User refreshedUser, Update update)
+        public async Task HandleUpdateAsync(User refreshedUser, Update update)
         {
             lastActivityTime = DateTime.UtcNow;
             actualUser = refreshedUser;
             if (profile == null)
             {
-                OnStartNewSession(actualUser);
+                await OnStartNewSession(actualUser);
                 return;
             }
 
             switch (update.Type)
             {
                 case UpdateType.Message:
-                    HandleMessage(update.Message);
+                    await HandleMessageAsync(update.Message);
                     break;
                 case UpdateType.CallbackQuery:
-                    HandleQuery(update.CallbackQuery);
+                    await HandleQueryAsync(update.CallbackQuery);
                     break;
             }
         }
 
-        public void HandleMessage(Message message)
+        public async Task HandleMessageAsync(Message message)
         {
             if (message.Text != null && message.Text.StartsWith('/'))
             {
-                Commands.CommandHandler.HandleCommand(this, message.Text);
+                await Commands.CommandHandler.HandleCommand(this, message.Text);
                 return;
             }
-            currentDialog.HandleMessage(message);
+            await currentDialog.HandleMessage(message);
         }
 
-        public void HandleQuery(CallbackQuery query)
+        public async Task HandleQueryAsync(CallbackQuery query)
         {
             if (query == null || query.Data == null)
                 return;
@@ -80,12 +80,12 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
             switch (callbackData)
             {
                 case DialogPanelButtonCallbackData dialogPanelButtonCallback:
-                    currentDialog.HandleCallbackQuery(query.Id, dialogPanelButtonCallback);
+                    await currentDialog.HandleCallbackQuery(query.Id, dialogPanelButtonCallback);
                     return;
             }
         }
 
-        private async void OnStartNewSession(User actualUser)
+        private async Task OnStartNewSession(User actualUser)
         {
             var profilesTable = TelegramBot.instance.dataBase[Table.Profiles] as ProfilesDataTable;
             var profileData = await profilesTable.GetOrCreateProfileData(actualUser);
@@ -107,11 +107,11 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
 
             if (!profileData.isTutorialCompleted)
             {
-                TutorialManager.StartCurrentStage(this);
+                await TutorialManager.StartCurrentStage(this);
             }
             else
             {
-                new TownEntryDialog(this, TownEntryReason.StartNewSession).Start();
+                await new TownEntryDialog(this, TownEntryReason.StartNewSession).Start();
             }
         }
 
@@ -123,7 +123,10 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
 
         public async Task SaveProfileIfNeed()
         {
-            await profile?.SaveProfileIfNeed(lastActivityTime);
+            if (profile != null)
+            {
+                await profile.SaveProfileIfNeed(lastActivityTime);
+            }
         }
 
         public void SetupLanguage(LanguageCode languageCode)

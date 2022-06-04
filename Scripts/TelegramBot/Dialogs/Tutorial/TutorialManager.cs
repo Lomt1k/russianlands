@@ -1,27 +1,28 @@
-﻿using TextGameRPG.Scripts.TelegramBot.Dialogs.Town;
+﻿using System.Threading.Tasks;
+using TextGameRPG.Scripts.TelegramBot.Dialogs.Town;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 
 namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Tutorial
 {
     public static class TutorialManager
     {
-        public static void StartCurrentStage(GameSession session)
+        public static async Task StartCurrentStage(GameSession session)
         {
             switch (session.profile.data.tutorialStage)
             {
                 case 0:
-                    new TutorialSelectLanguageDialog(session).Start();
+                    await new TutorialSelectLanguageDialog(session).Start();
                     break;
                 case 100:
-                    new TutorialEnterNameDialog(session).Start();
+                    await new TutorialEnterNameDialog(session).Start();
                     break;
                 case 32000:
-                    new TutorialEndDialog(session).Start();
+                    await new TutorialEndDialog(session).Start();
                     break;
             }
         }
 
-        public static void StartNextStage(GameSession session)
+        public static async Task StartNextStage(GameSession session)
         {
             var stage = session.profile.data.tutorialStage;
             switch (session.profile.data.tutorialStage)
@@ -35,13 +36,13 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Tutorial
             }
 
             session.profile.data.tutorialStage = stage;
-            StartCurrentStage(session);
+            await StartCurrentStage(session);
         }
 
-        public static void CompleteTutorial(GameSession session)
+        public static async Task CompleteTutorial(GameSession session)
         {
             session.profile.data.tutorialStage = -1;
-            new TownEntryDialog(session, TownEntryReason.EndTutorial).Start();
+            await new TownEntryDialog(session, TownEntryReason.EndTutorial).Start();
         }
 
     }

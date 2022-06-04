@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 
 namespace TextGameRPG.Scripts.TelegramBot.Commands
@@ -18,7 +19,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Commands
             };
         }
 
-        public static void HandleCommand(GameSession session, string unparsedCommand)
+        public static async Task HandleCommand(GameSession session, string unparsedCommand)
         {
             //Program.logger.Debug($"Command from @{session.actualUser.Username}: {unparsedCommand}");
             var elements = unparsedCommand.ToLower().Split(' ', StringSplitOptions.RemoveEmptyEntries);
@@ -29,12 +30,12 @@ namespace TextGameRPG.Scripts.TelegramBot.Commands
 
             if (elements.Length > 1)
             {
-                command.Execute(session, elements.Skip(1).ToArray());
+                await command.Execute(session, elements.Skip(1).ToArray());
                 return;
             }
             else
             {
-                command.Execute(session, new string[] { });
+                await command.Execute(session, new string[] { });
             }
         }
     }
