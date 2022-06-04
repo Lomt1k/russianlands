@@ -10,11 +10,6 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties
 
         public int value;
 
-        public IncreaseMaxManaProperty(int value)
-        {
-            this.value = value;
-        }
-
         public override void ApplyItemLevel(byte level) { }
 
         public override string ToString()

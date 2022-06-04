@@ -10,20 +10,14 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties
         {
             _properties = new Dictionary<ItemPropertyType, ItemPropertyBase>
             {
-                { ItemPropertyType.PhysicalDamage, new PhysicalDamageItemProperty(0, 0) },
-                { ItemPropertyType.PhysicalDamageResist, new PhysicalDamageResistItemProperty(0) },
-                { ItemPropertyType.FireDamage, new FireDamageItemProperty(0, 0) },
-                { ItemPropertyType.FireDamageResist, new FireDamageResistItemProperty(0) },
-                { ItemPropertyType.ColdDamage, new ColdDamageItemProperty(0, 0) },
-                { ItemPropertyType.ColdDamageResist, new ColdDamageResistItemProperty(0) },
-                { ItemPropertyType.LightningDamage, new LightningDamageItemProperty(0, 0) },
-                { ItemPropertyType.LightningDamageResist, new LightningDamageResistItemProperty(0) },
-                { ItemPropertyType.IncreaseAttributeStrength, new IncreaseAttributeStrengthItemProperty(0) },
-                { ItemPropertyType.IncreaseAttributeVitality, new IncreaseAttributeVitalityItemProperty(0) },
-                { ItemPropertyType.IncreaseAttributeSorcery, new IncreaseAttributeSorceryItemProperty(0) },
-                { ItemPropertyType.IncreaseAttributeLuck, new IncreaseAttributeLuckItemProperty(0) },
-                { ItemPropertyType.IncreaseMaxHealth, new IncreaseMaxHealthItemProperty(0) },
-                { ItemPropertyType.IncreaseMaxMana, new IncreaseMaxManaProperty(0) }
+                { ItemPropertyType.DealDamage, new DealDamageItemProperty() },
+                { ItemPropertyType.DamageResist, new DamageResistProperty() },
+                { ItemPropertyType.IncreaseAttributeStrength, new IncreaseAttributeStrengthItemProperty() },
+                { ItemPropertyType.IncreaseAttributeVitality, new IncreaseAttributeVitalityItemProperty() },
+                { ItemPropertyType.IncreaseAttributeSorcery, new IncreaseAttributeSorceryItemProperty() },
+                { ItemPropertyType.IncreaseAttributeLuck, new IncreaseAttributeLuckItemProperty() },
+                { ItemPropertyType.IncreaseMaxHealth, new IncreaseMaxHealthItemProperty() },
+                { ItemPropertyType.IncreaseMaxMana, new IncreaseMaxManaProperty() }
             };
         }
 

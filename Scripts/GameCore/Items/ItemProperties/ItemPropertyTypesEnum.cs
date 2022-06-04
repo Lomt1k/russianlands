@@ -3,20 +3,16 @@
     public enum ItemPropertyType
     {
         None = 0,
-        PhysicalDamage = 1,
-        PhysicalDamageResist = 2,
-        FireDamage = 3,
-        FireDamageResist = 4,
-        ColdDamage = 5,
-        ColdDamageResist = 6,
-        LightningDamage = 7,
-        LightningDamageResist = 8,
-        IncreaseAttributeStrength = 9,
-        IncreaseAttributeVitality = 10,
-        IncreaseAttributeSorcery = 11,
-        IncreaseAttributeLuck = 12,
-        IncreaseMaxHealth = 13,
-        IncreaseMaxMana = 14
+        DealDamage = 1,
+        DamageResist = 2,
+        IncreaseAttributeStrength = 3,
+        IncreaseAttributeVitality = 4,
+        IncreaseAttributeSorcery = 5,
+        IncreaseAttributeLuck = 6,
+        IncreaseMaxHealth = 7,
+        IncreaseMaxMana = 8
     }
+
+    public enum DamageType { Physical, Fire, Cold, Lightning }
 
 }

@@ -75,17 +75,11 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
         {
             switch (property)
             {
-                case PhysicalDamageResistItemProperty physicalDamageResist:
-                    this.physicalResist += physicalDamageResist.value;
-                    break;
-                case FireDamageResistItemProperty fireDamageResist:
-                    this.fireResist += fireDamageResist.value;
-                    break;
-                case ColdDamageResistItemProperty coldDamageResist:
-                    this.coldResist += coldDamageResist.value;
-                    break;
-                case LightningDamageResistItemProperty lightningDamageResist:
-                    this.lightningResist += lightningDamageResist.value;
+                case DamageResistProperty resistProperty:
+                    this.physicalResist += resistProperty.physicalDamage;
+                    this.fireResist += resistProperty.fireDamage;
+                    this.coldResist += resistProperty.coldDamage;
+                    this.lightningResist += resistProperty.lightningDamage;
                     break;
                 case IncreaseAttributeStrengthItemProperty increaseStrength:
                     this.attributeStrength += increaseStrength.value;

@@ -24,8 +24,8 @@ namespace TextGameRPG.Scripts.Utils
             if (percent >= 100)
                 return true;
 
-            var result = random.NextDouble() * 100;
-            return result < percent;
+            var result = random.NextDouble();
+            return result < percent / 100;
         }
 
     }

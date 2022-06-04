@@ -52,7 +52,7 @@ namespace TextGameRPG.Scripts.GameCore.Items
 
         public ItemPropertyBase AddEmptyProperty()
         {
-            var property = new PhysicalDamageItemProperty(0, 0);
+            var property = new DealDamageItemProperty();
             properties.Add(property);
             return property;
         }
@@ -60,38 +60,6 @@ namespace TextGameRPG.Scripts.GameCore.Items
         public void RemoveProperty(int index)
         {
             properties.RemoveAt(index);
-        }
-
-        public bool HasDamageProperties()
-        {
-            foreach (var property in properties)
-            {
-                switch (property.propertyType)
-                {
-                    case ItemPropertyType.PhysicalDamage:
-                    case ItemPropertyType.FireDamage:
-                    case ItemPropertyType.ColdDamage:
-                    case ItemPropertyType.LightningDamage:
-                        return true;
-                }
-            }
-            return false;
-        }
-
-        public bool HasDamageResistProperties()
-        {
-            foreach (var property in properties)
-            {
-                switch (property.propertyType)
-                {
-                    case ItemPropertyType.PhysicalDamageResist:
-                    case ItemPropertyType.FireDamageResist:
-                    case ItemPropertyType.ColdDamageResist:
-                    case ItemPropertyType.LightningDamageResist:
-                        return true;
-                }
-            }
-            return false;
         }
 
         /// <summary>
@@ -103,44 +71,14 @@ namespace TextGameRPG.Scripts.GameCore.Items
             {
                 switch (property.propertyType)
                 {
-                    case ItemPropertyType.PhysicalDamage:
-                    case ItemPropertyType.PhysicalDamageResist:
-                    case ItemPropertyType.FireDamage:
-                    case ItemPropertyType.FireDamageResist:
-                    case ItemPropertyType.ColdDamage:
-                    case ItemPropertyType.ColdDamageResist:
-                    case ItemPropertyType.LightningDamage:
-                    case ItemPropertyType.LightningDamageResist:
+                    case ItemPropertyType.DealDamage:
+                    case ItemPropertyType.DamageResist:
                         continue;
                     default:
                         return true;
                 }
             }
             return false;
-        }
-
-        public IEnumerable<ItemPropertyBase> GetDamageProperties()
-        {
-            if (propertyByType.TryGetValue(ItemPropertyType.PhysicalDamage, out var physicalDamage))
-                yield return physicalDamage;
-            if (propertyByType.TryGetValue(ItemPropertyType.FireDamage, out var fireDamage))
-                yield return fireDamage;
-            if (propertyByType.TryGetValue(ItemPropertyType.ColdDamage, out var coldDamage))
-                yield return coldDamage;
-            if (propertyByType.TryGetValue(ItemPropertyType.LightningDamage, out var lightningDamage))
-                yield return lightningDamage;
-        }
-
-        public IEnumerable<ItemPropertyBase> GetDamageResistProperties()
-        {
-            if (propertyByType.TryGetValue(ItemPropertyType.PhysicalDamageResist, out var physicalDamage))
-                yield return physicalDamage;
-            if (propertyByType.TryGetValue(ItemPropertyType.FireDamageResist, out var fireDamage))
-                yield return fireDamage;
-            if (propertyByType.TryGetValue(ItemPropertyType.ColdDamageResist, out var coldDamage))
-                yield return coldDamage;
-            if (propertyByType.TryGetValue(ItemPropertyType.LightningDamageResist, out var lightningDamage))
-                yield return lightningDamage;
         }
 
         /// <summary>
@@ -152,14 +90,8 @@ namespace TextGameRPG.Scripts.GameCore.Items
             {
                 switch (property.propertyType)
                 {
-                    case ItemPropertyType.PhysicalDamage:
-                    case ItemPropertyType.PhysicalDamageResist:
-                    case ItemPropertyType.FireDamage:
-                    case ItemPropertyType.FireDamageResist:
-                    case ItemPropertyType.ColdDamage:
-                    case ItemPropertyType.ColdDamageResist:
-                    case ItemPropertyType.LightningDamage:
-                    case ItemPropertyType.LightningDamageResist:
+                    case ItemPropertyType.DealDamage:
+                    case ItemPropertyType.DamageResist:
                         continue;
                     default:
                         yield return property;
