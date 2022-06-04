@@ -22,6 +22,9 @@ namespace TextGameRPG.Models.Editor.ItemsEditor
             {
                 var name = element.ToString();
                 var itemType = (ItemType)Enum.Parse(typeof(ItemType), name);
+                if (itemType == ItemType.Equipped)
+                    continue;
+
                 var item = new ItemCategory(name, itemType);
                 items.Add(item);
             }
