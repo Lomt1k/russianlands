@@ -47,7 +47,7 @@ namespace TextGameRPG.Scripts.TelegramBot
 
         public async Task<Message> SendErrorMessage(ChatId id, string text)
         {
-            return await _botClient.SendTextMessageAsync(id, $"{Emojis.elements[Element.Warning]} Program Error\n\n" + text, ParseMode.Html);
+            return await _botClient.SendTextMessageAsync(id, $"{Emojis.elements[Element.Warning]} <b>Program Error</b>\n\n" + text, ParseMode.Html);
         }
 
     }

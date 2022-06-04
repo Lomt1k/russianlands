@@ -87,23 +87,14 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
             {
                 if (button.Text.Equals(text))
                 {
-                    if (registeredButtons.TryGetValue(button, out callback))
-                        break;
+                    registeredButtons.TryGetValue(button, out callback);
+                    break;
                 }
             }
 
-            if (callback == null)
-                return;
-
-            try
+            if (callback != null)
             {
                 await Task.Run(callback);
-            }
-            catch (Exception ex)
-            {
-                var error = $"Exception in Dialog (HandleMessage)\nSession for @{session.actualUser.Username} (userId {session.actualUser.Id})\n{ex}";
-                Program.logger.Error(error + "\n");
-                await messageSender.SendErrorMessage(session.chatId, ex.ToString());
             }
         }
 

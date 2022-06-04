@@ -42,24 +42,33 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
 
         public async Task HandleUpdateAsync(User refreshedUser, Update update)
         {
-            lastActivityTime = DateTime.UtcNow;
-            actualUser = refreshedUser;
-            if (profile == null)
+            try
             {
-                await OnStartNewSession(actualUser);
-                return;
-            }
+                lastActivityTime = DateTime.UtcNow;
+                actualUser = refreshedUser;
+                if (profile == null)
+                {
+                    await OnStartNewSession(actualUser);
+                    return;
+                }
 
-            switch (update.Type)
+                switch (update.Type)
+                {
+                    case UpdateType.Message:
+                        await HandleMessageAsync(update.Message);
+                        break;
+                    case UpdateType.CallbackQuery:
+                        await HandleQueryAsync(update.CallbackQuery);
+                        break;
+                }
+            }
+            catch (Exception ex) 
             {
-                case UpdateType.Message:
-                    await HandleMessageAsync(update.Message);
-                    break;
-                case UpdateType.CallbackQuery:
-                    await HandleQueryAsync(update.CallbackQuery);
-                    break;
+                Program.logger.Error($"Exception in session [username @{actualUser.Username}, userId {actualUser.Id}]\n{ex}\n");
+                await TelegramBot.instance.messageSender.SendErrorMessage(chatId, $"{ex.GetType()}: {ex.Message}");
             }
         }
+
 
         public async Task HandleMessageAsync(Message message)
         {

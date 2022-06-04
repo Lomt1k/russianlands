@@ -91,28 +91,17 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
 
         public virtual async Task HandleButtonPress(int buttonId, string queryId)
         {
-            try
+            if (!_registeredCallbacks.TryGetValue(buttonId, out var callback))
+                return;
+
+            var generateQueryFunc = _registeredQueryAnswers[buttonId];
+            var query = generateQueryFunc != null ? generateQueryFunc() : null;
+
+            if (callback != null)
             {
-                if (!_registeredCallbacks.TryGetValue(buttonId, out var callback))
-                    return;
-
-                var generateQueryFunc = _registeredQueryAnswers[buttonId];
-                var query = generateQueryFunc != null ? generateQueryFunc() : null;
-
-                if (callback != null)
-                {
-                    await callback();
-                }
-                await messageSender.AnswerQuery(queryId, query);
+                await callback();
             }
-            catch (Exception ex)
-            {
-                var error = $"Exception in DialogPanel (HandleButtonPress)\nSession for @{session.actualUser.Username} (userId {session.actualUser.Id})\n{ex}";
-                Program.logger.Error(error + "\n");
-
-                await messageSender.SendErrorMessage(session.chatId, ex.ToString());
-                await messageSender.AnswerQuery(queryId);
-            }
+            await messageSender.AnswerQuery(queryId, query);
         }
 
     }

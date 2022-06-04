@@ -95,7 +95,6 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
 
         public async Task ShowCategory(ItemType category)
         {
-            throw new System.Exception("Test exception");
             if (_lastMessage == null)
                 return;
 
