@@ -12,6 +12,8 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
 
             // every turn
             { AbilityType.BlockIncomingDamageEveryTurn, new BlockIncomingDamageEveryTurnAbility() },
+            { AbilityType.RestoreHealthEveryTurn, new RestoreHealthEveryTurnAbility() },
+            { AbilityType.RestoreManaEveryTurn, new RestoreManaEveryTurnAbility() },
         };
 
         public static ItemAbilityBase GetNewAbility(AbilityType type)

@@ -6,7 +6,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
 {
     internal class BlockIncomingDamageEveryTurnAbility : ItemAbilityBase
     {
-        public override string debugDescription => "Блокирует входящий урон";
+        public override string debugDescription => "Блокирует входящий урон (каждый ход)";
 
         public override AbilityType abilityType => AbilityType.BlockIncomingDamageEveryTurn;
 
