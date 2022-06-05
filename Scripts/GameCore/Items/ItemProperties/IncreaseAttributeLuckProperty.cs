@@ -2,10 +2,10 @@
 
 namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties
 {
-    internal class IncreaseAttributeStrengthItemProperty : ItemPropertyBase
+    internal class IncreaseAttributeLuckProperty : ItemPropertyBase
     {
-        public override string debugDescription => "Повышает силу";
-        public override PropertyType propertyType => PropertyType.IncreaseAttributeStrength;
+        public override string debugDescription => "Повышает удачу";
+        public override PropertyType propertyType => PropertyType.IncreaseAttributeLuck;
         public override bool isSupportLevelUp => false;
 
         public int value;
@@ -14,12 +14,12 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties
 
         public override string ToString()
         {
-            return $"{value} к Силе";
+            return $"{value} к Удаче";
         }
 
         public override string GetView(GameSession session)
         {
-            return string.Format(Localization.Localization.Get(session, "property_view_increase_strength"), value);
+            return string.Format(Localization.Localization.Get(session, "property_view_increase_luck"), value);
         }
 
     }

@@ -2,7 +2,7 @@
 
 namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties
 {
-    internal class IncreaseAttributeSorceryItemProperty : ItemPropertyBase
+    internal class IncreaseAttributeSorceryProperty : ItemPropertyBase
     {
         public override string debugDescription => "Повышает колдовство";
         public override PropertyType propertyType => PropertyType.IncreaseAttributeSorcery;

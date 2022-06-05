@@ -10,8 +10,8 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
     public enum ActivationType
     {
         None = 0,
-        EveryTurn = 1,
-        ByUser = 2
+        ByUser = 1,
+        EveryTurn = 2        
     }
 
 

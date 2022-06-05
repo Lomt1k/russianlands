@@ -81,19 +81,19 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
                     this.coldResist += resistProperty.coldDamage;
                     this.lightningResist += resistProperty.lightningDamage;
                     break;
-                case IncreaseAttributeStrengthItemProperty increaseStrength:
+                case IncreaseAttributeStrengthProperty increaseStrength:
                     this.attributeStrength += increaseStrength.value;
                     break;
-                case IncreaseAttributeVitalityItemProperty increaseVitality:
+                case IncreaseAttributeVitalityProperty increaseVitality:
                     this.attributeVitality += increaseVitality.value;
                     break;
-                case IncreaseAttributeSorceryItemProperty increaseSorcery:
+                case IncreaseAttributeSorceryProperty increaseSorcery:
                     this.attributeSorcery += increaseSorcery.value;
                     break;
-                case IncreaseAttributeLuckItemProperty increaseLuck:
+                case IncreaseAttributeLuckProperty increaseLuck:
                     this.attributeLuck += increaseLuck.value;
                     break;
-                case IncreaseMaxHealthItemProperty increaseMaxHealth:
+                case IncreaseMaxHealthProperty increaseMaxHealth:
                     this.maxHP += increaseMaxHealth.value;
                     break;
                 case IncreaseMaxManaProperty increaseMaxMana:

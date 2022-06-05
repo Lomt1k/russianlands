@@ -37,11 +37,19 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties
 
         public override string ToString()
         {
-            return $"{debugDescription}:"
-                + $"\nphysical: {physicalDamage}"
-                + $"\nfire: {fireDamage}"
-                + $"\ncold: {coldDamage}"
-                + $"\nlightning: {lightningDamage}";
+            var sb = new StringBuilder();
+            sb.AppendLine($"{debugDescription}:");
+
+            if (physicalDamage > 0)
+                sb.AppendLine($"physical: {physicalDamage}");
+            if (physicalDamage > 0)
+                sb.AppendLine($"fire: {fireDamage}");
+            if (physicalDamage > 0)
+                sb.AppendLine($"cold: {coldDamage}");
+            if (physicalDamage > 0)
+                sb.AppendLine($"lightning: {lightningDamage}");
+
+            return sb.ToString();
         }
 
         public override string GetView(GameSession session)

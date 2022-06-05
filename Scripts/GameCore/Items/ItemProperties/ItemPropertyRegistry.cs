@@ -11,11 +11,11 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties
             _properties = new Dictionary<PropertyType, ItemPropertyBase>
             {
                 { PropertyType.DamageResist, new DamageResistProperty() },
-                { PropertyType.IncreaseAttributeStrength, new IncreaseAttributeStrengthItemProperty() },
-                { PropertyType.IncreaseAttributeVitality, new IncreaseAttributeVitalityItemProperty() },
-                { PropertyType.IncreaseAttributeSorcery, new IncreaseAttributeSorceryItemProperty() },
-                { PropertyType.IncreaseAttributeLuck, new IncreaseAttributeLuckItemProperty() },
-                { PropertyType.IncreaseMaxHealth, new IncreaseMaxHealthItemProperty() },
+                { PropertyType.IncreaseAttributeStrength, new IncreaseAttributeStrengthProperty() },
+                { PropertyType.IncreaseAttributeVitality, new IncreaseAttributeVitalityProperty() },
+                { PropertyType.IncreaseAttributeSorcery, new IncreaseAttributeSorceryProperty() },
+                { PropertyType.IncreaseAttributeLuck, new IncreaseAttributeLuckProperty() },
+                { PropertyType.IncreaseMaxHealth, new IncreaseMaxHealthProperty() },
                 { PropertyType.IncreaseMaxMana, new IncreaseMaxManaProperty() }
             };
         }
