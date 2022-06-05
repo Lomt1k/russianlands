@@ -1,4 +1,4 @@
-﻿namespace TextGameRPG.Scripts.GameCore.Localization
+﻿namespace TextGameRPG.Scripts.GameCore.Localizations
 {
     public enum LanguageCode
     {

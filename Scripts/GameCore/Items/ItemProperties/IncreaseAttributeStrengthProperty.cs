@@ -19,7 +19,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties
 
         public override string GetView(GameSession session)
         {
-            return string.Format(Localization.Localization.Get(session, "property_view_increase_strength"), value);
+            return string.Format(Localizations.Localization.Get(session, "property_view_increase_strength"), value);
         }
 
     }

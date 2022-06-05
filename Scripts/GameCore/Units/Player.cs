@@ -11,6 +11,7 @@ namespace TextGameRPG.Scripts.GameCore.Units
     {
         public GameSession session { get; private set; }
         public UnitStats unitStats { get; private set; }
+        public PlayerResources resources { get; private set; }
         public PlayerInventory inventory => session.profile.dynamicData.inventory;
         public string nickname => session.profile.data.nickname;
 
@@ -18,22 +19,17 @@ namespace TextGameRPG.Scripts.GameCore.Units
         {
             session = _session;
             unitStats = new PlayerStats(this);
+            resources = new PlayerResources(_session);
         }
 
         public string GetUnitView()
         {
             var sb = new StringBuilder();
             sb.AppendLine($"<b>{nickname}{Emojis.menuItems[MenuItem.Character]}</b>");
-            string levelStr = string.Format(Localization.Localization.Get(session, "unit_view_level"), session.profile.data.level);
+            string levelStr = string.Format(Localizations.Localization.Get(session, "unit_view_level"), session.profile.data.level);
             sb.AppendLine(levelStr);
-            sb.AppendLine($"\n{Emojis.stats[Stat.Health]} {unitStats.currentHP} / {unitStats.maxHP}" +
-                $"{Emojis.bigSpace}{Emojis.stats[Stat.Mana]} {unitStats.currentMP} / {unitStats.maxMP}");
 
-            sb.AppendLine( Localization.Localization.Get(session, "unit_view_header_resources") );
-            sb.AppendLine($"{Emojis.resources[Resource.Gold]} {session.profile.data.resourceGold.View()}" +
-                $"{Emojis.bigSpace}{Emojis.resources[Resource.Food]} {session.profile.data.resourceFood.View()}" +
-                $"{Emojis.bigSpace}{Emojis.resources[Resource.Diamond]} {session.profile.data.resourceDiamonds.View()}");
-
+            sb.AppendLine(unitStats.GetView());
             return sb.ToString();
         }
     }

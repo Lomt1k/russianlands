@@ -30,8 +30,8 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
         public override string GetView(GameSession session)
         {
             return chanceToSuccessPercentage >= 100
-                ? string.Format(Localization.Localization.Get(session, "ability_restore_health_each_turn"), healthValue)
-                : string.Format(Localization.Localization.Get(session, "ability_restore_health_percentage_each_turn"), chanceToSuccessPercentage, healthValue);
+                ? string.Format(Localizations.Localization.Get(session, "ability_restore_health_each_turn"), healthValue)
+                : string.Format(Localizations.Localization.Get(session, "ability_restore_health_percentage_each_turn"), chanceToSuccessPercentage, healthValue);
         }
     }
 }

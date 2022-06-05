@@ -23,5 +23,7 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
             currentMP = maxMP;
         }
 
+        public abstract string GetView();
+
     }
 }

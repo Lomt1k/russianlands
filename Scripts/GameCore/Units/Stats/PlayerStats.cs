@@ -1,5 +1,8 @@
-﻿
+﻿using System.Text;
 using TextGameRPG.Scripts.GameCore.Items.ItemProperties;
+using TextGameRPG.Scripts.GameCore.Localizations;
+using TextGameRPG.Scripts.TelegramBot;
+using TextGameRPG.Scripts.Utils;
 
 namespace TextGameRPG.Scripts.GameCore.Units.Stats
 {
@@ -35,6 +38,7 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
         {
             CalculateBaseValues();
             ApplyItemProperties();
+            ApplyAttributes();
 
             currentHP = currentHP > maxHP ? maxHP : currentHP;
             currentMP = currentMP > maxMP ? maxMP : currentMP;
@@ -102,6 +106,63 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
             }
         }
 
+        private void ApplyAttributes()
+        {
+            var physicalBonusPerVitality = (float)physicalResist / 100;
+            physicalResist += (int)(physicalBonusPerVitality * attributeVitality);
+
+            var fireBonusPerVitality = (float)fireResist / 100;
+            fireResist += (int)(fireBonusPerVitality * attributeVitality);
+
+            var coldBonusPerVitality = (float)coldResist / 100;
+            coldResist += (int)(coldBonusPerVitality * attributeVitality);
+
+            var lightningBonusPerVitality = (float)lightningResist / 100;
+            lightningResist += (int)(lightningBonusPerVitality * attributeVitality);
+        }
+
+        public override string GetView()
+        {
+            var sb = new StringBuilder();
+
+            sb.AppendLine($"\n{Emojis.stats[Stat.Health]} {currentHP} / {maxHP}" +
+                $"{Emojis.bigSpace}{Emojis.stats[Stat.Mana]} {currentMP} / {maxMP}");
+
+            sb.AppendLine();
+            sb.Append("<b>" + Localization.Get(_player.session, "unit_attribute_strength") + ":</b> " + attributeStrength);
+            sb.AppendLine(Emojis.bigSpace + "<b>" + Localization.Get(_player.session, "unit_attribute_vitality") + ":</b> " + attributeVitality);
+            sb.Append("<b>" + Localization.Get(_player.session, "unit_attribute_sorcery") + ":</b> " + attributeSorcery);
+            sb.AppendLine(Emojis.bigSpace + "<b>" + Localization.Get(_player.session, "unit_attribute_luck") + ":</b> " + attributeLuck);
+
+            sb.AppendLine();
+            sb.AppendLine(Localization.Get(_player.session, "unit_view_total_resistance"));
+            AppendResistsCompactView(sb);
+
+            return sb.ToString();
+        }
+
+        private void AppendResistsCompactView(StringBuilder sb)
+        {
+            bool hasBigValues = physicalResist > 999 
+                || fireResist > 999
+                || coldResist > 999
+                || lightningResist > 999;
+
+            if (hasBigValues)
+            {
+                sb.Append($"{Emojis.stats[Stat.PhysicalDamage]} " + physicalResist);
+                sb.AppendLine(Emojis.bigSpace + $"{Emojis.stats[Stat.FireDamage]} " + fireResist);
+                sb.Append($"{Emojis.stats[Stat.ColdDamage]} " + coldResist);
+                sb.AppendLine(Emojis.bigSpace + $"{Emojis.stats[Stat.LightningDamage]} " + lightningResist);
+            }
+            else
+            {
+                sb.Append($"{Emojis.stats[Stat.PhysicalDamage]} " + physicalResist);
+                sb.Append(Emojis.middleSpace + $"{Emojis.stats[Stat.FireDamage]} " + fireResist);
+                sb.Append(Emojis.middleSpace + $"{Emojis.stats[Stat.ColdDamage]} " + coldResist);
+                sb.Append(Emojis.middleSpace + $"{Emojis.stats[Stat.LightningDamage]} " + lightningResist);
+            }
+        }
 
     }
 }

@@ -7,5 +7,10 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
         {
             //TODO: mobStats initialize logic
         }
+
+        public override string GetView()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

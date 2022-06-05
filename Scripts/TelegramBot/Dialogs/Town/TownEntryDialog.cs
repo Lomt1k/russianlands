@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Telegram.Bot.Types.ReplyMarkups;
-using TextGameRPG.Scripts.GameCore.Localization;
+using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 
 namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town
@@ -39,20 +39,21 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town
 
         public override async Task Start()
         {
-            string header = $"{Emojis.menuItems[MenuItem.Town]} <b>" + Localization.Get(session, "menu_item_town") + "</b>\n\n";
+            string header = $"{Emojis.menuItems[MenuItem.Town]} <b>" + Localization.Get(session, "menu_item_town") + "</b>\n";
+            string resources = session.player.resources.GetView() + "\n";
             string text;
             switch (_reason)
             {
                 case TownEntryReason.EndTutorial:
-                    text = header + Localization.Get(session, "dialog_tutorial_town_entry_text_endTutorial");
+                    text = header + "\n\n" + Localization.Get(session, "dialog_tutorial_town_entry_text_endTutorial");
                     break;
                 case TownEntryReason.BackFromInnerDialog:
-                    text = header + Localization.Get(session, "dialog_tutorial_town_entry_text_backFromInnerDialog");
+                    text = header + "\n" + resources + Localization.Get(session, "dialog_tutorial_town_entry_text_backFromInnerDialog");
                     break;
 
                 case TownEntryReason.StartNewSession:
                 default:
-                    text = header + Localization.Get(session, "dialog_tutorial_town_entry_text_newSession");
+                    text = header + "\n" + Localization.Get(session, "dialog_tutorial_town_entry_text_newSession") + "\n\n" + resources;
                     break;
             }
             

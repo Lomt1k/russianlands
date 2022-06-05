@@ -48,7 +48,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties
         public override string GetView(GameSession session)
         {
             var sb = new StringBuilder();
-            sb.AppendLine(Localization.Localization.Get(session, "property_damage_resist"));
+            sb.AppendLine(Localizations.Localization.Get(session, "property_damage_resist"));
             if (physicalDamage > 0)
             {
                 sb.AppendLine($"{Emojis.stats[Stat.PhysicalDamage]} {physicalDamage}");

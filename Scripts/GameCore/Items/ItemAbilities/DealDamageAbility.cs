@@ -66,7 +66,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
         public override string GetView(GameSession session)
         {
             var sb = new StringBuilder();
-            sb.AppendLine(Localization.Localization.Get(session, "ability_deals_damage"));
+            sb.AppendLine(Localizations.Localization.Get(session, "ability_deals_damage"));
             if (minPhysicalDamage > 0)
             {
                 sb.AppendLine($"{Emojis.stats[Stat.PhysicalDamage]} {GetStringValue(DamageType.Physical)}");

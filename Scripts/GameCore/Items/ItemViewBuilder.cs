@@ -6,7 +6,7 @@ namespace TextGameRPG.Scripts.GameCore.Items
     using ItemProperties;
     using ItemAbilities;
     using TextGameRPG.Scripts.TelegramBot;
-    using Localization;
+    using Localizations;
 
     internal static class ItemViewBuilder
     {

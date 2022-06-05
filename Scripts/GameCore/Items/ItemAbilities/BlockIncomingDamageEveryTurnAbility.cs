@@ -53,7 +53,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
         public override string GetView(GameSession session)
         {
             var sb = new StringBuilder();
-            sb.AppendLine(string.Format(Localization.Localization.Get(session, "ability_block_damage_percentage"), chanceToSuccessPercentage));
+            sb.AppendLine(string.Format(Localizations.Localization.Get(session, "ability_block_damage_percentage"), chanceToSuccessPercentage));
             if (physicalDamage > 0)
             {
                 sb.AppendLine($"{Emojis.stats[Stat.PhysicalDamage]} {physicalDamage}");

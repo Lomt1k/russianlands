@@ -1,4 +1,4 @@
-﻿using TextGameRPG.Scripts.GameCore.Localization;
+﻿using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 using System.Threading.Tasks;

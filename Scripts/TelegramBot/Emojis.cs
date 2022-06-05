@@ -77,6 +77,7 @@ namespace TextGameRPG.Scripts.TelegramBot
     public static class Emojis
     {
         public const char space = ' ';
+        public const string middleSpace = "   ";
         public const string bigSpace = "     ";
 
         public static readonly Dictionary<Flag, string> flags = new Dictionary<Flag, string>

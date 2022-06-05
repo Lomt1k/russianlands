@@ -1,6 +1,6 @@
 ﻿using Telegram.Bot.Types;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
-using TextGameRPG.Scripts.GameCore.Localization;
+using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.Utils;
 using System.Threading.Tasks;
 

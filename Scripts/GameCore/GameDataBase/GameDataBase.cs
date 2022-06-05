@@ -25,7 +25,7 @@ namespace TextGameRPG.Scripts.GameCore.GameDataBase
         {
             _loaderVM = loaderVM;
             items = LoadDataBaseWithIntegerID<ItemData>("items");
-            Localization.Localization.LoadAll(_loaderVM, gameDataPath);
+            Localizations.Localization.LoadAll(_loaderVM, gameDataPath);
             _loaderVM.OnGameDataLoaded();
         }
 

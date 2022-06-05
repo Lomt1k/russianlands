@@ -15,7 +15,7 @@ namespace TextGameRPG.Scripts.GameCore.Items
     {
         public static string GetView(this ItemRarity rarity, GameSession session)
         {
-            return Localization.Localization.Get(session, $"item_rarity_{rarity.ToString().ToLower()}");
+            return Localizations.Localization.Get(session, $"item_rarity_{rarity.ToString().ToLower()}");
         }
     }
 }

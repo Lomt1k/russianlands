@@ -6,7 +6,7 @@ using System.Text;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 using TextGameRPG.ViewModels;
 
-namespace TextGameRPG.Scripts.GameCore.Localization
+namespace TextGameRPG.Scripts.GameCore.Localizations
 {
     public static class Localization
     {
