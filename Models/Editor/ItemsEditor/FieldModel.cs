@@ -4,7 +4,7 @@ using TextGameRPG.Scripts.Utils;
 
 namespace TextGameRPG.Models.Editor.ItemsEditor
 {
-    internal class PropertyFieldModel
+    internal class FieldModel
     {
         private string _unparsedValue;
 
@@ -23,7 +23,7 @@ namespace TextGameRPG.Models.Editor.ItemsEditor
         }
         public bool isValidValue { get; private set; }
 
-        public PropertyFieldModel(FieldInfo _info, object? _value)
+        public FieldModel(FieldInfo _info, object? _value)
         {
             name = _info.Name;
             type = _info.FieldType;

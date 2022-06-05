@@ -37,7 +37,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
             }
         }
 
-        public ObservableCollection<PropertyFieldModel> propertyFields { get; }
+        public ObservableCollection<FieldModel> propertyFields { get; }
 
         public Action closeWindow { get; }
         public ReactiveCommand<Unit, Unit> saveCommand { get; }
@@ -45,7 +45,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
 
         public EditItemPropertyWindowViewModel(EditItemPropertyWindow window, ItemPropertyBase property, Action<ItemPropertyBase> onEditEnd)
         {
-            propertyFields = new ObservableCollection<PropertyFieldModel>();
+            propertyFields = new ObservableCollection<FieldModel>();
             _tempProperty = tempProperty = property.Clone();
 
             propertyTypesList = EnumValueModel<PropertyType>.CreateCollection(excludeValue: PropertyType.None);
@@ -64,7 +64,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
             foreach (var fieldInfo in fields)
             {
                 var value = fieldInfo.GetValue(_tempProperty);
-                var fieldModel = new PropertyFieldModel(fieldInfo, value);
+                var fieldModel = new FieldModel(fieldInfo, value);
                 propertyFields.Add(fieldModel);
             }
         }

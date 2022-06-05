@@ -55,11 +55,19 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
 
         public override string ToString()
         {
-            return $"{debugDescription}:"
-                + $"\nphysical: {GetStringValue(DamageType.Physical)}"
-                + $"\nfire: {GetStringValue(DamageType.Fire)}"
-                + $"\ncold: {GetStringValue(DamageType.Cold)}"
-                + $"\nlightning: {GetStringValue(DamageType.Lightning)}";
+            var sb = new StringBuilder();
+            sb.AppendLine($"{debugDescription}:");
+
+            if (minPhysicalDamage > 0)
+                sb.AppendLine($"physical: {GetStringValue(DamageType.Physical)}");
+            if (minFireDamage > 0)
+                sb.AppendLine($"fire: {GetStringValue(DamageType.Fire)}");
+            if (minColdDamage > 0)
+                sb.AppendLine($"cold: {GetStringValue(DamageType.Cold)}");
+            if (minLightningDamage > 0)
+                sb.AppendLine($"lightning: {GetStringValue(DamageType.Lightning)}");
+
+            return sb.ToString();
         }
 
         public override string GetView(GameSession session)

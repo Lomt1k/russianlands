@@ -3,6 +3,7 @@ using System.Reactive;
 using ReactiveUI;
 using TextGameRPG.Models;
 using TextGameRPG.Scripts.GameCore.Items;
+using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
 using TextGameRPG.Scripts.GameCore.Items.ItemProperties;
 using TextGameRPG.Views.Editor.ItemsEditor;
 
@@ -14,11 +15,13 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
         private bool _isNewItem;
         private EnumValueModel<ItemType> _selectedItemType;
         private EnumValueModel<ItemRarity> _selectedItemRarity;
+        private ItemAbilityBase? _selectedAbility;
         private ItemPropertyBase? _selectedProperty;
 
         public ItemData editableItem { get; }
         public ObservableCollection<EnumValueModel<ItemType>> itemTypeList { get; }
         public ObservableCollection<EnumValueModel<ItemRarity>> itemRarityList { get; }
+        public ObservableCollection<ItemAbilityBase> itemAbilities { get; }
         public ObservableCollection<ItemPropertyBase> itemProperties { get; }
 
         public EnumValueModel<ItemType> selectedItemType
@@ -41,12 +44,21 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
             }
         }
 
+        public ItemAbilityBase? selectedAbility
+        {
+            get => _selectedAbility;
+            set => this.RaiseAndSetIfChanged(ref _selectedAbility, value);
+        }
+
         public ItemPropertyBase? selectedProperty
         {
             get => _selectedProperty;
             set => this.RaiseAndSetIfChanged(ref _selectedProperty, value);
         }
 
+        public ReactiveCommand<Unit, Unit> addAbilityCommand { get; }
+        public ReactiveCommand<Unit, Unit> editAbilityCommand { get; }
+        public ReactiveCommand<Unit, Unit> removeAbilityCommand { get; }
         public ReactiveCommand<Unit, Unit> addPropertyCommand { get; }
         public ReactiveCommand<Unit, Unit> editPropertyCommand { get; }
         public ReactiveCommand<Unit, Unit> removePropertyCommand { get; }
@@ -62,16 +74,47 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
             editableItem = item.Clone();
             itemTypeList = EnumValueModel<ItemType>.CreateCollection(excludeValue: ItemType.Any);
             itemRarityList = EnumValueModel<ItemRarity>.CreateCollection();
+            itemAbilities = new ObservableCollection<ItemAbilityBase>(editableItem.abilities);
             itemProperties = new ObservableCollection<ItemPropertyBase>(editableItem.properties);
 
             _selectedItemType = EnumValueModel<ItemType>.GetModel(itemTypeList, editableItem.itemType);
             _selectedItemRarity = EnumValueModel<ItemRarity>.GetModel(itemRarityList, editableItem.itemRarity);
 
+            addAbilityCommand = ReactiveCommand.Create(AddNewAbility);
+            editAbilityCommand = ReactiveCommand.Create(EditSelectedAbility);
+            removeAbilityCommand = ReactiveCommand.Create(RemoveSelectedAbility);
             addPropertyCommand = ReactiveCommand.Create(AddNewProperty);
             editPropertyCommand = ReactiveCommand.Create(EditSelectedProperty);
             removePropertyCommand = ReactiveCommand.Create(RemoveSelectedProperty);
             saveCommand = ReactiveCommand.Create(SaveItem);
             cancelCommand = ReactiveCommand.Create(OnCancelSaving);
+        }
+
+        private void AddNewAbility()
+        {
+            var newAbility = editableItem.AddEmptyAbility();
+            itemAbilities.Add(newAbility);
+            selectedAbility = newAbility;
+            EditSelectedAbility();
+        }
+
+        private void EditSelectedAbility()
+        {
+            var window = new EditItemAbilityWindow();
+            window.DataContext = new EditItemAbilityWindowViewModel(window, _selectedAbility, (modifiedAbility) =>
+            {
+                var index = editableItem.abilities.IndexOf(_selectedAbility);
+                editableItem.abilities[index] = modifiedAbility;
+                itemAbilities[index] = modifiedAbility;
+            });
+            window.ShowDialog(_window);
+        }
+
+        private void RemoveSelectedAbility()
+        {
+            var index = editableItem.abilities.IndexOf(_selectedAbility);
+            editableItem.RemoveAbility(index);
+            itemAbilities.RemoveAt(index);
         }
 
         private void AddNewProperty()
