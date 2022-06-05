@@ -3,31 +3,15 @@ using TextGameRPG.Scripts.TelegramBot;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 using TextGameRPG.Scripts.Utils;
 
-namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties
+namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
 {
-    public struct DamageInfo
-    {
-        public int physicalDamage { get; }
-        public int fireDamage { get; }
-        public int coldDamage { get; }
-        public int lightningDamage { get; }
-
-        public DamageInfo(int _physicalDamage, int _fireDamage, int _coldDamage, int _lightningDamage)
-        {
-            physicalDamage = _physicalDamage;
-            fireDamage = _fireDamage;
-            coldDamage = _coldDamage;
-            lightningDamage = _lightningDamage;
-        }
-    }
-
-    internal class DealDamageItemProperty : ItemPropertyBase
+    internal class DealDamageAbility : ItemAbilityBase
     {
         public override string debugDescription => "Наносит урон";
-        public override ItemPropertyType propertyType => ItemPropertyType.DealDamage;
+        public override AbilityType abilityType => AbilityType.DealDamage;
         public override bool isSupportLevelUp => true;
 
-        // Не очень красиво, но так как поля пропертей меняются через рефлексию - проще так оставить
+        // Не очень красиво, но так как эти поля меняются через рефлексию - проще так оставить
         public int minPhysicalDamage;
         public int maxPhysicalDamage;
         public int minFireDamage;
@@ -128,6 +112,5 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties
 
             return minDamage == maxDamage ? minDamage.ToString() : $"{minDamage} - {maxDamage}";
         }
-
     }
 }

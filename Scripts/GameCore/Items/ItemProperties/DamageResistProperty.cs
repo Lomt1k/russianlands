@@ -7,7 +7,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties
     internal class DamageResistProperty : ItemPropertyBase
     {
         public override string debugDescription => "Сопротивление урону";
-        public override ItemPropertyType propertyType => ItemPropertyType.DamageResist;
+        public override PropertyType propertyType => PropertyType.DamageResist;
         public override bool isSupportLevelUp => true;
 
         public int physicalDamage;

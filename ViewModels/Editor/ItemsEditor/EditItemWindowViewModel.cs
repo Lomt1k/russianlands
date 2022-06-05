@@ -114,7 +114,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
         {
             foreach (var property in itemProperties)
             {
-                if (property.propertyType == ItemPropertyType.None)
+                if (property.propertyType == PropertyType.None)
                     return;
             }
 

@@ -5,7 +5,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties
     internal class IncreaseMaxHealthItemProperty : ItemPropertyBase
     {
         public override string debugDescription => "Увеличивает максимальный запас здоровья";
-        public override ItemPropertyType propertyType => ItemPropertyType.IncreaseMaxHealth;
+        public override PropertyType propertyType => PropertyType.IncreaseMaxHealth;
         public override bool isSupportLevelUp => false;
 
         public int value;

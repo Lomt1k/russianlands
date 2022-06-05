@@ -6,6 +6,7 @@ namespace TextGameRPG.Scripts.GameCore.Items
     using ItemProperties;
     using System.Collections.Generic;
     using System.Linq;
+    using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
 
     public class ItemData : IDataWithIntegerID
     {
@@ -14,90 +15,79 @@ namespace TextGameRPG.Scripts.GameCore.Items
         public ItemType itemType { get; set; }
         public ItemRarity itemRarity { get; set; }
         public ushort requiredLevel { get; set; }
+        public List<ItemAbilityBase> abilities { get; private set; }
         public List<ItemPropertyBase> properties { get; private set; }
 
         [JsonIgnore]
-        public Dictionary<ItemPropertyType, ItemPropertyBase> propertyByType;
+        public Dictionary<AbilityType, ItemAbilityBase> ablitityByType;
+
+        [JsonIgnore]
+        public Dictionary<PropertyType, ItemPropertyBase> propertyByType;
 
         [JsonConstructor]
         public ItemData(string debugName, int id, ItemType type, ItemRarity rarity, ushort requiredLevel,
-            List<ItemPropertyBase>? properties = null)
+            List<ItemAbilityBase>? abilities = null, List<ItemPropertyBase>? properties = null)
         {
             this.debugName = debugName;
             this.id = id;
             this.itemType = type;
             this.itemRarity = rarity;
             this.requiredLevel = requiredLevel;
+            this.abilities = abilities ?? new List<ItemAbilityBase>();
             this.properties = properties ?? new List<ItemPropertyBase>();
-            RebuildPropertyByTypeDictionary();
+            RebuildDictionaries();
         }
 
         public ItemData Clone()
         {
             var clone = (ItemData)MemberwiseClone();
+
+            var cloneAbilities = new List<ItemAbilityBase>(abilities.Count);
+            foreach (var ability in abilities)
+            {
+                cloneAbilities.Add(ability.Clone());
+            }
+            clone.abilities = cloneAbilities;
+
             var cloneProperties = new List<ItemPropertyBase>(properties.Count);
             foreach (var property in properties)
             {
                 cloneProperties.Add(property.Clone());
             }
             clone.properties = cloneProperties;
-            clone.RebuildPropertyByTypeDictionary();
+
+            clone.RebuildDictionaries();
             return clone;
         }
 
-        private void RebuildPropertyByTypeDictionary()
+        private void RebuildDictionaries()
         {
+            ablitityByType = abilities.ToDictionary(x => x.abilityType);
             propertyByType = properties.ToDictionary(x => x.propertyType);
+        }
+
+        public ItemAbilityBase AddEmptyAbility()
+        {
+            var ability = new DealDamageAbility();
+            abilities.Add(ability);
+            return ability;
         }
 
         public ItemPropertyBase AddEmptyProperty()
         {
-            var property = new DealDamageItemProperty();
+            var property = new DamageResistProperty();
             properties.Add(property);
             return property;
+        }
+
+        public void RemoveAbility(int index)
+        {
+            abilities.RemoveAt(index);
         }
 
         public void RemoveProperty(int index)
         {
             properties.RemoveAt(index);
-        }
-
-        /// <summary>
-        /// Has any properties without *Damage и *DamageResist
-        /// </summary>
-        public bool HasSpecificProperties()
-        {
-            foreach (var property in properties)
-            {
-                switch (property.propertyType)
-                {
-                    case ItemPropertyType.DealDamage:
-                    case ItemPropertyType.DamageResist:
-                        continue;
-                    default:
-                        return true;
-                }
-            }
-            return false;
-        }
-
-        /// <summary>
-        /// Any properties without *Damage и *DamageResist
-        /// </summary>
-        public IEnumerable<ItemPropertyBase> GetSpecificProperties()
-        {
-            foreach (var property in properties)
-            {
-                switch (property.propertyType)
-                {
-                    case ItemPropertyType.DealDamage:
-                    case ItemPropertyType.DamageResist:
-                        continue;
-                    default:
-                        yield return property;
-                        continue;
-                }
-            }
         }
 
     }

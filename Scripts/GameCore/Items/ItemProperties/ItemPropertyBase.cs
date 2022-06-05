@@ -8,7 +8,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties
     public abstract class ItemPropertyBase
     {
         [JsonIgnore] public abstract string debugDescription { get; }
-        [JsonIgnore] public abstract ItemPropertyType propertyType { get; }
+        [JsonIgnore] public abstract PropertyType propertyType { get; }
         [JsonIgnore] public abstract bool isSupportLevelUp { get; }
 
         public ItemPropertyBase Clone()

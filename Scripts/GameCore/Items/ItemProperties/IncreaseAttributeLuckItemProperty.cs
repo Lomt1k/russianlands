@@ -5,7 +5,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties
     internal class IncreaseAttributeLuckItemProperty : ItemPropertyBase
     {
         public override string debugDescription => "Повышает удачу";
-        public override ItemPropertyType propertyType => ItemPropertyType.IncreaseAttributeLuck;
+        public override PropertyType propertyType => PropertyType.IncreaseAttributeLuck;
         public override bool isSupportLevelUp => false;
 
         public int value;

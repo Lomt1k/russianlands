@@ -5,7 +5,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties
     internal class IncreaseAttributeVitalityItemProperty : ItemPropertyBase
     {
         public override string debugDescription => "Повышает стойкость";
-        public override ItemPropertyType propertyType => ItemPropertyType.IncreaseAttributeVitality;
+        public override PropertyType propertyType => PropertyType.IncreaseAttributeVitality;
         public override bool isSupportLevelUp => false;
 
         public int value;

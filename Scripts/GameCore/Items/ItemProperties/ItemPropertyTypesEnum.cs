@@ -1,18 +1,15 @@
 ﻿namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties
 {
-    public enum ItemPropertyType
+    public enum PropertyType
     {
         None = 0,
-        DealDamage = 1,
-        DamageResist = 2,
-        IncreaseAttributeStrength = 3,
-        IncreaseAttributeVitality = 4,
-        IncreaseAttributeSorcery = 5,
-        IncreaseAttributeLuck = 6,
-        IncreaseMaxHealth = 7,
-        IncreaseMaxMana = 8
+        DamageResist = 1,
+        IncreaseAttributeStrength = 2,
+        IncreaseAttributeVitality = 3,
+        IncreaseAttributeSorcery = 4,
+        IncreaseAttributeLuck = 5,
+        IncreaseMaxHealth = 6,
+        IncreaseMaxMana = 7
     }
-
-    public enum DamageType { Physical, Fire, Cold, Lightning }
 
 }

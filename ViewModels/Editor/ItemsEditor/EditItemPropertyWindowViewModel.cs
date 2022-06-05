@@ -13,7 +13,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
     internal class EditItemPropertyWindowViewModel : ViewModelBase
     {
         private ItemPropertyBase _tempProperty;
-        private EnumValueModel<ItemPropertyType> _selectedPropertyType;
+        private EnumValueModel<PropertyType> _selectedPropertyType;
         private Action<ItemPropertyBase> _onEditEnd;
 
         public ItemPropertyBase tempProperty
@@ -26,14 +26,14 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
             }
         }
 
-        public ObservableCollection<EnumValueModel<ItemPropertyType>> propertyTypesList { get; }
-        public EnumValueModel<ItemPropertyType> selectedPropertyType
+        public ObservableCollection<EnumValueModel<PropertyType>> propertyTypesList { get; }
+        public EnumValueModel<PropertyType> selectedPropertyType
         {
             get => _selectedPropertyType;
             set
             {
                 this.RaiseAndSetIfChanged(ref _selectedPropertyType, value);
-                tempProperty = ItemPropertyRegistry.GetProperty(value.value).Clone();
+                tempProperty = ItemPropertyRegistry.GetNewProperty(value.value);
             }
         }
 
@@ -48,8 +48,8 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
             propertyFields = new ObservableCollection<PropertyFieldModel>();
             _tempProperty = tempProperty = property.Clone();
 
-            propertyTypesList = EnumValueModel<ItemPropertyType>.CreateCollection(excludeValue: ItemPropertyType.None);
-            _selectedPropertyType = EnumValueModel<ItemPropertyType>.GetModel(propertyTypesList, tempProperty.propertyType);
+            propertyTypesList = EnumValueModel<PropertyType>.CreateCollection(excludeValue: PropertyType.None);
+            _selectedPropertyType = EnumValueModel<PropertyType>.GetModel(propertyTypesList, tempProperty.propertyType);
 
             _onEditEnd = onEditEnd;
             closeWindow = () => window.Close();
