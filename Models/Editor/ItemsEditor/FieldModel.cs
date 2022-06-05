@@ -86,6 +86,10 @@ namespace TextGameRPG.Models.Editor.ItemsEditor
                     success = _unparsedValue.TryParse<char>(out var charResult);
                     if (success) value = charResult;
                     break;
+                case TypeCode.Single:
+                    success = _unparsedValue.TryParse<float>(out var floatResult);
+                    if (success) value = floatResult;
+                    break;
             }
 
             isValidValue = success;

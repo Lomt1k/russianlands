@@ -33,25 +33,17 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
 
         public override void ApplyItemLevel(byte level)
         {
-            float minDamageBonusPerLevel = minPhysicalDamage / 10 > 0 ? (float)minPhysicalDamage / 10 : 1;
-            float maxDamageBonusPerLevel = maxPhysicalDamage / 10 > 0 ? (float)maxPhysicalDamage / 10 : 1;
-            minPhysicalDamage += (int)(minDamageBonusPerLevel * level);
-            maxPhysicalDamage += (int)(maxDamageBonusPerLevel * level);
+            IncreaseByTenPercentByLevel(ref minPhysicalDamage, level);
+            IncreaseByTenPercentByLevel(ref maxPhysicalDamage, level);
 
-            minDamageBonusPerLevel = minFireDamage / 10 > 0 ? (float)minFireDamage / 10 : 1;
-            maxDamageBonusPerLevel = maxFireDamage / 10 > 0 ? (float)maxFireDamage / 10 : 1;
-            minFireDamage += (int)(minDamageBonusPerLevel * level);
-            maxFireDamage += (int)(maxDamageBonusPerLevel * level);
+            IncreaseByTenPercentByLevel(ref minFireDamage, level);
+            IncreaseByTenPercentByLevel(ref maxFireDamage, level);
 
-            minDamageBonusPerLevel = minColdDamage / 10 > 0 ? (float)minColdDamage / 10 : 1;
-            maxDamageBonusPerLevel = maxColdDamage / 10 > 0 ? (float)maxColdDamage / 10 : 1;
-            minColdDamage += (int)(minDamageBonusPerLevel * level);
-            maxColdDamage += (int)(maxDamageBonusPerLevel * level);
+            IncreaseByTenPercentByLevel(ref minColdDamage, level);
+            IncreaseByTenPercentByLevel(ref maxColdDamage, level);
 
-            minDamageBonusPerLevel = minLightningDamage / 10 > 0 ? (float)minLightningDamage / 10 : 1;
-            maxDamageBonusPerLevel = maxLightningDamage / 10 > 0 ? (float)maxLightningDamage / 10 : 1;
-            minLightningDamage += (int)(minDamageBonusPerLevel * level);
-            maxLightningDamage += (int)(maxDamageBonusPerLevel * level);
+            IncreaseByTenPercentByLevel(ref minLightningDamage, level);
+            IncreaseByTenPercentByLevel(ref maxLightningDamage, level);
         }
 
         public override string ToString()
@@ -74,7 +66,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
         public override string GetView(GameSession session)
         {
             var sb = new StringBuilder();
-            sb.AppendLine(Localization.Localization.Get(session, "item_view_deals_damage"));
+            sb.AppendLine(Localization.Localization.Get(session, "ability_deals_damage"));
             if (minPhysicalDamage > 0)
             {
                 sb.AppendLine($"{Emojis.stats[Stat.PhysicalDamage]} {GetStringValue(DamageType.Physical)}");

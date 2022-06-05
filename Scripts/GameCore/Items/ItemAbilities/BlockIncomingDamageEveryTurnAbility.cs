@@ -2,12 +2,16 @@
 using TextGameRPG.Scripts.TelegramBot;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 
-namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties
+namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
 {
-    internal class DamageResistProperty : ItemPropertyBase
+    internal class BlockIncomingDamageEveryTurnAbility : ItemAbilityBase
     {
-        public override string debugDescription => "Сопротивление урону";
-        public override PropertyType propertyType => PropertyType.DamageResist;
+        public override string debugDescription => "Блокирует входящий урон";
+
+        public override AbilityType abilityType => AbilityType.BlockIncomingDamageEveryTurn;
+
+        public override ActivationType activationType => ActivationType.EveryTurn;
+
         public override bool isSupportLevelUp => true;
 
         public int physicalDamage;
@@ -21,6 +25,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties
             IncreaseByTenPercentByLevel(ref fireDamage, level);
             IncreaseByTenPercentByLevel(ref coldDamage, level);
             IncreaseByTenPercentByLevel(ref lightningDamage, level);
+            IncreaseByTenPercentByLevel(ref manaCost, level);
         }
 
         public DamageInfo GetValues()
@@ -31,7 +36,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.AppendLine($"{debugDescription}:");
+            sb.AppendLine($"{debugDescription} (Вероятность {chanceToSuccessPercentage}%)");
 
             if (physicalDamage > 0)
                 sb.AppendLine($"physical: {physicalDamage}");
@@ -48,7 +53,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties
         public override string GetView(GameSession session)
         {
             var sb = new StringBuilder();
-            sb.AppendLine(Localization.Localization.Get(session, "property_damage_resist"));
+            sb.AppendLine(string.Format(Localization.Localization.Get(session, "ability_block_damage_percentage"), chanceToSuccessPercentage));
             if (physicalDamage > 0)
             {
                 sb.AppendLine($"{Emojis.stats[Stat.PhysicalDamage]} {physicalDamage}");

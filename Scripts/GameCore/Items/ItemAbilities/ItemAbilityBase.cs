@@ -22,5 +22,12 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
 
         public abstract void ApplyItemLevel(byte level);
         public abstract string GetView(GameSession session);
+
+        protected void IncreaseByTenPercentByLevel(ref int value, byte level)
+        {
+            float bonusPerLevel = value / 10 > 0 ? (float)value / 10 : 1;
+            value += (int)(bonusPerLevel * level);
+        }
+
     }
 }

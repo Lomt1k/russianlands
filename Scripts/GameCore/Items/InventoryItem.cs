@@ -16,6 +16,9 @@ namespace TextGameRPG.Scripts.GameCore.Items
         [JsonIgnore]
         public ItemData data { get; private set; }
 
+        [JsonIgnore]
+        public int manaCost { get; private set; }
+
         [JsonConstructor]
         private InventoryItem()
         {
@@ -50,6 +53,12 @@ namespace TextGameRPG.Scripts.GameCore.Items
         private void RecalculateDynamicData()
         {
             data = GameDataBase.GameDataBase.instance.items[itemId].Clone();
+            manaCost = 0;
+            foreach (var ability in data.abilities)
+            {
+                ability.ApplyItemLevel(itemLevel);
+                manaCost += ability.manaCost;
+            }
             foreach (var property in data.properties)
             {
                 property.ApplyItemLevel(itemLevel);
@@ -86,6 +95,11 @@ namespace TextGameRPG.Scripts.GameCore.Items
 
         public bool IsSupportLevelUp()
         {
+            foreach (var ability in data.abilities)
+            {
+                if (ability.isSupportLevelUp)
+                    return true;
+            }
             foreach (var property in data.properties)
             {
                 if (property.isSupportLevelUp)
@@ -93,6 +107,7 @@ namespace TextGameRPG.Scripts.GameCore.Items
             }
             return false;
         }
+
 
     }
 }

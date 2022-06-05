@@ -4,6 +4,7 @@ using TextGameRPG.Scripts.TelegramBot.Sessions;
 namespace TextGameRPG.Scripts.GameCore.Items
 {
     using ItemProperties;
+    using ItemAbilities;
     using TextGameRPG.Scripts.TelegramBot;
     using Localization;
 
@@ -18,7 +19,7 @@ namespace TextGameRPG.Scripts.GameCore.Items
             AppendAbilities(sb, session, item);
             AppendProperties(sb, session, item);
 
-            AppendEquippedState(sb, session, item);
+            AppendBottomInfo(sb, session, item);
             return sb.ToString();
         }
 
@@ -26,31 +27,60 @@ namespace TextGameRPG.Scripts.GameCore.Items
         {
             var data = item.data;
             sb.AppendLine(string.Format(Localization.Get(session, "item_view_general_info"), data.itemRarity.GetView(session), data.requiredLevel));
+            sb.AppendLine();
         }
 
         private static void AppendAbilities(StringBuilder sb, GameSession session, InventoryItem item)
         {
+            bool hasDealDamage = item.data.ablitityByType.TryGetValue(AbilityType.DealDamage, out var dealDamage);
+            if (hasDealDamage)
+            {
+                sb.AppendLine(dealDamage.GetView(session));
+            }
+            bool hasBlockDamage = item.data.ablitityByType.TryGetValue(AbilityType.BlockIncomingDamageEveryTurn, out var blockDamage);
+            if (hasBlockDamage)
+            {
+                sb.AppendLine(blockDamage.GetView(session));
+            }
+
             foreach (var ability in item.data.abilities)
             {
-                sb.AppendLine();
-                sb.AppendLine(ability.GetView(session));
+                if (ability.abilityType != AbilityType.DealDamage 
+                    && ability.abilityType != AbilityType.BlockIncomingDamageEveryTurn)
+                {
+                    sb.AppendLine($"{Emojis.elements[Element.SmallWhite]} " + ability.GetView(session));
+                }
             }
         }
 
         private static void AppendProperties(StringBuilder sb, GameSession session, InventoryItem item)
         {
+            bool hasDamageResist = item.data.propertyByType.TryGetValue(PropertyType.DamageResist, out var damageResist);
+            if (hasDamageResist)
+            {
+                sb.AppendLine(damageResist.GetView(session));
+                if (item.data.properties.Count > 1)
+                    sb.AppendLine();
+            }
+
             foreach (var property in item.data.properties)
             {
-                sb.AppendLine();
-                sb.AppendLine(property.GetView(session));
+                if (property.propertyType != PropertyType.DamageResist)
+                {
+                    sb.AppendLine($"{Emojis.elements[Element.SmallWhite]} " + property.GetView(session));
+                }
             }
         }
 
-        private static void AppendEquippedState(StringBuilder sb, GameSession session, InventoryItem item)
+        private static void AppendBottomInfo(StringBuilder sb, GameSession session, InventoryItem item)
         {
-            if (item.isEquipped)
+            if (item.manaCost > 0)
             {
-                sb.AppendLine();
+                sb.AppendLine(string.Format(Localization.Get(session, "item_view_cost_of_use"), item.manaCost)
+                    + $" {Emojis.stats[Stat.Mana]}");
+            }
+            if (item.isEquipped)
+            {           
                 sb.AppendLine(Localization.Get(session, "dialog_inventory_equipped_state"));
             }
         }

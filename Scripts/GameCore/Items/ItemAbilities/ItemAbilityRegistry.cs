@@ -4,15 +4,15 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
 {
     internal class ItemAbilityRegistry
     {
-        private static Dictionary<AbilityType, ItemAbilityBase> _abilities;
-
-        static ItemAbilityRegistry()
+        private static Dictionary<AbilityType, ItemAbilityBase> _abilities = new Dictionary<AbilityType, ItemAbilityBase>()
         {
-            _abilities = new Dictionary<AbilityType, ItemAbilityBase>
-            {
-                { AbilityType.DealDamage, new DealDamageAbility() },
-            };
-        }
+            { AbilityType.DealDamage, new DealDamageAbility() },
+            { AbilityType.RestoreHealth, new RestoreHealthAbility() },
+            { AbilityType.RestoreMana, new RestoreManaAbility() },
+
+            // every turn
+            { AbilityType.BlockIncomingDamageEveryTurn, new BlockIncomingDamageEveryTurnAbility() },
+        };
 
         public static ItemAbilityBase GetNewAbility(AbilityType type)
         {
