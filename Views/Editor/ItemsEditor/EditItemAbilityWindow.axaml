@@ -2,15 +2,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" Width="500"
+        mc:Ignorable="d" Width="500" MinHeight="500"
         x:Class="TextGameRPG.Views.Editor.ItemsEditor.EditItemAbilityWindow"
         Title="Select Ability">
 
   <Grid>
     <Grid.RowDefinitions>
-      <RowDefinition Height="120"/>
+      <RowDefinition Height="150"/>
       <RowDefinition />
-      <RowDefinition Height="80"/>
+      <RowDefinition Height="100"/>
     </Grid.RowDefinitions>
 
     <!-- Row 1: Ability Type Selection -->
@@ -21,7 +21,11 @@
         <ComboBox Items="{Binding abilityTypesList}"
                   SelectedItem="{Binding selectedAbilityType}"/>
       </StackPanel>
-      <TextBlock Text="{Binding tempAbility.debugDescription}"/>
+      <StackPanel Margin="2" Orientation="Horizontal">
+        <TextBlock Text="Activation Type: " Width="180" VerticalAlignment="Center"/>
+        <TextBlock Text="{Binding tempAbility.activationType}"/>
+      </StackPanel>
+      <TextBlock Text="{Binding tempAbility.debugDescription}" Margin="0,30,0,0"/>
     </StackPanel>
 
     <!-- Row 2: Ability Fields -->

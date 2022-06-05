@@ -5,6 +5,7 @@ using TextGameRPG.Models.RegularDialogs;
 using TextGameRPG.Views.Editor.ItemsEditor;
 using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.GameCore.Items.ItemProperties;
+using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
 
 namespace TextGameRPG.ViewModels.Editor.ItemsEditor
 {
@@ -12,6 +13,8 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
     {
         private ItemData _currentItem;
         private string? _header;
+        private bool _hasAbilities;
+        private bool _hasProperties;
 
         public ItemData currentItem
         {
@@ -23,6 +26,18 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
             get => _header;
             set => this.RaiseAndSetIfChanged(ref _header, value);
         }
+        public bool hasAbilities
+        {
+            get => _hasAbilities;
+            set => this.RaiseAndSetIfChanged(ref _hasAbilities, value);
+        }
+        public bool hasProperties
+        {
+            get => _hasProperties;
+            set => this.RaiseAndSetIfChanged(ref _hasProperties, value);
+        }
+
+        public ObservableCollection<ItemAbilityBase> itemAbilities { get; private set; } = new ObservableCollection<ItemAbilityBase>();
         public ObservableCollection<ItemPropertyBase> itemProperties { get; private set; } = new ObservableCollection<ItemPropertyBase>();
 
         public ReactiveCommand<Unit, Unit> removeItemCommand { get; private set; }
@@ -38,12 +53,23 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
         {
             currentItem = item;
             RefreshHeader();
+            RefreshItemAbilities();
             RefreshItemProperties();
         }
 
         public void RefreshHeader()
         {
             header = $"{currentItem.debugName} ({currentItem.itemRarity}, Lvl {currentItem.requiredLevel})";
+        }
+
+        private void RefreshItemAbilities()
+        {
+            itemAbilities.Clear();
+            foreach (var item in currentItem.abilities)
+            {
+                itemAbilities.Add(item);
+            }
+            hasAbilities = itemAbilities.Count > 0;
         }
 
         private void RefreshItemProperties()
@@ -53,6 +79,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
             {
                 itemProperties.Add(item);
             }
+            hasProperties = itemProperties.Count > 0;
         }
 
         private void OnRemoveItemClick()

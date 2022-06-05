@@ -42,11 +42,11 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties
 
             if (physicalDamage > 0)
                 sb.AppendLine($"physical: {physicalDamage}");
-            if (physicalDamage > 0)
+            if (fireDamage > 0)
                 sb.AppendLine($"fire: {fireDamage}");
-            if (physicalDamage > 0)
+            if (coldDamage > 0)
                 sb.AppendLine($"cold: {coldDamage}");
-            if (physicalDamage > 0)
+            if (lightningDamage > 0)
                 sb.AppendLine($"lightning: {lightningDamage}");
 
             return sb.ToString();
