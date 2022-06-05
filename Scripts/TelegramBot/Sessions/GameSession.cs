@@ -26,6 +26,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
         public LanguageCode language { get; private set; }
         public DialogBase currentDialog { get; private set; }
 
+        private bool _isHandlingUpdate;
+
         public GameSession(User user)
         {
             chatId = user.Id;
@@ -42,6 +44,16 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
 
         public async Task HandleUpdateAsync(User refreshedUser, Update update)
         {
+            if (_isHandlingUpdate)
+            {
+                if (update.Type == UpdateType.CallbackQuery)
+                {
+                    await TelegramBot.instance.messageSender.AnswerQuery(update.CallbackQuery.Id);
+                }
+                return;
+            }
+
+            _isHandlingUpdate = true;
             try
             {
                 lastActivityTime = DateTime.UtcNow;
@@ -49,6 +61,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
                 if (profile == null)
                 {
                     await OnStartNewSession(actualUser);
+                    _isHandlingUpdate = false;
                     return;
                 }
 
@@ -67,6 +80,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
                 Program.logger.Error($"Exception in session [username @{actualUser.Username}, userId {actualUser.Id}]\n{ex}\n");
                 await TelegramBot.instance.messageSender.SendErrorMessage(chatId, $"{ex.GetType()}: {ex.Message}");
             }
+            _isHandlingUpdate = false;
         }
 
 
