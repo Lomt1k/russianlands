@@ -6,10 +6,13 @@ using TextGameRPG.Scripts.TelegramBot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Items
 {
+    using ItemAbilities;
+
     public class InventoryItem
     {
         public int itemId;
         public byte itemLevel;
+        public byte charge;
         public bool isEquipped;
         public bool isNew = true;
 
@@ -18,6 +21,9 @@ namespace TextGameRPG.Scripts.GameCore.Items
 
         [JsonIgnore]
         public int manaCost { get; private set; }
+
+        [JsonIgnore]
+        public bool canBeActivated { get; private set; }
 
         [JsonConstructor]
         private InventoryItem()
@@ -54,10 +60,15 @@ namespace TextGameRPG.Scripts.GameCore.Items
         {
             data = GameDataBase.GameDataBase.instance.items[itemId].Clone();
             manaCost = 0;
+            canBeActivated = false;
             foreach (var ability in data.abilities)
             {
                 ability.ApplyItemLevel(itemLevel);
                 manaCost += ability.manaCost;
+                if (ability.activationType == ActivationType.ByUser)
+                {
+                    canBeActivated = true;
+                }
             }
             foreach (var property in data.properties)
             {
@@ -106,6 +117,14 @@ namespace TextGameRPG.Scripts.GameCore.Items
                     return true;
             }
             return false;
+        }
+
+        public void IncreaseCharge()
+        {
+            if (charge < data.requiredCharge)
+            {
+                charge++;
+            }
         }
 
 

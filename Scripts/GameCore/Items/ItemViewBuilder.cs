@@ -43,14 +43,19 @@ namespace TextGameRPG.Scripts.GameCore.Items
                 sb.AppendLine(blockDamage.GetView(session));
             }
 
+            bool needAppendLine = false;
             foreach (var ability in item.data.abilities)
             {
                 if (ability.abilityType != AbilityType.DealDamage 
                     && ability.abilityType != AbilityType.BlockIncomingDamageEveryTurn)
                 {
                     sb.AppendLine($"{Emojis.elements[Element.SmallWhite]} " + ability.GetView(session));
+                    needAppendLine = true;
                 }
             }
+
+            if (needAppendLine)
+                sb.AppendLine();
         }
 
         private static void AppendProperties(StringBuilder sb, GameSession session, InventoryItem item)
@@ -78,6 +83,10 @@ namespace TextGameRPG.Scripts.GameCore.Items
             {
                 sb.AppendLine(string.Format(Localization.Get(session, "item_view_cost_of_use"), item.manaCost)
                     + $" {Emojis.stats[Stat.Mana]}");
+            }
+            if (item.data.isChargeRequired)
+            {
+                sb.AppendLine(string.Format(Localization.Get(session, "item_view_current_charge"), item.charge, item.data.requiredCharge));
             }
             if (item.isEquipped)
             {           

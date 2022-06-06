@@ -17,8 +17,15 @@
     <!-- Row 1: Header -->
     <StackPanel Grid.Row="0" Orientation="Vertical">
       <TextBlock Text="{Binding header}" Classes="h2"/>
-      <TextBlock Text="{Binding currentItem.id, StringFormat='ID: {0}'}"
+      
+      <StackPanel Orientation="Horizontal" Spacing="20">
+        <TextBlock Text="{Binding currentItem.id, StringFormat='ID: {0}'}"
                  Classes="h3" Foreground="SlateGray"/>
+        <TextBlock Text="{Binding currentItem.requiredCharge, StringFormat='Charge: {0}'}"
+                   IsVisible="{Binding currentItem.isChargeRequired}"
+                   Classes="h3" Foreground="SlateGray"/>
+      </StackPanel>
+      
     </StackPanel>
 
     <!-- Row 2: Abilities -->

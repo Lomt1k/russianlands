@@ -15,9 +15,12 @@ namespace TextGameRPG.Scripts.GameCore.Items
         public ItemType itemType { get; set; }
         public ItemRarity itemRarity { get; set; }
         public ushort requiredLevel { get; set; }
-        public List<ItemAbilityBase> abilities { get; private set; }
-        public List<ItemPropertyBase> properties { get; private set; }
+        public byte requiredCharge { get; set; }
+        public List<ItemAbilityBase> abilities { get; private set; } = new List<ItemAbilityBase>();
+        public List<ItemPropertyBase> properties { get; private set; } = new List<ItemPropertyBase>();
 
+        [JsonIgnore]
+        public bool isChargeRequired => requiredCharge > 0;
         [JsonIgnore]
         public Dictionary<AbilityType, ItemAbilityBase> ablitityByType;
 
@@ -25,17 +28,11 @@ namespace TextGameRPG.Scripts.GameCore.Items
         public Dictionary<PropertyType, ItemPropertyBase> propertyByType;
 
         [JsonConstructor]
-        public ItemData(string debugName, int id, ItemType type, ItemRarity rarity, ushort requiredLevel,
-            List<ItemAbilityBase>? abilities = null, List<ItemPropertyBase>? properties = null)
+        public ItemData(string debugName, int id, ItemType type)
         {
             this.debugName = debugName;
             this.id = id;
             this.itemType = type;
-            this.itemRarity = rarity;
-            this.requiredLevel = requiredLevel;
-            this.abilities = abilities ?? new List<ItemAbilityBase>();
-            this.properties = properties ?? new List<ItemPropertyBase>();
-            RebuildDictionaries();
         }
 
         public ItemData Clone()

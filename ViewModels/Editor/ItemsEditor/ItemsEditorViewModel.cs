@@ -92,7 +92,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
                 ? ItemType.Sword
                 : selectedCategory.itemType;
 
-            var newItem = new ItemData("[NEW ITEM]", newItemId, newItemType, ItemRarity.Common, 0);
+            var newItem = new ItemData("[NEW ITEM]", newItemId, newItemType);
             GameDataBase.instance.items.AddData(newItemId, newItem);
             selectedItem = newItem;
 
