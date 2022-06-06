@@ -49,6 +49,7 @@ namespace TextGameRPG.Scripts.GameCore.Items
             {
                 itemId = itemId,
                 itemLevel = itemLevel,
+                charge = charge,
                 isEquipped = false,
                 isNew = true,
             };
