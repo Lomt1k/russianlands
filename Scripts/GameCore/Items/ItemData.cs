@@ -35,6 +35,20 @@ namespace TextGameRPG.Scripts.GameCore.Items
             this.itemType = type;
         }
 
+        // for item generator
+        public ItemData(ItemType _type, ItemRarity _rarity, ushort _level, byte _charge,
+            List<ItemAbilityBase> _abilities, List<ItemPropertyBase> _properties)
+        {
+            debugName = "Generated Item";
+            id = -1;
+            itemType = _type;
+            itemRarity = _rarity;
+            requiredLevel = _level;
+            requiredCharge = _charge;
+            abilities = _abilities;
+            properties = _properties;
+        }
+
         public ItemData Clone()
         {
             var clone = (ItemData)MemberwiseClone();
