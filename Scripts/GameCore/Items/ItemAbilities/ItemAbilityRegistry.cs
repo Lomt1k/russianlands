@@ -8,12 +8,11 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
         {
             { AbilityType.DealDamage, new DealDamageAbility() },
             { AbilityType.RestoreHealth, new RestoreHealthAbility() },
-            { AbilityType.RestoreMana, new RestoreManaAbility() },
 
             // every turn
             { AbilityType.BlockIncomingDamageEveryTurn, new BlockIncomingDamageEveryTurnAbility() },
             { AbilityType.RestoreHealthEveryTurn, new RestoreHealthEveryTurnAbility() },
-            { AbilityType.RestoreManaEveryTurn, new RestoreManaEveryTurnAbility() },
+            { AbilityType.AddManaEveryTurn, new AddManaEveryTurnAbility() },
         };
 
         public static ItemAbilityBase GetNewAbility(AbilityType type)

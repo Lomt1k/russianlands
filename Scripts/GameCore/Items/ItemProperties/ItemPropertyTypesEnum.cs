@@ -9,7 +9,6 @@
         IncreaseAttributeSorcery = 4,
         IncreaseAttributeLuck = 5,
         IncreaseMaxHealth = 6,
-        IncreaseMaxMana = 7
     }
 
 }

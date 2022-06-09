@@ -5,9 +5,8 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
     {
 
         public int maxHP { get; protected set; }
-        public int maxMP { get; protected set; }
         public int currentHP { get; protected set; }
-        public int currentMP { get; protected set; }
+        public int currentMana { get; protected set; }
         public int physicalResist { get; protected set; }
         public int fireResist { get; protected set; }
         public int coldResist { get; protected set; }
@@ -16,11 +15,6 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
         public void SetFullHealth()
         {
             currentHP = maxHP;
-        }
-
-        public void SetFullMana()
-        {
-            currentMP = maxMP;
         }
 
         public abstract string GetView();
