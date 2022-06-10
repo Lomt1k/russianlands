@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using TextGameRPG.Scripts.TelegramBot;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 using TextGameRPG.Scripts.Utils;
@@ -24,11 +25,12 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
 
         public DamageInfo GetRandomValues()
         {
+            var random = new Random();
             return new DamageInfo(
-                Randomizer.random.Next(minPhysicalDamage, maxPhysicalDamage + 1),
-                Randomizer.random.Next(minFireDamage, maxFireDamage + 1),
-                Randomizer.random.Next(minColdDamage, maxColdDamage + 1),
-                Randomizer.random.Next(minLightningDamage, maxLightningDamage + 1));
+                random.Next(minPhysicalDamage, maxPhysicalDamage + 1),
+                random.Next(minFireDamage, maxFireDamage + 1),
+                random.Next(minColdDamage, maxColdDamage + 1),
+                random.Next(minLightningDamage, maxLightningDamage + 1));
         }
 
         public override void ApplyItemLevel(byte level)

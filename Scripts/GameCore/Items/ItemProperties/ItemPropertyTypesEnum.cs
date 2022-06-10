@@ -1,6 +1,6 @@
 ﻿namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties
 {
-    public enum PropertyType
+    public enum PropertyType : byte
     {
         None = 0,
         DamageResist = 1,
