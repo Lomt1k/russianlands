@@ -5,10 +5,7 @@ using TextGameRPG.Scripts.GameCore.Items.ItemProperties;
 
 namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators
 {
-    /// <summary>
-    /// For armor, boots and helmet
-    /// </summary>
-    internal class ArmorCodeGenerator : ItemCodeGeneratorBase
+    internal class ShieldCodeGenerator : ItemCodeGeneratorBase
     {
         private List<Func<bool>> _options => new List<Func<bool>>
         {
@@ -20,16 +17,16 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators
 
             //() => TryAppendAbility(AbilityType.RestoreHealth),
 
-            () => { sb.Append("DF"); return true; }, //damage resist fire
-            () => { sb.Append("DC"); return true; }, //damage resist cold
-            () => { sb.Append("DL"); return true; }, //damage resist lightning
+            () => { sb.Append("DF"); return true; }, //block damage fire
+            () => { sb.Append("DC"); return true; }, //block damage cold
+            () => { sb.Append("DL"); return true; }, //block damage lightning
         };
 
         private readonly string[] _rareOptions = new[] { "DF", "DC", "DL" };
 
-        public ArmorCodeGenerator(ItemType _type, ItemRarity _rarity, ushort _level, int _basisPoints) : base(_type, _rarity, _level, _basisPoints)
+        public ShieldCodeGenerator(ItemType _type, ItemRarity _rarity, ushort _level, int _basisPoints) : base(_type, _rarity, _level, _basisPoints)
         {
-            if (type != ItemType.Armor && type != ItemType.Helmet && type != ItemType.Boots)
+            if (type != ItemType.Shield)
             {
                 throw new ArgumentException($"{GetType()} can not generate item with type '{_type}'");
             }

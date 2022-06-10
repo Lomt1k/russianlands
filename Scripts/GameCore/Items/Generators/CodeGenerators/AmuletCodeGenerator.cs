@@ -5,10 +5,7 @@ using TextGameRPG.Scripts.GameCore.Items.ItemProperties;
 
 namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators
 {
-    /// <summary>
-    /// For armor, boots and helmet
-    /// </summary>
-    internal class ArmorCodeGenerator : ItemCodeGeneratorBase
+    internal class AmuletCodeGenerator : ItemCodeGeneratorBase
     {
         private List<Func<bool>> _options => new List<Func<bool>>
         {
@@ -19,36 +16,30 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators
             () => TryAppendProperty(PropertyType.IncreaseMaxHealth),
 
             //() => TryAppendAbility(AbilityType.RestoreHealth),
-
-            () => { sb.Append("DF"); return true; }, //damage resist fire
-            () => { sb.Append("DC"); return true; }, //damage resist cold
-            () => { sb.Append("DL"); return true; }, //damage resist lightning
         };
 
-        private readonly string[] _rareOptions = new[] { "DF", "DC", "DL" };
-
-        public ArmorCodeGenerator(ItemType _type, ItemRarity _rarity, ushort _level, int _basisPoints) : base(_type, _rarity, _level, _basisPoints)
+        public AmuletCodeGenerator(ItemType _type, ItemRarity _rarity, ushort _level, int _basisPoints) : base(_type, _rarity, _level, _basisPoints)
         {
-            if (type != ItemType.Armor && type != ItemType.Helmet && type != ItemType.Boots)
+            if (type != ItemType.Amulet)
             {
                 throw new ArgumentException($"{GetType()} can not generate item with type '{_type}'");
+            }
+            if (rarity == ItemRarity.Common)
+            {
+                throw new ArgumentException($"{GetType()} can not generate items with '{_rarity}' rarity");
             }
         }
 
         public override void AppendSpecificInfo()
         {
             var random = new Random();
-            if (rarity != ItemRarity.Common)
-            {
-                var index = random.Next(_rareOptions.Length);
-                sb.Append(_rareOptions[index]);
-            }
 
             int needOptionsCount = 0;
             switch (rarity)
             {
-                case ItemRarity.Epic: needOptionsCount = 1; break;
-                case ItemRarity.Legendary: needOptionsCount = 2; break;
+                case ItemRarity.Rare: needOptionsCount = 1; break;
+                case ItemRarity.Epic: needOptionsCount = 2; break;
+                case ItemRarity.Legendary: needOptionsCount = 3; break;
             }
 
             while (needOptionsCount > 0)
