@@ -36,16 +36,19 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
         public static ItemData Decode(string dataCode)
         {
             var decoder = new ItemDataDecoder();
-            var seed = decoder.DecodeInternal(dataCode);
+            var seed = decoder.ParseSeedFromCode(dataCode);
 
             switch (seed.itemType)
             {
                 case ItemType.Armor: return new ArmorDataGenerator(seed).Generate();
+                case ItemType.Helmet: return new HelmetDataGenerator(seed).Generate();
+                case ItemType.Boots: return new BootsDataGenerator(seed).Generate();
+                case ItemType.Shield: return new ShieldDataGenerator(seed).Generate();
             }
             return ItemData.brokenItem;
         }
 
-        private ItemDataSeed DecodeInternal(string dataCode)
+        private ItemDataSeed ParseSeedFromCode(string dataCode)
         {
             using (var reader = new StringReader(dataCode))
             {

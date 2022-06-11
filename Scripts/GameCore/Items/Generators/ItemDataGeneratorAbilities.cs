@@ -2,9 +2,15 @@
 namespace TextGameRPG.Scripts.GameCore.Items.Generators
 {
     using ItemAbilities;
+    using System;
+    using System.Collections.Generic;
 
     internal abstract partial class ItemDataGeneratorBase
     {
+        private Dictionary<AbilityType, int> _stackOfChances = new Dictionary<AbilityType, int>();
+
+        #region Deal Damage
+
         protected void AddDealPhysicalDamage(int value)
         {
             if (_abilities.TryGetValue(AbilityType.DealDamage, out var ability))
@@ -148,6 +154,103 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             newAbility.maxLightningDamage = maxDamage;
             _abilities.Add(AbilityType.DealDamage, newAbility);
         }
+        #endregion
+
+        #region Block Incoming Damage
+
+        protected void AddBlockIncomingPhysicalDamage(int value, float chancePercentage = 30f)
+        {
+            var abilityType = AbilityType.BlockIncomingDamageEveryTurn;
+            if (_abilities.TryGetValue(abilityType, out var ability))
+            {
+                if (ability is BlockIncomingDamageEveryTurnAbility blockDamage)
+                {
+                    blockDamage.physicalDamage += value;
+                    var temp = blockDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
+                    temp += chancePercentage;
+                    _stackOfChances[abilityType]++;
+                    blockDamage.chanceToSuccessPercentage = (float)Math.Round(temp / _stackOfChances[abilityType]);
+                }
+                return;
+            }
+
+            var newAbility = (BlockIncomingDamageEveryTurnAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
+            newAbility.physicalDamage = value;
+            newAbility.chanceToSuccessPercentage = chancePercentage;
+            _stackOfChances[abilityType] = 1;
+            _abilities.Add(abilityType, newAbility);
+        }
+
+        protected void AddBlockIncomingFireDamage(int value, float chancePercentage = 30f)
+        {
+            var abilityType = AbilityType.BlockIncomingDamageEveryTurn;
+            if (_abilities.TryGetValue(abilityType, out var ability))
+            {
+                if (ability is BlockIncomingDamageEveryTurnAbility blockDamage)
+                {
+                    blockDamage.fireDamage += value;
+                    var temp = blockDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
+                    temp += chancePercentage;
+                    _stackOfChances[abilityType]++;
+                    blockDamage.chanceToSuccessPercentage = (float)Math.Round(temp / _stackOfChances[abilityType]);
+                }
+                return;
+            }
+
+            var newAbility = (BlockIncomingDamageEveryTurnAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
+            newAbility.fireDamage = value;
+            newAbility.chanceToSuccessPercentage = chancePercentage;
+            _stackOfChances[abilityType] = 1;
+            _abilities.Add(abilityType, newAbility);
+        }
+
+        protected void AddBlockIncomingColdDamage(int value, float chancePercentage = 30f)
+        {
+            var abilityType = AbilityType.BlockIncomingDamageEveryTurn;
+            if (_abilities.TryGetValue(abilityType, out var ability))
+            {
+                if (ability is BlockIncomingDamageEveryTurnAbility blockDamage)
+                {
+                    blockDamage.coldDamage += value;
+                    var temp = blockDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
+                    temp += chancePercentage;
+                    _stackOfChances[abilityType]++;
+                    blockDamage.chanceToSuccessPercentage = (float)Math.Round(temp / _stackOfChances[abilityType]);
+                }
+                return;
+            }
+
+            var newAbility = (BlockIncomingDamageEveryTurnAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
+            newAbility.coldDamage = value;
+            newAbility.chanceToSuccessPercentage = chancePercentage;
+            _stackOfChances[abilityType] = 1;
+            _abilities.Add(abilityType, newAbility);
+        }
+
+        protected void AddBlockIncomingLightningDamage(int value, float chancePercentage = 30f)
+        {
+            var abilityType = AbilityType.BlockIncomingDamageEveryTurn;
+            if (_abilities.TryGetValue(abilityType, out var ability))
+            {
+                if (ability is BlockIncomingDamageEveryTurnAbility blockDamage)
+                {
+                    blockDamage.lightningDamage += value;
+                    var temp = blockDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
+                    temp += chancePercentage;
+                    _stackOfChances[abilityType]++;
+                    blockDamage.chanceToSuccessPercentage = (float)Math.Round(temp / _stackOfChances[abilityType]);
+                }
+                return;
+            }
+
+            var newAbility = (BlockIncomingDamageEveryTurnAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
+            newAbility.lightningDamage = value;
+            newAbility.chanceToSuccessPercentage = chancePercentage;
+            _stackOfChances[abilityType] = 1;
+            _abilities.Add(abilityType, newAbility);
+        }
+
+        #endregion
 
 
     }
