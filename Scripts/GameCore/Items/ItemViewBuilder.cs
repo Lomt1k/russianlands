@@ -64,8 +64,6 @@ namespace TextGameRPG.Scripts.GameCore.Items
             if (hasDamageResist)
             {
                 sb.AppendLine(damageResist.GetView(session));
-                if (item.data.properties.Count > 1)
-                    sb.AppendLine();
             }
 
             foreach (var property in item.data.properties)

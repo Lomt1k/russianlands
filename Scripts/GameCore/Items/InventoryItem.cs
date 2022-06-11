@@ -7,23 +7,31 @@ using TextGameRPG.Scripts.TelegramBot.Sessions;
 namespace TextGameRPG.Scripts.GameCore.Items
 {
     using ItemAbilities;
+    using TextGameRPG.Scripts.GameCore.Items.Generators;
+
+    public enum ItemState : byte { IsNewAndNotEquipped = 0, IsNotEquipped = 1, IsEquipped = 2 }
 
     public class InventoryItem
     {
-        public int itemId;
-        public byte itemLevel;
-        public byte charge;
-        public bool isEquipped;
-        public bool isNew = true;
+        public string id;
+        public ItemState state;
+        public byte mod;
 
         [JsonIgnore]
         public ItemData data { get; private set; }
 
         [JsonIgnore]
+        public byte charge;
+
+        [JsonIgnore]
         public int manaCost { get; private set; }
 
         [JsonIgnore]
-        public bool canBeActivated { get; private set; }
+        public bool isEquipped
+        {
+            get => state == ItemState.IsEquipped;
+            set => state = value ? ItemState.IsEquipped : ItemState.IsNotEquipped;
+        }
 
         [JsonConstructor]
         private InventoryItem()
@@ -36,10 +44,17 @@ namespace TextGameRPG.Scripts.GameCore.Items
             RecalculateDynamicData();
         }
 
-        public InventoryItem(int id, byte level = 0)
+        public InventoryItem(int _id, byte _mod = 0)
         {
-            itemId = id;
-            itemLevel = level;
+            id = _id.ToString();
+            mod = _mod;
+            RecalculateDynamicData();
+        }
+
+        public InventoryItem(string _dataCode, byte _mod = 0)
+        {
+            id = _dataCode;
+            mod = _mod;
             RecalculateDynamicData();
         }
 
@@ -47,11 +62,9 @@ namespace TextGameRPG.Scripts.GameCore.Items
         {
             var clone = new InventoryItem()
             {
-                itemId = itemId,
-                itemLevel = itemLevel,
-                charge = charge,
-                isEquipped = false,
-                isNew = true,
+                id = id,
+                mod = mod,
+                state = ItemState.IsNewAndNotEquipped,
             };
             clone.RecalculateDynamicData();
             return clone;
@@ -59,21 +72,19 @@ namespace TextGameRPG.Scripts.GameCore.Items
 
         private void RecalculateDynamicData()
         {
-            data = GameDataBase.GameDataBase.instance.items[itemId].Clone();
+            data = int.TryParse(id, out int dbid)
+                ? GameDataBase.GameDataBase.instance.items[dbid].Clone()
+                : ItemDataDecoder.Decode(id);
+
             manaCost = 0;
-            canBeActivated = false;
             foreach (var ability in data.abilities)
             {
-                ability.ApplyItemLevel(itemLevel);
+                ability.ApplyItemLevel(mod);
                 manaCost += ability.manaCost;
-                if (ability.activationType == ActivationType.ByUser)
-                {
-                    canBeActivated = true;
-                }
             }
             foreach (var property in data.properties)
             {
-                property.ApplyItemLevel(itemLevel);
+                property.ApplyItemLevel(mod);
             }
         }
 
@@ -97,9 +108,9 @@ namespace TextGameRPG.Scripts.GameCore.Items
         {
             var sb = new StringBuilder();
             sb.Append($"{Emojis.items[data.itemType]} {GetLocalizedName(session)}");
-            if (itemLevel > 0)
+            if (mod > 0)
             {
-                sb.Append($" +{itemLevel}");
+                sb.Append($" +{mod}");
             }
 
             return sb.ToString();

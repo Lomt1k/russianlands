@@ -27,6 +27,9 @@ namespace TextGameRPG.Scripts.GameCore.Items
         [JsonIgnore]
         public Dictionary<PropertyType, ItemPropertyBase> propertyByType;
 
+        public static ItemData brokenItem = new ItemData(ItemType.Sword, ItemRarity.Common, 0, 0, new List<ItemAbilityBase>(), new List<ItemPropertyBase>()) 
+        { debugName = "Broken Item" };
+
         [JsonConstructor]
         public ItemData(string debugName, int id, ItemType type)
         {
@@ -39,7 +42,7 @@ namespace TextGameRPG.Scripts.GameCore.Items
         public ItemData(ItemType _type, ItemRarity _rarity, ushort _level, byte _charge,
             List<ItemAbilityBase> _abilities, List<ItemPropertyBase> _properties)
         {
-            debugName = "Generated Item";
+            debugName = $"Generated {_type}";
             id = -1;
             itemType = _type;
             itemRarity = _rarity;
@@ -47,6 +50,7 @@ namespace TextGameRPG.Scripts.GameCore.Items
             requiredCharge = _charge;
             abilities = _abilities;
             properties = _properties;
+            RebuildDictionaries();
         }
 
         public ItemData Clone()

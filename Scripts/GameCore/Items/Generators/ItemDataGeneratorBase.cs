@@ -10,6 +10,8 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
     {
         protected ItemDataSeed seed { get; }
         protected byte requiredCharge { get; set; }
+        protected float gradedPoints { get; }
+        protected float gradeMult { get; }
 
         private Dictionary<AbilityType, ItemAbilityBase> _abilities = new Dictionary<AbilityType, ItemAbilityBase>();
         private Dictionary<PropertyType, ItemPropertyBase> _properties = new Dictionary<PropertyType, ItemPropertyBase>();
@@ -17,6 +19,8 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
         public ItemDataGeneratorBase(ItemDataSeed _seed)
         {
             seed = _seed;
+            gradeMult = (_seed.grade - 5) / 40f + 1; //от 0.9 до 1.125 (сам grade от 1 - 10)
+            gradedPoints = _seed.basisPoints * gradeMult;
         }
 
         public ItemData Generate()

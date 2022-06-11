@@ -18,7 +18,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
 
         public List<AbilityType> abilities;
         public List<PropertyType> properties;
-        public List<string> specialParameters;
+        public List<string> baseParameters;
     }
 
     internal class ItemDataDecoder
@@ -31,9 +31,9 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
 
         private List<AbilityType> _abilities = new List<AbilityType>();
         private List<PropertyType> _properties = new List<PropertyType>();
-        private List<string> _specialParameters = new List<string>();
+        private List<string> _baseParameters = new List<string>();
 
-        public static ItemData? Decode(string dataCode)
+        public static ItemData Decode(string dataCode)
         {
             var decoder = new ItemDataDecoder();
             var seed = decoder.DecodeInternal(dataCode);
@@ -42,7 +42,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             {
                 case ItemType.Armor: return new ArmorDataGenerator(seed).Generate();
             }
-            return null;
+            return ItemData.brokenItem;
         }
 
         private ItemDataSeed DecodeInternal(string dataCode)
@@ -63,7 +63,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
                 grade = _grade,
                 abilities = _abilities,
                 properties = _properties,
-                specialParameters = _specialParameters
+                baseParameters = _baseParameters
             };
         }
 
@@ -71,7 +71,8 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
         {
             char[] typeArr = new char[2];
             reader.ReadBlock(typeArr, 0, 2);
-            switch (typeArr.ToString())
+            var itemTypeCode = new string(typeArr);
+            switch (itemTypeCode)
             {
                 case "SW": return ItemType.Sword;
                 case "BO": return ItemType.Bow;
@@ -86,7 +87,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
                 case "SC": return ItemType.Scroll;
                 case "PO": return ItemType.Poison;
             }
-            throw new Exception($"Error when parsed item type with type code: {typeArr}");
+            throw new Exception($"Error when parsed item type with type code: {itemTypeCode}");
         }
 
         private string ReadNextDigits(StringReader reader)
@@ -115,7 +116,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
 
         private void ReadNextParameter(StringReader reader)
         {
-            var firstChar = reader.Read();
+            var firstChar = (char)reader.Read();
             switch (firstChar)
             {
                 case 'L':
@@ -137,10 +138,9 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
                     return;
 
                 default:
-                    char[] parameter = new char[2];
-                    parameter[0] = (char)reader.Read();
-                    parameter[1] = (char)reader.Read();
-                    _specialParameters.Add(new string(parameter));
+                    var secondChar = (char)reader.Read();
+                    var parameter = new string( new[]{ firstChar, secondChar } );
+                    _baseParameters.Add(parameter);
                     return;
             }
         }
