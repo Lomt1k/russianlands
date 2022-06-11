@@ -11,148 +11,204 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
 
         #region Deal Damage
 
-        protected void AddDealPhysicalDamage(int value)
+        protected void AddDealPhysicalDamage(int value, float chancePercentage = 100f)
         {
-            if (_abilities.TryGetValue(AbilityType.DealDamage, out var ability))
+            var abilityType = AbilityType.DealDamage;
+            if (_abilities.TryGetValue(abilityType, out var ability))
             {
                 if (ability is DealDamageAbility dealDamage)
                 {
                     dealDamage.minPhysicalDamage += value;
                     dealDamage.maxPhysicalDamage += value;
+
+                    var temp = dealDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
+                    temp += chancePercentage;
+                    _stackOfChances[abilityType]++;
+                    dealDamage.chanceToSuccessPercentage = (float)Math.Round(temp / _stackOfChances[abilityType]);
                 }
                 return;
             }
 
-            var newAbility = (DealDamageAbility)ItemAbilityRegistry.GetNewAbility(AbilityType.DealDamage);
+            var newAbility = (DealDamageAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
             newAbility.minPhysicalDamage = value;
             newAbility.maxPhysicalDamage = value;
-            _abilities.Add(AbilityType.DealDamage, newAbility);
+            _stackOfChances[abilityType] = 1;
+            _abilities.Add(abilityType, newAbility);
         }
 
-        protected void AddDealPhysicalDamage(int minDamage, int maxDamage)
+        protected void AddDealPhysicalDamage(int minDamage, int maxDamage, float chancePercentage = 100f)
         {
-            if (_abilities.TryGetValue(AbilityType.DealDamage, out var ability))
+            var abilityType = AbilityType.DealDamage;
+            if (_abilities.TryGetValue(abilityType, out var ability))
             {
                 if (ability is DealDamageAbility dealDamage)
                 {
                     dealDamage.minPhysicalDamage += minDamage;
                     dealDamage.maxPhysicalDamage += maxDamage;
+
+                    var temp = dealDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
+                    temp += chancePercentage;
+                    _stackOfChances[abilityType]++;
+                    dealDamage.chanceToSuccessPercentage = (float)Math.Round(temp / _stackOfChances[abilityType]);
                 }
                 return;
             }
 
-            var newAbility = (DealDamageAbility)ItemAbilityRegistry.GetNewAbility(AbilityType.DealDamage);
+            var newAbility = (DealDamageAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
             newAbility.minPhysicalDamage = minDamage;
             newAbility.maxPhysicalDamage = maxDamage;
-            _abilities.Add(AbilityType.DealDamage, newAbility);
+            _stackOfChances[abilityType] = 1;
+            _abilities.Add(abilityType, newAbility);
         }
 
-        protected void AddDealFireDamage(int value)
+        protected void AddDealFireDamage(int value, float chancePercentage = 100f)
         {
-            if (_abilities.TryGetValue(AbilityType.DealDamage, out var ability))
+            var abilityType = AbilityType.DealDamage;
+            if (_abilities.TryGetValue(abilityType, out var ability))
             {
                 if (ability is DealDamageAbility dealDamage)
                 {
                     dealDamage.minFireDamage += value;
                     dealDamage.maxFireDamage += value;
+
+                    var temp = dealDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
+                    temp += chancePercentage;
+                    _stackOfChances[abilityType]++;
+                    dealDamage.chanceToSuccessPercentage = (float)Math.Round(temp / _stackOfChances[abilityType]);
                 }
                 return;
             }
 
-            var newAbility = (DealDamageAbility)ItemAbilityRegistry.GetNewAbility(AbilityType.DealDamage);
+            var newAbility = (DealDamageAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
             newAbility.minFireDamage = value;
             newAbility.maxFireDamage = value;
-            _abilities.Add(AbilityType.DealDamage, newAbility);
+            _stackOfChances[abilityType] = 1;
+            _abilities.Add(abilityType, newAbility);
         }
 
-        protected void AddDealFireDamage(int minDamage, int maxDamage)
+        protected void AddDealFireDamage(int minDamage, int maxDamage, float chancePercentage = 100f)
         {
-            if (_abilities.TryGetValue(AbilityType.DealDamage, out var ability))
+            var abilityType = AbilityType.DealDamage;
+            if (_abilities.TryGetValue(abilityType, out var ability))
             {
                 if (ability is DealDamageAbility dealDamage)
                 {
                     dealDamage.minFireDamage += minDamage;
                     dealDamage.maxFireDamage += maxDamage;
+
+                    var temp = dealDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
+                    temp += chancePercentage;
+                    _stackOfChances[abilityType]++;
+                    dealDamage.chanceToSuccessPercentage = (float)Math.Round(temp / _stackOfChances[abilityType]);
                 }
                 return;
             }
 
-            var newAbility = (DealDamageAbility)ItemAbilityRegistry.GetNewAbility(AbilityType.DealDamage);
+            var newAbility = (DealDamageAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
             newAbility.minFireDamage = minDamage;
             newAbility.maxFireDamage = maxDamage;
-            _abilities.Add(AbilityType.DealDamage, newAbility);
+            _stackOfChances[abilityType] = 1;
+            _abilities.Add(abilityType, newAbility);
         }
 
-        protected void AddDealColdDamage(int value)
+        protected void AddDealColdDamage(int value, float chancePercentage = 100f)
         {
-            if (_abilities.TryGetValue(AbilityType.DealDamage, out var ability))
+            var abilityType = AbilityType.DealDamage;
+            if (_abilities.TryGetValue(abilityType, out var ability))
             {
                 if (ability is DealDamageAbility dealDamage)
                 {
                     dealDamage.minColdDamage += value;
                     dealDamage.maxColdDamage += value;
+
+                    var temp = dealDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
+                    temp += chancePercentage;
+                    _stackOfChances[abilityType]++;
+                    dealDamage.chanceToSuccessPercentage = (float)Math.Round(temp / _stackOfChances[abilityType]);
                 }
                 return;
             }
 
-            var newAbility = (DealDamageAbility)ItemAbilityRegistry.GetNewAbility(AbilityType.DealDamage);
+            var newAbility = (DealDamageAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
             newAbility.minColdDamage = value;
             newAbility.maxColdDamage = value;
-            _abilities.Add(AbilityType.DealDamage, newAbility);
+            _stackOfChances[abilityType] = 1;
+            _abilities.Add(abilityType, newAbility);
         }
 
-        protected void AddDealColdDamage(int minDamage, int maxDamage)
+        protected void AddDealColdDamage(int minDamage, int maxDamage, float chancePercentage = 100f)
         {
-            if (_abilities.TryGetValue(AbilityType.DealDamage, out var ability))
+            var abilityType = AbilityType.DealDamage;
+            if (_abilities.TryGetValue(abilityType, out var ability))
             {
                 if (ability is DealDamageAbility dealDamage)
                 {
                     dealDamage.minColdDamage += minDamage;
                     dealDamage.maxColdDamage += maxDamage;
+
+                    var temp = dealDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
+                    temp += chancePercentage;
+                    _stackOfChances[abilityType]++;
+                    dealDamage.chanceToSuccessPercentage = (float)Math.Round(temp / _stackOfChances[abilityType]);
                 }
                 return;
             }
 
-            var newAbility = (DealDamageAbility)ItemAbilityRegistry.GetNewAbility(AbilityType.DealDamage);
+            var newAbility = (DealDamageAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
             newAbility.minColdDamage = minDamage;
             newAbility.maxColdDamage = maxDamage;
-            _abilities.Add(AbilityType.DealDamage, newAbility);
+            _stackOfChances[abilityType] = 1;
+            _abilities.Add(abilityType, newAbility);
         }
 
-        protected void AddDealLightningDamage(int value)
+        protected void AddDealLightningDamage(int value, float chancePercentage = 100f)
         {
-            if (_abilities.TryGetValue(AbilityType.DealDamage, out var ability))
+            var abilityType = AbilityType.DealDamage;
+            if (_abilities.TryGetValue(abilityType, out var ability))
             {
                 if (ability is DealDamageAbility dealDamage)
                 {
                     dealDamage.minLightningDamage += value;
                     dealDamage.maxLightningDamage += value;
+
+                    var temp = dealDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
+                    temp += chancePercentage;
+                    _stackOfChances[abilityType]++;
+                    dealDamage.chanceToSuccessPercentage = (float)Math.Round(temp / _stackOfChances[abilityType]);
                 }
                 return;
             }
 
-            var newAbility = (DealDamageAbility)ItemAbilityRegistry.GetNewAbility(AbilityType.DealDamage);
+            var newAbility = (DealDamageAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
             newAbility.minLightningDamage = value;
             newAbility.maxLightningDamage = value;
-            _abilities.Add(AbilityType.DealDamage, newAbility);
+            _stackOfChances[abilityType] = 1;
+            _abilities.Add(abilityType, newAbility);
         }
 
-        protected void AddDealLightningDamage(int minDamage, int maxDamage)
+        protected void AddDealLightningDamage(int minDamage, int maxDamage, float chancePercentage = 100f)
         {
-            if (_abilities.TryGetValue(AbilityType.DealDamage, out var ability))
+            var abilityType = AbilityType.DealDamage;
+            if (_abilities.TryGetValue(abilityType, out var ability))
             {
                 if (ability is DealDamageAbility dealDamage)
                 {
                     dealDamage.minLightningDamage += minDamage;
                     dealDamage.maxLightningDamage += maxDamage;
+
+                    var temp = dealDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
+                    temp += chancePercentage;
+                    _stackOfChances[abilityType]++;
+                    dealDamage.chanceToSuccessPercentage = (float)Math.Round(temp / _stackOfChances[abilityType]);
                 }
                 return;
             }
 
-            var newAbility = (DealDamageAbility)ItemAbilityRegistry.GetNewAbility(AbilityType.DealDamage);
+            var newAbility = (DealDamageAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
             newAbility.minLightningDamage = minDamage;
             newAbility.maxLightningDamage = maxDamage;
-            _abilities.Add(AbilityType.DealDamage, newAbility);
+            _stackOfChances[abilityType] = 1;
+            _abilities.Add(abilityType, newAbility);
         }
         #endregion
 

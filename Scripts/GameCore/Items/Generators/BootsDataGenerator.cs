@@ -1,5 +1,4 @@
 ﻿using System;
-using TextGameRPG.Scripts.GameCore.Items.ItemProperties;
 
 namespace TextGameRPG.Scripts.GameCore.Items.Generators
 {
@@ -50,32 +49,6 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             foreach (var propertyType in seed.properties)
             {
                 AddProperty(propertyType);
-            }
-        }
-
-        private void AddProperty(PropertyType propertyType)
-        {
-            switch (propertyType)
-            {
-                case PropertyType.IncreaseAttributeStrength:
-                    var strength = (int)Math.Round(seed.requiredLevel * gradeMult / 10) + 1;
-                    AddIncreaseAttributeStrength(strength);
-                    break;
-                case PropertyType.IncreaseAttributeVitality:
-                    var vitality = (int)Math.Round(seed.requiredLevel * gradeMult / 10) + 1;
-                    AddIncreaseAttributeVitality(vitality);
-                    break;
-                case PropertyType.IncreaseAttributeSorcery:
-                    var sorcery = (int)Math.Round(seed.requiredLevel * gradeMult / 10) + 1;
-                    AddIncreaseAttributeSorcery(sorcery);
-                    break;
-                case PropertyType.IncreaseAttributeLuck:
-                    var luck = (int)Math.Round(seed.requiredLevel * gradeMult / 10) + 1;
-                    AddIncreaseAttributeLuck(luck);
-                    break;
-                case PropertyType.IncreaseMaxHealth:
-                    AddIncreaseMaxHealth((int)Math.Round(gradedPoints * 0.5));
-                    break;
             }
         }
 

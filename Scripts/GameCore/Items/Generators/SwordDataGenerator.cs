@@ -2,9 +2,9 @@
 
 namespace TextGameRPG.Scripts.GameCore.Items.Generators
 {
-    internal class ArmorDataGenerator : ItemDataGeneratorBase
+    internal class SwordDataGenerator : ItemDataGeneratorBase
     {
-        public ArmorDataGenerator(ItemDataSeed _seed) : base(_seed)
+        public SwordDataGenerator(ItemDataSeed _seed) : base(_seed)
         {
         }
 
@@ -23,22 +23,24 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
 
         private void AddBaseParameters(float rarityMult)
         {
-            var physicalDamage = (int)Math.Round(rarityMult * gradedPoints);
-            AddPhysicalDamageResist(physicalDamage);
+            var physicalDamage = Math.Round(rarityMult * gradedPoints * 3.0f);
+            var minPhysicalDamage = (int)Math.Round(physicalDamage * 0.87f);
+            var maxPhysicalDamage = (int)Math.Round(physicalDamage * 1.13f);
+            AddDealPhysicalDamage(minPhysicalDamage, maxPhysicalDamage);
 
-            var secondaryDamage = (int)Math.Round(rarityMult * gradedPoints / 2);
+            var secondaryDamage = (int)Math.Round(physicalDamage * 0.25f);
             foreach (var param in seed.baseParameters)
             {
                 switch (param)
                 {
                     case "DF":
-                        AddFireDamageResist(secondaryDamage);
+                        AddDealFireDamage(secondaryDamage);
                         break;
                     case "DC":
-                        AddColdDamageResist(secondaryDamage);
+                        AddDealColdDamage(secondaryDamage);
                         break;
                     case "DL":
-                        AddLightningDamageResist(secondaryDamage);
+                        AddDealLightningDamage(secondaryDamage);
                         break;
                 }
             }
