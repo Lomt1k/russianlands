@@ -42,7 +42,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             {
                 case ItemType.Sword: return new SwordDataGenerator(seed).Generate();
                 case ItemType.Bow: return new BowDataGenerator(seed).Generate();
-
+                case ItemType.Stick: return new StickDataGenerator(seed).Generate();
                 case ItemType.Armor: return new ArmorDataGenerator(seed).Generate();
                 case ItemType.Helmet: return new HelmetDataGenerator(seed).Generate();
                 case ItemType.Boots: return new BootsDataGenerator(seed).Generate();

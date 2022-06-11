@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
 using TextGameRPG.Scripts.GameCore.Items.ItemProperties;
 
 namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators
@@ -15,7 +14,9 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators
             () => TryAppendProperty(PropertyType.IncreaseAttributeLuck),
             () => TryAppendProperty(PropertyType.IncreaseMaxHealth),
 
-            //() => TryAppendAbility(AbilityType.RestoreHealth),
+            () => { sb.Append("DF"); return true; }, //damage fire
+            () => { sb.Append("DC"); return true; }, //damage cold
+            () => { sb.Append("DL"); return true; }, //damage lightning
         };
 
         private readonly string[] _mainOption = new[] { "DF", "DC", "DL" };

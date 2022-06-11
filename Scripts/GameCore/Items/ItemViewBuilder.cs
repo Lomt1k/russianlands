@@ -66,13 +66,18 @@ namespace TextGameRPG.Scripts.GameCore.Items
                 sb.AppendLine(damageResist.GetView(session));
             }
 
+            bool needAppendLine = false;
             foreach (var property in item.data.properties)
             {
                 if (property.propertyType != PropertyType.DamageResist)
                 {
                     sb.AppendLine($"{Emojis.elements[Element.SmallWhite]} " + property.GetView(session));
+                    needAppendLine = true;
                 }
             }
+
+            if (needAppendLine)
+                sb.AppendLine();
         }
 
         private static void AppendBottomInfo(StringBuilder sb, GameSession session, InventoryItem item)
@@ -84,7 +89,7 @@ namespace TextGameRPG.Scripts.GameCore.Items
             }
             if (item.data.isChargeRequired)
             {
-                sb.AppendLine(string.Format(Localization.Get(session, "item_view_current_charge"), item.charge, item.data.requiredCharge));
+                sb.AppendLine(string.Format(Localization.Get(session, "item_view_current_charge"), item.data.requiredCharge));
             }
             if (item.isEquipped)
             {           
