@@ -26,7 +26,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators
             basisPoints = _basisPoints;
             sb = new StringBuilder();
 
-            var typeCode = type.ToString().ToUpper().Substring(0, 2);
+            var typeCode = type == ItemType.Boots ? "BT" : type.ToString().ToUpper().Substring(0, 2);
             sb.Append(typeCode);
             sb.Append(basisPoints);
             sb.Append($"L{requiredLevel}");

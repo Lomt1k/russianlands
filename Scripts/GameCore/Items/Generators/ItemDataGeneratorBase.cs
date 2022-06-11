@@ -8,21 +8,15 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
 
     internal abstract partial class ItemDataGeneratorBase
     {
-        protected abstract ItemType type { get; }
-
-        protected ItemRarity rarity { get; }
-        protected ushort level { get; }
-        protected int basisPoint { get; }
-        protected byte requiredChange { get; set; }
+        protected ItemDataSeed seed { get; }
+        protected byte requiredCharge { get; set; }
 
         private Dictionary<AbilityType, ItemAbilityBase> _abilities = new Dictionary<AbilityType, ItemAbilityBase>();
         private Dictionary<PropertyType, ItemPropertyBase> _properties = new Dictionary<PropertyType, ItemPropertyBase>();
 
-        public ItemDataGeneratorBase(ItemRarity _rarity, ushort _level, int _basisPoint)
+        public ItemDataGeneratorBase(ItemDataSeed _seed)
         {
-            rarity = _rarity;
-            level = _level;
-            basisPoint = _basisPoint;
+            seed = _seed;
         }
 
         public ItemData Generate()
@@ -35,7 +29,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
 
         private ItemData BakeItem()
         {
-            return new ItemData(type, rarity, level, requiredChange, 
+            return new ItemData(seed.itemType, seed.rarity, seed.requiredLevel, requiredCharge, 
                 _abilities.Values.ToList(), _properties.Values.ToList());
         }
 
