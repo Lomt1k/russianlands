@@ -12,7 +12,6 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties
             { PropertyType.IncreaseAttributeSorcery, new IncreaseAttributeSorceryProperty() },
             { PropertyType.IncreaseAttributeLuck, new IncreaseAttributeLuckProperty() },
             { PropertyType.IncreaseMaxHealth, new IncreaseMaxHealthProperty() },
-            { PropertyType.IncreaseMaxMana, new IncreaseMaxManaProperty() },
         };
 
         public static ItemPropertyBase GetNewProperty(PropertyType type)

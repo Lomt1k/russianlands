@@ -1,6 +1,6 @@
 ﻿namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties
 {
-    public enum PropertyType
+    public enum PropertyType : byte
     {
         None = 0,
         DamageResist = 1,
@@ -9,7 +9,6 @@
         IncreaseAttributeSorcery = 4,
         IncreaseAttributeLuck = 5,
         IncreaseMaxHealth = 6,
-        IncreaseMaxMana = 7
     }
 
 }

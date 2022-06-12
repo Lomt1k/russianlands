@@ -2,7 +2,6 @@
 using TextGameRPG.Scripts.GameCore.Items.ItemProperties;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.TelegramBot;
-using TextGameRPG.Scripts.Utils;
 
 namespace TextGameRPG.Scripts.GameCore.Units.Stats
 {
@@ -26,7 +25,6 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
             Recalculate();
 
             SetFullHealth();
-            SetFullMana();
         }
 
         public void SubscribeEvents()
@@ -41,16 +39,14 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
             ApplyAttributes();
 
             currentHP = currentHP > maxHP ? maxHP : currentHP;
-            currentMP = currentMP > maxMP ? maxMP : currentMP;
         }
 
         private void CalculateBaseValues()
         {
             var profileData = _player.session.profile.data;
 
-            var defaultHealthAndMana = DEFAULT_HEALTH + HEALTH_AND_MANA_PER_LEVEL * (profileData.level - 1);
-            maxHP = defaultHealthAndMana;
-            maxMP = defaultHealthAndMana;
+            var defaultHealth = DEFAULT_HEALTH + HEALTH_AND_MANA_PER_LEVEL * (profileData.level - 1);
+            maxHP = defaultHealth;
 
             attributeStrength = profileData.attributeStrength;
             attributeVitality = profileData.attributeVitality;
@@ -100,9 +96,6 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
                 case IncreaseMaxHealthProperty increaseMaxHealth:
                     this.maxHP += increaseMaxHealth.value;
                     break;
-                case IncreaseMaxManaProperty increaseMaxMana:
-                    this.maxMP += increaseMaxMana.value;
-                    break;
             }
         }
 
@@ -125,8 +118,7 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
         {
             var sb = new StringBuilder();
 
-            sb.AppendLine($"\n{Emojis.stats[Stat.Health]} {currentHP} / {maxHP}" +
-                $"{Emojis.bigSpace}{Emojis.stats[Stat.Mana]} {currentMP} / {maxMP}");
+            sb.AppendLine($"\n{Emojis.stats[Stat.Health]} {currentHP} / {maxHP}");
 
             sb.AppendLine();
             sb.Append("<b>" + Localization.Get(_player.session, "unit_attribute_strength") + ":</b> " + attributeStrength);
