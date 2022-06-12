@@ -20,7 +20,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators
             () => { sb.Append("DC"); return true; }, //damage resist cold
             () => { sb.Append("DL"); return true; }, //damage resist lightning
 
-            () => TryAppendAbility(AbilityType.RestoreHealth),
+            () => TryAppendAbility(AbilityType.RestoreHealthEveryTurn),
             () => TryAppendAbility(AbilityType.AddManaEveryTurn),
         };
 

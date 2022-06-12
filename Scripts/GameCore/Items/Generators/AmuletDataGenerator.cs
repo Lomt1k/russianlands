@@ -71,10 +71,10 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             switch (abilityType)
             {
                 case AbilityType.RestoreHealthEveryTurn:
-                    AddRestoreHealthEveryTurn((int)Math.Round(gradedPoints * 1.25), 20f);
+                    AddRestoreHealthEveryTurn((int)Math.Round(gradedPoints * 1.3), 20f);
                     break;
                 case AbilityType.AddManaEveryTurn:
-                    var chance = 15 + seed.requiredLevel / 10;
+                    var chance = 15 + (int)Math.Round(seed.requiredLevel / 10f);
                     AddManaEveryTurn(1, chance);
                     break;
             }

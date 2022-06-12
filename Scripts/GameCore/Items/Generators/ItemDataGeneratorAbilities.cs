@@ -32,6 +32,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             var newAbility = (DealDamageAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
             newAbility.minPhysicalDamage = value;
             newAbility.maxPhysicalDamage = value;
+            newAbility.chanceToSuccessPercentage = chancePercentage;
             _stackOfChances[abilityType] = 1;
             _abilities.Add(abilityType, newAbility);
         }
@@ -57,6 +58,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             var newAbility = (DealDamageAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
             newAbility.minPhysicalDamage = minDamage;
             newAbility.maxPhysicalDamage = maxDamage;
+            newAbility.chanceToSuccessPercentage = chancePercentage;
             _stackOfChances[abilityType] = 1;
             _abilities.Add(abilityType, newAbility);
         }
@@ -82,6 +84,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             var newAbility = (DealDamageAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
             newAbility.minFireDamage = value;
             newAbility.maxFireDamage = value;
+            newAbility.chanceToSuccessPercentage = chancePercentage;
             _stackOfChances[abilityType] = 1;
             _abilities.Add(abilityType, newAbility);
         }
@@ -107,6 +110,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             var newAbility = (DealDamageAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
             newAbility.minFireDamage = minDamage;
             newAbility.maxFireDamage = maxDamage;
+            newAbility.chanceToSuccessPercentage = chancePercentage;
             _stackOfChances[abilityType] = 1;
             _abilities.Add(abilityType, newAbility);
         }
@@ -132,6 +136,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             var newAbility = (DealDamageAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
             newAbility.minColdDamage = value;
             newAbility.maxColdDamage = value;
+            newAbility.chanceToSuccessPercentage = chancePercentage;
             _stackOfChances[abilityType] = 1;
             _abilities.Add(abilityType, newAbility);
         }
@@ -157,6 +162,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             var newAbility = (DealDamageAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
             newAbility.minColdDamage = minDamage;
             newAbility.maxColdDamage = maxDamage;
+            newAbility.chanceToSuccessPercentage = chancePercentage;
             _stackOfChances[abilityType] = 1;
             _abilities.Add(abilityType, newAbility);
         }
@@ -182,6 +188,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             var newAbility = (DealDamageAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
             newAbility.minLightningDamage = value;
             newAbility.maxLightningDamage = value;
+            newAbility.chanceToSuccessPercentage = chancePercentage;
             _stackOfChances[abilityType] = 1;
             _abilities.Add(abilityType, newAbility);
         }
@@ -207,6 +214,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             var newAbility = (DealDamageAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
             newAbility.minLightningDamage = minDamage;
             newAbility.maxLightningDamage = maxDamage;
+            newAbility.chanceToSuccessPercentage = chancePercentage;
             _stackOfChances[abilityType] = 1;
             _abilities.Add(abilityType, newAbility);
         }
@@ -233,6 +241,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             var newAbility = (BlockIncomingDamageEveryTurnAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
             newAbility.physicalDamage = value;
             newAbility.chanceToSuccessPercentage = chancePercentage;
+            newAbility.chanceToSuccessPercentage = chancePercentage;
             _stackOfChances[abilityType] = 1;
             _abilities.Add(abilityType, newAbility);
         }
@@ -256,6 +265,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             var newAbility = (BlockIncomingDamageEveryTurnAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
             newAbility.fireDamage = value;
             newAbility.chanceToSuccessPercentage = chancePercentage;
+            newAbility.chanceToSuccessPercentage = chancePercentage;
             _stackOfChances[abilityType] = 1;
             _abilities.Add(abilityType, newAbility);
         }
@@ -278,6 +288,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
 
             var newAbility = (BlockIncomingDamageEveryTurnAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
             newAbility.coldDamage = value;
+            newAbility.chanceToSuccessPercentage = chancePercentage;
             newAbility.chanceToSuccessPercentage = chancePercentage;
             _stackOfChances[abilityType] = 1;
             _abilities.Add(abilityType, newAbility);
@@ -327,6 +338,8 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
 
             var newAbility = (RestoreHealthEveryTurnAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
             newAbility.healthValue = value;
+            newAbility.chanceToSuccessPercentage = chancePercentage;
+            newAbility.chanceToSuccessPercentage = chancePercentage;
             _stackOfChances[abilityType] = 1;
             _abilities.Add(abilityType, newAbility);
         }
@@ -350,6 +363,8 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
 
             var newAbility = (AddManaEveryTurnAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
             newAbility.manaValue = value;
+            newAbility.chanceToSuccessPercentage = chancePercentage;
+            newAbility.chanceToSuccessPercentage = chancePercentage;
             _stackOfChances[abilityType] = 1;
             _abilities.Add(abilityType, newAbility);
         }

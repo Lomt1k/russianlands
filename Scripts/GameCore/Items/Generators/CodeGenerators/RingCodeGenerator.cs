@@ -15,7 +15,13 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators
             () => TryAppendProperty(PropertyType.IncreaseAttributeLuck),
             () => TryAppendProperty(PropertyType.IncreaseMaxHealth),
 
-            //() => TryAppendAbility(AbilityType.RestoreHealth),
+            () => { sb.Append("DP"); return true; }, //damage resist physical
+            () => { sb.Append("DF"); return true; }, //damage resist fire
+            () => { sb.Append("DC"); return true; }, //damage resist cold
+            () => { sb.Append("DL"); return true; }, //damage resist lightning
+
+            () => TryAppendAbility(AbilityType.RestoreHealthEveryTurn),
+            () => TryAppendAbility(AbilityType.AddManaEveryTurn),
         };
 
         public RingCodeGenerator(ItemType _type, ItemRarity _rarity, ushort _level, int _basisPoints) : base(_type, _rarity, _level, _basisPoints)

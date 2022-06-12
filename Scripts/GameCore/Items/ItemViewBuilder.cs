@@ -28,44 +28,35 @@ namespace TextGameRPG.Scripts.GameCore.Items
             var data = item.data;
             sb.AppendLine(string.Format(Localization.Get(session, "item_view_general_info"), data.itemRarity.GetView(session), data.requiredLevel));
             sb.AppendLine();
+
+            if (item.data.ablitityByType.TryGetValue(AbilityType.DealDamage, out var dealDamage))
+            {
+                sb.AppendLine(dealDamage.GetView(session));
+            }
+            if (item.data.ablitityByType.TryGetValue(AbilityType.BlockIncomingDamageEveryTurn, out var blockDamage))
+            {
+                sb.AppendLine(blockDamage.GetView(session));
+            }
+            if (item.data.propertyByType.TryGetValue(PropertyType.DamageResist, out var damageResist))
+            {
+                sb.AppendLine(damageResist.GetView(session));
+            }
         }
 
         private static void AppendAbilities(StringBuilder sb, GameSession session, InventoryItem item)
         {
-            bool hasDealDamage = item.data.ablitityByType.TryGetValue(AbilityType.DealDamage, out var dealDamage);
-            if (hasDealDamage)
-            {
-                sb.AppendLine(dealDamage.GetView(session));
-            }
-            bool hasBlockDamage = item.data.ablitityByType.TryGetValue(AbilityType.BlockIncomingDamageEveryTurn, out var blockDamage);
-            if (hasBlockDamage)
-            {
-                sb.AppendLine(blockDamage.GetView(session));
-            }
-
-            bool needAppendLine = false;
             foreach (var ability in item.data.abilities)
             {
                 if (ability.abilityType != AbilityType.DealDamage 
                     && ability.abilityType != AbilityType.BlockIncomingDamageEveryTurn)
                 {
                     sb.AppendLine($"{Emojis.elements[Element.SmallWhite]} " + ability.GetView(session));
-                    needAppendLine = true;
                 }
             }
-
-            if (needAppendLine)
-                sb.AppendLine();
         }
 
         private static void AppendProperties(StringBuilder sb, GameSession session, InventoryItem item)
         {
-            bool hasDamageResist = item.data.propertyByType.TryGetValue(PropertyType.DamageResist, out var damageResist);
-            if (hasDamageResist)
-            {
-                sb.AppendLine(damageResist.GetView(session));
-            }
-
             bool needAppendLine = false;
             foreach (var property in item.data.properties)
             {
