@@ -57,14 +57,6 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             }
         }
 
-        private void AddProperties()
-        {
-            foreach (var propertyType in seed.properties)
-            {
-                AddProperty(propertyType);
-            }
-        }
-
 
     }
 }

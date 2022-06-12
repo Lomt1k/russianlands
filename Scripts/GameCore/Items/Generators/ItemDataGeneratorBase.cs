@@ -38,6 +38,22 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
                 _abilities.Values.ToList(), _properties.Values.ToList());
         }
 
+        protected void AddProperties()
+        {
+            foreach (var propertyType in seed.properties)
+            {
+                AddProperty(propertyType);
+            }
+        }
+
+        protected void AddAbilities()
+        {
+            foreach (var abilityType in seed.abilities)
+            {
+                AddAbility(abilityType);
+            }
+        }
+
         //--- overriden for rings and amulets
         protected virtual void AddProperty(PropertyType propertyType)
         {
@@ -63,6 +79,10 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
                     AddIncreaseMaxHealth((int)Math.Round(gradedPoints * 0.5));
                     break;
             }
+        }
+
+        protected virtual void AddAbility(AbilityType abilityType)
+        {
         }
 
 

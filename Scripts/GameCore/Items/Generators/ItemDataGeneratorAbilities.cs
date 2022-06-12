@@ -308,6 +308,52 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
 
         #endregion
 
+        protected void AddRestoreHealthEveryTurn(int value, float chancePercentage = 100f)
+        {
+            var abilityType = AbilityType.RestoreHealthEveryTurn;
+            if (_abilities.TryGetValue(abilityType, out var ability))
+            {
+                if (ability is RestoreHealthEveryTurnAbility restoreHealth)
+                {
+                    restoreHealth.healthValue += value;
+
+                    var temp = restoreHealth.chanceToSuccessPercentage * _stackOfChances[abilityType];
+                    temp += chancePercentage;
+                    _stackOfChances[abilityType]++;
+                    restoreHealth.chanceToSuccessPercentage = (float)Math.Round(temp / _stackOfChances[abilityType]);
+                }
+                return;
+            }
+
+            var newAbility = (RestoreHealthEveryTurnAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
+            newAbility.healthValue = value;
+            _stackOfChances[abilityType] = 1;
+            _abilities.Add(abilityType, newAbility);
+        }
+
+        protected void AddManaEveryTurn(int value, float chancePercentage = 100f)
+        {
+            var abilityType = AbilityType.AddManaEveryTurn;
+            if (_abilities.TryGetValue(abilityType, out var ability))
+            {
+                if (ability is AddManaEveryTurnAbility addManaAbility)
+                {
+                    addManaAbility.manaValue += value;
+
+                    var temp = addManaAbility.chanceToSuccessPercentage * _stackOfChances[abilityType];
+                    temp += chancePercentage;
+                    _stackOfChances[abilityType]++;
+                    addManaAbility.chanceToSuccessPercentage = (float)Math.Round(temp / _stackOfChances[abilityType]);
+                }
+                return;
+            }
+
+            var newAbility = (AddManaEveryTurnAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
+            newAbility.manaValue = value;
+            _stackOfChances[abilityType] = 1;
+            _abilities.Add(abilityType, newAbility);
+        }
+
 
     }
 }

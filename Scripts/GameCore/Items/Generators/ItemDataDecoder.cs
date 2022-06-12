@@ -47,6 +47,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
                 case ItemType.Helmet: return new HelmetDataGenerator(seed).Generate();
                 case ItemType.Boots: return new BootsDataGenerator(seed).Generate();
                 case ItemType.Shield: return new ShieldDataGenerator(seed).Generate();
+                case ItemType.Amulet: return new AmuletDataGenerator(seed).Generate();
             }
             return ItemData.brokenItem;
         }
@@ -145,7 +146,8 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
 
                 default:
                     var secondChar = (char)reader.Read();
-                    var parameter = new string( new[]{ firstChar, secondChar } );
+                    var thirdChar = (char)reader.Read();
+                    var parameter = new string( new[]{ firstChar, secondChar, thirdChar } );
                     _baseParameters.Add(parameter);
                     return;
             }
