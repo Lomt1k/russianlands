@@ -22,7 +22,6 @@ namespace TextGameRPG.Scripts.GameCore.Inventory
         {
             { ItemType.Ring, new InventoryItem?[ItemType.Ring.GetSlotsCount()] },
             { ItemType.Poison, new InventoryItem?[ItemType.Poison.GetSlotsCount()] },
-            { ItemType.Tome, new InventoryItem?[ItemType.Tome.GetSlotsCount()] },
             { ItemType.Scroll, new InventoryItem?[ItemType.Scroll.GetSlotsCount()] },
         };
 

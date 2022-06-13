@@ -18,8 +18,7 @@ namespace TextGameRPG.Scripts.GameCore.Items
         Amulet = 7,
         Ring = 8,        
         Poison = 9,
-        Tome = 10,
-        Scroll = 11
+        Scroll = 10
     }
 
     static class ItemTypeExtensions
@@ -28,7 +27,7 @@ namespace TextGameRPG.Scripts.GameCore.Items
         {
             return itemType == ItemType.Ring
                 || itemType == ItemType.Poison
-                || itemType == ItemType.Tome;
+                || itemType == ItemType.Scroll;
         }
 
         public static int GetSlotsCount(this ItemType itemType)
@@ -40,19 +39,13 @@ namespace TextGameRPG.Scripts.GameCore.Items
                 case ItemType.Ring:
                     return 2;
                 case ItemType.Poison:
-                case ItemType.Tome:
-                    return 3;
                 case ItemType.Scroll:
-                    return 0;
+                    return 3;
 
                 default:
                     return 1;
             }
         }
 
-        public static bool IsEquippable(this ItemType itemType)
-        {
-            return itemType != ItemType.Scroll;
-        }
     }    
 }

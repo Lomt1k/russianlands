@@ -69,11 +69,11 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
             sb.Append($"{Emojis.items[ItemType.Ring]} {_inventory.GetItemsCountByType(ItemType.Ring)}");
 
             sb.AppendLine();
+            sb.Append($"{Emojis.items[ItemType.Scroll]} {_inventory.GetItemsCountByType(ItemType.Scroll)}");
+            sb.Append(Emojis.bigSpace);
             sb.Append($"{Emojis.items[ItemType.Poison]} {_inventory.GetItemsCountByType(ItemType.Poison)}");
             sb.Append(Emojis.bigSpace);
-            sb.Append($"{Emojis.items[ItemType.Tome]} {_inventory.GetItemsCountByType(ItemType.Tome)}");
-            sb.Append(Emojis.bigSpace);
-            sb.Append($"{Emojis.items[ItemType.Scroll]} {_inventory.GetItemsCountByType(ItemType.Scroll)}");
+            sb.Append($"{Emojis.menuItems[MenuItem.Arrows]} {session.profile.data.arrows}");
 
             return sb.ToString();
         }
@@ -114,12 +114,6 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
             {
                 case ItemType.Equipped:
                     _browsedItems = _inventory.equipped.allEquipped;
-                    break;
-                case ItemType.Tome:
-                    var magicItems = new List<InventoryItem>();
-                    magicItems.AddRange(_inventory.GetItemsByType(ItemType.Tome));
-                    magicItems.AddRange(_inventory.GetItemsByType(ItemType.Scroll));
-                    _browsedItems = magicItems.ToArray();
                     break;
                 default:
                     _browsedItems = _inventory.GetItemsByType(_browsedCategory).ToArray();
@@ -181,8 +175,6 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
             {
                 case ItemType.Equipped:
                     return Localization.Get(session, $"menu_item_equipped");
-                case ItemType.Tome:
-                    return Localization.Get(session, $"menu_item_spells");
                 default:
                     string stringCategory = category.ToString().ToLower();
                     if (!stringCategory.EndsWith('s'))
@@ -239,32 +231,27 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
             var text = item.GetView(session);
             ClearButtons();
 
-            int firstRowButtons = 1;
-            if (item.data.itemType.IsEquippable())
+            if (item.isEquipped)
             {
-                if (item.isEquipped)
-                {
-                    RegisterButton(Localization.Get(session, "menu_item_unequip_button"), () => UnequipItem(item));
-                }
-                else
-                {
-                    RegisterButton(Localization.Get(session, "menu_item_equip_button"), () => StartEquipLogic(item));
-                }
-                firstRowButtons++;
+                RegisterButton(Localization.Get(session, "menu_item_unequip_button"), () => UnequipItem(item));
+            }
+            else
+            {
+                RegisterButton(Localization.Get(session, "menu_item_equip_button"), () => StartEquipLogic(item));
             }
 
             RegisterButton(Localization.Get(session, "menu_item_compare_button"),
                 () => StartSelectItemForCompare(item),
                 () => Localization.Get(session, "menu_item_compare_button_callback"));
 
-            var categoryIcon = _browsedCategory == ItemType.Tome
+            var categoryIcon = _browsedCategory == ItemType.Scroll
                 ? Emojis.menuItems[MenuItem.Spells]
                 : Emojis.items[_browsedCategory];
 
             RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_back_to_list_button")} {categoryIcon}",
                 () => ShowItemsPage(asNewMessage: false));
 
-            _lastMessage = await messageSender.EditTextMessage(session.chatId, _lastMessage.MessageId, text, GetKeyboardWithRowSizes(firstRowButtons, 1));
+            _lastMessage = await messageSender.EditTextMessage(session.chatId, _lastMessage.MessageId, text, GetKeyboardWithRowSizes(2, 1));
         }
 
         private async Task StartEquipLogic(InventoryItem item)

@@ -20,7 +20,8 @@ namespace TextGameRPG.Scripts.TelegramBot
         Options,
         Attributes,
         Inventory,
-        Spells
+        Spells,
+        Arrows
     }
 
     public enum Stat
@@ -95,9 +96,9 @@ namespace TextGameRPG.Scripts.TelegramBot
             { MenuItem.Quests, "\ud83d\udccc" },
             { MenuItem.Mail, "\ud83d\udceb" },
             { MenuItem.Options, "\u2699\ufe0f" },
-            { MenuItem.Attributes, "\ud83c\udfaf" },
+            { MenuItem.Attributes, "\ud83d\udcab" },
             { MenuItem.Inventory, "\ud83c\udf92" },
-            { MenuItem.Spells, "\ud83d\udcab" },
+            { MenuItem.Arrows, "\ud83c\udfaf" },
         };
 
         public static readonly Dictionary<Stat, string> stats = new Dictionary<Stat, string>
@@ -122,7 +123,6 @@ namespace TextGameRPG.Scripts.TelegramBot
             { ItemType.Amulet, "\ud83d\udcff" },
             { ItemType.Ring, "\ud83d\udc8d" },
             { ItemType.Poison, "\ud83e\uddea" },            
-            { ItemType.Tome, "\ud83d\udcd6" },
             { ItemType.Scroll, "\ud83d\udcdc" },
             { ItemType.Any, ""},
             { ItemType.Equipped, "\ud83d\udc4b" }

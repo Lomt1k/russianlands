@@ -32,10 +32,10 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
                 () => _inspectorPanel.ShowCategory(ItemType.Amulet));
             RegisterButton($"{Emojis.items[ItemType.Ring]} " + Localization.Get(session, "menu_item_rings"),
                 () => _inspectorPanel.ShowCategory(ItemType.Ring));
+            RegisterButton($"{Emojis.items[ItemType.Scroll]} " + Localization.Get(session, "menu_item_scrolls"),
+                () => _inspectorPanel.ShowCategory(ItemType.Scroll));
             RegisterButton($"{Emojis.items[ItemType.Poison]} " + Localization.Get(session, "menu_item_poisons"),
                 () => _inspectorPanel.ShowCategory(ItemType.Poison));
-            RegisterButton($"{Emojis.menuItems[MenuItem.Spells]} " + Localization.Get(session, "menu_item_spells"),
-                () => _inspectorPanel.ShowCategory(ItemType.Tome));
             RegisterButton($"{Emojis.elements[Element.Back]} " + Localization.Get(session, "menu_item_back_button"),
                 () => new TownCharacterDialog(session).Start());
         }

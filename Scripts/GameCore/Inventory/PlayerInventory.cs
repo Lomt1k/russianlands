@@ -23,7 +23,6 @@ namespace TextGameRPG.Scripts.GameCore.Inventory
         [JsonIgnore]
         public int itemsCount => items.Count;
 
-        [JsonConstructor]
         private PlayerInventory()
         {
         }
