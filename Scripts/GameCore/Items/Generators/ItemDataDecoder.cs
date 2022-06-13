@@ -15,6 +15,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
         public ushort requiredLevel;
         public ItemRarity rarity;
         public byte grade;
+        public byte manaCost;
 
         public List<AbilityType> abilities;
         public List<PropertyType> properties;
@@ -28,6 +29,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
         private ushort _requiredLevel;
         private ItemRarity _rarity;
         private byte _grade;
+        private byte _manaCost;
 
         private List<AbilityType> _abilities = new List<AbilityType>();
         private List<PropertyType> _properties = new List<PropertyType>();
@@ -49,6 +51,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
                 case ItemType.Shield: return new ShieldDataGenerator(seed).Generate();
                 case ItemType.Amulet: return new AmuletDataGenerator(seed).Generate();
                 case ItemType.Ring: return new RingDataGenerator(seed).Generate();
+                case ItemType.Scroll: return new ScrollDataGenerator(seed).Generate();
             }
             return ItemData.brokenItem;
         }
@@ -71,7 +74,8 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
                 grade = _grade,
                 abilities = _abilities,
                 properties = _properties,
-                baseParameters = _baseParameters
+                baseParameters = _baseParameters,
+                manaCost = _manaCost,
             };
         }
 
@@ -91,7 +95,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
                 case "SH": return ItemType.Shield;
                 case "RI": return ItemType.Ring;
                 case "AM": return ItemType.Amulet;
-                case "TO": return ItemType.Scroll;
+                case "SC": return ItemType.Scroll;
                 case "PO": return ItemType.Poison;
             }
             throw new Exception($"Error when parsed item type with type code: {itemTypeCode}");
@@ -134,6 +138,9 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
                     return;
                 case 'G':
                     ReadNextDigits(reader).TryParse(out _grade);
+                    return;
+                case 'M':
+                    ReadNextDigits(reader).TryParse(out _manaCost);
                     return;
                 case 'A':
                     ReadNextDigits(reader).TryParse(out AbilityType abilityType);

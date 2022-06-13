@@ -16,7 +16,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Commands
             if (!args[0].TryParse(out ItemRarity rarity))
                 return;
 
-            var code = new ArmorCodeGenerator(ItemType.Armor, rarity, 1, 20).GetCode();
+            var code = new ScrollCodeGenerator(ItemType.Scroll, rarity, 1, 20).GetCode();
             await messageSender.SendTextMessage(session.chatId, code);
 
             var item = new InventoryItem(code);

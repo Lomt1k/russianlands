@@ -14,8 +14,8 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
         protected float gradedPoints { get; }
         protected float gradeMult { get; }
 
-        private Dictionary<AbilityType, ItemAbilityBase> _abilities = new Dictionary<AbilityType, ItemAbilityBase>();
-        private Dictionary<PropertyType, ItemPropertyBase> _properties = new Dictionary<PropertyType, ItemPropertyBase>();
+        protected Dictionary<AbilityType, ItemAbilityBase> _abilities = new Dictionary<AbilityType, ItemAbilityBase>();
+        protected Dictionary<PropertyType, ItemPropertyBase> _properties = new Dictionary<PropertyType, ItemPropertyBase>();
 
         public ItemDataGeneratorBase(ItemDataSeed _seed)
         {
