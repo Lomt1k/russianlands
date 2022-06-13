@@ -244,10 +244,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
                 () => StartSelectItemForCompare(item),
                 () => Localization.Get(session, "menu_item_compare_button_callback"));
 
-            var categoryIcon = _browsedCategory == ItemType.Scroll
-                ? Emojis.menuItems[MenuItem.Spells]
-                : Emojis.items[_browsedCategory];
-
+            var categoryIcon = Emojis.items[_browsedCategory];
             RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_back_to_list_button")} {categoryIcon}",
                 () => ShowItemsPage(asNewMessage: false));
 

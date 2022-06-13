@@ -20,7 +20,6 @@ namespace TextGameRPG.Scripts.TelegramBot
         Options,
         Attributes,
         Inventory,
-        Spells,
         Arrows
     }
 
