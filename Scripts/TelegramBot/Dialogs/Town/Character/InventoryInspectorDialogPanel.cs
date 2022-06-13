@@ -71,9 +71,11 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
             sb.AppendLine();
             sb.Append($"{Emojis.items[ItemType.Scroll]} {_inventory.GetItemsCountByType(ItemType.Scroll)}");
             sb.Append(Emojis.bigSpace);
-            sb.Append($"{Emojis.items[ItemType.Poison]} {_inventory.GetItemsCountByType(ItemType.Poison)}");
-            sb.Append(Emojis.bigSpace);
-            sb.Append($"{Emojis.menuItems[MenuItem.Arrows]} {session.profile.data.arrows}");
+            sb.AppendLine($"{Emojis.items[ItemType.Poison]} {_inventory.GetItemsCountByType(ItemType.Poison)}");
+
+            sb.AppendLine();
+            sb.AppendLine(Localization.Get(session, "dialog_inventory_arrows"));
+            sb.AppendLine($"{Emojis.menuItems[MenuItem.Arrows]} " + session.profile.data.arrows);
 
             return sb.ToString();
         }

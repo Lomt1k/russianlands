@@ -13,11 +13,6 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData
         public string nickname;
         public short tutorialStage;
         public byte level;
-        public short attributeStrength;
-        public short attributeVitality;
-        public short attributeSorcery;
-        public short attributeLuck;
-        public short attributePoints;
         public short arrows;
         public int resourceGold;
         public int resourceFood;
@@ -34,11 +29,6 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData
                 new TableColumn("nickname", "TEXT", "na"),
                 new TableColumn("tutorialStage", "INTEGER", "0"),
                 new TableColumn("level", "INTEGER", "1"),
-                new TableColumn("attributeStrength", "INTEGER", "1"),
-                new TableColumn("attributeVitality", "INTEGER", "1"),
-                new TableColumn("attributeSorcery", "INTEGER", "1"),
-                new TableColumn("attributeLuck", "INTEGER", "1"),
-                new TableColumn("attributePoints", "INTEGER", "0"),
                 new TableColumn("arrows", "INTEGER", "30"), // пока поставил 30 по умолчанию, можно поменять
                 new TableColumn("resourceGold", "INTEGER", "0"),
                 new TableColumn("resourceFood", "INTEGER", "0"),

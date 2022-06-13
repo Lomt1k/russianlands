@@ -48,10 +48,10 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
             var defaultHealth = DEFAULT_HEALTH + HEALTH_AND_MANA_PER_LEVEL * (profileData.level - 1);
             maxHP = defaultHealth;
 
-            attributeStrength = profileData.attributeStrength;
-            attributeVitality = profileData.attributeVitality;
-            attributeSorcery = profileData.attributeSorcery;
-            attributeLuck = profileData.attributeLuck;
+            attributeStrength = 1;
+            attributeVitality = 1;
+            attributeSorcery = 1;
+            attributeLuck = 1;
 
             physicalResist = 0;
             fireResist = 0;
@@ -117,14 +117,14 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
         public override string GetView()
         {
             var sb = new StringBuilder();
-
-            sb.AppendLine($"\n{Emojis.stats[Stat.Health]} {currentHP} / {maxHP}");
-
-            sb.AppendLine();
+            
             sb.Append("<b>" + Localization.Get(_player.session, "unit_attribute_strength") + ":</b> " + attributeStrength);
             sb.AppendLine(Emojis.bigSpace + "<b>" + Localization.Get(_player.session, "unit_attribute_vitality") + ":</b> " + attributeVitality);
             sb.Append("<b>" + Localization.Get(_player.session, "unit_attribute_sorcery") + ":</b> " + attributeSorcery);
-            sb.AppendLine(Emojis.bigSpace + "<b>" + Localization.Get(_player.session, "unit_attribute_luck") + ":</b> " + attributeLuck);
+            sb.Append(Emojis.bigSpace + "<b>" + Localization.Get(_player.session, "unit_attribute_luck") + ":</b> " + attributeLuck);
+
+            sb.AppendLine();
+            sb.AppendLine($"\n{Emojis.stats[Stat.Health]} {currentHP} / {maxHP}");
 
             sb.AppendLine();
             sb.AppendLine(Localization.Get(_player.session, "unit_view_total_resistance"));

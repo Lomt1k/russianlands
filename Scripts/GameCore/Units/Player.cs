@@ -22,7 +22,16 @@ namespace TextGameRPG.Scripts.GameCore.Units
             resources = new PlayerResources(_session);
         }
 
-        public string GetUnitView()
+        public string GetGeneralInfoView()
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine($"<b>{nickname}{Emojis.menuItems[MenuItem.Character]}</b>");
+            string levelStr = string.Format(Localizations.Localization.Get(session, "unit_view_level"), session.profile.data.level);
+            sb.AppendLine(levelStr);
+            return sb.ToString();
+        }
+
+        public string GetFullUnitView()
         {
             var sb = new StringBuilder();
             sb.AppendLine($"<b>{nickname}{Emojis.menuItems[MenuItem.Character]}</b>");

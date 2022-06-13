@@ -18,7 +18,7 @@ namespace TextGameRPG.Scripts.TelegramBot
         Quests,
         Mail,
         Options,
-        Attributes,
+        Avatar,
         Inventory,
         Arrows
     }
@@ -95,7 +95,7 @@ namespace TextGameRPG.Scripts.TelegramBot
             { MenuItem.Quests, "\ud83d\udccc" },
             { MenuItem.Mail, "\ud83d\udceb" },
             { MenuItem.Options, "\u2699\ufe0f" },
-            { MenuItem.Attributes, "\ud83d\udcab" },
+            { MenuItem.Avatar, "\ud83d\udc40" },
             { MenuItem.Inventory, "\ud83c\udf92" },
             { MenuItem.Arrows, "\ud83c\udfaf" },
         };
