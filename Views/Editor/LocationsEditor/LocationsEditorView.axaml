@@ -16,8 +16,8 @@
       <RowDefinition Height="auto"/>
     </Grid.RowDefinitions>
 
-    <!-- Column 1: Location -->
-    <TextBlock Text="Location" Grid.Column="0" Grid.Row="0" Classes="h3"/>
+    <!-- Column 1: Locations -->
+    <TextBlock Text="Locations" Grid.Column="0" Grid.Row="0" Classes="h3"/>
     <ListBox Grid.Column="0" Grid.Row="1" VerticalAlignment="Top"
              MaxHeight="600"
              ScrollViewer.VerticalScrollBarVisibility="Disabled"
@@ -31,6 +31,11 @@
 
       </ListBox.ItemTemplate>
     </ListBox>
+
+    <!-- Column 2: Location Inspector -->
+    <UserControl Grid.Column="1" Grid.Row="1" Margin="40,0" VerticalAlignment="Top"
+                 Content="{Binding locationInspector}"
+                 IsVisible="{Binding selectedLocation, Converter={x:Static ObjectConverters.IsNotNull}}"/>
     
   </Grid>
   
