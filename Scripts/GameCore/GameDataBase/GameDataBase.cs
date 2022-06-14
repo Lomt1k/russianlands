@@ -9,22 +9,31 @@ using Newtonsoft.Json;
 namespace TextGameRPG.Scripts.GameCore.GameDataBase
 {
     using Items;
+    using TextGameRPG.Scripts.GameCore.Locations;
     using TextGameRPG.ViewModels;
 
     public class GameDataBase
     {
+#pragma warning disable CS8618
+
         private const string gameDataPath = "gameData";
+
         private static GameDataBase _instance;
+
         public static GameDataBase instance => _instance ??= new GameDataBase();
 
         private GameDataLoaderViewModel _loaderVM;
         
         public DataDictionaryWithIntegerID<ItemData> items { get; private set; }
+        public DataDictionaryWithIntegerID<LocationData> locations { get; private set; }
+
+#pragma warning restore CS8618
 
         public void LoadAllData(GameDataLoaderViewModel loaderVM)
         {
             _loaderVM = loaderVM;
             items = LoadDataBaseWithIntegerID<ItemData>("items");
+            locations = LoadDataBaseWithIntegerID<LocationData>("locations");
             Localizations.Localization.LoadAll(_loaderVM, gameDataPath);
             _loaderVM.OnGameDataLoaded();
         }

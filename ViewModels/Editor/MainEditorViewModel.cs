@@ -6,6 +6,7 @@ using Avalonia;
 using System.Collections.ObjectModel;
 using TextGameRPG.Models.Editor;
 using TextGameRPG.Views.Editor.ItemsEditor;
+using TextGameRPG.Views.Editor.LocationsEditor;
 
 namespace TextGameRPG.ViewModels.Editor
 {
@@ -30,6 +31,7 @@ namespace TextGameRPG.ViewModels.Editor
         private void InitializeCategories()
         {
             categories.Add(new MainEditorCategory("Items", new ItemsEditorView() ));
+            categories.Add(new MainEditorCategory("Locations", new LocationsEditorView()));
         }
 
 
