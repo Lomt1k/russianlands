@@ -24,7 +24,11 @@ namespace TextGameRPG.ViewModels.Editor.LocationsEditor
             var id = (int)location;
             if (!locationDB.ContainsKey(id))
             {
-                locationDB.AddData(id, new LocationData());
+                var newData = new LocationData()
+                {
+                    id = id
+                };
+                locationDB.AddData(id, newData);
                 locationDB.Save();
             }
             data = locationDB[id];
