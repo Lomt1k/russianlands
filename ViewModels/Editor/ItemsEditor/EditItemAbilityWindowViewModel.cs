@@ -13,6 +13,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
     internal class EditItemAbilityWindowViewModel : ViewModelBase
     {
         private ItemAbilityBase _tempAbility;
+        private ObservableCollection<FieldModel> _abilityFields = new ObservableCollection<FieldModel>();
         private EnumValueModel<AbilityType> _selectedAbilityType;
         private Action<ItemAbilityBase> _onEditEnd;
 
@@ -37,7 +38,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
             }
         }
 
-        public ObservableCollection<FieldModel> abilityFields { get; }
+        public ObservableCollection<FieldModel> abilityFields => _abilityFields;
 
         public Action closeWindow { get; }
         public ReactiveCommand<Unit, Unit> saveCommand { get; }
@@ -45,7 +46,6 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
 
         public EditItemAbilityWindowViewModel(EditItemAbilityWindow window, ItemAbilityBase ability, Action<ItemAbilityBase> onEditEnd)
         {
-            abilityFields = new ObservableCollection<FieldModel>();
             _tempAbility = tempAbility = ability.Clone();
 
             abilityTypesList = EnumValueModel<AbilityType>.CreateCollection(excludeValue: AbilityType.None);
@@ -60,13 +60,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
         private void RefreshFields()
         {
             abilityFields.Clear();
-            var fields = _tempAbility.GetType().GetFields();
-            foreach (var fieldInfo in fields)
-            {
-                var value = fieldInfo.GetValue(_tempAbility);
-                var fieldModel = new FieldModel(fieldInfo, value);
-                abilityFields.Add(fieldModel);
-            }
+            FieldModel.FillObservableCollection(ref _abilityFields, ref _tempAbility);
         }
 
         private void SaveAbility()
