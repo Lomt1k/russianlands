@@ -13,7 +13,14 @@ namespace TextGameRPG.Scripts.GameCore.Locations
         //--- data:
         public int foodExplorePrice;
 
-        public ItemGenerationSettings itemGenerationSettings;
+        public ItemGenerationSettings itemGenerationSettings = new ItemGenerationSettings();
+
+        public LocationData Clone()
+        {
+            var clone = (LocationData)MemberwiseClone();
+            clone.id = id;
+            return clone;
+        }
     }
 
     [Serializable]
