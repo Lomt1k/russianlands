@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Reflection;
 using TextGameRPG.Scripts.Utils;
 
@@ -94,6 +95,30 @@ namespace TextGameRPG.Models.Editor.ItemsEditor
 
             isValidValue = success;
         }
+
+        public static void FillObservableCollection<T>(ref ObservableCollection<FieldModel> collection, ref T obj, bool includeClasses = false)
+        {
+            if (obj == null)
+                return;
+
+            var fields = obj.GetType().GetFields();
+            foreach (var fieldInfo in fields)
+            {
+                var value = fieldInfo.GetValue(obj);
+                if (fieldInfo.FieldType.IsClass)
+                {
+                    if (includeClasses)
+                    {
+                        FillObservableCollection(ref collection, ref value);
+                    }
+                    continue;
+                }
+
+                var fieldModel = new FieldModel(fieldInfo, value);
+                collection.Add(fieldModel);
+            }
+        }
+
 
     }
 }

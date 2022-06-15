@@ -8,16 +8,16 @@ namespace TextGameRPG.Scripts.GameCore.Locations
     public class LocationData : IDataWithIntegerID
     {
         public int id { get; set; }
+        [JsonIgnore] public string debugName => ((LocationType)id).ToString();
 
-        [JsonIgnore]
-        public string debugName => ((LocationType)id).ToString();
-        
+        //--- data:
         public int foodExplorePrice;
+
         public ItemGenerationSettings itemGenerationSettings;
     }
 
     [Serializable]
-    public struct ItemGenerationSettings
+    public class ItemGenerationSettings
     {
         public int basisPoints;
         public int levelForZeroGrade;
