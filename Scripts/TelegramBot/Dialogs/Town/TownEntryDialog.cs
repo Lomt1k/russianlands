@@ -22,7 +22,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town
             _reason = reason;
 
             RegisterButton($"{Emojis.menuItems[MenuItem.Map]} " + Localization.Get(session, "menu_item_map"),
-                null);
+                () => new GlobalMap.GlobalMapDialog(session).Start());
             RegisterButton($"{Emojis.menuItems[MenuItem.Buildings]} " + Localization.Get(session, "menu_item_buildings"),
                 null);
             RegisterButton($"{Emojis.menuItems[MenuItem.Character]} " + Localization.Get(session, "menu_item_character"),

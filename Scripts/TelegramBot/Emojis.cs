@@ -40,6 +40,11 @@ namespace TextGameRPG.Scripts.TelegramBot
         Food
     }
 
+    public enum MapLocation
+    {
+        Arena
+    }
+
     public enum Element
     {
         SmallBlack,
@@ -66,7 +71,8 @@ namespace TextGameRPG.Scripts.TelegramBot
         QuestionRed,
         QuestionGrey,
         Back,
-        Info
+        Info,
+        Locked
     }
 
     public enum Smile
@@ -83,7 +89,7 @@ namespace TextGameRPG.Scripts.TelegramBot
         public static readonly Dictionary<Flag, string> flags = new Dictionary<Flag, string>
         {
             { Flag.GreatBritain, "\ud83c\uddec\ud83c\udde7" },
-            { Flag.Russia, "\ud83c\uddf7\ud83c\uddfa" }
+            { Flag.Russia, "\ud83c\uddf7\ud83c\uddfa" },
         };
 
         public static readonly Dictionary<MenuItem, string> menuItems = new Dictionary<MenuItem, string>
@@ -124,14 +130,19 @@ namespace TextGameRPG.Scripts.TelegramBot
             { ItemType.Poison, "\ud83e\uddea" },            
             { ItemType.Scroll, "\ud83d\udcdc" },
             { ItemType.Any, ""},
-            { ItemType.Equipped, "\ud83d\udc4b" }
+            { ItemType.Equipped, "\ud83d\udc4b" },
         };
 
         public static readonly Dictionary<Resource, string> resources = new Dictionary<Resource, string>
         {
             { Resource.Gold, "\ud83d\udcb0" },
             { Resource.Diamond, "\ud83d\udc8e" },
-            { Resource.Food, "\ud83c\udf56" }
+            { Resource.Food, "\ud83c\udf56" },
+        };
+
+        public static readonly Dictionary<MapLocation, string> locations = new Dictionary<MapLocation, string>
+        {
+            { MapLocation.Arena, "\ud83c\udfdf" },
         };
 
         public static readonly Dictionary<Element, string> elements = new Dictionary<Element, string>
@@ -160,12 +171,13 @@ namespace TextGameRPG.Scripts.TelegramBot
             { Element.QuestionRed, "\u2753" },
             { Element.QuestionGrey, "\u2754" },
             { Element.Back, "\u25c0\ufe0f" },
-            { Element.Info, "\u2139\ufe0f" }
+            { Element.Info, "\u2139\ufe0f" },
+            { Element.Locked, "\ud83d\udd12" },
         };
 
         public static readonly Dictionary<Smile, string> smiles = new Dictionary<Smile, string>
         {
-            { Smile.Sad, "\ud83d\ude15" }
+            { Smile.Sad, "\ud83d\ude15" },
         };
 
     }

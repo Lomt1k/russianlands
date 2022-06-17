@@ -9,6 +9,11 @@ namespace TextGameRPG.Scripts.GameCore.Units
     {
         private GameSession _session;
 
+        public ushort arrows
+        {
+            get => _session.profile.data.resourceArrows;
+            set => _session.profile.data.resourceArrows = value;
+        }
         public int gold
         {
             get => _session.profile.data.resourceGold;

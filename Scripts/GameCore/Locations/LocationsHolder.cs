@@ -23,5 +23,10 @@ namespace TextGameRPG.Scripts.GameCore.Locations
             return _locations[type];
         }
 
+        public static IEnumerable<Location> GetAll()
+        {
+            return _locations.Values;
+        }
+
     }
 }
