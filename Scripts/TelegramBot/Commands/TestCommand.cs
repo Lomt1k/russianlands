@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Items;
-using TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators;
+using TextGameRPG.Scripts.GameCore.Items.Generators;
+using TextGameRPG.Scripts.GameCore.Locations;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 using TextGameRPG.Scripts.Utils;
 
@@ -16,10 +17,9 @@ namespace TextGameRPG.Scripts.TelegramBot.Commands
             if (!args[0].TryParse(out ItemRarity rarity))
                 return;
 
-            var code = new ScrollCodeGenerator(ItemType.Scroll, rarity, 1, 20).GetCode();
-            await messageSender.SendTextMessage(session.chatId, code);
+            var settings = LocationsHolder.Get(LocationType.DarkForest).data.itemGenerationSettings;
+            var item = ItemGenerationManager.GenerateItem(settings, rarity);
 
-            var item = new InventoryItem(code);
             var text = ItemViewBuilder.Build(session, item);
             await messageSender.SendTextMessage(session.chatId, text);
         }

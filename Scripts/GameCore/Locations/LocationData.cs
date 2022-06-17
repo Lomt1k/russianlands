@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text.Json.Serialization;
 using TextGameRPG.Scripts.GameCore.GameDataBase;
+using TextGameRPG.Scripts.GameCore.Items.Generators;
 
 namespace TextGameRPG.Scripts.GameCore.Locations
 {
@@ -21,15 +22,6 @@ namespace TextGameRPG.Scripts.GameCore.Locations
             clone.id = id;
             return clone;
         }
-    }
-
-    [Serializable]
-    public class ItemGenerationSettings
-    {
-        public int basisPoints;
-        public int levelForZeroGrade;
-        public float increaseLevelByGrade;
-        public float increaseLevelByRarity;
     }
 
 }
