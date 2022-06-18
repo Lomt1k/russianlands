@@ -9,15 +9,16 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Quests
 {
     internal static class QuestsHolder
     {
+        private static string questFolderPath = string.Empty;
         private static Dictionary<QuestType, QuestBase> quests = new Dictionary<QuestType, QuestBase>();
 
         public static void LoadAll(GameDataLoaderViewModel loaderVM, string gamedataPath)
         {
             quests.Clear();
-            string questsFolder = Path.Combine(gamedataPath, "Quests");
-            if (!Directory.Exists(questsFolder))
+            questFolderPath = Path.Combine(gamedataPath, "Quests");
+            if (!Directory.Exists(questFolderPath))
             {
-                Directory.CreateDirectory(questsFolder);
+                Directory.CreateDirectory(questFolderPath);
             }
 
             var allQuests = Enum.GetValues(typeof(QuestType));
@@ -26,20 +27,22 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Quests
                 if (questType == QuestType.None)
                     continue;
 
-                LoadQuest(loaderVM, questsFolder, questType);
+                LoadQuest(loaderVM, questType);
             }
         }
 
-        public static void LoadQuest(GameDataLoaderViewModel loaderVM, string questsFolderPath, QuestType questType)
+        public static void LoadQuest(GameDataLoaderViewModel loaderVM, QuestType questType)
         {
             var fileName = $"{questType}.json";
             loaderVM.AddNextState($"Loading {fileName}...");
-            var filePath = Path.Combine(questsFolderPath, fileName);
+            var filePath = Path.Combine(questFolderPath, fileName);
 
+            bool needSave = false;
             if (!File.Exists(filePath))
             {
                 CreateEmptyQuestFile(filePath, questType);
                 loaderVM.AddNextState($"Created new quest file with name '{fileName}'");
+                needSave = true;
             }
 
             using (StreamReader reader = new StreamReader(filePath, Encoding.UTF8))
@@ -47,6 +50,11 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Quests
                 var jsonStr = reader.ReadToEnd();
                 var quest = JsonConvert.DeserializeObject<QuestBase>(jsonStr);
                 quests.Add(quest.questType, quest);
+            }
+
+            if (needSave)
+            {
+                SaveQuest(questType);
             }
         }
 
@@ -59,6 +67,25 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Quests
                 sb.Append(questType);
                 sb.Append("\",}");
                 writer.WriteLine(sb.ToString());
+            }
+        }
+
+        public static void SaveQuests()
+        {
+            foreach (var questType in quests.Keys)
+            {
+                SaveQuest(questType);
+            }
+        }
+
+        private static void SaveQuest(QuestType questType)
+        {
+            var quest = quests[questType];
+            var filePath = Path.Combine(questFolderPath, questType + ".json");
+            var jsonStr = JsonConvert.SerializeObject(quest, Formatting.Indented);
+            using (StreamWriter writer = new StreamWriter(filePath, false, Encoding.UTF8))
+            {
+                writer.Write(jsonStr);
             }
         }
 
