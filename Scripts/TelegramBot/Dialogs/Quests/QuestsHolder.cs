@@ -14,6 +14,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Quests
 
         public static void LoadAll(GameDataLoaderViewModel loaderVM, string gamedataPath)
         {
+            loaderVM.AddNextState("Loading quests...");
             quests.Clear();
             questFolderPath = Path.Combine(gamedataPath, "Quests");
             if (!Directory.Exists(questFolderPath))
@@ -34,14 +35,14 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Quests
         public static void LoadQuest(GameDataLoaderViewModel loaderVM, QuestType questType)
         {
             var fileName = $"{questType}.json";
-            loaderVM.AddNextState($"Loading {fileName}...");
+            loaderVM.AddInfoToCurrentState($"\n* {fileName}");
             var filePath = Path.Combine(questFolderPath, fileName);
 
             bool needSave = false;
             if (!File.Exists(filePath))
             {
                 CreateEmptyQuestFile(filePath, questType);
-                loaderVM.AddNextState($"Created new quest file with name '{fileName}'");
+                loaderVM.AddInfoToCurrentState($"\n[!] Created new quest file with name '{fileName}'");
                 needSave = true;
             }
 
