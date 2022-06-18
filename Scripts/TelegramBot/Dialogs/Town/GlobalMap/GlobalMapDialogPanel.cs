@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
 using TextGameRPG.Scripts.GameCore.Localizations;
+using TextGameRPG.Scripts.GameCore.Locations;
 
 namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.GlobalMap
 {
@@ -17,13 +18,13 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.GlobalMap
 
         public override async Task SendAsync()
         {
-            await SendGeneralMap();
+            await ShowGeneralMap();
         }
 
-        private async Task SendGeneralMap()
+        private async Task ShowGeneralMap()
         {
             ClearButtons();
-            var locations = GameCore.Locations.LocationsHolder.GetAll();
+            var locations = LocationsHolder.GetAll();
             foreach (var location in locations)
             {
                 bool isLocked = location.data.id > session.profile.data.lastUnlockedLocation;
@@ -31,8 +32,10 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.GlobalMap
                 if (isLocked)
                 {
                     locationName = Emojis.elements[Element.Locked] + Emojis.space + locationName;
+                    RegisterButton(locationName, () => ShowLockedLocationInfo(location.type));
+                    continue;
                 }
-                RegisterButton(locationName, () => OnLocationClick(location.data.id));
+                RegisterButton(locationName, () => ShowLocation(location.type));
             }
 
             var text = Localization.Get(session, "dialog_map_select_location");
@@ -41,7 +44,12 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.GlobalMap
                 : await messageSender.EditTextMessage(session.chatId, _lastMessage.MessageId, text, GetMultilineKeyboard());
         }
 
-        private async Task OnLocationClick(int locationId)
+        private async Task ShowLockedLocationInfo(LocationType locationType)
+        {
+            //TODO
+        }
+
+        private async Task ShowLocation(LocationType locationType)
         {
             //TODO
         }
