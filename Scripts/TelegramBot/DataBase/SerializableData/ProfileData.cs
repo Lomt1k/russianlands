@@ -18,7 +18,6 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData
         public int resourceGold;
         public int resourceFood;
         public int resourceDiamonds;
-        public int mainQuestStage;
 
         public static TableColumn[] GetTableColumns()
         {
@@ -30,7 +29,6 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData
                 new TableColumn("language", "TEXT", "ru"),
                 new TableColumn("nickname", "TEXT", "na"),
                 new TableColumn("tutorialStage", "INTEGER", "0"),
-                new TableColumn("mainQuestStage", "INTEGER", "0"),
                 new TableColumn("level", "INTEGER", "1"),
                 new TableColumn("lastUnlockedLocation", "INTEGER", "1"),
                 new TableColumn("resourceArrows", "INTEGER", "30"), // пока поставил 30 по умолчанию, можно поменять

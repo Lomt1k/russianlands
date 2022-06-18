@@ -8,12 +8,14 @@ namespace TextGameRPG.Scripts.GameCore.Profiles
     {
         public ProfileData data { get; }
         public ProfileDynamicData dynamicData { get; }
+        public QuestProgressData questProgressData { get; }
         public DateTime lastSaveProfileTime { get; private set; }
 
-        public Profile(ProfileData _data, ProfileDynamicData _dynamicData)
+        public Profile(ProfileData _data, ProfileDynamicData _dynamicData, QuestProgressData _questProgressData)
         {
             data = _data;
             dynamicData = _dynamicData;
+            questProgressData = _questProgressData;
         }
 
         public async Task SaveProfileIfNeed(DateTime lastActivityTime)
@@ -22,6 +24,7 @@ namespace TextGameRPG.Scripts.GameCore.Profiles
             {
                 await data.UpdateInDatabase();
                 await dynamicData.UpdateInDatabase();
+                await questProgressData.UpdateInDatabase();
                 lastSaveProfileTime = DateTime.UtcNow;
             }
         }

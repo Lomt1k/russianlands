@@ -11,17 +11,14 @@ using TextGameRPG.Scripts.TelegramBot.Dialogs.Quests.QuestStages;
 namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Quests
 {
     [Serializable]
-    [JsonConverter(typeof(JsonKnownTypesConverter<QuestBase>))]
-    internal abstract class QuestBase
+    internal class Quest
     {
         private const int STAGE_FINISHED = -1;
         private const int STAGE_NOT_STARTED = 0;
         private const int STAGE_FIRST = 100;
 
+        public QuestType questType;
         public List<QuestStage> stages = new List<QuestStage>();
-
-        [JsonIgnore]
-        public abstract QuestType questType { get; }
 
         protected Dictionary<int, QuestStage> _stagesById = new Dictionary<int, QuestStage>();
 
@@ -31,9 +28,35 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Quests
             _stagesById = stages.ToDictionary(x => x.id);
         }
 
-        public abstract int GetCurrentStage(GameSession session);
+        public int GetCurrentStage(GameSession session)
+        {
+            var questProgress = session.profile.questProgressData;
+            var fieldName = questType.ToString();
+            var field = questProgress.GetType().GetField(fieldName);
 
-        protected abstract void SetCurrentStageInProfile(GameSession session, int stage);
+            if (field == null)
+            {
+                Program.logger.Error($"QuestProgress database table: Not found field with name '{fieldName}'");
+                return STAGE_FINISHED;
+            }
+
+            var stage = (int)field.GetValue(questProgress);
+            return stage;
+        }
+
+        protected void SetCurrentStageInProfile(GameSession session, int stage)
+        {
+            var questProgress = session.profile.questProgressData;
+            var fieldName = questType.ToString();
+            var field = questProgress.GetType().GetField(fieldName);
+
+            if (field == null)
+            {
+                Program.logger.Error($"QuestProgress database table: Not found field with name '{fieldName}'");
+                return;
+            }            
+            field.SetValue(questProgress, stage);
+        }
 
         public async Task SetStage(GameSession session, int stageId)
         {

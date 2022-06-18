@@ -117,6 +117,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
                 Program.logger.Error($"Can`t get or create profile data after start new session (telegram_id: {actualUser.Id})");
                 return;
             }
+
             var profilesDynamicTable = TelegramBot.instance.dataBase[Table.ProfilesDynamic] as ProfilesDynamicDataTable;
             var profileDynamicData = await profilesDynamicTable.GetOrCreateData(profileData.dbid);
             if (profileDynamicData == null)
@@ -124,7 +125,16 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
                 Program.logger.Error($"Can`t get or create profile dynamic data after start new session (telegram_id: {actualUser.Id})");
                 return;
             }
-            profile = new Profile(profileData, profileDynamicData);
+
+            var questProgressTable = TelegramBot.instance.dataBase[Table.QuestProgress] as QuestProgressTable;
+            var questProgressData = await questProgressTable.GetOrCreateQuestsData(profileData.dbid);
+            if (questProgressData == null)
+            {
+                Program.logger.Error($"Can`t get or create quest progress data after start new session (telegram_id: {actualUser.Id})");
+                return;
+            }
+
+            profile = new Profile(profileData, profileDynamicData, questProgressData);
             language = Enum.Parse<LanguageCode>(profileData.language);
             player = new Player(this);
 

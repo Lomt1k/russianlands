@@ -24,7 +24,8 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase
             _tables = new Dictionary<Table, DataTableBase>()
             {
                 { Table.Profiles, new ProfilesDataTable(this) },
-                { Table.ProfilesDynamic, new ProfilesDynamicDataTable(this) }
+                { Table.ProfilesDynamic, new ProfilesDynamicDataTable(this) },
+                { Table.QuestProgress, new QuestProgressTable(this) },
             };
         }
 

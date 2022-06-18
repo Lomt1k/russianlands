@@ -10,7 +10,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Quests
     internal static class QuestsHolder
     {
         private static string questFolderPath = string.Empty;
-        private static Dictionary<QuestType, QuestBase> quests = new Dictionary<QuestType, QuestBase>();
+        private static Dictionary<QuestType, Quest> quests = new Dictionary<QuestType, Quest>();
 
         public static void LoadAll(GameDataLoaderViewModel loaderVM, string gamedataPath)
         {
@@ -38,36 +38,23 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Quests
             loaderVM.AddInfoToCurrentState($"\n* {fileName}");
             var filePath = Path.Combine(questFolderPath, fileName);
 
-            bool needSave = false;
             if (!File.Exists(filePath))
             {
-                CreateEmptyQuestFile(filePath, questType);
+                var quest = new Quest() 
+                {
+                    questType = questType 
+                };
+                quests.Add(questType, quest);
+                SaveQuest(questType);
                 loaderVM.AddInfoToCurrentState($"\n[!] Created new quest file with name '{fileName}'");
-                needSave = true;
+                return;
             }
 
             using (StreamReader reader = new StreamReader(filePath, Encoding.UTF8))
             {
                 var jsonStr = reader.ReadToEnd();
-                var quest = JsonConvert.DeserializeObject<QuestBase>(jsonStr);
+                var quest = JsonConvert.DeserializeObject<Quest>(jsonStr);
                 quests.Add(quest.questType, quest);
-            }
-
-            if (needSave)
-            {
-                SaveQuest(questType);
-            }
-        }
-
-        private static void CreateEmptyQuestFile(string filePath, QuestType questType)
-        {
-            using (StreamWriter writer = new StreamWriter(filePath, false, Encoding.UTF8))
-            {
-                var sb = new StringBuilder();
-                sb.Append("{$type : \"");
-                sb.Append(questType);
-                sb.Append("\",}");
-                writer.WriteLine(sb.ToString());
             }
         }
 
@@ -90,12 +77,12 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Quests
             }
         }
 
-        public static QuestBase GetQuest(QuestType questType)
+        public static Quest GetQuest(QuestType questType)
         {
             return quests[questType];
         }
 
-        public static IEnumerable<QuestBase> GetAllQuests()
+        public static IEnumerable<Quest> GetAllQuests()
         {
             return quests.Values;
         }
