@@ -1,5 +1,5 @@
 ﻿
-namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Quests
+namespace TextGameRPG.Scripts.GameCore.Quests
 {
     internal enum EndStageTrigger
     {

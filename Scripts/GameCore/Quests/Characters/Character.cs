@@ -1,5 +1,5 @@
 ﻿
-namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Characters
+namespace TextGameRPG.Scripts.GameCore.Quests.Characters
 {
     internal class Character
     {

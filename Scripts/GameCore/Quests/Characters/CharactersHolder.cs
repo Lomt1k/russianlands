@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Characters
+namespace TextGameRPG.Scripts.GameCore.Quests.Characters
 {
     public enum CharacterType : int
     {

@@ -1,7 +1,7 @@
 ﻿using System;
-using TextGameRPG.Scripts.TelegramBot.Dialogs.Characters;
+using TextGameRPG.Scripts.GameCore.Quests.Characters;
 
-namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Quests.QuestStages
+namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
 {
     [Serializable]
     internal class QuestStageWithReplica : QuestStage

@@ -3,7 +3,6 @@
     public enum Table
     {
         Profiles = 0,
-        ProfilesDynamic = 1,
-        QuestProgress = 2
+        ProfilesDynamic = 1
     }
 }

@@ -126,15 +126,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
                 return;
             }
 
-            var questProgressTable = TelegramBot.instance.dataBase[Table.QuestProgress] as QuestProgressTable;
-            var questProgressData = await questProgressTable.GetOrCreateQuestsData(profileData.dbid);
-            if (questProgressData == null)
-            {
-                Program.logger.Error($"Can`t get or create quest progress data after start new session (telegram_id: {actualUser.Id})");
-                return;
-            }
-
-            profile = new Profile(profileData, profileDynamicData, questProgressData);
+            profile = new Profile(profileData, profileDynamicData);
             language = Enum.Parse<LanguageCode>(profileData.language);
             player = new Player(this);
 

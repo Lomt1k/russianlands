@@ -1,7 +1,7 @@
 ﻿using System;
-using TextGameRPG.Scripts.TelegramBot.Dialogs.Quests.ActionsOnStartStage;
+using TextGameRPG.Scripts.GameCore.Quests.ActionsOnStartStage;
 
-namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Quests.QuestStages
+namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
 {
     [Serializable]
     internal class QuestStageWithEndingTrigger : QuestStage

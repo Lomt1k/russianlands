@@ -2,6 +2,7 @@
 using System.Data;
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Inventory;
+using TextGameRPG.Scripts.GameCore.Quests;
 using TextGameRPG.Scripts.TelegramBot.DataBase.TablesStructure;
 
 namespace TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData
@@ -10,13 +11,15 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData
     {
         public long dbid;
         public PlayerInventory inventory;
+        public PlayerQuestsProgress quests;
 
         public static TableColumn[] GetTableColumns()
         {
             return new TableColumn[]
             {
                 new TableColumn("dbid", "INTEGER PRIMARY KEY AUTOINCREMENT", "0"),
-                new TableColumn("inventory", "TEXT", "'{ }'")
+                new TableColumn("inventory", "TEXT", "'{ }'"),
+                new TableColumn("quests", "TEXT", "'{ }'")
             };
         }
 
@@ -29,6 +32,8 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData
             dbid = (long)data["dbid"];
             var inventoryJson = (string)data["inventory"];
             inventory = JsonConvert.DeserializeObject<PlayerInventory>(inventoryJson);
+            var questsJson = (string)data["quests"];
+            quests = JsonConvert.DeserializeObject<PlayerQuestsProgress>(questsJson);
         }
 
         public override async Task<bool> UpdateInDatabase()

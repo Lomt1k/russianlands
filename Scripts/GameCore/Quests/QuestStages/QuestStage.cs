@@ -1,10 +1,8 @@
 ﻿using System;
-using TextGameRPG.Scripts.TelegramBot.Dialogs.Characters;
-using TextGameRPG.Scripts.TelegramBot.Dialogs.Quests.ActionsOnStartStage;
 using Newtonsoft.Json;
 using JsonKnownTypes;
 
-namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Quests.QuestStages
+namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
 {
     [Serializable]
     [JsonConverter(typeof(JsonKnownTypesConverter<QuestStage>))]

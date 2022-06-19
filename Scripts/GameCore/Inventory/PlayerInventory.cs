@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 
 namespace TextGameRPG.Scripts.GameCore.Inventory
 {
+    [System.Serializable]
     public class PlayerInventory
     {
         public const int DEFAULT_SIZE = 50;

@@ -1,5 +1,5 @@
 ﻿
-namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Quests.ActionsOnStartStage
+namespace TextGameRPG.Scripts.GameCore.Quests.ActionsOnStartStage
 {
     internal enum ActionType : short
     {

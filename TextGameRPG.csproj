@@ -36,5 +36,6 @@
   <ItemGroup>
     <Folder Include="Models\BotControl\" />
     <Folder Include="Models\Editor\LocationsEditor\" />
+    <Folder Include="Scripts\TelegramBot\Dialogs\Quests\" />
   </ItemGroup>
 </Project>

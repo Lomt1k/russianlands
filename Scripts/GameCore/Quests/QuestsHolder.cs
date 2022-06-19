@@ -5,7 +5,7 @@ using System.IO;
 using System.Text;
 using TextGameRPG.ViewModels;
 
-namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Quests
+namespace TextGameRPG.Scripts.GameCore.Quests
 {
     internal static class QuestsHolder
     {

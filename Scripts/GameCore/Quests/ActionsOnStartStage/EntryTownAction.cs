@@ -2,7 +2,7 @@
 using TextGameRPG.Scripts.TelegramBot.Dialogs.Town;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 
-namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Quests.ActionsOnStartStage
+namespace TextGameRPG.Scripts.GameCore.Quests.ActionsOnStartStage
 {
     internal class EntryTownAction : ActionOnStartStageBase
     {

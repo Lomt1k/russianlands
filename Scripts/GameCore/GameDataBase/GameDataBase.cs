@@ -35,7 +35,7 @@ namespace TextGameRPG.Scripts.GameCore.GameDataBase
             items = LoadDataBaseWithIntegerID<ItemData>("items");
             locations = LoadDataBaseWithIntegerID<LocationData>("locations");
             Localizations.Localization.LoadAll(_loaderVM, gameDataPath);
-            TelegramBot.Dialogs.Quests.QuestsHolder.LoadAll(_loaderVM, gameDataPath);
+            Quests.QuestsHolder.LoadAll(_loaderVM, gameDataPath);
             _loaderVM.OnGameDataLoaded();
         }
 
