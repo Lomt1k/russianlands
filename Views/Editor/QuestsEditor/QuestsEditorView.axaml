@@ -15,6 +15,7 @@
     <Grid.RowDefinitions>
       <RowDefinition Height="50"/>
       <RowDefinition Height="auto"/>
+      <RowDefinition Height="50"/>
     </Grid.RowDefinitions>
 
     <!-- Column 1: Quests -->
@@ -48,6 +49,14 @@
 
       </ListBox.ItemTemplate>
     </ListBox>
+
+    <StackPanel Grid.Column="1" Grid.Row="2" Margin="40,0" Orientation="Horizontal"
+                Spacing="20">
+      <Button Content="Add" Command="{Binding addStageCommand}" Classes="Neutral"
+              IsVisible="{Binding selectedQuest, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+      <Button Content="Remove" Command="{Binding removeStageCommand}" Classes="Negative"
+              IsVisible="{Binding selectedStage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+    </StackPanel>
 
     <!-- Column 2: Location Inspector -->
     <UserControl Grid.Column="2" Grid.Row="1" Margin="40,0" VerticalAlignment="Top"

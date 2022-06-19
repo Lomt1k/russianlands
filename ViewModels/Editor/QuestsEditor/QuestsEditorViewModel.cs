@@ -1,5 +1,6 @@
 ﻿using ReactiveUI;
 using System.Collections.ObjectModel;
+using System.Reactive;
 using TextGameRPG.Models;
 using TextGameRPG.Scripts.GameCore.Quests;
 using TextGameRPG.Scripts.GameCore.Quests.QuestStages;
@@ -46,9 +47,28 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
             }
         }
 
+        public ReactiveCommand<Unit, Unit> addStageCommand { get;  }
+        public ReactiveCommand<Unit, Unit> removeStageCommand { get;  }
+
         public QuestsEditorViewModel()
         {
             quests = EnumValueModel<QuestType>.CreateCollection(excludeValue: QuestType.None);
+            addStageCommand = ReactiveCommand.Create(AddNewStage);
+            removeStageCommand = ReactiveCommand.Create(RemoveSelectedStage);
+        }
+
+        public void AddNewStage()
+        {
+
+        }
+
+        public void RemoveSelectedStage()
+        {
+            if (selectedStage == null)
+                return;
+
+            questStages.Remove(selectedStage);
+            selectedStage = null;
         }
 
 
