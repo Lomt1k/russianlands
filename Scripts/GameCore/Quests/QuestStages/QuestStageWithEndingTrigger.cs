@@ -1,23 +1,23 @@
-﻿using System;
-using TextGameRPG.Scripts.GameCore.Quests.ActionsOnStartStage;
+﻿using TextGameRPG.Scripts.GameCore.Quests.ActionsOnStartStage;
+using Newtonsoft.Json;
 
 namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
 {
-    [Serializable]
+    [JsonObject]
     internal class QuestStageWithEndingTrigger : QuestStage
     {
-        public ActionType[]? actions = null;
-        public int? nextStage;
-        public Tooltip[]? tooltips = null;
-        public EndStageTrigger? endStageTrigger = null;
+        public ActionType[]? actions { get; set; } = null;
+        public int? nextStage { get; set; }
+        public Tooltip[]? tooltips { get; set; }
+        public EndStageTrigger? endStageTrigger { get; set; }
     }
 
-    [Serializable]
+    [JsonObject]
     internal class Tooltip
     {
-        public string comment = string.Empty;
-        public string dialogType = string.Empty;
-        public string localizationKey = string.Empty;
+        public string comment { get; set; } = "New Tooltip";
+        public string dialogType { get; set; } = string.Empty;
+        public string localizationKey { get; set; } = string.Empty;
     }
 
 

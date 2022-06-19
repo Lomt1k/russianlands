@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using ReactiveUI;
-using Avalonia;
+﻿using ReactiveUI;
 using System.Collections.ObjectModel;
 using TextGameRPG.Models.Editor;
 using TextGameRPG.Views.Editor.ItemsEditor;
 using TextGameRPG.Views.Editor.LocationsEditor;
+using TextGameRPG.Views.Editor.QuestsEditor;
 
 namespace TextGameRPG.ViewModels.Editor
 {
@@ -32,6 +29,7 @@ namespace TextGameRPG.ViewModels.Editor
         {
             categories.Add(new MainEditorCategory("Items", new ItemsEditorView() ));
             categories.Add(new MainEditorCategory("Locations", new LocationsEditorView()));
+            categories.Add(new MainEditorCategory("Quests", new QuestsEditorView()));
         }
 
 

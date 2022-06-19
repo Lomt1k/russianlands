@@ -4,13 +4,17 @@ using JsonKnownTypes;
 
 namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
 {
-    [Serializable]
     [JsonConverter(typeof(JsonKnownTypesConverter<QuestStage>))]
     internal abstract class QuestStage
     {
-        public int id;
-        public string comment = string.Empty;
-        public int? jumpToStageIfNewSession = null;
+        public int id { get; set; }
+        public string comment { get; set; } = "New Stage";
+        public int? jumpToStageIfNewSession { get; set; }
+
+        public override string ToString()
+        {
+            return $"{id} | {comment}";
+        }
     }
 
 

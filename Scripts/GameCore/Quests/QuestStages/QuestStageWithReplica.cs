@@ -1,28 +1,28 @@
-﻿using System;
+﻿using Newtonsoft.Json;
 using TextGameRPG.Scripts.GameCore.Quests.Characters;
 
 namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
 {
-    [Serializable]
+    [JsonObject]
     internal class QuestStageWithReplica : QuestStage
     {
-        public Replica? replica = null;
+        public Replica? replica { get; set; }
     }
 
-    [Serializable]
+    [JsonObject]
     internal class Replica
     {
-        public CharacterType characterType;
-        public string localizationKey = string.Empty;
-        public Answer[] answers = new Answer[0];
+        public CharacterType characterType { get; set; }
+        public string localizationKey { get; set; } = string.Empty;
+        public Answer[] answers { get; set; } = new Answer[0];
     }
 
-    [Serializable]
+    [JsonObject]
     internal class Answer
     {
-        public string comment = string.Empty;
-        public string localizationKey = string.Empty;
-        public int nextStage;
+        public string comment { get; set; } = "New Answer";
+        public string localizationKey { get; set; } = string.Empty;
+        public int nextStage { get; set; }
     }
 
 

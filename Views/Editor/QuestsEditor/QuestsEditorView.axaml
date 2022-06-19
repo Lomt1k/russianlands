@@ -1,0 +1,59 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="TextGameRPG.Views.Editor.QuestsEditor.QuestsEditorView">
+
+  <Grid Margin="40">
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="160"/>
+      <ColumnDefinition Width="300"/>
+      <ColumnDefinition Width="auto"/>
+    </Grid.ColumnDefinitions>
+
+    <Grid.RowDefinitions>
+      <RowDefinition Height="50"/>
+      <RowDefinition Height="auto"/>
+    </Grid.RowDefinitions>
+
+    <!-- Column 1: Quests -->
+    <TextBlock Text="Quests" Grid.Column="0" Grid.Row="0" Classes="h3"/>
+    <ListBox Grid.Column="0" Grid.Row="1" VerticalAlignment="Top"
+             MaxHeight="600"
+             ScrollViewer.VerticalScrollBarVisibility="Disabled"
+             Items="{Binding quests}"
+             SelectedItem="{Binding selectedQuest}">
+      <ListBox.ItemTemplate>
+
+        <DataTemplate>
+          <TextBlock Text="{Binding}"/>
+        </DataTemplate>
+
+      </ListBox.ItemTemplate>
+    </ListBox>
+
+    <!-- Column 2: Stages -->
+    <TextBlock Text="Stages" Grid.Column="1" Grid.Row="0" Classes="h3" Margin="40,0"/>
+    <ListBox Grid.Column="1" Grid.Row="1" VerticalAlignment="Top" Margin="40,0"
+             MaxHeight="600"
+             ScrollViewer.VerticalScrollBarVisibility="Disabled"
+             Items="{Binding questStages}"
+             SelectedItem="{Binding selectedStage}">
+      <ListBox.ItemTemplate>
+
+        <DataTemplate>
+          <TextBlock Text="{Binding}"/>
+        </DataTemplate>
+
+      </ListBox.ItemTemplate>
+    </ListBox>
+
+    <!-- Column 2: Location Inspector -->
+    <UserControl Grid.Column="2" Grid.Row="1" Margin="40,0" VerticalAlignment="Top"
+                 Content="{Binding locationInspector}"
+                 IsVisible="{Binding selectedLocation, Converter={x:Static ObjectConverters.IsNotNull}}"/>
+
+  </Grid>
+  
+</UserControl>
