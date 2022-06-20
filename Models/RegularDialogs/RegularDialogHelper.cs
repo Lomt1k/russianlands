@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using TextGameRPG.ViewModels.Editor.RegularDialogs;
 using TextGameRPG.ViewModels.RegularDialogs;
 using TextGameRPG.Views.RegularDialogs;
 

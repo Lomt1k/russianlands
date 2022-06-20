@@ -3,7 +3,7 @@ using ReactiveUI;
 using System;
 using System.Reactive;
 
-namespace TextGameRPG.ViewModels.Editor.RegularDialogs
+namespace TextGameRPG.ViewModels.RegularDialogs
 {
     internal class ConfirmDialogViewModel : ViewModelBase
     {
