@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Reactive;
 using TextGameRPG.Models;
 using TextGameRPG.Models.RegularDialogs;
@@ -71,12 +72,27 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
 
         private void AddNewStageWithReplica()
         {
-            //TODO
+            var stage = new QuestStageWithReplica()
+            {
+                id = GetDefaultIdForNewStage(),
+                comment = "New Replica"
+            };
+            questStages.Add(stage);
         }
 
         private void AddNewStageWithEndingTrigger()
         {
-            //TODO
+            var stage = new QuestStageWithEndingTrigger()
+            {
+                id = GetDefaultIdForNewStage()
+            };
+            questStages.Add(stage);
+        }
+
+        private int GetDefaultIdForNewStage()
+        {
+            var maxId = questStages.Max(x => x.id);
+            return maxId / 100 * 100 + 100;
         }
 
         public void RemoveSelectedStage()
