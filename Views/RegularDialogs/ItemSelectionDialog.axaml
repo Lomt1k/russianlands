@@ -1,0 +1,34 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="600"
+        Width="500" Height="480"
+        x:Class="TextGameRPG.Views.RegularDialogs.ItemSelectionDialog"
+        Title="{Binding description}">
+  
+  <StackPanel Orientation="Vertical" Margin="20" Spacing="20"
+              VerticalAlignment="Center" HorizontalAlignment="Center">
+
+    <TextBlock Text="{Binding description}" Classes="h3"/>
+    <ListBox VerticalAlignment="Top" MaxHeight="400"
+             ScrollViewer.VerticalScrollBarVisibility="Disabled"
+             Items="{Binding items}"
+             SelectedItem="{Binding selectedItem}">
+      <ListBox.ItemTemplate>
+        <DataTemplate>
+          <TextBlock Text="{Binding}"/>
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
+
+    <StackPanel Orientation="Horizontal" Spacing="20">
+      <Button Content="Select" Classes="Neutral" Command="{Binding confirmSelectionCommand}"
+              IsEnabled="{Binding selectedItem, Converter={x:Static ObjectConverters.IsNotNull}}"
+              IsDefault="True"/>
+      <Button Content="Cancel" Classes="Neutral" Command="{Binding closeCommand}" IsCancel="True"/>
+    </StackPanel>
+
+  </StackPanel>
+  
+</Window>

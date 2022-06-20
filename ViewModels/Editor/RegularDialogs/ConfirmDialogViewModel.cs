@@ -12,7 +12,7 @@ namespace TextGameRPG.ViewModels.Editor.RegularDialogs
         public ReactiveCommand<Unit, Unit> declineCommand { get; }
 
 
-        public ConfirmDialogViewModel(Window dialogView, string _description, Action onConfirm, Action onDecline)
+        public ConfirmDialogViewModel(Window dialogView, string _description, Action onConfirm, Action? onDecline)
         {
             description = _description;
             confirmCommand = ReactiveCommand.Create(dialogView.Close + onConfirm);

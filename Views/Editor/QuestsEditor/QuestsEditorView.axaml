@@ -53,9 +53,9 @@
     <StackPanel Grid.Column="1" Grid.Row="2" Margin="40,0" Orientation="Horizontal"
                 Spacing="20">
       <Button Content="Add" Command="{Binding addStageCommand}" Classes="Neutral"
-              IsVisible="{Binding selectedQuest, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+              IsVisible="{Binding selectedQuest, Converter={x:Static ObjectConverters.IsNotNull}}"/>
       <Button Content="Remove" Command="{Binding removeStageCommand}" Classes="Negative"
-              IsVisible="{Binding selectedStage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+              IsVisible="{Binding selectedStage, Converter={x:Static ObjectConverters.IsNotNull}}"/>
     </StackPanel>
 
     <!-- Column 2: Location Inspector -->

@@ -1,7 +1,10 @@
 ﻿using ReactiveUI;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Reactive;
 using TextGameRPG.Models;
+using TextGameRPG.Models.RegularDialogs;
 using TextGameRPG.Scripts.GameCore.Quests;
 using TextGameRPG.Scripts.GameCore.Quests.QuestStages;
 
@@ -59,7 +62,21 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
 
         public void AddNewStage()
         {
+            RegularDialogHelper.ShowItemSelectionDialog("Select stage type:", new Dictionary<string, Action>()
+            {
+                { "Default", AddNewStageWithEndingTrigger },
+                { "Replica", AddNewStageWithReplica }
+            });
+        }
 
+        private void AddNewStageWithReplica()
+        {
+            //TODO
+        }
+
+        private void AddNewStageWithEndingTrigger()
+        {
+            //TODO
         }
 
         public void RemoveSelectedStage()
