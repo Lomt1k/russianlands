@@ -1,5 +1,6 @@
 ﻿using TextGameRPG.Scripts.GameCore.Quests.ActionsOnStartStage;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
 {
@@ -8,7 +9,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
     {
         public ActionType[]? actions { get; set; } = null;
         public int? nextStage { get; set; }
-        public Tooltip[]? tooltips { get; set; }
+        public List<Tooltip> tooltips { get; set; } = new List<Tooltip>();
         public EndStageTrigger? endStageTrigger { get; set; }
     }
 

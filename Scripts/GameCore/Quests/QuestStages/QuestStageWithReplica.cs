@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using TextGameRPG.Scripts.GameCore.Quests.Characters;
 
 namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
@@ -6,7 +7,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
     [JsonObject]
     internal class QuestStageWithReplica : QuestStage
     {
-        public Replica? replica { get; set; }
+        public Replica replica { get; set; }
     }
 
     [JsonObject]
@@ -14,7 +15,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
     {
         public CharacterType characterType { get; set; }
         public string localizationKey { get; set; } = string.Empty;
-        public Answer[] answers { get; set; } = new Answer[0];
+        public List<Answer> answers { get; set; } = new List<Answer>();
     }
 
     [JsonObject]
