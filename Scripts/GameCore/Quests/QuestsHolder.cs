@@ -28,14 +28,14 @@ namespace TextGameRPG.Scripts.GameCore.Quests
                 if (questType == QuestType.None)
                     continue;
 
-                LoadQuest(loaderVM, questType);
+                LoadQuest(questType, loaderVM);
             }
         }
 
-        public static void LoadQuest(GameDataLoaderViewModel loaderVM, QuestType questType)
+        public static void LoadQuest(QuestType questType, GameDataLoaderViewModel? loaderVM = null)
         {
             var fileName = $"{questType}.json";
-            loaderVM.AddInfoToCurrentState($"\n* {fileName}");
+            loaderVM?.AddInfoToCurrentState($"\n* {fileName}");
             var filePath = Path.Combine(questFolderPath, fileName);
 
             if (!File.Exists(filePath))
@@ -44,9 +44,9 @@ namespace TextGameRPG.Scripts.GameCore.Quests
                 {
                     questType = questType 
                 };
-                quests.Add(questType, quest);
+                quests.Add(quest.questType, quest);
                 SaveQuest(questType);
-                loaderVM.AddInfoToCurrentState($"\n[!] Created new quest file with name '{fileName}'");
+                loaderVM?.AddInfoToCurrentState($"\n[!] Created new quest file with name '{fileName}'");
                 return;
             }
 
@@ -54,7 +54,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests
             {
                 var jsonStr = reader.ReadToEnd();
                 var quest = JsonConvert.DeserializeObject<Quest>(jsonStr);
-                quests.Add(quest.questType, quest);
+                quests[questType] = quest;
             }
         }
 

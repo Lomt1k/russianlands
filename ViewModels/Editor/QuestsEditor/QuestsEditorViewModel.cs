@@ -127,6 +127,10 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
 
         public void ReloadQuestFromData()
         {
+            if (selectedQuest == null)
+                return;
+
+            QuestsHolder.LoadQuest(selectedQuest.value);
             selectedQuest = selectedQuest;
         }
 
