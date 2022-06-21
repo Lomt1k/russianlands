@@ -8,6 +8,7 @@ using TextGameRPG.Models;
 using TextGameRPG.Models.RegularDialogs;
 using TextGameRPG.Scripts.GameCore.Quests;
 using TextGameRPG.Scripts.GameCore.Quests.QuestStages;
+using TextGameRPG.Views.Editor.QuestsEditor;
 
 namespace TextGameRPG.ViewModels.Editor.QuestsEditor
 {
@@ -46,10 +47,13 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
                 this.RaiseAndSetIfChanged(ref _selectedStage, value);
                 if (value != null)
                 {
-                    //TODO
+                    stageInspectorVM.ShowStage(value);
                 }
             }
         }
+
+        public StageInspectorView stageInspector { get; }
+        public StageInspectorViewModel stageInspectorVM { get; }
 
         public ReactiveCommand<Unit, Unit> addStageCommand { get;  }
         public ReactiveCommand<Unit, Unit> removeStageCommand { get;  }
@@ -59,6 +63,9 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
             quests = EnumValueModel<QuestType>.CreateCollection(excludeValue: QuestType.None);
             addStageCommand = ReactiveCommand.Create(AddNewStage);
             removeStageCommand = ReactiveCommand.Create(RemoveSelectedStage);
+
+            stageInspector = new StageInspectorView();
+            stageInspector.DataContext = stageInspectorVM = new StageInspectorViewModel(this);
         }
 
         public void AddNewStage()

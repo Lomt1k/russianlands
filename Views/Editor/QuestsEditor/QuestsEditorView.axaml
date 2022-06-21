@@ -60,8 +60,8 @@
 
     <!-- Column 2: Location Inspector -->
     <UserControl Grid.Column="2" Grid.Row="1" Margin="40,0" VerticalAlignment="Top"
-                 Content="{Binding locationInspector}"
-                 IsVisible="{Binding selectedLocation, Converter={x:Static ObjectConverters.IsNotNull}}"/>
+                 Content="{Binding stageInspector}"
+                 IsVisible="{Binding selectedStage, Converter={x:Static ObjectConverters.IsNotNull}}"/>
 
   </Grid>
   
