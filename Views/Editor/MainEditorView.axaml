@@ -17,7 +17,8 @@
                   Background="SlateGray">
         <ListBox Items="{Binding categories}" 
                  SelectedItem="{Binding selectedCategory}"
-                 Background="SlateGray">
+                 Background="SlateGray"
+                 MinHeight="600">
           <ListBox.ItemTemplate>
             
             <DataTemplate>

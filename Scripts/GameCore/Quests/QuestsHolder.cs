@@ -66,7 +66,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests
             }
         }
 
-        private static void SaveQuest(QuestType questType)
+        public static void SaveQuest(QuestType questType)
         {
             var quest = quests[questType];
             var filePath = Path.Combine(questFolderPath, questType + ".json");

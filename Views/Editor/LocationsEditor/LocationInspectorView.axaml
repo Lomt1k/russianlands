@@ -51,7 +51,7 @@
 
     <!-- Column 3: Subsettings -->
     <StackPanel Grid.Column="2" Orientation="Vertical" Spacing="20" Margin="20">
-      <Button Content="Save changes " Classes="SecondaryBig" Command="{Binding saveCommand}"/>
+      <Button Content="Save changes " Classes="NeutralBig" Command="{Binding saveCommand}"/>
       <Button Content="Reset changes" Classes="NeutralBig" Command="{Binding cancelCommand}"/>
     </StackPanel>
     

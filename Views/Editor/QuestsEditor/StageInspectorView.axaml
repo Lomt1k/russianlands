@@ -9,7 +9,6 @@
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="220"/>
       <ColumnDefinition Width="auto"/>
-      <ColumnDefinition Width="auto"/>
     </Grid.ColumnDefinitions>
 
     <!-- Column 1: Main Settings-->
@@ -20,14 +19,15 @@
       <TextBox Text="{Binding stage.comment}" AcceptsReturn="True"/>
       <CheckBox Content="jumpToStageIfNewSession"
                 IsChecked="{Binding hasJumpToStageIfNewSession}"/>
-      <TextBox Text="{Binding stage.jumpToStageIfNewSession}"/>
+      <TextBox Text="{Binding stage.jumpToStageIfNewSession}"
+               IsEnabled="{Binding hasJumpToStageIfNewSession}"/>
     </StackPanel>
 
     <!-- Column 2: Subsettings -->
-    <StackPanel Grid.Column="1" Orientation="Vertical">
+    <StackPanel Grid.Column="1" Orientation="Vertical" Margin="20,0">
 
       <!-- ItemGenerationSettings -->
-      <Border Background="WhiteSmoke" Padding="20,10">
+      <Border Background="WhiteSmoke" Padding="20,0" Margin="40,0">
         <StackPanel Orientation="Vertical" Spacing="10">
           <TextBlock Text="Item Generation Settings" Classes="h3"/>
           <ListBox Items="{Binding itemGenerationSettings}">
@@ -43,12 +43,6 @@
         </StackPanel>
       </Border>
 
-    </StackPanel>
-
-    <!-- Column 3: Subsettings -->
-    <StackPanel Grid.Column="2" Orientation="Vertical" Spacing="20" Margin="20">
-      <Button Content="Save changes " Classes="SecondaryBig" Command="{Binding saveCommand}"/>
-      <Button Content="Reset changes" Classes="NeutralBig" Command="{Binding cancelCommand}"/>
     </StackPanel>
 
   </Grid>

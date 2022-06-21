@@ -15,7 +15,7 @@
     <Grid.RowDefinitions>
       <RowDefinition Height="50"/>
       <RowDefinition Height="auto"/>
-      <RowDefinition Height="50"/>
+      <RowDefinition Height="auto"/>
     </Grid.RowDefinitions>
 
     <!-- Column 1: Quests -->
@@ -37,7 +37,7 @@
     <!-- Column 2: Stages -->
     <TextBlock Text="Stages" Grid.Column="1" Grid.Row="0" Classes="h3" Margin="40,0"/>
     <ListBox Grid.Column="1" Grid.Row="1" VerticalAlignment="Top" Margin="40,0"
-             MaxHeight="600"
+             Height="400"
              ScrollViewer.VerticalScrollBarVisibility="Disabled"
              Items="{Binding questStages}"
              SelectedItem="{Binding selectedStage}">
@@ -50,12 +50,26 @@
       </ListBox.ItemTemplate>
     </ListBox>
 
-    <StackPanel Grid.Column="1" Grid.Row="2" Margin="40,0" Orientation="Horizontal"
+    <StackPanel Grid.Column="1" Grid.Row="2" Margin="40,10" Orientation="Vertical"
                 Spacing="20">
-      <Button Content="Add" Command="{Binding addStageCommand}" Classes="Neutral"
+      <!-- Stage Add / Remove -->
+      <StackPanel Orientation="Horizontal" Spacing="20">
+        <Button Content="Add" Command="{Binding addStageCommand}" Classes="Neutral"
               IsVisible="{Binding selectedQuest, Converter={x:Static ObjectConverters.IsNotNull}}"/>
-      <Button Content="Remove" Command="{Binding removeStageCommand}" Classes="Negative"
-              IsVisible="{Binding selectedStage, Converter={x:Static ObjectConverters.IsNotNull}}"/>
+        <Button Content="Remove" Command="{Binding removeStageCommand}" Classes="Neutral"
+                IsVisible="{Binding selectedStage, Converter={x:Static ObjectConverters.IsNotNull}}"/>
+      </StackPanel>
+
+      <!-- Quest changes Save / Reset -->
+      <StackPanel Orientation="Vertical" Spacing="10"
+                  IsVisible="{Binding selectedQuest, Converter={x:Static ObjectConverters.IsNotNull}}">
+        <TextBlock Text="{Binding selectedQuest, StringFormat='Changes in {0}'}"/>
+        <StackPanel Orientation="Horizontal" Spacing="20">
+          <Button Content="Save" Command="{Binding saveQuestChangesCommand}" Classes="Neutral"/>
+          <Button Content="Reset" Command="{Binding resetQuestChangesCommand}" Classes="Neutral"/>
+        </StackPanel>
+      </StackPanel>
+      
     </StackPanel>
 
     <!-- Column 2: Location Inspector -->

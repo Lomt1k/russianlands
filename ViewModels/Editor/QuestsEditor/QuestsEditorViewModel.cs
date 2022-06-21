@@ -55,17 +55,21 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
         public StageInspectorView stageInspector { get; }
         public StageInspectorViewModel stageInspectorVM { get; }
 
-        public ReactiveCommand<Unit, Unit> addStageCommand { get;  }
-        public ReactiveCommand<Unit, Unit> removeStageCommand { get;  }
+        public ReactiveCommand<Unit,Unit> addStageCommand { get; }
+        public ReactiveCommand<Unit,Unit> removeStageCommand { get; }
+        public ReactiveCommand<Unit,Unit> saveQuestChangesCommand { get; }
+        public ReactiveCommand<Unit, Unit> resetQuestChangesCommand { get; }
 
         public QuestsEditorViewModel()
         {
             quests = EnumValueModel<QuestType>.CreateCollection(excludeValue: QuestType.None);
             addStageCommand = ReactiveCommand.Create(AddNewStage);
             removeStageCommand = ReactiveCommand.Create(RemoveSelectedStage);
+            saveQuestChangesCommand = ReactiveCommand.Create(SaveQuestChanges);
+            resetQuestChangesCommand = ReactiveCommand.Create(ReloadQuestFromData);
 
             stageInspector = new StageInspectorView();
-            stageInspector.DataContext = stageInspectorVM = new StageInspectorViewModel(this);
+            stageInspector.DataContext = stageInspectorVM = new StageInspectorViewModel();
         }
 
         public void AddNewStage()
@@ -109,6 +113,21 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
 
             questStages.Remove(selectedStage);
             selectedStage = null;
+        }
+
+        public void SaveQuestChanges()
+        {
+            if (_quest == null || _selectedQuest == null)
+                return;
+
+            _quest.stages = questStages.OrderBy(x => x.id).ToList();
+            QuestsHolder.SaveQuest(_selectedQuest.value);
+            ReloadQuestFromData();
+        }
+
+        public void ReloadQuestFromData()
+        {
+            selectedQuest = selectedQuest;
         }
 
 
