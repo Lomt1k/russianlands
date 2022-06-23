@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace TextGameRPG.Models
 {
-    internal class EnumValueModel<T> where T : Enum
+    public class EnumValueModel<T> where T : Enum
     {
         public string name;
         public T value;

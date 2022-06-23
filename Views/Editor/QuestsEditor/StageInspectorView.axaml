@@ -24,26 +24,8 @@
     </StackPanel>
 
     <!-- Column 2: Subsettings -->
-    <StackPanel Grid.Column="1" Orientation="Vertical" Margin="20,0">
-
-      <!-- ItemGenerationSettings -->
-      <Border Background="WhiteSmoke" Padding="20,0" Margin="40,0">
-        <StackPanel Orientation="Vertical" Spacing="10">
-          <TextBlock Text="Item Generation Settings" Classes="h3"/>
-          <ListBox Items="{Binding itemGenerationSettings}">
-            <ListBox.ItemTemplate>
-              <DataTemplate>
-                <StackPanel Orientation="Horizontal">
-                  <TextBlock Text="{Binding name}" Width="200" VerticalAlignment="Center"/>
-                  <TextBox Text="{Binding unparsedValue}"/>
-                </StackPanel>
-              </DataTemplate>
-            </ListBox.ItemTemplate>
-          </ListBox>
-        </StackPanel>
-      </Border>
-
-    </StackPanel>
+    <UserControl Grid.Column="1" Margin="20,0" 
+                 Content="{Binding specialStageInspector}"/>
 
   </Grid>
   

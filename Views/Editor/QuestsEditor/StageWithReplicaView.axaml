@@ -1,0 +1,19 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="800"
+             x:Class="TextGameRPG.Views.Editor.QuestsEditor.StageWithReplicaView">
+
+  <Border Background="WhiteSmoke" Padding="20,10" Width="300">
+    <StackPanel Spacing="10">
+      <TextBlock Classes="h3" Text="Replica"/>
+      <TextBlock Text="CharacterType"/>
+      <ComboBox Items="{Binding characters}" 
+                SelectedItem="{Binding selectedCharacter}"/>
+      <TextBlock Text="localizationKey"/>
+      <TextBox Text="{Binding stage.replica.localizationKey}"/>
+    </StackPanel>
+  </Border>
+  
+</UserControl>

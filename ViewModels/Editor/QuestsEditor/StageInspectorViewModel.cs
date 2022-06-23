@@ -1,5 +1,7 @@
 ﻿using TextGameRPG.Scripts.GameCore.Quests.QuestStages;
 using ReactiveUI;
+using Avalonia.Controls;
+using TextGameRPG.Views.Editor.QuestsEditor;
 
 namespace TextGameRPG.ViewModels.Editor.QuestsEditor
 {
@@ -8,6 +10,7 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
         private QuestStage? _stage;
         private bool _hasJumpToStageIfNewSession;
         private int? _jumpToStageIfNewSessionCache;
+        private UserControl? _specialStageInspector;
 
         public QuestStage? stage
         {
@@ -33,6 +36,12 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
             }
         }
 
+        public UserControl? specialStageInspector
+        {
+            get => _specialStageInspector;
+            set => this.RaiseAndSetIfChanged(ref _specialStageInspector, value);
+        }
+
         public StageInspectorViewModel()
         {
         }
@@ -42,6 +51,14 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
             this.stage = stage;
             _jumpToStageIfNewSessionCache = stage.jumpToStageIfNewSession;
             hasJumpToStageIfNewSession = stage.jumpToStageIfNewSession.HasValue;
+
+            switch (stage)
+            {
+                case QuestStageWithReplica withReplica:
+                    specialStageInspector = new StageWithReplicaView();
+                    specialStageInspector.DataContext = new StageWithReplicaViewModel(withReplica);
+                    break;
+            }
         }
 
     }

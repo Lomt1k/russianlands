@@ -102,6 +102,9 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
 
         private int GetDefaultIdForNewStage()
         {
+            if (questStages.Count == 0)
+                return 100;
+
             var maxId = questStages.Max(x => x.id);
             return maxId / 100 * 100 + 100;
         }
