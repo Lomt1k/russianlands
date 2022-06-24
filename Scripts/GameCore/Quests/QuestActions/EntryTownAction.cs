@@ -2,10 +2,12 @@
 using TextGameRPG.Scripts.TelegramBot.Dialogs.Town;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 
-namespace TextGameRPG.Scripts.GameCore.Quests.ActionsOnStartStage
+namespace TextGameRPG.Scripts.GameCore.Quests.StageActions
 {
-    internal class EntryTownAction : ActionOnStartStageBase
+    public class EntryTownAction : StageActionBase
     {
+        public override ActionType actionType => ActionType.EntryTown;
+
         public override async Task Execute(GameSession session)
         {
             await new TownEntryDialog(session, TownEntryReason.BackFromInnerDialog).Start();

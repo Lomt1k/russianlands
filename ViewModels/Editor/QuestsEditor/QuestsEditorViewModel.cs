@@ -93,7 +93,7 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
 
         private void AddNewStageWithEndingTrigger()
         {
-            var stage = new QuestStageWithEndingTrigger()
+            var stage = new QuestStageWithTrigger()
             {
                 id = GetDefaultIdForNewStage()
             };
