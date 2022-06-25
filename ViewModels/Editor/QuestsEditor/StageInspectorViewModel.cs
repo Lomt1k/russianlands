@@ -58,6 +58,21 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
                     specialStageInspector = new StageWithReplicaView();
                     specialStageInspector.DataContext = new StageWithReplicaViewModel(withReplica);
                     break;
+                case QuestStageWithTrigger withTrigger:
+                    specialStageInspector = new StageWithTriggerView();
+                    specialStageInspector.DataContext = new StageWithTriggerViewModel(withTrigger);
+                    break;
+            }
+        }
+
+        public void SaveChanges()
+        {
+            if (specialStageInspector == null)
+                return;
+
+            if (specialStageInspector.DataContext is StageWithTriggerViewModel vm)
+            {
+                vm.SaveChanges();
             }
         }
 

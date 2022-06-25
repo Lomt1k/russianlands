@@ -1,0 +1,36 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="TextGameRPG.Views.Editor.QuestsEditor.StageWithTriggerView">
+
+  <Border Background="WhiteSmoke" Padding="20,10" Width="500">
+    <StackPanel Spacing="10">
+      <TextBlock Classes="h3" Text="Stage With Trigger"/>
+      <CheckBox Content="isFocusRequired" IsChecked="{Binding stage.isFocusRequired}"/>
+
+      <!-- Tooltips -->
+      <TextBlock Classes="h3" Text="Tooltips"/>
+      <ListBox
+             ScrollViewer.VerticalScrollBarVisibility="Disabled"
+             Items="{Binding tooltipViews}"
+             SelectedItem="{Binding selectedTooltipView}">
+        <ListBox.ItemTemplate>
+          <DataTemplate>
+            <UserControl Content="{Binding}"/>
+          </DataTemplate>
+        </ListBox.ItemTemplate>
+      </ListBox>
+
+      <StackPanel Orientation="Horizontal" Spacing="20">
+        <Button Classes="Neutral" Content="Add"
+                Command="{Binding addNewTooltipCommand}"/>
+        <Button Classes="Neutral" Content="Remove"
+                Command="{Binding removeTooltipCommand}"/>
+      </StackPanel>
+
+    </StackPanel>
+  </Border>
+  
+</UserControl>

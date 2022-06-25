@@ -5,7 +5,7 @@ using TextGameRPG.Scripts.Utils;
 
 namespace TextGameRPG.Models.Editor.ItemsEditor
 {
-    internal class FieldModel
+    public class FieldModel
     {
         private string _unparsedValue;
 
@@ -91,12 +91,16 @@ namespace TextGameRPG.Models.Editor.ItemsEditor
                     success = _unparsedValue.TryParse<float>(out var floatResult);
                     if (success) value = floatResult;
                     break;
+                case TypeCode.String:
+                    value = _unparsedValue;
+                    success = true;
+                    break;
             }
 
             isValidValue = success;
         }
 
-        public static void FillObservableCollection<T>(ref ObservableCollection<FieldModel> collection, ref T obj, bool includeClasses = false)
+        public static void FillObservableCollection<T>(ref ObservableCollection<FieldModel> collection, T obj, bool includeClasses = false)
         {
             if (obj == null)
                 return;
@@ -105,11 +109,11 @@ namespace TextGameRPG.Models.Editor.ItemsEditor
             foreach (var fieldInfo in fields)
             {
                 var value = fieldInfo.GetValue(obj);
-                if (fieldInfo.FieldType.IsClass)
+                if (fieldInfo.FieldType.IsClass && !fieldInfo.FieldType.Name.Equals("String") )
                 {
                     if (includeClasses)
                     {
-                        FillObservableCollection(ref collection, ref value);
+                        FillObservableCollection(ref collection, value);
                     }
                     continue;
                 }

@@ -60,7 +60,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
         private void RefreshFields()
         {
             propertyFields.Clear();
-            FieldModel.FillObservableCollection(ref _propertyFields, ref _tempProperty);
+            FieldModel.FillObservableCollection(ref _propertyFields, _tempProperty);
         }
 
         private void SaveProperty()

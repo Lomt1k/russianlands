@@ -1,0 +1,34 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="600"
+             x:Class="TextGameRPG.Views.Editor.UserControls.ObjectFieldsEditorView">
+
+  <Border Background="SlateGray" Padding="5">
+    <Border Background="WhiteSmoke" Padding="5">
+
+      <StackPanel>
+        <TextBlock Text="{Binding objectName}"/>
+
+        <ListBox
+             ScrollViewer.VerticalScrollBarVisibility="Disabled"
+             Items="{Binding fields}">
+          <ListBox.ItemTemplate>
+            <DataTemplate>
+              <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding name}"
+                           VerticalAlignment="Center"
+                           Width="200"/>
+                <TextBox Text="{Binding unparsedValue}"/>
+              </StackPanel>
+            </DataTemplate>
+          </ListBox.ItemTemplate>
+        </ListBox>        
+        
+      </StackPanel>
+      
+    </Border>
+  </Border>
+
+</UserControl>

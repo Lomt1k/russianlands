@@ -8,7 +8,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
     [JsonObject]
     public class QuestStageWithTrigger : QuestStage
     {
-        public bool focusRequired = false;
+        public bool isFocusRequired { get; set; } = false;
         public List<StageActionBase> questActions { get; set; } = new List<StageActionBase>();
         public List<Tooltip> tooltips { get; set; } = new List<Tooltip>();
         public List<NextStageTriggerBase> nextStageTriggers { get; set; } = new List<NextStageTriggerBase>();
@@ -17,9 +17,9 @@ namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
     [JsonObject]
     public class Tooltip
     {
-        public string comment { get; set; } = "New Tooltip";
-        public string dialogType { get; set; } = string.Empty;
-        public string localizationKey { get; set; } = string.Empty;
+        public string comment = "New Tooltip";
+        public string dialogType = string.Empty;
+        public string localizationKey = string.Empty;
     }
 
 

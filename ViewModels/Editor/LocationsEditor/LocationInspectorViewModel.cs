@@ -46,8 +46,8 @@ namespace TextGameRPG.ViewModels.Editor.LocationsEditor
 
             _generalData.Clear();
             _itemGenerationSettings.Clear();
-            FieldModel.FillObservableCollection(ref _generalData, ref _tempLocation);
-            FieldModel.FillObservableCollection(ref _itemGenerationSettings, ref _tempLocation.itemGenerationSettings);
+            FieldModel.FillObservableCollection(ref _generalData, _tempLocation);
+            FieldModel.FillObservableCollection(ref _itemGenerationSettings, _tempLocation.itemGenerationSettings);
         }
 
         private void SaveChanges()

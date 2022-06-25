@@ -123,6 +123,7 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
             if (_quest == null || _selectedQuest == null)
                 return;
 
+            stageInspectorVM?.SaveChanges();
             _quest.stages = questStages.OrderBy(x => x.id).ToList();
             QuestsHolder.SaveQuest(_selectedQuest.value);
             ReloadQuestFromData();
