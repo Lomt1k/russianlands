@@ -16,11 +16,12 @@
              Items="{Binding fields}">
           <ListBox.ItemTemplate>
             <DataTemplate>
-              <StackPanel Orientation="Horizontal">
+              <StackPanel Orientation="Horizontal" Margin="-5">
                 <TextBlock Text="{Binding name}"
                            VerticalAlignment="Center"
-                           Width="200"/>
-                <TextBox Text="{Binding unparsedValue}"/>
+                           Width="150"/>
+                <TextBox Text="{Binding unparsedValue}"
+                         AcceptsReturn="True"/>
               </StackPanel>
             </DataTemplate>
           </ListBox.ItemTemplate>

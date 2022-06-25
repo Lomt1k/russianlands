@@ -5,32 +5,36 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="TextGameRPG.Views.Editor.QuestsEditor.StageWithTriggerView">
 
-  <Border Background="WhiteSmoke" Padding="20,10" Width="500">
-    <StackPanel Spacing="10">
-      <TextBlock Classes="h3" Text="Stage With Trigger"/>
-      <CheckBox Content="isFocusRequired" IsChecked="{Binding stage.isFocusRequired}"/>
+  <Border Background="WhiteSmoke" Padding="20,0,0,0" Width="500">
+    <ScrollViewer Height="800" Padding="0,0,20,0"
+                  VerticalScrollBarVisibility="Visible" AllowAutoHide="False">
+      
+      <StackPanel Spacing="10">
+        <TextBlock Classes="h3" Text="Stage With Trigger" Padding="0,10,0,0"/>
+        <CheckBox Content="isFocusRequired" IsChecked="{Binding stage.isFocusRequired}"/>
 
-      <!-- Tooltips -->
-      <TextBlock Classes="h3" Text="Tooltips"/>
-      <ListBox
-             ScrollViewer.VerticalScrollBarVisibility="Disabled"
-             Items="{Binding tooltipViews}"
-             SelectedItem="{Binding selectedTooltipView}">
-        <ListBox.ItemTemplate>
-          <DataTemplate>
-            <UserControl Content="{Binding}"/>
-          </DataTemplate>
-        </ListBox.ItemTemplate>
-      </ListBox>
+        <!-- Tooltips -->
+        <TextBlock Classes="h3" Text="Tooltips"/>
+        <ListBox
+               ScrollViewer.VerticalScrollBarVisibility="Disabled"
+               Items="{Binding tooltipViews}"
+               SelectedItem="{Binding selectedTooltipView}">
+          <ListBox.ItemTemplate>
+            <DataTemplate>
+              <UserControl Content="{Binding}"/>
+            </DataTemplate>
+          </ListBox.ItemTemplate>
+        </ListBox>
 
-      <StackPanel Orientation="Horizontal" Spacing="20">
-        <Button Classes="Neutral" Content="Add"
-                Command="{Binding addNewTooltipCommand}"/>
-        <Button Classes="Neutral" Content="Remove"
-                Command="{Binding removeTooltipCommand}"/>
+        <StackPanel Orientation="Horizontal" Spacing="20">
+          <Button Classes="Neutral" Content="Add"
+                  Command="{Binding addNewTooltipCommand}"/>
+          <Button Classes="Neutral" Content="Remove"
+                  Command="{Binding removeTooltipCommand}"/>
+        </StackPanel>
+
       </StackPanel>
-
-    </StackPanel>
+    </ScrollViewer>    
   </Border>
   
 </UserControl>

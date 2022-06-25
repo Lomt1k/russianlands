@@ -58,7 +58,9 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
             if (_selectedTooltipView == null)
                 return;
 
-            //TODO
+            var tooltipToRemove = (Tooltip)_selectedTooltipView.viewModel.editableObject;
+            stage.tooltips.Remove(tooltipToRemove);
+            RefillTooltipsCollection();
         }
 
         public void SaveChanges()

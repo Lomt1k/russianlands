@@ -6,29 +6,27 @@ namespace TextGameRPG.ViewModels.UserControls
 {
     public class ObjectFieldsEditorViewModel : ViewModelBase
     {
-        private object _object;
         private ObservableCollection<FieldModel> _fields = new ObservableCollection<FieldModel>();
 
-        public string objectName { get; }
+        public object editableObject {get; private set; }
+        public string objectName  => editableObject.GetType().Name;
         public ObservableCollection<FieldModel> fields => _fields;
 
         public ObjectFieldsEditorViewModel(object obj)
         {
-            _object = obj;
-
             FieldModel.FillObservableCollection(ref _fields, obj);
-            objectName = obj.GetType().Name;
+            editableObject = obj;
         }
 
         public void SaveObjectChanges()
         {
-            var fieldInfos = _object.GetType().GetFields();
+            var fieldInfos = editableObject.GetType().GetFields();
             foreach (var fieldInfo in fieldInfos)
             {
                 var fieldModel = _fields.Where(x => x.name.Equals(fieldInfo.Name)).First();
                 if (fieldModel.isValidValue)
                 {
-                    fieldInfo.SetValue(_object, fieldModel.value);
+                    fieldInfo.SetValue(editableObject, fieldModel.value);
                 }
             }
         }
