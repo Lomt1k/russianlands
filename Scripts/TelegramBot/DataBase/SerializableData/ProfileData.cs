@@ -11,7 +11,6 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData
         public string username;
         public string language;
         public string nickname;
-        public short tutorialStage;
         public byte level;
         public byte lastUnlockedLocation;
         public ushort resourceArrows;
@@ -28,7 +27,6 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData
                 new TableColumn("username", "TEXT", "na"),
                 new TableColumn("language", "TEXT", "ru"),
                 new TableColumn("nickname", "TEXT", "na"),
-                new TableColumn("tutorialStage", "INTEGER", "0"),
                 new TableColumn("level", "INTEGER", "1"),
                 new TableColumn("lastUnlockedLocation", "INTEGER", "1"),
                 new TableColumn("resourceArrows", "INTEGER", "30"), // пока поставил 30 по умолчанию, можно поменять
@@ -37,8 +35,6 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData
                 new TableColumn("resourceDiamonds", "INTEGER", "0"),
             };
         }
-
-        public bool isTutorialCompleted => tutorialStage == -1;
 
         public ProfileData(DataRow data) : base(data) 
         {

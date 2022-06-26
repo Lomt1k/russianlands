@@ -3,11 +3,8 @@ namespace TextGameRPG.Scripts.GameCore.Quests.Characters
 {
     internal class Character
     {
-        public string nameLocalizationKey = string.Empty;
-
-        public Character(string _localizationKey)
+        public Character()
         {
-            nameLocalizationKey = _localizationKey;
         }
 
     }

@@ -101,6 +101,7 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
             RegularDialogHelper.ShowItemSelectionDialog("Select action type:", new Dictionary<string, Action>()
             {
                 {"Show Select Language Dialog", () => { stage.questActions.Add(new ShowLanguageSelectionDialogAction()); RefillActionsCollection(); } },
+                {"Show Enter Name Dialog", () => { stage.questActions.Add(new ShowEnterNameDialogAction()); RefillActionsCollection(); } },
                 {"Entry Town", () => { stage.questActions.Add(new EntryTownAction()); RefillActionsCollection(); } },
                 {"Restore Full Health", () => { stage.questActions.Add(new RestoreFullHealthAction()); RefillActionsCollection(); } },
             });

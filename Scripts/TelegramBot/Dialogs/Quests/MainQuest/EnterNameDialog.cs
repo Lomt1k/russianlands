@@ -1,23 +1,26 @@
-﻿using Telegram.Bot.Types;
-using TextGameRPG.Scripts.TelegramBot.Sessions;
+﻿using System.Threading.Tasks;
+using Telegram.Bot.Types;
 using TextGameRPG.Scripts.GameCore.Localizations;
+using TextGameRPG.Scripts.GameCore.Quests;
+using TextGameRPG.Scripts.GameCore.Quests.Characters;
+using TextGameRPG.Scripts.GameCore.Quests.NextStageTriggers;
+using TextGameRPG.Scripts.TelegramBot.Sessions;
 using TextGameRPG.Scripts.Utils;
-using System.Threading.Tasks;
 
-namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Tutorial
+namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Quests.MainQuest
 {
-    public class TutorialEnterNameDialog : DialogBase
+    internal class EnterNameDialog : DialogBase
     {
         private const int minNameLength = 2;
         private const int maxNameLength = 20;
 
-        public TutorialEnterNameDialog(GameSession _session) : base(_session)
+        public EnterNameDialog(GameSession _session) : base(_session)
         {
         }
 
         public override async Task Start()
         {
-            string text = Localization.Get(session, "dialog_tutorial_enterName_text");
+            string text = CharacterType.Vasilisa.GetNameBold(session) + "\n\n" + Localization.Get(session, "dialog_tutorial_enterName_text");
 
             string fullname = $"{session.actualUser.FirstName} {session.actualUser.LastName}";
             RegisterButton(fullname, null);
@@ -49,9 +52,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Tutorial
             }
 
             session.profile.data.nickname = nickname;
-            await TutorialManager.StartNextStage(session);
+            await QuestManager.TryInvokeTrigger(session, TriggerType.InvokeFromCode);
         }
-
-
     }
 }
