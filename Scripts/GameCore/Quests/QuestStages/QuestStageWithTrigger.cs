@@ -1,4 +1,4 @@
-﻿using TextGameRPG.Scripts.GameCore.Quests.StageActions;
+﻿using TextGameRPG.Scripts.GameCore.Quests.QuestActions;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using TextGameRPG.Scripts.GameCore.Quests.NextStageTriggers;

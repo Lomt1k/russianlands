@@ -9,7 +9,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town
     {
         StartNewSession,
         EndTutorial,
-        BackFromInnerDialog
+        BackFromInnerDialog,
+        FromQuestAction
     }
 
     public class TownEntryDialog : DialogBase
@@ -48,6 +49,9 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town
                     text = header + "\n\n" + Localization.Get(session, "dialog_tutorial_town_entry_text_endTutorial");
                     break;
                 case TownEntryReason.BackFromInnerDialog:
+                    text = header + "\n" + resources + Localization.Get(session, "dialog_tutorial_town_entry_text_backFromInnerDialog");
+                    break;
+                case TownEntryReason.FromQuestAction:
                     text = header + "\n" + resources + Localization.Get(session, "dialog_tutorial_town_entry_text_backFromInnerDialog");
                     break;
 

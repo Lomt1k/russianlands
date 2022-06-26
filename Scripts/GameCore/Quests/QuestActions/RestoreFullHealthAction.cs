@@ -1,16 +1,15 @@
 ﻿using Newtonsoft.Json;
 using System.Threading.Tasks;
-using TextGameRPG.Scripts.TelegramBot.Dialogs.Town;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Quests.QuestActions
 {
     [JsonObject]
-    public class EntryTownAction : StageActionBase
+    internal class RestoreFullHealthAction : StageActionBase
     {
         public override async Task Execute(GameSession session)
         {
-            await new TownEntryDialog(session, TownEntryReason.FromQuestAction).Start();
+            session.player.unitStats.SetFullHealth();
         }
     }
 }
