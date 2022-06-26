@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
 using JsonKnownTypes;
+using System.Threading.Tasks;
+using TextGameRPG.Scripts.TelegramBot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
 {
@@ -14,6 +16,9 @@ namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
         {
             return $"{id} | {comment}";
         }
+
+        public abstract Task InvokeStage(GameSession session);
+
     }
 
 

@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using JsonKnownTypes;
 using System;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
@@ -10,8 +9,7 @@ using TextGameRPG.Scripts.GameCore.Units;
 using TextGameRPG.Scripts.TelegramBot.CallbackData;
 using TextGameRPG.Scripts.TelegramBot.DataBase.TablesStructure;
 using TextGameRPG.Scripts.TelegramBot.Dialogs;
-using TextGameRPG.Scripts.TelegramBot.Dialogs.Town;
-using TextGameRPG.Scripts.TelegramBot.Dialogs.Tutorial;
+using TextGameRPG.Scripts.GameCore.Quests;
 
 namespace TextGameRPG.Scripts.TelegramBot.Sessions
 {
@@ -130,14 +128,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
             language = Enum.Parse<LanguageCode>(profileData.language);
             player = new Player(this);
 
-            if (!profileData.isTutorialCompleted)
-            {
-                await TutorialManager.StartCurrentStage(this);
-            }
-            else
-            {
-                await new TownEntryDialog(this, TownEntryReason.StartNewSession).Start();
-            }
+            await QuestManager.HandleNewSession(this);
         }
 
         public async Task OnCloseSession()

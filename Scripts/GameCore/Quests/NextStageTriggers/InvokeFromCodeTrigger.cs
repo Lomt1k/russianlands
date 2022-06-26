@@ -3,9 +3,9 @@
 namespace TextGameRPG.Scripts.GameCore.Quests.NextStageTriggers
 {
     [JsonObject]
-    internal class OnDialogCloseTrigger : TriggerBase
+    internal class InvokeFromCodeTrigger : TriggerBase
     {
-        public override TriggerType triggerType => TriggerType.OnDialogClose;
+        public override TriggerType triggerType => TriggerType.InvokeFromCode;
 
         public override bool TryInvoke()
         {

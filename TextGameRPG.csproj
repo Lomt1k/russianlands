@@ -10,10 +10,6 @@
   </PropertyGroup>
   <ItemGroup>
     <AvaloniaResource Include="Assets\**" />
-    <AvaloniaXaml Remove="Scripts\TelegramBot\Dialogs\Quests\**" />
-    <Compile Remove="Scripts\TelegramBot\Dialogs\Quests\**" />
-    <EmbeddedResource Remove="Scripts\TelegramBot\Dialogs\Quests\**" />
-    <None Remove="Scripts\TelegramBot\Dialogs\Quests\**" />
     <None Remove=".gitignore" />
   </ItemGroup>
   <ItemGroup>

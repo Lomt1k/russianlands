@@ -2,6 +2,8 @@
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using TextGameRPG.Scripts.GameCore.Quests.NextStageTriggers;
+using System.Threading.Tasks;
+using TextGameRPG.Scripts.TelegramBot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
 {
@@ -12,6 +14,15 @@ namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
         public List<StageActionBase> questActions { get; set; } = new List<StageActionBase>();
         public List<Tooltip> tooltips { get; set; } = new List<Tooltip>();
         public List<TriggerBase> nextStageTriggers { get; set; } = new List<TriggerBase>();
+
+        public override async Task InvokeStage(GameSession session)
+        {
+            foreach (var action in questActions)
+            {
+                await action.Execute(session);
+            }
+        }
+
     }
 
     [JsonObject]

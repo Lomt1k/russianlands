@@ -24,21 +24,34 @@ namespace TextGameRPG.Scripts.GameCore.Quests
             _stagesById = stages.ToDictionary(x => x.id);
         }
 
-        public int GetCurrentStage(GameSession session)
+        public int GetCurrentStageId(GameSession session)
         {
             return session.profile.dynamicData.quests.GetStage(questType);
         }
 
+        public QuestStage GetCurrentStage(GameSession session)
+        {
+            var stageId = GetCurrentStageId(session);
+            return stages[stageId];
+        }
+
         public async Task SetStage(GameSession session, int stageId)
         {
-            session.profile.dynamicData.quests.SetStage(questType, stageId);
+            if (stageId <= 0)
+            {
+                session.profile.dynamicData.quests.SetStage(questType, stageId, false);
+                return;
+            }
+
             var stage = _stagesById[stageId];
-            //TODO
+            bool isFocusRequired = IsFocusRequired(stage);
+            session.profile.dynamicData.quests.SetStage(questType, stageId, isFocusRequired);
+            await stage.InvokeStage(session);
         }
 
         public bool IsCompleted(GameSession session)
         {
-            return session.profile.dynamicData.quests.IsFinished(questType);
+            return session.profile.dynamicData.quests.IsCompleted(questType);
         }
 
         public bool IsStarted(GameSession session)
@@ -49,6 +62,29 @@ namespace TextGameRPG.Scripts.GameCore.Quests
         public async Task StartQuest(GameSession session)
         {
             await SetStage(session, STAGE_FIRST);
+        }
+
+        public bool IsFocusRequired(GameSession session)
+        {
+            if (!IsStarted(session) || IsCompleted(session))
+                return false;
+
+            var stageId = GetCurrentStageId(session);
+            var stage = _stagesById[stageId];
+            return IsFocusRequired(stage);
+        }
+
+        public bool IsFocusRequired(QuestStage stage)
+        {
+            switch (stage)
+            {
+                case QuestStageWithReplica withReplica:
+                    return true;
+                case QuestStageWithTrigger withTrigger:
+                    return withTrigger.isFocusRequired;
+                default:
+                    return false;
+            }
         }
 
     }

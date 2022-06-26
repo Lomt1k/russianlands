@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Quests.Characters;
+using TextGameRPG.Scripts.TelegramBot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
 {
@@ -8,6 +10,12 @@ namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
     public class QuestStageWithReplica : QuestStage
     {
         public Replica replica { get; set; } = new Replica();
+
+        public override Task InvokeStage(GameSession session)
+        {
+            //TODO
+            return Task.CompletedTask;
+        }
     }
 
     [JsonObject]

@@ -100,6 +100,7 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
         {
             RegularDialogHelper.ShowItemSelectionDialog("Select action type:", new Dictionary<string, Action>()
             {
+                {"Show Select Language Dialog", () => { stage.questActions.Add(new ShowLanguageSelectionDialogAction()); RefillActionsCollection(); } },
                 {"Entry Town", () => { stage.questActions.Add(new EntryTownAction()); RefillActionsCollection(); } },
                 {"Restore Full Health", () => { stage.questActions.Add(new RestoreFullHealthAction()); RefillActionsCollection(); } },
             });
@@ -135,7 +136,7 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
         {
             RegularDialogHelper.ShowItemSelectionDialog("Select trigger type:", new Dictionary<string, Action>()
             {
-                {"On Dialog Close", () => { stage.nextStageTriggers.Add(new OnDialogCloseTrigger()); RefillTriggersCollection(); } },
+                {"Invoke From Code", () => { stage.nextStageTriggers.Add(new InvokeFromCodeTrigger()); RefillTriggersCollection(); } },
             });
         }
 

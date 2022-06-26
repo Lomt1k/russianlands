@@ -1,12 +1,14 @@
 ﻿using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Localizations;
+using TextGameRPG.Scripts.GameCore.Quests;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
+using TextGameRPG.Scripts.GameCore.Quests.NextStageTriggers;
 
-namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Tutorial
+namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Quests.MainQuest
 {
-    public class TutorialSelectLanguageDialog : DialogBase
+    public class SelectLanguageDialog : DialogBase
     {
-        public TutorialSelectLanguageDialog(GameSession _session) : base(_session)
+        public SelectLanguageDialog(GameSession _session) : base(_session)
         {
         }
 
@@ -36,7 +38,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Tutorial
         {
             session.profile.data.language = language.ToString();
             session.SetupLanguage(language);
-            await TutorialManager.StartNextStage(session);
+            await QuestManager.TryInvokeTrigger(session, TriggerType.InvokeFromCode);
         }
     }
 }
