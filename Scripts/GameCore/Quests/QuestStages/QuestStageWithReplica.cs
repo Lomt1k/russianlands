@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Quests.Characters;
+using TextGameRPG.Scripts.TelegramBot.Dialogs.Quests;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
@@ -11,10 +12,9 @@ namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
     {
         public Replica replica { get; set; } = new Replica();
 
-        public override Task InvokeStage(GameSession session)
+        public override async Task InvokeStage(GameSession session)
         {
-            //TODO
-            return Task.CompletedTask;
+            await new QuestReplicaDialog(session, replica).Start();
         }
     }
 

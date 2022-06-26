@@ -32,7 +32,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests
         public QuestStage GetCurrentStage(GameSession session)
         {
             var stageId = GetCurrentStageId(session);
-            return stages[stageId];
+            return _stagesById[stageId];
         }
 
         public async Task SetStage(GameSession session, int stageId)
