@@ -76,8 +76,8 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
         {
             RegularDialogHelper.ShowItemSelectionDialog("Select stage type:", new Dictionary<string, Action>()
             {
-                { "Default", AddNewStageWithEndingTrigger },
-                { "Replica", AddNewStageWithReplica }
+                { "Stage With Trigger", AddNewStageWithEndingTrigger },
+                { "Stage With Replica", AddNewStageWithReplica }
             });
         }
 

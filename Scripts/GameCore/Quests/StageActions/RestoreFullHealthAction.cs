@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 
-namespace TextGameRPG.Scripts.GameCore.Quests.QuestActions
+namespace TextGameRPG.Scripts.GameCore.Quests.StageActions
 {
     [JsonObject]
     internal class RestoreFullHealthAction : StageActionBase

@@ -3,6 +3,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests.NextStageTriggers
 {
     public enum TriggerType : ushort
     {
-        None = 0
+        None = 0,
+        OnDialogClose
     }
 }

@@ -5,6 +5,7 @@
         mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="490"
         Width="300" Height="490"
         x:Class="TextGameRPG.Views.RegularDialogs.ItemSelectionDialog"
+        WindowStartupLocation="CenterOwner"
         Title="{Binding description}">
   
   <StackPanel Orientation="Vertical" Margin="20" Spacing="20"
@@ -13,7 +14,8 @@
     <ListBox VerticalAlignment="Top" Width="250" Height="400"
              ScrollViewer.VerticalScrollBarVisibility="Disabled"
              Items="{Binding items}"
-             SelectedItem="{Binding selectedItem}">
+             SelectedItem="{Binding selectedItem}"
+             SelectionMode="AlwaysSelected">
       <ListBox.ItemTemplate>
         <DataTemplate>
           <TextBlock Text="{Binding}"/>

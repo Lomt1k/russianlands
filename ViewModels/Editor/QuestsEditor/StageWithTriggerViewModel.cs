@@ -1,13 +1,14 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Reactive;
+using System.Collections.ObjectModel;
 using System.Collections.Generic;
+using ReactiveUI;
 using TextGameRPG.Models.UserControls;
 using TextGameRPG.Scripts.GameCore.Quests.QuestStages;
 using TextGameRPG.Views.Editor.UserControls;
-using ReactiveUI;
-using System.Reactive;
 using TextGameRPG.Scripts.GameCore.Quests.NextStageTriggers;
 using TextGameRPG.Models.RegularDialogs;
-using TextGameRPG.Scripts.GameCore.Quests.QuestActions;
+using TextGameRPG.Scripts.GameCore.Quests.StageActions;
 
 namespace TextGameRPG.ViewModels.Editor.QuestsEditor
 {
@@ -32,7 +33,7 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
             get => _selectedTooltipView;
             set => this.RaiseAndSetIfChanged(ref _selectedTooltipView, value);
         }
-        public ObjectFieldsEditorView? selectedTiggerView
+        public ObjectFieldsEditorView? selectedTriggerView
         {
             get => _selectedTriggerView;
             set => this.RaiseAndSetIfChanged(ref _selectedTriggerView, value);
@@ -97,7 +98,7 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
 
         public void AddNewAction()
         {
-            RegularDialogHelper.ShowItemSelectionDialog("Select action type:", new Dictionary<string, System.Action>()
+            RegularDialogHelper.ShowItemSelectionDialog("Select action type:", new Dictionary<string, Action>()
             {
                 {"Entry Town", () => { stage.questActions.Add(new EntryTownAction()); RefillActionsCollection(); } },
                 {"Restore Full Health", () => { stage.questActions.Add(new RestoreFullHealthAction()); RefillActionsCollection(); } },
@@ -132,7 +133,10 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
 
         public void AddNewTrigger()
         {
-            //TODO
+            RegularDialogHelper.ShowItemSelectionDialog("Select trigger type:", new Dictionary<string, Action>()
+            {
+                {"On Dialog Close", () => { stage.nextStageTriggers.Add(new OnDialogCloseTrigger()); RefillTriggersCollection(); } },
+            });
         }
 
         public void RemoveSelectedTrigger()
@@ -140,7 +144,7 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
             if (_selectedTriggerView == null)
                 return;
 
-            var triggerToRemove = (NextStageTriggerBase)_selectedTriggerView.viewModel.editableObject;
+            var triggerToRemove = (TriggerBase)_selectedTriggerView.viewModel.editableObject;
             stage.nextStageTriggers.Remove(triggerToRemove);
             RefillTriggersCollection();
         }
