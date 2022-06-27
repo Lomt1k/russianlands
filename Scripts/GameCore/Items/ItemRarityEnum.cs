@@ -3,7 +3,7 @@ using TextGameRPG.Scripts.TelegramBot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Items
 {
-    public enum ItemRarity : byte
+    public enum Rarity : byte
     {
         Common = 0,
         Rare = 1,
@@ -13,7 +13,7 @@ namespace TextGameRPG.Scripts.GameCore.Items
 
     public static class ItemRarityExtensions
     {
-        public static string GetView(this ItemRarity rarity, GameSession session)
+        public static string GetView(this Rarity rarity, GameSession session)
         {
             return Localizations.Localization.Get(session, $"item_rarity_{rarity.ToString().ToLower()}");
         }

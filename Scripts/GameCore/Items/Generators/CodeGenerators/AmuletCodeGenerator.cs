@@ -24,13 +24,13 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators
             () => TryAppendAbility(AbilityType.AddManaEveryTurn),
         };
 
-        public AmuletCodeGenerator(ItemType _type, ItemRarity _rarity, ushort _level, int _basisPoints) : base(_type, _rarity, _level, _basisPoints)
+        public AmuletCodeGenerator(ItemType _type, Rarity _rarity, ushort _level, int _basisPoints) : base(_type, _rarity, _level, _basisPoints)
         {
             if (type != ItemType.Amulet)
             {
                 throw new ArgumentException($"{GetType()} can not generate item with type '{_type}'");
             }
-            if (rarity == ItemRarity.Common)
+            if (rarity == Rarity.Common)
             {
                 throw new ArgumentException($"{GetType()} can not generate items with '{_rarity}' rarity");
             }
@@ -43,9 +43,9 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators
             int needOptionsCount = 0;
             switch (rarity)
             {
-                case ItemRarity.Rare: needOptionsCount = 1; break;
-                case ItemRarity.Epic: needOptionsCount = 2; break;
-                case ItemRarity.Legendary: needOptionsCount = 3; break;
+                case Rarity.Rare: needOptionsCount = 1; break;
+                case Rarity.Epic: needOptionsCount = 2; break;
+                case Rarity.Legendary: needOptionsCount = 3; break;
             }
 
             while (needOptionsCount > 0)

@@ -13,8 +13,8 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             var rarityMult = 1f;
             switch (seed.rarity)
             {
-                case ItemRarity.Epic: rarityMult = 1.1f; break;
-                case ItemRarity.Legendary: rarityMult = 1.3f; break;
+                case Rarity.Epic: rarityMult = 1.1f; break;
+                case Rarity.Legendary: rarityMult = 1.3f; break;
             }
             AddBaseParameters(rarityMult);
             AddProperties();

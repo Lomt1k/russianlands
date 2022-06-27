@@ -13,7 +13,7 @@ namespace TextGameRPG.Scripts.GameCore.Items
         public string debugName { get; set; } //TODO: для продакшна очень важно отказаться от этого поля (как вариант при старте бота присваивать string.empty)
         public int id { get; }
         public ItemType itemType { get; set; }
-        public ItemRarity itemRarity { get; set; }
+        public Rarity itemRarity { get; set; }
         public ushort requiredLevel { get; set; }
         public byte requiredCharge { get; set; }
         public List<ItemAbilityBase> abilities { get; private set; } = new List<ItemAbilityBase>();
@@ -27,7 +27,7 @@ namespace TextGameRPG.Scripts.GameCore.Items
         [JsonIgnore]
         public Dictionary<PropertyType, ItemPropertyBase> propertyByType;
 
-        public static ItemData brokenItem = new ItemData(ItemType.Sword, ItemRarity.Common, 0, 0, new List<ItemAbilityBase>(), new List<ItemPropertyBase>()) 
+        public static ItemData brokenItem = new ItemData(ItemType.Sword, Rarity.Common, 0, 0, new List<ItemAbilityBase>(), new List<ItemPropertyBase>()) 
         { debugName = "Broken Item" };
 
         [JsonConstructor]
@@ -39,7 +39,7 @@ namespace TextGameRPG.Scripts.GameCore.Items
         }
 
         // for item generator
-        public ItemData(ItemType _type, ItemRarity _rarity, ushort _level, byte _charge,
+        public ItemData(ItemType _type, Rarity _rarity, ushort _level, byte _charge,
             List<ItemAbilityBase> _abilities, List<ItemPropertyBase> _properties)
         {
             debugName = $"Generated {_type}";

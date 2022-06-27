@@ -14,7 +14,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Commands
             if (args.Length != 1)
                 return;
 
-            if (!args[0].TryParse(out ItemRarity rarity))
+            if (!args[0].TryParse(out Rarity rarity))
                 return;
 
             var settings = LocationsHolder.Get(LocationType.DarkForest).data.itemGenerationSettings;

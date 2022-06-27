@@ -14,13 +14,13 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
         private EditItemWindow _window;
         private bool _isNewItem;
         private EnumValueModel<ItemType> _selectedItemType;
-        private EnumValueModel<ItemRarity> _selectedItemRarity;
+        private EnumValueModel<Rarity> _selectedItemRarity;
         private ItemAbilityBase? _selectedAbility;
         private ItemPropertyBase? _selectedProperty;
 
         public ItemData editableItem { get; }
         public ObservableCollection<EnumValueModel<ItemType>> itemTypeList { get; }
-        public ObservableCollection<EnumValueModel<ItemRarity>> itemRarityList { get; }
+        public ObservableCollection<EnumValueModel<Rarity>> itemRarityList { get; }
         public ObservableCollection<ItemAbilityBase> itemAbilities { get; }
         public ObservableCollection<ItemPropertyBase> itemProperties { get; }
 
@@ -34,7 +34,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
             }
         }
 
-        public EnumValueModel<ItemRarity> selectedItemRarity
+        public EnumValueModel<Rarity> selectedItemRarity
         {
             get => _selectedItemRarity;
             set
@@ -73,12 +73,12 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
 
             editableItem = item.Clone();
             itemTypeList = EnumValueModel<ItemType>.CreateCollection(excludeValue: ItemType.Any);
-            itemRarityList = EnumValueModel<ItemRarity>.CreateCollection();
+            itemRarityList = EnumValueModel<Rarity>.CreateCollection();
             itemAbilities = new ObservableCollection<ItemAbilityBase>(editableItem.abilities);
             itemProperties = new ObservableCollection<ItemPropertyBase>(editableItem.properties);
 
             _selectedItemType = EnumValueModel<ItemType>.GetModel(itemTypeList, editableItem.itemType);
-            _selectedItemRarity = EnumValueModel<ItemRarity>.GetModel(itemRarityList, editableItem.itemRarity);
+            _selectedItemRarity = EnumValueModel<Rarity>.GetModel(itemRarityList, editableItem.itemRarity);
 
             addAbilityCommand = ReactiveCommand.Create(AddNewAbility);
             editAbilityCommand = ReactiveCommand.Create(EditSelectedAbility);

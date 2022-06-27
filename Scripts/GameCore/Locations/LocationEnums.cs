@@ -5,5 +5,7 @@ namespace TextGameRPG.Scripts.GameCore.Locations
     {
         None = 0,
         DarkForest = 1,
+        Outskirts = 2,
+        MiddleEarth = 3
     }
 }

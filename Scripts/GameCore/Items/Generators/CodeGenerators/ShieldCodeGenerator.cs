@@ -21,7 +21,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators
 
         private readonly string[] _rareOptions = new[] { "DF", "DC", "DL" };
 
-        public ShieldCodeGenerator(ItemType _type, ItemRarity _rarity, ushort _level, int _basisPoints) : base(_type, _rarity, _level, _basisPoints)
+        public ShieldCodeGenerator(ItemType _type, Rarity _rarity, ushort _level, int _basisPoints) : base(_type, _rarity, _level, _basisPoints)
         {
             if (type != ItemType.Shield)
             {
@@ -32,7 +32,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators
         public override void AppendSpecificInfo()
         {
             var random = new Random();
-            if (rarity != ItemRarity.Common)
+            if (rarity != Rarity.Common)
             {
                 var index = random.Next(_rareOptions.Length);
                 sb.Append(_rareOptions[index]);
@@ -41,8 +41,8 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators
             int needOptionsCount = 0;
             switch (rarity)
             {
-                case ItemRarity.Epic: needOptionsCount = 1; break;
-                case ItemRarity.Legendary: needOptionsCount = 2; break;
+                case Rarity.Epic: needOptionsCount = 1; break;
+                case Rarity.Legendary: needOptionsCount = 2; break;
             }
 
             while (needOptionsCount > 0)

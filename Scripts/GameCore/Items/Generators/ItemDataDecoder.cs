@@ -13,7 +13,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
         public ItemType itemType;
         public int basisPoints;
         public ushort requiredLevel;
-        public ItemRarity rarity;
+        public Rarity rarity;
         public byte grade;
         public byte manaCost;
 
@@ -27,7 +27,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
         private ItemType _itemType;
         private int _basisPoints;
         private ushort _requiredLevel;
-        private ItemRarity _rarity;
+        private Rarity _rarity;
         private byte _grade;
         private byte _manaCost;
 

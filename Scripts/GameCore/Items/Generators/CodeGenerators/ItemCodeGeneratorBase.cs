@@ -9,7 +9,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators
     internal abstract class ItemCodeGeneratorBase
     {
         protected ItemType type { get; private set; }
-        protected ItemRarity rarity { get; private set; }
+        protected Rarity rarity { get; private set; }
         protected ushort requiredLevel { get; private set; }
         protected int basisPoints { get; private set; }
 
@@ -18,7 +18,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators
         private List<AbilityType> _abilities = new List<AbilityType>();
         private List<PropertyType> _properties = new List<PropertyType>();
 
-        public ItemCodeGeneratorBase(ItemType _type, ItemRarity _rarity, ushort _level, int _basisPoints)
+        public ItemCodeGeneratorBase(ItemType _type, Rarity _rarity, ushort _level, int _basisPoints)
         {
             type = _type;
             rarity = _rarity;

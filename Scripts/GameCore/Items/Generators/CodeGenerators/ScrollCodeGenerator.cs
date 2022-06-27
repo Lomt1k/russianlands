@@ -12,13 +12,13 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators
             () => AppendAnyLightningSpell(),
         };
 
-        public ScrollCodeGenerator(ItemType _type, ItemRarity _rarity, ushort _level, int _basisPoints) : base(_type, _rarity, _level, _basisPoints)
+        public ScrollCodeGenerator(ItemType _type, Rarity _rarity, ushort _level, int _basisPoints) : base(_type, _rarity, _level, _basisPoints)
         {
             if (type != ItemType.Scroll)
             {
                 throw new ArgumentException($"{GetType()} can not generate item with type '{_type}'");
             }
-            if (rarity == ItemRarity.Common)
+            if (rarity == Rarity.Common)
             {
                 throw new ArgumentException($"{GetType()} can not generate items with '{_rarity}' rarity");
             }

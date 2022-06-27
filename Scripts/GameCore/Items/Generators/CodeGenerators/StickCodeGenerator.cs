@@ -21,13 +21,13 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators
 
         private readonly string[] _mainOption = new[] { "DF", "DC", "DL" };
 
-        public StickCodeGenerator(ItemType _type, ItemRarity _rarity, ushort _level, int _basisPoints) : base(_type, _rarity, _level, _basisPoints)
+        public StickCodeGenerator(ItemType _type, Rarity _rarity, ushort _level, int _basisPoints) : base(_type, _rarity, _level, _basisPoints)
         {
             if (type != ItemType.Stick)
             {
                 throw new ArgumentException($"{GetType()} can not generate item with type '{_type}'");
             }
-            if (rarity == ItemRarity.Common)
+            if (rarity == Rarity.Common)
             {
                 throw new ArgumentException($"{GetType()} can not generate items with '{_rarity}' rarity");
             }
@@ -43,8 +43,8 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators
             int needOptionsCount = 0;
             switch (rarity)
             {
-                case ItemRarity.Epic: needOptionsCount = 1; break;
-                case ItemRarity.Legendary: needOptionsCount = 2; break;
+                case Rarity.Epic: needOptionsCount = 1; break;
+                case Rarity.Legendary: needOptionsCount = 2; break;
             }
 
             while (needOptionsCount > 0)

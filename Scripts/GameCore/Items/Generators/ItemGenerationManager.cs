@@ -11,33 +11,33 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
         private static int _minItemType = (int)ItemType.Sword;
         private static int _maxItemType = (int)ItemType.Scroll + 1;
 
-        public static InventoryItem GenerateItem(ItemGenerationSettings _settings, ItemRarity _rarity)
+        public static InventoryItem GenerateItem(ItemGenerationSettings _settings, Rarity _rarity)
         {
             bool success = false;
             var itemType = ItemType.Any;
             while (!success)
             {
                 itemType = (ItemType)new Random().Next(_minItemType, _maxItemType);
-                success = _rarity != ItemRarity.Common || itemType.IsSupportCommonRarity();
+                success = _rarity != Rarity.Common || itemType.IsSupportCommonRarity();
             }            
             return GenerateItem(_settings, itemType, _rarity);
         }
 
-        public static InventoryItem GenerateItem(ItemGenerationSettings _settings, ItemType _type, ItemRarity _rarity)
+        public static InventoryItem GenerateItem(ItemGenerationSettings _settings, ItemType _type, Rarity _rarity)
         {
             ushort level;
             switch (_rarity)
             {
-                case ItemRarity.Common: level = _settings.levelForCommonItems; break;
-                case ItemRarity.Rare: level = _settings.levelForRareItems; break;
-                case ItemRarity.Epic: level = _settings.levelForEpicItems; break;
-                case ItemRarity.Legendary: level = _settings.levelForLegendaryItems; break;
+                case Rarity.Common: level = _settings.levelForCommonItems; break;
+                case Rarity.Rare: level = _settings.levelForRareItems; break;
+                case Rarity.Epic: level = _settings.levelForEpicItems; break;
+                case Rarity.Legendary: level = _settings.levelForLegendaryItems; break;
                 default: level = _settings.levelForLegendaryItems; break;
             }
             return GenerateItem(_type, _rarity, level, _settings.basisPoints);
         }
 
-        private static InventoryItem GenerateItem(ItemType _type, ItemRarity _rarity, ushort _level, int _basisPoints)
+        private static InventoryItem GenerateItem(ItemType _type, Rarity _rarity, ushort _level, int _basisPoints)
         {
             string dataCode;
             switch (_type)
