@@ -22,6 +22,7 @@ namespace TextGameRPG.ViewModels
 
         private void LaunchEditor()
         {
+            Program.SetupAppMode(AppMode.Editor);
             mainContentView = new Views.Editor.MainEditorView();
             mainContentView.DataContext = new Editor.MainEditorViewModel();
             MainWindow.instance.WindowState = WindowState.Maximized;
@@ -36,6 +37,7 @@ namespace TextGameRPG.ViewModels
 
         private void LauchBot(string botDataPath)
         {
+            Program.SetupAppMode(AppMode.Bot);
             var telegramBot = new Scripts.TelegramBot.TelegramBot(botDataPath);
             mainContentView = new Views.BotControl.BotControl();
             mainContentView.DataContext = new BotControl.BotControlViewModel(telegramBot);
