@@ -1,25 +1,17 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using TextGameRPG.Scripts.GameCore.GameDataBase;
 using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.GameCore.Locations;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Units.Mobs
 {
-    internal enum MobType
-    {
-        None = 0,
-        Humanoid = 1,
-        Animal = 2,
-        Monster = 3,
-        Demon = 4,
-        Undead = 5,        
-    }
-
     [JsonObject]
-    internal class MobData
+    internal class MobData : IDataWithIntegerID
     {
+        public int id { get; set; }
         public string debugName { get; set; } = string.Empty;
         public string localizationKey { get; set; } = string.Empty;
         public MobType mobType { get; set; } = MobType.None;
@@ -27,6 +19,7 @@ namespace TextGameRPG.Scripts.GameCore.Units.Mobs
         public bool withGrade { get; set; } = true;
         public MobEncounterSettings encounterSettings { get; set; } = new MobEncounterSettings();
         public MobStatsSettings statsSettings { get; set; } = new MobStatsSettings();
+
         public List<MobAttack> mobAttacks = new List<MobAttack>();
         //TODO: Add rewards
 
@@ -46,7 +39,7 @@ namespace TextGameRPG.Scripts.GameCore.Units.Mobs
         public LocationType location { get; set; } = LocationType.None;
         public int requiredLevel { get; set; }
         public int maxLevel { get; set; }
-        public bool isCombatAvoidanceAvailable { get; set; } = true;
+        public bool isAvoidanceAvailable { get; set; } = true;
         public string encounterLocalization { get; set; } = string.Empty;
 
         public bool CanSpawnOnLocation(LocationType locationType)
