@@ -12,7 +12,7 @@ namespace TextGameRPG.Scripts.GameCore.Units.Mobs
     public class MobData : IDataWithIntegerID
     {
         public int id { get; set; }
-        public string debugName { get; set; } = string.Empty;
+        public string debugName { get; set; } = "New Mob";
         public string localizationKey { get; set; } = string.Empty;
         public MobType mobType { get; set; } = MobType.None;
         public Rarity rarity { get; set; } = Rarity.Common;
