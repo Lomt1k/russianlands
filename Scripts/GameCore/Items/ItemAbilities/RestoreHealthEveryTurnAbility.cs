@@ -2,7 +2,7 @@
 
 namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
 {
-    internal class RestoreHealthEveryTurnAbility : ItemAbilityBase
+    public class RestoreHealthEveryTurnAbility : ItemAbilityBase
     {
         public override string debugDescription => "Восстанавливает здоровье (каждый ход)";
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators
 {
-    internal class ScrollCodeGenerator : ItemCodeGeneratorBase
+    public class ScrollCodeGenerator : ItemCodeGeneratorBase
     {
         private List<Func<bool>> _options => new List<Func<bool>>
         {

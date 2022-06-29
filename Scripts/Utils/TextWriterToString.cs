@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace TextGameRPG.Scripts.Utils
 {
-    internal class TextWriterToString : TextWriter
+    public class TextWriterToString : TextWriter
     {
         public const int _updateTime = 100;
 

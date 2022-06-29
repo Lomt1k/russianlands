@@ -4,7 +4,7 @@ using TextGameRPG.Scripts.GameCore.Items.ItemProperties;
 
 namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators
 {
-    internal class StickCodeGenerator : ItemCodeGeneratorBase
+    public class StickCodeGenerator : ItemCodeGeneratorBase
     {
         private List<Func<bool>> _options => new List<Func<bool>>
         {

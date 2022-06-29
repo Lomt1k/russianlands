@@ -22,7 +22,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
         public List<string> baseParameters;
     }
 
-    internal class ItemDataDecoder
+    public class ItemDataDecoder
     {
         private ItemType _itemType;
         private int _basisPoints;

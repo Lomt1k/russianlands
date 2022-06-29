@@ -4,7 +4,7 @@ using TextGameRPG.Scripts.TelegramBot.Sessions;
 
 namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
 {
-    internal class TownCharacterDialog : DialogBase
+    public class TownCharacterDialog : DialogBase
     {
         public TownCharacterDialog(GameSession _session) : base(_session)
         {

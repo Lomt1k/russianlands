@@ -5,7 +5,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
     using System;
     using System.Collections.Generic;
 
-    internal abstract partial class ItemDataGeneratorBase
+    public abstract partial class ItemDataGeneratorBase
     {
         private Dictionary<AbilityType, int> _stackOfChances = new Dictionary<AbilityType, int>();
 

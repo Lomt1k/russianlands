@@ -8,7 +8,7 @@ using TextGameRPG.Views.Editor.LocationsEditor;
 
 namespace TextGameRPG.ViewModels.Editor.LocationsEditor
 {
-    internal class LocationsEditorViewModel : ViewModelBase
+    public class LocationsEditorViewModel : ViewModelBase
     {
         private EnumValueModel<LocationType>? _selectedLocation;
 

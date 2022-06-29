@@ -9,7 +9,7 @@ using TextGameRPG.Views.Editor.ItemsEditor;
 
 namespace TextGameRPG.ViewModels.Editor.ItemsEditor
 {
-    internal class EditItemWindowViewModel : ViewModelBase
+    public class EditItemWindowViewModel : ViewModelBase
     {
         private EditItemWindow _window;
         private bool _isNewItem;

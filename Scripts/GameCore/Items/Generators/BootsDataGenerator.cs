@@ -2,7 +2,7 @@
 
 namespace TextGameRPG.Scripts.GameCore.Items.Generators
 {
-    internal class BootsDataGenerator : ItemDataGeneratorBase
+    public class BootsDataGenerator : ItemDataGeneratorBase
     {
         public BootsDataGenerator(ItemDataSeed _seed) : base(_seed)
         {

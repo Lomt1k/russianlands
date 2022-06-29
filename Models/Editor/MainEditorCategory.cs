@@ -2,7 +2,7 @@
 
 namespace TextGameRPG.Models.Editor
 {
-    internal class MainEditorCategory
+    public class MainEditorCategory
     {
         public string name { get; }
         public UserControl view { get; }

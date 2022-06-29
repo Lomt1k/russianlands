@@ -10,7 +10,7 @@ using TextGameRPG.Scripts.GameCore.GameDataBase;
 
 namespace TextGameRPG.ViewModels.Editor.ItemsEditor
 {
-    internal class ItemsEditorViewModel : ViewModelBase
+    public class ItemsEditorViewModel : ViewModelBase
     {
         private ItemCategory _selectedCategory;
         private ItemData? _selectedItem;

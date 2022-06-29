@@ -9,7 +9,7 @@ using TextGameRPG.Scripts.Utils;
 
 namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Quests.MainQuest
 {
-    internal class EnterNameDialog : DialogBase
+    public class EnterNameDialog : DialogBase
     {
         private const int minNameLength = 2;
         private const int maxNameLength = 20;

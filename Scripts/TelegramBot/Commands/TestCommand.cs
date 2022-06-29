@@ -7,7 +7,7 @@ using TextGameRPG.Scripts.Utils;
 
 namespace TextGameRPG.Scripts.TelegramBot.Commands
 {
-    internal class TestCommand : CommandBase
+    public class TestCommand : CommandBase
     {
         public override async Task Execute(GameSession session, string[] args)
         {

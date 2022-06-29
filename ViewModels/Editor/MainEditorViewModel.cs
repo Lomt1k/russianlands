@@ -7,7 +7,7 @@ using TextGameRPG.Views.Editor.QuestsEditor;
 
 namespace TextGameRPG.ViewModels.Editor
 {
-    internal class MainEditorViewModel : ViewModelBase
+    public class MainEditorViewModel : ViewModelBase
     {
         private MainEditorCategory _selectedCategory;
 

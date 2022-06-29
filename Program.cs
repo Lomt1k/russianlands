@@ -9,9 +9,9 @@ using System.IO;
 
 namespace TextGameRPG
 {
-    internal enum AppMode { None, Editor, Bot };
+    public enum AppMode { None, Editor, Bot };
 
-    internal class Program
+    public class Program
     {
         public static AppMode appMode { get; private set; } = AppMode.None;
         public static Window mainWindow { get; set; }

@@ -4,7 +4,7 @@ using TextGameRPG.Scripts.GameCore.Items.ItemProperties;
 
 namespace TextGameRPG.Scripts.GameCore.Items.Generators
 {
-    internal class RingDataGenerator : ItemDataGeneratorBase
+    public class RingDataGenerator : ItemDataGeneratorBase
     {
         public RingDataGenerator(ItemDataSeed _seed) : base(_seed)
         {

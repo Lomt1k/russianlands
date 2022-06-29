@@ -2,7 +2,7 @@
 
 namespace TextGameRPG.Scripts.GameCore.Items.Generators
 {
-    internal class BowDataGenerator : ItemDataGeneratorBase
+    public class BowDataGenerator : ItemDataGeneratorBase
     {
         public BowDataGenerator(ItemDataSeed _seed) : base(_seed)
         {

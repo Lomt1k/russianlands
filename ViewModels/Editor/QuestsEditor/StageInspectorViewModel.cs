@@ -5,7 +5,7 @@ using TextGameRPG.Views.Editor.QuestsEditor;
 
 namespace TextGameRPG.ViewModels.Editor.QuestsEditor
 {
-    internal class StageInspectorViewModel : ViewModelBase
+    public class StageInspectorViewModel : ViewModelBase
     {
         private QuestStage? _stage;
         private bool _hasJumpToStageIfNewSession;

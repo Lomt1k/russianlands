@@ -9,7 +9,7 @@ using TextGameRPG.Scripts.GameCore.Quests.QuestStages;
 namespace TextGameRPG.Scripts.GameCore.Quests
 {
     [Serializable]
-    internal class Quest
+    public class Quest
     {
         private const int STAGE_FIRST = 100;
 

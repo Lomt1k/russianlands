@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace TextGameRPG.Scripts.GameCore.Items.Generators
 {
-    internal class ScrollDataGenerator : ItemDataGeneratorBase
+    public class ScrollDataGenerator : ItemDataGeneratorBase
     {
         public ScrollDataGenerator(ItemDataSeed _seed) : base(_seed)
         {

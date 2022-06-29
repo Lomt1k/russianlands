@@ -2,7 +2,7 @@
 
 namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
 {
-    internal class AddManaEveryTurnAbility : ItemAbilityBase
+    public class AddManaEveryTurnAbility : ItemAbilityBase
     {
         public override string debugDescription => "Дает дополнительное очко маны (каждый ход)";
 

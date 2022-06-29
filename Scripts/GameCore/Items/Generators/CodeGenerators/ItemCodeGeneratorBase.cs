@@ -6,7 +6,7 @@ using TextGameRPG.Scripts.Utils;
 
 namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators
 {
-    internal abstract class ItemCodeGeneratorBase
+    public abstract class ItemCodeGeneratorBase
     {
         protected ItemType type { get; private set; }
         protected Rarity rarity { get; private set; }

@@ -8,7 +8,7 @@ namespace TextGameRPG.Scripts.GameCore.Items
     using TextGameRPG.Scripts.TelegramBot;
     using Localizations;
 
-    internal static class ItemViewBuilder
+    public static class ItemViewBuilder
     {
         public static string Build(GameSession session, InventoryItem item)
         {

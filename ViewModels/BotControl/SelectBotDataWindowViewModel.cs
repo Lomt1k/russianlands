@@ -7,7 +7,7 @@ using TextGameRPG.Views.BotControl;
 
 namespace TextGameRPG.ViewModels.BotControl
 {
-    internal class SelectBotDataWindowViewModel : ViewModelBase
+    public class SelectBotDataWindowViewModel : ViewModelBase
     {
         private const string botDatasPath = "botData";
 

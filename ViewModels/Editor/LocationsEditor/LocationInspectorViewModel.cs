@@ -11,7 +11,7 @@ using TextGameRPG.Scripts.GameCore.Locations;
 
 namespace TextGameRPG.ViewModels.Editor.LocationsEditor
 {
-    internal class LocationInspectorViewModel : ViewModelBase
+    public class LocationInspectorViewModel : ViewModelBase
     {
         private static DataDictionaryWithIntegerID<LocationData> locationDB => GameDataBase.instance.locations;
 

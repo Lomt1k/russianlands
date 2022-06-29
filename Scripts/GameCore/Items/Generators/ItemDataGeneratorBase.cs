@@ -7,7 +7,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
     using System;
     using System.Linq;
 
-    internal abstract partial class ItemDataGeneratorBase
+    public abstract partial class ItemDataGeneratorBase
     {
         protected ItemDataSeed seed { get; }
         protected byte requiredCharge { get; set; }

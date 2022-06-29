@@ -6,7 +6,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
     /// <summary>
     /// Основной класс, который управляет логикой генерации предметов
     /// </summary>
-    internal static class ItemGenerationManager
+    public static class ItemGenerationManager
     {
         private static int _minItemType = (int)ItemType.Sword;
         private static int _maxItemType = (int)ItemType.Scroll + 1;

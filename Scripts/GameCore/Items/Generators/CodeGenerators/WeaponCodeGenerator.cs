@@ -7,7 +7,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators
     /// <summary>
     /// For sword and bow
     /// </summary>
-    internal class WeaponCodeGenerator : ItemCodeGeneratorBase
+    public class WeaponCodeGenerator : ItemCodeGeneratorBase
     {
         private List<Func<bool>> _options => new List<Func<bool>>
         {

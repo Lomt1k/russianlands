@@ -6,7 +6,7 @@ using TextGameRPG.Scripts.Utils;
 
 namespace TextGameRPG.ViewModels.RegularDialogs
 {
-    internal class AskValueDialogViewModel<T> : ViewModelBase
+    public class AskValueDialogViewModel<T> : ViewModelBase
     {
         private string _inputValue = string.Empty;
         private bool _isValidInput;

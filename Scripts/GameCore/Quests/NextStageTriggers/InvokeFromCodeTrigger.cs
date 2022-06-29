@@ -3,7 +3,7 @@
 namespace TextGameRPG.Scripts.GameCore.Quests.NextStageTriggers
 {
     [JsonObject]
-    internal class InvokeFromCodeTrigger : TriggerBase
+    public class InvokeFromCodeTrigger : TriggerBase
     {
         public override TriggerType triggerType => TriggerType.InvokeFromCode;
 

@@ -7,7 +7,7 @@ using TextGameRPG.ViewModels;
 
 namespace TextGameRPG.Scripts.GameCore.Quests
 {
-    internal static class QuestsHolder
+    public static class QuestsHolder
     {
         private static string questFolderPath = string.Empty;
         private static Dictionary<QuestType, Quest> quests = new Dictionary<QuestType, Quest>();

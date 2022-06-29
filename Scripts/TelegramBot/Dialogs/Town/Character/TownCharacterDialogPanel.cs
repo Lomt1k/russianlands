@@ -4,7 +4,7 @@ using TextGameRPG.Scripts.GameCore.Localizations;
 
 namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
 {
-    internal class TownCharacterDialogPanel : DialogPanelBase
+    public class TownCharacterDialogPanel : DialogPanelBase
     {
         private Message? _lastMessage;
 

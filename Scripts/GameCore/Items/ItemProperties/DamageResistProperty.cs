@@ -4,7 +4,7 @@ using TextGameRPG.Scripts.TelegramBot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties
 {
-    internal class DamageResistProperty : ItemPropertyBase
+    public class DamageResistProperty : ItemPropertyBase
     {
         public override string debugDescription => "Сопротивление урону";
         public override PropertyType propertyType => PropertyType.DamageResist;

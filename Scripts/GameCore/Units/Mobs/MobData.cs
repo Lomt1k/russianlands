@@ -9,7 +9,7 @@ using TextGameRPG.Scripts.TelegramBot.Sessions;
 namespace TextGameRPG.Scripts.GameCore.Units.Mobs
 {
     [JsonObject]
-    internal class MobData : IDataWithIntegerID
+    public class MobData : IDataWithIntegerID
     {
         public int id { get; set; }
         public string debugName { get; set; } = string.Empty;
@@ -33,7 +33,7 @@ namespace TextGameRPG.Scripts.GameCore.Units.Mobs
     }
 
     [JsonObject]
-    internal class MobEncounterSettings
+    public class MobEncounterSettings
     {
         public bool anyLocation { get; set; } = false;
         public LocationType location { get; set; } = LocationType.None;
@@ -49,7 +49,7 @@ namespace TextGameRPG.Scripts.GameCore.Units.Mobs
     }
 
     [JsonObject]
-    internal class MobStatsSettings
+    public class MobStatsSettings
     {
         public int health = 100;
         public int physicalResist;
@@ -59,7 +59,7 @@ namespace TextGameRPG.Scripts.GameCore.Units.Mobs
     }
 
     [JsonObject]
-    internal class MobAttack
+    public class MobAttack
     {
         public string localizationKey = string.Empty;
         public int manaCost;

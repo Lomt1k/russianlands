@@ -2,7 +2,7 @@
 
 namespace TextGameRPG.Scripts.GameCore.Items.Generators
 {
-    internal class StickDataGenerator : ItemDataGeneratorBase
+    public class StickDataGenerator : ItemDataGeneratorBase
     {
         public StickDataGenerator(ItemDataSeed _seed) : base(_seed)
         {

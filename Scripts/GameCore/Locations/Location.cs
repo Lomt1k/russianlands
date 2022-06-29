@@ -1,7 +1,7 @@
 ﻿
 namespace TextGameRPG.Scripts.GameCore.Locations
 {
-    internal class Location
+    public class Location
     {
         public LocationType type { get; }
         public LocationData data { get; }

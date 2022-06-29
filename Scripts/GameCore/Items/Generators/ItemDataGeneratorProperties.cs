@@ -3,7 +3,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
 {
     using ItemProperties;
 
-    internal abstract partial class ItemDataGeneratorBase
+    public abstract partial class ItemDataGeneratorBase
     {
         protected void AddPhysicalDamageResist(int value)
         {

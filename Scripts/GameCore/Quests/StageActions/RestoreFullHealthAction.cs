@@ -5,7 +5,7 @@ using TextGameRPG.Scripts.TelegramBot.Sessions;
 namespace TextGameRPG.Scripts.GameCore.Quests.StageActions
 {
     [JsonObject]
-    internal class RestoreFullHealthAction : StageActionBase
+    public class RestoreFullHealthAction : StageActionBase
     {
         public override async Task Execute(GameSession session)
         {

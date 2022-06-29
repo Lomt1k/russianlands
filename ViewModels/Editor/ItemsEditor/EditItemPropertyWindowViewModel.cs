@@ -10,7 +10,7 @@ using TextGameRPG.Scripts.GameCore.Items.ItemProperties;
 
 namespace TextGameRPG.ViewModels.Editor.ItemsEditor
 {
-    internal class EditItemPropertyWindowViewModel : ViewModelBase
+    public class EditItemPropertyWindowViewModel : ViewModelBase
     {
         private ItemPropertyBase _tempProperty;
         private ObservableCollection<FieldModel>  _propertyFields = new ObservableCollection<FieldModel>();

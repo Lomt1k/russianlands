@@ -6,7 +6,7 @@ using TextGameRPG.Scripts.TelegramBot.Sessions;
 namespace TextGameRPG.Scripts.GameCore.Quests.StageActions
 {
     [JsonObject]
-    internal class ShowEnterNameDialogAction : StageActionBase
+    public class ShowEnterNameDialogAction : StageActionBase
     {
         public override async Task Execute(GameSession session)
         {

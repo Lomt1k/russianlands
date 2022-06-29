@@ -10,7 +10,7 @@ using TextGameRPG.Views.Editor.ItemsEditor;
 
 namespace TextGameRPG.ViewModels.Editor.ItemsEditor
 {
-    internal class EditItemAbilityWindowViewModel : ViewModelBase
+    public class EditItemAbilityWindowViewModel : ViewModelBase
     {
         private ItemAbilityBase _tempAbility;
         private ObservableCollection<FieldModel> _abilityFields = new ObservableCollection<FieldModel>();

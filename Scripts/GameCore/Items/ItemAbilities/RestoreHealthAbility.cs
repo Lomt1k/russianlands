@@ -2,7 +2,7 @@
 
 namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
 {
-    internal class RestoreHealthAbility : ItemAbilityBase
+    public class RestoreHealthAbility : ItemAbilityBase
     {
         public override string debugDescription => "Восстанавливает здоровье";
 

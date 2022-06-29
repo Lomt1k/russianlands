@@ -10,7 +10,7 @@ using TextGameRPG.Scripts.TelegramBot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Quests
 {
-    internal class QuestManager
+    public class QuestManager
     {
         public static async Task HandleNewSession(GameSession session)
         {

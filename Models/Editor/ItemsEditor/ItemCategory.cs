@@ -4,7 +4,7 @@ using TextGameRPG.Scripts.GameCore.Items;
 
 namespace TextGameRPG.Models.Editor.ItemsEditor
 {
-    internal class ItemCategory
+    public class ItemCategory
     {
         public string name { get; }
         public ItemType itemType { get; }

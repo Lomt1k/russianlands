@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TextGameRPG.ViewModels.BotControl
 {
-    internal class BotControlViewModel : ViewModelBase
+    public class BotControlViewModel : ViewModelBase
     {
         private string _consoleOutput = string.Empty;
         private TelegramBot _bot;

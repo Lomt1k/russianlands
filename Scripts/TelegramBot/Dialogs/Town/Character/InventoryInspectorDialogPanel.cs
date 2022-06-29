@@ -9,7 +9,7 @@ using TextGameRPG.Scripts.GameCore.Localizations;
 
 namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
 {
-    internal struct CompareData
+    public struct CompareData
     {
         public InventoryItem comparedItem;
         public Message comparedItemMessage;
@@ -18,7 +18,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
         public int pagesCountOnStartCompare;
     }
 
-    internal class InventoryInspectorDialogPanel : DialogPanelBase
+    public class InventoryInspectorDialogPanel : DialogPanelBase
     {
         private const int browsedItemsOnPage = 5;
 

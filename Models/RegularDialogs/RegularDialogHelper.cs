@@ -5,7 +5,7 @@ using TextGameRPG.Views.RegularDialogs;
 
 namespace TextGameRPG.Models.RegularDialogs
 {
-    internal static class RegularDialogHelper
+    public static class RegularDialogHelper
     {
         public static void ShowConfirmDialog(string description, Action onConfirm, Action? onDecline = null)
         {

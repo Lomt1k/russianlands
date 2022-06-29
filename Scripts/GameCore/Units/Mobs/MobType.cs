@@ -2,7 +2,7 @@
 
 namespace TextGameRPG.Scripts.GameCore.Units.Mobs
 {
-    internal enum MobType
+    public enum MobType
     {
         None = 0,
         Humanoid = 1,
@@ -12,7 +12,7 @@ namespace TextGameRPG.Scripts.GameCore.Units.Mobs
         Undead = 5,
     }
 
-    internal static class MobTypeExtensions
+    public static class MobTypeExtensions
     {
         public static string GetView(this MobType mobType, GameSession session)
         {

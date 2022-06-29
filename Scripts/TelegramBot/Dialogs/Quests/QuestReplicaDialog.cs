@@ -8,7 +8,7 @@ using TextGameRPG.Scripts.TelegramBot.Sessions;
 
 namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Quests
 {
-    internal class QuestReplicaDialog : DialogBase
+    public class QuestReplicaDialog : DialogBase
     {
         private Replica _replica;
 

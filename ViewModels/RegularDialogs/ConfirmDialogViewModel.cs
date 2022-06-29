@@ -5,7 +5,7 @@ using System.Reactive;
 
 namespace TextGameRPG.ViewModels.RegularDialogs
 {
-    internal class ConfirmDialogViewModel : ViewModelBase
+    public class ConfirmDialogViewModel : ViewModelBase
     {
         public string description { get; }
         public ReactiveCommand<Unit, Unit> confirmCommand { get; }

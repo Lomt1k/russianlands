@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
 {
-    internal class InventoryDialog : DialogBase
+    public class InventoryDialog : DialogBase
     {
         private InventoryInspectorDialogPanel _inspectorPanel;
 

@@ -12,7 +12,7 @@ using TextGameRPG.Views.Editor.QuestsEditor;
 
 namespace TextGameRPG.ViewModels.Editor.QuestsEditor
 {
-    internal class QuestsEditorViewModel : ViewModelBase
+    public class QuestsEditorViewModel : ViewModelBase
     {
         private EnumValueModel<QuestType>? _selectedQuest;
         private Quest? _quest;

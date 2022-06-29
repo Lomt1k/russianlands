@@ -7,7 +7,7 @@ using System.Reactive;
 
 namespace TextGameRPG.ViewModels.RegularDialogs
 {
-    internal class ItemSelectionDialogViewModel : ViewModelBase
+    public class ItemSelectionDialogViewModel : ViewModelBase
     {
         private Window _window;
         private Dictionary<string, Action> _itemsWithCallbacks;

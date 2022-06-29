@@ -3,7 +3,7 @@ using TextGameRPG.Views.Editor.UserControls;
 
 namespace TextGameRPG.Models.UserControls
 {
-    internal static class UserControlsHelper
+    public static class UserControlsHelper
     {
         public static ObjectFieldsEditorView CreateObjectFieldsEditor(object obj)
         {

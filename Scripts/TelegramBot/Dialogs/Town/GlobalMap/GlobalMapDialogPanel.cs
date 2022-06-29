@@ -8,7 +8,7 @@ using TextGameRPG.Scripts.GameCore.Locations;
 
 namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.GlobalMap
 {
-    internal class GlobalMapDialogPanel : DialogPanelBase
+    public class GlobalMapDialogPanel : DialogPanelBase
     {
         private Message? _lastMessage;
 

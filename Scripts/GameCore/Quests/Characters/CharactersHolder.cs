@@ -23,7 +23,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests.Characters
         }
     }
 
-    internal static class CharactersHolder
+    public static class CharactersHolder
     {
         private static Dictionary<CharacterType, Character> _characters = new Dictionary<CharacterType, Character>
         {

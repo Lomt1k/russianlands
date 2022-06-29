@@ -9,7 +9,7 @@ using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
 
 namespace TextGameRPG.ViewModels.Editor.ItemsEditor
 {
-    internal class ItemInspectorViewModel : ViewModelBase
+    public class ItemInspectorViewModel : ViewModelBase
     {
         private ItemData _currentItem;
         private string? _header;

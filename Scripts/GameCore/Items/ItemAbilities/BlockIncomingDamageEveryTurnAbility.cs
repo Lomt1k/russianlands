@@ -4,7 +4,7 @@ using TextGameRPG.Scripts.TelegramBot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
 {
-    internal class BlockIncomingDamageEveryTurnAbility : ItemAbilityBase
+    public class BlockIncomingDamageEveryTurnAbility : ItemAbilityBase
     {
         public override string debugDescription => "Блокирует входящий урон (каждый ход)";
 

@@ -2,7 +2,7 @@
 
 namespace TextGameRPG.Scripts.GameCore.Locations
 {
-    internal static class LocationsHolder
+    public static class LocationsHolder
     {
         private static Dictionary<LocationType, Location> _locations;
 

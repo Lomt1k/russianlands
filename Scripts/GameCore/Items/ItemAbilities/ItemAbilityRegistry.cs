@@ -2,7 +2,7 @@
 
 namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
 {
-    internal class ItemAbilityRegistry
+    public class ItemAbilityRegistry
     {
         private static Dictionary<AbilityType, ItemAbilityBase> _abilities = new Dictionary<AbilityType, ItemAbilityBase>()
         {

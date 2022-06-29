@@ -2,7 +2,7 @@
 
 namespace TextGameRPG.Scripts.GameCore.Items.Generators
 {
-    internal class ArmorDataGenerator : ItemDataGeneratorBase
+    public class ArmorDataGenerator : ItemDataGeneratorBase
     {
         public ArmorDataGenerator(ItemDataSeed _seed) : base(_seed)
         {

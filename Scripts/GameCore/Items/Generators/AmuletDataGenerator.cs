@@ -4,7 +4,7 @@ using TextGameRPG.Scripts.GameCore.Items.ItemProperties;
 
 namespace TextGameRPG.Scripts.GameCore.Items.Generators
 {
-    internal class AmuletDataGenerator : ItemDataGeneratorBase
+    public class AmuletDataGenerator : ItemDataGeneratorBase
     {
         public AmuletDataGenerator(ItemDataSeed _seed) : base(_seed)
         {

@@ -6,7 +6,7 @@ using TextGameRPG.Scripts.Utils;
 
 namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
 {
-    internal class DealDamageAbility : ItemAbilityBase
+    public class DealDamageAbility : ItemAbilityBase
     {
         public override string debugDescription => "Наносит урон";
         public override AbilityType abilityType => AbilityType.DealDamage;

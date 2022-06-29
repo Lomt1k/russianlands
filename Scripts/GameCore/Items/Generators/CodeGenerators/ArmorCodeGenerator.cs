@@ -7,7 +7,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators
     /// <summary>
     /// For armor, boots and helmet
     /// </summary>
-    internal class ArmorCodeGenerator : ItemCodeGeneratorBase
+    public class ArmorCodeGenerator : ItemCodeGeneratorBase
     {
         private List<Func<bool>> _options => new List<Func<bool>>
         {
