@@ -22,6 +22,10 @@ namespace TextGameRPG.Scripts.GameCore.Locations
             clone.id = id;
             return clone;
         }
+
+        public void OnSetupAppMode(AppMode appMode)
+        {
+        }
     }
 
 }

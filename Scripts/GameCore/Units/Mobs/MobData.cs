@@ -30,6 +30,14 @@ namespace TextGameRPG.Scripts.GameCore.Units.Mobs
             return playerLevel >= encounterSettings.requiredLevel
                 && playerLevel <= encounterSettings.maxLevel;
         }
+
+        public void OnSetupAppMode(AppMode appMode)
+        {
+            if (appMode == AppMode.Bot)
+            {
+                debugName = string.Empty;
+            }
+        }
     }
 
     [JsonObject]

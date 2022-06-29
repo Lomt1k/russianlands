@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
-using Newtonsoft.Json;
+﻿using System.IO;
 
 namespace TextGameRPG.Scripts.GameCore.GameDataBase
 {
     using Items;
     using TextGameRPG.Scripts.GameCore.Locations;
+    using TextGameRPG.Scripts.GameCore.Units.Mobs;
     using TextGameRPG.ViewModels;
 
     public class GameDataBase
@@ -26,6 +21,7 @@ namespace TextGameRPG.Scripts.GameCore.GameDataBase
         
         public DataDictionaryWithIntegerID<ItemData> items { get; private set; }
         public DataDictionaryWithIntegerID<LocationData> locations { get; private set; }
+        public DataDictionaryWithIntegerID<MobData> mobs { get; private set; }
 
 #pragma warning restore CS8618
 
@@ -34,6 +30,7 @@ namespace TextGameRPG.Scripts.GameCore.GameDataBase
             _loaderVM = loaderVM;
             items = LoadDataBaseWithIntegerID<ItemData>("items");
             locations = LoadDataBaseWithIntegerID<LocationData>("locations");
+            mobs = LoadDataBaseWithIntegerID<MobData>("mobs");
             Localizations.Localization.LoadAll(_loaderVM, gameDataPath);
             Quests.QuestsHolder.LoadAll(_loaderVM, gameDataPath);
             _loaderVM.OnGameDataLoaded();
@@ -47,25 +44,6 @@ namespace TextGameRPG.Scripts.GameCore.GameDataBase
             _loaderVM.AddInfoToCurrentState(dataBase.count.ToString());
             return dataBase;
         }
-
-        //private void TestWriteItemGenerators()
-        //{
-        //    var physicalDamageProp = new Items.ItemGenerators.ItemPropertyGenerators.PhysicalDamageItemPropertyGenerator(50, 100);
-        //    var items = new List<ItemGeneratorBase>();
-        //    for (int i = 0; i < 3; i++)
-        //    {
-        //        var itemGenerator = new ItemGeneratorBase("Тестовый меч", i, Items.ItemType.MeleeWeapon, Items.ItemRarity.Common, 10, physicalDamageProp);
-        //        items.Add(itemGenerator);
-        //    }
-
-        //    var jsonStr = JsonConvert.SerializeObject(items, Formatting.Indented);
-
-        //    var fileName = $"gameData\\itemGenerators.json";
-        //    using (StreamWriter writer = new StreamWriter(fileName, false, Encoding.UTF8))
-        //    {
-        //        writer.Write(jsonStr);
-        //    }
-        //}
 
     }
 }

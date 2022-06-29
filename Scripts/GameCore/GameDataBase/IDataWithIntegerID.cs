@@ -4,5 +4,7 @@
     {
         string debugName { get; }
         int id { get; }
+
+        void OnSetupAppMode(AppMode appMode);
     }
 }

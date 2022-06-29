@@ -10,7 +10,7 @@ namespace TextGameRPG.Scripts.GameCore.Items
 
     public class ItemData : IDataWithIntegerID
     {
-        public string debugName { get; set; } //TODO: для продакшна очень важно отказаться от этого поля (как вариант при старте бота присваивать string.empty)
+        public string debugName { get; set; }
         public int id { get; }
         public ItemType itemType { get; set; }
         public Rarity itemRarity { get; set; }
@@ -103,6 +103,14 @@ namespace TextGameRPG.Scripts.GameCore.Items
         public void RemoveProperty(int index)
         {
             properties.RemoveAt(index);
+        }
+
+        public void OnSetupAppMode(AppMode appMode)
+        {
+            if (appMode == AppMode.Bot)
+            {
+                debugName = string.Empty;
+            }
         }
 
     }

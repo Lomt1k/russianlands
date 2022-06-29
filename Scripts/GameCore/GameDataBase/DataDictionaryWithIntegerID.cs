@@ -20,10 +20,19 @@ namespace TextGameRPG.Scripts.GameCore.GameDataBase
         {
             _dictionary = dictionary;
             dataPath = path;
+
+            Program.onSetupAppMode += OnSetupAppMode;
         }
 
         public static DataDictionaryWithIntegerID<Type> LoadFromJSON<Type>(string path) where Type : IDataWithIntegerID
         {
+            if (!File.Exists(path))
+            {
+                using (StreamWriter writer = new StreamWriter(path, false, Encoding.UTF8))
+                {
+                    writer.Write("[]");
+                }
+            }
             using (StreamReader reader = new StreamReader(path, Encoding.UTF8))
             {
                 var jsonStr = reader.ReadToEnd();
@@ -73,10 +82,24 @@ namespace TextGameRPG.Scripts.GameCore.GameDataBase
 
         public void Save()
         {
+            if (Program.appMode != AppMode.Editor)
+                return;
+
             var jsonStr = JsonConvert.SerializeObject(_dictionary.Values, Formatting.Indented);
             using (StreamWriter writer = new StreamWriter(dataPath, false, Encoding.UTF8))
             {
                 writer.Write(jsonStr);
+            }
+        }
+
+        private void OnSetupAppMode(AppMode appMode)
+        {
+            if (appMode != AppMode.Bot)
+                return;
+
+            foreach (var item in _dictionary.Values)
+            {
+                item.OnSetupAppMode(appMode);
             }
         }
 

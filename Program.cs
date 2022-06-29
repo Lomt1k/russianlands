@@ -17,6 +17,8 @@ namespace TextGameRPG
         public static Window mainWindow { get; set; }
         public readonly static ILog logger = LogManager.GetLogger(typeof(Program));
 
+        public static Action<AppMode>? onSetupAppMode;
+
         // Initialization code. Don't use any Avalonia, third-party APIs or any
         // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
         // yet and stuff might break.
@@ -47,7 +49,11 @@ namespace TextGameRPG
 
         public static void SetupAppMode(AppMode _appMode)
         {
+            if (appMode != AppMode.None)
+                throw new InvalidOperationException("AppMode can only be installed once");
+
             appMode = _appMode;
+            onSetupAppMode?.Invoke(_appMode);
         }
     }
 }
