@@ -1,26 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Text;
+﻿using System.Collections.ObjectModel;
 using TextGameRPG.Scripts.GameCore.GameDataBase;
 using TextGameRPG.Scripts.GameCore.Units.Mobs;
 using ReactiveUI;
 using System.Reactive;
 using System.Linq;
+using TextGameRPG.Views.Editor.MobsEditor;
 
 namespace TextGameRPG.ViewModels.Editor.MobsEditor
 {
     public class MobsEditorViewModel : ViewModelBase
     {
         private MobData? _selectedMob;
+        private MobInspectorViewModel _mobInspectorVM;
 
         public DataDictionaryWithIntegerID<MobData> mobsDB => GameDataBase.instance.mobs;
         public ObservableCollection<MobData> mobsList { get; } = new ObservableCollection<MobData>();
         public MobData? selectedMob
         {
             get => _selectedMob;
-            set => this.RaiseAndSetIfChanged(ref _selectedMob, value);
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _selectedMob, value);
+                ShowMob(_selectedMob);
+            }
         }
+        public MobInspectorView mobInspector { get; }
 
         public ReactiveCommand<Unit,Unit> addMobCommand { get; }
         public ReactiveCommand<Unit, Unit> removeMobCommand { get; }
@@ -30,6 +34,9 @@ namespace TextGameRPG.ViewModels.Editor.MobsEditor
             RefreshMobsList();
             addMobCommand = ReactiveCommand.Create(AddNewMob);
             removeMobCommand = ReactiveCommand.Create(RemoveSelectedMob);
+
+            mobInspector = new MobInspectorView();
+            mobInspector.DataContext = _mobInspectorVM = new MobInspectorViewModel();
         }
 
         private void RefreshMobsList()
@@ -61,6 +68,14 @@ namespace TextGameRPG.ViewModels.Editor.MobsEditor
             mobsDB.RemoveData(_selectedMob.id);
             _selectedMob = null;
             RefreshMobsList();
+        }
+
+        private void ShowMob(MobData? mobData)
+        {
+            if (mobData == null)
+                return;
+
+            _mobInspectorVM.ShowMob(mobData);
         }
 
     }

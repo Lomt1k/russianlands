@@ -1,0 +1,37 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="600"
+             x:Class="TextGameRPG.Views.Editor.MobsEditor.MobInspectorView">
+
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="220"/>
+      <ColumnDefinition Width="auto"/>
+    </Grid.ColumnDefinitions>
+
+    <!-- Column 1: Main Settings-->
+    <StackPanel Grid.Column="0" Orientation="Vertical" Spacing="5">
+      <TextBlock Text="{Binding header}" Classes="h3"/>
+      <TextBlock Text="debugName"/>
+      <TextBox Text="{Binding mob.debugName}"/>
+      <TextBlock Text="localizationKey"/>
+      <TextBox Text="{Binding mob.localizationKey}" AcceptsReturn="True"/>
+
+      <TextBlock Text="mobType"/>
+      <ComboBox Items="{Binding mobTypes}" SelectedItem="{Binding selectedMobType}"/>
+      <TextBlock Text="Rarity"/>
+      <ComboBox Items="{Binding rarities}" SelectedItem="{Binding selectedRarity}"/>      
+      <CheckBox Content="withGrade" IsChecked="{Binding mob.withGrade}"/>
+
+      <UserControl Grid.Column="1" Content="{Binding encounterSettingsView}"/>
+    </StackPanel>
+
+    <!-- Column 2: Subsettings -->
+    <UserControl Grid.Column="1" Margin="20,0"
+                 Content="{Binding specialStageInspector}"/>
+
+  </Grid>
+  
+</UserControl>
