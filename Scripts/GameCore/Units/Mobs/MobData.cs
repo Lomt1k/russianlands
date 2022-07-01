@@ -43,12 +43,12 @@ namespace TextGameRPG.Scripts.GameCore.Units.Mobs
     [JsonObject]
     public class MobEncounterSettings
     {
-        public bool anyLocation { get; set; } = false;
-        public LocationType location { get; set; } = LocationType.None;
-        public int requiredLevel { get; set; }
-        public int maxLevel { get; set; }
-        public bool isAvoidanceAvailable { get; set; } = true;
-        public string encounterLocalization { get; set; } = string.Empty;
+        public bool anyLocation = false;
+        public LocationType location = LocationType.None;
+        public int requiredLevel;
+        public int maxLevel;
+        public bool isAvoidanceAvailable = true;
+        public string encounterLocalization = string.Empty;
 
         public bool CanSpawnOnLocation(LocationType locationType)
         {

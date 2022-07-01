@@ -16,6 +16,7 @@ namespace TextGameRPG.ViewModels.Editor.MobsEditor
         private string _header = string.Empty;
         private EnumValueModel<MobType>? _selectedMobType;
         private EnumValueModel<Rarity>? _selectedRarity;
+        private ObjectFieldsEditorView? _encounterSettingsView;
         private ObjectFieldsEditorView? _statsSettingsView;
         private ObjectFieldsEditorView? _selectedAttackView;
 
@@ -57,6 +58,11 @@ namespace TextGameRPG.ViewModels.Editor.MobsEditor
                 }
             }
         }
+        public ObjectFieldsEditorView? encounterSettingsView
+        {
+            get => _encounterSettingsView;
+            set => this.RaiseAndSetIfChanged(ref _encounterSettingsView, value);
+        }
         public ObjectFieldsEditorView? statsSettingsView
         {
             get => _statsSettingsView;
@@ -87,6 +93,7 @@ namespace TextGameRPG.ViewModels.Editor.MobsEditor
             header = $"{data.debugName} [ID: {data.id}]";
             selectedMobType = mobTypes.First(x => x.value == data.mobType);
             selectedRarity = rarities.First(x => x.value == data.rarity);
+            encounterSettingsView = UserControlsHelper.CreateObjectEditorView(data.encounterSettings);
             statsSettingsView = UserControlsHelper.CreateObjectEditorView(data.statsSettings);
 
             UserControlsHelper.RefillObjectEditorsCollection(attackViews, data.mobAttacks);
