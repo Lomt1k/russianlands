@@ -7,7 +7,7 @@ namespace TextGameRPG.Views.Editor.UserControls
 {
     public partial class ObjectFieldsEditorView : UserControl
     {
-        public ObjectFieldsEditorViewModel viewModel => DataContext as ObjectFieldsEditorViewModel;
+        public ObjectFieldsEditorViewModel vm => DataContext as ObjectFieldsEditorViewModel;
 
         public ObjectFieldsEditorView()
         {

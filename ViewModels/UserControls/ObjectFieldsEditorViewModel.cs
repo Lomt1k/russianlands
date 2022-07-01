@@ -18,6 +18,11 @@ namespace TextGameRPG.ViewModels.UserControls
             editableObject = obj;
         }
 
+        public T GetEditableObject<T>()
+        {
+            return (T)editableObject;
+        }
+
         public void SaveObjectChanges()
         {
             var fieldInfos = editableObject.GetType().GetFields();

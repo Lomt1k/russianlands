@@ -68,32 +68,17 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
 
         public void RefillActionsCollection()
         {
-            actionViews.Clear();
-            foreach (var action in stage.questActions)
-            {
-                var actionView = UserControlsHelper.CreateObjectFieldsEditor(action);
-                actionViews.Add(actionView);
-            }
+            UserControlsHelper.RefillObjectEditorsCollection(actionViews, stage.questActions);
         }
 
         public void RefillTooltipsCollection()
         {
-            tooltipViews.Clear();
-            foreach (var tooltip in stage.tooltips)
-            {
-                var tooltipView = UserControlsHelper.CreateObjectFieldsEditor(tooltip);
-                tooltipViews.Add(tooltipView);
-            }
+            UserControlsHelper.RefillObjectEditorsCollection(tooltipViews, stage.tooltips);
         }
 
         public void RefillTriggersCollection()
         {
-            triggerViews.Clear();
-            foreach (var trigger in stage.nextStageTriggers)
-            {
-                var triggerView = UserControlsHelper.CreateObjectFieldsEditor(trigger);
-                triggerViews.Add(triggerView);
-            }
+            UserControlsHelper.RefillObjectEditorsCollection(triggerViews, stage.nextStageTriggers);
         }
 
         public void AddNewAction()
@@ -112,7 +97,7 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
             if (_selectedActionView == null)
                 return;
 
-            var actionToRemove = (StageActionBase)_selectedActionView.viewModel.editableObject;
+            var actionToRemove = _selectedActionView.vm.GetEditableObject<StageActionBase>();
             stage.questActions.Remove(actionToRemove);
             RefillActionsCollection();
         }
@@ -128,7 +113,7 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
             if (_selectedTooltipView == null)
                 return;
 
-            var tooltipToRemove = (Tooltip)_selectedTooltipView.viewModel.editableObject;
+            var tooltipToRemove = _selectedTooltipView.vm.GetEditableObject<Tooltip>();
             stage.tooltips.Remove(tooltipToRemove);
             RefillTooltipsCollection();
         }
@@ -146,7 +131,7 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
             if (_selectedTriggerView == null)
                 return;
 
-            var triggerToRemove = (TriggerBase)_selectedTriggerView.viewModel.editableObject;
+            var triggerToRemove = _selectedTriggerView.vm.GetEditableObject<TriggerBase>();
             stage.nextStageTriggers.Remove(triggerToRemove);
             RefillTriggersCollection();
         }
@@ -155,15 +140,15 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
         {
             foreach (var actionView in actionViews)
             {
-                actionView.viewModel.SaveObjectChanges();
+                actionView.vm.SaveObjectChanges();
             }
             foreach (var tooltipView in tooltipViews)
             {
-                tooltipView.viewModel.SaveObjectChanges();
+                tooltipView.vm.SaveObjectChanges();
             }
             foreach (var triggerView in triggerViews)
             {
-                triggerView.viewModel.SaveObjectChanges();
+                triggerView.vm.SaveObjectChanges();
             }
         }
 
