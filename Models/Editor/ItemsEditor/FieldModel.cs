@@ -8,6 +8,7 @@ namespace TextGameRPG.Models.Editor.ItemsEditor
     public class FieldModel
     {
         private string _unparsedValue;
+        private string _selectedEnumValue;
 
         public string name { get; }
         public Type type { get;  }
@@ -24,6 +25,25 @@ namespace TextGameRPG.Models.Editor.ItemsEditor
         }
         public bool isValidValue { get; private set; }
 
+        //enum field
+        public bool isEnumValue => type.IsEnum;
+        public ObservableCollection<string> enumNames { get; }
+        public string selectedEnumValue
+        {
+            get => _selectedEnumValue;
+            set
+            {
+                _selectedEnumValue = value;
+                this.value = Enum.Parse(value.GetType(), _selectedEnumValue);
+            }
+        }
+
+        //boolean field
+        public bool isBooleanValue => Type.GetTypeCode(type) == TypeCode.Boolean;
+
+        public bool isDefaultType => !isBooleanValue && !isEnumValue;
+
+
         public FieldModel(FieldInfo _info, object? _value)
         {
             name = _info.Name;
@@ -32,6 +52,17 @@ namespace TextGameRPG.Models.Editor.ItemsEditor
             value = _value;
             _unparsedValue = _value.ToString();
             isValidValue = true;
+
+            if (type.IsEnum)
+            {
+                _selectedEnumValue = _value.ToString();
+                enumNames = new ObservableCollection<string>();
+                var names = Enum.GetNames(_value.GetType());
+                foreach (var name in names)
+                {
+                    enumNames.Add(name);
+                }
+            }
         }
 
         private void TryParse()

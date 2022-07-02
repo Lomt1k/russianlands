@@ -3,7 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="600"
-             x:Class="TextGameRPG.Views.Editor.UserControls.ObjectFieldsEditorView">
+             x:Class="TextGameRPG.Views.UserControls.ObjectFieldsEditorView">
 
   <Border Background="SlateGray" Padding="5">
     <Border Background="WhiteSmoke" Padding="5">
@@ -17,11 +17,25 @@
           <ListBox.ItemTemplate>
             <DataTemplate>
               <StackPanel Orientation="Horizontal" Margin="-5">
+                
                 <TextBlock Text="{Binding name}"
                            VerticalAlignment="Center"
                            Width="150"/>
+
+                <!-- Boolean -->
+                <CheckBox IsChecked="{Binding unparsedValue}"
+                          IsVisible="{Binding isBooleanValue}"/>
+                
+                <!-- Enum -->
+                <ComboBox Items="{Binding enumNames}"
+                          SelectedItem="{Binding selectedEnumValue}"
+                          IsVisible="{Binding isEnumValue}"/>
+
+                <!-- Other Types-->
                 <TextBox Text="{Binding unparsedValue}"
-                         AcceptsReturn="True"/>
+                         AcceptsReturn="True"
+                         IsVisible="{Binding isDefaultType}"/>
+                
               </StackPanel>
             </DataTemplate>
           </ListBox.ItemTemplate>

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using TextGameRPG.ViewModels.UserControls;
-using TextGameRPG.Views.Editor.UserControls;
+using TextGameRPG.Views.UserControls;
 
 namespace TextGameRPG.Models.UserControls
 {

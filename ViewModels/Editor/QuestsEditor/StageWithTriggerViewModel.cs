@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using ReactiveUI;
 using TextGameRPG.Models.UserControls;
 using TextGameRPG.Scripts.GameCore.Quests.QuestStages;
-using TextGameRPG.Views.Editor.UserControls;
+using TextGameRPG.Views.UserControls;
 using TextGameRPG.Scripts.GameCore.Quests.NextStageTriggers;
 using TextGameRPG.Models.RegularDialogs;
 using TextGameRPG.Scripts.GameCore.Quests.StageActions;

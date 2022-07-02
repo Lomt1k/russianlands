@@ -4,7 +4,7 @@ using TextGameRPG.Models;
 using TextGameRPG.Scripts.GameCore.Items;
 using System.Collections.ObjectModel;
 using System.Linq;
-using TextGameRPG.Views.Editor.UserControls;
+using TextGameRPG.Views.UserControls;
 using TextGameRPG.Models.UserControls;
 using System.Reactive;
 

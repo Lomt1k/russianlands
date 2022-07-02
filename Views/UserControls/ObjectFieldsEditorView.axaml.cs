@@ -3,7 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using TextGameRPG.ViewModels.UserControls;
 
-namespace TextGameRPG.Views.Editor.UserControls
+namespace TextGameRPG.Views.UserControls
 {
     public partial class ObjectFieldsEditorView : UserControl
     {
