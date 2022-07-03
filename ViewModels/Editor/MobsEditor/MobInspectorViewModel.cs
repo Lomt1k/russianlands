@@ -19,6 +19,7 @@ namespace TextGameRPG.ViewModels.Editor.MobsEditor
         private ObjectFieldsEditorView? _encounterSettingsView;
         private ObjectFieldsEditorView? _statsSettingsView;
         private ObjectFieldsEditorView? _selectedAttackView;
+        private MobsEditorViewModel _mobEditorVM;
 
         public MobData? mob
         {
@@ -76,8 +77,10 @@ namespace TextGameRPG.ViewModels.Editor.MobsEditor
 
         public ReactiveCommand<Unit, Unit> addAttackCommand { get; }
         public ReactiveCommand<Unit, Unit> removeAttackCommand { get; }
+        public ReactiveCommand<Unit, Unit> saveCommand { get; }
+        public ReactiveCommand<Unit, Unit> cancelCommand { get; }
 
-        public MobInspectorViewModel()
+        public MobInspectorViewModel(MobsEditorViewModel parent)
         {
             mobTypes = EnumValueModel<MobType>.CreateCollection();
             rarities = EnumValueModel<Rarity>.CreateCollection();
@@ -85,6 +88,10 @@ namespace TextGameRPG.ViewModels.Editor.MobsEditor
             attackViews = new ObservableCollection<ObjectFieldsEditorView>();
             addAttackCommand = ReactiveCommand.Create(AddNewAttack);
             removeAttackCommand = ReactiveCommand.Create(RemoveSelectedAttack);
+            saveCommand = ReactiveCommand.Create(SaveMobChanges);
+            cancelCommand = ReactiveCommand.Create(ResetMobChanges);
+
+            _mobEditorVM = parent;
         }
 
         public void ShowMob(MobData data)
@@ -116,6 +123,30 @@ namespace TextGameRPG.ViewModels.Editor.MobsEditor
             var mobAttack = _selectedAttackView.vm.GetEditableObject<MobAttack>();
             _mob.mobAttacks.Remove(mobAttack);
             UserControlsHelper.RefillObjectEditorsCollection(attackViews, _mob.mobAttacks);
+        }
+
+        private void SaveMobChanges()
+        {
+            if (mob == null)
+                return;
+
+            _encounterSettingsView?.vm.SaveObjectChanges();
+            _statsSettingsView?.vm.SaveObjectChanges();
+            foreach (var attackView in attackViews)
+            {
+                attackView.vm.SaveObjectChanges();
+            }
+
+            var mobDB = Scripts.GameCore.GameDataBase.GameDataBase.instance.mobs;
+            mobDB.ChangeData(mob.id, mob);
+
+            _mobEditorVM.RefreshMobsList();
+            _mobEditorVM.selectedMob = mob;
+        }
+
+        private void ResetMobChanges()
+        {
+            //TODO
         }
 
     }

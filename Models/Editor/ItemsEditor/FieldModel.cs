@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Reflection;
 using TextGameRPG.Scripts.Utils;
 
@@ -34,7 +35,15 @@ namespace TextGameRPG.Models.Editor.ItemsEditor
             set
             {
                 _selectedEnumValue = value;
-                this.value = Enum.Parse(value.GetType(), _selectedEnumValue);
+                var enumValues = Enum.GetValues(this.value.GetType());
+                foreach (var element in enumValues)
+                {
+                    if (element.ToString().Equals(_selectedEnumValue))
+                    {
+                        this.value = element;
+                        break;
+                    }
+                }
             }
         }
 

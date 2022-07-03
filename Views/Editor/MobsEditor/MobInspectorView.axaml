@@ -9,6 +9,7 @@
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="400"/>
       <ColumnDefinition Width="auto"/>
+      <ColumnDefinition Width="auto"/>
     </Grid.ColumnDefinitions>
 
     <!-- Column 1: Main Settings-->
@@ -60,6 +61,12 @@
         </StackPanel>
       </ScrollViewer>
     </Border>
+
+    <!-- Column 3: Subsettings -->
+    <StackPanel Grid.Column="2" Orientation="Vertical" Spacing="20" Margin="20">
+      <Button Content="Save changes " Classes="NeutralBig" Command="{Binding saveCommand}"/>
+      <Button Content="Reset changes" Classes="NeutralBig" Command="{Binding cancelCommand}"/>
+    </StackPanel>
 
   </Grid>
   

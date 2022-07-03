@@ -20,7 +20,7 @@ namespace TextGameRPG.Scripts.GameCore.Units.Mobs
         public MobEncounterSettings encounterSettings { get; set; } = new MobEncounterSettings();
         public MobStatsSettings statsSettings { get; set; } = new MobStatsSettings();
 
-        public List<MobAttack> mobAttacks = new List<MobAttack>();
+        public List<MobAttack> mobAttacks { get; } = new List<MobAttack>();
         //TODO: Add rewards
 
         public bool CanStartEncounter(GameSession session)
@@ -46,7 +46,7 @@ namespace TextGameRPG.Scripts.GameCore.Units.Mobs
         public bool anyLocation = false;
         public LocationType location = LocationType.None;
         public int requiredLevel;
-        public int maxLevel;
+        public int maxLevel = 9999;
         public bool isAvoidanceAvailable = true;
         public string encounterLocalization = string.Empty;
 
