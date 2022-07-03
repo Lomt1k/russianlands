@@ -146,7 +146,11 @@ namespace TextGameRPG.ViewModels.Editor.MobsEditor
 
         private void ResetMobChanges()
         {
-            //TODO
+            var mobDB = Scripts.GameCore.GameDataBase.GameDataBase.instance.mobs;
+            mobDB.ReloadAllData();
+
+            _mobEditorVM.RefreshMobsList();
+            _mobEditorVM.selectedMob = mob;
         }
 
     }

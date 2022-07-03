@@ -16,6 +16,8 @@ namespace TextGameRPG.Scripts.GameCore.GameDataBase
 
         public int count => _dictionary.Count;
 
+        public T this[int id] => _dictionary[id];
+
         public DataDictionaryWithIntegerID(Dictionary<int, T> dictionary, string path)
         {
             _dictionary = dictionary;
@@ -40,8 +42,6 @@ namespace TextGameRPG.Scripts.GameCore.GameDataBase
                 return new DataDictionaryWithIntegerID<Type>(dictionary, path);
             }
         }
-
-        public T this[int id] => _dictionary[id];
 
         public bool ContainsKey(int id)
         {
@@ -77,6 +77,16 @@ namespace TextGameRPG.Scripts.GameCore.GameDataBase
             if (onDataChanged != null)
             {
                 onDataChanged();
+            }
+        }
+
+        public void ReloadAllData()
+        {
+            _dictionary.Clear();
+            using (StreamReader reader = new StreamReader(dataPath, Encoding.UTF8))
+            {
+                var jsonStr = reader.ReadToEnd();
+                _dictionary = JsonConvert.DeserializeObject<IEnumerable<T>>(jsonStr).ToDictionary(x => x.id);
             }
         }
 

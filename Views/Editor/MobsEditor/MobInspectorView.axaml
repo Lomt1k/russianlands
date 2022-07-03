@@ -64,8 +64,8 @@
 
     <!-- Column 3: Subsettings -->
     <StackPanel Grid.Column="2" Orientation="Vertical" Spacing="20" Margin="20">
-      <Button Content="Save changes " Classes="NeutralBig" Command="{Binding saveCommand}"/>
-      <Button Content="Reset changes" Classes="NeutralBig" Command="{Binding cancelCommand}"/>
+      <Button Content="    Save mob    " Classes="NeutralBig" Command="{Binding saveCommand}"/>
+      <Button Content="Reset unsaved" Classes="NeutralBig" Command="{Binding cancelCommand}"/>
     </StackPanel>
 
   </Grid>
