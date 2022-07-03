@@ -1,4 +1,9 @@
 ﻿
+using System.Text;
+using TextGameRPG.Scripts.GameCore.Localizations;
+using TextGameRPG.Scripts.TelegramBot;
+using TextGameRPG.Scripts.TelegramBot.Sessions;
+
 namespace TextGameRPG.Scripts.GameCore.Units.Stats
 {
     public abstract class UnitStats
@@ -17,7 +22,54 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
             currentHP = maxHP;
         }
 
-        public abstract string GetView();
+        public virtual void OnBattleStart()
+        {
+            currentMana = 0;
+        }
+
+        public void AddManaPoint()
+        {
+            currentMana++;
+        }
+
+        public abstract string GetView(GameSession session);
+
+        public string GetStartTurnView(GameSession session)
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine($"\n{Emojis.stats[Stat.Health]} {currentHP} / {maxHP}" +
+                $"{Emojis.bigSpace}{Emojis.stats[Stat.Mana]} {currentMana}");
+
+            sb.AppendLine();
+            AppendResistsCompactView(sb, session);
+
+            return sb.ToString();
+        }
+
+        protected void AppendResistsCompactView(StringBuilder sb, GameSession session)
+        {
+            sb.AppendLine(Localization.Get(session, "unit_view_total_resistance"));
+
+            bool hasBigValues = physicalResist > 999
+                || fireResist > 999
+                || coldResist > 999
+                || lightningResist > 999;
+
+            if (hasBigValues)
+            {
+                sb.Append($"{Emojis.stats[Stat.PhysicalDamage]} " + physicalResist);
+                sb.AppendLine(Emojis.bigSpace + $"{Emojis.stats[Stat.FireDamage]} " + fireResist);
+                sb.Append($"{Emojis.stats[Stat.ColdDamage]} " + coldResist);
+                sb.AppendLine(Emojis.bigSpace + $"{Emojis.stats[Stat.LightningDamage]} " + lightningResist);
+            }
+            else
+            {
+                sb.Append($"{Emojis.stats[Stat.PhysicalDamage]} " + physicalResist);
+                sb.Append(Emojis.middleSpace + $"{Emojis.stats[Stat.FireDamage]} " + fireResist);
+                sb.Append(Emojis.middleSpace + $"{Emojis.stats[Stat.ColdDamage]} " + coldResist);
+                sb.Append(Emojis.middleSpace + $"{Emojis.stats[Stat.LightningDamage]} " + lightningResist);
+            }
+        }
 
     }
 }

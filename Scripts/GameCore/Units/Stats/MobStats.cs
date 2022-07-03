@@ -1,14 +1,22 @@
 ﻿
 using System;
+using System.Text;
 using TextGameRPG.Scripts.GameCore.Units.Mobs;
+using TextGameRPG.Scripts.TelegramBot;
+using TextGameRPG.Scripts.TelegramBot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Units.Stats
 {
     public class MobStats : UnitStats
     {
-        public MobStats(MobData mobData, float gradeMult)
+        private Mob _mob;
+
+        public MobStats(Mob mob)
         {
-            var statsSettings = mobData.statsSettings;
+            _mob = mob;
+            var statsSettings = mob.mobData.statsSettings;
+            var gradeMult = mob.gradeMult;
+
             maxHP = (int)Math.Round(statsSettings.health * gradeMult);
             currentHP = maxHP;
             physicalResist = (int)Math.Round(statsSettings.physicalResist * gradeMult);
@@ -17,9 +25,10 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
             lightningResist = (int)Math.Round(statsSettings.lightningResist * gradeMult);            
         }
 
-        public override string GetView()
+        public override string GetView(GameSession session)
         {
             return "MOB_STATS_VIEW [В РАЗРАБОТКЕ]";
         }
+
     }
 }

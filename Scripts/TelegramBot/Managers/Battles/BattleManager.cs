@@ -24,6 +24,11 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
         public async Task<Battle> StartBattle(Player player, MobData mobData)
         {
             var mob = new Mob(player.session, mobData);
+            return await StartBattle(player, mob);
+        }
+
+        public async Task<Battle> StartBattle(Player player, Mob mob)
+        {
             var battle = new BattlePVE(player, mob);
             battles.Add(battle);
             await battle.StartBattleAsync();

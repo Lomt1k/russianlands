@@ -30,14 +30,23 @@ namespace TextGameRPG.Scripts.GameCore.Units
             return sb.ToString();
         }
 
-        public string GetFullUnitView()
+        public string GetFullUnitView(GameSession session)
         {
             var sb = new StringBuilder();
             sb.AppendLine($"<b>{nickname}{Emojis.menuItems[MenuItem.Character]}</b>");
             string levelStr = string.Format(Localizations.Localization.Get(session, "unit_view_level"), session.profile.data.level);
             sb.AppendLine(levelStr);
 
-            sb.AppendLine(unitStats.GetView());
+            sb.AppendLine(unitStats.GetView(session));
+            return sb.ToString();
+        }
+
+        public string GetStartTurnView(GameSession session)
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine($"<b>{nickname}{Emojis.menuItems[MenuItem.Character]}</b>");
+
+            sb.AppendLine(unitStats.GetView(session));
             return sb.ToString();
         }
     }

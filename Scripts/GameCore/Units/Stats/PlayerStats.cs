@@ -2,6 +2,7 @@
 using TextGameRPG.Scripts.GameCore.Items.ItemProperties;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.TelegramBot;
+using TextGameRPG.Scripts.TelegramBot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Units.Stats
 {
@@ -114,46 +115,22 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
             lightningResist += (int)(lightningBonusPerVitality * attributeVitality);
         }
 
-        public override string GetView()
+        public override string GetView(GameSession session)
         {
             var sb = new StringBuilder();
             
             sb.Append("<b>" + Localization.Get(_player.session, "unit_attribute_strength") + ":</b> " + attributeStrength);
-            sb.AppendLine(Emojis.bigSpace + "<b>" + Localization.Get(_player.session, "unit_attribute_vitality") + ":</b> " + attributeVitality);
+            sb.AppendLine(Emojis.bigSpace + "<b>" + Localization.Get(session, "unit_attribute_vitality") + ":</b> " + attributeVitality);
             sb.Append("<b>" + Localization.Get(_player.session, "unit_attribute_sorcery") + ":</b> " + attributeSorcery);
-            sb.Append(Emojis.bigSpace + "<b>" + Localization.Get(_player.session, "unit_attribute_luck") + ":</b> " + attributeLuck);
+            sb.Append(Emojis.bigSpace + "<b>" + Localization.Get(session, "unit_attribute_luck") + ":</b> " + attributeLuck);
 
             sb.AppendLine();
             sb.AppendLine($"\n{Emojis.stats[Stat.Health]} {currentHP} / {maxHP}");
 
             sb.AppendLine();
-            sb.AppendLine(Localization.Get(_player.session, "unit_view_total_resistance"));
-            AppendResistsCompactView(sb);
+            AppendResistsCompactView(sb, session);
 
             return sb.ToString();
-        }
-
-        private void AppendResistsCompactView(StringBuilder sb)
-        {
-            bool hasBigValues = physicalResist > 999 
-                || fireResist > 999
-                || coldResist > 999
-                || lightningResist > 999;
-
-            if (hasBigValues)
-            {
-                sb.Append($"{Emojis.stats[Stat.PhysicalDamage]} " + physicalResist);
-                sb.AppendLine(Emojis.bigSpace + $"{Emojis.stats[Stat.FireDamage]} " + fireResist);
-                sb.Append($"{Emojis.stats[Stat.ColdDamage]} " + coldResist);
-                sb.AppendLine(Emojis.bigSpace + $"{Emojis.stats[Stat.LightningDamage]} " + lightningResist);
-            }
-            else
-            {
-                sb.Append($"{Emojis.stats[Stat.PhysicalDamage]} " + physicalResist);
-                sb.Append(Emojis.middleSpace + $"{Emojis.stats[Stat.FireDamage]} " + fireResist);
-                sb.Append(Emojis.middleSpace + $"{Emojis.stats[Stat.ColdDamage]} " + coldResist);
-                sb.Append(Emojis.middleSpace + $"{Emojis.stats[Stat.LightningDamage]} " + lightningResist);
-            }
         }
 
     }

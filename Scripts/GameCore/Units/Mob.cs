@@ -1,5 +1,7 @@
-﻿using TextGameRPG.Scripts.GameCore.Units.Mobs;
+﻿using System.Text;
+using TextGameRPG.Scripts.GameCore.Units.Mobs;
 using TextGameRPG.Scripts.GameCore.Units.Stats;
+using TextGameRPG.Scripts.TelegramBot;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 using TextGameRPG.Scripts.Utils;
 
@@ -8,9 +10,8 @@ namespace TextGameRPG.Scripts.GameCore.Units
     public class Mob : IBattleUnit
     {
         public GameSession session { get; }
-        public MobData mobData { get; }
-
         public UnitStats unitStats { get; }
+        public MobData mobData { get; }
         public int? grade { get; }
         public float gradeMult { get; } = 1.0f;
 
@@ -27,7 +28,16 @@ namespace TextGameRPG.Scripts.GameCore.Units
                 gradeMult = (randGrade - 5) / 40f + 1; //от 0.9 до 1.125 (сам grade от 1 - 10)
             }
 
-            unitStats = new MobStats(mobData, gradeMult);
+            unitStats = new MobStats(this);
+        }
+
+        public string GetStartTurnView(GameSession session)
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine($"<b>{nickname}</b>");
+
+            sb.AppendLine(unitStats.GetView(session));
+            return sb.ToString();
         }
     }
 }

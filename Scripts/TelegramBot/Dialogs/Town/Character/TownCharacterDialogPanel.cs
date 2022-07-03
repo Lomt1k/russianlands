@@ -21,7 +21,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
         {
             ClearButtons();
             RegisterButton($"{Emojis.elements[Element.Info]} {Localization.Get(session, "dialog_character_attributes_tooltip")}", () => ShowAttributesInfo());
-            var text = session.player.unitStats.GetView();
+            var text = session.player.unitStats.GetView(session);
 
             _lastMessage = _lastMessage == null 
                 ? await messageSender.SendTextMessage(session.chatId, text, GetMultilineKeyboard())

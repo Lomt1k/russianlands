@@ -10,14 +10,9 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
     {
         public override BattleType battleType => BattleType.PVE;
 
-        public BattlePVE(Player player, Mob mob)
+        public BattlePVE(Player player, Mob mob) : base(player, mob)
         {
-
         }
 
-        public override Task StartBattleAsync()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
