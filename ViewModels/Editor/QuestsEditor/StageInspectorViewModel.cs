@@ -54,13 +54,17 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
 
             switch (stage)
             {
+                case QuestStageWithTrigger withTrigger:
+                    specialStageInspector = new StageWithTriggerView();
+                    specialStageInspector.DataContext = new StageWithTriggerViewModel(withTrigger);
+                    break;
                 case QuestStageWithReplica withReplica:
                     specialStageInspector = new StageWithReplicaView();
                     specialStageInspector.DataContext = new StageWithReplicaViewModel(withReplica);
                     break;
-                case QuestStageWithTrigger withTrigger:
-                    specialStageInspector = new StageWithTriggerView();
-                    specialStageInspector.DataContext = new StageWithTriggerViewModel(withTrigger);
+                case QuestStageWithBattle withBattle:
+                    specialStageInspector = new StageWithBattleView();
+                    specialStageInspector.DataContext = new StageWithBattleViewModel(withBattle);
                     break;
             }
         }
