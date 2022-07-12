@@ -1,7 +1,10 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Inventory;
 using TextGameRPG.Scripts.GameCore.Units.Stats;
 using TextGameRPG.Scripts.TelegramBot;
+using TextGameRPG.Scripts.TelegramBot.Managers.Battles.Actions;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Units
@@ -48,6 +51,12 @@ namespace TextGameRPG.Scripts.GameCore.Units
 
             sb.AppendLine(unitStats.GetView(session));
             return sb.ToString();
+        }
+
+        public Task<List<IBattleAction>> GetActionsForBattleTurn()
+        {
+            //TODO
+            throw new System.NotImplementedException();
         }
     }
 }

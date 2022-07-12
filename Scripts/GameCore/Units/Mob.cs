@@ -1,7 +1,11 @@
-﻿using System.Text;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Units.Mobs;
 using TextGameRPG.Scripts.GameCore.Units.Stats;
 using TextGameRPG.Scripts.TelegramBot;
+using TextGameRPG.Scripts.TelegramBot.Managers.Battles.Actions;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 using TextGameRPG.Scripts.Utils;
 
@@ -39,5 +43,33 @@ namespace TextGameRPG.Scripts.GameCore.Units
             sb.AppendLine(unitStats.GetView(session));
             return sb.ToString();
         }
+
+        public async Task<List<IBattleAction>> GetActionsForBattleTurn()
+        {
+            var availableAttacks = GetAvailableAttacks();
+            if (availableAttacks.Count == 0)
+            {
+                //TODO: return skip turn action
+            }
+
+            var attackIndex = new Random().Next(availableAttacks.Count);
+            var attackAction = new MobAttackAction(availableAttacks[attackIndex]);
+
+            return new List<IBattleAction>() { attackAction };
+        }
+
+        private List<MobAttack> GetAvailableAttacks()
+        {
+            var result = new List<MobAttack>();
+            foreach (var attack in mobData.mobAttacks)
+            {
+                if (attack.manaCost <= unitStats.currentMana)
+                {
+                    result.Add(attack);
+                }
+            }
+            return result;
+        }
+
     }
 }

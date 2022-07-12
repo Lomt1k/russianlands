@@ -18,6 +18,15 @@ namespace TextGameRPG.Scripts.GameCore.Items
             _damage[DamageType.Lightning] = _lightningDamage;
         }
 
+        public int GetTotalValue()
+        {
+            int sum = 0;
+            foreach (var damage in _damage.Values)
+            {
+                sum += damage;
+            }
+            return sum;
+        }
     }
 
     public enum DamageType { Physical, Fire, Cold, Lightning }

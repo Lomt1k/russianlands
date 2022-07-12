@@ -1,5 +1,7 @@
 ﻿
+using System;
 using System.Text;
+using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.TelegramBot;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
@@ -30,6 +32,18 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
         public void AddManaPoint()
         {
             currentMana++;
+        }
+
+        public DamageInfo TryDealDamage(DamageInfo damage)
+        {
+            var physical = Math.Max(damage[DamageType.Physical] - physicalResist, 0);
+            var fire = Math.Max(damage[DamageType.Fire] - fireResist, 0);
+            var cold = Math.Max(damage[DamageType.Cold] - coldResist, 0);
+            var lightning = Math.Max(damage[DamageType.Lightning] - lightningResist, 0);
+
+            var resultDamage = new DamageInfo(physical, fire, cold, lightning);
+            currentHP -= resultDamage.GetTotalValue();
+            return resultDamage;
         }
 
         public abstract string GetView(GameSession session);

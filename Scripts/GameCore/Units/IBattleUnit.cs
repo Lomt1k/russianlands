@@ -1,4 +1,7 @@
-﻿using TextGameRPG.Scripts.GameCore.Units.Stats;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using TextGameRPG.Scripts.GameCore.Units.Stats;
+using TextGameRPG.Scripts.TelegramBot.Managers.Battles.Actions;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Units
@@ -10,5 +13,7 @@ namespace TextGameRPG.Scripts.GameCore.Units
         public GameSession session { get; }
 
         public string GetStartTurnView(GameSession session);
+
+        public Task<List<IBattleAction>> GetActionsForBattleTurn();
     }
 }
