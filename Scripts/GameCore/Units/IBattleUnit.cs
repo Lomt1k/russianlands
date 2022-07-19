@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Units.Stats;
+using TextGameRPG.Scripts.TelegramBot.Managers.Battles;
 using TextGameRPG.Scripts.TelegramBot.Managers.Battles.Actions;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 
@@ -14,6 +15,6 @@ namespace TextGameRPG.Scripts.GameCore.Units
 
         public string GetStartTurnView(GameSession session);
 
-        public Task<List<IBattleAction>> GetActionsForBattleTurn(int maxSeconds);
+        public Task<List<IBattleAction>> GetActionsForBattleTurn(BattleTurn battleTurn);
     }
 }

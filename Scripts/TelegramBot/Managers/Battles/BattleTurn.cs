@@ -7,19 +7,23 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
 {
     public class BattleTurn
     {
-        private Battle _battle;
         private Dictionary<IBattleUnit, List<IBattleAction>> _actionsByUnit;
 
-        public BattleTurn(Battle battle)
+        public Battle battle { get; }
+        public int turnId { get; }
+        public int maxSeconds { get; } = 60;
+
+        public BattleTurn(Battle _battle, int _turnId)
         {
-            _battle = battle;
+            battle = _battle;
+            turnId = _turnId;
             _actionsByUnit = new Dictionary<IBattleUnit, List<IBattleAction>>();
         }
 
         public async Task HandleTurn()
         {
             AddManaPoint();
-            foreach (var unit in _battle.units)
+            foreach (var unit in battle.units)
             {
                 AskUnitForBattleActions(unit);
             }
@@ -29,7 +33,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
 
         private void AddManaPoint()
         {
-            foreach (var unit in _battle.units)
+            foreach (var unit in battle.units)
             {
                 unit.unitStats.AddManaPoint();
             }
@@ -37,12 +41,12 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
 
         private async void AskUnitForBattleActions(IBattleUnit unit)
         {
-            _actionsByUnit[unit] = await unit.GetActionsForBattleTurn(maxSeconds: 60);
+            _actionsByUnit[unit] = await unit.GetActionsForBattleTurn(this);
         }
 
         private async Task WaitAnswersFromAllUnits()
         {
-            while (_actionsByUnit.Count < _battle.units.Length)
+            while (_actionsByUnit.Count < battle.units.Length)
             {
                 await Task.Delay(1000);
             }

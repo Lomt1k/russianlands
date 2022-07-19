@@ -16,7 +16,7 @@ namespace TextGameRPG.Scripts.GameCore.Inventory
         public List<InventoryItem> items { get; private set; } = new List<InventoryItem>(DEFAULT_SIZE);
 
         [JsonIgnore]
-        public EquippedItems? equipped { get; private set; }
+        public EquippedItems equipped { get; private set; }
 
         [JsonIgnore]
         public bool isFull => items.Count >= inventorySize;

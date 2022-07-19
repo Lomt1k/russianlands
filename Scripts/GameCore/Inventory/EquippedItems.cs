@@ -164,6 +164,24 @@ namespace TextGameRPG.Scripts.GameCore.Inventory
             onUpdateEquippedItems?.Invoke();
         }
 
+        public bool HasItem(ItemType type)
+        {
+            if (type.IsMultiSlot())
+            {
+                var items = _multiEquipped[type];
+                foreach (var item in items)
+                {
+                    if (item != null)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            return _singleEquipped[type] != null;
+        }
+
         
     }
 }

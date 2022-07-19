@@ -6,6 +6,7 @@ using TextGameRPG.Scripts.GameCore.Inventory;
 using TextGameRPG.Scripts.GameCore.Units.Stats;
 using TextGameRPG.Scripts.TelegramBot;
 using TextGameRPG.Scripts.TelegramBot.Dialogs.Battle;
+using TextGameRPG.Scripts.TelegramBot.Managers.Battles;
 using TextGameRPG.Scripts.TelegramBot.Managers.Battles.Actions;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 
@@ -55,12 +56,12 @@ namespace TextGameRPG.Scripts.GameCore.Units
             return sb.ToString();
         }
 
-        public async Task<List<IBattleAction>> GetActionsForBattleTurn(int maxSeconds)
+        public async Task<List<IBattleAction>> GetActionsForBattleTurn(BattleTurn battleTurn)
         {
             List<IBattleAction>? result = null;
-            int secondsToEnd = maxSeconds;
+            int secondsToEnd = battleTurn.maxSeconds;
 
-            var dialog = new SelectBattleActionDialog(session, (selectedActions) => result = selectedActions).Start();
+            var dialog = new SelectBattleActionDialog(session, battleTurn, (selectedActions) => result = selectedActions).Start();
             while (result == null)
             {
                 await Task.Delay(1000);

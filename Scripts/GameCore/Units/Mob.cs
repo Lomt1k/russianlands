@@ -4,7 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Units.Mobs;
 using TextGameRPG.Scripts.GameCore.Units.Stats;
-using TextGameRPG.Scripts.TelegramBot;
+using TextGameRPG.Scripts.TelegramBot.Managers.Battles;
 using TextGameRPG.Scripts.TelegramBot.Managers.Battles.Actions;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 using TextGameRPG.Scripts.Utils;
@@ -44,7 +44,7 @@ namespace TextGameRPG.Scripts.GameCore.Units
             return sb.ToString();
         }
 
-        public async Task<List<IBattleAction>> GetActionsForBattleTurn(int maxSeconds)
+        public async Task<List<IBattleAction>> GetActionsForBattleTurn(BattleTurn battleTurn)
         {
             var availableAttacks = GetAvailableAttacks();
             if (availableAttacks.Count == 0)
