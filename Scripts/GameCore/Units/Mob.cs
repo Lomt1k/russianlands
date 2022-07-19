@@ -44,7 +44,7 @@ namespace TextGameRPG.Scripts.GameCore.Units
             return sb.ToString();
         }
 
-        public async Task<List<IBattleAction>> GetActionsForBattleTurn()
+        public async Task<List<IBattleAction>> GetActionsForBattleTurn(int maxSeconds)
         {
             var availableAttacks = GetAvailableAttacks();
             if (availableAttacks.Count == 0)

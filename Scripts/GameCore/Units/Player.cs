@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Inventory;
 using TextGameRPG.Scripts.GameCore.Units.Stats;
 using TextGameRPG.Scripts.TelegramBot;
+using TextGameRPG.Scripts.TelegramBot.Dialogs.Battle;
 using TextGameRPG.Scripts.TelegramBot.Managers.Battles.Actions;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 
@@ -53,10 +55,24 @@ namespace TextGameRPG.Scripts.GameCore.Units
             return sb.ToString();
         }
 
-        public Task<List<IBattleAction>> GetActionsForBattleTurn()
+        public async Task<List<IBattleAction>> GetActionsForBattleTurn(int maxSeconds)
         {
-            //TODO
-            throw new System.NotImplementedException();
+            List<IBattleAction>? result = null;
+            int secondsToEnd = maxSeconds;
+
+            var dialog = new SelectBattleActionDialog(session, (selectedActions) => result = selectedActions).Start();
+            while (result == null)
+            {
+                await Task.Delay(1000);
+                secondsToEnd--;
+                if (secondsToEnd < 0)
+                {
+                    //TODO: return skip turn action
+                }
+            }
+
+            return result;
         }
+
     }
 }

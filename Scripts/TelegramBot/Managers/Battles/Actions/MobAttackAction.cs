@@ -30,7 +30,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles.Actions
 
         public string? GetLocalization(GameSession session)
         {
-            throw new NotImplementedException();
+            return "TODO: Add localization";
+            //throw new NotImplementedException();
         }
     }
 }

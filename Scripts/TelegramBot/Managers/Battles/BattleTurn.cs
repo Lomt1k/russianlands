@@ -37,7 +37,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
 
         private async void AskUnitForBattleActions(IBattleUnit unit)
         {
-            _actionsByUnit[unit] = await unit.GetActionsForBattleTurn();
+            _actionsByUnit[unit] = await unit.GetActionsForBattleTurn(maxSeconds: 60);
         }
 
         private async Task WaitAnswersFromAllUnits()
