@@ -12,11 +12,13 @@ namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
         public int nextStageIfWin { get; set; }
         public int nextStageIfLose { get; set; }
 
-        public override async Task InvokeStage(GameSession session)
+        public override Task InvokeStage(GameSession session)
         {
             var mobDB = GameDataBase.GameDataBase.instance.mobs;
             var mobData = mobDB[mobId];
-            await GlobalManagers.battleManager.StartBattle(session.player, mobData);
+            GlobalManagers.battleManager?.StartBattle(session.player, mobData);
+
+            return Task.CompletedTask;
         }
     }
 }

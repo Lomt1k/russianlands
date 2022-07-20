@@ -23,12 +23,12 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
             }
         }
 
-        public async Task StartBattleAsync()
+        public void StartBattle()
         {
-            await HandleBattle();
+            HandleBattleAsync();
         }
 
-        public async Task HandleBattle()
+        public async void HandleBattleAsync()
         {
             int turnId = 0;
             while (!HasDefeatedUnits())
