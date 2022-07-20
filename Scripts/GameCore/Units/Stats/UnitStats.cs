@@ -24,7 +24,7 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
             currentHP = maxHP;
         }
 
-        public virtual void OnBattleStart()
+        public virtual void OnStartBattle()
         {
             currentMana = 0;
         }

@@ -14,5 +14,9 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
         {
         }
 
+        public override IBattleUnit SelectFirstUnit(Player opponentA, IBattleUnit opponentB)
+        {
+            return opponentA;
+        }
     }
 }

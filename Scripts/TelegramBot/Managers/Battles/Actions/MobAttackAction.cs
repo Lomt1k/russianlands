@@ -9,7 +9,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles.Actions
 {
     public class MobAttackAction : IBattleAction
     {
-        public BattleActionType actionType => BattleActionType.Attack;
+        public BattleActionPriority priority => BattleActionPriority.OnAttack;
 
         private readonly MobAttack _mobAttack;
 

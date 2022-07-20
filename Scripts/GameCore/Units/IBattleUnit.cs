@@ -15,6 +15,7 @@ namespace TextGameRPG.Scripts.GameCore.Units
 
         public string GetStartTurnView(GameSession session);
 
+        public void OnStartBattle(Battle battle);
         public Task<List<IBattleAction>> GetActionsForBattleTurn(BattleTurn battleTurn);
     }
 }

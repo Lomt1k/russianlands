@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Inventory;
+using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Units.Stats;
 using TextGameRPG.Scripts.TelegramBot;
 using TextGameRPG.Scripts.TelegramBot.Dialogs.Battle;
@@ -54,6 +55,20 @@ namespace TextGameRPG.Scripts.GameCore.Units
 
             sb.AppendLine(unitStats.GetView(session));
             return sb.ToString();
+        }
+
+        public async void OnStartBattle(Battle battle)
+        {
+            unitStats.OnStartBattle();
+
+            var sb = new StringBuilder();
+            var header = string.Format(Localization.Get(session, "battle_start"), battle.firstUnit.nickname, battle.secondUnit.nickname);
+            sb.AppendLine(header);
+            sb.AppendLine(Localization.Get(session, "battle_your_turn_" + (this == battle.firstUnit ? "first" : "second") ));
+
+            //TODO: Add units health info
+            var meesageSender = TelegramBot.TelegramBot.instance.messageSender;
+            await meesageSender.SendTextMessage(session.chatId, sb.ToString());
         }
 
         public async Task<List<IBattleAction>> GetActionsForBattleTurn(BattleTurn battleTurn)

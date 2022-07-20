@@ -11,20 +11,23 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
     public abstract class Battle
     {
         public abstract BattleType battleType { get; }
-        public IBattleUnit[] units { get; protected set; }
+        public IBattleUnit firstUnit { get; private set; }
+        public IBattleUnit secondUnit { get; private set; }
         public BattleTurn? currentTurn { get; private set; }
 
         public Battle(Player opponentA, IBattleUnit opponentB)
         {
-            units = new IBattleUnit[] { opponentA, opponentB };
-            foreach (var unit in units)
-            {
-                unit.unitStats.OnBattleStart();
-            }
+            firstUnit = SelectFirstUnit(opponentA, opponentB);
+            secondUnit = firstUnit == opponentA ? opponentB : opponentA;
         }
+
+        public abstract IBattleUnit SelectFirstUnit(Player opponentA, IBattleUnit opponentB);
 
         public void StartBattle()
         {
+            firstUnit.OnStartBattle(this);
+            secondUnit.OnStartBattle(this);
+
             HandleBattleAsync();
         }
 
@@ -42,14 +45,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
 
         private bool HasDefeatedUnits()
         {
-            foreach (var unit in units)
-            {
-                if (unit.unitStats.currentHP < 1)
-                {
-                    return true;
-                }
-            }
-            return false;
+            return firstUnit.unitStats.currentHP < 1 || secondUnit.unitStats.currentHP < 1;
         }
 
     }

@@ -23,20 +23,20 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
         public async Task HandleTurn()
         {
             AddManaPoint();
-            foreach (var unit in battle.units)
-            {
-                AskUnitForBattleActions(unit);
-            }
+            //foreach (var unit in battle.units)
+            //{
+            //    AskUnitForBattleActions(unit);
+            //}
             await WaitAnswersFromAllUnits();
             //TODO
         }
 
         private void AddManaPoint()
         {
-            foreach (var unit in battle.units)
-            {
-                unit.unitStats.AddManaPoint();
-            }
+            //foreach (var unit in battle.units)
+            //{
+            //    unit.unitStats.AddManaPoint();
+            //}
         }
 
         private async void AskUnitForBattleActions(IBattleUnit unit)
@@ -46,7 +46,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
 
         private async Task WaitAnswersFromAllUnits()
         {
-            while (_actionsByUnit.Count < battle.units.Length)
+            //while (_actionsByUnit.Count < battle.units.Length)
+            while (true)
             {
                 await Task.Delay(1000);
             }

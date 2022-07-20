@@ -44,6 +44,11 @@ namespace TextGameRPG.Scripts.GameCore.Units
             return sb.ToString();
         }
 
+        public void OnStartBattle(Battle battle)
+        {
+            unitStats.OnStartBattle();
+        }
+
         public async Task<List<IBattleAction>> GetActionsForBattleTurn(BattleTurn battleTurn)
         {
             var availableAttacks = GetAvailableAttacks();
