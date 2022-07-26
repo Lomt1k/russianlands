@@ -62,11 +62,13 @@ namespace TextGameRPG.Scripts.GameCore.Units
             unitStats.OnStartBattle();
 
             var sb = new StringBuilder();
-            var header = string.Format(Localization.Get(session, "battle_start"), battle.firstUnit.nickname, battle.secondUnit.nickname);
+            var header = $"{Emojis.menuItems[MenuItem.Battle]} "
+                + string.Format(Localization.Get(session, "battle_start"), battle.firstUnit.nickname, battle.secondUnit.nickname);
             sb.AppendLine(header);
             sb.AppendLine(Localization.Get(session, "battle_your_turn_" + (this == battle.firstUnit ? "first" : "second") ));
+            sb.AppendLine();
+            sb.AppendLine(battle.GetStatsView(session));
 
-            //TODO: Add units health info
             var meesageSender = TelegramBot.TelegramBot.instance.messageSender;
             await meesageSender.SendTextMessage(session.chatId, sb.ToString());
         }

@@ -36,8 +36,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Quests.MainQuest
 
         private async Task SetupLanguage(LanguageCode language)
         {
-            session.profile.data.language = language.ToString();
             session.SetupLanguage(language);
+            await session.profile.SetupProfileOnFirstLaunch(session.actualUser, language);
             await QuestManager.TryInvokeTrigger(session, TriggerType.InvokeFromCode);
         }
     }

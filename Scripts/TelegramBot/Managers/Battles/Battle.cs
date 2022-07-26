@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Units;
+using TextGameRPG.Scripts.TelegramBot.Sessions;
 
 namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
 {
@@ -41,6 +43,26 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
                 await currentTurn.HandleTurn();
             }
             //TODO
+        }
+
+        public string GetStatsView(GameSession session)
+        {
+            var mineUnit = session.player;
+            var enemyUnit = GetEnemy(mineUnit);
+            var sb = new StringBuilder();
+
+            sb.AppendLine(Localization.Get(session, "battle_header_your_health"));
+            sb.AppendLine($"{Emojis.stats[Stat.Health]} {mineUnit.unitStats.currentHP} / {mineUnit.unitStats.maxHP}");
+
+            sb.AppendLine(Localization.Get(session, "battle_header_enemy_health"));
+            sb.AppendLine($"{Emojis.stats[Stat.Health]} {enemyUnit.unitStats.currentHP} / {enemyUnit.unitStats.maxHP}");
+
+            return sb.ToString();
+        }
+
+        public IBattleUnit GetEnemy(IBattleUnit unit)
+        {
+            return unit == firstUnit ? secondUnit : firstUnit;
         }
 
         private bool HasDefeatedUnits()
