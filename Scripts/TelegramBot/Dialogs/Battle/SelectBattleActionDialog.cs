@@ -28,8 +28,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Battle
             AppendMultiSlotItems(ref keyboardRows);
             var keyboard = new ReplyKeyboardMarkup(keyboardRows);
 
-            var text = Emojis.menuItems[MenuItem.Battle] + Emojis.space
-                + string.Format(Localization.Get(session, "battle_start_new_turn"), _battleTurn.turnId);
+            var text = $"{Emojis.menuItems[MenuItem.Battle]} {Localization.Get(session, "battle_mine_turn_start")}";
             await messageSender.SendTextDialog(session.chatId, text, keyboard);
         }
 

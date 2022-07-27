@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Inventory;
@@ -32,7 +31,7 @@ namespace TextGameRPG.Scripts.GameCore.Units
         {
             var sb = new StringBuilder();
             sb.AppendLine($"<b>{nickname}{Emojis.menuItems[MenuItem.Character]}</b>");
-            string levelStr = string.Format(Localizations.Localization.Get(session, "unit_view_level"), session.profile.data.level);
+            string levelStr = string.Format(Localization.Get(session, "unit_view_level"), session.profile.data.level);
             sb.AppendLine(levelStr);
             return sb.ToString();
         }
@@ -41,7 +40,7 @@ namespace TextGameRPG.Scripts.GameCore.Units
         {
             var sb = new StringBuilder();
             sb.AppendLine($"<b>{nickname}{Emojis.menuItems[MenuItem.Character]}</b>");
-            string levelStr = string.Format(Localizations.Localization.Get(session, "unit_view_level"), session.profile.data.level);
+            string levelStr = string.Format(Localization.Get(session, "unit_view_level"), session.profile.data.level);
             sb.AppendLine(levelStr);
 
             sb.AppendLine(unitStats.GetView(session));
@@ -75,22 +74,36 @@ namespace TextGameRPG.Scripts.GameCore.Units
 
         public async Task<List<IBattleAction>> GetActionsForBattleTurn(BattleTurn battleTurn)
         {
-            List<IBattleAction>? result = null;
-            int secondsToEnd = battleTurn.maxSeconds;
+            var result = new List<IBattleAction>();
 
             var dialog = new SelectBattleActionDialog(session, battleTurn, (selectedActions) => result = selectedActions).Start();
-            while (result == null)
+            while (result.Count == 0 && battleTurn.isWaitingForActions)
             {
                 await Task.Delay(1000);
-                secondsToEnd--;
-                if (secondsToEnd < 0)
-                {
-                    //TODO: return skip turn action
-                }
             }
 
             return result;
         }
 
+        public async Task OnStartEnemyTurn(BattleTurn battleTurn)
+        {
+            var text = $"{Emojis.elements[Element.Hourgrlass]} {Localization.Get(session, "battle_enemy_turn_start")}";
+            var meesageSender = TelegramBot.TelegramBot.instance.messageSender;
+            await meesageSender.SendTextMessage(session.chatId, text, silent: true);
+        }
+
+        public async Task OnMineBatteTurnTimeEnd()
+        {
+            var text = $"{Localization.Get(session, "battle_mine_turn_time_end")} {Emojis.smiles[Smile.Sad]}";
+            var meesageSender = TelegramBot.TelegramBot.instance.messageSender;
+            await meesageSender.SendTextDialog(session.chatId, text, silent: true);
+        }
+
+        public async Task OnEnemyBattleTurnTimeEnd()
+        {
+            var text = Localization.Get(session, "battle_enemy_turn_time_end");
+            var meesageSender = TelegramBot.TelegramBot.instance.messageSender;
+            await meesageSender.SendTextDialog(session.chatId, text, silent: true);
+        }
     }
 }

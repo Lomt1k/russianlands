@@ -17,5 +17,8 @@ namespace TextGameRPG.Scripts.GameCore.Units
 
         public void OnStartBattle(Battle battle);
         public Task<List<IBattleAction>> GetActionsForBattleTurn(BattleTurn battleTurn);
+        public Task OnStartEnemyTurn(BattleTurn battleTurn);
+        public Task OnMineBatteTurnTimeEnd();
+        public Task OnEnemyBattleTurnTimeEnd();
     }
 }

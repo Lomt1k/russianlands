@@ -35,14 +35,15 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
 
         public async void HandleBattleAsync()
         {
-            int turnId = 0;
             while (!HasDefeatedUnits())
             {
-                turnId++;
-                currentTurn = new BattleTurn(this, turnId);
+                currentTurn = new BattleTurn(this, firstUnit);
+                await currentTurn.HandleTurn();
+                currentTurn = new BattleTurn(this, secondUnit);
                 await currentTurn.HandleTurn();
             }
-            //TODO
+            currentTurn = null;
+            //TODO: Battle end logic
         }
 
         public string GetStatsView(GameSession session)

@@ -7,49 +7,60 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
 {
     public class BattleTurn
     {
-        private Dictionary<IBattleUnit, List<IBattleAction>> _actionsByUnit;
+        private List<IBattleAction> _battleActions = new List<IBattleAction>();
 
         public Battle battle { get; }
-        public int turnId { get; }
-        public int maxSeconds { get; } = 60;
+        public IBattleUnit unit { get; }
+        public int secondsLimit { get; }
+        public int secondsLeft { get; private set; }
 
-        public BattleTurn(Battle _battle, int _turnId)
+        public bool isWaitingForActions => _battleActions.Count == 0 && secondsLeft > 0;
+
+        public BattleTurn(Battle _battle, IBattleUnit _unit, int _secondsLimit = 60)
         {
             battle = _battle;
-            turnId = _turnId;
-            _actionsByUnit = new Dictionary<IBattleUnit, List<IBattleAction>>();
+            unit = _unit;
+            secondsLimit = _secondsLimit;
+            secondsLeft = _secondsLimit;
         }
 
         public async Task HandleTurn()
         {
+            var enemy = battle.GetEnemy(unit);
+            await enemy.OnStartEnemyTurn(this);
+
             AddManaPoint();
-            //foreach (var unit in battle.units)
-            //{
-            //    AskUnitForBattleActions(unit);
-            //}
+            AskUnitForBattleActions();
             await WaitAnswersFromAllUnits();
-            //TODO
+            //TODO: Apply actions
         }
 
         private void AddManaPoint()
         {
-            //foreach (var unit in battle.units)
-            //{
-            //    unit.unitStats.AddManaPoint();
-            //}
+            unit.unitStats.AddManaPoint();
         }
 
-        private async void AskUnitForBattleActions(IBattleUnit unit)
+        private async void AskUnitForBattleActions()
         {
-            _actionsByUnit[unit] = await unit.GetActionsForBattleTurn(this);
+            var selectedActions = await unit.GetActionsForBattleTurn(this);
+            if (isWaitingForActions)
+            {
+                _battleActions = selectedActions;
+            }
         }
 
         private async Task WaitAnswersFromAllUnits()
         {
-            //while (_actionsByUnit.Count < battle.units.Length)
-            while (true)
+            while (isWaitingForActions)
             {
                 await Task.Delay(1000);
+                secondsLeft--;
+                if (secondsLeft == 0 && _battleActions.Count == 0)
+                {
+                    await unit.OnMineBatteTurnTimeEnd();
+                    var enemy = battle.GetEnemy(unit);
+                    await enemy.OnEnemyBattleTurnTimeEnd();
+                }
             }
         }
 

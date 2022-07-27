@@ -54,12 +54,11 @@ namespace TextGameRPG.Scripts.GameCore.Units
             var availableAttacks = GetAvailableAttacks();
             if (availableAttacks.Count == 0)
             {
-                //TODO: return skip turn action
+                return new List<IBattleAction>();
             }
 
             var attackIndex = new Random().Next(availableAttacks.Count);
             var attackAction = new MobAttackAction(availableAttacks[attackIndex]);
-
             return new List<IBattleAction>() { attackAction };
         }
 
@@ -76,5 +75,19 @@ namespace TextGameRPG.Scripts.GameCore.Units
             return result;
         }
 
+        public Task OnStartEnemyTurn(BattleTurn battleTurn)
+        {
+            return Task.CompletedTask;
+        }
+
+        public Task OnMineBatteTurnTimeEnd()
+        {
+            return Task.CompletedTask;
+        }
+
+        public Task OnEnemyBattleTurnTimeEnd()
+        {
+            return Task.CompletedTask;
+        }
     }
 }
