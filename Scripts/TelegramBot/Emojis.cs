@@ -74,7 +74,8 @@ namespace TextGameRPG.Scripts.TelegramBot
         Back,
         Info,
         Locked,
-        Hourgrlass
+        Hourgrlass,
+        BrokenHeart
     }
 
     public enum Smile
@@ -176,7 +177,8 @@ namespace TextGameRPG.Scripts.TelegramBot
             { Element.Back, "\u25c0\ufe0f" },
             { Element.Info, "\u2139\ufe0f" },
             { Element.Locked, "\ud83d\udd12" },
-            { Element.Hourgrlass, "\u23f3" }
+            { Element.Hourgrlass, "\u23f3" },
+            { Element.BrokenHeart, "\ud83d\udc94" }
         };
 
         public static readonly Dictionary<Smile, string> smiles = new Dictionary<Smile, string>

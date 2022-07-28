@@ -13,6 +13,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
         public IBattleUnit unit { get; }
         public int secondsLimit { get; }
         public int secondsLeft { get; private set; }
+        public bool isLastChance { get; }
 
         public bool isWaitingForActions => _battleActions.Count == 0 && secondsLeft > 0;
 
@@ -22,6 +23,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
             unit = _unit;
             secondsLimit = _secondsLimit;
             secondsLeft = _secondsLimit;
+            isLastChance = unit.unitStats.currentHP <= 0;
         }
 
         public async Task HandleTurn()
@@ -55,6 +57,11 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
             {
                 await Task.Delay(1000);
                 secondsLeft--;
+                if (secondsLeft == 10)
+                {
+                    unit.OnMineBattleTurnAlmostEnd();
+                    continue;
+                }
                 if (secondsLeft == 0 && _battleActions.Count == 0)
                 {
                     await unit.OnMineBatteTurnTimeEnd();

@@ -7,6 +7,7 @@ using TextGameRPG.Scripts.GameCore.Items;
 using Telegram.Bot.Types.ReplyMarkups;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.TelegramBot.Managers.Battles;
+using System.Text;
 
 namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Battle
 {
@@ -28,8 +29,19 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Battle
             AppendMultiSlotItems(ref keyboardRows);
             var keyboard = new ReplyKeyboardMarkup(keyboardRows);
 
-            var text = $"{Emojis.menuItems[MenuItem.Battle]} {Localization.Get(session, "battle_mine_turn_start")}";
-            await messageSender.SendTextDialog(session.chatId, text, keyboard);
+            var sb = new StringBuilder();
+            sb.AppendLine($"{Emojis.menuItems[MenuItem.Battle]} {Localization.Get(session, "battle_mine_turn_start")}");
+            sb.AppendLine();
+
+            if (_battleTurn.isLastChance)
+            {
+                sb.AppendLine($"{Emojis.elements[Element.BrokenHeart]} {Localization.Get(session, "battle_mine_turn_start_last_chance")}");
+                sb.AppendLine();
+            }
+
+            sb.AppendLine(Localization.Get(session, "battle_mine_turn_start_select_item"));
+
+            await messageSender.SendTextDialog(session.chatId, sb.ToString(), keyboard);
         }
 
         public void AppendSingleSlotItems(ref List<List<KeyboardButton>> keyboardRows)

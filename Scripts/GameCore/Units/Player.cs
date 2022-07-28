@@ -20,6 +20,8 @@ namespace TextGameRPG.Scripts.GameCore.Units
         public PlayerInventory inventory => session.profile.dynamicData.inventory;
         public string nickname => session.profile.data.nickname;
 
+        private static MessageSender messageSender => TelegramBot.TelegramBot.instance.messageSender;
+
         public Player(GameSession _session)
         {
             session = _session;
@@ -68,8 +70,7 @@ namespace TextGameRPG.Scripts.GameCore.Units
             sb.AppendLine();
             sb.AppendLine(battle.GetStatsView(session));
 
-            var meesageSender = TelegramBot.TelegramBot.instance.messageSender;
-            await meesageSender.SendTextMessage(session.chatId, sb.ToString());
+            await messageSender.SendTextMessage(session.chatId, sb.ToString());
         }
 
         public async Task<List<IBattleAction>> GetActionsForBattleTurn(BattleTurn battleTurn)
@@ -87,23 +88,33 @@ namespace TextGameRPG.Scripts.GameCore.Units
 
         public async Task OnStartEnemyTurn(BattleTurn battleTurn)
         {
-            var text = $"{Emojis.elements[Element.Hourgrlass]} {Localization.Get(session, "battle_enemy_turn_start")}";
-            var meesageSender = TelegramBot.TelegramBot.instance.messageSender;
-            await meesageSender.SendTextMessage(session.chatId, text, silent: true);
+            var sb = new StringBuilder();
+            if (battleTurn.isLastChance)
+            {
+                sb.AppendLine($"{Emojis.elements[Element.BrokenHeart]} {Localization.Get(session, "battle_enemy_turn_start_last_chance")}");
+                sb.AppendLine();
+            }
+
+            sb.AppendLine($"{Emojis.elements[Element.Hourgrlass]} {Localization.Get(session, "battle_enemy_turn_start")}");
+            await messageSender.SendTextMessage(session.chatId, sb.ToString(), silent: true);
+        }
+
+        public async void OnMineBattleTurnAlmostEnd()
+        {
+            var text = $"{Emojis.elements[Element.WarningGrey]} {Localization.Get(session, "battle_mine_turn_almost_end")}";
+            await messageSender.SendTextMessage(session.chatId, text, silent: true);
         }
 
         public async Task OnMineBatteTurnTimeEnd()
         {
             var text = $"{Localization.Get(session, "battle_mine_turn_time_end")} {Emojis.smiles[Smile.Sad]}";
-            var meesageSender = TelegramBot.TelegramBot.instance.messageSender;
-            await meesageSender.SendTextDialog(session.chatId, text, silent: true);
+            await messageSender.SendTextDialog(session.chatId, text, silent: true);
         }
 
         public async Task OnEnemyBattleTurnTimeEnd()
         {
             var text = Localization.Get(session, "battle_enemy_turn_time_end");
-            var meesageSender = TelegramBot.TelegramBot.instance.messageSender;
-            await meesageSender.SendTextDialog(session.chatId, text, silent: true);
+            await messageSender.SendTextDialog(session.chatId, text, silent: true);
         }
     }
 }

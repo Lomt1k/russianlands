@@ -80,6 +80,10 @@ namespace TextGameRPG.Scripts.GameCore.Units
             return Task.CompletedTask;
         }
 
+        public void OnMineBattleTurnAlmostEnd()
+        {
+        }
+
         public Task OnMineBatteTurnTimeEnd()
         {
             return Task.CompletedTask;
