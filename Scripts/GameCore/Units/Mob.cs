@@ -40,7 +40,7 @@ namespace TextGameRPG.Scripts.GameCore.Units
         {
             var sb = new StringBuilder();
             sb.AppendLine($"<b>{nickname}</b>");
-            string levelStr = string.Format(Localization.Get(sessionToSend, "unit_view_level"), mobData.encounterSettings.requiredLevel);
+            string levelStr = string.Format(Localization.Get(sessionToSend, "unit_view_level"), mobData.statsSettings.level);
             sb.AppendLine(levelStr);
             return sb.ToString();
         }
@@ -48,7 +48,7 @@ namespace TextGameRPG.Scripts.GameCore.Units
         {
             var sb = new StringBuilder();
             sb.AppendLine($"<b>{nickname}</b>");
-            string levelStr = string.Format(Localization.Get(sessionToSend, "unit_view_level"), mobData.encounterSettings.requiredLevel);
+            string levelStr = string.Format(Localization.Get(sessionToSend, "unit_view_level"), mobData.statsSettings.level);
             sb.AppendLine(levelStr);
             sb.AppendLine();
 

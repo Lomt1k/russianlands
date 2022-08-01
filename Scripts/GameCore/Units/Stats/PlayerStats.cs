@@ -115,20 +115,20 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
             lightningResist += (int)(lightningBonusPerVitality * attributeVitality);
         }
 
-        public override string GetView(GameSession session)
+        public override string GetView(GameSession sessionToSend)
         {
             var sb = new StringBuilder();
             
-            sb.Append("<b>" + Localization.Get(_player.session, "unit_attribute_strength") + ":</b> " + attributeStrength);
-            sb.AppendLine(Emojis.bigSpace + "<b>" + Localization.Get(session, "unit_attribute_vitality") + ":</b> " + attributeVitality);
-            sb.Append("<b>" + Localization.Get(_player.session, "unit_attribute_sorcery") + ":</b> " + attributeSorcery);
-            sb.Append(Emojis.bigSpace + "<b>" + Localization.Get(session, "unit_attribute_luck") + ":</b> " + attributeLuck);
+            sb.Append("<b>" + Localization.Get(sessionToSend, "unit_attribute_strength") + ":</b> " + attributeStrength);
+            sb.AppendLine(Emojis.bigSpace + "<b>" + Localization.Get(sessionToSend, "unit_attribute_vitality") + ":</b> " + attributeVitality);
+            sb.Append("<b>" + Localization.Get(sessionToSend, "unit_attribute_sorcery") + ":</b> " + attributeSorcery);
+            sb.AppendLine(Emojis.bigSpace + "<b>" + Localization.Get(sessionToSend, "unit_attribute_luck") + ":</b> " + attributeLuck);
 
             sb.AppendLine();
-            sb.AppendLine($"\n{Emojis.stats[Stat.Health]} {currentHP} / {maxHP}");
+            sb.AppendLine($"{Emojis.stats[Stat.Health]} {currentHP} / {maxHP}");
 
             sb.AppendLine();
-            AppendResistsCompactView(sb, session);
+            AppendResistsCompactView(sb, sessionToSend);
 
             return sb.ToString();
         }

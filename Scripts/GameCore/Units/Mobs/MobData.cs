@@ -59,6 +59,7 @@ namespace TextGameRPG.Scripts.GameCore.Units.Mobs
     [JsonObject]
     public class MobStatsSettings
     {
+        public int level = 1;
         public int health = 100;
         public int physicalResist;
         public int fireResist;

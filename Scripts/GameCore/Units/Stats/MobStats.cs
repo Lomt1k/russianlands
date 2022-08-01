@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Text;
+using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Units.Mobs;
 using TextGameRPG.Scripts.TelegramBot;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
@@ -25,9 +26,15 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
             lightningResist = (int)Math.Round(statsSettings.lightningResist * gradeMult);            
         }
 
-        public override string GetView(GameSession session)
+        public override string GetView(GameSession sessionToSend)
         {
-            return "MOB_STATS_VIEW [В РАЗРАБОТКЕ]";
+            var sb = new StringBuilder();
+            sb.AppendLine($"{Emojis.stats[Stat.Health]} {currentHP} / {maxHP}");
+
+            sb.AppendLine();
+            AppendResistsCompactView(sb, sessionToSend);
+
+            return sb.ToString();
         }
 
     }
