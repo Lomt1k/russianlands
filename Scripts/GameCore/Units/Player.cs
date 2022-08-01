@@ -5,6 +5,7 @@ using TextGameRPG.Scripts.GameCore.Inventory;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Units.Stats;
 using TextGameRPG.Scripts.TelegramBot;
+using TextGameRPG.Scripts.TelegramBot.CallbackData;
 using TextGameRPG.Scripts.TelegramBot.Dialogs.Battle;
 using TextGameRPG.Scripts.TelegramBot.Managers.Battles;
 using TextGameRPG.Scripts.TelegramBot.Managers.Battles.Actions;
@@ -29,23 +30,24 @@ namespace TextGameRPG.Scripts.GameCore.Units
             resources = new PlayerResources(_session);
         }
 
-        public string GetGeneralInfoView()
+        public string GetGeneralUnitInfoView(GameSession sessionToSend)
         {
             var sb = new StringBuilder();
             sb.AppendLine($"<b>{nickname}{Emojis.menuItems[MenuItem.Character]}</b>");
-            string levelStr = string.Format(Localization.Get(session, "unit_view_level"), session.profile.data.level);
+            string levelStr = string.Format(Localization.Get(sessionToSend, "unit_view_level"), session.profile.data.level);
             sb.AppendLine(levelStr);
             return sb.ToString();
         }
 
-        public string GetFullUnitView(GameSession session)
+        public string GetFullUnitInfoView(GameSession sessionToSend)
         {
             var sb = new StringBuilder();
             sb.AppendLine($"<b>{nickname}{Emojis.menuItems[MenuItem.Character]}</b>");
-            string levelStr = string.Format(Localization.Get(session, "unit_view_level"), session.profile.data.level);
+            string levelStr = string.Format(Localization.Get(sessionToSend, "unit_view_level"), session.profile.data.level);
             sb.AppendLine(levelStr);
+            sb.AppendLine();
 
-            sb.AppendLine(unitStats.GetView(session));
+            sb.AppendLine(unitStats.GetView(sessionToSend));
             return sb.ToString();
         }
 
@@ -68,7 +70,8 @@ namespace TextGameRPG.Scripts.GameCore.Units
             sb.AppendLine();
             sb.AppendLine(battle.GetStatsView(session));
 
-            await messageSender.SendTextMessage(session.chatId, sb.ToString());
+            var keyboard = BattleToolipHelper.GetStatsKeyboard(session);
+            await messageSender.SendTextMessage(session.chatId, sb.ToString(), keyboard);
         }
 
         public async Task<List<IBattleAction>> GetActionsForBattleTurn(BattleTurn battleTurn)

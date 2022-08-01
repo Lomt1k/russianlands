@@ -13,8 +13,10 @@ namespace TextGameRPG.Scripts.GameCore.Units
         public UnitStats unitStats { get; }
         public GameSession session { get; }
 
-        public string GetStartTurnView(GameSession session);
+        public string GetGeneralUnitInfoView(GameSession sessionToSend);
+        public string GetFullUnitInfoView(GameSession sessionToSend);
 
+        public string GetStartTurnView(GameSession session);
         public void OnStartBattle(Battle battle);
         public Task<List<IBattleAction>> GetActionsForBattleTurn(BattleTurn battleTurn);
         public Task OnStartEnemyTurn(BattleTurn battleTurn);

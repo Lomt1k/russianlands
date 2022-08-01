@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Units;
+using TextGameRPG.Scripts.TelegramBot.CallbackData;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 
 namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
@@ -33,7 +34,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
             HandleBattleAsync();
         }
 
-        public async void HandleBattleAsync()
+        private async void HandleBattleAsync()
         {
             while (!HasDefeatedUnits())
             {
@@ -69,6 +70,16 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
         private bool HasDefeatedUnits()
         {
             return firstUnit.unitStats.currentHP < 1 || secondUnit.unitStats.currentHP < 1;
+        }
+
+        public async Task HandleBattleTooltipCallback(Player player, string queryId, BattleTooltipCallbackData callback)
+        {
+            if (currentTurn == null)
+            {
+                await TelegramBot.instance.messageSender.AnswerQuery(queryId);
+                return;
+            }
+            await currentTurn.HandleBattleTooltipCallback(player, queryId, callback);
         }
 
     }

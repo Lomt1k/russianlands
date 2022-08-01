@@ -18,11 +18,11 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
         public ChatId chatId { get; }
         public DateTime startTime { get; }
         public DateTime lastActivityTime { get; private set; }
-        public User actualUser { get; private set; }
-        public Profile profile { get; private set; }
-        public Player player { get; private set; }
-        public LanguageCode language { get; private set; }
-        public DialogBase currentDialog { get; private set; }
+        public User? actualUser { get; private set; }
+        public Profile? profile { get; private set; }
+        public Player? player { get; private set; }
+        public LanguageCode language { get; private set; } = LanguageCode.en;
+        public DialogBase? currentDialog { get; private set; }
 
         private bool _isHandlingUpdate;
 
@@ -101,7 +101,18 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
             switch (callbackData)
             {
                 case DialogPanelButtonCallbackData dialogPanelButtonCallback:
+                    if (currentDialog == null)
+                        return;
                     await currentDialog.HandleCallbackQuery(query.Id, dialogPanelButtonCallback);
+                    return;
+
+                case BattleTooltipCallbackData battleTooltipCallback:
+                    if (player == null || Managers.GlobalManagers.battleManager == null)
+                        return;
+                    var currentBattle = Managers.GlobalManagers.battleManager.GetCurrentBattle(player);
+                    if (currentBattle == null)
+                        return;
+                    await currentBattle.HandleBattleTooltipCallback(player, query.Id, battleTooltipCallback);
                     return;
             }
         }

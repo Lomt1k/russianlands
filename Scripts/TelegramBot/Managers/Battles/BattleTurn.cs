@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Units;
+using TextGameRPG.Scripts.TelegramBot.CallbackData;
 using TextGameRPG.Scripts.TelegramBot.Managers.Battles.Actions;
 
 namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
@@ -8,6 +9,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
     public class BattleTurn
     {
         private List<IBattleAction> _battleActions = new List<IBattleAction>();
+        private Dictionary<Player, List<BattleTooltipType>> _queryTooltipsToIgnoreByPlayers = new Dictionary<Player, List<BattleTooltipType>>();
 
         public Battle battle { get; }
         public IBattleUnit unit { get; }
@@ -69,6 +71,47 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
                     await enemy.OnEnemyBattleTurnTimeEnd();
                 }
             }
+        }
+
+        public async Task HandleBattleTooltipCallback(Player player, string queryId, BattleTooltipCallbackData callback)
+        {
+            if (!_queryTooltipsToIgnoreByPlayers.ContainsKey(player))
+            {
+                _queryTooltipsToIgnoreByPlayers[player] = new List<BattleTooltipType>();
+            }
+            var ingoreList = _queryTooltipsToIgnoreByPlayers[player];
+            if (ingoreList.Contains(callback.tooltip))
+            {
+                await TelegramBot.instance.messageSender.AnswerQuery(queryId);
+                return;
+            }
+
+            if (callback.tooltip.IsSecondQueryIgnoreRequired())
+            {
+                ingoreList.Add(callback.tooltip);
+            }
+            await CreateTooltip(player, queryId, callback);
+        }
+
+        private async Task CreateTooltip(Player player, string queryId, BattleTooltipCallbackData callback)
+        {
+            switch (callback.tooltip)
+            {
+                case BattleTooltipType.ShowMineStats:
+                    await CreateUnitStatsTooltip(player, queryId, unit);
+                    break;
+                case BattleTooltipType.ShowEnemyStats:
+                    await CreateUnitStatsTooltip(player, queryId, battle.GetEnemy(unit));
+                    break;
+            }
+        }
+
+        private async Task CreateUnitStatsTooltip(Player player, string queryId, IBattleUnit targetUnit)
+        {
+            var messageSender = TelegramBot.instance.messageSender;
+            var text = targetUnit.GetFullUnitInfoView(player.session);
+            await messageSender.SendTextMessage(player.session.chatId, text);
+            await messageSender.AnswerQuery(queryId);
         }
 
 

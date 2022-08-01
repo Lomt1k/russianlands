@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Units.Mobs;
 using TextGameRPG.Scripts.GameCore.Units.Stats;
 using TextGameRPG.Scripts.TelegramBot.Managers.Battles;
@@ -33,6 +34,26 @@ namespace TextGameRPG.Scripts.GameCore.Units
             }
 
             unitStats = new MobStats(this);
+        }
+
+        public string GetGeneralUnitInfoView(GameSession sessionToSend)
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine($"<b>{nickname}</b>");
+            string levelStr = string.Format(Localization.Get(sessionToSend, "unit_view_level"), mobData.encounterSettings.requiredLevel);
+            sb.AppendLine(levelStr);
+            return sb.ToString();
+        }
+        public string GetFullUnitInfoView(GameSession sessionToSend)
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine($"<b>{nickname}</b>");
+            string levelStr = string.Format(Localization.Get(sessionToSend, "unit_view_level"), mobData.encounterSettings.requiredLevel);
+            sb.AppendLine(levelStr);
+            sb.AppendLine();
+
+            sb.AppendLine(unitStats.GetView(sessionToSend));
+            return sb.ToString();
         }
 
         public string GetStartTurnView(GameSession session)

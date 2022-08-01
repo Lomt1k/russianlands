@@ -10,6 +10,7 @@ namespace TextGameRPG.Scripts.TelegramBot.CallbackData
     [JsonConverter(typeof(JsonKnownTypesConverter<CallbackDataBase>))]
     [JsonDiscriminator(Name = "t")]
     [JsonKnownType(typeof(DialogPanelButtonCallbackData), "dialog")]
+    [JsonKnownType(typeof(BattleTooltipCallbackData), "battle")]
     public abstract class CallbackDataBase
     {
     }

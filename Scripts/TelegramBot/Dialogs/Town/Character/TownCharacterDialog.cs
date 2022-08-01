@@ -20,8 +20,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
 
         public override async Task Start()
         {
-            //string header = $"{Emojis.menuItems[MenuItem.Character]} <b>{Localization.Get(session, "menu_item_character")}</b>";
-            string header = session.player.GetGeneralInfoView();
+            string header = session.player.GetGeneralUnitInfoView(session);
             await messageSender.SendTextDialog(session.chatId, header, GetKeyboardWithRowSizes(2, 1));
             await SendPanelsAsync();
         }
