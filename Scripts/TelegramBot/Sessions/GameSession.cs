@@ -18,9 +18,9 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
         public ChatId chatId { get; }
         public DateTime startTime { get; }
         public DateTime lastActivityTime { get; private set; }
-        public User? actualUser { get; private set; }
-        public Profile? profile { get; private set; }
-        public Player? player { get; private set; }
+        public User actualUser { get; private set; }
+        public Profile profile { get; private set; }
+        public Player player { get; private set; }
         public LanguageCode language { get; private set; } = LanguageCode.en;
         public DialogBase? currentDialog { get; private set; }
 

@@ -1,8 +1,5 @@
-﻿
-using System;
+﻿using System;
 using System.Text;
-using TextGameRPG.Scripts.GameCore.Localizations;
-using TextGameRPG.Scripts.GameCore.Units.Mobs;
 using TextGameRPG.Scripts.TelegramBot;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 

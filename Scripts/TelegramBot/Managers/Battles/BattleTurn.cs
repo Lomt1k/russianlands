@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Units;
 using TextGameRPG.Scripts.TelegramBot.CallbackData;
@@ -8,7 +10,9 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
 {
     public class BattleTurn
     {
-        private List<IBattleAction> _battleActions = new List<IBattleAction>();
+        public const int MOB_TURN_MILISECONDS_DELAY = 7_000;
+
+        private IBattleAction[]? _battleActions;
         private Dictionary<Player, List<BattleTooltipType>> _queryTooltipsToIgnoreByPlayers = new Dictionary<Player, List<BattleTooltipType>>();
 
         public Battle battle { get; }
@@ -17,7 +21,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
         public int secondsLeft { get; private set; }
         public bool isLastChance { get; }
 
-        public bool isWaitingForActions => _battleActions.Count == 0 && secondsLeft > 0;
+        public bool isWaitingForActions => _battleActions == null && secondsLeft > 0;
 
         public BattleTurn(Battle _battle, IBattleUnit _unit, int _secondsLimit = 60)
         {
@@ -36,7 +40,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
             AddManaPoint();
             AskUnitForBattleActions();
             await WaitAnswersFromAllUnits();
-            //TODO: Apply actions
+            await InvokeBattleActions();
+            //TODO: show current health
         }
 
         private void AddManaPoint()
@@ -49,7 +54,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
             var selectedActions = await unit.GetActionsForBattleTurn(this);
             if (isWaitingForActions)
             {
-                _battleActions = selectedActions;
+                _battleActions = selectedActions.OrderBy(x => x.priority).ToArray();
             }
         }
 
@@ -64,13 +69,41 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
                     unit.OnMineBattleTurnAlmostEnd();
                     continue;
                 }
-                if (secondsLeft == 0 && _battleActions.Count == 0)
+                if (secondsLeft == 0 && _battleActions == null)
                 {
                     await unit.OnMineBatteTurnTimeEnd();
                     var enemy = battle.GetEnemy(unit);
                     await enemy.OnEnemyBattleTurnTimeEnd();
                 }
             }
+        }
+
+        private async Task InvokeBattleActions()
+        {
+            if (_battleActions == null)
+            {
+                //TODO: skipped turn
+                return;
+            }
+
+            var enemy = battle.GetEnemy(unit);
+            var mineStringBuilder = new StringBuilder();
+            var enemyStringBuilder = new StringBuilder();
+
+            foreach (var action in _battleActions)
+            {
+                action.ApplyActionWithMineStats(unit.unitStats);
+                action.ApplyActionWithEnemyStats(enemy.unitStats);
+
+                //TODO: AddActionToStringBuilder
+            }
+
+            //TODO: ?
+        }
+
+        private void AddActionToStringBuilder(StringBuilder sb, IBattleAction action)
+        {
+            //TODO
         }
 
         public async Task HandleBattleTooltipCallback(Player player, string queryId, BattleTooltipCallbackData callback)

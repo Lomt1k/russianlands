@@ -72,6 +72,8 @@ namespace TextGameRPG.Scripts.GameCore.Units
 
         public async Task<List<IBattleAction>> GetActionsForBattleTurn(BattleTurn battleTurn)
         {
+            await Task.Delay(BattleTurn.MOB_TURN_MILISECONDS_DELAY);
+
             var availableAttacks = GetAvailableAttacks();
             if (availableAttacks.Count == 0)
             {
@@ -79,7 +81,7 @@ namespace TextGameRPG.Scripts.GameCore.Units
             }
 
             var attackIndex = new Random().Next(availableAttacks.Count);
-            var attackAction = new MobAttackAction(availableAttacks[attackIndex]);
+            var attackAction = new MobAttackAction(availableAttacks[attackIndex], gradeMult);
             return new List<IBattleAction>() { attackAction };
         }
 

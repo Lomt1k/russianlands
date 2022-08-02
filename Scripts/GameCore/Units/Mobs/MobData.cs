@@ -81,14 +81,19 @@ namespace TextGameRPG.Scripts.GameCore.Units.Mobs
         public int minLightningDamage;
         public int maxLightningDamage;
 
-        public DamageInfo GetRandomValues()
+        public DamageInfo GetRandomValues(float gradeMult = 1f)
         {
             var random = new Random();
+            var physicalDamage = random.Next(minPhysicalDamage, maxPhysicalDamage + 1);
+            var fireDamage = random.Next(minFireDamage, maxFireDamage + 1);
+            var coldDamage = random.Next(minColdDamage, maxColdDamage + 1);
+            var lightningDamage = random.Next(minLightningDamage, maxLightningDamage + 1);
+
             return new DamageInfo(
-                random.Next(minPhysicalDamage, maxPhysicalDamage + 1),
-                random.Next(minFireDamage, maxFireDamage + 1),
-                random.Next(minColdDamage, maxColdDamage + 1),
-                random.Next(minLightningDamage, maxLightningDamage + 1));
+                (int)Math.Round(physicalDamage * gradeMult),
+                (int)Math.Round(fireDamage * gradeMult),
+                (int)Math.Round(coldDamage * gradeMult),
+                (int)Math.Round(lightningDamage * gradeMult));
         }
     }
 
