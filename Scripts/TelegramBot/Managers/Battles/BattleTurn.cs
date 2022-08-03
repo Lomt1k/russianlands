@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Units;
 using TextGameRPG.Scripts.TelegramBot.CallbackData;
 using TextGameRPG.Scripts.TelegramBot.Managers.Battles.Actions;
@@ -17,6 +18,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
 
         public Battle battle { get; }
         public IBattleUnit unit { get; }
+        public IBattleUnit enemy { get; }
         public int secondsLimit { get; }
         public int secondsLeft { get; private set; }
         public bool isLastChance { get; }
@@ -27,6 +29,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
         {
             battle = _battle;
             unit = _unit;
+            enemy = battle.GetEnemy(unit);
             secondsLimit = _secondsLimit;
             secondsLeft = _secondsLimit;
             isLastChance = unit.unitStats.currentHP <= 0;
@@ -34,7 +37,6 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
 
         public async Task HandleTurn()
         {
-            var enemy = battle.GetEnemy(unit);
             await enemy.OnStartEnemyTurn(this);
 
             AddManaPoint();
@@ -81,29 +83,41 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
         private async Task InvokeBattleActions()
         {
             if (_battleActions == null)
-            {
-                //TODO: skipped turn
                 return;
-            }
 
-            var enemy = battle.GetEnemy(unit);
-            var mineStringBuilder = new StringBuilder();
-            var enemyStringBuilder = new StringBuilder();
+            var mineStringBuilder = unit is Player ? new StringBuilder() : null;
+            var enemyStringBuilder = enemy is Player ? new StringBuilder() : null;
+
+            mineStringBuilder?.AppendLine(Localization.Get(unit.session, "battle_mine_turn_maded"));
+            enemyStringBuilder?.AppendLine(Localization.Get(enemy.session, "battle_enemy_turn_maded"));
 
             foreach (var action in _battleActions)
             {
                 action.ApplyActionWithMineStats(unit.unitStats);
                 action.ApplyActionWithEnemyStats(enemy.unitStats);
 
-                //TODO: AddActionToStringBuilder
+                mineStringBuilder?.AppendLine();
+                mineStringBuilder?.AppendLine(action.GetLocalization(unit.session));
+
+                enemyStringBuilder?.AppendLine();
+                enemyStringBuilder?.AppendLine(action.GetLocalization(enemy.session));
             }
 
-            //TODO: ?
-        }
-
-        private void AddActionToStringBuilder(StringBuilder sb, IBattleAction action)
-        {
-            //TODO
+            var messageSender = TelegramBot.instance.messageSender;
+            if (mineStringBuilder != null)
+            {
+                mineStringBuilder.AppendLine();
+                mineStringBuilder.AppendLine(battle.GetStatsView(unit.session));
+                var keyboard = BattleToolipHelper.GetStatsKeyboard(unit.session);
+                await messageSender.SendTextMessage(unit.session.chatId, mineStringBuilder.ToString(), keyboard);
+            }
+            if (enemyStringBuilder != null)
+            {
+                enemyStringBuilder.AppendLine();
+                enemyStringBuilder.AppendLine(battle.GetStatsView(enemy.session));
+                var keyboard = BattleToolipHelper.GetStatsKeyboard(enemy.session);
+                await messageSender.SendTextMessage(enemy.session.chatId, enemyStringBuilder.ToString(), keyboard);
+            }
         }
 
         public async Task HandleBattleTooltipCallback(Player player, string queryId, BattleTooltipCallbackData callback)
