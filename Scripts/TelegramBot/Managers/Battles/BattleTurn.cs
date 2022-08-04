@@ -43,7 +43,6 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
             AskUnitForBattleActions();
             await WaitAnswersFromAllUnits();
             await InvokeBattleActions();
-            //TODO: show current health
         }
 
         private void AddManaPoint()

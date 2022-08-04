@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Text;
 using TextGameRPG.Scripts.GameCore.Items;
+using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Units.Mobs;
 using TextGameRPG.Scripts.GameCore.Units.Stats;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
@@ -14,6 +13,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles.Actions
 
         private readonly MobAttack _mobAttack;
         private readonly DamageInfo _damageInfo;
+        private DamageInfo _resultDamage;
 
         public MobAttackAction(MobAttack attack, float gradeMult)
         {
@@ -27,12 +27,22 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles.Actions
 
         public void ApplyActionWithEnemyStats(UnitStats stats)
         {
-            stats.TryDealDamage(_damageInfo);
+            _resultDamage = stats.TryDealDamage(_damageInfo);
         }        
 
-        public string? GetLocalization(GameSession session)
+        public string GetLocalization(GameSession session)
         {
-            return "TODO: MobAttackAction localization";
+            var sb = new StringBuilder();
+            var totalDamage = _damageInfo.GetTotalValue();
+            sb.Append($"{Localization.Get(session, _mobAttack.localizationKey)} ");
+            sb.Append(string.Format(Localization.Get(session, "battle_action_attack_description"), totalDamage));
+            var resultDamageView = _resultDamage.GetCompactView();
+            if (resultDamageView != null)
+            {
+                sb.AppendLine();
+                sb.Append(resultDamageView);
+            }
+            return sb.ToString();
         }
     }
 }

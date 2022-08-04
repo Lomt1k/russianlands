@@ -11,6 +11,6 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles.Actions
 
         public void ApplyActionWithMineStats(UnitStats stats);
         public void ApplyActionWithEnemyStats(UnitStats stats);
-        public string? GetLocalization(GameSession session);
+        public string GetLocalization(GameSession session);
     }
 }
