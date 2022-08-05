@@ -15,14 +15,18 @@ namespace TextGameRPG.Scripts.TelegramBot
             _botClient = botClient;
         }
 
-        public async Task<Message> SendTextMessage(ChatId id, string text, InlineKeyboardMarkup? inlineKeyboard = null, bool silent = false)
+        public async Task<Message> SendTextMessage(ChatId id, string text, InlineKeyboardMarkup? inlineKeyboard = null,
+            bool silent = false, bool disableWebPagePreview = false)
         {
-            return await _botClient.SendTextMessageAsync(id, text, ParseMode.Html, replyMarkup: inlineKeyboard, disableNotification: silent);
+            return await _botClient.SendTextMessageAsync(id, text, ParseMode.Html, replyMarkup: inlineKeyboard,
+                disableNotification: silent, disableWebPagePreview: disableWebPagePreview);
         }
 
-        public async Task<Message> EditTextMessage(ChatId id, int messageId, string text, InlineKeyboardMarkup? inlineKeyboard = null)
+        public async Task<Message> EditTextMessage(ChatId id, int messageId, string text, InlineKeyboardMarkup? inlineKeyboard = null,
+            bool disableWebPagePreview = false)
         {
-            return await _botClient.EditMessageTextAsync(id, messageId, text, ParseMode.Html, replyMarkup: inlineKeyboard);
+            return await _botClient.EditMessageTextAsync(id, messageId, text, ParseMode.Html, replyMarkup: inlineKeyboard,
+                disableWebPagePreview: disableWebPagePreview);
         }
 
         public async Task DeleteMessage(ChatId id, int messageId)
@@ -35,9 +39,11 @@ namespace TextGameRPG.Scripts.TelegramBot
             return await _botClient.EditMessageReplyMarkupAsync(id, messageId, inlineKeyboard);
         }
 
-        public async Task<Message> SendTextDialog(ChatId id, string text, ReplyKeyboardMarkup? replyKeyboard = null, bool silent = false)
+        public async Task<Message> SendTextDialog(ChatId id, string text, ReplyKeyboardMarkup? replyKeyboard = null,
+            bool silent = false, bool disableWebPagePreview = false)
         {
-            return await _botClient.SendTextMessageAsync(id, text, ParseMode.Html, replyMarkup: replyKeyboard, disableNotification: silent);
+            return await _botClient.SendTextMessageAsync(id, text, ParseMode.Html, replyMarkup: replyKeyboard,
+                disableNotification: silent, disableWebPagePreview: disableWebPagePreview);
         }
 
         public async Task AnswerQuery(string queryId, string? text = null)

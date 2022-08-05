@@ -88,7 +88,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
             var enemyStringBuilder = enemy is Player ? new StringBuilder() : null;
 
             mineStringBuilder?.AppendLine(Localization.Get(unit.session, "battle_mine_turn_maded"));
-            enemyStringBuilder?.AppendLine(Localization.Get(enemy.session, "battle_enemy_turn_maded"));
+            enemyStringBuilder?.AppendLine(string.Format(Localization.Get(enemy.session, "battle_enemy_turn_maded"), unit.nickname));
 
             foreach (var action in _battleActions)
             {
@@ -108,14 +108,14 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
                 mineStringBuilder.AppendLine();
                 mineStringBuilder.AppendLine(battle.GetStatsView(unit.session));
                 var keyboard = BattleToolipHelper.GetStatsKeyboard(unit.session);
-                await messageSender.SendTextMessage(unit.session.chatId, mineStringBuilder.ToString(), keyboard);
+                await messageSender.SendTextMessage(unit.session.chatId, mineStringBuilder.ToString(), keyboard, disableWebPagePreview: true);
             }
             if (enemyStringBuilder != null)
             {
                 enemyStringBuilder.AppendLine();
                 enemyStringBuilder.AppendLine(battle.GetStatsView(enemy.session));
                 var keyboard = BattleToolipHelper.GetStatsKeyboard(enemy.session);
-                await messageSender.SendTextMessage(enemy.session.chatId, enemyStringBuilder.ToString(), keyboard);
+                await messageSender.SendTextMessage(enemy.session.chatId, enemyStringBuilder.ToString(), keyboard, disableWebPagePreview: true);
             }
         }
 

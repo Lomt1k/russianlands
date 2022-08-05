@@ -34,7 +34,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles.Actions
         {
             var sb = new StringBuilder();
             var totalDamage = _damageInfo.GetTotalValue();
-            sb.Append($"{Localization.Get(session, _mobAttack.localizationKey)} ");
+            sb.AppendLine(Localization.Get(session, _mobAttack.localizationKey));
             sb.Append(string.Format(Localization.Get(session, "battle_action_attack_description"), totalDamage));
             var resultDamageView = _resultDamage.GetCompactView();
             if (resultDamageView != null)
