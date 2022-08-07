@@ -89,6 +89,7 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
                 {"Show Enter Name Dialog", () => { stage.questActions.Add(new ShowEnterNameDialogAction()); RefillActionsCollection(); } },
                 {"Entry Town", () => { stage.questActions.Add(new EntryTownAction()); RefillActionsCollection(); } },
                 {"Restore Full Health", () => { stage.questActions.Add(new RestoreFullHealthAction()); RefillActionsCollection(); } },
+                {"Add Item To Inventory", () => { stage.questActions.Add(new AddItemToInventoryAction()); RefillActionsCollection(); } },
             });
         }
 
@@ -123,6 +124,7 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
             RegularDialogHelper.ShowItemSelectionDialog("Select trigger type:", new Dictionary<string, Action>()
             {
                 {"Invoke From Code", () => { stage.nextStageTriggers.Add(new InvokeFromCodeTrigger()); RefillTriggersCollection(); } },
+                {"Start Next Stage Immediate", () => { stage.nextStageTriggers.Add(new StartNextStageImmediateTrigger()); RefillTriggersCollection(); } },
             });
         }
 

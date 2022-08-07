@@ -4,6 +4,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests.NextStageTriggers
     public enum TriggerType : ushort
     {
         None = 0,
-        InvokeFromCode
+        InvokeFromCode = 1,
+        StartNextStageImmediate = 2,
     }
 }

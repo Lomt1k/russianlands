@@ -51,10 +51,10 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles.Actions
         {
             var sb = new StringBuilder();
             var totalDamage = _resultDamage.GetTotalValue();
-            var itemName = _item == null ? Localization.Get(session, "battle_attack_fists") : _item.GetFullName(session);
-            var itemIcon = _item == null ? Emojis.stats[Stat.PhysicalDamage] : Emojis.items[_item.data.itemType];
+            var itemName = _item != null ? _item.GetFullName(session) 
+                : $"{Emojis.stats[Stat.PhysicalDamage]} {Localization.Get(session, "battle_attack_fists")}";
 
-            sb.AppendLine($"{itemIcon} <b>{itemName}:</b>");
+            sb.AppendLine($"<b>{itemName}:</b>");
             sb.Append(string.Format(Localization.Get(session, "battle_action_attack_description"), totalDamage));
             var resultDamageView = _resultDamage.GetCompactView();
             if (resultDamageView != null)

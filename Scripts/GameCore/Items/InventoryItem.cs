@@ -100,7 +100,11 @@ namespace TextGameRPG.Scripts.GameCore.Items
 
         public string GetLocalizedName(GameSession session)
         {
-            //TODO: get name with localization
+            if (string.IsNullOrEmpty(data.debugName))
+            {
+                return Localizations.Localization.Get(session, $"item_name_{id}");
+            }
+            //TODO: Add localization for generated items
             return data.debugName;
         }
 

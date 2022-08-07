@@ -21,6 +21,12 @@ namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
             {
                 await action.Execute(session);
             }
+
+            if (nextStageTriggers.Count == 1 && nextStageTriggers[0].triggerType == TriggerType.StartNextStageImmediate)
+            {
+                //without await!
+                QuestManager.TryInvokeTrigger(session, TriggerType.StartNextStageImmediate);
+            }
         }
 
     }
