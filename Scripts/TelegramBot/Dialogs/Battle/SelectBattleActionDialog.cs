@@ -13,13 +13,14 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Battle
 {
     public class SelectBattleActionDialog : DialogBase
     {
-        private Action<List<IBattleAction>> _actionsCallback;
+        private Action<IBattleAction> _selectedActionCallback;
         private BattleTurn _battleTurn;
+        private bool _isActionAlreadySelected;
 
-        public SelectBattleActionDialog(GameSession _session, BattleTurn battleTurn, Action<List<IBattleAction>> callback) : base(_session)
+        public SelectBattleActionDialog(GameSession _session, BattleTurn battleTurn, Action<IBattleAction> callback) : base(_session)
         {
             _battleTurn = battleTurn;
-            _actionsCallback = callback;
+            _selectedActionCallback = callback;
         }
 
         public override async Task Start()
@@ -98,8 +99,32 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Battle
 
         public async Task OnCategorySelected(ItemType category)
         {
+            if (_isActionAlreadySelected)
+                return;
+
             Program.logger.Debug($"OnCategorySelected {category}");
-            //TODO
+            var equippedItems = session.player.inventory.equipped;
+            switch (category)
+            {
+                case ItemType.Sword:
+                    var sword = equippedItems[ItemType.Sword];
+                    var attackWithSword = new PlayerAttackAction(session.player, sword);
+                    _selectedActionCallback(attackWithSword);
+                    _isActionAlreadySelected = true;
+                    break;
+                case ItemType.Bow:
+                    //TODO: Apply bow if arrows > 0
+                    break;
+                case ItemType.Stick:
+                    //TODO: Apply stick if charged
+                    break;
+                case ItemType.Poison:
+                    //TODO: Select poison dialog
+                    break;
+                case ItemType.Scroll:
+                    //TODO: Select scroll dialog
+                    break;
+            }
         }
 
 

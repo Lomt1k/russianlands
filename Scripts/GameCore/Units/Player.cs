@@ -77,12 +77,19 @@ namespace TextGameRPG.Scripts.GameCore.Units
         public async Task<List<IBattleAction>> GetActionsForBattleTurn(BattleTurn battleTurn)
         {
             var result = new List<IBattleAction>();
+            IBattleAction? actionBySelection = null;
 
-            var dialog = new SelectBattleActionDialog(session, battleTurn, (selectedActions) => result = selectedActions).Start();
-            while (result.Count == 0 && battleTurn.isWaitingForActions)
+            var dialog = new SelectBattleActionDialog(session, battleTurn, (selectedAction) => actionBySelection = selectedAction).Start();
+            while (actionBySelection == null && battleTurn.isWaitingForActions)
             {
                 await Task.Delay(1000);
             }
+            if (actionBySelection != null)
+            {
+                result.Add(actionBySelection);
+            }
+
+            //TODO: Add actions from rings and amulets TO result
 
             return result;
         }

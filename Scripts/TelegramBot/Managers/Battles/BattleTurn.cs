@@ -41,7 +41,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
 
             AddManaPoint();
             AskUnitForBattleActions();
-            await WaitAnswersFromAllUnits();
+            await WaitAnswerFromUnit();
             await InvokeBattleActions();
         }
 
@@ -59,7 +59,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
             }
         }
 
-        private async Task WaitAnswersFromAllUnits()
+        private async Task WaitAnswerFromUnit()
         {
             while (isWaitingForActions)
             {
@@ -108,14 +108,14 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
                 mineStringBuilder.AppendLine();
                 mineStringBuilder.AppendLine(battle.GetStatsView(unit.session));
                 var keyboard = BattleToolipHelper.GetStatsKeyboard(unit.session);
-                await messageSender.SendTextMessage(unit.session.chatId, mineStringBuilder.ToString(), keyboard, disableWebPagePreview: true);
+                await messageSender.SendTextMessage(unit.session.chatId, mineStringBuilder.ToString(), keyboard);
             }
             if (enemyStringBuilder != null)
             {
                 enemyStringBuilder.AppendLine();
                 enemyStringBuilder.AppendLine(battle.GetStatsView(enemy.session));
                 var keyboard = BattleToolipHelper.GetStatsKeyboard(enemy.session);
-                await messageSender.SendTextMessage(enemy.session.chatId, enemyStringBuilder.ToString(), keyboard, disableWebPagePreview: true);
+                await messageSender.SendTextMessage(enemy.session.chatId, enemyStringBuilder.ToString(), keyboard);
             }
         }
 
