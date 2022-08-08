@@ -8,6 +8,7 @@ using Telegram.Bot.Types.ReplyMarkups;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.TelegramBot.Managers.Battles;
 using System.Text;
+using Telegram.Bot.Types;
 
 namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Battle
 {
@@ -15,7 +16,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Battle
     {
         private Action<IBattleAction> _selectedActionCallback;
         private BattleTurn _battleTurn;
-        private bool _isActionAlreadySelected;
+        private Message? _message;
 
         public SelectBattleActionDialog(GameSession _session, BattleTurn battleTurn, Action<IBattleAction> callback) : base(_session)
         {
@@ -42,7 +43,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Battle
 
             sb.AppendLine(Localization.Get(session, "battle_mine_turn_start_select_item"));
 
-            await messageSender.SendTextDialog(session.chatId, sb.ToString(), keyboard);
+            _message = await messageSender.SendTextDialog(session.chatId, sb.ToString(), keyboard);
         }
 
         public void AppendSingleSlotItems(ref List<List<KeyboardButton>> keyboardRows)
@@ -99,8 +100,11 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Battle
 
         public async Task OnCategorySelected(ItemType category)
         {
-            if (_isActionAlreadySelected)
+            if (!_battleTurn.isWaitingForActions)
+            {
+                await HideKeyboard();
                 return;
+            }
 
             Program.logger.Debug($"OnCategorySelected {category}");
             var equippedItems = session.player.inventory.equipped;
@@ -110,7 +114,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Battle
                     var sword = equippedItems[ItemType.Sword];
                     var attackWithSword = new PlayerAttackAction(session.player, sword);
                     _selectedActionCallback(attackWithSword);
-                    _isActionAlreadySelected = true;
+                    await HideKeyboard();
                     break;
                 case ItemType.Bow:
                     //TODO: Apply bow if arrows > 0
@@ -124,6 +128,15 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Battle
                 case ItemType.Scroll:
                     //TODO: Select scroll dialog
                     break;
+            }
+        }
+
+        public async Task HideKeyboard()
+        {
+            if (_message != null)
+            {
+                await messageSender.DeleteMessage(session.chatId, _message.MessageId);
+                _message = null;
             }
         }
 
