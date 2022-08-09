@@ -6,7 +6,6 @@ using TextGameRPG.Scripts.TelegramBot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Items
 {
-    using ItemAbilities;
     using TextGameRPG.Scripts.GameCore.Items.Generators;
 
     public enum ItemState : byte { IsNewAndNotEquipped = 0, IsNotEquipped = 1, IsEquipped = 2 }

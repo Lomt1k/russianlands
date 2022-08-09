@@ -5,28 +5,25 @@ using System.Runtime.Serialization;
 
 namespace TextGameRPG.Scripts.GameCore.Inventory
 {
-    [System.Serializable]
+    [JsonObject]
     public class PlayerInventory
     {
         public const int DEFAULT_SIZE = 50;
 
+        [JsonIgnore]
         private readonly Dictionary<ItemType, List<InventoryItem>> _itemsByType = new Dictionary<ItemType, List<InventoryItem>>();
 
+        [JsonProperty]
         public int inventorySize { get; private set; } = DEFAULT_SIZE;
+        [JsonProperty]
         public List<InventoryItem> items { get; private set; } = new List<InventoryItem>(DEFAULT_SIZE);
 
         [JsonIgnore]
         public EquippedItems equipped { get; private set; }
-
         [JsonIgnore]
         public bool isFull => items.Count >= inventorySize;
-
         [JsonIgnore]
         public int itemsCount => items.Count;
-
-        private PlayerInventory()
-        {
-        }
 
         [OnDeserialized]
         internal void OnDeserialized(StreamingContext context)

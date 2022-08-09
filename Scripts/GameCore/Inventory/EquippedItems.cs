@@ -63,9 +63,9 @@ namespace TextGameRPG.Scripts.GameCore.Inventory
             }
             else
             {
-                if (!_singleEquipped.ContainsKey(itemType))
+                if (_singleEquipped[itemType] == null)
                 {
-                    _singleEquipped.Add(itemType, item);
+                    _singleEquipped[itemType] = item;
                     _allEquipped.Add(item);
                 }
                 else
