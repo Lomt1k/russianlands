@@ -10,21 +10,21 @@ namespace TextGameRPG.Scripts.GameCore.Quests
         private QuestType? focusedQuest = null; 
 
         [JsonProperty]
-        private readonly Dictionary<QuestType, int> stages = new Dictionary<QuestType, int>();
+        private readonly Dictionary<ushort, int> stages = new Dictionary<ushort, int>();
 
         public bool IsStarted(QuestType questType)
         {
-            return stages.ContainsKey(questType);
+            return stages.ContainsKey((ushort)questType);
         }
 
         public int GetStage(QuestType questType)
         {
-            return IsStarted(questType) ? stages[questType] : 0;
+            return IsStarted(questType) ? stages[(ushort)questType] : 0;
         }
 
         public void SetStage(QuestType questType, int stage, bool isFocused)
         {
-            stages[questType] = stage;
+            stages[(ushort)questType] = stage;
             focusedQuest = isFocused ? questType : (QuestType?)null;
         }
 
