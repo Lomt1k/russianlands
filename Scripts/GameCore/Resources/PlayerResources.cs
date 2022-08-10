@@ -41,6 +41,21 @@ namespace TextGameRPG.Scripts.GameCore.Resources
             return resourceDictionary[resourceType].GetValue(_profileData);
         }
 
+        public bool TryPurchase(Dictionary<ResourceType, int> requiredResources)
+        {
+            if (!HasEnough(requiredResources))
+                return false;
+
+            foreach (var resource in requiredResources)
+            {
+                var resourceType = resource.Key;
+                var requiredValue = resource.Value;
+                var newValue = GetValue(resourceType) - requiredValue;
+                resourceDictionary[resourceType].SetValue(_profileData, newValue);
+            }
+            return true;
+        }
+
         public bool TryPurchase(ResourceType resourceType, int requiredValue)
         {
             bool success = HasEnough(resourceType, requiredValue);
@@ -52,20 +67,12 @@ namespace TextGameRPG.Scripts.GameCore.Resources
             return success;
         }
 
-        public bool TryPurchase(Dictionary<ResourceType,int> requiredResources)
+        public bool HasEnough(Dictionary<ResourceType,int> requiredResources)
         {
             foreach (var resource in requiredResources)
             {
                 if (!HasEnough(resource.Key, resource.Value))
                     return false;
-            }
-
-            foreach (var resource in requiredResources)
-            {
-                var resourceType = resource.Key;
-                var requiredValue = resource.Value;
-                var newValue = GetValue(resourceType) - requiredValue;
-                resourceDictionary[resourceType].SetValue(_profileData, newValue);
             }
             return true;
         }
