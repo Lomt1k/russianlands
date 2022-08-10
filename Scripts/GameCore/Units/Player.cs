@@ -3,6 +3,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Inventory;
 using TextGameRPG.Scripts.GameCore.Localizations;
+using TextGameRPG.Scripts.GameCore.Resources;
 using TextGameRPG.Scripts.GameCore.Units.Stats;
 using TextGameRPG.Scripts.TelegramBot;
 using TextGameRPG.Scripts.TelegramBot.CallbackData;

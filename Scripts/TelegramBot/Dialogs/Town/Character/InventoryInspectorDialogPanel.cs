@@ -74,7 +74,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
 
             sb.AppendLine();
             sb.AppendLine(Localization.Get(session, "dialog_inventory_arrows"));
-            sb.AppendLine($"{Emojis.menuItems[MenuItem.Arrows]} " + session.player.resources.arrows);
+            sb.AppendLine(session.player.resources.GetResourceView(GameCore.Resources.ResourceType.Arrows));
 
             return sb.ToString();
         }

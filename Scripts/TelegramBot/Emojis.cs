@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using TextGameRPG.Scripts.GameCore.Items;
+using TextGameRPG.Scripts.GameCore.Resources;
 
 namespace TextGameRPG.Scripts.TelegramBot
 {
@@ -32,13 +33,6 @@ namespace TextGameRPG.Scripts.TelegramBot
         FireDamage,
         ColdDamage,
         LightningDamage
-    }
-
-    public enum Resource
-    {
-        Gold,
-        Diamond,
-        Food
     }
 
     public enum MapLocation
@@ -137,11 +131,11 @@ namespace TextGameRPG.Scripts.TelegramBot
             { ItemType.Equipped, "\ud83d\udc4b" },
         };
 
-        public static readonly Dictionary<Resource, string> resources = new Dictionary<Resource, string>
+        public static readonly Dictionary<ResourceType, string> resources = new Dictionary<ResourceType, string>
         {
-            { Resource.Gold, "\ud83d\udcb0" },
-            { Resource.Diamond, "\ud83d\udc8e" },
-            { Resource.Food, "\ud83c\udf56" },
+            { ResourceType.Gold, "\ud83d\udcb0" },
+            { ResourceType.Diamonds, "\ud83d\udc8e" },
+            { ResourceType.Food, "\ud83c\udf56" },
         };
 
         public static readonly Dictionary<MapLocation, string> locations = new Dictionary<MapLocation, string>

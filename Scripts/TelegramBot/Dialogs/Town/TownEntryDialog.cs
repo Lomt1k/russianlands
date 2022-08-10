@@ -41,7 +41,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town
         public override async Task Start()
         {
             string header = $"{Emojis.menuItems[MenuItem.Town]} <b>" + Localization.Get(session, "menu_item_town") + "</b>\n";
-            string resources = session.player.resources.GetView() + "\n";
+            string resources = session.player.resources.GetGeneralResourcesView() + "\n";
             string text;
             switch (_reason)
             {
