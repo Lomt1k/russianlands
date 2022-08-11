@@ -10,6 +10,7 @@ namespace TextGameRPG.Scripts.GameCore.Resources
     public class PlayerResources
     {
         private static ResourcesDictionary resourceDictionary = new ResourcesDictionary();
+        private const int maxResourcesInRow = 3;
 
         private GameSession _session;
         private ProfileData _profileData;
@@ -20,27 +21,52 @@ namespace TextGameRPG.Scripts.GameCore.Resources
             _profileData = session.profile.data;
         }
 
+        /// <returns>Информация обо всех имеющихся у игрока основных видов ресурсов в готовом для отображения виде</returns>
         public string GetGeneralResourcesView()
         {
             var sb = new StringBuilder();
             sb.AppendLine(Localizations.Localization.Get(_session, "unit_view_header_resources"));
-            sb.AppendLine(GetResourceView(ResourceType.Gold) 
-                + Emojis.bigSpace + GetResourceView(ResourceType.Food)
-                + Emojis.bigSpace + GetResourceView(ResourceType.Diamonds));
+            var generalResources = resourceDictionary.GetGeneralResourceTypes();
+
+            int elementsInCurrentRow = 0;
+            foreach (var resourceType in generalResources)
+            {
+                if (!IsUnlocked(resourceType))
+                    continue;
+
+                if (elementsInCurrentRow == maxResourcesInRow)
+                {
+                    sb.AppendLine();
+                    elementsInCurrentRow = 0;
+                }
+                if (elementsInCurrentRow > 0)
+                {
+                    sb.Append(Emojis.bigSpace);
+                }
+
+                sb.Append(GetResourceView(resourceType));
+                elementsInCurrentRow++;
+            }
 
             return sb.ToString();
         }
 
+        /// <returns>Количество ресурсов в готовом для отображения виде (с иконкой ресурса + сокращенно)</returns>
         public string GetResourceView(ResourceType resourceType)
         {
             return Emojis.resources[resourceType] + Emojis.space + GetValue(resourceType).View();
         }
 
+        /// <returns>Количество имеющихся у игрока ресурсов указанного типа</returns>
         public int GetValue(ResourceType resourceType)
         {
             return resourceDictionary[resourceType].GetValue(_profileData);
         }
 
+        /// <summary>
+        /// Попытаться произвести покупку со списанием указанных ресурсов
+        /// </summary>
+        /// <returns>Вернет true, если списание средств прошло успешно</returns>
         public bool TryPurchase(Dictionary<ResourceType, int> requiredResources)
         {
             if (!HasEnough(requiredResources))
@@ -56,6 +82,10 @@ namespace TextGameRPG.Scripts.GameCore.Resources
             return true;
         }
 
+        /// <summary>
+        /// Попытаться произвести покупку со списанием указанных ресурсов
+        /// </summary>
+        /// <returns>Вернет true, если списание средств прошло успешно</returns>
         public bool TryPurchase(ResourceType resourceType, int requiredValue)
         {
             bool success = HasEnough(resourceType, requiredValue);
@@ -67,6 +97,9 @@ namespace TextGameRPG.Scripts.GameCore.Resources
             return success;
         }
 
+        /// <summary>
+        /// Есть ли у игрока нужное количество ресурсов, перечисленных в словаре
+        /// </summary>
         public bool HasEnough(Dictionary<ResourceType,int> requiredResources)
         {
             foreach (var resource in requiredResources)
@@ -77,9 +110,45 @@ namespace TextGameRPG.Scripts.GameCore.Resources
             return true;
         }
 
+        /// <summary>
+        /// Есть ли у игрока нужное количество ресурсов конкретного типа
+        /// </summary>
         public bool HasEnough(ResourceType resourceType, int requiredValue)
         {
             return GetValue(resourceType) >= requiredValue;
+        }
+
+        /// <summary>
+        /// Доступен ли игроку данный вид ресурса
+        /// </summary>
+        public bool IsUnlocked(ResourceType resourceType)
+        {
+            return resourceDictionary[resourceType].IsUnlocked(_profileData);
+        }
+
+        /// <summary>
+        /// Добавляет ресурс даже если будет превышен лимит хранилища
+        /// </summary>
+        public void ForceAdd(ResourceType resourceType, int value)
+        {
+            resourceDictionary[resourceType].AddValue(_profileData, value);
+        }
+
+        /// <summary>
+        /// Добавляет ресурс, но не превышает лимит хранилища
+        /// </summary>
+        /// <returns>Сколько по факту было добавлено</returns>
+        public int Add(ResourceType resourceType, int value)
+        {
+            var resource = resourceDictionary[resourceType];
+            var currentValue = resource.GetValue(_profileData);
+            var maxValue = resource.GetResourceLimit(_profileData);
+
+            var canBeAdded = currentValue > maxValue ? 0 : maxValue - currentValue;
+            var reallyAdded = value > canBeAdded ? canBeAdded : value;
+            resource.AddValue(_profileData, reallyAdded);
+
+            return reallyAdded;
         }
 
 

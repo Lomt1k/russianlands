@@ -8,5 +8,8 @@ namespace TextGameRPG.Scripts.GameCore.Resources
 
         int GetValue(ProfileData profileData);
         void SetValue(ProfileData profileData, int value);
+        void AddValue(ProfileData profileData, int value);
+        bool IsUnlocked(ProfileData profileData);
+        int GetResourceLimit(ProfileData profileData);
     }
 }

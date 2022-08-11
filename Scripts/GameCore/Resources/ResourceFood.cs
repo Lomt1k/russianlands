@@ -15,5 +15,22 @@ namespace TextGameRPG.Scripts.GameCore.Resources
         {
             profileData.resourceFood = value;
         }
+
+        public void AddValue(ProfileData profileData, int value)
+        {
+            profileData.resourceFood += value;
+        }
+
+        public bool IsUnlocked(ProfileData profileData)
+        {
+            return true;
+        }
+
+        public int GetResourceLimit(ProfileData profileData)
+        {
+            //TODO: Add limit logic
+            return int.MaxValue;
+        }
+
     }
 }

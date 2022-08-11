@@ -15,5 +15,22 @@ namespace TextGameRPG.Scripts.GameCore.Resources
         {
             profileData.resourceDiamonds = value;
         }
+
+        public void AddValue(ProfileData profileData, int value)
+        {
+            profileData.resourceDiamonds += value;
+        }
+
+        public bool IsUnlocked(ProfileData profileData)
+        {
+            return true;
+        }
+
+        public int GetResourceLimit(ProfileData profileData)
+        {
+            //TODO: Add limit logic
+            return int.MaxValue;
+        }
+
     }
 }

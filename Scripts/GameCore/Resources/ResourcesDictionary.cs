@@ -25,5 +25,14 @@ namespace TextGameRPG.Scripts.GameCore.Resources
             };
         }
 
+        public IEnumerable<ResourceType> GetGeneralResourceTypes()
+        {
+            yield return ResourceType.Gold;
+            yield return ResourceType.Food;
+            yield return ResourceType.Diamonds;
+            yield return ResourceType.Wood;
+            yield return ResourceType.Iron;
+        }
+
     }
 }
