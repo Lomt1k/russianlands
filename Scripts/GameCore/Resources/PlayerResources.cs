@@ -25,7 +25,7 @@ namespace TextGameRPG.Scripts.GameCore.Resources
         public string GetGeneralResourcesView()
         {
             var sb = new StringBuilder();
-            sb.AppendLine(Localizations.Localization.Get(_session, "unit_view_header_resources"));
+            sb.AppendLine(Localizations.Localization.Get(_session, "resource_header_resources"));
             var generalResources = resourceDictionary.GetGeneralResourceTypes();
 
             int elementsInCurrentRow = 0;
@@ -54,7 +54,7 @@ namespace TextGameRPG.Scripts.GameCore.Resources
         /// <returns>Количество ресурсов в готовом для отображения виде (с иконкой ресурса + сокращенно)</returns>
         public string GetResourceView(ResourceType resourceType)
         {
-            return Emojis.resources[resourceType] + Emojis.space + GetValue(resourceType).View();
+            return resourceType.GetShortView(GetValue(resourceType));
         }
 
         /// <returns>Количество имеющихся у игрока ресурсов указанного типа</returns>
@@ -131,7 +131,12 @@ namespace TextGameRPG.Scripts.GameCore.Resources
         /// </summary>
         public void ForceAdd(ResourceType resourceType, int value)
         {
-            resourceDictionary[resourceType].AddValue(_profileData, value);
+            var resource = resourceDictionary[resourceType];
+            var currentValue = resource.GetValue(_profileData);
+
+            var canBeAdded = int.MaxValue - currentValue;
+            var reallyAdded = value > canBeAdded ? canBeAdded : value;
+            resourceDictionary[resourceType].AddValue(_profileData, reallyAdded);
         }
 
         /// <summary>
