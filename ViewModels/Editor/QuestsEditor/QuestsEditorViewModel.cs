@@ -44,11 +44,9 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
             get => _selectedStage;
             set
             {
+                stageInspectorVM.SaveChanges();
                 this.RaiseAndSetIfChanged(ref _selectedStage, value);
-                if (value != null)
-                {
-                    stageInspectorVM.ShowStage(value);
-                }
+                stageInspectorVM.ShowStage(value);
             }
         }
 

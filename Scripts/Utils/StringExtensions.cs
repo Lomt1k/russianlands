@@ -88,8 +88,6 @@ public static class StringExtensions
     /// <summary>
     /// Превращает число 1234567 в "1,234,567"
     /// </summary>
-    /// <param name="input"></param>
-    /// <returns></returns>
     public static string View(this int input)
     {
         if (input < 1000 && input > -1000)

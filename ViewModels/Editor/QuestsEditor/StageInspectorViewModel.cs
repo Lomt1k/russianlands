@@ -46,8 +46,11 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
         {
         }
 
-        public void ShowStage(QuestStage stage)
+        public void ShowStage(QuestStage? stage)
         {
+            if (stage == null)
+                return;
+
             this.stage = stage;
             _jumpToStageIfNewSessionCache = stage.jumpToStageIfNewSession;
             hasJumpToStageIfNewSession = stage.jumpToStageIfNewSession.HasValue;
@@ -74,9 +77,13 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
             if (specialStageInspector == null)
                 return;
 
-            if (specialStageInspector.DataContext is StageWithTriggerViewModel vm)
+            if (specialStageInspector.DataContext is StageWithTriggerViewModel stageWithTriggerVM)
             {
-                vm.SaveChanges();
+                stageWithTriggerVM.SaveChanges();
+            }
+            if (specialStageInspector.DataContext is StageWithBattleViewModel stageWithBattleVM)
+            {
+                stageWithBattleVM.SaveChanges();
             }
         }
 

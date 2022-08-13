@@ -83,6 +83,7 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
 
         public void AddNewAction()
         {
+            SaveChanges();
             RegularDialogHelper.ShowItemSelectionDialog("Select action type:", new Dictionary<string, Action>()
             {
                 {"Show Select Language Dialog", () => { stage.questActions.Add(new ShowLanguageSelectionDialogAction()); RefillActionsCollection(); } },
@@ -100,11 +101,13 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
 
             var actionToRemove = _selectedActionView.vm.GetEditableObject<StageActionBase>();
             stage.questActions.Remove(actionToRemove);
+            SaveChanges();
             RefillActionsCollection();
         }
 
         public void AddNewTooltip()
         {
+            SaveChanges();
             stage.tooltips.Add(new Tooltip());
             RefillTooltipsCollection();
         }
@@ -116,11 +119,13 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
 
             var tooltipToRemove = _selectedTooltipView.vm.GetEditableObject<Tooltip>();
             stage.tooltips.Remove(tooltipToRemove);
+            SaveChanges();
             RefillTooltipsCollection();
         }
 
         public void AddNewTrigger()
         {
+            SaveChanges();
             RegularDialogHelper.ShowItemSelectionDialog("Select trigger type:", new Dictionary<string, Action>()
             {
                 {"Invoke From Code", () => { stage.nextStageTriggers.Add(new InvokeFromCodeTrigger()); RefillTriggersCollection(); } },
@@ -135,6 +140,7 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
 
             var triggerToRemove = _selectedTriggerView.vm.GetEditableObject<TriggerBase>();
             stage.nextStageTriggers.Remove(triggerToRemove);
+            SaveChanges();
             RefillTriggersCollection();
         }
 

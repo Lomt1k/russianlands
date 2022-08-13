@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using TextGameRPG.Scripts.GameCore.Rewards;
 using TextGameRPG.Scripts.TelegramBot.Managers;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 
@@ -11,6 +13,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
         public int mobId { get; set; }
         public int nextStageIfWin { get; set; }
         public int nextStageIfLose { get; set; }
+        public List<RewardBase> rewards { get; set; } = new List<RewardBase>();
 
         public override Task InvokeStage(GameSession session)
         {
