@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Rewards;
+using TextGameRPG.Scripts.GameCore.Units;
+using TextGameRPG.Scripts.TelegramBot.Dialogs.Battle;
 using TextGameRPG.Scripts.TelegramBot.Managers;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 
@@ -19,7 +21,34 @@ namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
         {
             var mobDB = GameDataBase.GameDataBase.instance.mobs;
             var mobData = mobDB[mobId];
-            GlobalManagers.battleManager?.StartBattle(session.player, mobData);
+
+            // stage у квеста меняем сразу по окончанию боя, но вызываем его только после нажатия кнопки continue в окне наград
+
+            GlobalManagers.battleManager?.StartBattleWithMob(session.player, mobData,
+                rewards: rewards.Count > 0 ? rewards : null,
+                onBattleEndFunc: (Player player, BattleResult result) =>
+                {
+                    var nextStage = result == BattleResult.Win ? nextStageIfWin : nextStageIfLose;
+                    var questProgress = player.session.profile.dynamicData.quests;
+                    var focusedQuestType = questProgress.GetFocusedQuest();
+                    if (focusedQuestType != null)
+                    {
+                        questProgress.SetStage(focusedQuestType.Value, nextStage, true);
+                    }
+                    return Task.CompletedTask;
+                },
+                onContinueButtonFunc: async(Player player, BattleResult battleResult) =>
+                {
+                    var questProgress = player.session.profile.dynamicData.quests;
+                    var focusedQuestType = questProgress.GetFocusedQuest();
+                    if (focusedQuestType != null)
+                    {
+                        var focusedQuest = QuestsHolder.GetQuest(focusedQuestType.Value);
+                        var currentStage = focusedQuest.GetCurrentStage(player.session);
+                        await currentStage.InvokeStage(player.session);
+                    }
+                },
+                isAvailableReturnToTownFunc: (Player player, BattleResult battleResult) => false );
 
             return Task.CompletedTask;
         }

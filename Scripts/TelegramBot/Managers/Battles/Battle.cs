@@ -1,8 +1,12 @@
-﻿using System.Text;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Localizations;
+using TextGameRPG.Scripts.GameCore.Rewards;
 using TextGameRPG.Scripts.GameCore.Units;
 using TextGameRPG.Scripts.TelegramBot.CallbackData;
+using TextGameRPG.Scripts.TelegramBot.Dialogs.Battle;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 
 namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
@@ -11,15 +15,29 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
 
     public abstract class Battle
     {
+        private IEnumerable<RewardBase>? _rewards;
+        private Func<Player, BattleResult, Task>? _onBattleEndFunc;
+        private Func<Player, BattleResult, Task>? _onContinueButtonFunc;
+        private Func<Player, BattleResult, bool>? _isAvailableReturnToTownFunc;
+
         public abstract BattleType battleType { get; }
         public IBattleUnit firstUnit { get; private set; }
         public IBattleUnit secondUnit { get; private set; }
         public BattleTurn? currentTurn { get; private set; }
 
-        public Battle(Player opponentA, IBattleUnit opponentB)
+        public Battle(Player opponentA, IBattleUnit opponentB,
+            IEnumerable<RewardBase>? rewards = null,
+            Func<Player, BattleResult, Task>? onBattleEndFunc = null,
+            Func<Player, BattleResult, Task>? onContinueButtonFunc = null,
+            Func<Player, BattleResult, bool>? isAvailableReturnToTownFunc = null)
         {
             firstUnit = SelectFirstUnit(opponentA, opponentB);
             secondUnit = firstUnit == opponentA ? opponentB : opponentA;
+
+            _rewards = rewards;
+            _onBattleEndFunc = onBattleEndFunc;
+            _onContinueButtonFunc = onContinueButtonFunc;
+            _isAvailableReturnToTownFunc = isAvailableReturnToTownFunc;
         }
 
         public abstract IBattleUnit SelectFirstUnit(Player opponentA, IBattleUnit opponentB);

@@ -1,6 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using TextGameRPG.Scripts.GameCore.Rewards;
 using TextGameRPG.Scripts.GameCore.Units;
 using TextGameRPG.Scripts.GameCore.Units.Mobs;
+using TextGameRPG.Scripts.TelegramBot.Dialogs.Battle;
 
 namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
 {
@@ -13,23 +17,35 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
         {
         }
 
-        public Battle StartBattle(Player opponentA, Player opponentB)
+        public Battle StartBattlePVP(Player opponentA, Player opponentB,
+            IEnumerable<RewardBase>? rewards = null,
+            Func<Player, BattleResult, Task>? onBattleEndFunc = null,
+            Func<Player, BattleResult, Task>? onContinueButtonFunc = null,
+            Func<Player, BattleResult, bool>? isAvailableReturnToTownFunc = null)
         {
-            var battle = new BattlePVP(opponentA, opponentB);
+            var battle = new BattlePVP(opponentA, opponentB, rewards, onBattleEndFunc, onContinueButtonFunc, isAvailableReturnToTownFunc);
             RegisterBattle(battle);
             battle.StartBattle();
             return battle;
         }
 
-        public Battle StartBattle(Player player, MobData mobData)
+        public Battle StartBattleWithMob(Player player, MobData mobData,
+            IEnumerable<RewardBase>? rewards = null,
+            Func<Player, BattleResult, Task>? onBattleEndFunc = null,
+            Func<Player, BattleResult, Task>? onContinueButtonFunc = null,
+            Func<Player, BattleResult, bool>? isAvailableReturnToTownFunc = null)
         {
             var mob = new Mob(player.session, mobData);
-            return StartBattle(player, mob);
+            return StartBattleWithMob(player, mob, rewards, onBattleEndFunc, onContinueButtonFunc, isAvailableReturnToTownFunc);
         }
 
-        public Battle StartBattle(Player player, Mob mob)
+        public Battle StartBattleWithMob(Player player, Mob mob,
+            IEnumerable<RewardBase>? rewards = null,
+            Func<Player, BattleResult, Task>? onBattleEndFunc = null,
+            Func<Player, BattleResult, Task>? onContinueButtonFunc = null,
+            Func<Player, BattleResult, bool>? isAvailableReturnToTownFunc = null)
         {
-            var battle = new BattlePVE(player, mob);
+            var battle = new BattlePVE(player, mob, rewards, onBattleEndFunc, onContinueButtonFunc, isAvailableReturnToTownFunc);
             RegisterBattle(battle);
             battle.StartBattle();
             return battle;
