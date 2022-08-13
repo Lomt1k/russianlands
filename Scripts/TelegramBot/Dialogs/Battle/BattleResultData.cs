@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Rewards;
-using TextGameRPG.Scripts.TelegramBot.Sessions;
+using TextGameRPG.Scripts.GameCore.Units;
 
 namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Battle
 {
@@ -14,9 +15,9 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Battle
 
     public struct BattleResultData
     {
-        public BattleResult resultType;
+        public BattleResult battleResult;
         public IEnumerable<RewardBase>? rewards;
-        public Action<GameSession>? continueCallback;
+        public Func<Player, BattleResult, Task>? onContinueButtonFunc;
         public bool isReturnToTownAvailable;
     }
 }

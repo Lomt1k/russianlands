@@ -23,7 +23,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
             Func<Player, BattleResult, Task>? onContinueButtonFunc = null,
             Func<Player, BattleResult, bool>? isAvailableReturnToTownFunc = null)
         {
-            var battle = new BattlePVP(opponentA, opponentB, rewards, onBattleEndFunc, onContinueButtonFunc, isAvailableReturnToTownFunc);
+            var battle = new Battle(opponentA, opponentB, rewards, onBattleEndFunc, onContinueButtonFunc, isAvailableReturnToTownFunc);
             RegisterBattle(battle);
             battle.StartBattle();
             return battle;
@@ -45,7 +45,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
             Func<Player, BattleResult, Task>? onContinueButtonFunc = null,
             Func<Player, BattleResult, bool>? isAvailableReturnToTownFunc = null)
         {
-            var battle = new BattlePVE(player, mob, rewards, onBattleEndFunc, onContinueButtonFunc, isAvailableReturnToTownFunc);
+            var battle = new Battle(player, mob, rewards, onBattleEndFunc, onContinueButtonFunc, isAvailableReturnToTownFunc);
             RegisterBattle(battle);
             battle.StartBattle();
             return battle;
@@ -68,6 +68,19 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
         {
             _battlesByPlayers.TryGetValue(player, out var battle);
             return battle;
+        }
+
+        public void OnBattleEnd(Battle battle)
+        {
+            _battles.Remove(battle);
+            if (battle.firstUnit is Player firstPlayer)
+            {
+                _battlesByPlayers.Remove(firstPlayer);
+            }
+            if (battle.secondUnit is Player secondPlayer)
+            {
+                _battlesByPlayers.Remove(secondPlayer);
+            }
         }
 
     }

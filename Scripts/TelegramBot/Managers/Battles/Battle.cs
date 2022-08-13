@@ -13,17 +13,18 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
 {
     public enum BattleType { PVP, PVE }
 
-    public abstract class Battle
+    public class Battle
     {
         private IEnumerable<RewardBase>? _rewards;
         private Func<Player, BattleResult, Task>? _onBattleEndFunc;
         private Func<Player, BattleResult, Task>? _onContinueButtonFunc;
         private Func<Player, BattleResult, bool>? _isAvailableReturnToTownFunc;
 
-        public abstract BattleType battleType { get; }
+        public BattleType battleType { get; }
         public IBattleUnit firstUnit { get; private set; }
         public IBattleUnit secondUnit { get; private set; }
         public BattleTurn? currentTurn { get; private set; }
+        public bool isPVE => secondUnit is Mob;
 
         public Battle(Player opponentA, IBattleUnit opponentB,
             IEnumerable<RewardBase>? rewards = null,
@@ -40,7 +41,10 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
             _isAvailableReturnToTownFunc = isAvailableReturnToTownFunc;
         }
 
-        public abstract IBattleUnit SelectFirstUnit(Player opponentA, IBattleUnit opponentB);
+        public IBattleUnit SelectFirstUnit(Player opponentA, IBattleUnit opponentB)
+        {
+            return isPVE ? opponentA : new Random().Next(2) == 0 ? opponentA : opponentB;
+        }
 
         public void StartBattle()
         {
@@ -60,7 +64,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
                 await currentTurn.HandleTurn();
             }
             currentTurn = null;
-            //TODO: Battle end logic
+            await BattleEnd();
         }
 
         public string GetStatsView(GameSession session)
@@ -97,6 +101,64 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
             }
             await currentTurn.HandleBattleTooltipCallback(player, queryId, callback);
         }
+
+        private async Task BattleEnd()
+        {
+            bool hasWinner = firstUnit.unitStats.currentHP > 0 || secondUnit.unitStats.currentHP > 0;
+            if (firstUnit is Player firstPlayer)
+            {
+                await HandleBattleEndForPlayer(firstPlayer, hasWinner);
+            }
+            if (secondUnit is Player secondPlayer)
+            {
+                await HandleBattleEndForPlayer(secondPlayer, hasWinner);
+            }
+            GlobalManagers.battleManager?.OnBattleEnd(this);
+        }
+
+        private async Task HandleBattleEndForPlayer(Player player, bool hasWinner)
+        {
+            var enemy = GetEnemy(player);
+            BattleResult battleResult = hasWinner
+                ? (player.unitStats.currentHP > enemy.unitStats.currentHP ? BattleResult.Win : BattleResult.Lose)
+                : BattleResult.Draw;
+
+            if (battleResult == BattleResult.Win)
+            {
+                GiveRewards(player);
+            }
+
+            if (_onBattleEndFunc != null)
+            {
+                await _onBattleEndFunc(player, battleResult);
+            }
+
+            bool hasContinueButton = _onContinueButtonFunc != null;
+            bool isReturnToTownAvailable = hasContinueButton
+                ? _isAvailableReturnToTownFunc == null ? false : _isAvailableReturnToTownFunc(player, battleResult)
+                : true;
+
+            var data = new BattleResultData
+            {
+                battleResult = battleResult,
+                rewards = _rewards,
+                onContinueButtonFunc = _onContinueButtonFunc,
+                isReturnToTownAvailable = isReturnToTownAvailable
+            };
+            await new BattleResultDialog(player.session, data).Start();
+        }
+
+        private void GiveRewards(Player player)
+        {
+            if (_rewards == null)
+                return;
+
+            foreach (var reward in _rewards)
+            {
+                reward.AddReward(player);
+            }
+        }
+
 
     }
 }
