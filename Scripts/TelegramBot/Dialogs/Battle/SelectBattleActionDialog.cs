@@ -32,13 +32,35 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Battle
             var keyboard = new ReplyKeyboardMarkup(keyboardRows);
 
             var sb = new StringBuilder();
-            sb.AppendLine($"{Emojis.menuItems[MenuItem.Battle]} {Localization.Get(session, "battle_mine_turn_start")}");
+            sb.Append($"{Emojis.menuItems[MenuItem.Battle]} {Localization.Get(session, "battle_mine_turn_start")}");
+            if (session.player.inventory.equipped.HasItem(ItemType.Bow))
+            {
+                sb.Append($" {Emojis.stats[Stat.Arrows]} {session.player.unitStats.currentArrows}");
+            }
+            if (session.player.inventory.equipped.HasItem(ItemType.Scroll))
+            {
+                sb.Append($" {Emojis.stats[Stat.Mana]} {session.player.unitStats.currentMana}");
+            }
+            sb.AppendLine();
             sb.AppendLine();
 
             if (_battleTurn.isLastChance)
             {
                 sb.AppendLine($"{Emojis.elements[Element.BrokenHeart]} {Localization.Get(session, "battle_mine_turn_start_last_chance")}");
                 sb.AppendLine();
+            }
+
+            var equippedStick = session.player.inventory.equipped[ItemType.Stick];
+            if (equippedStick != null)
+            {
+                var currentCharge = session.player.unitStats.currentStickCharge;
+                var requiredCharge = equippedStick.data.requiredCharge;
+                if (currentCharge < requiredCharge)
+                {
+                    var localization = Localization.Get(session, "battle_mine_turn_stick_charge");
+                    sb.AppendLine(string.Format(localization, Emojis.items[ItemType.Stick], currentCharge, requiredCharge));
+                    sb.AppendLine();
+                }
             }
 
             sb.AppendLine(Localization.Get(session, "battle_mine_turn_start_select_item"));
@@ -49,6 +71,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Battle
         public void AppendSingleSlotItems(ref List<List<KeyboardButton>> keyboardRows)
         {
             var equipped = session.player.inventory.equipped;
+            var unitStats = session.player.unitStats;
 
             var swordItem = equipped[ItemType.Sword];
             var swordAttackText = swordItem != null ? swordItem.GetFullName(session) 
@@ -57,7 +80,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Battle
             keyboardRows.Add(new List<KeyboardButton> { swordAttackText });
 
             var bowItem = equipped[ItemType.Bow];
-            if (bowItem != null)
+            if (bowItem != null && unitStats.currentArrows > 0)
             {
                 var bowAttakText = bowItem.GetFullName(session);
                 RegisterButton(bowAttakText, () => OnCategorySelected(ItemType.Bow));
@@ -65,7 +88,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Battle
             }
 
             var stickItem = equipped[ItemType.Stick];
-            if (stickItem != null)
+            if (stickItem != null && unitStats.currentStickCharge >= stickItem.data.requiredCharge)
             {
                 var stickAttackText = stickItem.GetFullName(session);
                 RegisterButton(stickAttackText, () => OnCategorySelected(ItemType.Stick));
@@ -106,21 +129,20 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Battle
                 return;
             }
 
-            Program.logger.Debug($"OnCategorySelected {category}");
             var equippedItems = session.player.inventory.equipped;
             switch (category)
             {
                 case ItemType.Sword:
-                    var sword = equippedItems[ItemType.Sword];
-                    var attackWithSword = new PlayerAttackAction(session.player, sword);
-                    _selectedActionCallback(attackWithSword);
-                    await HideKeyboard();
-                    break;
                 case ItemType.Bow:
-                    //TODO: Apply bow if arrows > 0
-                    break;
                 case ItemType.Stick:
-                    //TODO: Apply stick if charged
+                    var item = equippedItems[category];
+                    var attackWithItem = new PlayerAttackAction(session.player, item);
+                    _selectedActionCallback(attackWithItem);
+                    if (item != null)
+                    {
+                        session.player.unitStats.OnUseItemInBattle(item);
+                    }
+                    await HideKeyboard();
                     break;
                 case ItemType.Poison:
                     //TODO: Select poison dialog

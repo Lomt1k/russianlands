@@ -72,10 +72,6 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
             sb.Append(Emojis.bigSpace);
             sb.AppendLine($"{Emojis.items[ItemType.Poison]} {_inventory.GetItemsCountByType(ItemType.Poison)}");
 
-            sb.AppendLine();
-            sb.AppendLine(Localization.Get(session, "dialog_inventory_arrows"));
-            sb.AppendLine(session.player.resources.GetResourceView(GameCore.Resources.ResourceType.Arrows));
-
             return sb.ToString();
         }
 

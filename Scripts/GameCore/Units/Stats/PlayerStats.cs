@@ -33,6 +33,22 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
             _player.inventory.equipped.onUpdateEquippedItems += Recalculate;
         }
 
+        public override void OnStartBattle()
+        {
+            base.OnStartBattle();
+            currentArrows = 3; //TODO: Add Arrows Calculation Logic
+        }
+
+        public override void OnStartMineTurn()
+        {
+            base.OnStartMineTurn();
+            var equippedStick = _player.inventory.equipped[Items.ItemType.Stick];
+            if (equippedStick != null && currentStickCharge < equippedStick.data.requiredCharge)
+            {
+                currentStickCharge++;
+            }
+        }
+
         public void Recalculate()
         {
             CalculateBaseValues();

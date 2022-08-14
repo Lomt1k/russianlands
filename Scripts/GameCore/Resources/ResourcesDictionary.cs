@@ -21,7 +21,7 @@ namespace TextGameRPG.Scripts.GameCore.Resources
                 { ResourceType.Iron, new ResourceIron() },
 
                 //additional
-                { ResourceType.Arrows, new ResourceArrows() },
+                //-- TODO
             };
         }
 

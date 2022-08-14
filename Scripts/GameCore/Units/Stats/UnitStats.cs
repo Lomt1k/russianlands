@@ -14,6 +14,8 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
         public int maxHP { get; protected set; }
         public int currentHP { get; protected set; }
         public int currentMana { get; protected set; }
+        public int currentStickCharge { get; protected set; }
+        public int currentArrows { get; protected set; }
         public int physicalResist { get; protected set; }
         public int fireResist { get; protected set; }
         public int coldResist { get; protected set; }
@@ -27,11 +29,25 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
         public virtual void OnStartBattle()
         {
             currentMana = 0;
+            currentStickCharge = 0;
         }
 
-        public void AddManaPoint()
+        public virtual void OnStartMineTurn()
         {
             currentMana++;
+        }
+
+        public virtual void OnUseItemInBattle(InventoryItem item)
+        {
+            switch (item.data.itemType)
+            {
+                case ItemType.Bow:
+                    currentArrows--;
+                    break;
+                case ItemType.Stick:
+                    currentStickCharge = 0;
+                    break;
+            }
         }
 
         public DamageInfo TryDealDamage(DamageInfo damage)

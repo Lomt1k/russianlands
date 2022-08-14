@@ -39,15 +39,15 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
         {
             await enemy.OnStartEnemyTurn(this);
 
-            AddManaPoint();
+            UpdateUnitStats();
             AskUnitForBattleActions();
             await WaitAnswerFromUnit();
             await InvokeBattleActions();
         }
 
-        private void AddManaPoint()
+        private void UpdateUnitStats()
         {
-            unit.unitStats.AddManaPoint();
+            unit.unitStats.OnStartMineTurn();
         }
 
         private async void AskUnitForBattleActions()

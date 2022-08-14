@@ -24,7 +24,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
         public IBattleUnit firstUnit { get; private set; }
         public IBattleUnit secondUnit { get; private set; }
         public BattleTurn? currentTurn { get; private set; }
-        public bool isPVE => secondUnit is Mob;
+        public bool isPVE { get; private set; }
 
         public Battle(Player opponentA, IBattleUnit opponentB,
             IEnumerable<RewardBase>? rewards = null,
@@ -32,6 +32,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
             Func<Player, BattleResult, Task>? onContinueButtonFunc = null,
             Func<Player, BattleResult, bool>? isAvailableReturnToTownFunc = null)
         {
+            isPVE = opponentB is Mob;
             firstUnit = SelectFirstUnit(opponentA, opponentB);
             secondUnit = firstUnit == opponentA ? opponentB : opponentA;
 

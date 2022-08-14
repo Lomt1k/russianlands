@@ -14,7 +14,6 @@ namespace TextGameRPG.Scripts.GameCore.Resources
         Iron = 4,
 
         //Others
-        Arrows = 255
     }
 
     public static class ResourceTypeExtensions

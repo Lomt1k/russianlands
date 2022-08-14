@@ -41,7 +41,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town
         public override async Task Start()
         {
             string header = $"{Emojis.menuItems[MenuItem.Town]} <b>" + Localization.Get(session, "menu_item_town") + "</b>\n";
-            string resources = session.player.resources.GetGeneralResourcesView() + "\n";
+            string resources = session.player.resources.GetGeneralResourcesView();
             string text;
             switch (_reason)
             {
@@ -49,10 +49,10 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town
                     text = header + "\n\n" + Localization.Get(session, "dialog_tutorial_town_entry_text_endTutorial");
                     break;
                 case TownEntryReason.BackFromInnerDialog:
-                    text = header + "\n" + resources + Localization.Get(session, "dialog_tutorial_town_entry_text_backFromInnerDialog");
+                    text = header + "\n" + resources + "\n\n" + Localization.Get(session, "dialog_tutorial_town_entry_text_backFromInnerDialog");
                     break;
                 case TownEntryReason.FromQuestAction:
-                    text = header + "\n" + resources + Localization.Get(session, "dialog_tutorial_town_entry_text_backFromInnerDialog");
+                    text = header + "\n" + resources + "\n\n" + Localization.Get(session, "dialog_tutorial_town_entry_text_backFromInnerDialog");
                     break;
 
                 case TownEntryReason.StartNewSession:

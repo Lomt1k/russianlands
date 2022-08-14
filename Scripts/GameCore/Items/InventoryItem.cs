@@ -20,9 +20,6 @@ namespace TextGameRPG.Scripts.GameCore.Items
         public ItemData data { get; private set; }
 
         [JsonIgnore]
-        public byte charge;
-
-        [JsonIgnore]
         public int manaCost { get; private set; }
 
         [JsonIgnore]
@@ -132,14 +129,6 @@ namespace TextGameRPG.Scripts.GameCore.Items
                     return true;
             }
             return false;
-        }
-
-        public void IncreaseCharge()
-        {
-            if (charge < data.requiredCharge)
-            {
-                charge++;
-            }
         }
 
 

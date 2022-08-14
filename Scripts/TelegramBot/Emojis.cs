@@ -21,7 +21,6 @@ namespace TextGameRPG.Scripts.TelegramBot
         Options,
         Avatar,
         Inventory,
-        Arrows,
         Battle
     }
 
@@ -29,6 +28,7 @@ namespace TextGameRPG.Scripts.TelegramBot
     {
         Health,
         Mana,
+        Arrows,
         PhysicalDamage,
         FireDamage,
         ColdDamage,
@@ -100,7 +100,6 @@ namespace TextGameRPG.Scripts.TelegramBot
             { MenuItem.Options, "\u2699\ufe0f" },
             { MenuItem.Avatar, "\ud83d\udc40" },
             { MenuItem.Inventory, "\ud83c\udf92" },
-            { MenuItem.Arrows, "\ud83c\udfaf" },
             { MenuItem.Battle, "\u2694\ufe0f" }
         };
 
@@ -108,6 +107,7 @@ namespace TextGameRPG.Scripts.TelegramBot
         {
             { Stat.Health, "\u2764\ufe0f" },
             { Stat.Mana, "\ud83d\udd2e" },
+            { Stat.Arrows, "\ud83c\udfaf" },
             { Stat.PhysicalDamage, "\ud83d\udc4a" },
             { Stat.FireDamage, "\ud83d\udd25" },
             { Stat.ColdDamage, "\ud83e\uddca" },
@@ -136,6 +136,8 @@ namespace TextGameRPG.Scripts.TelegramBot
             { ResourceType.Gold, "\ud83d\udcb0" },
             { ResourceType.Diamonds, "\ud83d\udc8e" },
             { ResourceType.Food, "\ud83c\udf56" },
+            { ResourceType.Wood, "\ud83e\udeb5" },
+            { ResourceType.Iron, "\ud83e\udea8" },
         };
 
         public static readonly Dictionary<MapLocation, string> locations = new Dictionary<MapLocation, string>
