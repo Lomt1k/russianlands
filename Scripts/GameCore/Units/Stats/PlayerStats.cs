@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
+using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.GameCore.Items.ItemProperties;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.TelegramBot;
@@ -69,11 +71,7 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
             attributeVitality = 1;
             attributeSorcery = 1;
             attributeLuck = 1;
-
-            physicalResist = 0;
-            fireResist = 0;
-            coldResist = 0;
-            lightningResist = 0;
+            resistance = DamageInfo.Zero;
         }
 
         private void ApplyItemProperties()
@@ -93,10 +91,12 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
             switch (property)
             {
                 case DamageResistProperty resistProperty:
-                    this.physicalResist += resistProperty.physicalDamage;
-                    this.fireResist += resistProperty.fireDamage;
-                    this.coldResist += resistProperty.coldDamage;
-                    this.lightningResist += resistProperty.lightningDamage;
+                    var tempResist = resistance;
+                    tempResist[DamageType.Physical] += resistProperty.physicalDamage;
+                    tempResist[DamageType.Fire] += resistProperty.fireDamage;
+                    tempResist[DamageType.Cold] += resistProperty.coldDamage;
+                    tempResist[DamageType.Lightning] += resistProperty.lightningDamage;
+                    resistance = tempResist;
                     break;
                 case IncreaseAttributeStrengthProperty increaseStrength:
                     this.attributeStrength += increaseStrength.value;
@@ -118,17 +118,14 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
 
         private void ApplyAttributes()
         {
-            var physicalBonusPerVitality = (float)physicalResist / 100;
-            physicalResist += (int)(physicalBonusPerVitality * attributeVitality);
-
-            var fireBonusPerVitality = (float)fireResist / 100;
-            fireResist += (int)(fireBonusPerVitality * attributeVitality);
-
-            var coldBonusPerVitality = (float)coldResist / 100;
-            coldResist += (int)(coldBonusPerVitality * attributeVitality);
-
-            var lightningBonusPerVitality = (float)lightningResist / 100;
-            lightningResist += (int)(lightningBonusPerVitality * attributeVitality);
+            // vitality
+            var tempResist = resistance;
+            foreach (DamageType damageType in Enum.GetValues(typeof(DamageType)))
+            {
+                var bonusPerVitality = (float)tempResist[damageType] / 100;
+                tempResist[damageType] += (int)(bonusPerVitality * attributeVitality);
+            }
+            resistance = tempResist;
         }
 
         public override string GetView(GameSession sessionToSend)

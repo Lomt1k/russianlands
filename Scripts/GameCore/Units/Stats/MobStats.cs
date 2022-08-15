@@ -17,10 +17,11 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
 
             maxHP = (int)Math.Round(statsSettings.health * gradeMult);
             currentHP = maxHP;
-            physicalResist = (int)Math.Round(statsSettings.physicalResist * gradeMult);
-            fireResist = (int)Math.Round(statsSettings.fireResist * gradeMult);
-            coldResist = (int)Math.Round(statsSettings.coldResist * gradeMult);
-            lightningResist = (int)Math.Round(statsSettings.lightningResist * gradeMult);            
+            resistance = new Items.DamageInfo(
+                physicalDamage: (int)Math.Round(statsSettings.physicalResist * gradeMult),
+                fireDamage: (int)Math.Round(statsSettings.fireResist * gradeMult),
+                coldDamage: (int)Math.Round(statsSettings.coldResist * gradeMult),
+                lightningDamage: (int)Math.Round(statsSettings.lightningResist * gradeMult));
         }
 
         public override string GetView(GameSession sessionToSend)

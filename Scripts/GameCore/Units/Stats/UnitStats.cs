@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Text;
 using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.GameCore.Localizations;
@@ -16,10 +15,7 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
         public int currentMana { get; protected set; }
         public int currentStickCharge { get; protected set; }
         public int currentArrows { get; protected set; }
-        public int physicalResist { get; protected set; }
-        public int fireResist { get; protected set; }
-        public int coldResist { get; protected set; }
-        public int lightningResist { get; protected set; }
+        public DamageInfo resistance { get; protected set; }
 
         public void SetFullHealth()
         {
@@ -52,12 +48,7 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
 
         public DamageInfo TryDealDamage(DamageInfo damage)
         {
-            var physical = Math.Max(damage[DamageType.Physical] - physicalResist, 0);
-            var fire = Math.Max(damage[DamageType.Fire] - fireResist, 0);
-            var cold = Math.Max(damage[DamageType.Cold] - coldResist, 0);
-            var lightning = Math.Max(damage[DamageType.Lightning] - lightningResist, 0);
-
-            var resultDamage = new DamageInfo(physical, fire, cold, lightning);
+            var resultDamage = (damage - resistance).EscapeNegative();
             currentHP -= resultDamage.GetTotalValue();
             return resultDamage;
         }
@@ -80,24 +71,19 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
         {
             sb.AppendLine(Localization.Get(session, "unit_view_total_resistance"));
 
-            bool hasBigValues = physicalResist > 999
-                || fireResist > 999
-                || coldResist > 999
-                || lightningResist > 999;
-
-            if (hasBigValues)
+            if (resistance.HasBigValues())
             {
-                sb.Append($"{Emojis.stats[Stat.PhysicalDamage]} " + physicalResist);
-                sb.AppendLine(Emojis.bigSpace + $"{Emojis.stats[Stat.FireDamage]} " + fireResist);
-                sb.Append($"{Emojis.stats[Stat.ColdDamage]} " + coldResist);
-                sb.AppendLine(Emojis.bigSpace + $"{Emojis.stats[Stat.LightningDamage]} " + lightningResist);
+                sb.Append($"{Emojis.stats[Stat.PhysicalDamage]} " + resistance[DamageType.Physical]);
+                sb.AppendLine(Emojis.bigSpace + $"{Emojis.stats[Stat.FireDamage]} " + resistance[DamageType.Fire]);
+                sb.Append($"{Emojis.stats[Stat.ColdDamage]} " + resistance[DamageType.Cold]);
+                sb.AppendLine(Emojis.bigSpace + $"{Emojis.stats[Stat.LightningDamage]} " + resistance[DamageType.Lightning]);
             }
             else
             {
-                sb.Append($"{Emojis.stats[Stat.PhysicalDamage]} " + physicalResist);
-                sb.Append(Emojis.middleSpace + $"{Emojis.stats[Stat.FireDamage]} " + fireResist);
-                sb.Append(Emojis.middleSpace + $"{Emojis.stats[Stat.ColdDamage]} " + coldResist);
-                sb.Append(Emojis.middleSpace + $"{Emojis.stats[Stat.LightningDamage]} " + lightningResist);
+                sb.Append($"{Emojis.stats[Stat.PhysicalDamage]} " + resistance[DamageType.Physical]);
+                sb.Append(Emojis.middleSpace + $"{Emojis.stats[Stat.FireDamage]} " + resistance[DamageType.Fire]);
+                sb.Append(Emojis.middleSpace + $"{Emojis.stats[Stat.ColdDamage]} " + resistance[DamageType.Cold]);
+                sb.Append(Emojis.middleSpace + $"{Emojis.stats[Stat.LightningDamage]} " + resistance[DamageType.Lightning]);
             }
         }
 
