@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Units.Mobs;
 using TextGameRPG.Scripts.GameCore.Units.Stats;
@@ -101,6 +102,12 @@ namespace TextGameRPG.Scripts.GameCore.Units
         public Task OnStartEnemyTurn(BattleTurn battleTurn)
         {
             return Task.CompletedTask;
+        }
+
+        public bool TryAddShieldOnStartEnemyTurn(out DamageInfo damageInfo)
+        {
+            damageInfo = DamageInfo.Zero;
+            return false;
         }
 
         public void OnMineBattleTurnAlmostEnd()

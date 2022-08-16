@@ -46,6 +46,11 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
             }
         }
 
+        public void AddOrRemoveResistance(DamageInfo value)
+        {
+            resistance += value;
+        }
+
         public DamageInfo TryDealDamage(DamageInfo damage)
         {
             var resultDamage = (damage - resistance).EscapeNegative();

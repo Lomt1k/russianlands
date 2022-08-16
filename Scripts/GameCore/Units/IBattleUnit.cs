@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.GameCore.Units.Stats;
 using TextGameRPG.Scripts.TelegramBot.Managers.Battles;
 using TextGameRPG.Scripts.TelegramBot.Managers.Battles.Actions;
@@ -21,6 +22,7 @@ namespace TextGameRPG.Scripts.GameCore.Units
         public void OnStartBattle(Battle battle);
         public Task<List<IBattleAction>> GetActionsForBattleTurn(BattleTurn battleTurn);
         public Task OnStartEnemyTurn(BattleTurn battleTurn);
+        public bool TryAddShieldOnStartEnemyTurn(out DamageInfo damageInfo);
         public void OnMineBattleTurnAlmostEnd();
         public Task OnMineBatteTurnTimeEnd();
         public Task OnEnemyBattleTurnTimeEnd();

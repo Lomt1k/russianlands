@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Units;
 using TextGameRPG.Scripts.TelegramBot.CallbackData;
@@ -13,8 +15,10 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
     {
         public const int MOB_TURN_MILISECONDS_DELAY = 7_000;
 
-        private IBattleAction[]? _battleActions;
+        private List<IBattleAction> _battleActions;
         private Dictionary<Player, List<BattleTooltipType>> _queryTooltipsToIgnoreByPlayers = new Dictionary<Player, List<BattleTooltipType>>();
+
+        public Action? onBattleTurnEnd;
 
         public Battle battle { get; }
         public IBattleUnit unit { get; }
@@ -39,13 +43,14 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
         {
             await enemy.OnStartEnemyTurn(this);
 
-            UpdateUnitStats();
+            OnStartMineTurn();
             AskUnitForBattleActions();
             await WaitAnswerFromUnit();
             await InvokeBattleActions();
+            OnEndMineTurn();
         }
 
-        private void UpdateUnitStats()
+        private void OnStartMineTurn()
         {
             unit.unitStats.OnStartMineTurn();
         }
@@ -55,7 +60,20 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
             var selectedActions = await unit.GetActionsForBattleTurn(this);
             if (isWaitingForActions)
             {
-                _battleActions = selectedActions.OrderBy(x => x.priority).ToArray();
+                _battleActions = selectedActions.OrderBy(x => x.priority).ToList();
+                TryAppendShieldAction();
+            }
+        }
+
+        private void TryAppendShieldAction()
+        {
+            if (_battleActions == null)
+                return;
+
+            if (enemy.TryAddShieldOnStartEnemyTurn(out DamageInfo enemyShieldBlock))
+            {
+                var enemyShieldAction = new AddShieldOnEnemyTurnAction(this, enemyShieldBlock);
+                _battleActions.Insert(0, enemyShieldAction);
             }
         }
 
@@ -70,7 +88,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
                     unit.OnMineBattleTurnAlmostEnd();
                     continue;
                 }
-                if (secondsLeft == 0 && _battleActions == null)
+                if (secondsLeft == 0 && _battleActions.Count == 0)
                 {
                     await unit.OnMineBatteTurnTimeEnd();
                     var enemy = battle.GetEnemy(unit);
@@ -117,6 +135,12 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
                 var keyboard = BattleToolipHelper.GetStatsKeyboard(enemy.session);
                 await messageSender.SendTextMessage(enemy.session.chatId, enemyStringBuilder.ToString(), keyboard);
             }
+        }
+
+        private void OnEndMineTurn()
+        {
+            onBattleTurnEnd?.Invoke();
+            onBattleTurnEnd = null;
         }
 
         public async Task HandleBattleTooltipCallback(Player player, string queryId, BattleTooltipCallbackData callback)

@@ -2,6 +2,8 @@
 using System.Text;
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Inventory;
+using TextGameRPG.Scripts.GameCore.Items;
+using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Resources;
 using TextGameRPG.Scripts.GameCore.Units.Stats;
@@ -11,6 +13,7 @@ using TextGameRPG.Scripts.TelegramBot.Dialogs.Battle;
 using TextGameRPG.Scripts.TelegramBot.Managers.Battles;
 using TextGameRPG.Scripts.TelegramBot.Managers.Battles.Actions;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
+using TextGameRPG.Scripts.Utils;
 
 namespace TextGameRPG.Scripts.GameCore.Units
 {
@@ -106,6 +109,30 @@ namespace TextGameRPG.Scripts.GameCore.Units
 
             sb.AppendLine($"{Emojis.elements[Element.Hourgrlass]} {Localization.Get(session, "battle_enemy_turn_start")}");
             await messageSender.SendTextMessage(session.chatId, sb.ToString(), silent: true);
+        }
+
+        public bool TryAddShieldOnStartEnemyTurn(out DamageInfo damageInfo)
+        {
+            damageInfo = DamageInfo.Zero;
+
+            var shield = inventory.equipped[ItemType.Shield];
+            if (shield == null)
+                return false;
+
+            var blockAbility = shield.data.ablitityByType[AbilityType.BlockIncomingDamageEveryTurn] as BlockIncomingDamageEveryTurnAbility;
+            if (blockAbility == null)
+                return false;
+
+            var success = Randomizer.TryPercentage(blockAbility.chanceToSuccessPercentage);
+            if (!success)
+                return false;
+
+            damageInfo = new DamageInfo(
+                physicalDamage: blockAbility.physicalDamage,
+                fireDamage: blockAbility.fireDamage,
+                coldDamage: blockAbility.coldDamage,
+                lightningDamage: blockAbility.lightningDamage);
+            return true;
         }
 
         public async void OnMineBattleTurnAlmostEnd()
