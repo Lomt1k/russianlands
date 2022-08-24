@@ -9,9 +9,9 @@ namespace TextGameRPG.Scripts.GameCore.Resources
         //General
         Gold = 0,
         Food = 1,
-        Diamonds = 2,
-        Wood = 3,
-        Iron = 4,
+        Diamond = 2,
+        Herbs = 3,
+        Wood = 4,
 
         //Others
     }

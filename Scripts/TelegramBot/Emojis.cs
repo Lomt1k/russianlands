@@ -134,10 +134,10 @@ namespace TextGameRPG.Scripts.TelegramBot
         public static readonly Dictionary<ResourceType, string> resources = new Dictionary<ResourceType, string>
         {
             { ResourceType.Gold, "\ud83d\udcb0" },
-            { ResourceType.Diamonds, "\ud83d\udc8e" },
+            { ResourceType.Diamond, "\ud83d\udc8e" },
             { ResourceType.Food, "\ud83c\udf56" },
+            { ResourceType.Herbs, "\ud83c\udf3f" },
             { ResourceType.Wood, "\ud83e\udeb5" },
-            { ResourceType.Iron, "\ud83e\udea8" },
         };
 
         public static readonly Dictionary<MapLocation, string> locations = new Dictionary<MapLocation, string>

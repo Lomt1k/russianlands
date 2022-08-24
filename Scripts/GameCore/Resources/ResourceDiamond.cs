@@ -2,29 +2,28 @@
 
 namespace TextGameRPG.Scripts.GameCore.Resources
 {
-    public class ResourceIron : IResource
+    public class ResourceDiamond : IResource
     {
-        public ResourceType resourceType => ResourceType.Iron;
+        public ResourceType resourceType => ResourceType.Diamond;
 
         public int GetValue(ProfileData profileData)
         {
-            return profileData.resourceIron;
+            return profileData.resourceDiamond;
         }
 
         public void SetValue(ProfileData profileData, int value)
         {
-            profileData.resourceIron = value;
+            profileData.resourceDiamond = value;
         }
 
         public void AddValue(ProfileData profileData, int value)
         {
-            profileData.resourceIron += value;
+            profileData.resourceDiamond += value;
         }
 
         public bool IsUnlocked(ProfileData profileData)
         {
-            //TODO
-            return false;
+            return true;
         }
 
         public int GetResourceLimit(ProfileData profileData)

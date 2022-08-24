@@ -13,11 +13,13 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData
         public string nickname;
         public byte level;
         public byte lastUnlockedLocation;
+
+        // resources
         public int resourceGold;
         public int resourceFood;
-        public int resourceDiamonds;
+        public int resourceDiamond;
+        public int resourceHerbs;
         public int resourceWood;
-        public int resourceIron;
 
         public static TableColumn[] GetTableColumns()
         {
@@ -32,9 +34,9 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData
                 new TableColumn("lastUnlockedLocation", "INTEGER", "1"),
                 new TableColumn("resourceGold", "INTEGER", "0"),
                 new TableColumn("resourceFood", "INTEGER", "0"),
-                new TableColumn("resourceDiamonds", "INTEGER", "0"),
+                new TableColumn("resourceDiamond", "INTEGER", "0"),
+                new TableColumn("resourceHerbs", "INTEGER", "0"),
                 new TableColumn("resourceWood", "INTEGER", "0"),
-                new TableColumn("resourceIron", "INTEGER", "0"),
             };
         }
 

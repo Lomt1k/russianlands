@@ -16,9 +16,9 @@ namespace TextGameRPG.Scripts.GameCore.Resources
                 //general
                 { ResourceType.Gold, new ResourceGold() },
                 { ResourceType.Food, new ResourceFood() },
-                { ResourceType.Diamonds, new ResourceDiamonds() },
+                { ResourceType.Diamond, new ResourceDiamond() },
+                { ResourceType.Herbs, new ResourceHerbs() },
                 { ResourceType.Wood, new ResourceWood() },
-                { ResourceType.Iron, new ResourceIron() },
 
                 //additional
                 //-- TODO
@@ -29,9 +29,9 @@ namespace TextGameRPG.Scripts.GameCore.Resources
         {
             yield return ResourceType.Gold;
             yield return ResourceType.Food;
-            yield return ResourceType.Diamonds;
+            yield return ResourceType.Diamond;
+            yield return ResourceType.Herbs;
             yield return ResourceType.Wood;
-            yield return ResourceType.Iron;
         }
 
     }
