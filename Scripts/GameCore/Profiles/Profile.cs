@@ -10,12 +10,14 @@ namespace TextGameRPG.Scripts.GameCore.Profiles
     {
         public ProfileData data { get; }
         public ProfileDynamicData dynamicData { get; }
+        public ProfileBuildingsData buildingsData { get; }
         public DateTime lastSaveProfileTime { get; private set; }
 
-        public Profile(ProfileData _data, ProfileDynamicData _dynamicData)
+        public Profile(ProfileData _data, ProfileDynamicData _dynamicData, ProfileBuildingsData _buildingsData)
         {
             data = _data;
             dynamicData = _dynamicData;
+            buildingsData = _buildingsData;
         }
 
         /// <summary>
@@ -40,6 +42,7 @@ namespace TextGameRPG.Scripts.GameCore.Profiles
         {
             await data.UpdateInDatabase();
             await dynamicData.UpdateInDatabase();
+            await buildingsData.UpdateInDatabase();
             lastSaveProfileTime = DateTime.UtcNow;
         }
 

@@ -135,7 +135,15 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
                 return;
             }
 
-            profile = new Profile(profileData, profileDynamicData);
+            var profileBuildingsTable = TelegramBot.instance.dataBase[Table.ProfileBuildings] as ProfileBuildingsDataTable;
+            var profileBuildingsData = await profileBuildingsTable.GetOrCreateData(profileData.dbid);
+            if (profileBuildingsData == null)
+            {
+                Program.logger.Error($"Can`t get or create profile buildings data after start new session (telegram_id: {actualUser.Id})");
+                return;
+            }
+
+            profile = new Profile(profileData, profileDynamicData, profileBuildingsData);
             language = Enum.Parse<LanguageCode>(profileData.language);
             player = new Player(this);
 

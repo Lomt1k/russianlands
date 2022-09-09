@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Data;
 using System.Threading.Tasks;
-using TextGameRPG.Scripts.Utils;
 
 namespace TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData
 {

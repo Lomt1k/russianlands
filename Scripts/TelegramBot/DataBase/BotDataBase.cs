@@ -25,6 +25,7 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase
             {
                 { Table.Profiles, new ProfilesDataTable(this) },
                 { Table.ProfilesDynamic, new ProfilesDynamicDataTable(this) },
+                { Table.ProfileBuildings, new ProfileBuildingsDataTable(this) },
             };
         }
 
