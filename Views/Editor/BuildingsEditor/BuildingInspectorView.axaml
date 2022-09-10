@@ -5,54 +5,46 @@
              mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="600"
              x:Class="TextGameRPG.Views.Editor.BuildingsEditor.BuildingInspectorView">
 
-  <Grid Margin="20">
+  <Grid>
     <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="auto"/>
       <ColumnDefinition Width="auto"/>
       <ColumnDefinition Width="auto"/>
     </Grid.ColumnDefinitions>
 
-    <!-- Column 1: Main Settings-->
-    <StackPanel Grid.Column="0" Orientation="Vertical">
-      <ListBox  Margin="20" Items="{Binding generalData}">
-        <ListBox.ItemTemplate>
-          <DataTemplate>
-            <StackPanel Orientation="Horizontal">
-              <TextBlock Text="{Binding name}" Width="200" VerticalAlignment="Center"/>
-              <TextBox Text="{Binding unparsedValue}"/>
-            </StackPanel>
-          </DataTemplate>
-        </ListBox.ItemTemplate>
-      </ListBox>
+    <!-- Column 1: Building Levels -->
+    <Border Grid.Column="0" Background="WhiteSmoke" Width="500" Margin="40,0">
+      <ScrollViewer Height="800" Padding="0,0,20,0"
+                    VerticalScrollBarVisibility="Visible" AllowAutoHide="False">
 
-    </StackPanel>
-
-    <!-- Column 2: Subsettings -->
-    <StackPanel Grid.Column="1" Orientation="Vertical">
-
-      <!-- ItemGenerationSettings -->
-      <Border Background="WhiteSmoke" Padding="20,10">
-        <StackPanel Orientation="Vertical" Spacing="10">
-          <TextBlock Text="Item Generation Settings" Classes="h3"/>
-          <ListBox Items="{Binding itemGenerationSettings}">
+        <StackPanel Spacing="10">
+          <!-- Actions -->
+          <TextBlock Classes="h3" Text="{Binding tempBuilding.debugName}"/>
+          <ListBox
+                 ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                 Items="{Binding levelViews}"
+                 SelectedItem="{Binding selectedLevelView}">
             <ListBox.ItemTemplate>
               <DataTemplate>
-                <StackPanel Orientation="Horizontal">
-                  <TextBlock Text="{Binding name}" Width="200" VerticalAlignment="Center"/>
-                  <TextBox Text="{Binding unparsedValue}"/>
-                </StackPanel>
+                <UserControl Content="{Binding}"/>
               </DataTemplate>
             </ListBox.ItemTemplate>
           </ListBox>
+
+          <StackPanel Orientation="Horizontal" Spacing="20">
+            <Button Classes="Neutral" Content="Add"
+                    Command="{Binding addLevelCommand}"/>
+            <Button Classes="Neutral" Content="Remove"
+                    Command="{Binding removeLevelCommand}"/>
+          </StackPanel>
+
         </StackPanel>
-      </Border>
+      </ScrollViewer>
+    </Border>
 
-    </StackPanel>
-
-    <!-- Column 3: Subsettings -->
-    <StackPanel Grid.Column="2" Orientation="Vertical" Spacing="20" Margin="20">
-      <Button Content="Save changes " Classes="NeutralBig" Command="{Binding saveCommand}"/>
-      <Button Content="Reset changes" Classes="NeutralBig" Command="{Binding cancelCommand}"/>
+    <!-- Column 2: Controls -->
+    <StackPanel Grid.Column="1" Orientation="Vertical" Spacing="20" Margin="20">
+      <Button Content=" Save building " Classes="NeutralBig" Command="{Binding saveCommand}"/>
+      <Button Content="Reset unsaved" Classes="NeutralBig" Command="{Binding cancelCommand}"/>
     </StackPanel>
 
   </Grid>

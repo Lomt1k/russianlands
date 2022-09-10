@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
+﻿using System.Collections.ObjectModel;
 using System.Reactive;
-using System.Text;
 using ReactiveUI;
-using TextGameRPG.Models.Editor.ItemsEditor;
+using TextGameRPG.Models.UserControls;
 using TextGameRPG.Scripts.GameCore.Buildings;
 using TextGameRPG.Scripts.GameCore.Buildings.Data;
 using TextGameRPG.Scripts.GameCore.GameDataBase;
+using TextGameRPG.Views.UserControls;
 
 namespace TextGameRPG.ViewModels.Editor.BuildingsEditor
 {
@@ -17,16 +14,29 @@ namespace TextGameRPG.ViewModels.Editor.BuildingsEditor
         private static DataDictionaryWithIntegerID<BuildingData> buildingsDB => GameDataBase.instance.buildings;
 
         private BuildingData? _tempBuilding;
-        private ObservableCollection<FieldModel> _generalData = new ObservableCollection<FieldModel>();
-        //private ObservableCollection<FieldModel> _itemGenerationSettings = new ObservableCollection<FieldModel>();
+        private ObjectFieldsEditorView? _selectedLevelView;
 
-        public ObservableCollection<FieldModel> generalData => _generalData;
-        //public ObservableCollection<FieldModel> itemGenerationSettings => _itemGenerationSettings;
+        public BuildingData? tempBuilding
+        {
+            get => _tempBuilding;
+            set => this.RaiseAndSetIfChanged(ref _tempBuilding, value);
+        }
+        public ObservableCollection<ObjectFieldsEditorView> levelViews { get; }
+        public ObjectFieldsEditorView? selectedLevelView
+        {
+            get => _selectedLevelView;
+            set => this.RaiseAndSetIfChanged(ref _selectedLevelView, value);
+        }
+        public ReactiveCommand<Unit, Unit> addLevelCommand { get; }
+        public ReactiveCommand<Unit, Unit> removeLevelCommand { get; }
         public ReactiveCommand<Unit, Unit> saveCommand { get; }
         public ReactiveCommand<Unit, Unit> cancelCommand { get; }
 
         public BuildingInspectorViewModel()
         {
+            levelViews = new ObservableCollection<ObjectFieldsEditorView>();
+            addLevelCommand = ReactiveCommand.Create(AddNewLevel);
+            removeLevelCommand = ReactiveCommand.Create(RemoveSelectedLevel);
             saveCommand = ReactiveCommand.Create(SaveChanges);
             cancelCommand = ReactiveCommand.Create(ResetChanges);
         }
@@ -43,38 +53,38 @@ namespace TextGameRPG.ViewModels.Editor.BuildingsEditor
                 buildingsDB.AddData(id, newData);
                 buildingsDB.Save();
             }
-            _tempBuilding = buildingsDB[id].Clone();
+            tempBuilding = buildingsDB[id].Clone();
 
-            _generalData.Clear();
-            //_itemGenerationSettings.Clear();
-            FieldModel.FillObservableCollection(ref _generalData, _tempBuilding);
-            //FieldModel.FillObservableCollection(ref _itemGenerationSettings, _tempBuilding.itemGenerationSettings);
+            UserControlsHelper.RefillObjectEditorsCollection(levelViews, tempBuilding.levels);
+        }
+
+        private void AddNewLevel()
+        {
+            if (_tempBuilding == null)
+                return;
+
+            var newLevel = _tempBuilding.buildingType.CreateNewLevelInfo();
+            _tempBuilding.levels.Add(newLevel);
+            UserControlsHelper.RefillObjectEditorsCollection(levelViews, _tempBuilding.levels);
+        }
+
+        private void RemoveSelectedLevel()
+        {
+            if (_tempBuilding == null || _selectedLevelView == null)
+                return;
+
+            var buildingLevel = _selectedLevelView.vm.GetEditableObject<BuildingLevelInfo>();
+            _tempBuilding.levels.Remove(buildingLevel);
+            UserControlsHelper.RefillObjectEditorsCollection(levelViews, _tempBuilding.levels);
         }
 
         private void SaveChanges()
         {
-            UpdateFieldValuesFromModel();
-            buildingsDB.ChangeData(_tempBuilding.id, _tempBuilding);
-        }
-
-        private void UpdateFieldValuesFromModel()
-        {
-            var fields = _tempBuilding.GetType().GetFields();
-            foreach (var fieldInfo in fields)
+            foreach (var levelView in levelViews)
             {
-                if (fieldInfo.FieldType.IsClass)
-                    continue;
-
-                var fieldModel = generalData.Where(x => x.name.Equals(fieldInfo.Name)).First();
-                fieldInfo.SetValue(_tempBuilding, fieldModel.value);
+                levelView.vm.SaveObjectChanges();
             }
-
-            //fields = _tempBuilding.itemGenerationSettings.GetType().GetFields();
-            //foreach (var fieldInfo in fields)
-            //{
-            //    var fieldModel = itemGenerationSettings.Where(x => x.name.Equals(fieldInfo.Name)).First();
-            //    fieldInfo.SetValue(_tempBuilding.itemGenerationSettings, fieldModel.value);
-            //}
+            buildingsDB.ChangeData(_tempBuilding.id, _tempBuilding);
         }
 
         private void ResetChanges()

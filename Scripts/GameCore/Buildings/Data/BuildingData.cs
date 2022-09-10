@@ -2,7 +2,6 @@
 using JsonKnownTypes;
 using System.Collections.Generic;
 using TextGameRPG.Scripts.GameCore.GameDataBase;
-using TextGameRPG.Scripts.GameCore.Resources;
 
 namespace TextGameRPG.Scripts.GameCore.Buildings.Data
 {
@@ -30,6 +29,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Data
     }
 
     [JsonObject]
+    [JsonConverter(typeof(JsonKnownTypesConverter<BuildingLevelInfo>))]
     public class BuildingLevelInfo
     {
         public int requiredTownHall;
@@ -39,14 +39,11 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Data
         public int requiredGold;
         public int requiredHerbs;
         public int requiredWood;
-
-        public StorageInfo? storageInfo;
     }
 
     [JsonObject]
-    public class StorageInfo
+    public class StorageLevelInfo : BuildingLevelInfo
     {
-        public ResourceType resourceType;
         public int maxResourceValue;
     }
 
