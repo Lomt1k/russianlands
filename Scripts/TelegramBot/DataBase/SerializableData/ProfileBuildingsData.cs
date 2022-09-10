@@ -11,6 +11,16 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData
         public byte townHallLevel;
         public long townHallStartConstructionTime;
 
+        // --- Хранилища
+        public byte goldStorageLevel;
+        public long goldStorageStartConstructionTime;
+        public byte foodStorageLevel;
+        public long foodStorageStartConstructionTime;
+        public byte herbsStorageLevel;
+        public long herbsStorageStartConstructionTime;
+        public byte woodStorageLevel;
+        public long woodStorageStartConstructionTime;
+
 
         public static TableColumn[] GetTableColumns()
         {
@@ -20,6 +30,16 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData
 
                 new TableColumn("townHallLevel", "INTEGER", "1"),
                 new TableColumn("townHallStartConstructionTime", "INTEGER", "0"),
+
+                // --- Хранилища
+                new TableColumn("goldStorageLevel", "INTEGER", "1"),
+                new TableColumn("goldStorageStartConstructionTime", "INTEGER", "0"),
+                new TableColumn("foodStorageLevel", "INTEGER", "0"),
+                new TableColumn("foodStorageStartConstructionTime", "INTEGER", "0"),
+                new TableColumn("herbsStorageLevel", "INTEGER", "0"),
+                new TableColumn("herbsStorageStartConstructionTime", "INTEGER", "0"),
+                new TableColumn("woodStorageLevel", "INTEGER", "0"),
+                new TableColumn("woodStorageStartConstructionTime", "INTEGER", "0"),
             };
         }
 

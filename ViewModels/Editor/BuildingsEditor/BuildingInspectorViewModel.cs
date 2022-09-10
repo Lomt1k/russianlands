@@ -63,6 +63,8 @@ namespace TextGameRPG.ViewModels.Editor.BuildingsEditor
             if (_tempBuilding == null)
                 return;
 
+            SaveChanges();
+
             var newLevel = _tempBuilding.buildingType.CreateNewLevelInfo();
             _tempBuilding.levels.Add(newLevel);
             UserControlsHelper.RefillObjectEditorsCollection(levelViews, _tempBuilding.levels);
@@ -72,6 +74,8 @@ namespace TextGameRPG.ViewModels.Editor.BuildingsEditor
         {
             if (_tempBuilding == null || _selectedLevelView == null)
                 return;
+
+            SaveChanges();
 
             var buildingLevel = _selectedLevelView.vm.GetEditableObject<BuildingLevelInfo>();
             _tempBuilding.levels.Remove(buildingLevel);

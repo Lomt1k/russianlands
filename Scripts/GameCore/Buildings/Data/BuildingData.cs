@@ -11,7 +11,6 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Data
         public int id { get; set; }
         [JsonIgnore]
         public BuildingType buildingType => (BuildingType)id;
-        [JsonIgnore]
         public string debugName => ((BuildingType)id).ToString();
 
         public List<BuildingLevelInfo> levels { get; set; } = new List<BuildingLevelInfo>();
@@ -33,7 +32,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Data
     public class BuildingLevelInfo
     {
         public int requiredTownHall;
-        public int constructionTimeInSeconds;
+        public int constructionTime;
         public bool isBoostAvailable;
         public int exp;
         public int requiredGold;
@@ -44,7 +43,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Data
     [JsonObject]
     public class StorageLevelInfo : BuildingLevelInfo
     {
-        public int maxResourceValue;
+        public int resourceStorageLimit;
     }
 
 
