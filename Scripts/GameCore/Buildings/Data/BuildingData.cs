@@ -1,11 +1,13 @@
 ﻿using Newtonsoft.Json;
+using JsonKnownTypes;
 using System.Collections.Generic;
 using TextGameRPG.Scripts.GameCore.GameDataBase;
+using TextGameRPG.Scripts.GameCore.Resources;
 
 namespace TextGameRPG.Scripts.GameCore.Buildings.Data
 {
     [JsonObject]
-    public class ConstructionInfo : IDataWithIntegerID
+    public class BuildingData : IDataWithIntegerID
     {
         public int id { get; set; }
         [JsonIgnore]
@@ -13,15 +15,22 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Data
         [JsonIgnore]
         public string debugName => ((BuildingType)id).ToString();
 
-        public List<ConstructionLevelInfo> levels { get; set; } = new List<ConstructionLevelInfo>();
+        public List<BuildingLevelInfo> levels { get; set; } = new List<BuildingLevelInfo>();
 
         public void OnSetupAppMode(AppMode appMode)
         {
         }
+
+        public BuildingData Clone()
+        {
+            var clone = (BuildingData)MemberwiseClone();
+            clone.id = id;
+            return clone;
+        }
     }
 
     [JsonObject]
-    public class ConstructionLevelInfo
+    public class BuildingLevelInfo
     {
         public int requiredTownHall;
         public int constructionTimeInSeconds;
@@ -30,5 +39,16 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Data
         public int requiredGold;
         public int requiredHerbs;
         public int requiredWood;
+
+        public StorageInfo? storageInfo;
     }
+
+    [JsonObject]
+    public class StorageInfo
+    {
+        public ResourceType resourceType;
+        public int maxResourceValue;
+    }
+
+
 }

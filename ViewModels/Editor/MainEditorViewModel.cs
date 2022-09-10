@@ -1,6 +1,7 @@
 ﻿using ReactiveUI;
 using System.Collections.ObjectModel;
 using TextGameRPG.Models.Editor;
+using TextGameRPG.Views.Editor.BuildingsEditor;
 using TextGameRPG.Views.Editor.ItemsEditor;
 using TextGameRPG.Views.Editor.LocationsEditor;
 using TextGameRPG.Views.Editor.MobsEditor;
@@ -28,6 +29,7 @@ namespace TextGameRPG.ViewModels.Editor
 
         private void InitializeCategories()
         {
+            categories.Add(new MainEditorCategory("Buildings", new BuildingsEditorView()));
             categories.Add(new MainEditorCategory("Items", new ItemsEditorView() ));
             categories.Add(new MainEditorCategory("Locations", new LocationsEditorView()));
             categories.Add(new MainEditorCategory("Quests", new QuestsEditorView()));

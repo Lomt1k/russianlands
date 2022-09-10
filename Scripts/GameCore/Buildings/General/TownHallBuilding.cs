@@ -6,7 +6,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.General
 {
     public class TownHallBuilding : BuildingBase
     {
-        public override ConstructionInfo constructionInfo => throw new NotImplementedException();
+        public override BuildingData constructionInfo => throw new NotImplementedException();
 
         public override int GetCurrentLevel(ProfileBuildingsData data)
         {

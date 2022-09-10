@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using ReactiveUI;
 using TextGameRPG.Models;
 using TextGameRPG.Scripts.GameCore.Locations;

@@ -3,6 +3,7 @@
 namespace TextGameRPG.Scripts.GameCore.GameDataBase
 {
     using Items;
+    using TextGameRPG.Scripts.GameCore.Buildings.Data;
     using TextGameRPG.Scripts.GameCore.Locations;
     using TextGameRPG.Scripts.GameCore.Units.Mobs;
     using TextGameRPG.ViewModels;
@@ -18,7 +19,8 @@ namespace TextGameRPG.Scripts.GameCore.GameDataBase
         public static GameDataBase instance => _instance ??= new GameDataBase();
 
         private GameDataLoaderViewModel _loaderVM;
-        
+
+        public DataDictionaryWithIntegerID<BuildingData> buildings { get; private set; }
         public DataDictionaryWithIntegerID<ItemData> items { get; private set; }
         public DataDictionaryWithIntegerID<LocationData> locations { get; private set; }
         public DataDictionaryWithIntegerID<MobData> mobs { get; private set; }
@@ -28,6 +30,14 @@ namespace TextGameRPG.Scripts.GameCore.GameDataBase
         public void LoadAllData(GameDataLoaderViewModel loaderVM)
         {
             _loaderVM = loaderVM;
+
+            if (!Directory.Exists(gameDataPath))
+            {
+                Directory.CreateDirectory(gameDataPath);
+                _loaderVM.AddNextState("'gameData' folder not found! Creating new gameData...");
+            }
+
+            buildings = LoadDataBaseWithIntegerID<BuildingData>("buildings");
             items = LoadDataBaseWithIntegerID<ItemData>("items");
             locations = LoadDataBaseWithIntegerID<LocationData>("locations");
             mobs = LoadDataBaseWithIntegerID<MobData>("mobs");

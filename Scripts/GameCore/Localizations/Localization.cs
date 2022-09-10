@@ -18,6 +18,11 @@ namespace TextGameRPG.Scripts.GameCore.Localizations
             allKeys.Clear();
             loaderVM.AddNextState("Loading localization...");
             string localizationFolder = Path.Combine(gamedataPath, "Localization");
+            if (!Directory.Exists(localizationFolder))
+            {
+                Directory.CreateDirectory(localizationFolder);
+            }
+
             foreach (var element in Enum.GetValues(typeof(LanguageCode)))
             {
                 var code = (LanguageCode)element;
