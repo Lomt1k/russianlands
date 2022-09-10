@@ -33,7 +33,6 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
         HerbsProductionThird = 308,
         WoodProductionFirst = 309,
         WoodProductionSecond = 310,
-        WoodProductionThird = 311,
 
         // --- Тренировочные залы
         FightTraining = 400,
@@ -54,6 +53,19 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
                 case BuildingType.HerbsStorage:
                 case BuildingType.WoodStorage:
                     return new StorageLevelInfo();
+
+                case BuildingType.GoldProductionFirst:
+                case BuildingType.GoldProductionSecond:
+                case BuildingType.GoldProductionThird:
+                case BuildingType.FoodProductionFirst:
+                case BuildingType.FoodProductionSecond:
+                case BuildingType.FoodProductionThird:
+                case BuildingType.HerbsProductionFirst:
+                case BuildingType.HerbsProductionSecond:
+                case BuildingType.HerbsProductionThird:
+                case BuildingType.WoodProductionFirst:
+                case BuildingType.WoodProductionSecond:
+                    return new ProductionLevelInfo();
 
                 default:
                     return new BuildingLevelInfo();

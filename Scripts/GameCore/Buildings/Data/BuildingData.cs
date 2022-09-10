@@ -46,5 +46,13 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Data
         public int resourceStorageLimit;
     }
 
+    [JsonObject]
+    public class ProductionLevelInfo : BuildingLevelInfo
+    {
+        public int productionPerHour;
+        public int resourceStorageLimit;
+        public float bonusPerWorkerLevel;
+    }
+
 
 }
