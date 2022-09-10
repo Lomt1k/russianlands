@@ -79,6 +79,9 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
                 case BuildingType.Jewerly:
                     return new CraftLevelInfo();
 
+                case BuildingType.Hospital:
+                    return new HospitalLevelInfo();
+
                 default:
                     return new BuildingLevelInfo();
             }

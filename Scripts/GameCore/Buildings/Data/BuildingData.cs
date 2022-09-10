@@ -83,5 +83,11 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Data
         public int legendaryCraft_MaxLevel;
     }
 
+    [JsonObject]
+    public class HospitalLevelInfo : BuildingLevelInfo
+    {
+        public int restoreHealthPerMinute;
+    }
+
 
 }
