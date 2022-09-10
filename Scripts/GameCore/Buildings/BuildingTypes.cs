@@ -74,6 +74,11 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
                 case BuildingType.WoodTraining:
                     return new TrainingLevelInfo();
 
+                case BuildingType.WeaponForge:
+                case BuildingType.ArmorForge:
+                case BuildingType.Jewerly:
+                    return new CraftLevelInfo();
+
                 default:
                     return new BuildingLevelInfo();
             }
