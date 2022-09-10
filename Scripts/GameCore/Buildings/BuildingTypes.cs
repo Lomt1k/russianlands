@@ -67,6 +67,13 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
                 case BuildingType.WoodProductionSecond:
                     return new ProductionLevelInfo();
 
+                case BuildingType.FightTraining:
+                case BuildingType.GoldTraining:
+                case BuildingType.FoodTraining:
+                case BuildingType.HerbsTraining:
+                case BuildingType.WoodTraining:
+                    return new TrainingLevelInfo();
+
                 default:
                     return new BuildingLevelInfo();
             }

@@ -54,5 +54,11 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Data
         public float bonusPerWorkerLevel;
     }
 
+    [JsonObject]
+    public class TrainingLevelInfo : BuildingLevelInfo
+    {
+        public int maxUnitLevel;
+    }
+
 
 }
