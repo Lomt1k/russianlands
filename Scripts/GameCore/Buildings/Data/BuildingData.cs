@@ -89,5 +89,11 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Data
         public int restoreHealthPerMinute;
     }
 
+    [JsonObject]
+    public class BarracksLevelInfo : BuildingLevelInfo
+    {
+        public int unitsAmount;
+    }
+
 
 }

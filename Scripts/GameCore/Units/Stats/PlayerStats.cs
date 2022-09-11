@@ -11,7 +11,7 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
     public class PlayerStats : UnitStats
     {
         private const int DEFAULT_HEALTH = 100;
-        private const int HEALTH_AND_MANA_PER_LEVEL = 15;
+        private const int HEALTH_PER_LEVEL = 20;
 
         private Player _player;
 
@@ -64,7 +64,7 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
         {
             var profileData = _player.session.profile.data;
 
-            var defaultHealth = DEFAULT_HEALTH + HEALTH_AND_MANA_PER_LEVEL * (profileData.level - 1);
+            var defaultHealth = DEFAULT_HEALTH + HEALTH_PER_LEVEL * (profileData.level - 1);
             maxHP = defaultHealth;
 
             attributeStrength = 1;

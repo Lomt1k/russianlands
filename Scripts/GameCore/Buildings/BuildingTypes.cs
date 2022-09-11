@@ -82,6 +82,9 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
                 case BuildingType.Hospital:
                     return new HospitalLevelInfo();
 
+                case BuildingType.Barracks:
+                    return new BarracksLevelInfo();
+
                 default:
                     return new BuildingLevelInfo();
             }
