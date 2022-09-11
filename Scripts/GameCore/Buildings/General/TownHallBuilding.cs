@@ -6,7 +6,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.General
 {
     public class TownHallBuilding : BuildingBase
     {
-        public override BuildingData constructionInfo => throw new NotImplementedException();
+        public override BuildingData buildingData => GameDataBase.GameDataBase.instance.buildings[(int)BuildingType.TownHall];
 
         public override int GetCurrentLevel(ProfileBuildingsData data)
         {
@@ -15,7 +15,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.General
 
         public override bool IsMaxLevel(ProfileBuildingsData data)
         {
-            return data.townHallLevel == constructionInfo.levels.Count;
+            return data.townHallLevel == buildingData.levels.Count;
         }
 
         public override bool IsUnderConstruction(ProfileBuildingsData data)

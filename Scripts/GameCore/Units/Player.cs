@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using TextGameRPG.Scripts.GameCore.Buildings;
 using TextGameRPG.Scripts.GameCore.Inventory;
 using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
@@ -22,6 +23,7 @@ namespace TextGameRPG.Scripts.GameCore.Units
         public GameSession session { get; private set; }
         public UnitStats unitStats { get; private set; }
         public PlayerResources resources { get; private set; }
+        public PlayerBuildings buildings { get; private set; }
         public PlayerInventory inventory => session.profile.dynamicData.inventory;
         public string nickname => session.profile.data.nickname;
 
@@ -32,6 +34,7 @@ namespace TextGameRPG.Scripts.GameCore.Units
             session = _session;
             unitStats = new PlayerStats(this);
             resources = new PlayerResources(_session);
+            buildings = new PlayerBuildings(_session);
         }
 
         public string GetGeneralUnitInfoView(GameSession sessionToSend)

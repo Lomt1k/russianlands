@@ -1,7 +1,18 @@
-﻿using TextGameRPG.Scripts.GameCore.Buildings.Data;
+﻿using System.Collections.Generic;
+using TextGameRPG.Scripts.GameCore.Buildings.Data;
+using TextGameRPG.Scripts.GameCore.Buildings.General;
+using TextGameRPG.Scripts.TelegramBot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Buildings
 {
+    public enum BuildingCategory 
+    {
+        General,
+        Storages,
+        Production,
+        Training,
+    }
+
     public enum BuildingType
     {
         // --- Основные
@@ -44,6 +55,12 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
 
     public static class BuildingTypeExtensions
     {
+        private static Dictionary<BuildingType, BuildingBase> _dictionary = new Dictionary<BuildingType, BuildingBase>
+        {
+            // --- Основные
+            { BuildingType.TownHall, new TownHallBuilding() },
+        };
+
         public static BuildingLevelInfo CreateNewLevelInfo(this BuildingType buildingType)
         {
             switch (buildingType)
@@ -89,5 +106,16 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
                     return new BuildingLevelInfo();
             }
         }
+
+        public static BuildingBase GetBuilding(this BuildingType buildingType)
+        {
+            return _dictionary[buildingType];
+        }
+
+        public static string GetLocalization(this BuildingCategory category, GameSession session)
+        {
+            return Localizations.Localization.Get(session, "dialog_buildings_category_" + category.ToString().ToLower());
+        }
+
     }
 }

@@ -3,7 +3,6 @@ using System.Text;
 using TextGameRPG.Scripts.TelegramBot;
 using TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
-using TextGameRPG.Scripts.Utils;
 
 namespace TextGameRPG.Scripts.GameCore.Resources
 {
@@ -21,7 +20,7 @@ namespace TextGameRPG.Scripts.GameCore.Resources
             _profileData = session.profile.data;
         }
 
-        /// <returns>Информация обо всех имеющихся у игрока основных видов ресурсов в готовом для отображения виде</returns>
+        /// <returns>Информация обо всех имеющихся у игрока основных видах ресурсов в готовом для отображения виде</returns>
         public string GetGeneralResourcesView()
         {
             var sb = new StringBuilder();

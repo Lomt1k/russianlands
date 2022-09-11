@@ -5,7 +5,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
 {
     public abstract class BuildingBase
     {
-        public abstract BuildingData constructionInfo { get; }
+        public abstract BuildingData buildingData { get; }
 
         public abstract int GetCurrentLevel(ProfileBuildingsData data);
         public abstract bool IsUnderConstruction(ProfileBuildingsData data);
