@@ -13,14 +13,9 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.General
             return data.townHallLevel;
         }
 
-        public override bool IsMaxLevel(ProfileBuildingsData data)
+        protected override long GetStartConstructionTime(ProfileBuildingsData data)
         {
-            return data.townHallLevel == buildingData.levels.Count;
-        }
-
-        public override bool IsUnderConstruction(ProfileBuildingsData data)
-        {
-            return data.townHallStartConstructionTime > 0;
+            return data.townHallStartConstructionTime;
         }
     }
 }

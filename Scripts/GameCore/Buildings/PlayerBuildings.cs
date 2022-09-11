@@ -17,9 +17,20 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             _buildingsData = session.profile.buildingsData;
         }
 
-        public IEnumerable<BuildingBase> GetGeneralBuildings()
+        // TODO: когда будут готовы все здания - заменить на пробег по enum BuildingType 
+        public IEnumerable<BuildingBase> GetAllBuildings()
         {
             yield return BuildingType.TownHall.GetBuilding();
+        }
+
+        public IEnumerable<BuildingBase> GetBuildingsByCategory(BuildingCategory category)
+        {
+            switch (category)
+            {
+                case BuildingCategory.General:
+                    yield return BuildingType.TownHall.GetBuilding();
+                    break;
+            }
         }
 
 
