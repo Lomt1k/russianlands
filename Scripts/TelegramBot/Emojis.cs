@@ -69,7 +69,10 @@ namespace TextGameRPG.Scripts.TelegramBot
         Info,
         Locked,
         Hourgrlass,
-        BrokenHeart
+        BrokenHeart,
+        NotificationGreen,
+        NotificationOrange,
+        NotificationRed,
     }
 
     public enum Smile
@@ -174,7 +177,10 @@ namespace TextGameRPG.Scripts.TelegramBot
             { Element.Info, "\u2139\ufe0f" },
             { Element.Locked, "\ud83d\udd12" },
             { Element.Hourgrlass, "\u23f3" },
-            { Element.BrokenHeart, "\ud83d\udc94" }
+            { Element.BrokenHeart, "\ud83d\udc94" },
+            { Element.NotificationGreen, "\ud83d\udfe2" },
+            { Element.NotificationOrange, "\ud83d\udfe0" },
+            { Element.NotificationRed, "\ud83d\udd34" },
         };
 
         public static readonly Dictionary<Smile, string> smiles = new Dictionary<Smile, string>

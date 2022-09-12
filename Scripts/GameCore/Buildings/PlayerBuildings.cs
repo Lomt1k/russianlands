@@ -17,6 +17,19 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             _buildingsData = session.profile.buildingsData;
         }
 
+        public bool HasImportantUpdates()
+        {
+            var buildings = GetAllBuildings();
+            foreach (var building in buildings)
+            {
+                if (building.HasImportantUpdates(_buildingsData))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         // TODO: когда будут готовы все здания - заменить на пробег по enum BuildingType 
         public IEnumerable<BuildingBase> GetAllBuildings()
         {

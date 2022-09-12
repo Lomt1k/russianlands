@@ -114,7 +114,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
 
         public static string GetLocalization(this BuildingCategory category, GameSession session)
         {
-            return Localizations.Localization.Get(session, "dialog_buildings_category_" + category.ToString().ToLower());
+            return Localizations.Localization.Get(session, "building_category_" + category.ToString().ToLower());
         }
 
     }
