@@ -73,9 +73,11 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             return new List<string>();
         }
 
-        public string GetLocalizedName(GameSession session)
+        public string GetLocalizedName(GameSession session, ProfileBuildingsData data)
         {
-            return Localization.Get(session, "building_name_" + buildingType.ToString());
+            var currentLevel = GetCurrentLevel(data);
+            return Localization.Get(session, "building_name_" + buildingType.ToString())
+                + (currentLevel > 0 ? string.Format(Localization.Get(session, "buildings_level_suffix"), currentLevel) : string.Empty );
         }
 
         /// <returns>Построено ли здание (хотя бы 1-ый уровень)</returns>

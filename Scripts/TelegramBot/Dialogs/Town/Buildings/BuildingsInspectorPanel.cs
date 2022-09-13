@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Text;
+using System.Linq;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
+using TextGameRPG.Scripts.GameCore.Buildings;
 using TextGameRPG.Scripts.GameCore.Localizations;
 
 namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
@@ -34,7 +34,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
                     if (updates.Count < 1)
                         continue;
 
-                    var header = $"<pre>{building.GetLocalizedName(session)}:</pre>";
+                    var header = $"<pre>{building.GetLocalizedName(session, session.profile.buildingsData)}:</pre>";
                     sb.AppendLine(header);
 
                     foreach (var update in updates)
@@ -45,6 +45,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
                 }
             }
 
+            // TODO: Инфа о добытых ресурсах
             sb.AppendLine("<pre>Добытые ресурсы:</pre>");
             sb.AppendLine("[Инфа о добытых ресурсах]");
 
@@ -53,6 +54,35 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
             _lastMessage = _lastMessage == null 
                 ? await messageSender.SendTextMessage(session.chatId, sb.ToString(), GetMultilineKeyboard())
                 : await messageSender.EditTextMessage(session.chatId, _lastMessage.MessageId, sb.ToString(), GetMultilineKeyboard());
+        }
+
+        public async Task ShowBuildingsList(BuildingCategory category, bool asNewMessage)
+        {
+            await RemoveKeyboardFromLastMessage();
+            var text = $"<b>{category.GetLocalization(session)}</b>";
+            var data = session.profile.buildingsData;
+            var buildings = session.player.buildings.GetBuildingsByCategory(category);
+            var sortedBuildings = buildings.OrderBy(x => x.IsBuilt(data)).ThenBy(x => x.buildingData.levels[0].requiredTownHall);
+
+            foreach (var building in sortedBuildings)
+            {
+                RegisterButton(building.GetLocalizedName(session, data), null);
+            }
+            RegisterButton($"{Emojis.menuItems[MenuItem.Buildings]} {Localization.Get(session, "menu_item_buildings")}",
+                () => ShowNotifications());
+
+            _lastMessage = asNewMessage || _lastMessage == null
+                ? await messageSender.SendTextMessage(session.chatId, text, GetMultilineKeyboard())
+                : await messageSender.EditTextMessage(session.chatId, _lastMessage.MessageId, text, GetMultilineKeyboard());
+        }
+
+        private async Task RemoveKeyboardFromLastMessage()
+        {
+            ClearButtons();
+            if (_lastMessage?.ReplyMarkup != null)
+            {
+                await messageSender.EditMessageKeyboard(session.chatId, _lastMessage.MessageId, null);
+            }
         }
 
     }

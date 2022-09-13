@@ -14,16 +14,18 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
             _inspectorPanel = new BuildingsInspectorPanel(this, 0);
             RegisterPanel(_inspectorPanel);
 
-            RegisterButton(BuildingCategory.General.GetLocalization(session),
-                null);
-            RegisterButton(BuildingCategory.Storages.GetLocalization(session),
-                null);
-            RegisterButton(BuildingCategory.Production.GetLocalization(session),
-                null);
-            RegisterButton(BuildingCategory.Training.GetLocalization(session),
-                null);
+            RegisterCategoryButton(BuildingCategory.General);
+            RegisterCategoryButton(BuildingCategory.Storages);
+            RegisterCategoryButton(BuildingCategory.Production);
+            RegisterCategoryButton(BuildingCategory.Training);
+
             RegisterButton($"{Emojis.elements[Element.Back]} " + Localization.Get(session, "menu_item_back_button"),
                 () => new TownEntryDialog(session, TownEntryReason.BackFromInnerDialog).Start());
+        }
+
+        private void RegisterCategoryButton(BuildingCategory category)
+        {
+            RegisterButton(category.GetLocalization(session), () => _inspectorPanel.ShowBuildingsList(category, asNewMessage: true));
         }
 
         public override async Task Start()
