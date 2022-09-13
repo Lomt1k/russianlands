@@ -25,7 +25,6 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
         private readonly string _mainItemsInfo;
 
         private PlayerInventory _inventory;
-        private Message? _lastMessage;
 
         private ItemType _browsedCategory;
         private InventoryItem[] _browsedItems;
@@ -87,12 +86,12 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
             RegisterButton($"{Emojis.items[ItemType.Equipped]} {Localization.Get(session, "menu_item_equipped")}",
                 () => ShowCategory(ItemType.Equipped));
 
-            _lastMessage = await messageSender.SendTextMessage(session.chatId, _mainItemsInfo, GetMultilineKeyboard());
+            lastMessage = await messageSender.SendTextMessage(session.chatId, _mainItemsInfo, GetMultilineKeyboard());
         }
 
         public async Task ShowCategory(ItemType category)
         {
-            if (_lastMessage == null)
+            if (lastMessage == null)
                 return;
 
             if (_compareData != null)
@@ -161,9 +160,9 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
                     RegisterButton(">>", () => OnClickNextPage());
             }
 
-            _lastMessage = asNewMessage
+            lastMessage = asNewMessage
                 ? await messageSender.SendTextMessage(session.chatId, text.ToString(), GetItemsPageKeyboard())
-                : await messageSender.EditTextMessage(session.chatId, _lastMessage.MessageId, text.ToString(), GetItemsPageKeyboard());
+                : await messageSender.EditTextMessage(session.chatId, lastMessage.MessageId, text.ToString(), GetItemsPageKeyboard());
         }
 
         private string GetCategoryLocalization(ItemType category)
@@ -245,7 +244,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
             RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_back_to_list_button")} {categoryIcon}",
                 () => ShowItemsPage(asNewMessage: false));
 
-            _lastMessage = await messageSender.EditTextMessage(session.chatId, _lastMessage.MessageId, text, GetKeyboardWithRowSizes(2, 1));
+            lastMessage = await messageSender.EditTextMessage(session.chatId, lastMessage.MessageId, text, GetKeyboardWithRowSizes(2, 1));
         }
 
         private async Task StartEquipLogic(InventoryItem item)
@@ -258,7 +257,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
                     + string.Format(Localization.Get(session, "dialog_inventory_required_level"), requiredLevel) + $" {Emojis.smiles[Smile.Sad]}";
                 ClearButtons();
                 RegisterButton(Localization.Get(session, "menu_item_ok_button"), () => ShowItemInspector(item));
-                _lastMessage = await messageSender.EditTextMessage(session.chatId, _lastMessage.MessageId, messageText, GetOneLineKeyboard());
+                lastMessage = await messageSender.EditTextMessage(session.chatId, lastMessage.MessageId, messageText, GetOneLineKeyboard());
                 return;
             }
 
@@ -290,7 +289,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
             }
             RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_back_button")}", () => ShowItemInspector(item));
 
-            _lastMessage = await messageSender.EditTextMessage(session.chatId, _lastMessage.MessageId, text, GetMultilineKeyboard());
+            lastMessage = await messageSender.EditTextMessage(session.chatId, lastMessage.MessageId, text, GetMultilineKeyboard());
         }
 
         private async Task EquipSingleSlot(InventoryItem item)
@@ -322,9 +321,9 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
                 categoryOnStartCompare = _browsedCategory,
                 currentPageOnStartCompare = _currentPage,
                 pagesCountOnStartCompare = _pagesCount,
-                comparedItemMessage = await messageSender.EditMessageKeyboard(session.chatId, _lastMessage.MessageId, null)
+                comparedItemMessage = await messageSender.EditMessageKeyboard(session.chatId, lastMessage.MessageId, null)
             };
-            _lastMessage = _compareData.Value.comparedItemMessage;
+            lastMessage = _compareData.Value.comparedItemMessage;
 
             await ShowItemsPage(asNewMessage: true);
         }
@@ -339,7 +338,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
 
             RegisterButton(Localization.Get(session, "menu_item_compare_end_button"), () => EndComparison());
 
-            _lastMessage = await messageSender.EditTextMessage(session.chatId, _lastMessage.MessageId, text, GetMultilineKeyboard());
+            lastMessage = await messageSender.EditTextMessage(session.chatId, lastMessage.MessageId, text, GetMultilineKeyboard());
         }
 
         private async Task EndComparison()
@@ -359,9 +358,9 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
         private async Task ResendComparedItemMessage()
         {
             var messageToResend = _compareData.Value.comparedItemMessage;
-            if (_lastMessage != messageToResend)
+            if (lastMessage != messageToResend)
             {
-                await messageSender.DeleteMessage(session.chatId, _lastMessage.MessageId);
+                await messageSender.DeleteMessage(session.chatId, lastMessage.MessageId);
             }
             await messageSender.DeleteMessage(session.chatId, messageToResend.MessageId);
             _compareData = new CompareData
@@ -372,16 +371,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
                 pagesCountOnStartCompare = _compareData.Value.pagesCountOnStartCompare,
                 comparedItemMessage = await messageSender.SendTextMessage(session.chatId, _compareData.Value.comparedItem.GetView(session), silent: true)
             };
-            _lastMessage = _compareData.Value.comparedItemMessage;
-        }
-
-        private async Task RemoveKeyboardFromLastMessage()
-        {
-            ClearButtons();
-            if (_lastMessage?.ReplyMarkup != null)
-            {
-                await messageSender.EditMessageKeyboard(session.chatId, _lastMessage.MessageId, null);
-            }
+            lastMessage = _compareData.Value.comparedItemMessage;
         }
 
     }

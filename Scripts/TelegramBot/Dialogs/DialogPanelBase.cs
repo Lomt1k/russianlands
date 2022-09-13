@@ -6,6 +6,7 @@ using TextGameRPG.Scripts.TelegramBot.Sessions;
 using Newtonsoft.Json;
 using System.Linq;
 using System.Threading.Tasks;
+using Telegram.Bot.Types;
 
 namespace TextGameRPG.Scripts.TelegramBot.Dialogs
 {
@@ -16,6 +17,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
         public DialogBase dialog { get; }
         public GameSession session { get; }
         public byte panelId { get; }
+
+        protected Message? lastMessage; // необходимо присваивать, чтобы при выходе из диалога удалялся InlineKeyboard
 
         private Dictionary<int, InlineKeyboardButton> _registeredButtons = new Dictionary<int, InlineKeyboardButton>();
         private Dictionary<int, Func<Task>?> _registeredCallbacks = new Dictionary<int, Func<Task>?>();
@@ -87,7 +90,19 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
         }
 
         public abstract Task SendAsync();
-        public virtual void OnDialogClose() { }
+        public virtual void OnDialogClose() 
+        {
+            RemoveKeyboardFromLastMessage();
+        }
+
+        protected async Task RemoveKeyboardFromLastMessage()
+        {
+            ClearButtons();
+            if (lastMessage?.ReplyMarkup != null)
+            {
+                await messageSender.EditMessageKeyboard(session.chatId, lastMessage.MessageId, null);
+            }
+        }
 
         public virtual async Task HandleButtonPress(int buttonId, string queryId)
         {

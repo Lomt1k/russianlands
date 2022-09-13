@@ -1,7 +1,6 @@
 ﻿using System.Text;
 using System.Linq;
 using System.Threading.Tasks;
-using Telegram.Bot.Types;
 using TextGameRPG.Scripts.GameCore.Buildings;
 using TextGameRPG.Scripts.GameCore.Localizations;
 
@@ -9,8 +8,6 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
 {
     public class BuildingsInspectorPanel : DialogPanelBase
     {
-        private Message? _lastMessage;
-
         public BuildingsInspectorPanel(DialogBase _dialog, byte _panelId) : base(_dialog, _panelId)
         {
         }
@@ -51,9 +48,9 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
 
             RegisterButton(Localization.Get(session, "dialog_buildings_get_resources"), null);
 
-            _lastMessage = _lastMessage == null 
+            lastMessage = lastMessage == null 
                 ? await messageSender.SendTextMessage(session.chatId, sb.ToString(), GetMultilineKeyboard())
-                : await messageSender.EditTextMessage(session.chatId, _lastMessage.MessageId, sb.ToString(), GetMultilineKeyboard());
+                : await messageSender.EditTextMessage(session.chatId, lastMessage.MessageId, sb.ToString(), GetMultilineKeyboard());
         }
 
         public async Task ShowBuildingsList(BuildingCategory category, bool asNewMessage)
@@ -71,18 +68,9 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
             RegisterButton($"{Emojis.menuItems[MenuItem.Buildings]} {Localization.Get(session, "menu_item_buildings")}",
                 () => ShowNotifications());
 
-            _lastMessage = asNewMessage || _lastMessage == null
+            lastMessage = asNewMessage || lastMessage == null
                 ? await messageSender.SendTextMessage(session.chatId, text, GetMultilineKeyboard())
-                : await messageSender.EditTextMessage(session.chatId, _lastMessage.MessageId, text, GetMultilineKeyboard());
-        }
-
-        private async Task RemoveKeyboardFromLastMessage()
-        {
-            ClearButtons();
-            if (_lastMessage?.ReplyMarkup != null)
-            {
-                await messageSender.EditMessageKeyboard(session.chatId, _lastMessage.MessageId, null);
-            }
+                : await messageSender.EditTextMessage(session.chatId, lastMessage.MessageId, text, GetMultilineKeyboard());
         }
 
     }

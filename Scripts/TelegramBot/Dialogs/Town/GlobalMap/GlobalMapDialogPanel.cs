@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using Telegram.Bot.Types;
+﻿using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Locations;
 
@@ -10,8 +6,6 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.GlobalMap
 {
     public class GlobalMapDialogPanel : DialogPanelBase
     {
-        private Message? _lastMessage;
-
         public GlobalMapDialogPanel(DialogBase _dialog, byte _panelId) : base(_dialog, _panelId)
         {
         }
@@ -39,9 +33,9 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.GlobalMap
             }
 
             var text = Localization.Get(session, "dialog_map_select_location");
-            _lastMessage = _lastMessage == null 
+            lastMessage = lastMessage == null 
                 ? await messageSender.SendTextMessage(session.chatId, text, GetMultilineKeyboard())
-                : await messageSender.EditTextMessage(session.chatId, _lastMessage.MessageId, text, GetMultilineKeyboard());
+                : await messageSender.EditTextMessage(session.chatId, lastMessage.MessageId, text, GetMultilineKeyboard());
         }
 
         private async Task ShowLockedLocationInfo(LocationType locationType)
