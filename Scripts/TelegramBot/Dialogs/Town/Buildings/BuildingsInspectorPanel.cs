@@ -1,0 +1,59 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
+using Telegram.Bot.Types;
+using TextGameRPG.Scripts.GameCore.Localizations;
+
+namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
+{
+    public class BuildingsInspectorPanel : DialogPanelBase
+    {
+        private Message? _lastMessage;
+
+        public BuildingsInspectorPanel(DialogBase _dialog, byte _panelId) : base(_dialog, _panelId)
+        {
+        }
+
+        public override async Task SendAsync()
+        {
+            await ShowNotifications();
+        }
+
+        public async Task ShowNotifications()
+        {
+            ClearButtons();
+            var sb = new StringBuilder();
+            var playerBuildings = session.player.buildings;
+            if (playerBuildings.HasImportantUpdates())
+            {
+                var allBuildings = playerBuildings.GetAllBuildings();
+                foreach (var building in allBuildings)
+                {
+                    var updates = building.GetUpdates(session, session.profile.buildingsData);
+                    if (updates.Count < 1)
+                        continue;
+
+                    var header = $"<pre>{building.GetLocalizedName(session)}:</pre>";
+                    sb.AppendLine(header);
+
+                    foreach (var update in updates)
+                    {
+                        sb.AppendLine($"{Emojis.elements[Element.SmallWhite]} {update}");
+                    }
+                    sb.AppendLine();
+                }
+            }
+
+            sb.AppendLine("<pre>Добытые ресурсы:</pre>");
+            sb.AppendLine("[Инфа о добытых ресурсах]");
+
+            RegisterButton(Localization.Get(session, "dialog_buildings_get_resources"), null);
+
+            _lastMessage = _lastMessage == null 
+                ? await messageSender.SendTextMessage(session.chatId, sb.ToString(), GetMultilineKeyboard())
+                : await messageSender.EditTextMessage(session.chatId, _lastMessage.MessageId, sb.ToString(), GetMultilineKeyboard());
+        }
+
+    }
+}

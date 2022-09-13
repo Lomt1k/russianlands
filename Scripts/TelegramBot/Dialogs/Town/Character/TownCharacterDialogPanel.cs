@@ -37,8 +37,5 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
             _lastMessage = await messageSender.EditTextMessage(session.chatId, _lastMessage.MessageId, text, GetOneLineKeyboard());
         }
 
-        public override void OnDialogClose()
-        {
-        }
     }
 }

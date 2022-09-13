@@ -54,9 +54,5 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.GlobalMap
             //TODO
         }
 
-        public override void OnDialogClose()
-        {
-        }
-
     }
 }

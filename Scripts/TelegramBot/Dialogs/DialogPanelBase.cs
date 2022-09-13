@@ -87,7 +87,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
         }
 
         public abstract Task SendAsync();
-        public abstract void OnDialogClose();
+        public virtual void OnDialogClose() { }
 
         public virtual async Task HandleButtonPress(int buttonId, string queryId)
         {

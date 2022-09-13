@@ -384,9 +384,5 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
             }
         }
 
-        public override void OnDialogClose()
-        {
-        }
-
     }
 }

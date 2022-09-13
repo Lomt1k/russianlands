@@ -68,7 +68,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             return updates;
         }
 
-        public virtual List<string> GetUpdatesInternal(GameSession session, ProfileBuildingsData data)
+        protected virtual List<string> GetUpdatesInternal(GameSession session, ProfileBuildingsData data)
         {
             return new List<string>();
         }
