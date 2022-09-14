@@ -73,6 +73,8 @@ namespace TextGameRPG.Scripts.TelegramBot
         NotificationGreen,
         NotificationOrange,
         NotificationRed,
+        Construction,
+        LevelUp,
     }
 
     public enum Smile
@@ -181,6 +183,8 @@ namespace TextGameRPG.Scripts.TelegramBot
             { Element.NotificationGreen, "\ud83d\udfe2" },
             { Element.NotificationOrange, "\ud83d\udfe0" },
             { Element.NotificationRed, "\ud83d\udd34" },
+            { Element.Construction, "\u2692" },
+            { Element.LevelUp, "\u23eb" },
         };
 
         public static readonly Dictionary<Smile, string> smiles = new Dictionary<Smile, string>

@@ -80,6 +80,9 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
                 + (currentLevel > 0 ? string.Format(Localization.Get(session, "buildings_level_suffix"), currentLevel) : string.Empty );
         }
 
+        public abstract string GetCurrentLevelInfo(GameSession session, ProfileBuildingsData data);
+        public abstract string GetNextLevelInfo(GameSession session, ProfileBuildingsData data);
+
         /// <returns>Построено ли здание (хотя бы 1-ый уровень)</returns>
         public bool IsBuilt(ProfileBuildingsData data)
         {
@@ -96,6 +99,17 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
         public bool IsUnderConstruction(ProfileBuildingsData data)
         {
             return GetStartConstructionTime(data) > 0;
+        }
+
+        /// <returns>Доступен ли следующий уровень на текущем уровне ратуши</returns>
+        public bool IsNextLevelUnlocked(ProfileBuildingsData data)
+        {
+            if (IsMaxLevel(data))
+                return false;
+
+            var currentLevel = GetCurrentLevel(data);
+            var nextLevel = buildingData.levels[currentLevel];
+            return data.townHallLevel >= nextLevel.requiredTownHall;
         }
 
         /// <returns>Дата, когда постройка / улучшение здания должна была быть завершена</returns>
