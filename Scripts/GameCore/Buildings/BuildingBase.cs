@@ -13,6 +13,8 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
         public BuildingData buildingData => GameDataBase.GameDataBase.instance.buildings[(int)buildingType];
 
         public abstract byte GetCurrentLevel(ProfileBuildingsData data);
+        public abstract string GetCurrentLevelInfo(GameSession session, ProfileBuildingsData data);
+        public abstract string GetNextLevelInfo(GameSession session, ProfileBuildingsData data);
         protected abstract void SetCurrentLevel(ProfileBuildingsData data, byte level);
         protected abstract long GetStartConstructionTime(ProfileBuildingsData data);
         protected abstract void SetStartConstructionTime(ProfileBuildingsData data, long startConstructionTime);
@@ -80,8 +82,16 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
                 + (currentLevel > 0 ? string.Format(Localization.Get(session, "buildings_level_suffix"), currentLevel) : string.Empty );
         }
 
-        public abstract string GetCurrentLevelInfo(GameSession session, ProfileBuildingsData data);
-        public abstract string GetNextLevelInfo(GameSession session, ProfileBuildingsData data);
+        public string GetNextLevelLocalizedName(GameSession session, ProfileBuildingsData data)
+        {
+            if (IsMaxLevel(data))
+                return string.Empty;
+
+            var nextLevel = GetCurrentLevel(data) + 1;
+            return Localization.Get(session, "building_name_" + buildingType.ToString())
+                + (nextLevel > 0 ? string.Format(Localization.Get(session, "buildings_level_suffix"), nextLevel) : string.Empty);
+        }
+
 
         /// <returns>Построено ли здание (хотя бы 1-ый уровень)</returns>
         public bool IsBuilt(ProfileBuildingsData data)

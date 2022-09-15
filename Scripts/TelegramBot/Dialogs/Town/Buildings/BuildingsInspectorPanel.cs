@@ -4,12 +4,15 @@ using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Buildings;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData;
+using TextGameRPG.Scripts.GameCore.Resources;
+using System.Collections.Generic;
 
 namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
 {
     public class BuildingsInspectorPanel : DialogPanelBase
     {
-        private ProfileBuildingsData buildingsData => session.profile.buildingsData;
+        private ProfileBuildingsData _buildingsData => session.profile.buildingsData;
+        private BuildingCategory _lastCategory = BuildingCategory.General;
 
         public BuildingsInspectorPanel(DialogBase _dialog, byte _panelId) : base(_dialog, _panelId)
         {
@@ -61,16 +64,17 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
             await RemoveKeyboardFromLastMessage();
             var text = $"<b>{category.GetLocalization(session)}</b>";
             var buildings = session.player.buildings.GetBuildingsByCategory(category);
-            var sortedBuildings = buildings.OrderBy(x => x.IsBuilt(buildingsData)).ThenBy(x => x.buildingData.levels[0].requiredTownHall);
+            var sortedBuildings = buildings.OrderBy(x => x.IsBuilt(_buildingsData)).ThenBy(x => x.buildingData.levels[0].requiredTownHall);
 
             foreach (var building in sortedBuildings)
             {
-                var name = GetPrefix(building, buildingsData) + building.GetLocalizedName(session, buildingsData);
+                var name = GetPrefix(building, _buildingsData) + building.GetLocalizedName(session, _buildingsData);
                 RegisterButton(name, () => ShowBuildingInfo(building));
             }
-            RegisterButton($"{Emojis.menuItems[MenuItem.Buildings]} {Localization.Get(session, "menu_item_buildings")}",
+            RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_buildings")}",
                 () => ShowNotifications());
 
+            _lastCategory = category;
             lastMessage = asNewMessage || lastMessage == null
                 ? await messageSender.SendTextMessage(session.chatId, text, GetMultilineKeyboard())
                 : await messageSender.EditTextMessage(session.chatId, lastMessage.MessageId, text, GetMultilineKeyboard());
@@ -91,12 +95,12 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
 
         private async Task ShowBuildingInfo(BuildingBase building)
         {
-            if (building.IsUnderConstruction(buildingsData))
+            if (building.IsUnderConstruction(_buildingsData))
             {
                 await ShowConstructionProgressInfo(building);
                 return;
             }
-            if (!building.IsBuilt(buildingsData))
+            if (!building.IsBuilt(_buildingsData))
             {
                 await ShowConstructionAvailableInfo(building);
                 return;
@@ -112,11 +116,11 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
 
             ClearButtons();
             var sb = new StringBuilder();
-            sb.AppendLine($"<b>{building.GetLocalizedName(session, buildingsData)}</b>");
+            sb.AppendLine($"<b>{building.GetLocalizedName(session, _buildingsData)}</b>");
             sb.AppendLine();
-            sb.AppendLine(building.GetCurrentLevelInfo(session, buildingsData));
+            sb.AppendLine(building.GetCurrentLevelInfo(session, _buildingsData));
 
-            var updates = building.GetUpdates(session, buildingsData);
+            var updates = building.GetUpdates(session, _buildingsData);
             if (updates.Count > 0)
             {
                 sb.AppendLine();
@@ -126,18 +130,62 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
                 }
             }            
 
-            if (!building.IsMaxLevel(buildingsData))
+            if (!building.IsMaxLevel(_buildingsData))
             {
-                RegisterButton($"{Emojis.elements[Element.LevelUp]} {Localization.Get(session, "building_construction_button")}",
+                RegisterButton($"{Emojis.elements[Element.LevelUp]} {Localization.Get(session, "dialog_buildings_construction_button")}",
                     () => ShowConstructionAvailableInfo(building));
             }
+            RegisterButton($"{Emojis.elements[Element.Back]} {_lastCategory.GetLocalization(session)}",
+                    () => ShowBuildingsList(_lastCategory, asNewMessage: false));
 
-            lastMessage = await messageSender.EditTextMessage(session.chatId, lastMessage.MessageId, sb.ToString());
+            lastMessage = await messageSender.EditTextMessage(session.chatId, lastMessage.MessageId, sb.ToString(), GetMultilineKeyboard());
         }
 
         private async Task ShowConstructionAvailableInfo(BuildingBase building)
         {
+            if (lastMessage == null || building.IsMaxLevel(_buildingsData))
+                return;
 
+            ClearButtons();
+            var sb = new StringBuilder();
+            sb.AppendLine($"<b>{building.GetNextLevelLocalizedName(session, _buildingsData)}</b>");
+            sb.AppendLine();
+            sb.AppendLine(building.GetNextLevelInfo(session, _buildingsData));
+
+            var level = building.GetCurrentLevel(_buildingsData);
+            var levelData = building.buildingData.levels[level];
+            var requiredResources = new Dictionary<ResourceType, int>
+            {
+                {ResourceType.Gold, levelData.requiredGold },
+                {ResourceType.Herbs, levelData.requiredHerbs },
+                {ResourceType.Wood, levelData.requiredWood },
+            };
+
+            sb.AppendLine();
+            sb.AppendLine(ResourceHelper.GetPriceView(session, requiredResources));
+
+            // buttons
+            RegisterButton($"{Emojis.elements[Element.Construction]} {Localization.Get(session, "dialog_buildings_start_construction_button")}",
+                () => TryStartConstruction(building, requiredResources));
+
+            if (building.IsBuilt(_buildingsData))
+            {
+                RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "dialog_buildings_info_button")}",
+                    () => ShowBuildingInfo(building));
+            }
+            else
+            {
+                RegisterButton($"{Emojis.elements[Element.Back]} {_lastCategory.GetLocalization(session)}",
+                    () => ShowBuildingsList(_lastCategory, asNewMessage: false));
+            }
+            
+
+            lastMessage = await messageSender.EditTextMessage(session.chatId, lastMessage.MessageId, sb.ToString(), GetMultilineKeyboard());
+        }
+
+        private async Task TryStartConstruction(BuildingBase building, Dictionary<ResourceType,int> requiredResources)
+        {
+            // TODO
         }
 
         private async Task ShowConstructionProgressInfo(BuildingBase building)
@@ -147,18 +195,30 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
 
             ClearButtons();
             var sb = new StringBuilder();
-            sb.AppendLine($"<b>{building.GetLocalizedName(session, buildingsData)}</b>");
+            sb.AppendLine($"<b>{building.GetLocalizedName(session, _buildingsData)}</b>");
             sb.AppendLine();
 
-            var updates = building.GetUpdates(session, buildingsData);
+            var updates = building.GetUpdates(session, _buildingsData);
             foreach (var update in updates)
             {
                 sb.AppendLine($"{Emojis.elements[Element.SmallWhite]} {update}");
             }
 
             // Постройка здания могла быть завершена в момент выполнения этого кода
-            bool isUnderConstruction = building.IsUnderConstruction(buildingsData);
-            // TODO: Register buttons
+            bool isUnderConstruction = building.IsUnderConstruction(_buildingsData);
+            if (isUnderConstruction)
+            {
+                RegisterButton($"{Emojis.elements[Element.CrossRed]} {Localization.Get(session, "dialog_buildings_cancel_construction_button")}",
+                    null);
+            }
+            else
+            {
+                RegisterButton($"{Emojis.elements[Element.Info]} {Localization.Get(session, "dialog_buildings_info_button")}",
+                    () => ShowBuildingInfo(building));
+            }
+
+            RegisterButton($"{Emojis.elements[Element.Back]} {_lastCategory.GetLocalization(session)}",
+                    () => ShowBuildingsList(_lastCategory, asNewMessage: false));
 
             lastMessage = await messageSender.EditTextMessage(session.chatId, lastMessage.MessageId, sb.ToString());
         }

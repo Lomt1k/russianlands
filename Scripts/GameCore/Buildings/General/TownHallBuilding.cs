@@ -1,4 +1,6 @@
-﻿using TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData;
+﻿using TextGameRPG.Scripts.GameCore.Localizations;
+using TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData;
+using TextGameRPG.Scripts.TelegramBot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Buildings.General
 {
@@ -24,6 +26,17 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.General
         protected override void SetStartConstructionTime(ProfileBuildingsData data, long startConstructionTime)
         {
             data.townHallStartConstructionTime = startConstructionTime;
+        }
+
+        public override string GetCurrentLevelInfo(GameSession session, ProfileBuildingsData data)
+        {
+            return Localization.Get(session, "building_TownHall_description");
+        }
+
+        public override string GetNextLevelInfo(GameSession session, ProfileBuildingsData data)
+        {
+            // TODO: Добавить инфу о следующем уровне
+            return Localization.Get(session, "building_TownHall_description");
         }
     }
 }
