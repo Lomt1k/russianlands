@@ -6,6 +6,7 @@ using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData;
 using TextGameRPG.Scripts.GameCore.Resources;
 using System.Collections.Generic;
+using System;
 
 namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
 {
@@ -154,14 +155,20 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
 
             var level = building.GetCurrentLevel(_buildingsData);
             var levelData = building.buildingData.levels[level];
+
+            sb.AppendLine();
+            sb.AppendLine(Localization.Get(session, "dialog_buildings_construction_time"));
+            var dtNow = DateTime.UtcNow;
+            var timeSpan = (dtNow.AddSeconds(levelData.constructionTime) - dtNow);
+            sb.AppendLine($"{Emojis.elements[Element.Clock]} {timeSpan.GetView(session)}");
+
+            sb.AppendLine();
             var requiredResources = new Dictionary<ResourceType, int>
             {
                 {ResourceType.Gold, levelData.requiredGold },
                 {ResourceType.Herbs, levelData.requiredHerbs },
                 {ResourceType.Wood, levelData.requiredWood },
             };
-
-            sb.AppendLine();
             sb.AppendLine(ResourceHelper.GetPriceView(session, requiredResources));
 
             // buttons
@@ -185,7 +192,15 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
 
         private async Task TryStartConstruction(BuildingBase building, Dictionary<ResourceType,int> requiredResources)
         {
-            // TODO
+            var playerResources = session.player.resources;
+            var successfullPurchase = playerResources.TryPurchase(requiredResources, out var notEnoughResources);
+            if (successfullPurchase)
+            {
+                await ShowConstructionProgressInfo(building);
+                return;
+            }
+
+            //TODO
         }
 
         private async Task ShowConstructionProgressInfo(BuildingBase building)
@@ -208,8 +223,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
             bool isUnderConstruction = building.IsUnderConstruction(_buildingsData);
             if (isUnderConstruction)
             {
-                RegisterButton($"{Emojis.elements[Element.CrossRed]} {Localization.Get(session, "dialog_buildings_cancel_construction_button")}",
-                    null);
+                // TODO: Кнопка ускорить
             }
             else
             {

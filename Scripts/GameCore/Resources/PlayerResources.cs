@@ -84,6 +84,34 @@ namespace TextGameRPG.Scripts.GameCore.Resources
         /// <summary>
         /// Попытаться произвести покупку со списанием указанных ресурсов
         /// </summary>
+        /// <param name="requiredResources">Требуемые ресурсы</param>
+        /// <param name="notEnoughResources">Ресурсы, которых не хватило для успешной покупки</param>
+        /// <returns>Вернет true, если списание средств прошло успешно</returns>
+        public bool TryPurchase(Dictionary<ResourceType, int> requiredResources, out Dictionary<ResourceType, int> notEnoughResources)
+        {
+            notEnoughResources = new Dictionary<ResourceType, int>();
+            if (!HasEnough(requiredResources))
+            {
+                foreach (var resource in requiredResources)
+                {
+                    var resourceType = resource.Key;
+                    var requiredValue = resource.Value;
+                    var playerValue = resourceDictionary[resourceType].GetValue(_profileData);
+                    if (playerValue < requiredValue)
+                    {
+                        var notEnoughValue = requiredValue - playerValue;
+                        notEnoughResources.Add(resourceType, notEnoughValue);
+                    }
+                }
+                return false;
+            }
+
+            return TryPurchase(requiredResources);
+        }
+
+        /// <summary>
+        /// Попытаться произвести покупку со списанием указанных ресурсов
+        /// </summary>
         /// <returns>Вернет true, если списание средств прошло успешно</returns>
         public bool TryPurchase(ResourceType resourceType, int requiredValue)
         {
@@ -94,6 +122,26 @@ namespace TextGameRPG.Scripts.GameCore.Resources
                 resourceDictionary[resourceType].SetValue(_profileData, newValue);
             }
             return success;
+        }
+
+        /// <summary>
+        /// Попытаться произвести покупку со списанием указанных ресурсов
+        /// </summary>
+        /// <param name="resourceType">Тип ресурса</param>
+        /// <param name="requiredValue">Требуемое количество ресурса</param>
+        /// <param name="notEnoughValue">Количество ресурса, которого не хватило для успешной покупки</param>
+        /// <returns>Вернет true, если списание средств прошло успешно</returns>
+        public bool TryPurchase(ResourceType resourceType, int requiredValue, out int notEnoughValue)
+        {
+            notEnoughValue = 0;
+            if (!HasEnough(resourceType, requiredValue))
+            {
+                var playerValue = resourceDictionary[resourceType].GetValue(_profileData);
+                notEnoughValue = requiredValue - playerValue;
+                return false;
+            }
+
+            return TryPurchase(resourceType, requiredValue);
         }
 
         /// <summary>
