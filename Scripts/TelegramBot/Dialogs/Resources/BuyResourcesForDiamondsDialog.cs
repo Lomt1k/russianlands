@@ -11,34 +11,20 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Resources
     public class BuyResourcesForDiamondsDialog : DialogBase
     {
         private Dictionary<ResourceType, int> _targetResources;
+        private int _priceInDiamonds;
         private Func<Task> _onSuccess;
         private Func<Task> _onCancel;
-
-        private static Dictionary<int, int> priceInDiamondsByResourceAmount = new Dictionary<int, int>
-        {
-            { 100, 1 },
-            { 1_000, 5 },
-            { 10_000, 25 },
-            { 100_000, 125 },
-            { 1_000_000, 600 },
-            { 10_000_000, 3_000 },
-            { 100_000_000, 15_000 },
-        };
-
-        public static Dictionary<ResourceType, float> resourceByDiamondsCoefs = new Dictionary<ResourceType, float>
-        {
-            { ResourceType.Diamond, 1 },
-            { ResourceType.Food, 0.6f },
-            { ResourceType.Gold, 0.5f },
-            { ResourceType.Herbs, 1.75f },
-            { ResourceType.Wood, 0.75f },
-        };
 
         public BuyResourcesForDiamondsDialog(GameSession _session, Dictionary<ResourceType,int> targetResources, Func<Task> onSuccess, Func<Task> onCancel) : base(_session)
         {
             _targetResources = targetResources;
             _onSuccess = onSuccess;
             _onCancel = onCancel;
+
+            foreach (var resource in _targetResources)
+            {
+                _priceInDiamonds += ResourceHelper.CalculatePriceInDiamonds(resource.Key, resource.Value);
+            }
         }
 
         public override async Task Start()
@@ -55,36 +41,29 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Resources
 
             sb.AppendLine();
             sb.AppendLine(Localization.Get(session, "resource_purchase_for_diamonds"));
-
-            int price = 0;
-            foreach (var resource in _targetResources)
-            {
-                price += CalculatePriceInDiamonds(resource.Key, resource.Value);
-            }
-
-            var priceText = $"{Emojis.resources[ResourceType.Diamond]} {price}";
-            RegisterButton(priceText, null);
+            RegisterButton($"{Emojis.resources[ResourceType.Diamond]} {_priceInDiamonds}", () => TryPurchase());
+            RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_back_button")}", _onCancel);
 
             await messageSender.SendTextDialog(session.chatId, sb.ToString(), GetMultilineKeyboard());
         }
 
-        private static int CalculatePriceInDiamonds(ResourceType resourceType, int resourceAmount)
+        private async Task TryPurchase()
         {
-            var standardPrice = CalculateStandardPrice(resourceAmount);
-            var coef = resourceByDiamondsCoefs[resourceType];
-
-            var resultPrice = (int)(standardPrice * coef);
-            return Math.Max(resultPrice, 1);
-        }
-
-        private static int CalculateStandardPrice(int resourceAmount)
-        {
-            if (resourceAmount < 100)
-                return 1;
-            if (resourceAmount < 1_000)
+            var playerResources = session.player.resources;
+            bool success = playerResources.TryPurchase(ResourceType.Diamond, _priceInDiamonds);
+            if (success)
             {
-
+                playerResources.ForceAdd(_targetResources);
+                await _onSuccess();
+                return;
             }
+
+            ClearButtons();
+            var text = string.Format(Localization.Get(session, "resource_not_enough_diamonds"), Emojis.smiles[Smile.Sad]);
+            RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_back_button")}", _onCancel);
+
+            await messageSender.SendTextDialog(session.chatId, text, GetOneLineKeyboard());
         }
+
     }
 }

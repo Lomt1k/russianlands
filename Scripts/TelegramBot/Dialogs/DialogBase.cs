@@ -29,6 +29,11 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
             registeredButtons.Add(text, callback);
         }
 
+        protected void ClearButtons()
+        {
+            registeredButtons.Clear();
+        }
+
         protected void RegisterPanel(DialogPanelBase dialogPanel)
         {
             registeredPanels.Add(dialogPanel.panelId, dialogPanel);

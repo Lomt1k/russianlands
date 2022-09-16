@@ -187,6 +187,17 @@ namespace TextGameRPG.Scripts.GameCore.Resources
         }
 
         /// <summary>
+        /// Добавляет ресурсы даже если будет превышен лимит хранилища
+        /// </summary>
+        public void ForceAdd(Dictionary<ResourceType, int> resources)
+        {
+            foreach (var resource in resources)
+            {
+                ForceAdd(resource.Key, resource.Value);
+            }
+        }
+
+        /// <summary>
         /// Добавляет ресурс, но не превышает лимит хранилища
         /// </summary>
         /// <returns>Сколько по факту было добавлено</returns>
@@ -200,6 +211,21 @@ namespace TextGameRPG.Scripts.GameCore.Resources
             var reallyAdded = value > canBeAdded ? canBeAdded : value;
             resource.AddValue(_profileData, reallyAdded);
 
+            return reallyAdded;
+        }
+
+        /// <summary>
+        /// Добавляет ресурсs, но не превышает лимит хранилища
+        /// </summary>
+        /// <returns>Сколько по факту было добавлено</returns>
+        public Dictionary<ResourceType, int> Add(Dictionary<ResourceType, int> resources)
+        {
+            var reallyAdded = new Dictionary<ResourceType, int>();
+            foreach (var resource in resources)
+            {
+                var value = Add(resource.Key, resource.Value);
+                reallyAdded.Add(resource.Key, value);
+            }
             return reallyAdded;
         }
 
