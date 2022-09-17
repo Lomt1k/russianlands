@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 using TextGameRPG.Scripts.GameCore.Resources;
+using TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Shop;
 
 namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Resources
 {
@@ -70,7 +71,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Resources
 
             ClearButtons();
             var text = string.Format(Localization.Get(session, "resource_not_enough_diamonds"), Emojis.smiles[Smile.Sad]);
-            RegisterButton($"{Emojis.menuItems[MenuItem.Shop]} {Localization.Get(session, "menu_item_shop")}", null); // TODO
+            RegisterButton($"{Emojis.menuItems[MenuItem.Shop]} {Localization.Get(session, "menu_item_shop")}", 
+                () => new ShopDialog(session).Start());
             RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_back_button")}", _onCancel);
 
             await messageSender.SendTextDialog(session.chatId, text, GetMultilineKeyboard());

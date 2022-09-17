@@ -35,8 +35,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town
                 null);
             RegisterButton($"{Emojis.menuItems[MenuItem.Mail]} " + Localization.Get(session, "menu_item_mail"),
                 null);
-            RegisterButton($"{Emojis.menuItems[MenuItem.Options]} " + Localization.Get(session, "menu_item_options"),
-                null);
+            RegisterButton($"{Emojis.menuItems[MenuItem.Shop]} " + Localization.Get(session, "menu_item_shop"),
+                () => new Shop.ShopDialog(session).Start());
 
             _keyboard = GetKeyboardWithRowSizes(1, 2, 3);
         }

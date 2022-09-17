@@ -8,6 +8,7 @@ using TextGameRPG.Scripts.GameCore.Resources;
 using System.Collections.Generic;
 using System;
 using TextGameRPG.Scripts.TelegramBot.Dialogs.Resources;
+using TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Shop;
 
 namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
 {
@@ -194,7 +195,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
 
             ClearButtons();
             var text = string.Format(Localization.Get(session, "resource_not_enough_diamonds"), Emojis.smiles[Smile.Sad]);
-            RegisterButton($"{Emojis.menuItems[MenuItem.Shop]} {Localization.Get(session, "menu_item_shop")}", null); // TODO
+            RegisterButton($"{Emojis.menuItems[MenuItem.Shop]} {Localization.Get(session, "menu_item_shop")}",
+                () => new ShopDialog(session).Start());
             RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_back_button")}", () => ShowBuildingCurrentLevelInfo(building));
 
             lastMessage = lastMessage == null
