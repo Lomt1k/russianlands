@@ -20,8 +20,18 @@ namespace TextGameRPG.Scripts.GameCore.Resources
             { 100_000_000, 15_000 },
         };
 
+        private static Dictionary<int, int> boostConstructionInDiamondsBySeconds = new Dictionary<int, int>
+        {
+            { 60, 1 },
+            { 3_600, 35 },
+            { 86_400, 490 },
+            { 604_800, 1_950 },
+        };
+
         private static KeyValuePair<int, int> minPriceInDiamondsByResource;
         private static KeyValuePair<int, int> maxPriceInDiamondsByResource;
+        private static KeyValuePair<int, int> minBoostConstructionInDiamondsBySeconds;
+        private static KeyValuePair<int, int> maxBoostConstructionInDiamondsBySeconds;
 
         public static Dictionary<ResourceType, float> resourceByDiamondsCoefs = new Dictionary<ResourceType, float>
         {
@@ -36,6 +46,8 @@ namespace TextGameRPG.Scripts.GameCore.Resources
         {
             minPriceInDiamondsByResource = priceInDiamondsByResourceAmount.First();
             maxPriceInDiamondsByResource = priceInDiamondsByResourceAmount.Last();
+            minBoostConstructionInDiamondsBySeconds = boostConstructionInDiamondsBySeconds.First();
+            maxBoostConstructionInDiamondsBySeconds = boostConstructionInDiamondsBySeconds.Last();
         }
 
         public static int CalculatePriceInDiamonds(ResourceType resourceType, int resourceAmount)
@@ -102,6 +114,37 @@ namespace TextGameRPG.Scripts.GameCore.Resources
             }
 
             return sb.ToString();
+        }
+
+        public static int CalculateConstructionBoostPriceInDiamonds(int seconds)
+        {
+            if (seconds <= minBoostConstructionInDiamondsBySeconds.Key)
+                return minBoostConstructionInDiamondsBySeconds.Value;
+
+            if (seconds >= maxBoostConstructionInDiamondsBySeconds.Key)
+            {
+                var mult = (float)seconds / maxBoostConstructionInDiamondsBySeconds.Key;
+                return (int)(maxBoostConstructionInDiamondsBySeconds.Value * mult);
+            }
+
+            var lowerKVP = new KeyValuePair<int, int>();
+            var upperKVP = new KeyValuePair<int, int>();
+            foreach (var kvp in boostConstructionInDiamondsBySeconds)
+            {
+                if (seconds > kvp.Key)
+                {
+                    upperKVP = kvp;
+                    break;
+                }
+                lowerKVP = kvp;
+            }
+
+            var secondsDelta = upperKVP.Key - lowerKVP.Key;
+            var priceDelta = upperKVP.Value - lowerKVP.Value;
+            var progression = (float)(seconds - lowerKVP.Key) / secondsDelta;
+
+            return (int)Math.Round(progression * priceDelta) + lowerKVP.Value;
+
         }
 
 

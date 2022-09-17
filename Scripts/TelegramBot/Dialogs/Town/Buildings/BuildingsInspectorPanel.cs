@@ -133,7 +133,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
                     () => ShowConstructionAvailableInfo(building));
             }
             var category = building.buildingType.GetCategory();
-            RegisterButton($"{Emojis.elements[Element.Back]} {category.GetLocalization(session)}",
+            RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_back_to_list_button")}",
                     () => ShowBuildingsList(category, asNewMessage: false));
 
             lastMessage = lastMessage == null
@@ -162,7 +162,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
             sb.AppendLine(Localization.Get(session, "dialog_buildings_construction_time"));
             var dtNow = DateTime.UtcNow;
             var timeSpan = (dtNow.AddSeconds(levelData.constructionTime) - dtNow);
-            sb.AppendLine($"{Emojis.elements[Element.Clock]} {timeSpan.GetView(session)}");
+            sb.AppendLine(timeSpan.GetView(session));
 
             sb.AppendLine();
             var requiredResources = GetRequiredResourcesForConstruction(building);
@@ -180,7 +180,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
             else
             {
                 var category = building.buildingType.GetCategory();
-                RegisterButton($"{Emojis.elements[Element.Back]} {category.GetLocalization(session)}",
+                RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_back_to_list_button")}",
                     () => ShowBuildingsList(category, asNewMessage: false));
             }
             
@@ -240,7 +240,12 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
             bool isUnderConstruction = building.IsUnderConstruction(_buildingsData);
             if (isUnderConstruction)
             {
-                // TODO: Кнопка ускорить
+                var time = building.GetEndConstructionTime(_buildingsData);
+                var secondsToEnd = (int)(time - DateTime.UtcNow).TotalSeconds;
+                var diamondsForBoost = ResourceHelper.CalculateConstructionBoostPriceInDiamonds(secondsToEnd);
+                var priceView = Emojis.resources[ResourceType.Diamond] + diamondsForBoost;
+                var buttonText = string.Format(Localization.Get(session, "menu_item_boost_button"), priceView);
+                RegisterButton(buttonText, null); //TODO
             }
             else
             {
@@ -249,7 +254,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
             }
 
             var category = building.buildingType.GetCategory();
-            RegisterButton($"{Emojis.elements[Element.Back]} {category.GetLocalization(session)}",
+            RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_back_to_list_button")}",
                     () => ShowBuildingsList(category, asNewMessage: false));
 
             lastMessage = lastMessage == null

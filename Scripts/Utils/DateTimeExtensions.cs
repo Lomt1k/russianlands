@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using TextGameRPG.Scripts.GameCore.Localizations;
+using TextGameRPG.Scripts.TelegramBot;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 
 public static class DateTimeExtensions
@@ -43,7 +44,7 @@ public static class DateTimeExtensions
             sb.Append(timeSpan.Seconds + Localization.Get(session, "time_span_seconds"));
         }
 
-        return sb.ToString();
+        return $"{Emojis.elements[Element.Clock]} " + sb.ToString();
 
         void AddSpaceIfRequired(StringBuilder sb)
         {

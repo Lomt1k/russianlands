@@ -134,8 +134,11 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
         }
 
         /// <returns>Дата, когда постройка / улучшение здания должна была быть завершена</returns>
-        private DateTime GetEndConstructionTime(ProfileBuildingsData data)
+        public DateTime GetEndConstructionTime(ProfileBuildingsData data)
         {
+            if (IsMaxLevel(data))
+                return DateTime.UtcNow;
+            
             var currentLevel = GetCurrentLevel(data);
             var ticks = GetStartConstructionTime(data);
             var startDt = new DateTime(ticks);
