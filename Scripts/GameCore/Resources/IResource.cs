@@ -1,4 +1,5 @@
 ﻿using TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData;
+using TextGameRPG.Scripts.TelegramBot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Resources
 {
@@ -9,7 +10,7 @@ namespace TextGameRPG.Scripts.GameCore.Resources
         int GetValue(ProfileData profileData);
         void SetValue(ProfileData profileData, int value);
         void AddValue(ProfileData profileData, int value);
-        bool IsUnlocked(ProfileData profileData);
-        int GetResourceLimit(ProfileData profileData);
+        bool IsUnlocked(GameSession session);
+        int GetResourceLimit(GameSession session);
     }
 }

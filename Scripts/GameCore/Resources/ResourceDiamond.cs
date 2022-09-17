@@ -1,4 +1,5 @@
 ﻿using TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData;
+using TextGameRPG.Scripts.TelegramBot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Resources
 {
@@ -21,14 +22,13 @@ namespace TextGameRPG.Scripts.GameCore.Resources
             profileData.resourceDiamond += value;
         }
 
-        public bool IsUnlocked(ProfileData profileData)
+        public bool IsUnlocked(GameSession session)
         {
             return true;
         }
 
-        public int GetResourceLimit(ProfileData profileData)
+        public int GetResourceLimit(GameSession session)
         {
-            //TODO: Add limit logic
             return int.MaxValue;
         }
 

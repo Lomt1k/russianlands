@@ -43,6 +43,13 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
                 case BuildingCategory.General:
                     yield return BuildingType.TownHall.GetBuilding();
                     break;
+
+                case BuildingCategory.Storages:
+                    yield return BuildingType.GoldStorage.GetBuilding();
+                    yield return BuildingType.FoodStorage.GetBuilding();
+                    yield return BuildingType.HerbsStorage.GetBuilding();
+                    yield return BuildingType.WoodStorage.GetBuilding();
+                    break;
             }
         }
 

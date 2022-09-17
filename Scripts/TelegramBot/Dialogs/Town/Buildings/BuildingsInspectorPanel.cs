@@ -66,7 +66,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
             await RemoveKeyboardFromLastMessage();
             var text = $"<b>{category.GetLocalization(session)}</b>";
             var buildings = session.player.buildings.GetBuildingsByCategory(category);
-            var sortedBuildings = buildings.OrderBy(x => x.IsBuilt(_buildingsData)).ThenBy(x => x.buildingData.levels[0].requiredTownHall);
+            var sortedBuildings = buildings.OrderByDescending(x => x.IsBuilt(_buildingsData)).ThenBy(x => x.buildingData.levels[0].requiredTownHall);
 
             foreach (var building in sortedBuildings)
             {

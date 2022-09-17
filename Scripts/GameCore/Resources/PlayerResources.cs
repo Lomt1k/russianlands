@@ -170,7 +170,7 @@ namespace TextGameRPG.Scripts.GameCore.Resources
         /// </summary>
         public bool IsUnlocked(ResourceType resourceType)
         {
-            return resourceDictionary[resourceType].IsUnlocked(_profileData);
+            return resourceDictionary[resourceType].IsUnlocked(_session);
         }
 
         /// <summary>
@@ -205,7 +205,7 @@ namespace TextGameRPG.Scripts.GameCore.Resources
         {
             var resource = resourceDictionary[resourceType];
             var currentValue = resource.GetValue(_profileData);
-            var maxValue = resource.GetResourceLimit(_profileData);
+            var maxValue = resource.GetResourceLimit(_session);
 
             var canBeAdded = currentValue > maxValue ? 0 : maxValue - currentValue;
             var reallyAdded = value > canBeAdded ? canBeAdded : value;

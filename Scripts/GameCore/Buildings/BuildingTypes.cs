@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using TextGameRPG.Scripts.GameCore.Buildings.Data;
 using TextGameRPG.Scripts.GameCore.Buildings.General;
+using TextGameRPG.Scripts.GameCore.Buildings.Storages;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Buildings
@@ -59,6 +60,12 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
         {
             // --- Основные
             { BuildingType.TownHall, new TownHallBuilding() },
+
+            // --- Хранилища
+            { BuildingType.GoldStorage, new GoldStorageBuilding() },
+            { BuildingType.FoodStorage, new FoodStorageBuilding() },
+            { BuildingType.HerbsStorage, new HerbsStorageBuilding() },
+            { BuildingType.WoodStorage, new WoodStorageBuilding() },
         };
 
         public static BuildingLevelInfo CreateNewLevelInfo(this BuildingType buildingType)
