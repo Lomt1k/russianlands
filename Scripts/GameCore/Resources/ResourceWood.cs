@@ -25,7 +25,9 @@ namespace TextGameRPG.Scripts.GameCore.Resources
 
         public bool IsUnlocked(GameSession session)
         {
-            return true;
+            var buildingsData = session.profile.buildingsData;
+            var building = BuildingType.TownHall.GetBuilding();
+            return building.GetCurrentLevel(buildingsData) >= 6;
         }
 
         public int GetResourceLimit(GameSession session)

@@ -34,6 +34,15 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
         public IEnumerable<BuildingBase> GetAllBuildings()
         {
             yield return BuildingType.TownHall.GetBuilding();
+
+            yield return BuildingType.GoldStorage.GetBuilding();
+            yield return BuildingType.FoodStorage.GetBuilding();
+            yield return BuildingType.HerbsStorage.GetBuilding();
+            yield return BuildingType.WoodStorage.GetBuilding();
+
+            yield return BuildingType.GoldProductionFirst.GetBuilding();
+            yield return BuildingType.GoldProductionSecond.GetBuilding();
+            yield return BuildingType.GoldProductionThird.GetBuilding();
         }
 
         public IEnumerable<BuildingBase> GetBuildingsByCategory(BuildingCategory category)
@@ -49,6 +58,12 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
                     yield return BuildingType.FoodStorage.GetBuilding();
                     yield return BuildingType.HerbsStorage.GetBuilding();
                     yield return BuildingType.WoodStorage.GetBuilding();
+                    break;
+
+                case BuildingCategory.Production:
+                    yield return BuildingType.GoldProductionFirst.GetBuilding();
+                    yield return BuildingType.GoldProductionSecond.GetBuilding();
+                    yield return BuildingType.GoldProductionThird.GetBuilding();
                     break;
             }
         }

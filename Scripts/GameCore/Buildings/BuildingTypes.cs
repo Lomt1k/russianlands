@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using TextGameRPG.Scripts.GameCore.Buildings.Data;
 using TextGameRPG.Scripts.GameCore.Buildings.General;
+using TextGameRPG.Scripts.GameCore.Buildings.Production;
 using TextGameRPG.Scripts.GameCore.Buildings.Storages;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 
@@ -66,6 +67,11 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             { BuildingType.FoodStorage, new FoodStorageBuilding() },
             { BuildingType.HerbsStorage, new HerbsStorageBuilding() },
             { BuildingType.WoodStorage, new WoodStorageBuilding() },
+
+            // --- Добыча ресурсов
+            { BuildingType.GoldProductionFirst, new GoldProductionFirstBuilding() },
+            { BuildingType.GoldProductionSecond, new GoldProductionSecondBuilding() },
+            { BuildingType.GoldProductionThird, new GoldProductionThirdBuilding() },
         };
 
         public static BuildingLevelInfo CreateNewLevelInfo(this BuildingType buildingType)

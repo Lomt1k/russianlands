@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
 using TextGameRPG.Scripts.GameCore.Buildings.Data;
+using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Resources;
 using TextGameRPG.Scripts.TelegramBot;
 using TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData;
@@ -12,7 +12,6 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
     public abstract class ProductionBuildingBase : BuildingBase
     {
         public abstract ResourceType resourceType { get; }
-        public abstract int resourceLimitForZeroLevel { get; }
 
         public string resourcePrefix;
 
@@ -26,13 +25,13 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
         public abstract void SetFirstWorkerLevel(ProfileBuildingsData data, byte level);
         public abstract void SetSecondWorkerLevel(ProfileBuildingsData data, byte level);
         protected abstract long GetStartFarmTime(ProfileBuildingsData data);
-        protected abstract void SetStartFarmTime(ProfileBuildingsData data, long startConstructionTime);
+        protected abstract void SetStartFarmTime(ProfileBuildingsData data, long startFarmTime);
 
         public int GetCurrentLevelResourceLimit(ProfileBuildingsData data)
         {
             var currentLevel = GetCurrentLevel(data);
             if (currentLevel < 1)
-                return resourceLimitForZeroLevel;
+                return 0;
 
             var levelInfo = (ProductionLevelInfo)buildingData.levels[currentLevel - 1];
             return levelInfo.resourceStorageLimit;
@@ -87,38 +86,75 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             return (int)productionPerHour;
         }
 
+        public int GetFarmedResourceAmount(ProfileBuildingsData data)
+        {
+            var startFarmTime = GetStartFarmTime(data);
+            if (startFarmTime < 1) //fix incorrect startTime
+            {
+                SetStartFarmTime(data, DateTime.UtcNow.Ticks);
+                return 0;
+            }
+
+            var farmHours = (DateTime.UtcNow - new DateTime(startFarmTime)).TotalHours;
+            var farmPerHour = GetCurrentLevelFirstWorkerProductionPerHour(data) 
+                + GetCurrentLevelSecondWorkerProductionPerHour(data);
+            var farmedTotal = (int)(farmPerHour * farmHours);
+            var farmLimit = GetCurrentLevelResourceLimit(data);
+
+            return farmedTotal > farmLimit ? farmLimit : farmedTotal;
+        }
+
         public override string GetCurrentLevelInfo(GameSession session, ProfileBuildingsData data)
         {
-            //var sb = new StringBuilder();
-            //sb.AppendLine(Localization.Get(session, $"building_{buildingType}_description"));
+            var sb = new StringBuilder();
+            sb.AppendLine(Localization.Get(session, $"building_{buildingType}_description"));
 
-            //sb.AppendLine();
-            //sb.AppendLine(Localization.Get(session, "building_storage_capacity_header"));
-            //var playerResources = session.player.resources;
-            //var currentValue = playerResources.GetValue(resourceType).View();
-            //var limitValue = GetCurrentLevelResourceLimit(data).View();
-            //var capacity = $"{resourcePrefix} {currentValue} / {limitValue}";
-            //sb.Append(capacity);
+            sb.AppendLine();
+            sb.AppendLine(Localization.Get(session, "building_production_per_hour_header"));
+            var firstWorker = $"{Emojis.menuItems[MenuItem.Character]} {Localization.Get(session, $"building_{buildingType}_first_worker")}{Emojis.bigSpace}";
+            sb.AppendLine(firstWorker + resourcePrefix + $" {GetCurrentLevelFirstWorkerProductionPerHour(data).View()}");
+            var secondWorker = $"{Emojis.menuItems[MenuItem.Character]} {Localization.Get(session, $"building_{buildingType}_second_worker")}{Emojis.bigSpace}";
+            sb.AppendLine(secondWorker + resourcePrefix + $" {GetCurrentLevelSecondWorkerProductionPerHour(data).View()}");
 
-            //return sb.ToString();
-            return string.Empty;
+            sb.AppendLine();
+            sb.AppendLine(Localization.Get(session, "building_production_capacity_header"));
+            var capacity = $"{resourcePrefix} {GetFarmedResourceAmount(data).View()} / {GetCurrentLevelResourceLimit(data).View()}";
+            sb.Append(capacity);
+
+            return sb.ToString();
         }
 
         public override string GetNextLevelInfo(GameSession session, ProfileBuildingsData data)
         {
-            //var sb = new StringBuilder();
-            //sb.AppendLine(Localization.Get(session, $"building_{buildingType}_description"));
+            var sb = new StringBuilder();
+            sb.AppendLine(Localization.Get(session, $"building_{buildingType}_description"));
 
-            //sb.AppendLine();
-            //sb.AppendLine(Localization.Get(session, "building_storage_capacity_header"));
-            //var currentLimit = GetCurrentLevelResourceLimit(data);
-            //var nextLimit = GetNextLevelResourceLimit(data);
-            //var delta = nextLimit - currentLimit;
-            //var capacity = $"{resourcePrefix} {nextLimit.View()} (<i>+{delta.View()}</i>)";
-            //sb.Append(capacity);
+            sb.AppendLine();
+            sb.AppendLine(Localization.Get(session, "building_production_per_hour_header"));
 
-            //return sb.ToString();
-            return string.Empty;
+            bool hideDelta = !IsBuilt(data);
+            var firstWorker = $"{Emojis.menuItems[MenuItem.Character]} {Localization.Get(session, $"building_{buildingType}_first_worker")}{Emojis.bigSpace}";
+            var currentValue = GetCurrentLevelFirstWorkerProductionPerHour(data);
+            var nextValue = GetNextLevelFirstWorkerProductionPerHour(data);
+            var delta = nextValue - currentValue;
+            sb.AppendLine(firstWorker + resourcePrefix + $" {nextValue.View()}" + (hideDelta ? string.Empty : $" (<i>+{delta.View()}</i>)"));
+
+            var secondWorker = $"{Emojis.menuItems[MenuItem.Character]} {Localization.Get(session, $"building_{buildingType}_second_worker")}{Emojis.bigSpace}";
+            currentValue = GetCurrentLevelSecondWorkerProductionPerHour(data);
+            nextValue = GetNextLevelSecondWorkerProductionPerHour(data);
+            delta = nextValue - currentValue;
+            sb.AppendLine(secondWorker + resourcePrefix + $" {nextValue.View()}" + (hideDelta ? string.Empty : $" (<i>+{delta.View()}</i>)"));
+
+            sb.AppendLine();
+            sb.AppendLine(Localization.Get(session, "building_production_capacity_header"));
+            currentValue = GetCurrentLevelResourceLimit(data);
+            nextValue = GetNextLevelResourceLimit(data);
+            delta = nextValue - currentValue;
+            var capacity = $"{resourcePrefix} {nextValue.View()}" + (hideDelta ? string.Empty : $" (<i>+{delta.View()}</i>)");
+            sb.Append(capacity);
+
+            return sb.ToString();
         }
+
     }
 }
