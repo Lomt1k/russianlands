@@ -54,7 +54,16 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Resources
             if (success)
             {
                 playerResources.ForceAdd(_targetResources);
-                await messageSender.SendTextMessage(session.chatId, Localization.Get(session, "resource_successfull_purshase_for_diamonds"));
+                var sb = new StringBuilder();
+                sb.AppendLine(Localization.Get(session, "resource_successfull_purshase_for_diamonds"));
+                sb.AppendLine();
+                sb.AppendLine(Localization.Get(session, "resource_header_resources"));
+                foreach (var resource in _targetResources)
+                {
+                    sb.AppendLine(resource.Key.GetLocalizedView(session, resource.Value));
+                }
+
+                await messageSender.SendTextMessage(session.chatId, sb.ToString());
                 await _onSuccess();
                 return;
             }

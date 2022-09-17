@@ -79,7 +79,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
         {
             var currentLevel = GetCurrentLevel(data);
             return Localization.Get(session, "building_name_" + buildingType.ToString())
-                + (currentLevel > 0 ? string.Format(Localization.Get(session, "buildings_level_suffix"), currentLevel) : string.Empty );
+                + (currentLevel > 0 ? string.Format(Localization.Get(session, "building_level_suffix"), currentLevel) : string.Empty );
         }
 
         public string GetNextLevelLocalizedName(GameSession session, ProfileBuildingsData data)
@@ -89,7 +89,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
 
             var nextLevel = GetCurrentLevel(data) + 1;
             return Localization.Get(session, "building_name_" + buildingType.ToString())
-                + (nextLevel > 0 ? string.Format(Localization.Get(session, "buildings_level_suffix"), nextLevel) : string.Empty);
+                + (nextLevel > 0 ? string.Format(Localization.Get(session, "building_level_suffix"), nextLevel) : string.Empty);
         }
 
 
@@ -148,7 +148,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
         }
 
         /// <returns>Можно ли сейчас завершить постройку / улучшение здания</returns>
-        private bool IsConstructionCanBeFinished(ProfileBuildingsData data)
+        public bool IsConstructionCanBeFinished(ProfileBuildingsData data)
         {
             return DateTime.UtcNow > GetEndConstructionTime(data);
         }
@@ -156,7 +156,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
         /// <summary>
         /// Повысить здание до следующего уровня
         /// </summary>
-        private void LevelUp(ProfileBuildingsData data)
+        public void LevelUp(ProfileBuildingsData data)
         {
             if (IsMaxLevel(data))
                 return;

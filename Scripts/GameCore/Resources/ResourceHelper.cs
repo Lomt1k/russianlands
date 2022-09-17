@@ -55,7 +55,7 @@ namespace TextGameRPG.Scripts.GameCore.Resources
             var standardPrice = CalculateStandardPrice(resourceAmount);
             var coef = resourceByDiamondsCoefs[resourceType];
 
-            var resultPrice = (int)(standardPrice * coef);
+            var resultPrice = (int)Math.Round(standardPrice * coef);
             return Math.Max(resultPrice, 1);
         }
 
@@ -74,7 +74,7 @@ namespace TextGameRPG.Scripts.GameCore.Resources
             var upperKVP = new KeyValuePair<int, int>();
             foreach (var kvp in priceInDiamondsByResourceAmount)
             {
-                if (resourceAmount > kvp.Key)
+                if (resourceAmount < kvp.Key)
                 {
                     upperKVP = kvp;
                     break;
@@ -94,7 +94,7 @@ namespace TextGameRPG.Scripts.GameCore.Resources
         public static string GetPriceView(GameSession session, Dictionary<ResourceType,int> resources)
         {
             var sb = new StringBuilder();
-            sb.AppendLine(Localization.Get(session, "resource_price_header"));
+            sb.AppendLine(Localization.Get(session, "resource_header_price"));
 
             bool hasAmount = false;
             foreach (var kvp in resources)
@@ -131,7 +131,7 @@ namespace TextGameRPG.Scripts.GameCore.Resources
             var upperKVP = new KeyValuePair<int, int>();
             foreach (var kvp in boostConstructionInDiamondsBySeconds)
             {
-                if (seconds > kvp.Key)
+                if (seconds < kvp.Key)
                 {
                     upperKVP = kvp;
                     break;

@@ -44,7 +44,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
                 await _inspectorPanel.TryStartConstruction(inspectedBuilding);
                 return;
             }
-            await _inspectorPanel.ShowConstructionAvailableInfo(inspectedBuilding);
+            await _inspectorPanel.ShowBuildingCurrentLevelInfo(inspectedBuilding);
         }
 
     }
