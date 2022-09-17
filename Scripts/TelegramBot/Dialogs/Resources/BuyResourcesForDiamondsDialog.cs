@@ -54,15 +54,17 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Resources
             if (success)
             {
                 playerResources.ForceAdd(_targetResources);
+                await messageSender.SendTextMessage(session.chatId, Localization.Get(session, "resource_successfull_purshase_for_diamonds"));
                 await _onSuccess();
                 return;
             }
 
             ClearButtons();
             var text = string.Format(Localization.Get(session, "resource_not_enough_diamonds"), Emojis.smiles[Smile.Sad]);
+            RegisterButton($"{Emojis.menuItems[MenuItem.Shop]} {Localization.Get(session, "menu_item_shop")}", null); // TODO
             RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_back_button")}", _onCancel);
 
-            await messageSender.SendTextDialog(session.chatId, text, GetOneLineKeyboard());
+            await messageSender.SendTextDialog(session.chatId, text, GetMultilineKeyboard());
         }
 
     }

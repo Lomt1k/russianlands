@@ -117,5 +117,40 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             return Localizations.Localization.Get(session, "building_category_" + category.ToString().ToLower());
         }
 
+        public static BuildingCategory GetCategory(this BuildingType buildingType)
+        {
+            switch (buildingType)
+            {
+                case BuildingType.GoldStorage:
+                case BuildingType.FoodStorage:
+                case BuildingType.HerbsStorage:
+                case BuildingType.WoodStorage:
+                    return BuildingCategory.Storages;
+
+                case BuildingType.GoldProductionFirst:
+                case BuildingType.GoldProductionSecond:
+                case BuildingType.GoldProductionThird:
+                case BuildingType.FoodProductionFirst:
+                case BuildingType.FoodProductionSecond:
+                case BuildingType.FoodProductionThird:
+                case BuildingType.HerbsProductionFirst:
+                case BuildingType.HerbsProductionSecond:
+                case BuildingType.HerbsProductionThird:
+                case BuildingType.WoodProductionFirst:
+                case BuildingType.WoodProductionSecond:
+                    return BuildingCategory.Production;
+
+                case BuildingType.FightTraining:
+                case BuildingType.GoldTraining:
+                case BuildingType.FoodTraining:
+                case BuildingType.HerbsTraining:
+                case BuildingType.WoodTraining:
+                    return BuildingCategory.Training;
+
+                default:
+                    return BuildingCategory.General;
+            }
+        }
+
     }
 }

@@ -21,7 +21,8 @@ namespace TextGameRPG.Scripts.TelegramBot
         Options,
         Avatar,
         Inventory,
-        Battle
+        Battle,
+        Shop
     }
 
     public enum Stat
@@ -106,7 +107,8 @@ namespace TextGameRPG.Scripts.TelegramBot
             { MenuItem.Options, "\u2699\ufe0f" },
             { MenuItem.Avatar, "\ud83d\udc40" },
             { MenuItem.Inventory, "\ud83c\udf92" },
-            { MenuItem.Battle, "\u2694\ufe0f" }
+            { MenuItem.Battle, "\u2694\ufe0f" },
+            { MenuItem.Shop, "\ud83d\uded2" },
         };
 
         public static readonly Dictionary<Stat, string> stats = new Dictionary<Stat, string>

@@ -34,5 +34,18 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
             await messageSender.SendTextDialog(session.chatId, header, GetKeyboardWithRowSizes(2, 2, 1));
             await SendPanelsAsync();
         }
+
+        public async Task StartFromBuyResourcesDialog(BuildingBase inspectedBuilding, bool successfullPurchase)
+        {
+            var header = $"{Emojis.menuItems[MenuItem.Buildings]} " + "<b>" + Localization.Get(session, "menu_item_buildings") + "</b>";
+            await messageSender.SendTextDialog(session.chatId, header, GetKeyboardWithRowSizes(2, 2, 1));
+            if (successfullPurchase)
+            {
+                await _inspectorPanel.TryStartConstruction(inspectedBuilding);
+                return;
+            }
+            await _inspectorPanel.ShowConstructionAvailableInfo(inspectedBuilding);
+        }
+
     }
 }

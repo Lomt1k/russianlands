@@ -111,6 +111,17 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             return GetStartConstructionTime(data) > 0;
         }
 
+        /// <summary>
+        /// Запускает процесс постройки / улучшения здания
+        /// </summary>
+        public void StartConstruction(ProfileBuildingsData data)
+        {
+            if (IsNextLevelUnlocked(data))
+            {
+                SetStartConstructionTime(data, DateTime.UtcNow.Ticks);
+            }
+        }
+
         /// <returns>Доступен ли следующий уровень на текущем уровне ратуши</returns>
         public bool IsNextLevelUnlocked(ProfileBuildingsData data)
         {
