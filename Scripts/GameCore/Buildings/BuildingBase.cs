@@ -41,9 +41,6 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
         {
             var updates = new List<string>();
 
-            if (!IsBuilt(data))
-                return updates;
-
             if (IsUnderConstruction(data))
             {
                 if (IsConstructionCanBeFinished(data))
@@ -64,6 +61,9 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
                     updates.Add(update);
                 }
             }
+
+            if (!IsBuilt(data))
+                return updates;
 
             var internalUpdates = GetUpdatesInternal(session, data);
             updates.AddRange(internalUpdates);

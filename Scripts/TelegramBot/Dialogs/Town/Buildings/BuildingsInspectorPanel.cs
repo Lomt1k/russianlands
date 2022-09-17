@@ -98,6 +98,11 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
         {
             if (!building.IsBuilt(_buildingsData))
             {
+                if (building.IsUnderConstruction(_buildingsData))
+                {
+                    await ShowBuildingCurrentLevelInfo(building);
+                    return;
+                }
                 await ShowConstructionAvailableInfo(building);
                 return;
             }
@@ -110,7 +115,14 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
             var sb = new StringBuilder();
             sb.AppendLine($"<b>{building.GetLocalizedName(session, _buildingsData)}</b>");
             sb.AppendLine();
-            sb.AppendLine(building.GetCurrentLevelInfo(session, _buildingsData));
+            if (building.GetCurrentLevel(_buildingsData) > 0)
+            {
+                sb.AppendLine(building.GetCurrentLevelInfo(session, _buildingsData));
+            }
+            else
+            {
+                sb.AppendLine(building.GetNextLevelInfo(session, _buildingsData));
+            }            
 
             var updates = building.GetUpdates(session, _buildingsData);
             if (updates.Count > 0)
