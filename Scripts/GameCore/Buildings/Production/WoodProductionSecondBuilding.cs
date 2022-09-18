@@ -1,4 +1,5 @@
 ﻿using TextGameRPG.Scripts.GameCore.Resources;
+using TextGameRPG.Scripts.TelegramBot;
 using TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData;
 
 namespace TextGameRPG.Scripts.GameCore.Buildings.Production
@@ -7,6 +8,8 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Production
     {
         public override ResourceType resourceType => ResourceType.Wood;
         public override BuildingType buildingType => BuildingType.WoodProductionSecond;
+        public override CharIcon firstWorkerIcon => CharIcon.MaleI;
+        public override CharIcon secondWorkerIcon => CharIcon.MaleH;
 
         public override byte GetCurrentLevel(ProfileBuildingsData data)
         {

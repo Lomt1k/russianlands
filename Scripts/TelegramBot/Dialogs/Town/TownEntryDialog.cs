@@ -29,7 +29,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town
                 + (session.player.buildings.HasImportantUpdates() ? $"{Emojis.elements[Element.WarningRed]}" : string.Empty);
             RegisterButton(buildingsLocalization, () => new Buildings.BuildingsDialog(session).Start());
 
-            RegisterButton($"{Emojis.menuItems[MenuItem.Character]} " + Localization.Get(session, "menu_item_character"),
+            RegisterButton($"{Emojis.characters[CharIcon.Male]} " + Localization.Get(session, "menu_item_character"),
                 () => new Character.TownCharacterDialog(session).Start());
             RegisterButton($"{Emojis.menuItems[MenuItem.Quests]} " + Localization.Get(session, "menu_item_quests"),
                 null);

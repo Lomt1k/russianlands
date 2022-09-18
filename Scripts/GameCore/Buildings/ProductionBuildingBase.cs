@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
 using TextGameRPG.Scripts.GameCore.Buildings.Data;
 using TextGameRPG.Scripts.GameCore.Localizations;
@@ -13,6 +12,8 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
     public abstract class ProductionBuildingBase : BuildingBase
     {
         public abstract ResourceType resourceType { get; }
+        public abstract CharIcon firstWorkerIcon { get; }
+        public abstract CharIcon secondWorkerIcon { get; }
 
         public string resourcePrefix;
 
@@ -115,9 +116,9 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
 
             sb.AppendLine();
             sb.AppendLine(Localization.Get(session, "building_production_per_hour_header"));
-            var firstWorker = $"{Emojis.menuItems[MenuItem.Character]} {Localization.Get(session, $"building_{buildingType}_first_worker")}{Emojis.bigSpace}";
+            var firstWorker = $"{Emojis.characters[firstWorkerIcon]} {Localization.Get(session, $"building_{buildingType}_first_worker")}{Emojis.bigSpace}";
             sb.AppendLine(firstWorker + resourcePrefix + $" {GetCurrentLevelFirstWorkerProductionPerHour(data).View()}");
-            var secondWorker = $"{Emojis.menuItems[MenuItem.Character]} {Localization.Get(session, $"building_{buildingType}_second_worker")}{Emojis.bigSpace}";
+            var secondWorker = $"{Emojis.characters[secondWorkerIcon]} {Localization.Get(session, $"building_{buildingType}_second_worker")}{Emojis.bigSpace}";
             sb.AppendLine(secondWorker + resourcePrefix + $" {GetCurrentLevelSecondWorkerProductionPerHour(data).View()}");
 
             sb.AppendLine();
@@ -137,13 +138,13 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             sb.AppendLine(Localization.Get(session, "building_production_per_hour_header"));
 
             bool hideDelta = !IsBuilt(data);
-            var firstWorker = $"{Emojis.menuItems[MenuItem.Character]} {Localization.Get(session, $"building_{buildingType}_first_worker")}{Emojis.bigSpace}";
+            var firstWorker = $"{Emojis.characters[firstWorkerIcon]} {Localization.Get(session, $"building_{buildingType}_first_worker")}{Emojis.bigSpace}";
             var currentValue = GetCurrentLevelFirstWorkerProductionPerHour(data);
             var nextValue = GetNextLevelFirstWorkerProductionPerHour(data);
             var delta = nextValue - currentValue;
             sb.AppendLine(firstWorker + resourcePrefix + $" {nextValue.View()}" + (hideDelta ? string.Empty : $" (<i>+{delta.View()}</i>)"));
 
-            var secondWorker = $"{Emojis.menuItems[MenuItem.Character]} {Localization.Get(session, $"building_{buildingType}_second_worker")}{Emojis.bigSpace}";
+            var secondWorker = $"{Emojis.characters[secondWorkerIcon]} {Localization.Get(session, $"building_{buildingType}_second_worker")}{Emojis.bigSpace}";
             currentValue = GetCurrentLevelSecondWorkerProductionPerHour(data);
             nextValue = GetNextLevelSecondWorkerProductionPerHour(data);
             delta = nextValue - currentValue;

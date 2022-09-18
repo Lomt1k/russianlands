@@ -7,7 +7,7 @@ namespace TextGameRPG.Scripts.TelegramBot
     public enum Flag
     {
         GreatBritain,
-        Russia
+        Russia,
     }
 
     public enum MenuItem
@@ -15,7 +15,6 @@ namespace TextGameRPG.Scripts.TelegramBot
         Town,
         Map,
         Buildings,
-        Character,
         Quests,
         Mail,
         Shop,
@@ -32,12 +31,34 @@ namespace TextGameRPG.Scripts.TelegramBot
         PhysicalDamage,
         FireDamage,
         ColdDamage,
-        LightningDamage
+        LightningDamage,
     }
 
     public enum MapLocation
     {
-        Arena
+        Arena,
+    }
+
+    public enum CharIcon
+    {
+        Male,
+        MaleB,
+        MaleC,
+        MaleD,
+        MaleE,
+        MaleF,
+        MaleG,
+        MaleH,
+        MaleI,
+        Female,
+        FemaleB,
+        FemaleC,
+        FemaleD,
+        FemaleE,
+        FemaleF,
+        FemaleG,
+        FemaleH,
+        FemaleI,
     }
 
     public enum Element
@@ -97,7 +118,6 @@ namespace TextGameRPG.Scripts.TelegramBot
             { MenuItem.Town, "\ud83c\udfd8" },
             { MenuItem.Map, "\ud83d\uddfa" },
             { MenuItem.Buildings, "\ud83d\uded6" },
-            { MenuItem.Character, "\ud83d\ude4e\u200d\u2642\ufe0f" },
             { MenuItem.Quests, "\ud83d\udccc" },
             { MenuItem.Mail, "\ud83d\udceb" },
             { MenuItem.Shop, "\ud83d\uded2" },
@@ -146,6 +166,30 @@ namespace TextGameRPG.Scripts.TelegramBot
         public static readonly Dictionary<MapLocation, string> locations = new Dictionary<MapLocation, string>
         {
             { MapLocation.Arena, "\ud83c\udfdf" },
+        };
+
+        public static readonly Dictionary<CharIcon, string> characters = new Dictionary<CharIcon, string>
+        {
+            { CharIcon.Male, "\ud83e\uddd1\ud83c\udffb\u200d\ud83e\uddb1" },
+            { CharIcon.MaleB, "\ud83e\uddd1\ud83c\udffc\u200d\ud83e\uddb1" },
+            { CharIcon.MaleC, "\ud83e\uddd1\ud83c\udffd\u200d\ud83e\uddb1" },
+            { CharIcon.MaleD, "\ud83e\uddd1\ud83c\udffb\u200d\ud83e\uddb0" },
+            { CharIcon.MaleE, "\ud83d\udc71\ud83c\udffb" },
+            { CharIcon.MaleF, "\ud83e\uddd1\ud83c\udffb" },
+            { CharIcon.MaleG, "\ud83d\udc68\ud83c\udffb" },
+            { CharIcon.MaleH, "\ud83d\udc68\ud83c\udffb\u200d\ud83e\uddb3" },
+            { CharIcon.MaleI, "\ud83d\udc74\ud83c\udffc" },
+
+
+            { CharIcon.Female, "\ud83d\udc69\ud83c\udffb\u200d\ud83e\uddb0" },
+            { CharIcon.FemaleB, "\ud83d\udc69\ud83c\udffc\u200d\ud83e\uddb1" },
+            { CharIcon.FemaleC, "\ud83d\udc69\ud83c\udffb\u200d\ud83e\uddb3" },
+            { CharIcon.FemaleD, "\ud83d\udc69\ud83c\udffb\u200d\ud83e\uddb1" },
+            { CharIcon.FemaleE, "\ud83d\udc71\ud83c\udffb\u200d\u2640\ufe0f" },
+            { CharIcon.FemaleF, "\ud83d\udc69\ud83c\udffb" },
+            { CharIcon.FemaleG, "\ud83d\udc69\ud83c\udffc" },
+            { CharIcon.FemaleH, "\ud83e\uddd1\ud83c\udffb\u200d\ud83e\uddb3" },
+            { CharIcon.FemaleI, "\ud83d\udc75\ud83c\udffb" },
         };
 
         public static readonly Dictionary<Element, string> elements = new Dictionary<Element, string>

@@ -40,7 +40,7 @@ namespace TextGameRPG.Scripts.GameCore.Units
         public string GetGeneralUnitInfoView(GameSession sessionToSend)
         {
             var sb = new StringBuilder();
-            sb.AppendLine($"<b>{nickname}{Emojis.menuItems[MenuItem.Character]}</b>");
+            sb.AppendLine($"<b>{nickname}{Emojis.characters[CharIcon.Male]}</b>");
             string levelStr = string.Format(Localization.Get(sessionToSend, "unit_view_level"), session.profile.data.level);
             sb.AppendLine(levelStr);
             return sb.ToString();
@@ -49,7 +49,7 @@ namespace TextGameRPG.Scripts.GameCore.Units
         public string GetFullUnitInfoView(GameSession sessionToSend)
         {
             var sb = new StringBuilder();
-            sb.AppendLine($"<b>{nickname}{Emojis.menuItems[MenuItem.Character]}</b>");
+            sb.AppendLine($"<b>{nickname}{Emojis.characters[CharIcon.Male]}</b>");
             string levelStr = string.Format(Localization.Get(sessionToSend, "unit_view_level"), session.profile.data.level);
             sb.AppendLine(levelStr);
             sb.AppendLine();
@@ -61,7 +61,7 @@ namespace TextGameRPG.Scripts.GameCore.Units
         public string GetStartTurnView(GameSession session)
         {
             var sb = new StringBuilder();
-            sb.AppendLine($"<b>{nickname}{Emojis.menuItems[MenuItem.Character]}</b>");
+            sb.AppendLine($"<b>{nickname}{Emojis.characters[CharIcon.Male]}</b>");
 
             sb.AppendLine(unitStats.GetView(session));
             return sb.ToString();
