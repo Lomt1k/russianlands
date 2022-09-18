@@ -72,6 +72,14 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             { BuildingType.GoldProductionFirst, new GoldProductionFirstBuilding() },
             { BuildingType.GoldProductionSecond, new GoldProductionSecondBuilding() },
             { BuildingType.GoldProductionThird, new GoldProductionThirdBuilding() },
+            { BuildingType.FoodProductionFirst, new FoodProductionFirstBuilding() },
+            { BuildingType.FoodProductionSecond, new FoodProductionSecondBuilding() },
+            { BuildingType.FoodProductionThird, new FoodProductionThirdBuilding() },
+            { BuildingType.HerbsProductionFirst, new HerbsProductionFirstBuilding() },
+            { BuildingType.HerbsProductionSecond, new HerbsProductionSecondBuilding() },
+            { BuildingType.HerbsProductionThird, new HerbsProductionThirdBuilding() },
+            { BuildingType.WoodProductionFirst, new WoodProductionFirstBuilding() },
+            { BuildingType.WoodProductionSecond, new WoodProductionSecondBuilding() },
         };
 
         public static BuildingLevelInfo CreateNewLevelInfo(this BuildingType buildingType)

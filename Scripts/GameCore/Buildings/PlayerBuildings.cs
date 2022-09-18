@@ -64,6 +64,14 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
                     yield return BuildingType.GoldProductionFirst.GetBuilding();
                     yield return BuildingType.GoldProductionSecond.GetBuilding();
                     yield return BuildingType.GoldProductionThird.GetBuilding();
+                    yield return BuildingType.FoodProductionFirst.GetBuilding();
+                    yield return BuildingType.FoodProductionSecond.GetBuilding();
+                    yield return BuildingType.FoodProductionThird.GetBuilding();
+                    yield return BuildingType.HerbsProductionFirst.GetBuilding();
+                    yield return BuildingType.HerbsProductionSecond.GetBuilding();
+                    yield return BuildingType.HerbsProductionThird.GetBuilding();
+                    yield return BuildingType.WoodProductionFirst.GetBuilding();
+                    yield return BuildingType.WoodProductionSecond.GetBuilding();
                     break;
             }
         }
