@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System;
 using TextGameRPG.Scripts.TelegramBot.Dialogs.Resources;
 using TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Shop;
+using Telegram.Bot.Types.ReplyMarkups;
 
 namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
 {
@@ -183,8 +184,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
                 () => ShowNotifications());
 
             lastMessage = asNewMessage || lastMessage == null
-                ? await messageSender.SendTextMessage(session.chatId, text, GetMultilineKeyboard())
-                : await messageSender.EditTextMessage(session.chatId, lastMessage.MessageId, text, GetMultilineKeyboard());
+                ? await messageSender.SendTextMessage(session.chatId, text, GetListKeyboard(category))
+                : await messageSender.EditTextMessage(session.chatId, lastMessage.MessageId, text, GetListKeyboard(category));
         }
 
         private string GetPrefix(BuildingBase building, ProfileBuildingsData data)
@@ -198,6 +199,19 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
             return building.IsNextLevelUnlocked(data)
                 ? Emojis.elements[Element.Plus] + Emojis.space
                 : Emojis.elements[Element.Locked] + Emojis.space;
+        }
+
+        private InlineKeyboardMarkup GetListKeyboard(BuildingCategory category)
+        {
+            switch (category)
+            {
+                case BuildingCategory.Storages:
+                    return GetKeyboardWithRowSizes(2, 2, 1);
+                case BuildingCategory.Production:
+                    return GetKeyboardWithRowSizes(2, 2, 2, 2, 2, 2);
+                default:
+                    return GetMultilineKeyboard();
+            }
         }
 
         private async Task ShowBuildingInfo(BuildingBase building)
