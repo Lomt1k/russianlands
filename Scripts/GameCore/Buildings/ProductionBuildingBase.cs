@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using TextGameRPG.Scripts.GameCore.Buildings.Data;
 using TextGameRPG.Scripts.GameCore.Localizations;
@@ -24,8 +25,8 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
         public abstract byte GetSecondWorkerLevel(ProfileBuildingsData data);
         public abstract void SetFirstWorkerLevel(ProfileBuildingsData data, byte level);
         public abstract void SetSecondWorkerLevel(ProfileBuildingsData data, byte level);
-        protected abstract long GetStartFarmTime(ProfileBuildingsData data);
-        protected abstract void SetStartFarmTime(ProfileBuildingsData data, long startFarmTime);
+        public abstract long GetStartFarmTime(ProfileBuildingsData data);
+        public abstract void SetStartFarmTime(ProfileBuildingsData data, long startFarmTime);
 
         public int GetCurrentLevelResourceLimit(ProfileBuildingsData data)
         {
@@ -88,6 +89,9 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
 
         public int GetFarmedResourceAmount(ProfileBuildingsData data)
         {
+            if (!IsBuilt(data))
+                return 0;
+
             var startFarmTime = GetStartFarmTime(data);
             if (startFarmTime < 1) //fix incorrect startTime
             {
@@ -154,6 +158,13 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             sb.Append(capacity);
 
             return sb.ToString();
+        }
+
+        public override bool HasImportantUpdatesInternal(ProfileBuildingsData data)
+        {
+            var farmedAmount = GetFarmedResourceAmount(data);
+            var limit = GetCurrentLevelResourceLimit(data);
+            return farmedAmount >= limit;
         }
 
     }

@@ -27,33 +27,17 @@ namespace TextGameRPG.Scripts.GameCore.Resources
             sb.AppendLine(Localizations.Localization.Get(_session, "resource_header_resources"));
             var generalResources = resourceDictionary.GetGeneralResourceTypes();
 
-            int elementsInCurrentRow = 0;
+            var dictionary = new Dictionary<ResourceType,int>();
             foreach (var resourceType in generalResources)
             {
                 if (!IsUnlocked(resourceType))
                     continue;
 
-                if (elementsInCurrentRow == maxResourcesInRow)
-                {
-                    sb.AppendLine();
-                    elementsInCurrentRow = 0;
-                }
-                if (elementsInCurrentRow > 0)
-                {
-                    sb.Append(Emojis.bigSpace);
-                }
-
-                sb.Append(GetResourceView(resourceType));
-                elementsInCurrentRow++;
+                dictionary.Add(resourceType, GetValue(resourceType));
             }
 
+            sb.Append(ResourceHelper.GetCompactResourcesView(dictionary));
             return sb.ToString();
-        }
-
-        /// <returns>Количество ресурсов в готовом для отображения виде (с иконкой ресурса + сокращенно)</returns>
-        public string GetResourceView(ResourceType resourceType)
-        {
-            return resourceType.GetShortView(GetValue(resourceType));
         }
 
         /// <returns>Количество имеющихся у игрока ресурсов указанного типа</returns>

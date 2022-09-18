@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using TextGameRPG.Scripts.GameCore.Localizations;
+using TextGameRPG.Scripts.TelegramBot;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Resources
@@ -111,6 +112,29 @@ namespace TextGameRPG.Scripts.GameCore.Resources
             if (!hasAmount)
             {
                 sb.AppendLine(Localization.Get(session, "resource_price_free"));
+            }
+
+            return sb.ToString();
+        }
+
+        public static string GetCompactResourcesView(Dictionary<ResourceType, int> resources)
+        {
+            var sb = new StringBuilder();
+            int elementsInCurrentRow = 0;
+            foreach (var resource in resources)
+            {
+                if (elementsInCurrentRow == 3)
+                {
+                    sb.AppendLine();
+                    elementsInCurrentRow = 0;
+                }
+                if (elementsInCurrentRow > 0)
+                {
+                    sb.Append(Emojis.bigSpace);
+                }
+
+                sb.Append(resource.Key.GetShortView(resource.Value));
+                elementsInCurrentRow++;
             }
 
             return sb.ToString();

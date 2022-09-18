@@ -28,12 +28,12 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Production
             data.goldProdSecondStartConstructionTime = startConstructionTime;
         }
 
-        protected override long GetStartFarmTime(ProfileBuildingsData data)
+        public override long GetStartFarmTime(ProfileBuildingsData data)
         {
             return data.goldProdSecondStartFarmTime;
         }
 
-        protected override void SetStartFarmTime(ProfileBuildingsData data, long startFarmTime)
+        public override void SetStartFarmTime(ProfileBuildingsData data, long startFarmTime)
         {
             data.goldProdSecondStartFarmTime = startFarmTime;
         }
