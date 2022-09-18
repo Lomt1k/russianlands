@@ -26,7 +26,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town
                 () => new GlobalMap.GlobalMapDialog(session).Start());
 
             var buildingsLocalization = $"{Emojis.menuItems[MenuItem.Buildings]} " + Localization.Get(session, "menu_item_buildings")
-                + (session.player.buildings.HasImportantUpdates() ? $" {Emojis.elements[Element.NotificationGreen]}" : string.Empty);
+                + (session.player.buildings.HasImportantUpdates() ? $"{Emojis.elements[Element.WarningRed]}" : string.Empty);
             RegisterButton(buildingsLocalization, () => new Buildings.BuildingsDialog(session).Start());
 
             RegisterButton($"{Emojis.menuItems[MenuItem.Character]} " + Localization.Get(session, "menu_item_character"),
