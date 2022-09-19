@@ -8,7 +8,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Production
     {
         public override ResourceType resourceType => ResourceType.Gold;
         public override BuildingType buildingType => BuildingType.GoldProductionSecond;
-        public override CharIcon firstWorkerIcon => CharIcon.MaleC;
+        public override CharIcon firstWorkerIcon => CharIcon.Male;
         public override CharIcon secondWorkerIcon => CharIcon.MaleD;
 
         public override byte GetCurrentLevel(ProfileBuildingsData data)

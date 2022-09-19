@@ -172,7 +172,7 @@ namespace TextGameRPG.Scripts.TelegramBot
         {
             { CharIcon.Male, "\ud83e\uddd1\ud83c\udffb\u200d\ud83e\uddb1" },
             { CharIcon.MaleB, "\ud83e\uddd1\ud83c\udffc\u200d\ud83e\uddb1" },
-            { CharIcon.MaleC, "\ud83e\uddd1\ud83c\udffd\u200d\ud83e\uddb1" },
+            { CharIcon.MaleC, "\ud83e\uddd1\ud83c\udffd" },
             { CharIcon.MaleD, "\ud83e\uddd1\ud83c\udffb\u200d\ud83e\uddb0" },
             { CharIcon.MaleE, "\ud83d\udc71\ud83c\udffb" },
             { CharIcon.MaleF, "\ud83e\uddd1\ud83c\udffb" },

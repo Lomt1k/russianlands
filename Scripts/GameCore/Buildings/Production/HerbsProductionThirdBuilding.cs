@@ -8,8 +8,8 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Production
     {
         public override ResourceType resourceType => ResourceType.Herbs;
         public override BuildingType buildingType => BuildingType.HerbsProductionThird;
-        public override CharIcon firstWorkerIcon => CharIcon.FemaleH;
-        public override CharIcon secondWorkerIcon => CharIcon.FemaleI;
+        public override CharIcon firstWorkerIcon => CharIcon.FemaleI;
+        public override CharIcon secondWorkerIcon => CharIcon.FemaleD;
 
         public override byte GetCurrentLevel(ProfileBuildingsData data)
         {
