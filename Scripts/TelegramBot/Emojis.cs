@@ -21,6 +21,7 @@ namespace TextGameRPG.Scripts.TelegramBot
         Avatar,
         Inventory,
         Battle,
+        Premium,
     }
 
     public enum Stat
@@ -59,6 +60,8 @@ namespace TextGameRPG.Scripts.TelegramBot
         FemaleG,
         FemaleH,
         FemaleI,
+        BuilderA,
+        BuilderB,
     }
 
     public enum Element
@@ -124,6 +127,7 @@ namespace TextGameRPG.Scripts.TelegramBot
             { MenuItem.Avatar, "\ud83d\udc40" },
             { MenuItem.Inventory, "\ud83c\udf92" },
             { MenuItem.Battle, "\u2694\ufe0f" },
+            { MenuItem.Premium, "\ud83d\udc51" },
         };
 
         public static readonly Dictionary<Stat, string> stats = new Dictionary<Stat, string>
@@ -180,7 +184,6 @@ namespace TextGameRPG.Scripts.TelegramBot
             { CharIcon.MaleH, "\ud83d\udc68\ud83c\udffb\u200d\ud83e\uddb3" },
             { CharIcon.MaleI, "\ud83d\udc74\ud83c\udffc" },
 
-
             { CharIcon.Female, "\ud83d\udc69\ud83c\udffb\u200d\ud83e\uddb0" },
             { CharIcon.FemaleB, "\ud83d\udc69\ud83c\udffc\u200d\ud83e\uddb1" },
             { CharIcon.FemaleC, "\ud83d\udc69\ud83c\udffb\u200d\ud83e\uddb3" },
@@ -190,6 +193,9 @@ namespace TextGameRPG.Scripts.TelegramBot
             { CharIcon.FemaleG, "\ud83d\udc69\ud83c\udffc" },
             { CharIcon.FemaleH, "\ud83e\uddd1\ud83c\udffb\u200d\ud83e\uddb3" },
             { CharIcon.FemaleI, "\ud83d\udc75\ud83c\udffb" },
+
+            { CharIcon.BuilderA, "\ud83d\udc77\ud83c\udffc\u200d\u2642\ufe0f" },
+            { CharIcon.BuilderB, "\ud83d\udc77\ud83c\udffd" },
         };
 
         public static readonly Dictionary<Element, string> elements = new Dictionary<Element, string>

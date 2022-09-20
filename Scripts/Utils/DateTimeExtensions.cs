@@ -52,4 +52,31 @@ public static class DateTimeExtensions
                 sb.Append(' ');
         }
     }
+
+    public static string GetShortView(this TimeSpan timeSpan, GameSession session)
+    {
+        string result = string.Empty;
+        if (timeSpan.TotalDays >= 1)
+        {
+            var days = (int)Math.Round(timeSpan.TotalDays);
+            result = days + Localization.Get(session, "time_span_days");
+        }
+        else if (timeSpan.TotalHours >= 1)
+        {
+            var hours = (int)Math.Round(timeSpan.TotalHours);
+            result = hours + Localization.Get(session, "time_span_hours");
+        }
+        else if (timeSpan.TotalMinutes >= 1)
+        {
+            var minutes = (int)Math.Round(timeSpan.TotalMinutes);
+            result = minutes + Localization.Get(session, "time_span_minutes");
+        }
+        else
+        {
+            var seconds = (int)Math.Round(timeSpan.TotalSeconds);
+            result = seconds + Localization.Get(session, "time_span_seconds");
+        }
+
+        return $"{Emojis.elements[Element.Clock]} " + result;
+    }
 }

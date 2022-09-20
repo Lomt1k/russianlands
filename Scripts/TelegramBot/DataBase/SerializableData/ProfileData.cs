@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.TelegramBot.DataBase.TablesStructure;
 
@@ -8,6 +9,7 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData
     {
         public long dbid;
         public long telegram_id;
+        public long endPremiumTime;
         public string username;
         public string language;
         public string nickname;
@@ -26,7 +28,8 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData
             return new TableColumn[]
             {
                 new TableColumn("dbid", "INTEGER PRIMARY KEY AUTOINCREMENT", "0"),
-                new TableColumn("telegram_id", "INTEGER", "na"),
+                new TableColumn("telegram_id", "INTEGER", "0"),
+                new TableColumn("endPremiumTime", "INTEGER", "0"),
                 new TableColumn("username", "TEXT", "na"),
                 new TableColumn("language", "TEXT", "ru"),
                 new TableColumn("nickname", "TEXT", "na"),
@@ -53,8 +56,15 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData
             var success = await profilesTable.UpdateDataInDatabase(this);
             return success;
         }
+        public bool IsPremiumActive()
+        {
+            return endPremiumTime > DateTime.UtcNow.Ticks;
+        }
 
-
+        public bool IsPremiumExpired()
+        {
+            return !IsPremiumActive() && endPremiumTime > 0;
+        }
 
 
     }

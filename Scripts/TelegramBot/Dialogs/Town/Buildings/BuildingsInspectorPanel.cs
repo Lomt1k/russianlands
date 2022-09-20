@@ -15,6 +15,9 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
 {
     public class BuildingsInspectorPanel : DialogPanelBase
     {
+        public static int maxConstructions = 2;
+        public static int maxConstructionsPremium = 4;
+
         private ProfileBuildingsData _buildingsData => session.profile.buildingsData;
 
         public BuildingsInspectorPanel(DialogBase _dialog, byte _panelId) : base(_dialog, _panelId)
@@ -402,6 +405,16 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
                 return;
             }
 
+            var isPremiumActive = session.profile.data.IsPremiumActive();
+            var constructionsLimit = isPremiumActive ? maxConstructionsPremium : maxConstructions;
+            var allBuildings = session.player.buildings.GetAllBuildings();
+            var constructions = allBuildings.Where(x => x.IsUnderConstruction(_buildingsData) && !x.IsConstructionCanBeFinished(_buildingsData)).ToArray();
+            if (constructions.Length >= constructionsLimit)
+            {
+                await ShowConstructionsLimitMessage(building, constructions);
+                return;
+            }
+
             var requiredResources = GetRequiredResourcesForConstruction(building);
             var playerResources = session.player.resources;
             var successfullPurchase = playerResources.TryPurchase(requiredResources, out var notEnoughResources);
@@ -416,6 +429,37 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
                 onSuccess: async () => await new BuildingsDialog(session).StartFromBuyResourcesDialog(building, true),
                 onCancel: async () => await new BuildingsDialog(session).StartFromBuyResourcesDialog(building, false));
             await buyResourcesDialog.Start();
+        }
+
+        private async Task ShowConstructionsLimitMessage(BuildingBase building, BuildingBase[] constructions)
+        {
+            ClearButtons();
+            var sb = new StringBuilder();
+            var data = session.profile.buildingsData;
+            sb.AppendLine(Localization.Get(session, "dialog_buildings_construction_limit"));
+            sb.AppendLine();
+
+            for (int i = 0; i < constructions.Length; i++)
+            {                
+                var charIcon = i % 2 == 0 ? CharIcon.BuilderA : CharIcon.BuilderB;
+                sb.Append($"{Emojis.characters[charIcon]} <b>{Localization.Get(session, $"dialog_buildings_worker_{i}_name")}:</b> ");
+
+                var buildingName = constructions[i].GetLocalizedName(session, data);
+                var time = (constructions[i].GetEndConstructionTime(data) - DateTime.UtcNow).GetShortView(session);
+                sb.AppendLine($"{buildingName} {time}");
+            }
+
+            if (!session.profile.data.IsPremiumActive())
+            {
+                sb.AppendLine();
+                sb.AppendLine(string.Format(Localization.Get(session, "dialog_buildings_construction_limit_can_buy_premium"), maxConstructionsPremium));
+                RegisterButton($"{Emojis.menuItems[MenuItem.Shop]} {Localization.Get(session, "menu_item_shop")}", () => new ShopDialog(session).Start());
+            }
+            RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_back_button")}", () => ShowBuildingCurrentLevelInfo(building));
+
+            lastMessage = lastMessage == null
+                ? await messageSender.SendTextMessage(session.chatId, sb.ToString(), GetMultilineKeyboard())
+                : await messageSender.EditTextMessage(session.chatId, lastMessage.MessageId, sb.ToString(), GetMultilineKeyboard());
         }
 
         private Dictionary<ResourceType, int> GetRequiredResourcesForConstruction(BuildingBase building)
