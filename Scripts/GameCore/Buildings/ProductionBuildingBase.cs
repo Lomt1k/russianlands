@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Buildings.Data;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Resources;
 using TextGameRPG.Scripts.TelegramBot;
 using TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData;
+using TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Buildings
@@ -28,6 +31,14 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
         public abstract void SetSecondWorkerLevel(ProfileBuildingsData data, byte level);
         public abstract long GetStartFarmTime(ProfileBuildingsData data);
         public abstract void SetStartFarmTime(ProfileBuildingsData data, long startFarmTime);
+
+        public override Dictionary<string, Func<Task>> GetSpecialButtons(GameSession session, ProfileBuildingsData data)
+        {
+            return new Dictionary<string, Func<Task>>
+            {
+                { Localization.Get(session, "dialog_buildings_get_resources"), () => new BuildingsDialog(session).StartWithTryCollectResources() },
+            };
+        }
 
         public int GetCurrentLevelResourceLimit(ProfileBuildingsData data)
         {

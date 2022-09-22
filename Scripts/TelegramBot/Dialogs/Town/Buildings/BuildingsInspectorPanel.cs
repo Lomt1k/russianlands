@@ -96,7 +96,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
             }
         }
 
-        private async Task TryCollectResources()
+        public async Task TryCollectResources()
         {
             var limitedStorages = new HashSet<ResourceType>();
             var collectedResources = new Dictionary<ResourceType, int>();
@@ -280,6 +280,11 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
                         () => ShowConstructionAvailableInfo(building));
                 }
             }
+            var specialButtons = building.GetSpecialButtons(session, _buildingsData);
+            foreach (var button in specialButtons)
+            {
+                RegisterButton(button.Key, () => button.Value());
+            }
             RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_back_to_list_button")}",
                     () => ShowBuildingsList(building.buildingType.GetCategory(), asNewMessage: false));
 
@@ -357,14 +362,11 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
             var levelData = building.buildingData.levels[level];
 
             sb.AppendLine();
-            sb.AppendLine(Localization.Get(session, "dialog_buildings_construction_time"));
+            var requiredResources = GetRequiredResourcesForConstruction(building);
+            sb.Append(ResourceHelper.GetPriceView(session, requiredResources));
             var dtNow = DateTime.UtcNow;
             var timeSpan = (dtNow.AddSeconds(levelData.constructionTime) - dtNow);
-            sb.AppendLine(timeSpan.GetView(session));
-
-            sb.AppendLine();
-            var requiredResources = GetRequiredResourcesForConstruction(building);
-            sb.AppendLine(ResourceHelper.GetPriceView(session, requiredResources));
+            sb.AppendLine(timeSpan.GetView(session, withCaption: true));
 
             var playerTownHall = BuildingType.TownHall.GetBuilding().GetCurrentLevel(_buildingsData);
             if (playerTownHall < levelData.requiredTownHall)

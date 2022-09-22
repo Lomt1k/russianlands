@@ -30,21 +30,31 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
 
         public override async Task Start()
         {
-            var header = $"{Emojis.menuItems[MenuItem.Buildings]} " + "<b>" + Localization.Get(session, "menu_item_buildings") + "</b>";
-            await messageSender.SendTextDialog(session.chatId, header, GetKeyboardWithRowSizes(2, 2, 1));
+            await SendHeader();
             await SendPanelsAsync();
         }
 
         public async Task StartFromBuyResourcesDialog(BuildingBase inspectedBuilding, bool successfullPurchase)
         {
-            var header = $"{Emojis.menuItems[MenuItem.Buildings]} " + "<b>" + Localization.Get(session, "menu_item_buildings") + "</b>";
-            await messageSender.SendTextDialog(session.chatId, header, GetKeyboardWithRowSizes(2, 2, 1));
+            await SendHeader();
             if (successfullPurchase)
             {
                 await _inspectorPanel.TryStartConstruction(inspectedBuilding);
                 return;
             }
             await _inspectorPanel.ShowBuildingCurrentLevelInfo(inspectedBuilding);
+        }
+
+        public async Task StartWithTryCollectResources()
+        {
+            await SendHeader();
+            await _inspectorPanel.TryCollectResources();
+        }
+
+        private async Task SendHeader()
+        {
+            var header = $"{Emojis.menuItems[MenuItem.Buildings]} " + "<b>" + Localization.Get(session, "menu_item_buildings") + "</b>";
+            await messageSender.SendTextDialog(session.chatId, header, GetKeyboardWithRowSizes(2, 2, 1));
         }
 
     }

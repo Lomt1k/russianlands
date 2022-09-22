@@ -16,7 +16,7 @@ public static class DateTimeExtensions
         return dateTime.Ticks;
     }
 
-    public static string GetView(this TimeSpan timeSpan, GameSession session)
+    public static string GetView(this TimeSpan timeSpan, GameSession session, bool withCaption = false)
     {
         var sb = new StringBuilder();
         bool spaceRequired = false;
@@ -44,7 +44,9 @@ public static class DateTimeExtensions
             sb.Append(timeSpan.Seconds + Localization.Get(session, "time_span_seconds"));
         }
 
-        return $"{Emojis.elements[Element.Clock]} " + sb.ToString();
+        return withCaption
+            ? $"{Emojis.elements[Element.Clock]} {Localization.Get(session, "resource_name_time")} {sb}"
+            : $"{Emojis.elements[Element.Clock]} {sb}";
 
         void AddSpaceIfRequired(StringBuilder sb)
         {

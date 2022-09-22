@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Buildings.Data;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData;
@@ -12,12 +13,18 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
         public abstract BuildingType buildingType { get; }
         public BuildingData buildingData => GameDataBase.GameDataBase.instance.buildings[(int)buildingType];
 
+        public virtual Dictionary<string, Func<Task>> GetSpecialButtons(GameSession session, ProfileBuildingsData data)
+        {
+            return new Dictionary<string, Func<Task>>();
+        }
+
         public abstract byte GetCurrentLevel(ProfileBuildingsData data);
         public abstract string GetCurrentLevelInfo(GameSession session, ProfileBuildingsData data);
         public abstract string GetNextLevelInfo(GameSession session, ProfileBuildingsData data);
         protected abstract void SetCurrentLevel(ProfileBuildingsData data, byte level);
         protected abstract long GetStartConstructionTime(ProfileBuildingsData data);
         protected abstract void SetStartConstructionTime(ProfileBuildingsData data, long startConstructionTime);
+
 
         public bool HasImportantUpdates(ProfileBuildingsData data)
         {
