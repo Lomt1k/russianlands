@@ -93,6 +93,36 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData
         public byte woodProdSecondWorkerFirst;
         public byte woodProdSecondWorkerSecond;
 
+        // --- Тренировка
+        public byte goldTrainingLevel;
+        public long goldTrainingStartConstructionTime;
+        public sbyte goldTrainingFirstUnitIndex;
+        public sbyte goldTrainingSecondUnitIndex;
+        public long goldTrainingFirstUnitStartTime;
+        public long goldTrainingSecondUnitStartTime;
+
+        public byte foodTrainingLevel;
+        public long foodTrainingStartConstructionTime;
+        public sbyte foodTrainingFirstUnitIndex;
+        public sbyte foodTrainingSecondUnitIndex;
+        public long foodTrainingFirstUnitStartTime;
+        public long foodTrainingSecondUnitStartTime;
+
+        public byte herbsTrainingLevel;
+        public long herbsTrainingStartConstructionTime;
+        public sbyte herbsTrainingFirstUnitIndex;
+        public sbyte herbsTrainingSecondUnitIndex;
+        public long herbsTrainingFirstUnitStartTime;
+        public long herbsTrainingSecondUnitStartTime;
+
+        public byte woodTrainingLevel;
+        public long woodTrainingStartConstructionTime;
+        public sbyte woodTrainingFirstUnitIndex;
+        public sbyte woodTrainingSecondUnitIndex;
+        public long woodTrainingFirstUnitStartTime;
+        public long woodTrainingSecondUnitStartTime;
+
+
 
         public static TableColumn[] GetTableColumns()
         {
@@ -184,6 +214,42 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData
                 new TableColumn("woodProdSecondStartFarmTime", "INTEGER", "0"),
                 new TableColumn("woodProdSecondWorkerFirst", "INTEGER", "1"),
                 new TableColumn("woodProdSecondWorkerSecond", "INTEGER", "1"),
+
+                // --- Тренировка
+                new TableColumn("goldTrainingLevel", "INTEGER", "0"),
+                new TableColumn("goldTrainingStartConstructionTime", "INTEGER", "0"),
+                new TableColumn("goldTrainingFirstUnitIndex", "INTEGER", "-1"),
+                new TableColumn("goldTrainingSecondUnitIndex", "INTEGER", "-1"),
+                new TableColumn("goldTrainingFirstUnitStartTime", "INTEGER", "0"),
+                new TableColumn("goldTrainingSecondUnitStartTime", "INTEGER", "0"),
+
+                new TableColumn("foodTrainingLevel", "INTEGER", "0"),
+                new TableColumn("foodTrainingStartConstructionTime", "INTEGER", "0"),
+                new TableColumn("foodTrainingFirstUnitIndex", "INTEGER", "-1"),
+                new TableColumn("foodTrainingSecondUnitIndex", "INTEGER", "-1"),
+                new TableColumn("foodTrainingFirstUnitStartTime", "INTEGER", "0"),
+                new TableColumn("foodTrainingSecondUnitStartTime", "INTEGER", "0"),
+
+                new TableColumn("herbsTrainingLevel", "INTEGER", "0"),
+                new TableColumn("herbsTrainingStartConstructionTime", "INTEGER", "0"),
+                new TableColumn("herbsTrainingFirstUnitIndex", "INTEGER", "-1"),
+                new TableColumn("herbsTrainingSecondUnitIndex", "INTEGER", "-1"),
+                new TableColumn("herbsTrainingFirstUnitStartTime", "INTEGER", "0"),
+                new TableColumn("herbsTrainingSecondUnitStartTime", "INTEGER", "0"),
+
+                new TableColumn("woodTrainingLevel", "INTEGER", "0"),
+                new TableColumn("woodTrainingStartConstructionTime", "INTEGER", "0"),
+                new TableColumn("woodTrainingFirstUnitIndex", "INTEGER", "-1"),
+                new TableColumn("woodTrainingSecondUnitIndex", "INTEGER", "-1"),
+                new TableColumn("woodTrainingFirstUnitStartTime", "INTEGER", "0"),
+                new TableColumn("woodTrainingSecondUnitStartTime", "INTEGER", "0"),
+
+                new TableColumn("warriorTrainingLevel", "INTEGER", "0"),
+                new TableColumn("warriorTrainingStartConstructionTime", "INTEGER", "0"),
+                new TableColumn("warriorTrainingFirstUnitIndex", "INTEGER", "-1"),
+                new TableColumn("warriorTrainingSecondUnitIndex", "INTEGER", "-1"),
+                new TableColumn("warriorTrainingFirstUnitStartTime", "INTEGER", "0"),
+                new TableColumn("warriorTrainingSecondUnitStartTime", "INTEGER", "0"),
             };
         }
 

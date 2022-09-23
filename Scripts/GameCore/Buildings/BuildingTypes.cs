@@ -3,6 +3,7 @@ using TextGameRPG.Scripts.GameCore.Buildings.Data;
 using TextGameRPG.Scripts.GameCore.Buildings.General;
 using TextGameRPG.Scripts.GameCore.Buildings.Production;
 using TextGameRPG.Scripts.GameCore.Buildings.Storages;
+using TextGameRPG.Scripts.GameCore.Buildings.Training;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Buildings
@@ -48,7 +49,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
         WoodProductionSecond = 310,
 
         // --- Тренировочные залы
-        FightTraining = 400,
+        WarriorTraining = 400,
         GoldTraining = 401,
         FoodTraining = 402,
         HerbsTraining = 403,
@@ -80,6 +81,9 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             { BuildingType.HerbsProductionThird, new HerbsProductionThirdBuilding() },
             { BuildingType.WoodProductionFirst, new WoodProductionFirstBuilding() },
             { BuildingType.WoodProductionSecond, new WoodProductionSecondBuilding() },
+
+            // --- Тренировочные залы
+            { BuildingType.GoldTraining, new GoldTrainingBuilding() },
         };
 
         public static BuildingLevelInfo CreateNewLevelInfo(this BuildingType buildingType)
@@ -105,7 +109,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
                 case BuildingType.WoodProductionSecond:
                     return new ProductionLevelInfo();
 
-                case BuildingType.FightTraining:
+                case BuildingType.WarriorTraining:
                 case BuildingType.GoldTraining:
                 case BuildingType.FoodTraining:
                 case BuildingType.HerbsTraining:
@@ -161,7 +165,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
                 case BuildingType.WoodProductionSecond:
                     return BuildingCategory.Production;
 
-                case BuildingType.FightTraining:
+                case BuildingType.WarriorTraining:
                 case BuildingType.GoldTraining:
                 case BuildingType.FoodTraining:
                 case BuildingType.HerbsTraining:

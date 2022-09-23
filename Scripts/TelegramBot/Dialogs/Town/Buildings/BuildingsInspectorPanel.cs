@@ -371,6 +371,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
             var playerTownHall = BuildingType.TownHall.GetBuilding().GetCurrentLevel(_buildingsData);
             if (playerTownHall < levelData.requiredTownHall)
             {
+                sb.AppendLine();
                 var localization = string.Format(Localization.Get(session, "dialog_buildings_required_town_hall"), levelData.requiredTownHall);
                 sb.AppendLine(Emojis.elements[Element.WarningGrey] + localization);
             }
