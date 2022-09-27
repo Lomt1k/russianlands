@@ -62,6 +62,7 @@ namespace TextGameRPG.Scripts.TelegramBot
         FemaleI,
         BuilderA,
         BuilderB,
+        Abstract,
     }
 
     public enum Element
@@ -196,6 +197,7 @@ namespace TextGameRPG.Scripts.TelegramBot
 
             { CharIcon.BuilderA, "\ud83d\udc77\ud83c\udffc\u200d\u2642\ufe0f" },
             { CharIcon.BuilderB, "\ud83d\udc77\ud83c\udffd" },
+            { CharIcon.Abstract, "\ud83d\ude4e\u200d\u2642\ufe0f" },
         };
 
         public static readonly Dictionary<Element, string> elements = new Dictionary<Element, string>
