@@ -14,8 +14,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
                 null);
             RegisterButton($"{Emojis.menuItems[MenuItem.Inventory]} " + Localization.Get(session, "menu_item_inventory"),
                 () => new InventoryDialog(session).Start());
-            RegisterButton($"{Emojis.elements[Element.Back]} " + Localization.Get(session, "menu_item_back_button"),
-                () => new TownEntryDialog(session, TownEntryReason.BackFromInnerDialog).Start());
+            RegisterBackButton(() => new TownEntryDialog(session, TownEntryReason.BackFromInnerDialog).Start());
         }
 
         public override async Task Start()

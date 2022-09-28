@@ -36,8 +36,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
                 () => _inspectorPanel.ShowCategory(ItemType.Scroll));
             RegisterButton($"{Emojis.items[ItemType.Poison]} " + Localization.Get(session, "menu_item_poisons"),
                 () => _inspectorPanel.ShowCategory(ItemType.Poison));
-            RegisterButton($"{Emojis.elements[Element.Back]} " + Localization.Get(session, "menu_item_back_button"),
-                () => new TownCharacterDialog(session).Start());
+
+            RegisterBackButton(() => new TownCharacterDialog(session).Start());
         }
 
         public override async Task Start()

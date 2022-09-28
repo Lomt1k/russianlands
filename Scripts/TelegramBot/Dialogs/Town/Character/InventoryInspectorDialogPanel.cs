@@ -287,7 +287,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
                     : $"{Emojis.items[type]} {Localization.Get(session, "menu_item_empty_slot_button")}";
                 RegisterButton(buttonText, () => EquipMultiSlot(item, slotId));
             }
-            RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_back_button")}", () => ShowItemInspector(item));
+            RegisterBackButton(() => ShowItemInspector(item));
 
             lastMessage = await messageSender.EditTextMessage(session.chatId, lastMessage.MessageId, text, GetMultilineKeyboard());
         }

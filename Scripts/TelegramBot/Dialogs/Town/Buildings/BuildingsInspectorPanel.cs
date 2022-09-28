@@ -209,9 +209,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
             switch (category)
             {
                 case BuildingCategory.Storages:
-                    return GetKeyboardWithRowSizes(2, 2, 1);
                 case BuildingCategory.Production:
-                    return GetKeyboardWithRowSizes(2, 2, 2, 2, 2, 2);
+                    return GetKeyboardWithFixedRowSize(2);
                 default:
                     return GetMultilineKeyboard();
             }
@@ -285,8 +284,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
             {
                 RegisterButton(button.Key, () => button.Value());
             }
-            RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_back_to_list_button")}",
-                    () => ShowBuildingsList(building.buildingType.GetCategory(), asNewMessage: false));
+            RegisterBackButton(() => ShowBuildingsList(building.buildingType.GetCategory(), asNewMessage: false));
 
             lastMessage = lastMessage == null
                 ? await messageSender.SendTextMessage(session.chatId, sb.ToString(), GetMultilineKeyboard())
@@ -337,7 +335,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
             var text = string.Format(Localization.Get(session, "resource_not_enough_diamonds"), Emojis.smiles[Smile.Sad]);
             RegisterButton($"{Emojis.menuItems[MenuItem.Shop]} {Localization.Get(session, "menu_item_shop")}",
                 () => new ShopDialog(session).Start());
-            RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_back_button")}", () => ShowBuildingCurrentLevelInfo(building));
+            RegisterBackButton(() => ShowBuildingCurrentLevelInfo(building));
 
             lastMessage = lastMessage == null
                 ? await messageSender.SendTextMessage(session.chatId, text, GetMultilineKeyboard())
@@ -458,7 +456,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
                 sb.AppendLine(string.Format(Localization.Get(session, "dialog_buildings_construction_limit_can_buy_premium"), maxConstructionsPremium));
                 RegisterButton($"{Emojis.menuItems[MenuItem.Shop]} {Localization.Get(session, "menu_item_shop")}", () => new ShopDialog(session).Start());
             }
-            RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_back_button")}", () => ShowBuildingCurrentLevelInfo(building));
+            RegisterBackButton(() => ShowBuildingCurrentLevelInfo(building));
 
             lastMessage = lastMessage == null
                 ? await messageSender.SendTextMessage(session.chatId, sb.ToString(), GetMultilineKeyboard())

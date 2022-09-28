@@ -28,7 +28,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
         public async Task ShowAttributesInfo()
         {
             ClearButtons();
-            RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_back_button")}", () => ShowUnitView());
+            RegisterBackButton(() => ShowUnitView());
             var text = Localization.Get(session, "dialog_character_attributes_info");
 
             lastMessage = await messageSender.EditTextMessage(session.chatId, lastMessage.MessageId, text, GetOneLineKeyboard());

@@ -8,8 +8,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Shop
     {
         public ShopDialog(GameSession _session) : base(_session)
         {
-            RegisterButton($"{Emojis.elements[Element.Back]} " + Localization.Get(session, "menu_item_back_button"),
-                () => new TownEntryDialog(session, TownEntryReason.BackFromInnerDialog).Start());
+            RegisterBackButton(() => new TownEntryDialog(session, TownEntryReason.BackFromInnerDialog).Start());
         }
 
         public override async Task Start()

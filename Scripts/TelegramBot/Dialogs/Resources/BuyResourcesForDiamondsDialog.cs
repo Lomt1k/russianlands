@@ -43,7 +43,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Resources
             sb.AppendLine();
             sb.AppendLine(Localization.Get(session, "resource_purchase_for_diamonds"));
             RegisterButton($"{Emojis.resources[ResourceType.Diamond]} {_priceInDiamonds}", () => TryPurchase());
-            RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_back_button")}", _onCancel);
+            RegisterBackButton(_onCancel);
 
             await messageSender.SendTextDialog(session.chatId, sb.ToString(), GetMultilineKeyboard());
         }
@@ -73,7 +73,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Resources
             var text = string.Format(Localization.Get(session, "resource_not_enough_diamonds"), Emojis.smiles[Smile.Sad]);
             RegisterButton($"{Emojis.menuItems[MenuItem.Shop]} {Localization.Get(session, "menu_item_shop")}", 
                 () => new ShopDialog(session).Start());
-            RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_back_button")}", _onCancel);
+            RegisterBackButton(_onCancel);
 
             await messageSender.SendTextDialog(session.chatId, text, GetMultilineKeyboard());
         }

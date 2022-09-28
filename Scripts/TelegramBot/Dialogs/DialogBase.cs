@@ -12,16 +12,23 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
     public abstract class DialogBase
     {
         protected static SessionManager sessionManager => TelegramBot.instance.sessionManager;
-        protected static MessageSender messageSender => TelegramBot.instance.messageSender;
-        public GameSession session { get; }
+        protected static MessageSender messageSender => TelegramBot.instance.messageSender;        
 
         private Dictionary<KeyboardButton, Func<Task>?> registeredButtons = new Dictionary<KeyboardButton, Func<Task>?>();
         private Dictionary<byte, DialogPanelBase> registeredPanels = new Dictionary<byte, DialogPanelBase>();
+
+        public GameSession session { get; }
+        protected int buttonsCount => registeredButtons.Count;
 
         public DialogBase(GameSession _session)
         {
             session = _session;
             session.SetupActiveDialog(this);
+        }
+
+        protected void RegisterBackButton(Func<Task> callback)
+        {
+            RegisterButton($"{Emojis.elements[Element.Back]} {GameCore.Localizations.Localization.Get(session, "menu_item_back_button")}", callback);
         }
 
         protected void RegisterButton(string text, Func<Task>? callback)
@@ -67,6 +74,29 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
                 rows.Add(buttons.GetRange(startIndex, count));
                 startIndex += count;
             }
+
+            return new ReplyKeyboardMarkup(rows);
+        }
+
+        protected ReplyKeyboardMarkup GetKeyboardWithFixedRowSize(int rowSize)
+        {
+            if (rowSize < 2 || buttonsCount < 3)
+                return GetMultilineKeyboard();
+            
+            var buttons = registeredButtons.Keys;
+            var rows = new List<List<KeyboardButton>>();
+            var currentRow = new List<KeyboardButton>();
+
+            foreach (var button in buttons)
+            {
+                if (currentRow.Count == 2)
+                {
+                    rows.Add(currentRow);
+                    currentRow = new List<KeyboardButton>();
+                }
+                currentRow.Add(button);
+            }
+            rows.Add(currentRow);
 
             return new ReplyKeyboardMarkup(rows);
         }
@@ -118,7 +148,6 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
                 panel.OnDialogClose();
             }
         }
-
 
     }
 }

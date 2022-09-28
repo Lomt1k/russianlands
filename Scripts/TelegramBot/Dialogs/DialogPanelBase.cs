@@ -34,6 +34,11 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
             panelId = _panelId;
         }
 
+        protected void RegisterBackButton(Func<Task> callback, Func<string?>? queryAnswer = null)
+        {
+            RegisterButton($"{Emojis.elements[Element.Back]} {GameCore.Localizations.Localization.Get(session, "menu_item_back_button")}", callback, queryAnswer);
+        }
+
         protected void RegisterButton(string text, Func<Task>? callback, Func<string?>? queryAnswer = null)
         {
             var callbackData = new DialogPanelButtonCallbackData()
@@ -85,6 +90,29 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
                 rows.Add(buttons.GetRange(startIndex, count));
                 startIndex += count;
             }
+
+            return new InlineKeyboardMarkup(rows);
+        }
+
+        protected InlineKeyboardMarkup GetKeyboardWithFixedRowSize(int rowSize)
+        {
+            if (rowSize < 2 || buttonsCount < 3)
+                return GetMultilineKeyboard();
+
+            var buttons = _registeredButtons.Values;
+            var rows = new List<List<InlineKeyboardButton>>();
+            var currentRow = new List<InlineKeyboardButton>();
+
+            foreach (var button in buttons)
+            {
+                if (currentRow.Count == 2)
+                {
+                    rows.Add(currentRow);
+                    currentRow = new List<InlineKeyboardButton>();
+                }
+                currentRow.Add(button);
+            }
+            rows.Add(currentRow);
 
             return new InlineKeyboardMarkup(rows);
         }
