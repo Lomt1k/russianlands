@@ -1,5 +1,5 @@
-﻿using System.Threading.Tasks;
-using Telegram.Bot.Types.ReplyMarkups;
+﻿using System.Text;
+using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Buildings;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData;
@@ -38,9 +38,38 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings.TrainingBuildin
             await messageSender.SendTextDialog(session.chatId, text, GetKeyboardWithFixedRowSize(2));
         }
 
-        private async Task ShowCurrentUnit(int unitIndex)
+        private async Task ShowCurrentUnit(sbyte unitIndex)
         {
-            //TODO
+            var unitLevel = _building.GetUnitLevel(_data, unitIndex);
+            var maxUnitLevel = _building.GetCurrentMaxUnitLevel(_data);
+            var firstTrainingUnit = _building.GetFirstTrainingUnitIndex(_data);
+            var secondTrainingUnit = _building.GetSecondTrainingUnitIndex(_data);
+            bool hasFreeTrainingSlot = _building.HasFirstTrainingUnit(_data);
+            bool currentUnitIsTraining = unitIndex == firstTrainingUnit || unitIndex == secondTrainingUnit;
+
+            var sb = new StringBuilder();
+            sb.Append($"{_building.GetUnitIcon(_data, unitIndex)} {_building.GetUnitName(session, _data, unitIndex)}");
+            sb.AppendLine(string.Format(Localization.Get(session, "building_level_suffix"), unitLevel));
+
+            if (unitLevel >= maxUnitLevel)
+            {
+                //TODO
+            }
+            else if (currentUnitIsTraining)
+            {
+                //TODO
+            }
+            else if (hasFreeTrainingSlot)
+            {
+                //TODO
+            }
+            else
+            {
+                //TODO has not free training slots
+            }
+
+            RegisterBackButton(() => ShowUnitsList());
+            await messageSender.SendTextDialog(session.chatId, sb.ToString(), GetMultilineKeyboard());
         }
 
     }

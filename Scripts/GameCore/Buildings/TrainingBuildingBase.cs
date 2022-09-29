@@ -13,6 +13,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
 {
     public abstract class TrainingBuildingBase : BuildingBase
     {
+        public abstract int GetRequiredTrainingTime(byte currentLevel);
         public abstract IEnumerable<sbyte> GetAllUnits(ProfileBuildingsData data);
 
         public abstract string GetUnitName(GameSession session, ProfileBuildingsData data, sbyte unitIndex);
@@ -24,12 +25,14 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
         public abstract void SetFirstTrainingUnitIndex(ProfileBuildingsData data, sbyte unitIndex);
         public abstract long GetFirstTrainingUnitStartTime(ProfileBuildingsData data);
         public abstract void SetFirstTrainingUnitStartTime(ProfileBuildingsData data, long ticks);
+        public abstract void LevelUpFirst(GameSession session, ProfileBuildingsData data);
 
         public bool HasSecondTrainingUnit(ProfileBuildingsData data) => GetSecondTrainingUnitIndex(data) != -1;
         public abstract sbyte GetSecondTrainingUnitIndex(ProfileBuildingsData data);
         public abstract void SetSecondTrainingUnitIndex(ProfileBuildingsData data, sbyte unitIndex);
         public abstract long GetSecondTrainingUnitStartTime(ProfileBuildingsData data);
         public abstract void SetSecondTrainingUnitStartTime(ProfileBuildingsData data, long ticks);
+        public abstract void LevelUpSecond(GameSession session, ProfileBuildingsData data);
 
         public override Dictionary<string, Func<Task>> GetSpecialButtons(GameSession session, ProfileBuildingsData data)
         {
@@ -82,6 +85,80 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             var currentLevel = GetCurrentLevel(data);
             var levelInfo = (TrainingLevelInfo)buildingData.levels[currentLevel];
             return levelInfo.maxUnitLevel;
+        }
+
+        public bool HasFreeTrainingSlot(ProfileBuildingsData data)
+        {
+            return !HasFirstTrainingUnit(data) || !HasSecondTrainingUnit(data);
+        }
+
+        public override bool HasImportantUpdatesInternal(ProfileBuildingsData data)
+        {
+            return IsTrainingCanBeFinished(data, out var firstTraining, out var secondTraining);
+        }
+
+        protected override List<string> GetUpdatesInternal(GameSession session, ProfileBuildingsData data)
+        {
+            var result = new List<string>();
+            IsTrainingCanBeFinished(data, out var isFirstTrainingCanBeFinished, out var isSecondTrainingCanBeFinished);
+
+            if (HasFirstTrainingUnit(data))
+            {
+                var unitIndex = GetFirstTrainingUnitIndex(data);
+                if (isFirstTrainingCanBeFinished)
+                {
+                    LevelUpFirst(session, data);
+                    //TODO
+                }
+                else
+                {
+                    //TODO
+                }
+            }
+
+            if (HasSecondTrainingUnit(data))
+            {
+                if (isSecondTrainingCanBeFinished)
+                {
+                    LevelUpSecond(session, data);
+                    //TODO
+                }
+                else
+                {
+                    //TODO
+                }
+            }
+
+            return result;
+        }
+
+        public bool IsTrainingCanBeFinished(ProfileBuildingsData data, out bool firstTraining, out bool secondTraining)
+        {
+            firstTraining = false;
+            secondTraining = false;
+
+            if (HasFirstTrainingUnit(data))
+            {
+                var unitIndex = GetFirstTrainingUnitIndex(data);
+                var unitLevel = GetUnitLevel(data, unitIndex) ;
+                var requiredSeconds = GetRequiredTrainingTime(unitLevel);
+                var startTicks = GetFirstTrainingUnitStartTime(data);
+                var startDt = new DateTime(startTicks);
+                var trainingSeconds = (DateTime.UtcNow - startDt).TotalSeconds;
+                firstTraining = trainingSeconds > requiredSeconds;
+            }
+            if (HasSecondTrainingUnit(data))
+            {
+                var unitIndex = GetSecondTrainingUnitIndex(data);
+                var unitLevel = GetUnitLevel(data, unitIndex);
+                var requiredSeconds = GetRequiredTrainingTime(unitLevel);
+                var startTicks = GetSecondTrainingUnitStartTime(data);
+                var startDt = new DateTime(startTicks);
+                var trainingSeconds = (DateTime.UtcNow - startDt).TotalSeconds;
+                secondTraining = trainingSeconds > requiredSeconds;
+            }
+
+            return firstTraining || secondTraining;
         }
 
     }
