@@ -128,5 +128,47 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Training
             data.goldTrainingSecondUnitStartTime = ticks;
         }
 
+        public override void LevelUpFirst(GameSession session, ProfileBuildingsData data)
+        {
+            var unitIndex = GetFirstTrainingUnitIndex(data);
+            LevelUpUnitByIndex(data, unitIndex);
+            SetFirstTrainingUnitIndex(data, -1);
+            SetFirstTrainingUnitStartTime(data, 0);
+        }
+
+        public override void LevelUpSecond(GameSession session, ProfileBuildingsData data)
+        {
+            var unitIndex = GetSecondTrainingUnitIndex(data);
+            LevelUpUnitByIndex(data, unitIndex);
+            SetSecondTrainingUnitIndex(data, -1);
+            SetSecondTrainingUnitStartTime(data, 0);
+        }
+
+        private void LevelUpUnitByIndex(ProfileBuildingsData data, sbyte unitIndex)
+        {
+            var unitBuildingType = unitIndex < 2 ? BuildingType.GoldProductionFirst 
+                : unitIndex < 4 ? BuildingType.GoldProductionSecond : BuildingType.GoldProductionThird;
+
+            var productionBuilding = (ProductionBuildingBase)unitBuildingType.GetBuilding();
+            bool isFirstUnit = unitIndex % 2 == 0;
+
+            if (isFirstUnit)
+            {
+                var currentLevel = productionBuilding.GetFirstWorkerLevel(data);
+                productionBuilding.SetFirstWorkerLevel(data, (byte)(currentLevel + 1));
+            }
+            else
+            {
+                var currentLevel = productionBuilding.GetSecondWorkerLevel(data);
+                productionBuilding.SetSecondWorkerLevel(data, (byte)(currentLevel + 1));
+            }
+        }
+
+        public override int GetRequiredTrainingTime(byte currentLevel)
+        {
+            //TODO
+            return 60;
+        }
+
     }
 }

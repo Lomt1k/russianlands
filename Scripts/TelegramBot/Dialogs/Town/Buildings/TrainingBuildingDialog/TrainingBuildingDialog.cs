@@ -40,11 +40,12 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings.TrainingBuildin
 
         private async Task ShowCurrentUnit(sbyte unitIndex)
         {
+            ClearButtons();
             var unitLevel = _building.GetUnitLevel(_data, unitIndex);
             var maxUnitLevel = _building.GetCurrentMaxUnitLevel(_data);
             var firstTrainingUnit = _building.GetFirstTrainingUnitIndex(_data);
             var secondTrainingUnit = _building.GetSecondTrainingUnitIndex(_data);
-            bool hasFreeTrainingSlot = _building.HasFirstTrainingUnit(_data);
+            bool hasFreeTrainingSlot = _building.HasFreeTrainingSlot(_data);
             bool currentUnitIsTraining = unitIndex == firstTrainingUnit || unitIndex == secondTrainingUnit;
 
             var sb = new StringBuilder();
@@ -53,7 +54,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings.TrainingBuildin
 
             if (unitLevel >= maxUnitLevel)
             {
-                //TODO
+                sb.AppendLine();
+                sb.AppendLine(Localization.Get(session, "dialog_training_max_level_reached"));
             }
             else if (currentUnitIsTraining)
             {
@@ -65,7 +67,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings.TrainingBuildin
             }
             else
             {
-                //TODO has not free training slots
+                sb.AppendLine();
+                sb.AppendLine(Localization.Get(session, "dialog_training_no_slots_available"));
             }
 
             RegisterBackButton(() => ShowUnitsList());

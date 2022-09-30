@@ -36,7 +36,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
             var playerBuildings = session.player.buildings.GetAllBuildings();
             foreach (var building in playerBuildings)
             {
-                var updates = building.GetUpdates(session, session.profile.buildingsData);
+                var updates = building.GetUpdates(session, session.profile.buildingsData, onlyImportant: true);
                 if (updates.Count < 1)
                     continue;
 
@@ -246,7 +246,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
                 sb.AppendLine(building.GetNextLevelInfo(session, _buildingsData));
             }            
 
-            var updates = building.GetUpdates(session, _buildingsData);
+            var updates = building.GetUpdates(session, _buildingsData, onlyImportant: false);
             if (updates.Count > 0)
             {
                 sb.AppendLine();

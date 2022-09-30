@@ -34,6 +34,30 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
         public abstract void SetSecondTrainingUnitStartTime(ProfileBuildingsData data, long ticks);
         public abstract void LevelUpSecond(GameSession session, ProfileBuildingsData data);
 
+        /// <returns>Дата, когда тренировка первого юнита должна была быть завершена</returns>
+        public DateTime GetFirstTrainingUnitEndTime(ProfileBuildingsData data)
+        {
+            var unitIndex = GetFirstTrainingUnitIndex(data);
+            var currentLevel = GetUnitLevel(data, unitIndex);
+            var secondsForTraining = GetRequiredTrainingTime(currentLevel);
+            var ticks = GetFirstTrainingUnitStartTime(data);
+            var startDt = new DateTime(ticks);            
+            var endDt = startDt.AddSeconds(secondsForTraining);
+            return endDt;
+        }
+
+        /// <returns>Дата, когда тренировка второго юнита должна была быть завершена</returns>
+        public DateTime GetSecondTrainingUnitEndTime(ProfileBuildingsData data)
+        {
+            var unitIndex = GetSecondTrainingUnitIndex(data);
+            var currentLevel = GetUnitLevel(data, unitIndex);
+            var secondsForTraining = GetRequiredTrainingTime(currentLevel);
+            var ticks = GetSecondTrainingUnitStartTime(data);
+            var startDt = new DateTime(ticks);
+            var endDt = startDt.AddSeconds(secondsForTraining);
+            return endDt;
+        }
+
         public override Dictionary<string, Func<Task>> GetSpecialButtons(GameSession session, ProfileBuildingsData data)
         {
             return new Dictionary<string, Func<Task>>
@@ -97,39 +121,52 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             return IsTrainingCanBeFinished(data, out var firstTraining, out var secondTraining);
         }
 
-        protected override List<string> GetUpdatesInternal(GameSession session, ProfileBuildingsData data)
+        protected override List<string> GetUpdatesInternal(GameSession session, ProfileBuildingsData data, bool onlyImportant)
         {
-            var result = new List<string>();
+            var updates = new List<string>();
             IsTrainingCanBeFinished(data, out var isFirstTrainingCanBeFinished, out var isSecondTrainingCanBeFinished);
 
             if (HasFirstTrainingUnit(data))
             {
                 var unitIndex = GetFirstTrainingUnitIndex(data);
+                var unitName = GetUnitName(session, data, unitIndex);
                 if (isFirstTrainingCanBeFinished)
                 {
                     LevelUpFirst(session, data);
-                    //TODO
+                    var currentLevel = GetUnitLevel(data, unitIndex);                    
+                    var update = string.Format(Localization.Get(session, "building_training_end"), unitName, currentLevel);
+                    updates.Add(update);
                 }
-                else
+                else if (!onlyImportant)
                 {
-                    //TODO
+                    var endTime = GetFirstTrainingUnitEndTime(data);
+                    var timeToEnd = endTime - DateTime.UtcNow;
+                    var update = string.Format(Localization.Get(session, $"building_training_progress"), unitName, timeToEnd.GetView(session));
+                    updates.Add(update);
                 }
             }
 
             if (HasSecondTrainingUnit(data))
             {
+                var unitIndex = GetSecondTrainingUnitIndex(data);
+                var unitName = GetUnitName(session, data, unitIndex);
                 if (isSecondTrainingCanBeFinished)
                 {
                     LevelUpSecond(session, data);
-                    //TODO
+                    var currentLevel = GetUnitLevel(data, unitIndex);
+                    var update = string.Format(Localization.Get(session, "building_training_end"), unitName, currentLevel);
+                    updates.Add(update);
                 }
-                else
+                else if (!onlyImportant)
                 {
-                    //TODO
+                    var endTime = GetSecondTrainingUnitEndTime(data);
+                    var timeToEnd = endTime - DateTime.UtcNow;
+                    var update = string.Format(Localization.Get(session, $"building_training_progress"), unitName, timeToEnd.GetView(session));
+                    updates.Add(update);
                 }
             }
 
-            return result;
+            return updates;
         }
 
         public bool IsTrainingCanBeFinished(ProfileBuildingsData data, out bool firstTraining, out bool secondTraining)

@@ -44,7 +44,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             return false;
         }
 
-        public List<string> GetUpdates(GameSession session, ProfileBuildingsData data)
+        public List<string> GetUpdates(GameSession session, ProfileBuildingsData data, bool onlyImportant)
         {
             var updates = new List<string>();
 
@@ -72,12 +72,12 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             if (!IsBuilt(data))
                 return updates;
 
-            var internalUpdates = GetUpdatesInternal(session, data);
+            var internalUpdates = GetUpdatesInternal(session, data, onlyImportant);
             updates.AddRange(internalUpdates);
             return updates;
         }
 
-        protected virtual List<string> GetUpdatesInternal(GameSession session, ProfileBuildingsData data)
+        protected virtual List<string> GetUpdatesInternal(GameSession session, ProfileBuildingsData data, bool onlyImportant)
         {
             return new List<string>();
         }
