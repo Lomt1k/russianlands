@@ -8,7 +8,7 @@ using TextGameRPG.Scripts.TelegramBot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Resources
 {
-    public static class ResourceHelper
+    public static partial class ResourceHelper
     {
         private static Dictionary<int, int> priceInDiamondsByResourceAmount = new Dictionary<int, int>
         {
