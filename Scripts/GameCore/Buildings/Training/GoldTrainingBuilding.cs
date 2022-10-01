@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using TextGameRPG.Scripts.GameCore.Buildings.Data;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Resources;
 using TextGameRPG.Scripts.TelegramBot;
@@ -168,6 +171,28 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Training
         public override int GetRequiredTrainingTime(byte currentLevel)
         {
             return ResourceHelper.GetDefaultResourceTrainingTimeInSeconds(currentLevel);
+        }
+
+        public override string GetInfoAboutUnitTraining(GameSession session, ProfileBuildingsData data, sbyte unitIndex)
+        {
+            var unitBuildingType = unitIndex < 2 ? BuildingType.GoldProductionFirst
+                : unitIndex < 4 ? BuildingType.GoldProductionSecond : BuildingType.GoldProductionThird;
+
+            var productionBuilding = (ProductionBuildingBase)unitBuildingType.GetBuilding();
+            bool isFirstUnit = unitIndex % 2 == 0;
+            var currentProduction = isFirstUnit 
+                ? productionBuilding.GetCurrentLevelFirstWorkerProductionPerHour(data)
+                : productionBuilding.GetCurrentLevelSecondWorkerProductionPerHour(data);
+
+            var currentBuildingLevel = productionBuilding.GetCurrentLevel(data);
+            var currentBuildingLevelInfo = (ProductionLevelInfo)productionBuilding.buildingData.levels[currentBuildingLevel - 1];
+            var bonusPerLevel = (int)Math.Round(currentBuildingLevelInfo.bonusPerWorkerLevel);
+            var nextProduction = currentProduction + bonusPerLevel;
+
+            var sb = new StringBuilder();
+            sb.AppendLine(Localization.Get(session, "building_production_per_hour_header"));
+            sb.Append(productionBuilding.resourcePrefix + $" {nextProduction.View()} (<i>+{bonusPerLevel.View()}</i>)");
+            return sb.ToString();
         }
 
     }

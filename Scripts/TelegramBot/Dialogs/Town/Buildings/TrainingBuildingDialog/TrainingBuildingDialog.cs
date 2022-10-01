@@ -71,8 +71,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings.TrainingBuildin
             bool currentUnitIsTraining = unitIndex == firstTrainingUnit || unitIndex == secondTrainingUnit;
 
             var sb = new StringBuilder();
-            sb.Append($"{_building.GetUnitIcon(_data, unitIndex)} {_building.GetUnitName(session, _data, unitIndex)}");
-            sb.AppendLine(string.Format(Localization.Get(session, "building_level_suffix"), unitLevel));
+            sb.Append($"<b>{_building.GetUnitIcon(_data, unitIndex)} {_building.GetUnitName(session, _data, unitIndex)}");
+            sb.AppendLine(string.Format(Localization.Get(session, "building_level_suffix"), unitLevel) + "</b>");
 
             if (unitLevel >= maxUnitLevel)
             {
@@ -102,7 +102,11 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings.TrainingBuildin
                 var dtNow = DateTime.UtcNow;
                 var timeSpan = dtNow.AddSeconds(requiredSeconds) - dtNow;
 
-                //TODO: next unit level info
+                sb.AppendLine();
+                sb.AppendLine(string.Format(Localization.Get(session, "dialog_training_next_level_available"), unitLevel + 1));
+
+                sb.AppendLine();
+                sb.AppendLine(_building.GetInfoAboutUnitTraining(session, _data, unitIndex));
 
                 sb.AppendLine();
                 sb.AppendLine(Localization.Get(session, "dialog_training_required_time_header"));
