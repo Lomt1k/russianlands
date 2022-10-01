@@ -98,6 +98,7 @@ namespace TextGameRPG.Scripts.TelegramBot
         Construction,
         LevelUp,
         Clock,
+        Training,
     }
 
     public enum Smile
@@ -233,6 +234,7 @@ namespace TextGameRPG.Scripts.TelegramBot
             { Element.Construction, "\u2692" },
             { Element.LevelUp, "\u23eb" },
             { Element.Clock, "\ud83d\udd53" },
+            { Element.Training, "\ud83c\udf93" },
         };
 
         public static readonly Dictionary<Smile, string> smiles = new Dictionary<Smile, string>

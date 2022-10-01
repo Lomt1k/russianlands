@@ -49,6 +49,10 @@ namespace TextGameRPG.Scripts.GameCore.Resources
             maxPriceInDiamondsByResource = priceInDiamondsByResourceAmount.Last();
             minBoostConstructionInDiamondsBySeconds = boostConstructionInDiamondsBySeconds.First();
             maxBoostConstructionInDiamondsBySeconds = boostConstructionInDiamondsBySeconds.Last();
+
+            //ResourceHelperTraining.cs
+            minBoostTrainingInDiamondsBySeconds = boostTrainingInDiamondsBySeconds.First();
+            maxBoostTrainingInDiamondsBySeconds = boostTrainingInDiamondsBySeconds.Last();
         }
 
         public static int CalculatePriceInDiamonds(ResourceType resourceType, int resourceAmount)
@@ -168,7 +172,6 @@ namespace TextGameRPG.Scripts.GameCore.Resources
             var progression = (float)(seconds - lowerKVP.Key) / secondsDelta;
 
             return (int)Math.Round(progression * priceDelta) + lowerKVP.Value;
-
         }
 
 

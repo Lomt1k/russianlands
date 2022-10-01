@@ -3,7 +3,9 @@ using System.Text;
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Buildings;
 using TextGameRPG.Scripts.GameCore.Localizations;
+using TextGameRPG.Scripts.GameCore.Resources;
 using TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData;
+using TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Shop;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 
 namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings.TrainingBuildingDialog
@@ -28,7 +30,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings.TrainingBuildin
         {
             ClearButtons();
             var sb = new StringBuilder();
-            sb.AppendLine(Localization.Get(session, "dialog_training_header_" + _building.buildingType));
+            sb.AppendLine($"{Emojis.elements[Element.Training]} " + Localization.Get(session, "dialog_training_header_" + _building.buildingType));
             sb.AppendLine();
 
             var updates = _building.GetUpdates(session, _data, onlyImportant: false);
@@ -87,7 +89,10 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings.TrainingBuildin
                 sb.AppendLine();
                 sb.AppendLine(string.Format(Localization.Get(session, "dialog_training_progress"), timeSpan.GetView(session)));
 
-                //TODO: boost
+                var diamondsForBoost = ResourceHelper.CalculateTrainingBoostPriceInDiamonds((int)timeSpan.TotalSeconds);
+                var priceView = Emojis.resources[ResourceType.Diamond] + diamondsForBoost;
+                var boostButton = string.Format(Localization.Get(session, "menu_item_boost_button"), priceView);
+                RegisterButton(boostButton, () => TryBoostTraining(unitIndex));
                 RegisterButton(Localization.Get(session, "dialog_training_cancel_training_button"), () => CancelTraining(unitIndex));
             }
             else if (hasFreeTrainingSlot)
@@ -140,6 +145,61 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings.TrainingBuildin
                 _building.SetSecondTrainingUnitIndex(_data, unitIndex);
                 _building.SetSecondTrainingUnitStartTime(_data, DateTime.UtcNow.Ticks);
             }
+            await ShowCurrentUnit(unitIndex);
+        }
+
+        private async Task TryBoostTraining(sbyte unitIndex)
+        {
+            _building.IsTrainingCanBeFinished(_data, out var isFirstTrainingCanBeFinished, out var isSecondTrainingCanBeFinished);
+            var firstTrainingUnit = _building.GetFirstTrainingUnitIndex(_data);
+            var secondTrainingUnit = _building.GetSecondTrainingUnitIndex(_data);
+            var isFirst = unitIndex == firstTrainingUnit;
+
+            if (isFirst && isFirstTrainingCanBeFinished)
+            {
+                _building.LevelUpFirst(session, _data);
+                var message = $"{Emojis.elements[Element.Training]} {Localization.Get(session, "dialog_training_boost_expired")}";
+                await messageSender.SendTextMessage(session.chatId, message);
+            }
+            else if (isSecondTrainingCanBeFinished)
+            {
+                _building.LevelUpSecond(session, _data);
+                var message = $"{Emojis.elements[Element.Training]} {Localization.Get(session, "dialog_training_boost_expired")}";
+                await messageSender.SendTextMessage(session.chatId, message);
+            }
+            else
+            {
+                var endTime = isFirst ? _building.GetFirstTrainingUnitEndTime(_data) : _building.GetSecondTrainingUnitEndTime(_data);
+                var secondsToEnd = (int)(endTime - DateTime.UtcNow).TotalSeconds;
+                var requiredDiamonds = ResourceHelper.CalculateTrainingBoostPriceInDiamonds(secondsToEnd);
+                var playerResources = session.player.resources;
+
+                bool successsPurchase = playerResources.TryPurchase(ResourceType.Diamond, requiredDiamonds);
+                if (successsPurchase)
+                {
+                    if (isFirst)
+                        _building.LevelUpFirst(session, _data);
+                    else
+                        _building.LevelUpSecond(session, _data);
+
+                    var sb = new StringBuilder();
+                    sb.AppendLine($"{Emojis.elements[Element.Training]} {Localization.Get(session, "dialog_training_boosted")}");
+                    sb.AppendLine();
+                    sb.AppendLine(Localization.Get(session, "resource_header_spent"));
+                    sb.AppendLine(ResourceType.Diamond.GetLocalizedView(session, requiredDiamonds));
+                    await messageSender.SendTextMessage(session.chatId, sb.ToString());
+                }
+                else
+                {
+                    ClearButtons();
+                    var text = string.Format(Localization.Get(session, "resource_not_enough_diamonds"), Emojis.smiles[Smile.Sad]);
+                    RegisterButton($"{Emojis.menuItems[MenuItem.Shop]} {Localization.Get(session, "menu_item_shop")}", () => new ShopDialog(session).Start());
+                    RegisterBackButton(() => ShowCurrentUnit(unitIndex));
+                    await messageSender.SendTextDialog(session.chatId, text, GetMultilineKeyboard());
+                    return;
+                }
+            }
+
             await ShowCurrentUnit(unitIndex);
         }
 

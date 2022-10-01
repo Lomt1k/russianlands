@@ -1,11 +1,52 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace TextGameRPG.Scripts.GameCore.Resources
 {
     public static partial class ResourceHelper
     {
+        private static Dictionary<int, int> boostTrainingInDiamondsBySeconds = new Dictionary<int, int>
+        {
+            { 60, 1 },
+            { 18_000, 45 },
+            { 86_400, 250 },
+            { 604_800, 1_000 },
+        };
+
+        private static KeyValuePair<int, int> minBoostTrainingInDiamondsBySeconds;
+        private static KeyValuePair<int, int> maxBoostTrainingInDiamondsBySeconds;
+
+        public static int CalculateTrainingBoostPriceInDiamonds(int seconds)
+        {
+            if (seconds <= minBoostTrainingInDiamondsBySeconds.Key)
+                return minBoostTrainingInDiamondsBySeconds.Value;
+
+            if (seconds >= maxBoostTrainingInDiamondsBySeconds.Key)
+            {
+                var mult = (float)seconds / maxBoostTrainingInDiamondsBySeconds.Key;
+                return (int)(maxBoostTrainingInDiamondsBySeconds.Value * mult);
+            }
+
+            var lowerKVP = new KeyValuePair<int, int>();
+            var upperKVP = new KeyValuePair<int, int>();
+            foreach (var kvp in boostTrainingInDiamondsBySeconds)
+            {
+                if (seconds < kvp.Key)
+                {
+                    upperKVP = kvp;
+                    break;
+                }
+                lowerKVP = kvp;
+            }
+
+            var secondsDelta = upperKVP.Key - lowerKVP.Key;
+            var priceDelta = upperKVP.Value - lowerKVP.Value;
+            var progression = (float)(seconds - lowerKVP.Key) / secondsDelta;
+
+            return (int)Math.Round(progression * priceDelta) + lowerKVP.Value;
+        }
+
+
         private static Dictionary<int, int> defaultResourceTrainingTimeByCurrentLevel = new Dictionary<int, int>
         {
             { 1, 3600 },
@@ -117,7 +158,6 @@ namespace TextGameRPG.Scripts.GameCore.Resources
             }
             return 259_200;
         }
-
 
     }
 }

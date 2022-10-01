@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using TextGameRPG.Scripts.GameCore.Localizations;
+using TextGameRPG.Scripts.GameCore.Resources;
 using TextGameRPG.Scripts.TelegramBot;
 using TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
@@ -166,8 +167,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Training
 
         public override int GetRequiredTrainingTime(byte currentLevel)
         {
-            //TODO
-            return 60;
+            return ResourceHelper.GetDefaultResourceTrainingTimeInSeconds(currentLevel);
         }
 
     }
