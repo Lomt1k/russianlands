@@ -60,10 +60,12 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
 
         public override Dictionary<string, Func<Task>> GetSpecialButtons(GameSession session, ProfileBuildingsData data)
         {
-            return new Dictionary<string, Func<Task>>
-            {
-                { Localization.Get(session, "building_training_open_dialog_button"), () => new TrainingBuildingDialog(session, this, data).Start()}
-            };
+            var result = new Dictionary<string, Func<Task>>();
+
+            if (!IsUnderConstruction(data))
+                result.Add(Localization.Get(session, "building_training_open_dialog_button"), () => new TrainingBuildingDialog(session, this, data).Start());
+
+            return result;
         }
 
         public override string GetCurrentLevelInfo(GameSession session, ProfileBuildingsData data)

@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Buildings;
 using TextGameRPG.Scripts.GameCore.Localizations;
@@ -25,21 +26,40 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings.TrainingBuildin
 
         private async Task ShowUnitsList()
         {
-            var text = Localization.Get(session, "dialog_training_selection_" + _building.buildingType);
+            ClearButtons();
+            var sb = new StringBuilder();
+            sb.AppendLine(Localization.Get(session, "dialog_training_header_" + _building.buildingType));
+            sb.AppendLine();
+
+            var updates = _building.GetUpdates(session, _data, onlyImportant: false);
+            if (updates.Count > 0)
+            {
+                foreach (var update in updates)
+                {
+                    sb.AppendLine($"{Emojis.elements[Element.SmallWhite]} {update}");
+                }
+                sb.AppendLine();
+            }
+            sb.AppendLine(Localization.Get(session, "dialog_training_selection_" + _building.buildingType));
 
             var units = _building.GetAllUnits(_data);
             foreach (var unit in units)
             {
                 var button = $"{_building.GetUnitIcon(_data, unit)} {_building.GetUnitName(session, _data, unit)}";
-                RegisterButton(button, () => ShowCurrentUnit(unit));
+                RegisterButton(button, () => ShowCurrentUnit(unit, fromUnitsList: true));
             }
 
             RegisterBackButton(() => new BuildingsDialog(session).Start());
-            await messageSender.SendTextDialog(session.chatId, text, GetKeyboardWithFixedRowSize(2));
+            await messageSender.SendTextDialog(session.chatId, sb.ToString(), GetKeyboardWithFixedRowSize(2));
         }
 
-        private async Task ShowCurrentUnit(sbyte unitIndex)
+        private async Task ShowCurrentUnit(sbyte unitIndex, bool fromUnitsList = false)
         {
+            if (fromUnitsList)
+            {
+                TrySilentFinishTrainings();
+            }
+
             ClearButtons();
             var unitLevel = _building.GetUnitLevel(_data, unitIndex);
             var maxUnitLevel = _building.GetCurrentMaxUnitLevel(_data);
@@ -54,25 +74,105 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings.TrainingBuildin
 
             if (unitLevel >= maxUnitLevel)
             {
+                // Юнит уже достиг максимального уровня
                 sb.AppendLine();
                 sb.AppendLine(Localization.Get(session, "dialog_training_max_level_reached"));
             }
             else if (currentUnitIsTraining)
             {
-                //TODO
+                // В процессе тренировки
+                var endTime = unitIndex == firstTrainingUnit ? _building.GetFirstTrainingUnitEndTime(_data) : _building.GetSecondTrainingUnitEndTime(_data);
+                var timeSpan = endTime - DateTime.UtcNow;
+
+                sb.AppendLine();
+                sb.AppendLine(string.Format(Localization.Get(session, "dialog_training_progress"), timeSpan.GetView(session)));
+
+                //TODO: boost
+                RegisterButton(Localization.Get(session, "dialog_training_cancel_training_button"), () => CancelTraining(unitIndex));
             }
             else if (hasFreeTrainingSlot)
             {
-                //TODO
+                // Можно начать тренировку
+                var requiredSeconds = _building.GetRequiredTrainingTime(unitLevel);
+                var dtNow = DateTime.UtcNow;
+                var timeSpan = dtNow.AddSeconds(requiredSeconds) - dtNow;
+
+                //TODO: next unit level info
+
+                sb.AppendLine();
+                sb.AppendLine(Localization.Get(session, "dialog_training_required_time_header"));
+                sb.AppendLine(timeSpan.GetView(session));
+                RegisterButton(Localization.Get(session, "dialog_training_start_training_button"), () => StartTraining(unitIndex));
             }
             else
             {
+                // Нет доступных слотов для тренировки
                 sb.AppendLine();
                 sb.AppendLine(Localization.Get(session, "dialog_training_no_slots_available"));
             }
 
             RegisterBackButton(() => ShowUnitsList());
             await messageSender.SendTextDialog(session.chatId, sb.ToString(), GetMultilineKeyboard());
+        }
+
+        private void TrySilentFinishTrainings()
+        {
+            _building.IsTrainingCanBeFinished(_data, out var isFirstTrainingCanBeFinished, out var isSecondTrainingCanBeFinished);
+            if (isFirstTrainingCanBeFinished)
+            {
+                _building.LevelUpFirst(session, _data);
+            }
+            if (isSecondTrainingCanBeFinished)
+            {
+                _building.LevelUpSecond(session, _data);
+            }
+        }
+
+        private async Task StartTraining(sbyte unitIndex)
+        {
+            if (!_building.HasFirstTrainingUnit(_data))
+            {
+                _building.SetFirstTrainingUnitIndex(_data, unitIndex);
+                _building.SetFirstTrainingUnitStartTime(_data, DateTime.UtcNow.Ticks);
+            }
+            else if (!_building.HasSecondTrainingUnit(_data))
+            {
+                _building.SetSecondTrainingUnitIndex(_data, unitIndex);
+                _building.SetSecondTrainingUnitStartTime(_data, DateTime.UtcNow.Ticks);
+            }
+            await ShowCurrentUnit(unitIndex);
+        }
+
+        private async Task CancelTraining(sbyte unitIndex)
+        {
+            _building.IsTrainingCanBeFinished(_data, out var isFirstTrainingCanBeFinished, out var isSecondTrainingCanBeFinished);
+
+            if (unitIndex == _building.GetFirstTrainingUnitIndex(_data))
+            {
+                if (isFirstTrainingCanBeFinished)
+                {
+                    _building.LevelUpFirst(session, _data);
+                }
+                else
+                {
+                    _building.SetFirstTrainingUnitIndex(_data, -1);
+                    _building.SetFirstTrainingUnitStartTime(_data, 0);
+                }
+            }
+            else if (unitIndex == _building.GetSecondTrainingUnitIndex(_data))
+            {
+                if (isSecondTrainingCanBeFinished)
+                {
+                    _building.LevelUpSecond(session, _data);
+                }
+                else
+                {
+                    _building.SetSecondTrainingUnitIndex(_data, -1);
+                    _building.SetSecondTrainingUnitStartTime(_data, 0);
+                }
+            }
+
+            await ShowCurrentUnit(unitIndex);
         }
 
     }
