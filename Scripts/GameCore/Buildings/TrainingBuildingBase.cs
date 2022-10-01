@@ -64,7 +64,10 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             var result = new Dictionary<string, Func<Task>>();
 
             if (!IsUnderConstruction(data))
-                result.Add(Localization.Get(session, "building_training_open_dialog_button"), () => new TrainingBuildingDialog(session, this, data).Start());
+            {
+                result.Add($"{Emojis.elements[Element.Training]} {Localization.Get(session, "building_training_open_dialog_button")}",
+                    () => new TrainingBuildingDialog(session, this, data).Start());
+            }
 
             return result;
         }
