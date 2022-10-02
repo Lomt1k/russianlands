@@ -171,6 +171,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Training
 
         public override string GetInfoAboutUnitTraining(GameSession session, ProfileBuildingsData data, sbyte unitIndex)
         {
+            var sb = new StringBuilder();
             var unitBuildingType = unitIndex < 2 ? BuildingType.WoodProductionFirst : BuildingType.WoodProductionSecond;
 
             var productionBuilding = (ProductionBuildingBase)unitBuildingType.GetBuilding();
@@ -179,12 +180,20 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Training
                 ? productionBuilding.GetCurrentLevelFirstWorkerProductionPerHour(data)
                 : productionBuilding.GetCurrentLevelSecondWorkerProductionPerHour(data);
 
+            var currentUnitLevel = GetUnitLevel(data, unitIndex);
+            var maxUnitLevel = GetCurrentMaxUnitLevel(data);
+            if (currentUnitLevel >= maxUnitLevel)
+            {
+                sb.AppendLine(Localization.Get(session, "building_production_per_hour_header"));
+                sb.Append(productionBuilding.resourcePrefix + $" {currentProduction.View()}");
+                return sb.ToString();
+            }
+
             var currentBuildingLevel = productionBuilding.GetCurrentLevel(data);
             var currentBuildingLevelInfo = (ProductionLevelInfo)productionBuilding.buildingData.levels[currentBuildingLevel - 1];
             var bonusPerLevel = (int)Math.Round(currentBuildingLevelInfo.bonusPerWorkerLevel);
             var nextProduction = currentProduction + bonusPerLevel;
 
-            var sb = new StringBuilder();
             sb.AppendLine(Localization.Get(session, "building_production_per_hour_header"));
             sb.Append(productionBuilding.resourcePrefix + $" {nextProduction.View()} (<i>+{bonusPerLevel.View()}</i>)");
             return sb.ToString();

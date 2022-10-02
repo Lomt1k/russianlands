@@ -79,6 +79,9 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings.TrainingBuildin
                 // Юнит уже достиг максимального уровня
                 sb.AppendLine();
                 sb.AppendLine(Localization.Get(session, "dialog_training_max_level_reached"));
+
+                sb.AppendLine();
+                sb.AppendLine(_building.GetInfoAboutUnitTraining(session, _data, unitIndex));
             }
             else if (currentUnitIsTraining)
             {
@@ -88,6 +91,9 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings.TrainingBuildin
 
                 sb.AppendLine();
                 sb.AppendLine(string.Format(Localization.Get(session, "dialog_training_progress"), timeSpan.GetView(session)));
+
+                sb.AppendLine();
+                sb.AppendLine(_building.GetInfoAboutUnitTraining(session, _data, unitIndex));
 
                 var diamondsForBoost = ResourceHelper.CalculateTrainingBoostPriceInDiamonds((int)timeSpan.TotalSeconds);
                 var priceView = Emojis.resources[ResourceType.Diamond] + diamondsForBoost;
@@ -118,6 +124,9 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings.TrainingBuildin
                 // Нет доступных слотов для тренировки
                 sb.AppendLine();
                 sb.AppendLine(Localization.Get(session, "dialog_training_no_slots_available"));
+
+                sb.AppendLine();
+                sb.AppendLine(_building.GetInfoAboutUnitTraining(session, _data, unitIndex));
             }
 
             RegisterBackButton(() => ShowUnitsList());
