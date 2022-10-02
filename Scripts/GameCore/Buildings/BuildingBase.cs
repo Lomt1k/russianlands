@@ -126,6 +126,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             if (IsNextLevelUnlocked(data))
             {
                 SetStartConstructionTime(data, DateTime.UtcNow.Ticks);
+                OnConstructionStart(data);
             }
         }
 
@@ -139,6 +140,9 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             var nextLevel = buildingData.levels[currentLevel];
             return data.townHallLevel >= nextLevel.requiredTownHall;
         }
+
+        // Тут можно определить дополнительную логику, которая будет вызываться при начале строительства (улучшения) здания
+        protected virtual void OnConstructionStart(ProfileBuildingsData data) { }
 
         /// <returns>Дата, когда постройка / улучшение здания должна была быть завершена</returns>
         public DateTime GetEndConstructionTime(ProfileBuildingsData data)
@@ -168,11 +172,18 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             if (IsMaxLevel(data))
                 return;
 
+            var startConstructionTime = new DateTime(GetStartConstructionTime(data));
+            var endConstructionTime = GetEndConstructionTime(data);
+            OnConstructionEnd(data, startConstructionTime, endConstructionTime);
+
             var currentLevel = GetCurrentLevel(data);
             currentLevel++;
             SetCurrentLevel(data, currentLevel);
             SetStartConstructionTime(data, 0);
         }
+
+        // Тут можно определить дополнительную логику, которая будет вызываться при завершении строительства (улучшения)
+        protected virtual void OnConstructionEnd(ProfileBuildingsData data, DateTime startConstructionTime, DateTime endConstructionTime) { }
 
     }
 }

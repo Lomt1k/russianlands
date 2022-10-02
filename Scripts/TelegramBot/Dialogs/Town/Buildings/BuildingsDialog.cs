@@ -50,6 +50,12 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
             await _inspectorPanel.TryCollectResources();
         }
 
+        public async Task StartWithShowBuildingInfo(BuildingBase building)
+        {
+            await SendHeader();
+            await _inspectorPanel.ShowBuildingCurrentLevelInfo(building);
+        }
+
         private async Task SendHeader()
         {
             var header = $"{Emojis.menuItems[MenuItem.Buildings]} " + "<b>" + Localization.Get(session, "menu_item_buildings") + "</b>";

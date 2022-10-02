@@ -111,11 +111,27 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
                 return 0;
             }
 
-            var farmHours = (DateTime.UtcNow - new DateTime(startFarmTime)).TotalHours;
+            var dtNow = DateTime.UtcNow;
+            var startFarmTimeDt = new DateTime(startFarmTime);
+            var endFarmTimeDt = IsUnderConstruction(data) ? new DateTime(GetStartConstructionTime(data)) : dtNow;
+      
+            var farmHours = (endFarmTimeDt - startFarmTimeDt).TotalHours;
             var farmPerHour = GetCurrentLevelFirstWorkerProductionPerHour(data) 
                 + GetCurrentLevelSecondWorkerProductionPerHour(data);
             var farmedTotal = (int)(farmPerHour * farmHours);
             var farmLimit = GetCurrentLevelResourceLimit(data);
+
+            if (IsUnderConstruction(data) && IsConstructionCanBeFinished(data))
+            {
+                // нужно посчитать то, что было добыто уже после завершения строительства
+                startFarmTimeDt = GetEndConstructionTime(data);
+                endFarmTimeDt = dtNow;
+                farmHours = (endFarmTimeDt - startFarmTimeDt).TotalHours;
+                farmPerHour = GetNextLevelFirstWorkerProductionPerHour(data)
+                + GetNextLevelSecondWorkerProductionPerHour(data);
+                farmedTotal += (int)(farmPerHour * farmHours);
+                farmLimit = GetNextLevelResourceLimit(data);
+            }
 
             return farmedTotal > farmLimit ? farmLimit : farmedTotal;
         }
@@ -127,10 +143,17 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
 
             sb.AppendLine();
             sb.AppendLine(Localization.Get(session, "building_production_per_hour_header"));
-            var firstWorker = $"{Emojis.characters[firstWorkerIcon]} {Localization.Get(session, $"building_{buildingType}_first_worker")}{Emojis.bigSpace}";
-            sb.AppendLine(firstWorker + resourcePrefix + $" {GetCurrentLevelFirstWorkerProductionPerHour(data).View()}");
-            var secondWorker = $"{Emojis.characters[secondWorkerIcon]} {Localization.Get(session, $"building_{buildingType}_second_worker")}{Emojis.bigSpace}";
-            sb.AppendLine(secondWorker + resourcePrefix + $" {GetCurrentLevelSecondWorkerProductionPerHour(data).View()}");
+            if (IsUnderConstruction(data))
+            {
+                sb.AppendLine($"{Emojis.elements[Element.Construction]} {Localization.Get(session, "building_production_unavailable")}");
+            }
+            else
+            {
+                var firstWorker = $"{Emojis.characters[firstWorkerIcon]} {Localization.Get(session, $"building_{buildingType}_first_worker")}{Emojis.bigSpace}";
+                sb.AppendLine(firstWorker + resourcePrefix + $" {GetCurrentLevelFirstWorkerProductionPerHour(data).View()}");
+                var secondWorker = $"{Emojis.characters[secondWorkerIcon]} {Localization.Get(session, $"building_{buildingType}_second_worker")}{Emojis.bigSpace}";
+                sb.AppendLine(secondWorker + resourcePrefix + $" {GetCurrentLevelSecondWorkerProductionPerHour(data).View()}");
+            }
 
             sb.AppendLine();
             sb.AppendLine(Localization.Get(session, "building_production_capacity_header"));
@@ -177,6 +200,22 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             var farmedAmount = GetFarmedResourceAmount(data);
             var limit = GetCurrentLevelResourceLimit(data);
             return farmedAmount >= limit;
+        }
+
+        protected override void OnConstructionStart(ProfileBuildingsData data)
+        {
+        }
+
+        protected override void OnConstructionEnd(ProfileBuildingsData data, DateTime startConstructionTime, DateTime endConstructionTime)
+        {
+            /// Если до улучшения здания в нем хранилось 1500 золота, то после улучшения оно пересчитывается
+            /// по новому уровню здания и становится 2000. Данный код исправляет эту проблему
+
+            var targetFarmValue = GetFarmedResourceAmount(data);
+            var newProductionPerHour = GetNextLevelFirstWorkerProductionPerHour(data) + GetNextLevelSecondWorkerProductionPerHour(data);
+            var targetFarmHours = (double)targetFarmValue / newProductionPerHour;
+            var startFarmTime = DateTime.UtcNow.AddHours(-targetFarmHours).Ticks;
+            SetStartFarmTime(data, startFarmTime);
         }
 
     }

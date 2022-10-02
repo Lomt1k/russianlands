@@ -51,7 +51,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings.TrainingBuildin
                 RegisterButton(button, () => ShowCurrentUnit(unit, fromUnitsList: true));
             }
 
-            RegisterBackButton(() => new BuildingsDialog(session).Start());
+            RegisterBackButton(() => new BuildingsDialog(session).StartWithShowBuildingInfo(_building));
             await messageSender.SendTextDialog(session.chatId, sb.ToString(), GetKeyboardWithFixedRowSize(2));
         }
 

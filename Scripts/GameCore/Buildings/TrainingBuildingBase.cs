@@ -204,6 +204,14 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             return firstTraining || secondTraining;
         }
 
+        protected override void OnConstructionStart(ProfileBuildingsData data)
+        {
+            SetFirstTrainingUnitIndex(data, -1);
+            SetFirstTrainingUnitStartTime(data, 0);
+            SetSecondTrainingUnitIndex(data, -1);
+            SetSecondTrainingUnitStartTime(data, 0);
+        }
+
     }
 
 }

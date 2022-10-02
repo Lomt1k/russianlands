@@ -373,7 +373,11 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
                 var localization = string.Format(Localization.Get(session, "dialog_buildings_required_town_hall"), levelData.requiredTownHall);
                 sb.AppendLine(Emojis.elements[Element.WarningGrey] + localization);
             }
-
+            else
+            {
+                AppendSpecialConstructionWarnings(building, sb);
+            }
+            
 
             // buttons
             if (playerTownHall >= levelData.requiredTownHall)
@@ -396,6 +400,20 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
             lastMessage = lastMessage == null
                 ? await messageSender.SendTextMessage(session.chatId, sb.ToString(), GetMultilineKeyboard())
                 : await messageSender.EditTextMessage(session.chatId, lastMessage.MessageId, sb.ToString(), GetMultilineKeyboard());
+        }
+
+        private void AppendSpecialConstructionWarnings(BuildingBase building, StringBuilder sb)
+        {
+            if (building is TrainingBuildingBase trainingBuilding)
+            {
+                bool hasActiveTraining = trainingBuilding.GetFirstTrainingUnitIndex(_buildingsData) != -1
+                    || trainingBuilding.GetSecondTrainingUnitIndex(_buildingsData) != -1;
+                if (hasActiveTraining)
+                {
+                    sb.AppendLine();
+                    sb.AppendLine(Emojis.elements[Element.WarningRed] + Localization.Get(session, "building_training_break_warning"));
+                }
+            }
         }
 
         public async Task TryStartConstruction(BuildingBase building)
