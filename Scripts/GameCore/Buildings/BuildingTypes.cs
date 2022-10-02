@@ -84,6 +84,9 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
 
             // --- Тренировочные залы
             { BuildingType.GoldTraining, new GoldTrainingBuilding() },
+            { BuildingType.FoodTraining, new FoodTrainingBuilding() },
+            { BuildingType.HerbsTraining, new HerbsTrainingBuilding() },
+            { BuildingType.WoodTraining, new WoodTrainingBuilding() },
         };
 
         public static BuildingLevelInfo CreateNewLevelInfo(this BuildingType buildingType)

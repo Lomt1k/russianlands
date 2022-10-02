@@ -53,6 +53,9 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             yield return BuildingType.WoodProductionSecond.GetBuilding();
 
             yield return BuildingType.GoldTraining.GetBuilding();
+            yield return BuildingType.FoodTraining.GetBuilding();
+            yield return BuildingType.HerbsTraining.GetBuilding();
+            yield return BuildingType.WoodTraining.GetBuilding();
         }
 
         public IEnumerable<BuildingBase> GetBuildingsByCategory(BuildingCategory category)
@@ -86,6 +89,9 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
 
                 case BuildingCategory.Training:
                     yield return BuildingType.GoldTraining.GetBuilding();
+                    yield return BuildingType.FoodTraining.GetBuilding();
+                    yield return BuildingType.HerbsTraining.GetBuilding();
+                    yield return BuildingType.WoodTraining.GetBuilding();
                     break;
             }
         }
