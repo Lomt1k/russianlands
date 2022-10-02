@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Text;
-using TextGameRPG.Scripts.TelegramBot;
 using TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 
@@ -9,7 +8,6 @@ namespace TextGameRPG.Scripts.GameCore.Resources
     public class PlayerResources
     {
         private static ResourcesDictionary resourceDictionary = new ResourcesDictionary();
-        private const int maxResourcesInRow = 3;
 
         private GameSession _session;
         private ProfileData _profileData;
@@ -199,7 +197,7 @@ namespace TextGameRPG.Scripts.GameCore.Resources
         }
 
         /// <summary>
-        /// Добавляет ресурсs, но не превышает лимит хранилища
+        /// Добавляет ресурсы, но не превышает лимит хранилища
         /// </summary>
         /// <returns>Сколько по факту было добавлено</returns>
         public Dictionary<ResourceType, int> Add(Dictionary<ResourceType, int> resources)
@@ -211,6 +209,12 @@ namespace TextGameRPG.Scripts.GameCore.Resources
                 reallyAdded.Add(resource.Key, value);
             }
             return reallyAdded;
+        }
+
+        /// <returns>Максимальное количество ресурсов (лимит хранилища)</returns>
+        public int GetResourceLimit(ResourceType resourceType)
+        {
+            return resourceDictionary[resourceType].GetResourceLimit(_session);
         }
 
 

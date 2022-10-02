@@ -218,13 +218,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
 
         private async Task ShowBuildingInfo(BuildingBase building)
         {
-            if (!building.IsBuilt(_buildingsData))
+            if (!building.IsBuilt(_buildingsData) && !building.IsUnderConstruction(_buildingsData))
             {
-                if (building.IsUnderConstruction(_buildingsData))
-                {
-                    await ShowBuildingCurrentLevelInfo(building);
-                    return;
-                }
                 await ShowConstructionAvailableInfo(building);
                 return;
             }
@@ -389,7 +384,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
             if (building.IsBuilt(_buildingsData))
             {
                 RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "dialog_buildings_info_button")}",
-                    () => ShowBuildingInfo(building));
+                    () => ShowBuildingCurrentLevelInfo(building));
             }
             else
             {
@@ -444,6 +439,12 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
                 return;
             }
 
+            if (IsStorageUpgradeRequired(requiredResources, out var storageBuilding))
+            {
+                await ShowStorageUpgradeRequired(building, storageBuilding);
+                return;
+            }
+
             var buyResourcesDialog = new BuyResourcesForDiamondsDialog(session, notEnoughResources,
                 onSuccess: async () => await new BuildingsDialog(session).StartFromBuyResourcesDialog(building, true),
                 onCancel: async () => await new BuildingsDialog(session).StartFromBuyResourcesDialog(building, false));
@@ -494,6 +495,53 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
                 {ResourceType.Herbs, levelData.requiredHerbs },
                 {ResourceType.Wood, levelData.requiredWood },
             };
+        }
+
+        private bool IsStorageUpgradeRequired(Dictionary<ResourceType, int> requiredResources, out StorageBuildingBase storageBuilding)
+        {
+            storageBuilding = null;
+            var playerResources = session.player.resources;
+
+            foreach (var requiredResource in requiredResources)
+            {
+                var resourceType = requiredResource.Key;
+                var resourceAmount = requiredResource.Value;
+                if (resourceAmount > playerResources.GetResourceLimit(resourceType))
+                {
+                    switch (resourceType)
+                    {
+                        case ResourceType.Gold:
+                            storageBuilding = (StorageBuildingBase)BuildingType.GoldStorage.GetBuilding();
+                            return true;
+                        case ResourceType.Food:
+                            storageBuilding = (StorageBuildingBase)BuildingType.FoodStorage.GetBuilding();
+                            return true;
+                        case ResourceType.Herbs:
+                            storageBuilding = (StorageBuildingBase)BuildingType.HerbsStorage.GetBuilding();
+                            return true;
+                        case ResourceType.Wood:
+                            storageBuilding = (StorageBuildingBase)BuildingType.WoodStorage.GetBuilding();
+                            return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        private async Task ShowStorageUpgradeRequired(BuildingBase currentBuilding, StorageBuildingBase storageToUpgrade)
+        {
+            ClearButtons();
+            var sb = new StringBuilder();
+
+            sb.AppendLine(Localization.Get(session, "dialog_buildings_storage_upgrade_required"));
+            sb.AppendLine($"{Emojis.elements[Element.SmallWhite]} {storageToUpgrade.GetLocalizedName(session, _buildingsData)}");
+
+            RegisterButton(Localization.Get(session, "dialog_buildings_go_to_storage_button"), () => ShowBuildingInfo(storageToUpgrade));
+            RegisterBackButton(() => ShowConstructionAvailableInfo(currentBuilding));
+
+            lastMessage = lastMessage == null
+                ? await messageSender.SendTextMessage(session.chatId, sb.ToString(), GetMultilineKeyboard())
+                : await messageSender.EditTextMessage(session.chatId, lastMessage.MessageId, sb.ToString(), GetMultilineKeyboard());
         }
 
     }
