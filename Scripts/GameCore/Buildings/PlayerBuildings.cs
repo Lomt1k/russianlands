@@ -52,6 +52,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             yield return BuildingType.WoodProductionFirst.GetBuilding();
             yield return BuildingType.WoodProductionSecond.GetBuilding();
 
+            yield return BuildingType.WarriorTraining.GetBuilding();
             yield return BuildingType.GoldTraining.GetBuilding();
             yield return BuildingType.FoodTraining.GetBuilding();
             yield return BuildingType.HerbsTraining.GetBuilding();
@@ -88,6 +89,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
                     break;
 
                 case BuildingCategory.Training:
+                    yield return BuildingType.WarriorTraining.GetBuilding();
                     yield return BuildingType.GoldTraining.GetBuilding();
                     yield return BuildingType.FoodTraining.GetBuilding();
                     yield return BuildingType.HerbsTraining.GetBuilding();

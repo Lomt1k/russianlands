@@ -83,6 +83,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             { BuildingType.WoodProductionSecond, new WoodProductionSecondBuilding() },
 
             // --- Тренировочные залы
+            { BuildingType.WarriorTraining, new WarriorTrainingBuilding() },
             { BuildingType.GoldTraining, new GoldTrainingBuilding() },
             { BuildingType.FoodTraining, new FoodTrainingBuilding() },
             { BuildingType.HerbsTraining, new HerbsTrainingBuilding() },

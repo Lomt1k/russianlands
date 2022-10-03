@@ -143,7 +143,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
                 return;
             }
 
-            profile = new Profile(profileData, profileDynamicData, profileBuildingsData);
+            profile = new Profile(this, profileData, profileDynamicData, profileBuildingsData);
             language = Enum.Parse<LanguageCode>(profileData.language);
             player = new Player(this);
 

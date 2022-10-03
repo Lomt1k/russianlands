@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Data;
 using System.Threading.Tasks;
+using TextGameRPG.Scripts.TelegramBot.Sessions;
 
 namespace TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData
 {
     public abstract class DatabaseSerializableData
     {
+        public GameSession session { get; protected set; }
         protected bool isDeserializationCompleted { get; private set; } = false;
 
         public DatabaseSerializableData(DataRow data)
@@ -94,6 +96,11 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData
             }
 
             return parsed;
+        }
+
+        public void SetupSession(GameSession _session)
+        {
+            session = _session;
         }
 
     }

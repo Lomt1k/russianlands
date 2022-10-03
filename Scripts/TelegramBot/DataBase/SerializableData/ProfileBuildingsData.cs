@@ -94,6 +94,11 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData
         public byte woodProdSecondWorkerSecond;
 
         // --- Тренировка
+        public byte warriorTrainingLevel;
+        public long warriorTrainingStartConstructionTime;
+        public sbyte warriorTrainingFirstUnitIndex;
+        public long warriorTrainingFirstUnitStartTime;
+
         public byte goldTrainingLevel;
         public long goldTrainingStartConstructionTime;
         public sbyte goldTrainingFirstUnitIndex;
@@ -216,6 +221,11 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData
                 new TableColumn("woodProdSecondWorkerSecond", "INTEGER", "1"),
 
                 // --- Тренировка
+                new TableColumn("warriorTrainingLevel", "INTEGER", "0"),
+                new TableColumn("warriorTrainingStartConstructionTime", "INTEGER", "0"),
+                new TableColumn("warriorTrainingFirstUnitIndex", "INTEGER", "-1"),
+                new TableColumn("warriorTrainingFirstUnitStartTime", "INTEGER", "0"),
+
                 new TableColumn("goldTrainingLevel", "INTEGER", "0"),
                 new TableColumn("goldTrainingStartConstructionTime", "INTEGER", "0"),
                 new TableColumn("goldTrainingFirstUnitIndex", "INTEGER", "-1"),

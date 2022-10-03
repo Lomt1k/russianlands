@@ -10,8 +10,8 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
 {
     public class PlayerStats : UnitStats
     {
-        private const int DEFAULT_HEALTH = 100;
-        private const int HEALTH_PER_LEVEL = 20;
+        public const int DEFAULT_HEALTH = 100;
+        public const int HEALTH_PER_LEVEL = 20;
 
         private Player _player;
 

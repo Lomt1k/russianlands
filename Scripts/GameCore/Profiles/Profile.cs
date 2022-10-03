@@ -3,18 +3,25 @@ using System.Threading.Tasks;
 using Telegram.Bot.Types;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData;
+using TextGameRPG.Scripts.TelegramBot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Profiles
 {
     public class Profile
     {
+        public GameSession session { get; }
         public ProfileData data { get; }
         public ProfileDynamicData dynamicData { get; }
         public ProfileBuildingsData buildingsData { get; }
         public DateTime lastSaveProfileTime { get; private set; }
 
-        public Profile(ProfileData _data, ProfileDynamicData _dynamicData, ProfileBuildingsData _buildingsData)
+        public Profile(GameSession _session, ProfileData _data, ProfileDynamicData _dynamicData, ProfileBuildingsData _buildingsData)
         {
+            _data.SetupSession(_session);
+            _dynamicData.SetupSession(_session);
+            _buildingsData.SetupSession(_session);
+
+            session = _session;
             data = _data;
             dynamicData = _dynamicData;
             buildingsData = _buildingsData;

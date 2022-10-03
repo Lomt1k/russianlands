@@ -2,6 +2,7 @@
 using System.Text;
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Buildings;
+using TextGameRPG.Scripts.GameCore.Buildings.Training;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Resources;
 using TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData;
@@ -23,6 +24,11 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings.TrainingBuildin
 
         public override async Task Start()
         {
+            if (_building is WarriorTrainingBuilding)
+            {
+                await ShowCurrentUnit(0, fromUnitsList: true);
+                return;
+            }
             await ShowUnitsList();
         }
 
@@ -129,7 +135,14 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings.TrainingBuildin
                 sb.AppendLine(_building.GetInfoAboutUnitTraining(session, _data, unitIndex));
             }
 
-            RegisterBackButton(() => ShowUnitsList());
+            if (_building is WarriorTrainingBuilding)
+            {
+                RegisterBackButton(() => new BuildingsDialog(session).StartWithShowBuildingInfo(_building));
+            }
+            else
+            {
+                RegisterBackButton(() => ShowUnitsList());
+            }
             await messageSender.SendTextDialog(session.chatId, sb.ToString(), GetMultilineKeyboard());
         }
 
