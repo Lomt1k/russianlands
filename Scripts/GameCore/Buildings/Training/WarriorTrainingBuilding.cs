@@ -118,11 +118,8 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Training
 
         public override string GetInfoAboutUnitTraining(GameSession session, ProfileBuildingsData data, sbyte unitIndex)
         {
-            var player = session.player;
             var sb = new StringBuilder();
-
             var currentHealth = session.player.unitStats.maxHP;
-
             var currentUnitLevel = GetUnitLevel(data, unitIndex);
             var maxUnitLevel = GetCurrentMaxUnitLevel(data);
             if (currentUnitLevel >= maxUnitLevel)
