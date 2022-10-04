@@ -50,27 +50,27 @@ namespace TextGameRPG.Scripts.Utils
         /// - В 3% случаев вернет 10
         /// </summary>
         /// <returns></returns>
-        public static byte GetGrade()
+        public static int GetGrade()
         {
             var random = new Random();
-            var grade = random.Next(100);
-            if (grade < 20)
+            var randValue = random.Next(100);
+            if (randValue < 20)
                 return 1;
-            if (grade < 37)
+            if (randValue < 37)
                 return 2;
-            if (grade < 50)
+            if (randValue < 50)
                 return 3;
-            if (grade < 63)
+            if (randValue < 63)
                 return 4;
-            if (grade < 73)
+            if (randValue < 73)
                 return 5;
-            if (grade < 80)
+            if (randValue < 80)
                 return 6;
-            if (grade < 86)
+            if (randValue < 86)
                 return 7;
-            if (grade < 92)
+            if (randValue < 92)
                 return 8;
-            if (grade < 97)
+            if (randValue < 97)
                 return 9;
 
             return 10;
