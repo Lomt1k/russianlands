@@ -104,9 +104,9 @@ namespace TextGameRPG.Scripts.GameCore.Resources
         private static Dictionary<int, int> warriorTrainingTimeByCurrentLevel = new Dictionary<int, int>
         {
             // Ратуша 2
-            { 1, 60 },
-            { 2, 60 },
-            { 3, 60 },
+            { 1, 30 },
+            { 2, 30 },
+            { 3, 30 },
             // Ратуша 3
             { 4, 240 },
             { 5, 420 },
