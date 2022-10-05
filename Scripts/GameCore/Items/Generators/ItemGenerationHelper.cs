@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using TextGameRPG.Scripts.GameCore.Buildings;
 using TextGameRPG.Scripts.Utils;
 

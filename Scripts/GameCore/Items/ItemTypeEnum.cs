@@ -16,9 +16,9 @@ namespace TextGameRPG.Scripts.GameCore.Items
         Boots = 5,
         Shield = 6,
         Amulet = 7,
-        Ring = 8,        
-        Poison = 9,
-        Scroll = 10
+        Ring = 8,
+        Scroll = 9,
+        Poison = 10,
     }
 
     static class ItemTypeExtensions
