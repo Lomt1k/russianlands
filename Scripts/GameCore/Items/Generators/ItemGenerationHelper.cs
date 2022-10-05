@@ -77,16 +77,16 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
                     return grade <= 3 ? 0 : grade <= 5 ? 1 
                         : grade <= 7 ? 2 : grade <= 9 ? 3 : 4;
                 case 7:
-                case 9:
-                    return grade < 5 ? (grade - 1)
-                        : grade <= 6 ? 4
-                        : grade == 7 ? 5
-                        : grade == 8 ? 6
-                        : 7;
-                case 8:
                 case 10:
+                    return grade < 5 ? (grade - 1)
+                    : grade <= 6 ? 4
+                    : grade == 7 ? 5
+                    : grade == 8 ? 6
+                    : 7;
+                case 8:            
+                case 9:
                     return grade <= 4 ? (grade - 1)
-                        : grade <= 6 ? 4 : grade <= 8 ? 5 : 6;                    
+                        : grade <= 6 ? 4 : grade <= 8 ? 5 : 6;
             }
 
             return 0;
