@@ -26,6 +26,7 @@ namespace TextGameRPG
         public static void Main(string[] args)
         {
             ConfigureLogger();
+            PerformanceMonitor.Start();
             StartAvalonia(args);
         }
 

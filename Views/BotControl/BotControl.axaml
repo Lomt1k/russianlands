@@ -9,22 +9,32 @@
     <Grid.RowDefinitions>
       <RowDefinition Height="auto"/>
       <RowDefinition/>
+      <RowDefinition Height="10"/>
     </Grid.RowDefinitions>
 
       <!-- Console Output -->
-      <TextBox Grid.Row="0" Height="400" IsReadOnly="true" Margin="20" 
-               Text="{Binding consoleOutput}" VerticalAlignment="Top"/>
+    <TextBox Grid.Row="0" Height="400" IsReadOnly="true" Margin="20"
+             Text="{Binding consoleOutput}" VerticalAlignment="Top"/>
 
       <!-- Controls -->
-      <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Top"
-                  Margin="20,0" Spacing="20">
-        <Button Content="Start bot" Classes="Secondary"
-                Command="{Binding startListening}"
-                IsVisible="{Binding canStartListening}"/>
-        <Button Content="Stop listening" Classes="Negative"
-                Command="{Binding stopListening}"
-                IsVisible="{Binding canStopListening}"/>
-      </StackPanel>
+    <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Top"
+                Margin="20,0" Spacing="20">
+      <Button Content="Start bot" Classes="Secondary"
+              Command="{Binding startListening}"
+              IsVisible="{Binding canStartListening}"/>
+      <Button Content="Stop listening" Classes="Negative"
+              Command="{Binding stopListening}"
+              IsVisible="{Binding canStopListening}"/>
+    </StackPanel>
+
+    <!-- Tech Info -->
+    <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Bottom"
+               Margin="20,0" Spacing="20">
+      <TextBlock Text="{Binding cpuUsageStat}"/>
+      <TextBlock Text="{Binding memoryUsageStat}"/>
+    </StackPanel>
+    
+    
     
   </Grid>
   
