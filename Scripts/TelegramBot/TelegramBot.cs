@@ -39,11 +39,12 @@ namespace TextGameRPG.Scripts.TelegramBot
 
         private TelegramBotConfig GetConfig()
         {
+            var jsonStr = string.Empty;
             string configPath = Path.Combine(dataPath, "config.json");
             if (!System.IO.File.Exists(configPath))
             {
                 var newConfig = new TelegramBotConfig();
-                var jsonStr = JsonConvert.SerializeObject(newConfig, Formatting.Indented);
+                jsonStr = JsonConvert.SerializeObject(newConfig, Formatting.Indented);
                 using (StreamWriter writer = new StreamWriter(configPath, false, Encoding.UTF8))
                 {
                     writer.Write(jsonStr);
@@ -52,12 +53,21 @@ namespace TextGameRPG.Scripts.TelegramBot
                 return newConfig;
             }
 
+            TelegramBotConfig loadedConfig;
             using (StreamReader reader = new StreamReader(configPath, Encoding.UTF8))
             {
-                var jsonStr = reader.ReadToEnd();
-                var config = JsonConvert.DeserializeObject<TelegramBotConfig>(jsonStr);
-                return config;
+                jsonStr = reader.ReadToEnd();
+                loadedConfig = JsonConvert.DeserializeObject<TelegramBotConfig>(jsonStr);                
             }
+
+            // пересохраняем загруженный конфиг (на случай, если в новой версии приложения были добавлены новые поля - чтобы они появились)
+            jsonStr = JsonConvert.SerializeObject(loadedConfig, Formatting.Indented);
+            using (StreamWriter writer = new StreamWriter(configPath, false, Encoding.UTF8))
+            {
+                writer.Write(jsonStr);
+            }
+
+            return loadedConfig;
         }
 
         public async Task<bool> StartListeningAsync()
