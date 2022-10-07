@@ -10,6 +10,7 @@ using TextGameRPG.Scripts.TelegramBot.CallbackData;
 using TextGameRPG.Scripts.TelegramBot.DataBase.TablesStructure;
 using TextGameRPG.Scripts.TelegramBot.Dialogs;
 using TextGameRPG.Scripts.GameCore.Quests;
+using TextGameRPG.Scripts.TelegramBot.Managers;
 
 namespace TextGameRPG.Scripts.TelegramBot.Sessions
 {
@@ -25,12 +26,15 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
         public DialogBase? currentDialog { get; private set; }
 
         private bool _isHandlingUpdate;
+        private PerformanceManager _performanceManager;
 
         public GameSession(User user)
         {
             chatId = user.Id;
             startTime = DateTime.UtcNow;
             lastActivityTime = DateTime.UtcNow;
+
+            _performanceManager = GlobalManagers.performanceManager;
             Program.logger.Info($"Started a new session for @{user.Username} (ID {user.Id})");
         }
 
@@ -54,6 +58,9 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
             _isHandlingUpdate = true;
             try
             {
+                // Делаем паузу на обработку апдейта в зависимости от нагрузки на процессор
+                await Task.Delay(_performanceManager.GetCurrentResponseDelay());
+
                 lastActivityTime = DateTime.UtcNow;
                 actualUser = refreshedUser;
                 if (profile == null)

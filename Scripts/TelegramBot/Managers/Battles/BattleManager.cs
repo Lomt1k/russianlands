@@ -13,7 +13,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
         private List<Battle> _battles = new List<Battle>();
         private Dictionary<Player, Battle> _battlesByPlayers = new Dictionary<Player, Battle>();
 
-        public override void OnManagerStart()
+        public BattleManager()
         {
         }
 

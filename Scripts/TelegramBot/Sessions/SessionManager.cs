@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
+using TextGameRPG.Scripts.TelegramBot.Managers;
 
 namespace TextGameRPG.Scripts.TelegramBot.Sessions
 {
@@ -10,17 +11,17 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
     {
         private const int millisecondsInHour = 3_600_000;
         private const int millisecondsInMinute = 60_000;
-        private readonly int sessionTimeoutInMilliseconds;
         private readonly int periodicSaveDatabaseInMinutes;
 
         private TelegramBot _telegramBot;
+        private PerformanceManager _performanceManager;
         private CancellationTokenSource _sessionManagerTasksCTS;
         private Dictionary<ChatId, GameSession> _sessions = new Dictionary<ChatId, GameSession>();
 
         public SessionManager(TelegramBot telegramBot)
         {
             _telegramBot = telegramBot;
-            sessionTimeoutInMilliseconds = telegramBot.config.sessionTimeoutInHours * millisecondsInHour;
+            _performanceManager = GlobalManagers.performanceManager;
             periodicSaveDatabaseInMinutes = telegramBot.config.periodicSaveDatabaseInMinutes * millisecondsInMinute;
 
             _sessionManagerTasksCTS = new CancellationTokenSource();
@@ -70,7 +71,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
                 List<ChatId> sessionsToClose = new List<ChatId>();
                 foreach (var chatId in _sessions.Keys)
                 {
-                    if (IsTimeout(chatId))
+                    var timeoutMs = _performanceManager.GetCurrentSessionTimeout() * millisecondsInHour;
+                    if (IsTimeout(chatId, timeoutMs))
                     {
                         sessionsToClose.Add(chatId);
                     }
@@ -84,11 +86,11 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
             }
         }
 
-        private bool IsTimeout(ChatId chatId)
+        private bool IsTimeout(ChatId chatId, int timeoutMs)
         {
             var session = _sessions[chatId];
             var millisecondsFromLastActivity = (int)(DateTime.UtcNow - session.lastActivityTime).TotalMilliseconds;
-            return millisecondsFromLastActivity > sessionTimeoutInMilliseconds;
+            return millisecondsFromLastActivity > timeoutMs;
         }
 
         public async Task CloseSession(ChatId chatId)

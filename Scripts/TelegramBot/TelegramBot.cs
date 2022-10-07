@@ -99,7 +99,11 @@ namespace TextGameRPG.Scripts.TelegramBot
         {
             botReceiving.StopReceiving();
             await sessionManager.CloseAllSessions();
+
             GlobalManagers.DisposeManagers();
+            messageSender = null;
+            sessionManager = null;
+            botReceiving = null;
         }
 
 
