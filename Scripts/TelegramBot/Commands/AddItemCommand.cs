@@ -8,6 +8,9 @@ namespace TextGameRPG.Scripts.TelegramBot.Commands
     {
         public override async Task Execute(GameSession session, string[] args)
         {
+            if (!session.isAdmin)
+                return;
+
             if (args.Length < 1 || args.Length > 2)
                 return;
 

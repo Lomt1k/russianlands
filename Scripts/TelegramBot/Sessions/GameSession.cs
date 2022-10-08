@@ -24,6 +24,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
         public Player player { get; private set; }
         public LanguageCode language { get; private set; } = LanguageCode.en;
         public DialogBase? currentDialog { get; private set; }
+        public bool isAdmin => profile.data.adminStatus > 0;
 
         private bool _isHandlingUpdate;
         private PerformanceManager _performanceManager;

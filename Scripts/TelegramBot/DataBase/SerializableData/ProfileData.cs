@@ -13,6 +13,7 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData
         public string username;
         public string language;
         public string nickname;
+        public int adminStatus;
         public byte level;
         public byte lastUnlockedLocation;
 
@@ -33,6 +34,7 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData
                 new TableColumn("username", "TEXT", "na"),
                 new TableColumn("language", "TEXT", "ru"),
                 new TableColumn("nickname", "TEXT", "na"),
+                new TableColumn("adminStatus", "INTEGER", "0"),
                 new TableColumn("level", "INTEGER", "1"),
                 new TableColumn("lastUnlockedLocation", "INTEGER", "1"),
                 new TableColumn("resourceGold", "INTEGER", "3500"),
