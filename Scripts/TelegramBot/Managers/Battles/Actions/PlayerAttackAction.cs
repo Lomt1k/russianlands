@@ -5,6 +5,7 @@ using TextGameRPG.Scripts.GameCore.Units.Stats;
 using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 using TextGameRPG.Scripts.GameCore.Localizations;
+using System;
 
 namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles.Actions
 {
@@ -25,17 +26,31 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles.Actions
             var dealDamageAbility = item?.data.ablitityByType[AbilityType.DealDamage] as DealDamageAbility;
             if (dealDamageAbility == null)
             {
-                CalculateFistsDamage(attacker);
+                _damageInfo = new DamageInfo(10, 0, 0, 0); // Урон кулаком: 10 единиц (меньше любого оружия)
                 return;
             }
             _item = item;
             _damageInfo = dealDamageAbility.GetRandomValues();
+            AppendDamageBonusByAttributes(attacker, item);
         }
 
-        private void CalculateFistsDamage(Player attacker)
+        private void AppendDamageBonusByAttributes(Player attacker, InventoryItem? item)
         {
-            var strength = ((PlayerStats)attacker.unitStats).attributeStrength;
-            _damageInfo = new DamageInfo(strength * 3, 0, 0, 0); //По 3 очка физ. урона за единицу силы (сделал от балды, можно менять это значение)
+            if (item == null)
+                return;
+
+            var playerStats = (PlayerStats)attacker.unitStats;
+            var itemType = item.data.itemType;
+            var attrValue = itemType == ItemType.Stick || itemType == ItemType.Scroll
+                ? playerStats.attributeSorcery : playerStats.attributeStrength;
+
+            var damageInfo = _damageInfo;
+            foreach (DamageType damageType in Enum.GetValues(typeof(DamageType)))
+            {
+                var bonusPerAttributePoint = (float)damageInfo[damageType] / 500; // +0.02% к урону за очко силы / колдовства
+                damageInfo[damageType] += (int)(bonusPerAttributePoint * attrValue);
+            }
+            _damageInfo = damageInfo;
         }
 
         public void ApplyActionWithMineStats(UnitStats stats)
@@ -51,7 +66,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles.Actions
         {
             var sb = new StringBuilder();
             var totalDamage = _resultDamage.GetTotalValue();
-            var itemName = _item != null ? _item.GetFullName(session) 
+            var itemName = _item != null
+                ? _item.GetFullName(session) 
                 : $"{Emojis.stats[Stat.PhysicalDamage]} {Localization.Get(session, "battle_attack_fists")}";
 
             sb.AppendLine($"<b>{itemName}:</b>");

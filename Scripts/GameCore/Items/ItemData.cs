@@ -45,7 +45,7 @@ namespace TextGameRPG.Scripts.GameCore.Items
             this.itemType = type;
         }
 
-        // for item generator
+        // from item generator
         public ItemData(ItemDataSeed _seed, List<ItemAbilityBase> _abilities, List<ItemPropertyBase> _properties)
         {
             debugName = string.Empty;

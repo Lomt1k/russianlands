@@ -122,8 +122,8 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
             var tempResist = resistance;
             foreach (DamageType damageType in Enum.GetValues(typeof(DamageType)))
             {
-                var bonusPerVitality = (float)tempResist[damageType] / 100;
-                tempResist[damageType] += (int)(bonusPerVitality * attributeVitality);
+                var bonusPerVitalityPoint = (float)tempResist[damageType] / 500; // +0.02% за очко стойкости
+                tempResist[damageType] += (int)(bonusPerVitalityPoint * attributeVitality);
             }
             resistance = tempResist;
         }
