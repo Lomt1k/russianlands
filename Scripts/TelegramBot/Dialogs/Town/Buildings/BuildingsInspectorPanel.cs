@@ -45,7 +45,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
 
                 foreach (var update in updates)
                 {
-                    sb.AppendLine($"{Emojis.elements[Element.SmallWhite]} {update}");
+                    sb.AppendLine($"{Emojis.elements[Element.SmallBlack]} {update}");
                 }
                 sb.AppendLine();
             }
@@ -157,7 +157,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
                         foreach (StorageBuildingBase storage in storages)
                         {
                             if (storage.resourceType == resourceType)
-                                sb.AppendLine($"{Emojis.elements[Element.SmallWhite]} {storage.GetLocalizedName(session, _buildingsData)}");
+                                sb.AppendLine($"{Emojis.elements[Element.SmallBlack]} {storage.GetLocalizedName(session, _buildingsData)}");
                         }
                     }
                 }
@@ -247,7 +247,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
                 sb.AppendLine();
                 foreach (var update in updates)
                 {
-                    sb.AppendLine($"{Emojis.elements[Element.SmallWhite]} {update}");
+                    sb.AppendLine($"{Emojis.elements[Element.SmallBlack]} {update}");
                 }
             }
 
@@ -534,7 +534,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
             var sb = new StringBuilder();
 
             sb.AppendLine(Localization.Get(session, "dialog_buildings_storage_upgrade_required"));
-            sb.AppendLine($"{Emojis.elements[Element.SmallWhite]} {storageToUpgrade.GetLocalizedName(session, _buildingsData)}");
+            sb.AppendLine($"{Emojis.elements[Element.SmallBlack]} {storageToUpgrade.GetLocalizedName(session, _buildingsData)}");
 
             RegisterButton(Localization.Get(session, "dialog_buildings_go_to_storage_button"), () => ShowBuildingInfo(storageToUpgrade));
             RegisterBackButton(() => ShowConstructionAvailableInfo(currentBuilding));

@@ -27,17 +27,17 @@ namespace TextGameRPG.Scripts.TelegramBot
     public enum Stat
     {
         Health,
-        Mana,
         Arrows,
         PhysicalDamage,
         FireDamage,
         ColdDamage,
         LightningDamage,
+        RestoreHealth,
+        Mana,
         AttributeStrength,
         AttributeVitality,
         AttributeSorcery,
         AttributeLuck,
-        RestoreHealth,
         IncreaseHealth,
         Premium,
     }

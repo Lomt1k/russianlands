@@ -36,7 +36,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
 
         private ItemData BakeItem()
         {
-            return new ItemData(seed, _abilities.Values.ToList(), _properties.Values.ToList(), _statIcons);
+            return new ItemData(seed, _abilities.Values.ToList(), _properties.Values.ToList(), _statIcons.OrderBy(x => x).ToList());
         }
 
         protected void AddProperties()

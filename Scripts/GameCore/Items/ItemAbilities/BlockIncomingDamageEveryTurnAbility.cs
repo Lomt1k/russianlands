@@ -54,22 +54,8 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
         {
             var sb = new StringBuilder();
             sb.AppendLine(string.Format(Localizations.Localization.Get(session, "ability_block_damage_percentage"), chanceToSuccessPercentage));
-            if (physicalDamage > 0)
-            {
-                sb.AppendLine($"{Emojis.stats[Stat.PhysicalDamage]} {physicalDamage}");
-            }
-            if (fireDamage > 0)
-            {
-                sb.AppendLine($"{Emojis.stats[Stat.FireDamage]} {fireDamage}");
-            }
-            if (coldDamage > 0)
-            {
-                sb.AppendLine($"{Emojis.stats[Stat.ColdDamage]} {coldDamage}");
-            }
-            if (lightningDamage > 0)
-            {
-                sb.AppendLine($"{Emojis.stats[Stat.LightningDamage]} {lightningDamage}");
-            }
+            var damage = new DamageInfo(physicalDamage, fireDamage, coldDamage, lightningDamage);
+            sb.AppendLine(damage.GetCompactView());
 
             return sb.ToString();
         }

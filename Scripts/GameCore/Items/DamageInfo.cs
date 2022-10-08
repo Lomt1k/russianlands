@@ -71,7 +71,7 @@ namespace TextGameRPG.Scripts.GameCore.Items
             {
                 sb.Append($"{Emojis.stats[Stat.PhysicalDamage]} {_damage[DamageType.Physical]}");
                 if (damageTypesCount > 1)
-                    sb.Append(' ');
+                    sb.Append(Emojis.middleSpace);
             }
             if (HasDamageType(DamageType.Fire))
             {
@@ -82,14 +82,14 @@ namespace TextGameRPG.Scripts.GameCore.Items
                 }
                 else if (damageTypesCount > 2)
                 {
-                    sb.Append(' ');
+                    sb.Append(Emojis.middleSpace);
                 }
             }
             if (HasDamageType(DamageType.Cold))
             {
                 sb.Append($"{Emojis.stats[Stat.ColdDamage]} {_damage[DamageType.Cold]}");
                 if (damageTypesCount > 3)
-                    sb.Append(' ');
+                    sb.Append(Emojis.middleSpace);
             }
             if (HasDamageType(DamageType.Lightning))
             {

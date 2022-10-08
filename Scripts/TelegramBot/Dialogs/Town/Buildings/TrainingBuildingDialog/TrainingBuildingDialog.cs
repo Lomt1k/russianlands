@@ -44,7 +44,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings.TrainingBuildin
             {
                 foreach (var update in updates)
                 {
-                    sb.AppendLine($"{Emojis.elements[Element.SmallWhite]} {update}");
+                    sb.AppendLine($"{Emojis.elements[Element.SmallBlack]} {update}");
                 }
                 sb.AppendLine();
             }

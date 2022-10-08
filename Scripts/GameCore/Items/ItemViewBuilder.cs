@@ -16,6 +16,7 @@ namespace TextGameRPG.Scripts.GameCore.Items
             sb.AppendLine("<b>" + item.GetFullName(session) + "</b>");
 
             AppendGeneralItemInfo(sb, session, item);
+            AppendPassiveHeader(sb, session, item);
             AppendAbilities(sb, session, item);
             AppendProperties(sb, session, item);
 
@@ -43,14 +44,49 @@ namespace TextGameRPG.Scripts.GameCore.Items
             }
         }
 
+        private static void AppendPassiveHeader(StringBuilder sb, GameSession session, InventoryItem item)
+        {
+            bool hasPassive = false;
+            foreach (var ability in item.data.abilities)
+            {
+                switch (ability.abilityType)
+                {
+                    case AbilityType.DealDamage:
+                    case AbilityType.BlockIncomingDamageEveryTurn:
+                        continue;
+                    default:
+                        hasPassive = true;
+                        break;
+                }
+            }
+            if (!hasPassive)
+            {
+                foreach (var property in item.data.properties)
+                {
+                    switch (property.propertyType)
+                    {
+                        case PropertyType.DamageResist:
+                            continue;
+                        default:
+                            hasPassive = true;
+                            break;
+                    }
+                }
+            }
+            
+            if (hasPassive)
+            {
+                sb.AppendLine(Localization.Get(session, "item_view_properties_header"));
+            }
+        }
+
         private static void AppendAbilities(StringBuilder sb, GameSession session, InventoryItem item)
         {
             foreach (var ability in item.data.abilities)
             {
-                if (ability.abilityType != AbilityType.DealDamage 
-                    && ability.abilityType != AbilityType.BlockIncomingDamageEveryTurn)
+                if (ability.abilityType != AbilityType.DealDamage && ability.abilityType != AbilityType.BlockIncomingDamageEveryTurn)
                 {
-                    sb.AppendLine($"{Emojis.elements[Element.SmallWhite]} " + ability.GetView(session));
+                    sb.AppendLine($"{Emojis.elements[Element.SmallBlack]} " + ability.GetView(session));
                 }
             }
         }
@@ -58,12 +94,15 @@ namespace TextGameRPG.Scripts.GameCore.Items
         private static void AppendProperties(StringBuilder sb, GameSession session, InventoryItem item)
         {
             bool needAppendLine = false;
-            foreach (var property in item.data.properties)
+            if (item.data.properties.Count > 0)
             {
-                if (property.propertyType != PropertyType.DamageResist)
+                foreach (var property in item.data.properties)
                 {
-                    sb.AppendLine($"{Emojis.elements[Element.SmallWhite]} " + property.GetView(session));
-                    needAppendLine = true;
+                    if (property.propertyType != PropertyType.DamageResist)
+                    {
+                        sb.AppendLine($"{Emojis.elements[Element.SmallBlack]} " + property.GetView(session));
+                        needAppendLine = true;
+                    }
                 }
             }
 
@@ -83,7 +122,7 @@ namespace TextGameRPG.Scripts.GameCore.Items
                 sb.AppendLine(string.Format(Localization.Get(session, "item_view_current_charge"), item.data.requiredCharge));
             }
             if (item.isEquipped)
-            {           
+            {
                 sb.AppendLine(Localization.Get(session, "dialog_inventory_equipped_state"));
             }
         }

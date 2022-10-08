@@ -18,6 +18,12 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             var property = (DamageResistProperty)ItemPropertyRegistry.GetNewProperty(PropertyType.DamageResist);
             property.physicalDamage = value;
             _properties.Add(PropertyType.DamageResist, property);
+
+            // у колец и амулетов защита от физ. урона как бонусное свойство (должно быть с иконкой)
+            if (seed.itemType == ItemType.Amulet || seed.itemType == ItemType.Ring)
+            {
+                _statIcons.Add(Stat.PhysicalDamage);
+            }
         }
 
         protected void AddFireDamageResist(int value)
