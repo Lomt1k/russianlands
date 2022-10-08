@@ -6,11 +6,10 @@ namespace TextGameRPG.Scripts.TelegramBot.Commands
 {
     public class AddItemCommand : CommandBase
     {
+        public override bool isAdminCommand => true;
+
         public override async Task Execute(GameSession session, string[] args)
         {
-            if (!session.isAdmin)
-                return;
-
             if (args.Length < 1 || args.Length > 2)
                 return;
 

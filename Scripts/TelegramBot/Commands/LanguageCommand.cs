@@ -7,6 +7,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Commands
 {
     public class LanguageCommand : CommandBase
     {
+        public override bool isAdminCommand => false; 
+
         public override async Task Execute(GameSession session, string[] args)
         {
             if (args.Length != 1)

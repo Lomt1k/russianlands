@@ -15,6 +15,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Commands
             _commandsDictionary = new Dictionary<string, CommandBase>
             {
                 { "/language", new LanguageCommand() },
+                { "/stats", new StatsCommand() },
                 { "/additem", new AddItemCommand() },
                 { "/test", new TestCommand() },
             };
@@ -27,6 +28,9 @@ namespace TextGameRPG.Scripts.TelegramBot.Commands
             string commandStr = elements[0];
 
             if (!_commandsDictionary.TryGetValue(commandStr, out var command))
+                return;
+
+            if (command.isAdminCommand && !session.isAdmin)
                 return;
 
             if (elements.Length > 1)

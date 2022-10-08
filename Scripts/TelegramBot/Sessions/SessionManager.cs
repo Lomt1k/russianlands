@@ -18,6 +18,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
         private CancellationTokenSource _sessionManagerTasksCTS;
         private Dictionary<ChatId, GameSession> _sessions = new Dictionary<ChatId, GameSession>();
 
+        public int sessionsCount => _sessions.Count;
+
         public SessionManager(TelegramBot telegramBot)
         {
             _telegramBot = telegramBot;

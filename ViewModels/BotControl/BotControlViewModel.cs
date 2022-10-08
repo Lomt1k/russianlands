@@ -18,7 +18,7 @@ namespace TextGameRPG.ViewModels.BotControl
 
         private string _cpuUsageStat;
         private string _memoryUsageStat;
-        private string _performanceStatus = "Current status: -";
+        private string _performanceStatus = "Status: -";
 
         public string consoleOutput
         {
@@ -113,7 +113,7 @@ namespace TextGameRPG.ViewModels.BotControl
         private void UpdatePerformanceStats(double cpuUsage, double memoryUsage)
         {
             cpuUsageStat = $"CPU: {cpuUsage:F1}%";
-            memoryUsageStat = $"RAM: {memoryUsage:F0} Mb";
+            memoryUsageStat = $"RAM: {memoryUsage:F0} MB";
         }
 
         private void UpdatePerformanceStatus(PerformanceManager performance)
@@ -121,7 +121,7 @@ namespace TextGameRPG.ViewModels.BotControl
             var currentState = performance.currentState;
             var cpuState = performance.currentCpuState;
             var memoryState = performance.currentMemoryState;
-            performanceStatus = $"Current status: {currentState}"
+            performanceStatus = $"Status: {currentState}"
                 + (currentState == PerformanceState.Normal ? string.Empty : $" (CPU: {cpuState}, RAM: {memoryState})");
         }
 

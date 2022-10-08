@@ -7,6 +7,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Commands
     {
         protected static MessageSender messageSender => TelegramBot.instance.messageSender;
 
+        public abstract bool isAdminCommand { get; }
+
         public abstract Task Execute(GameSession session, string[] args);
     }
 }
