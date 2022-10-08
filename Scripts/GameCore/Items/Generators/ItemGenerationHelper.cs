@@ -9,6 +9,20 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
     {
         private static readonly Dictionary<int, int> minItemLevelByTownHall;
 
+        private static readonly Dictionary<int, int> basisPointsByTownHall = new Dictionary<int, int>
+        {
+            { 1, 20 },
+            { 2, 20 },
+            { 3, 30 },
+            { 4, 40 },
+            { 5, 55 },
+            { 6, 70 },
+            { 7, 90 },
+            { 8, 110 },
+            { 9, 130 },
+            { 10, 150 },
+        };
+
         static ItemGenerationHelper()
         {
             minItemLevelByTownHall = new Dictionary<int, int>();
@@ -50,6 +64,15 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
                         : randValue < 69 ? 4 : randValue < 81 ? 6 : randValue < 92 ? 8 : 10;
             }
             return Randomizer.GetGrade();
+        }
+
+        public static int GetBasisPoint(byte townHallLevel)
+        {
+            if (basisPointsByTownHall.TryGetValue(townHallLevel, out var basisPoint))
+            {
+                return basisPoint;
+            }
+            return townHallLevel < 1 ? basisPointsByTownHall[1] : basisPointsByTownHall[10];
         }
 
         public static int CalculateRequiredLevel(byte townHallLevel, int grade)
