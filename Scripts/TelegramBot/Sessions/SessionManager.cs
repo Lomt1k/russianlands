@@ -39,15 +39,15 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
             return session;
         }
 
-        public GameSession? GetSessionIfExists(ChatId chatId)
+        public GameSession? GetSessionIfExists(User user)
         {
-            _sessions.TryGetValue(chatId, out GameSession? session);
+            _sessions.TryGetValue(user.Id, out GameSession? session);
             return session;
         }
 
-        public bool HasActiveSession(ChatId chatId)
+        public bool HasActiveSession(User user)
         {
-            return _sessions.ContainsKey(chatId);
+            return _sessions.ContainsKey(user.Id);
         }
 
         private async Task PeriodicSaveProfilesAsync()
@@ -58,7 +58,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
                 Program.logger.Info("Saving changes in database for active users...");
                 foreach (var session in _sessions.Values)
                 {
-                    session.SaveProfileIfNeed();
+                    await session.SaveProfileIfNeed();
                 }
                 await Task.Delay(periodicSaveDatabaseInMinutes);
             }
@@ -79,7 +79,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
                 }
                 foreach (var chatId in sessionsToClose)
                 {
-                    CloseSession(chatId);
+                    await CloseSession(chatId);
                 }
 
                 await Task.Delay(10_000);

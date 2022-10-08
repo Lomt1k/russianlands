@@ -1,4 +1,6 @@
-﻿namespace TextGameRPG.Scripts.TelegramBot.Managers
+﻿using System;
+
+namespace TextGameRPG.Scripts.TelegramBot.Managers
 {
     public enum PerformanceState { Normal, Highload, Busy }
 
@@ -28,6 +30,8 @@
                     : PerformanceState.Normal;
             }
         }
+
+        public Action<PerformanceManager>? onStateUpdate;
 
 
         public PerformanceManager()
@@ -68,6 +72,7 @@
         {
             UpdateCpuState(cpuUsage);
             UpdateMemoryState(memoryUsage);
+            onStateUpdate?.Invoke(this);
         }
 
         private void UpdateCpuState(double cpuUsage)
@@ -98,6 +103,7 @@
         {
             base.OnDestroy();
             UnsubscribeEvents();
+            onStateUpdate = null;
         }
 
     }

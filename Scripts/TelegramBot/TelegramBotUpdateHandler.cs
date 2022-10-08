@@ -9,15 +9,24 @@ namespace TextGameRPG.Scripts.TelegramBot
     using Telegram.Bot.Extensions.Polling;
     using Telegram.Bot.Types;
     using Telegram.Bot.Types.Enums;
+    using Telegram.Bot.Types.ReplyMarkups;
+    using TextGameRPG.Scripts.TelegramBot.Managers;
     using TextGameRPG.Scripts.TelegramBot.Sessions;
 
     public class TelegramBotUpdateHandler : IUpdateHandler
     {
+        private readonly string serverIsBusyText = $"{Emojis.elements[Element.Warning]} Server is busy. Please try later...";
+        private readonly ReplyKeyboardMarkup serverIsBusyKeyboard = new ReplyKeyboardMarkup("Restart");
+
         private SessionManager _sessionManager;
+        private PerformanceManager _performanceManager;
+        private MessageSender _messageSender;
 
         public TelegramBotUpdateHandler()
         {
             _sessionManager = TelegramBot.instance.sessionManager;
+            _performanceManager = GlobalManagers.performanceManager;
+            _messageSender = TelegramBot.instance.messageSender;
         }
 
         public Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
@@ -37,12 +46,23 @@ namespace TextGameRPG.Scripts.TelegramBot
 
             if (fromUser == null)
             {
-                Program.logger.Warn($"Unhandled Update {update.Id} (User is NULL)");
+                Program.logger.Warn($"Unhandled Update {update.Id} (Update not from user)");
                 return Task.CompletedTask;
             }
 
-            var gameSession = _sessionManager.GetOrCreateSession(fromUser);
-            gameSession.HandleUpdateAsync(fromUser, update);
+            bool serverIsBusy = _performanceManager.currentState == PerformanceState.Busy;
+            var gameSession = serverIsBusy 
+                ? _sessionManager.GetSessionIfExists(fromUser) 
+                : _sessionManager.GetOrCreateSession(fromUser);
+
+            if (gameSession == null)
+            {
+                _messageSender.SendTextDialog(fromUser.Id, serverIsBusyText, serverIsBusyKeyboard, silent: true);
+            }
+            else
+            {
+                gameSession.HandleUpdateAsync(fromUser, update);
+            }            
 
             return Task.CompletedTask;
         }

@@ -4,6 +4,7 @@ using ReactiveUI;
 using TextGameRPG.Scripts.Utils;
 using System.Reactive;
 using System.Threading.Tasks;
+using TextGameRPG.Scripts.TelegramBot.Managers;
 
 namespace TextGameRPG.ViewModels.BotControl
 {
@@ -17,6 +18,7 @@ namespace TextGameRPG.ViewModels.BotControl
 
         private string _cpuUsageStat;
         private string _memoryUsageStat;
+        private string _performanceStatus = "Current status: -";
 
         public string consoleOutput
         {
@@ -48,6 +50,11 @@ namespace TextGameRPG.ViewModels.BotControl
         {
             get => _memoryUsageStat;
             set => this.RaiseAndSetIfChanged(ref _memoryUsageStat, value);
+        }
+        public string performanceStatus
+        {
+            get => _performanceStatus;
+            set => this.RaiseAndSetIfChanged(ref _performanceStatus, value);
         }
 
         public ReactiveCommand<Unit, Task> startListening { get; }
@@ -82,6 +89,15 @@ namespace TextGameRPG.ViewModels.BotControl
 
             canStartListening = !success;
             canStopListening = success;
+
+            if (success)
+            {
+                var performanceManager = GlobalManagers.performanceManager;
+                if (performanceManager != null)
+                {
+                    performanceManager.onStateUpdate += UpdatePerformanceStatus;
+                }
+            }
         }
 
         private async Task StopBotListening()
@@ -90,14 +106,23 @@ namespace TextGameRPG.ViewModels.BotControl
 
             await _bot.StopListening();
             isBotListening = false;
-
             canStartListening = true;
+            performanceStatus = "Current status: -";
         }
 
         private void UpdatePerformanceStats(double cpuUsage, double memoryUsage)
         {
             cpuUsageStat = $"CPU: {cpuUsage:F1}%";
             memoryUsageStat = $"RAM: {memoryUsage:F0} Mb";
+        }
+
+        private void UpdatePerformanceStatus(PerformanceManager performance)
+        {
+            var currentState = performance.currentState;
+            var cpuState = performance.currentCpuState;
+            var memoryState = performance.currentMemoryState;
+            performanceStatus = $"Current status: {currentState}"
+                + (currentState == PerformanceState.Normal ? string.Empty : $" (CPU: {cpuState}, RAM: {memoryState})");
         }
 
     }

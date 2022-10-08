@@ -32,6 +32,7 @@
                Margin="20,0" Spacing="20">
       <TextBlock Text="{Binding cpuUsageStat}"/>
       <TextBlock Text="{Binding memoryUsageStat}"/>
+      <TextBlock Text="{Binding performanceStatus}"/>
     </StackPanel>
     
     
