@@ -38,6 +38,7 @@ namespace TextGameRPG.Scripts.TelegramBot
         AttributeSorcery,
         AttributeLuck,
         RestoreHealth,
+        IncreaseHealth,
         Premium,
     }
 
@@ -152,6 +153,7 @@ namespace TextGameRPG.Scripts.TelegramBot
             { Stat.AttributeSorcery, "\ud83d\udcab" },
             { Stat.AttributeLuck, "\ud83c\udf40" },
             { Stat.RestoreHealth, "\ud83d\udc96" },
+            { Stat.IncreaseHealth, "\ud83d\udc97" },
             { Stat.Premium, "\ud83d\udc51" },
         };
 

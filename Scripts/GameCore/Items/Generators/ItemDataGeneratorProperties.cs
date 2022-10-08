@@ -2,6 +2,7 @@
 namespace TextGameRPG.Scripts.GameCore.Items.Generators
 {
     using ItemProperties;
+    using TextGameRPG.Scripts.TelegramBot;
 
     public abstract partial class ItemDataGeneratorBase
     {
@@ -10,6 +11,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             if (_properties.TryGetValue(PropertyType.DamageResist, out var damageResist))
             {
                 ((DamageResistProperty)damageResist).physicalDamage += value;
+                _statIcons.Add(Stat.PhysicalDamage);
                 return;
             }
 
@@ -20,6 +22,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
 
         protected void AddFireDamageResist(int value)
         {
+            _statIcons.Add(Stat.FireDamage);
             if (_properties.TryGetValue(PropertyType.DamageResist, out var damageResist))
             {
                 ((DamageResistProperty)damageResist).fireDamage += value;
@@ -33,6 +36,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
 
         protected void AddColdDamageResist(int value)
         {
+            _statIcons.Add(Stat.ColdDamage);
             if (_properties.TryGetValue(PropertyType.DamageResist, out var damageResist))
             {
                 ((DamageResistProperty)damageResist).coldDamage += value;
@@ -46,6 +50,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
 
         protected void AddLightningDamageResist(int value)
         {
+            _statIcons.Add(Stat.LightningDamage);
             if (_properties.TryGetValue(PropertyType.DamageResist, out var damageResist))
             {
                 ((DamageResistProperty)damageResist).lightningDamage += value;
@@ -59,6 +64,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
 
         protected void AddIncreaseAttributeStrength(int value)
         {
+            _statIcons.Add(Stat.AttributeStrength);
             if (_properties.TryGetValue(PropertyType.IncreaseAttributeStrength, out var property))
             {
                 ((IncreaseAttributeStrengthProperty)property).value += value;
@@ -72,6 +78,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
 
         protected void AddIncreaseAttributeVitality(int value)
         {
+            _statIcons.Add(Stat.AttributeVitality);
             if (_properties.TryGetValue(PropertyType.IncreaseAttributeVitality, out var property))
             {
                 ((IncreaseAttributeVitalityProperty)property).value += value;
@@ -85,6 +92,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
 
         protected void AddIncreaseAttributeSorcery(int value)
         {
+            _statIcons.Add(Stat.AttributeSorcery);
             if (_properties.TryGetValue(PropertyType.IncreaseAttributeSorcery, out var property))
             {
                 ((IncreaseAttributeSorceryProperty)property).value += value;
@@ -98,6 +106,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
 
         protected void AddIncreaseAttributeLuck(int value)
         {
+            _statIcons.Add(Stat.AttributeLuck);
             if (_properties.TryGetValue(PropertyType.IncreaseAttributeLuck, out var property))
             {
                 ((IncreaseAttributeLuckProperty)property).value += value;
@@ -111,6 +120,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
 
         protected void AddIncreaseMaxHealth(int value)
         {
+            _statIcons.Add(Stat.IncreaseHealth);
             if (_properties.TryGetValue(PropertyType.IncreaseMaxHealth, out var property))
             {
                 ((IncreaseMaxHealthProperty)property).value += value;

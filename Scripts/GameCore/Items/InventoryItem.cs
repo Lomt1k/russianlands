@@ -102,6 +102,15 @@ namespace TextGameRPG.Scripts.GameCore.Items
             {
                 sb.Append($" +{mod}");
             }
+            var statIcons = data.statIcons;
+            if (statIcons.Count > 0)
+            {
+                sb.Append(' ');
+                foreach (var stat in statIcons)
+                {
+                    sb.Append(Emojis.stats[stat]);
+                }
+            }
 
             return sb.ToString();
         }

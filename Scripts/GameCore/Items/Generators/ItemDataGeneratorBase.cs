@@ -6,6 +6,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
     using ItemProperties;
     using System;
     using System.Linq;
+    using TextGameRPG.Scripts.TelegramBot;
 
     public abstract partial class ItemDataGeneratorBase
     {
@@ -16,6 +17,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
 
         protected Dictionary<AbilityType, ItemAbilityBase> _abilities = new Dictionary<AbilityType, ItemAbilityBase>();
         protected Dictionary<PropertyType, ItemPropertyBase> _properties = new Dictionary<PropertyType, ItemPropertyBase>();
+        protected List<Stat> _statIcons = new List<Stat>();
 
         public ItemDataGeneratorBase(ItemDataSeed _seed)
         {
@@ -34,7 +36,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
 
         private ItemData BakeItem()
         {
-            return new ItemData(seed, _abilities.Values.ToList(), _properties.Values.ToList());
+            return new ItemData(seed, _abilities.Values.ToList(), _properties.Values.ToList(), _statIcons);
         }
 
         protected void AddProperties()
