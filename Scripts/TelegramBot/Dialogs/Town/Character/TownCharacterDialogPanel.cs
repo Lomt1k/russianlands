@@ -29,7 +29,9 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
         {
             ClearButtons();
             RegisterBackButton(() => ShowUnitView());
-            var text = Localization.Get(session, "dialog_character_attributes_info");
+            var text = string.Format(Localization.Get(session, "dialog_character_attributes_info"), 
+                Emojis.stats[Stat.AttributeStrength], Emojis.stats[Stat.AttributeVitality],
+                Emojis.stats[Stat.AttributeSorcery], Emojis.stats[Stat.AttributeLuck]);
 
             lastMessage = await messageSender.EditTextMessage(session.chatId, lastMessage.MessageId, text, GetOneLineKeyboard());
         }

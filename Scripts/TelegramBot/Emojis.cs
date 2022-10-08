@@ -33,6 +33,12 @@ namespace TextGameRPG.Scripts.TelegramBot
         FireDamage,
         ColdDamage,
         LightningDamage,
+        AttributeStrength,
+        AttributeVitality,
+        AttributeSorcery,
+        AttributeLuck,
+        RestoreHealth,
+        Premium,
     }
 
     public enum MapLocation
@@ -141,6 +147,12 @@ namespace TextGameRPG.Scripts.TelegramBot
             { Stat.FireDamage, "\ud83d\udd25" },
             { Stat.ColdDamage, "\ud83e\uddca" },
             { Stat.LightningDamage, "\u26a1\ufe0f" },
+            { Stat.AttributeStrength, "\ud83d\udcaa" },
+            { Stat.AttributeVitality, "\ud83d\udd17" },
+            { Stat.AttributeSorcery, "\ud83d\udcab" },
+            { Stat.AttributeLuck, "\ud83c\udf40" },
+            { Stat.RestoreHealth, "\ud83d\udc96" },
+            { Stat.Premium, "\ud83d\udc51" },
         };
 
         public static readonly Dictionary<ItemType, string> items = new Dictionary<ItemType, string>

@@ -48,21 +48,10 @@ namespace TextGameRPG.Scripts.GameCore.Units
         public string GetFullUnitInfoView(GameSession sessionToSend)
         {
             var sb = new StringBuilder();
-            sb.AppendLine($"<b>{nickname}</b>");
-            string levelStr = string.Format(Localization.Get(sessionToSend, "unit_view_level"), mobData.statsSettings.level);
-            sb.AppendLine(levelStr);
+            sb.Append(GetGeneralUnitInfoView(sessionToSend));
+
             sb.AppendLine();
-
             sb.AppendLine(unitStats.GetView(sessionToSend));
-            return sb.ToString();
-        }
-
-        public string GetStartTurnView(GameSession session)
-        {
-            var sb = new StringBuilder();
-            sb.AppendLine($"<b>{nickname}</b>");
-
-            sb.AppendLine(unitStats.GetView(session));
             return sb.ToString();
         }
 

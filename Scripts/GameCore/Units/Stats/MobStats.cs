@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.TelegramBot;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 
@@ -27,6 +28,7 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
         public override string GetView(GameSession sessionToSend)
         {
             var sb = new StringBuilder();
+            sb.AppendLine(Localization.Get(sessionToSend, "unit_view_health"));
             sb.AppendLine($"{Emojis.stats[Stat.Health]} {currentHP} / {maxHP}");
 
             sb.AppendLine();
