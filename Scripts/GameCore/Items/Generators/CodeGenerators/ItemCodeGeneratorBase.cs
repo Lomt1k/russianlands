@@ -2,7 +2,6 @@
 using System.Text;
 using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
 using TextGameRPG.Scripts.GameCore.Items.ItemProperties;
-using TextGameRPG.Scripts.Utils;
 
 namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators
 {
@@ -10,30 +9,28 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators
     {
         protected ItemType type { get; private set; }
         protected Rarity rarity { get; private set; }
-        protected ushort requiredLevel { get; private set; }
-        protected int basisPoints { get; private set; }
+        protected byte townHallLevel { get; private set; }
+        protected byte grade { get; private set; }
 
         protected StringBuilder sb { get; private set; }
 
         private List<AbilityType> _abilities = new List<AbilityType>();
         private List<PropertyType> _properties = new List<PropertyType>();
 
-        public ItemCodeGeneratorBase(ItemType _type, Rarity _rarity, ushort _level, int _basisPoints)
+        public ItemCodeGeneratorBase(ItemType _type, Rarity _rarity, int _townHallLevel)
         {
             type = _type;
             rarity = _rarity;
-            requiredLevel = _level;
-            basisPoints = _basisPoints;
+            townHallLevel = (byte)_townHallLevel;
+            grade = (byte)ItemGenerationHelper.GetRandomGrade(townHallLevel);
+
             sb = new StringBuilder();
 
             var typeCode = type == ItemType.Boots ? "BT" : type.ToString().ToUpper().Substring(0, 2);
             sb.Append(typeCode);
-            sb.Append(basisPoints);
-            sb.Append($"L{requiredLevel}");
-            sb.Append($"R{(byte)rarity}");
-
-            var grade = Randomizer.GetGrade();
+            sb.Append(townHallLevel);
             sb.Append($"G{grade}");
+            sb.Append($"R{(byte)rarity}");
 
             AppendSpecificInfo();
         }

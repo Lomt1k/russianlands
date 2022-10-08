@@ -41,7 +41,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles.Actions
                     if (shield == null)
                         break;
 
-                    header = string.Format(header, shield.GetLocalizedName(session));
+                    header = string.Format(header, shield.GetFullName(session));
                     break;
                 default:
                     header = string.Format(header, Localization.Get(session, "battle_shield_default_header"));

@@ -21,7 +21,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators
 
         private readonly string[] _mainOption = new[] { "DF", "DC", "DL" };
 
-        public StickCodeGenerator(ItemType _type, Rarity _rarity, ushort _level, int _basisPoints) : base(_type, _rarity, _level, _basisPoints)
+        public StickCodeGenerator(ItemType _type, Rarity _rarity, int _townHallLevel) : base(_type, _rarity, _townHallLevel)
         {
             if (type != ItemType.Stick)
             {
@@ -39,6 +39,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators
 
             var index = random.Next(_mainOption.Length);
             sb.Append(_mainOption[index]);
+            sb.Append("C3"); // required charge 3
 
             int needOptionsCount = 0;
             switch (rarity)

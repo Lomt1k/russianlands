@@ -6,6 +6,7 @@ namespace TextGameRPG.Scripts.GameCore.Items
     using ItemProperties;
     using System.Collections.Generic;
     using System.Linq;
+    using TextGameRPG.Scripts.GameCore.Items.Generators;
     using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
 
     public class ItemData : IDataWithIntegerID
@@ -14,20 +15,26 @@ namespace TextGameRPG.Scripts.GameCore.Items
         public int id { get; }
         public ItemType itemType { get; set; }
         public Rarity itemRarity { get; set; }
-        public ushort requiredLevel { get; set; }
+        public byte requiredLevel { get; set; }
         public byte requiredCharge { get; set; }
         public List<ItemAbilityBase> abilities { get; private set; } = new List<ItemAbilityBase>();
         public List<ItemPropertyBase> properties { get; private set; } = new List<ItemPropertyBase>();
 
         [JsonIgnore]
+        public byte requiredTownHall { get; }
+        [JsonIgnore]
+        public byte grade { get; }
+        [JsonIgnore]
         public bool isChargeRequired => requiredCharge > 0;
+        [JsonIgnore]
+        public bool isGeneratedItem => id == -1;
         [JsonIgnore]
         public Dictionary<AbilityType, ItemAbilityBase> ablitityByType;
 
         [JsonIgnore]
         public Dictionary<PropertyType, ItemPropertyBase> propertyByType;
 
-        public static ItemData brokenItem = new ItemData(ItemType.Sword, Rarity.Common, 0, 0, new List<ItemAbilityBase>(), new List<ItemPropertyBase>()) 
+        public static ItemData brokenItem = new ItemData(new ItemDataSeed(), new List<ItemAbilityBase>(), new List<ItemPropertyBase>()) 
         { debugName = "Broken Item" };
 
         [JsonConstructor]
@@ -39,15 +46,16 @@ namespace TextGameRPG.Scripts.GameCore.Items
         }
 
         // for item generator
-        public ItemData(ItemType _type, Rarity _rarity, ushort _level, byte _charge,
-            List<ItemAbilityBase> _abilities, List<ItemPropertyBase> _properties)
+        public ItemData(ItemDataSeed _seed, List<ItemAbilityBase> _abilities, List<ItemPropertyBase> _properties)
         {
-            debugName = $"Generated {_type}";
+            debugName = string.Empty;
             id = -1;
-            itemType = _type;
-            itemRarity = _rarity;
-            requiredLevel = _level;
-            requiredCharge = _charge;
+            itemType = _seed.itemType;
+            itemRarity = _seed.rarity;
+            requiredLevel = _seed.requiredLevel;
+            requiredCharge = _seed.requiredCharge;
+            requiredTownHall = _seed.townHallLevel;
+            grade = _seed.grade;
             abilities = _abilities;
             properties = _properties;
             RebuildDictionaries();

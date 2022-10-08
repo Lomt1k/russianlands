@@ -24,7 +24,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators
             () => TryAppendAbility(AbilityType.AddManaEveryTurn),
         };
 
-        public RingCodeGenerator(ItemType _type, Rarity _rarity, ushort _level, int _basisPoints) : base(_type, _rarity, _level, _basisPoints)
+        public RingCodeGenerator(ItemType _type, Rarity _rarity, int _townHallLevel) : base(_type, _rarity, _townHallLevel)
         {
             if (type != ItemType.Ring)
             {

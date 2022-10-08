@@ -24,7 +24,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators
 
         private readonly string[] _rareOptions = new[] { "DF", "DC", "DL" };
 
-        public ArmorCodeGenerator(ItemType _type, Rarity _rarity, ushort _level, int _basisPoints) : base(_type, _rarity, _level, _basisPoints)
+        public ArmorCodeGenerator(ItemType _type, Rarity _rarity, int _townHallLevel) : base(_type, _rarity, _townHallLevel)
         {
             if (type != ItemType.Armor && type != ItemType.Helmet && type != ItemType.Boots)
             {

@@ -18,8 +18,6 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             }
             AddBaseParameters(rarityMult);
             AddProperties();
-
-            requiredCharge = 3;
         }
 
         private void AddBaseParameters(float rarityMult)

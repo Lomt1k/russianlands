@@ -3,7 +3,6 @@ using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.GameCore.Items.Generators;
 using TextGameRPG.Scripts.GameCore.Locations;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
-using TextGameRPG.Scripts.Utils;
 
 namespace TextGameRPG.Scripts.TelegramBot.Commands
 {

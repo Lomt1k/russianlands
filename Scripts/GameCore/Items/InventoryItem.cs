@@ -94,26 +94,27 @@ namespace TextGameRPG.Scripts.GameCore.Items
             return ItemViewBuilder.Build(session, this);
         }
 
-        public string GetLocalizedName(GameSession session)
-        {
-            if (string.IsNullOrEmpty(data.debugName))
-            {
-                return Localizations.Localization.Get(session, $"item_name_{id}");
-            }
-            //TODO: Add localization for generated items
-            return data.debugName;
-        }
-
         public string GetFullName(GameSession session)
         {
             var sb = new StringBuilder();
-            sb.Append($"{Emojis.items[data.itemType]} {GetLocalizedName(session)}");
+            sb.Append($"{Emojis.items[data.itemType]} {GetLocalizationName(session)}");
             if (mod > 0)
             {
                 sb.Append($" +{mod}");
             }
 
             return sb.ToString();
+        }
+
+        private string GetLocalizationName(GameSession session)
+        {
+            if (!data.isGeneratedItem)
+            {
+                return Localizations.Localization.Get(session, $"item_name_{id}");
+            }
+
+            var itemType = data.itemType.ToString().ToLower();
+            return Localizations.Localization.Get(session, $"item_{itemType}_hall_{data.requiredTownHall}_grade_{data.grade}");
         }
 
         public bool IsSupportLevelUp()

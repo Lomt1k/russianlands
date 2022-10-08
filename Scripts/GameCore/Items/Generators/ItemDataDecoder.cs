@@ -11,24 +11,26 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
     public struct ItemDataSeed
     {
         public ItemType itemType;
-        public int basisPoints;
-        public ushort requiredLevel;
         public Rarity rarity;
+        public byte townHallLevel;
         public byte grade;
+        public byte requiredCharge;
         public byte manaCost;
 
         public List<AbilityType> abilities;
         public List<PropertyType> properties;
         public List<string> baseParameters;
+
+        public byte requiredLevel => (byte)ItemGenerationHelper.CalculateRequiredLevel(townHallLevel, grade);
     }
 
     public class ItemDataDecoder
     {
         private ItemType _itemType;
-        private int _basisPoints;
-        private ushort _requiredLevel;
         private Rarity _rarity;
+        private byte _townHallLevel;
         private byte _grade;
+        public byte _requiredCharge;
         private byte _manaCost;
 
         private List<AbilityType> _abilities = new List<AbilityType>();
@@ -61,20 +63,20 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             using (var reader = new StringReader(dataCode))
             {
                 _itemType = ReadType(reader);
-                ReadNextDigits(reader).TryParse(out _basisPoints);
+                ReadNextDigits(reader).TryParse(out _townHallLevel);
                 ReadParameters(reader);
             }
 
             return new ItemDataSeed()
             {
                 itemType = _itemType,
-                basisPoints = _basisPoints,
-                requiredLevel = _requiredLevel,
+                townHallLevel = _townHallLevel,
                 rarity = _rarity,
                 grade = _grade,
                 abilities = _abilities,
                 properties = _properties,
                 baseParameters = _baseParameters,
+                requiredCharge = _requiredCharge,
                 manaCost = _manaCost,
             };
         }
@@ -130,14 +132,14 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             var firstChar = (char)reader.Read();
             switch (firstChar)
             {
-                case 'L':
-                    ReadNextDigits(reader).TryParse(out _requiredLevel);
-                    return;
                 case 'R':
                     ReadNextDigits(reader).TryParse(out _rarity);
                     return;
                 case 'G':
                     ReadNextDigits(reader).TryParse(out _grade);
+                    return;
+                case 'C':
+                    ReadNextDigits(reader).TryParse(out _requiredCharge);
                     return;
                 case 'M':
                     ReadNextDigits(reader).TryParse(out _manaCost);

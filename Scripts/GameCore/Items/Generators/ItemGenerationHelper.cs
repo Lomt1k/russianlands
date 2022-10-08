@@ -66,7 +66,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             return Randomizer.GetGrade();
         }
 
-        public static int GetBasisPoint(byte townHallLevel)
+        public static int GetBasisPoint(int townHallLevel)
         {
             if (basisPointsByTownHall.TryGetValue(townHallLevel, out var basisPoint))
             {
@@ -75,14 +75,14 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             return townHallLevel < 1 ? basisPointsByTownHall[1] : basisPointsByTownHall[10];
         }
 
-        public static int CalculateRequiredLevel(byte townHallLevel, int grade)
+        public static int CalculateRequiredLevel(int townHallLevel, int grade)
         {
             var byTownHall = minItemLevelByTownHall[townHallLevel];
             var byGrade = GetAdditionalLevelsByGrade(townHallLevel, grade);
             return byTownHall + byGrade;
         }
 
-        private static int GetAdditionalLevelsByGrade(byte townHallLevel, int grade)
+        private static int GetAdditionalLevelsByGrade(int townHallLevel, int grade)
         {
             switch (townHallLevel)
             {

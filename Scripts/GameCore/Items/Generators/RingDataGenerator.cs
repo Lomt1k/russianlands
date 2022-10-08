@@ -45,19 +45,19 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             switch (propertyType)
             {
                 case PropertyType.IncreaseAttributeStrength:
-                    var strength = (int)Math.Round(seed.requiredLevel * gradeMult / 8) + 1;
+                    var strength = (int)Math.Round(seed.requiredLevel * gradeMult * 1.3f);
                     AddIncreaseAttributeStrength(strength);
                     break;
                 case PropertyType.IncreaseAttributeVitality:
-                    var vitality = (int)Math.Round(seed.requiredLevel * gradeMult / 8) + 1;
+                    var vitality = (int)Math.Round(seed.requiredLevel * gradeMult * 1.3f);
                     AddIncreaseAttributeVitality(vitality);
                     break;
                 case PropertyType.IncreaseAttributeSorcery:
-                    var sorcery = (int)Math.Round(seed.requiredLevel * gradeMult / 8) + 1;
+                    var sorcery = (int)Math.Round(seed.requiredLevel * gradeMult * 1.3f);
                     AddIncreaseAttributeSorcery(sorcery);
                     break;
                 case PropertyType.IncreaseAttributeLuck:
-                    var luck = (int)Math.Round(seed.requiredLevel * gradeMult / 8) + 1;
+                    var luck = (int)Math.Round(seed.requiredLevel * gradeMult * 1.3f);
                     AddIncreaseAttributeLuck(luck);
                     break;
                 case PropertyType.IncreaseMaxHealth:
@@ -74,7 +74,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
                     AddRestoreHealthEveryTurn((int)Math.Round(gradedPoints * 0.65), 20f);
                     break;
                 case AbilityType.AddManaEveryTurn:
-                    var chance = 8 + (int)Math.Round(seed.requiredLevel / 15f);
+                    var chance = 8 + (int)Math.Round(seed.requiredLevel / 7f);
                     AddManaEveryTurn(1, chance);
                     break;
             }

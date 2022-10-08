@@ -21,7 +21,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
         {
             seed = _seed;
             gradeMult = (_seed.grade - 5) / 40f + 1; //от 0.9 до 1.125 (сам grade от 1 - 10)
-            gradedPoints = _seed.basisPoints * gradeMult;
+            gradedPoints = ItemGenerationHelper.GetBasisPoint(_seed.townHallLevel) * gradeMult;
         }
 
         public ItemData Generate()
@@ -34,8 +34,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
 
         private ItemData BakeItem()
         {
-            return new ItemData(seed.itemType, seed.rarity, seed.requiredLevel, requiredCharge, 
-                _abilities.Values.ToList(), _properties.Values.ToList());
+            return new ItemData(seed, _abilities.Values.ToList(), _properties.Values.ToList());
         }
 
         protected void AddProperties()
@@ -60,19 +59,19 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             switch (propertyType)
             {
                 case PropertyType.IncreaseAttributeStrength:
-                    var strength = (int)Math.Round(seed.requiredLevel * gradeMult / 10) + 1;
+                    var strength = (int)Math.Round(seed.requiredLevel * gradeMult);
                     AddIncreaseAttributeStrength(strength);
                     break;
                 case PropertyType.IncreaseAttributeVitality:
-                    var vitality = (int)Math.Round(seed.requiredLevel * gradeMult / 10) + 1;
+                    var vitality = (int)Math.Round(seed.requiredLevel * gradeMult);
                     AddIncreaseAttributeVitality(vitality);
                     break;
                 case PropertyType.IncreaseAttributeSorcery:
-                    var sorcery = (int)Math.Round(seed.requiredLevel * gradeMult / 10) + 1;
+                    var sorcery = (int)Math.Round(seed.requiredLevel * gradeMult);
                     AddIncreaseAttributeSorcery(sorcery);
                     break;
                 case PropertyType.IncreaseAttributeLuck:
-                    var luck = (int)Math.Round(seed.requiredLevel * gradeMult / 10) + 1;
+                    var luck = (int)Math.Round(seed.requiredLevel * gradeMult);
                     AddIncreaseAttributeLuck(luck);
                     break;
                 case PropertyType.IncreaseMaxHealth:
