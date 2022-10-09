@@ -161,7 +161,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
         public async Task OnCloseSession()
         {
             await SaveProfileIfNeed();
-            Program.logger.Info($"Session closed for ID {chatId}");
+            Program.logger.Info($"Session closed for @{actualUser.Username} (ID {chatId})");
         }
 
         public async Task SaveProfileIfNeed()

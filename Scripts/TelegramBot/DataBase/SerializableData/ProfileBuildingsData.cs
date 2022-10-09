@@ -253,13 +253,6 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData
                 new TableColumn("woodTrainingSecondUnitIndex", "INTEGER", "-1"),
                 new TableColumn("woodTrainingFirstUnitStartTime", "INTEGER", "0"),
                 new TableColumn("woodTrainingSecondUnitStartTime", "INTEGER", "0"),
-
-                new TableColumn("warriorTrainingLevel", "INTEGER", "0"),
-                new TableColumn("warriorTrainingStartConstructionTime", "INTEGER", "0"),
-                new TableColumn("warriorTrainingFirstUnitIndex", "INTEGER", "-1"),
-                new TableColumn("warriorTrainingSecondUnitIndex", "INTEGER", "-1"),
-                new TableColumn("warriorTrainingFirstUnitStartTime", "INTEGER", "0"),
-                new TableColumn("warriorTrainingSecondUnitStartTime", "INTEGER", "0"),
             };
         }
 
