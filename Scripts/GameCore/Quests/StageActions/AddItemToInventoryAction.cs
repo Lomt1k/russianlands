@@ -15,12 +15,12 @@ namespace TextGameRPG.Scripts.GameCore.Quests.StageActions
         [JsonProperty]
         public int slotIdForMultiSlot;
 
-        public override async Task Execute(GameSession session)
+        public override Task Execute(GameSession session)
         {
             var inventory = session.player.inventory;
             var addedItem = inventory.TryAddItem(itemId);
-            if (addedItem == null)
-                return;
+            if (addedItem == null || !forceEquip)
+                return Task.CompletedTask;
 
             if (addedItem.data.itemType.IsMultiSlot())
             {
@@ -30,6 +30,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests.StageActions
             {
                 inventory.EquipSingleSlot(addedItem);
             }
+            return Task.CompletedTask;
         }
     }
 }
