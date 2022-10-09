@@ -33,7 +33,7 @@ namespace TextGameRPG.Scripts.GameCore.Profiles
         public async Task SetupProfileOnFirstLaunch(User actualUser, LanguageCode language)
         {
             data.language = language.ToString();
-            data.nickname = actualUser.FirstName + (actualUser.LastName != null ? ' ' + actualUser.LastName : string.Empty);
+            data.nickname = actualUser.FirstName.IsCorrectNickname() ? actualUser.FirstName : "Player_" + (1_000 + new Random().Next(9_000));
             await SaveProfile();
         }
 

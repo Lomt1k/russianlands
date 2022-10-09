@@ -8,7 +8,6 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town
     public enum TownEntryReason
     {
         StartNewSession,
-        EndTutorial,
         BackFromInnerDialog,
         FromQuestAction
     }
@@ -48,19 +47,16 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town
             string text;
             switch (_reason)
             {
-                case TownEntryReason.EndTutorial:
-                    text = header + "\n\n" + Localization.Get(session, "dialog_tutorial_town_entry_text_endTutorial");
-                    break;
                 case TownEntryReason.BackFromInnerDialog:
-                    text = header + "\n" + resources + "\n\n" + Localization.Get(session, "dialog_tutorial_town_entry_text_backFromInnerDialog");
+                    text = header + "\n" + resources + "\n\n" + Localization.Get(session, "dialog_town_entry_text_backFromInnerDialog");
                     break;
                 case TownEntryReason.FromQuestAction:
-                    text = header + "\n" + resources + "\n\n" + Localization.Get(session, "dialog_tutorial_town_entry_text_backFromInnerDialog");
+                    text = header + "\n" + resources + "\n\n" + Localization.Get(session, "dialog_town_entry_text_backFromInnerDialog");
                     break;
 
                 case TownEntryReason.StartNewSession:
                 default:
-                    text = header + "\n" + Localization.Get(session, "dialog_tutorial_town_entry_text_newSession") + "\n\n" + resources;
+                    text = header + "\n" + Localization.Get(session, "dialog_town_entry_text_newSession") + "\n\n" + resources;
                     break;
             }
             

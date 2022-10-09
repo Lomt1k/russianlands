@@ -91,6 +91,8 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
                 {"Entry Town", () => { stage.questActions.Add(new EntryTownAction()); RefillActionsCollection(); } },
                 {"Restore Full Health", () => { stage.questActions.Add(new RestoreFullHealthAction()); RefillActionsCollection(); } },
                 {"Add Item To Inventory", () => { stage.questActions.Add(new AddItemToInventoryAction()); RefillActionsCollection(); } },
+                {"Complete Quest", () => { stage.questActions.Add(new CompleteQuestAction()); RefillActionsCollection(); } },
+                {"Start New Quest", () => { stage.questActions.Add(new StartNewQuestAction()); RefillActionsCollection(); } },
             });
         }
 

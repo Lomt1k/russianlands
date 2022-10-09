@@ -34,25 +34,17 @@ public static class StringExtensions
         if (string.IsNullOrWhiteSpace(input))
             return false;
 
+        if (input.Length < 3 || input.Length > 16)
+            return false;
+
         for (int i = 0; i < input.Length; i++)
         {
             var symbol = input[i];
-            if (char.IsLetterOrDigit(symbol))
-                continue;
-
-            //Пробелы могут быть только между словами (и не более одного пробела подряд)
-            if (char.IsWhiteSpace(symbol))
+            if (!char.IsLetterOrDigit(symbol) && !char.IsWhiteSpace(symbol))
             {
-                var leftIndex = i - 1;
-                var rightIndex = i + 1;
-                if (leftIndex < 0 || rightIndex >= input.Length)
-                    return false;
-
-                if (char.IsWhiteSpace(input[leftIndex]) || char.IsWhiteSpace(input[rightIndex]))
-                    return false;
+                return false;
             }
         }
-
         return true;
     }
 

@@ -36,7 +36,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
             lastActivityTime = DateTime.UtcNow;
 
             _performanceManager = GlobalManagers.performanceManager;
-            Program.logger.Info($"Started a new session for @{user.Username} (ID {user.Id})");
+            Program.logger.Info($"Started a new session for {user}");
         }
 
         public void SetupActiveDialog(DialogBase dialog)
@@ -83,7 +83,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
             }
             catch (Exception ex) 
             {
-                Program.logger.Error($"Exception in session [username @{actualUser.Username}, userId {actualUser.Id}]\n{ex}\n");
+                Program.logger.Error($"Exception in session [user: {refreshedUser}]\n{ex}\n");
                 await TelegramBot.instance.messageSender.SendErrorMessage(chatId, $"{ex.GetType()}: {ex.Message}");
             }
             _isHandlingUpdate = false;
@@ -161,7 +161,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
         public async Task OnCloseSession()
         {
             await SaveProfileIfNeed();
-            Program.logger.Info($"Session closed for @{actualUser.Username} (ID {chatId})");
+            Program.logger.Info($"Session closed for {actualUser}");
         }
 
         public async Task SaveProfileIfNeed()

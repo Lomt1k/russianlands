@@ -88,7 +88,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
                     unit.OnMineBattleTurnAlmostEnd();
                     continue;
                 }
-                if (secondsLeft == 0 && _battleActions.Count == 0)
+                if (secondsLeft == 0 && _battleActions == null)
                 {
                     await unit.OnMineBatteTurnTimeEnd();
                     var enemy = battle.GetEnemy(unit);

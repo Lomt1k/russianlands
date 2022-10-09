@@ -35,6 +35,14 @@ namespace TextGameRPG.Scripts.GameCore.Quests
             return _stagesById[stageId];
         }
 
+        public async Task CompleteQuest(GameSession session)
+        {
+            if (IsStarted(session) && !IsCompleted(session))
+            {
+                await SetStage(session, -1);
+            }
+        }
+
         public async Task SetStage(GameSession session, int stageId)
         {
             if (stageId <= 0)

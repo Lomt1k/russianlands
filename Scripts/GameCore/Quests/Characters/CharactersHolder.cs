@@ -6,8 +6,8 @@ namespace TextGameRPG.Scripts.GameCore.Quests.Characters
     public enum CharacterType : int
     {
         None = 0,
-        Vasilisa = 100,
-        Robber = 200,
+        Vasilisa = 10,
+        Muromec = 20,
     }
 
     public static class CharacterTypeExtensions
@@ -28,7 +28,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests.Characters
         private static Dictionary<CharacterType, Character> _characters = new Dictionary<CharacterType, Character>
         {
             { CharacterType.Vasilisa, new Character() },
-            { CharacterType.Robber, new Character() },
+            { CharacterType.Muromec, new Character() },
         };
 
 
