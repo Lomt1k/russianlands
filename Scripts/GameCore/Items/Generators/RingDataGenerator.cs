@@ -61,7 +61,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
                     AddIncreaseAttributeLuck(luck);
                     break;
                 case PropertyType.IncreaseMaxHealth:
-                    AddIncreaseMaxHealth((int)Math.Round(gradedPoints * 0.8));
+                    AddIncreaseMaxHealth((int)Math.Round(gradedPoints * 0.75));
                     break;
             }
         }

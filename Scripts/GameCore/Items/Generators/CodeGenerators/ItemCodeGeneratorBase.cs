@@ -37,7 +37,30 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators
 
         public abstract void AppendSpecificInfo();
 
-        protected bool TryAppendAbility(AbilityType abilityType)
+        /// <summary>
+        /// Добавляет предмету способность (всегда true)
+        /// </summary>
+        protected bool ForceAppendAbility(AbilityType abilityType)
+        {
+            _abilities.Add(abilityType);
+            sb.Append($"A{(byte)abilityType}");
+            return true;
+        }
+
+        /// <summary>
+        /// Добавляет предмету свойство (всегда true)
+        /// </summary>
+        protected bool ForceAppendProperty(PropertyType propertyType)
+        {
+            _properties.Add(propertyType);
+            sb.Append($"P{(byte)propertyType}");
+            return true;
+        }
+
+        /// <summary>
+        /// Добавит предмету способность, если такой способности еще не было
+        /// </summary>
+        protected bool AppendAbilityOnlyOnce(AbilityType abilityType)
         {
             if (_abilities.Contains(abilityType))
                 return false;
@@ -47,7 +70,10 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators
             return true;
         }
 
-        protected bool TryAppendProperty(PropertyType propertyType)
+        /// <summary>
+        /// Добавит предмету свойство, если такой способности еще не было
+        /// </summary>
+        protected bool AppendAbilityOnlyOnce(PropertyType propertyType)
         {
             if (_properties.Contains(propertyType))
                 return false;

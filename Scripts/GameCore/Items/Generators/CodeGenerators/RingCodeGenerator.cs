@@ -9,19 +9,19 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators
     {
         private List<Func<bool>> _options => new List<Func<bool>>
         {
-            () => TryAppendProperty(PropertyType.IncreaseAttributeStrength),
-            () => TryAppendProperty(PropertyType.IncreaseAttributeVitality),
-            () => TryAppendProperty(PropertyType.IncreaseAttributeSorcery),
-            () => TryAppendProperty(PropertyType.IncreaseAttributeLuck),
-            () => TryAppendProperty(PropertyType.IncreaseMaxHealth),
+            () => ForceAppendProperty(PropertyType.IncreaseAttributeStrength),
+            () => ForceAppendProperty(PropertyType.IncreaseAttributeVitality),
+            () => ForceAppendProperty(PropertyType.IncreaseAttributeSorcery),
+            () => ForceAppendProperty(PropertyType.IncreaseAttributeLuck),
+            () => ForceAppendProperty(PropertyType.IncreaseMaxHealth),
 
             () => { sb.Append("DP"); return true; }, //damage resist physical
             () => { sb.Append("DF"); return true; }, //damage resist fire
             () => { sb.Append("DC"); return true; }, //damage resist cold
             () => { sb.Append("DL"); return true; }, //damage resist lightning
 
-            () => TryAppendAbility(AbilityType.RestoreHealthEveryTurn),
-            () => TryAppendAbility(AbilityType.AddManaEveryTurn),
+            () => ForceAppendAbility(AbilityType.RestoreHealthEveryTurn),
+            () => ForceAppendAbility(AbilityType.AddManaEveryTurn),
         };
 
         public RingCodeGenerator(ItemType _type, Rarity _rarity, int _townHallLevel) : base(_type, _rarity, _townHallLevel)
