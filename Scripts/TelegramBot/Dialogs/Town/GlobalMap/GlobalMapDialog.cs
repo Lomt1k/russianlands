@@ -13,7 +13,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.GlobalMap
 
             RegisterButton($"{Emojis.locations[MapLocation.Arena]} " + Localization.Get(session, "menu_item_arena"),
                 null);
-            RegisterBackButton(() => new TownEntryDialog(session, TownEntryReason.BackFromInnerDialog).Start());
+            RegisterBackButton(() => new TownDialog(session, TownEntryReason.BackFromInnerDialog).Start());
         }
 
         public override async Task Start()

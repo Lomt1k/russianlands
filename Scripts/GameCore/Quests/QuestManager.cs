@@ -20,7 +20,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests
                     await QuestsHolder.GetQuest(QuestType.MainQuest).StartQuest(session);
                     return;
                 }
-                await new TownEntryDialog(session, TownEntryReason.StartNewSession).Start();
+                await new TownDialog(session, TownEntryReason.StartNewSession).Start();
                 return;
             }
 
@@ -32,7 +32,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests
             await focusedQuest.SetStage(session, stageToSetup);
             if (!focusedQuest.IsFocusRequired(session))
             {
-                await new TownEntryDialog(session, TownEntryReason.StartNewSession).Start();
+                await new TownDialog(session, TownEntryReason.StartNewSession).Start();
             }
         }
 

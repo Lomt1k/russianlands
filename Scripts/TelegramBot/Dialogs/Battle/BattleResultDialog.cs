@@ -51,7 +51,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Battle
 
         private async Task ReturnToTown()
         {
-            await new TownEntryDialog(session, TownEntryReason.FromQuestAction).Start();
+            await new TownDialog(session, TownEntryReason.FromQuestAction).Start();
         }
     }
 }

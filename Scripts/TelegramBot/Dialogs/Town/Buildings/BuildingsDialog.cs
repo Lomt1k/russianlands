@@ -19,7 +19,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
             RegisterCategoryButton(BuildingCategory.Production);
             RegisterCategoryButton(BuildingCategory.Training);
 
-            RegisterBackButton(() => new TownEntryDialog(session, TownEntryReason.BackFromInnerDialog).Start());
+            RegisterBackButton(() => new TownDialog(session, TownEntryReason.BackFromInnerDialog).Start());
         }
 
         private void RegisterCategoryButton(BuildingCategory category)

@@ -12,12 +12,12 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town
         FromQuestAction
     }
 
-    public class TownEntryDialog : DialogBase
+    public class TownDialog : DialogBase
     {
         private TownEntryReason _reason;
         private ReplyKeyboardMarkup _keyboard;
 
-        public TownEntryDialog(GameSession _session, TownEntryReason reason) : base(_session)
+        public TownDialog(GameSession _session, TownEntryReason reason) : base(_session)
         {
             _reason = reason;
 
@@ -48,10 +48,10 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town
             switch (_reason)
             {
                 case TownEntryReason.BackFromInnerDialog:
-                    text = header + "\n" + resources + "\n\n" + Localization.Get(session, "dialog_town_entry_text_backFromInnerDialog");
+                    text = header + "\n" + resources + "\n\n" + Localization.Get(session, "dialog_town_text_backFromInnerDialog");
                     break;
                 case TownEntryReason.FromQuestAction:
-                    text = header + "\n" + resources + "\n\n" + Localization.Get(session, "dialog_town_entry_text_backFromInnerDialog");
+                    text = header + "\n" + resources + "\n\n" + Localization.Get(session, "dialog_town_text_backFromInnerDialog");
                     break;
 
                 case TownEntryReason.StartNewSession:
