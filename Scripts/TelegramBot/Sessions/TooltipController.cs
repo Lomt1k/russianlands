@@ -26,6 +26,34 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
             _currentIndex--;
         }
 
+        public bool HasNext(DialogBase dialogType)
+        {
+            if (!hasTooltips)
+                return false;
+
+            return HasNext(dialogType.GetType().Name);
+        }
+
+        public bool HasNext(DialogPanelBase dialogPanelType)
+        {
+            if (!hasTooltips)
+                return false;
+
+            return HasNext(dialogPanelType.GetType().Name);
+        }
+
+        private bool HasNext(string dialogType)
+        {
+            var tooltip = GetCurrentTooltip();
+            if (tooltip == null)
+                return false;
+
+            if (!dialogType.Equals(tooltip.dialogType))
+                return false;
+
+            return true;
+        }
+
         public Tooltip? TryGetNext(DialogBase dialogType)
         {
             if (!hasTooltips)
