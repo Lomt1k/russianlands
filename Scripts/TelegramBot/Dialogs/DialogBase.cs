@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
+using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.TelegramBot.CallbackData;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 
@@ -139,6 +141,50 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
             {
                 await panel.HandleButtonPress(callback.buttonId, queryId);
             }
+        }
+
+        protected bool TryAppendTooltip(StringBuilder sb)
+        {
+            var tooltip = session.tooltipController.TryGetNext(this);
+            if (tooltip == null)
+                return false;
+
+            KeyboardButton? selectedButton = null;
+            if (tooltip.buttonId > -1 && tooltip.buttonId < buttonsCount)
+            {
+                var buttonsList = registeredButtons.Keys.ToList();
+                selectedButton = buttonsList[tooltip.buttonId];
+
+                var buttonsToBlock = new List<KeyboardButton>();
+                foreach (var button in registeredButtons)
+                {
+                    if (button.Key != selectedButton)
+                    {
+                        buttonsToBlock.Add(button.Key);
+                    }
+                }
+
+                foreach (var button in buttonsToBlock)
+                {
+                    registeredButtons[button] = async () =>
+                    {
+                        session.tooltipController.SwitchToPrevious();
+                        await Start();
+                    };
+                }
+            }
+
+            sb.AppendLine();
+            sb.AppendLine($"{Emojis.elements[Element.Warning]} {Localization.Get(session, "dialog_tooltip_header")}");
+            var hint = string.Format(Localization.Get(session, tooltip.localizationKey), selectedButton != null ? selectedButton.Text : string.Empty);
+            sb.AppendLine(hint);
+
+            if (selectedButton != null)
+            {
+                selectedButton.Text += ' ' + Emojis.elements[Element.Warning];
+            }            
+
+            return true;
         }
 
         public virtual void OnClose()
