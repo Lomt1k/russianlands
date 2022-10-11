@@ -180,7 +180,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
             var hint = string.Format(Localization.Get(session, tooltip.localizationKey), selectedButton != null ? selectedButton.Text : string.Empty);
             sb.AppendLine(hint);
 
-            if (selectedButton != null)
+            if (selectedButton != null && !selectedButton.Text.Contains(Emojis.elements[Element.Warning]))
             {
                 selectedButton.Text += ' ' + Emojis.elements[Element.Warning];
             }            

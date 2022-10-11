@@ -2,6 +2,7 @@
 using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 using System.Threading.Tasks;
+using System.Text;
 
 namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
 {
@@ -42,8 +43,11 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
 
         public override async Task Start()
         {
-            string header = $"{Emojis.menuItems[MenuItem.Inventory]} <b>{Localization.Get(session, "menu_item_inventory")}</b>";
-            await messageSender.SendTextDialog(session.chatId, header, GetKeyboardWithRowSizes(3, 3, 3, 3));
+            var sb = new StringBuilder();
+            sb.AppendLine($"{Emojis.menuItems[MenuItem.Inventory]} <b>{Localization.Get(session, "menu_item_inventory")}</b>");
+            TryAppendTooltip(sb);
+
+            await messageSender.SendTextDialog(session.chatId, sb.ToString(), GetKeyboardWithRowSizes(3, 3, 3, 3));
             await SendPanelsAsync();
         }
     }

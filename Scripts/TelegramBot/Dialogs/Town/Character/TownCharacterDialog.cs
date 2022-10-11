@@ -9,11 +9,15 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
     {
         public TownCharacterDialog(GameSession _session) : base(_session)
         {
+            RegisterButton($"{Emojis.menuItems[MenuItem.Avatar]} " + Localization.Get(session, "menu_item_avatar"),
+                   null);
+            RegisterButton($"{Emojis.menuItems[MenuItem.Inventory]} " + Localization.Get(session, "menu_item_inventory"),
+                () => new InventoryDialog(session).Start());
+            RegisterBackButton(() => new TownDialog(session, TownEntryReason.BackFromInnerDialog).Start());
         }
 
         public override async Task Start()
         {
-            RegisterButtons();
             var sb = new StringBuilder();
             sb.AppendLine(session.player.GetGeneralUnitInfoView(session));
 
@@ -32,14 +36,5 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
             await SendPanelsAsync();
         }
 
-        private void RegisterButtons()
-        {
-            ClearButtons();
-            RegisterButton($"{Emojis.menuItems[MenuItem.Avatar]} " + Localization.Get(session, "menu_item_avatar"),
-                   null);
-            RegisterButton($"{Emojis.menuItems[MenuItem.Inventory]} " + Localization.Get(session, "menu_item_inventory"),
-                () => new InventoryDialog(session).Start());
-            RegisterBackButton(() => new TownDialog(session, TownEntryReason.BackFromInnerDialog).Start());
-        }
     }
 }

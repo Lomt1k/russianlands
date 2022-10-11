@@ -7,6 +7,8 @@ using Newtonsoft.Json;
 using System.Linq;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
+using System.Text;
+using TextGameRPG.Scripts.GameCore.Localizations;
 
 namespace TextGameRPG.Scripts.TelegramBot.Dialogs
 {
@@ -145,6 +147,59 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
                 await callback();
             }
             await messageSender.AnswerQuery(queryId, query);
+        }
+
+        protected bool TryAppendTooltip(StringBuilder sb)
+        {
+            var tooltip = session.tooltipController.TryGetNext(this);
+            if (tooltip == null)
+                return false;
+
+            int? selectedButton = null;
+            if (tooltip.buttonId > -1 && tooltip.buttonId < buttonsCount)
+            {
+                var buttonsList = _registeredButtons.Keys.ToList();
+                selectedButton = buttonsList[tooltip.buttonId];
+
+                var selectedButtonText = _registeredButtons[selectedButton.Value].Text;
+                var hintBlock = string.Format(Localization.Get(session, tooltip.localizationKey), selectedButtonText).RemoveHtmlTags();
+
+                var buttonsToBlock = new List<int>();
+                foreach (var button in _registeredButtons)
+                {
+                    if (button.Key != selectedButton)
+                    {
+                        buttonsToBlock.Add(button.Key);
+                    }
+                }
+
+                foreach (var button in buttonsToBlock)
+                {
+                    _registeredCallbacks[button] = null;
+                    _registeredQueryAnswers[button] = () =>
+                    {
+                        return hintBlock;
+                    };
+                }
+            }
+
+            sb.AppendLine();
+            sb.AppendLine();
+            sb.AppendLine($"{Emojis.elements[Element.Warning]} {Localization.Get(session, "dialog_tooltip_header")}");
+            var hint = string.Format(
+                Localization.Get(session, tooltip.localizationKey), selectedButton.HasValue ? _registeredButtons[selectedButton.Value].Text : string.Empty);
+            sb.AppendLine(hint);
+
+            if (selectedButton.HasValue)
+            {
+                var button = _registeredButtons[selectedButton.Value];
+                if (!button.Text.Contains(Emojis.elements[Element.Warning]))
+                {
+                    button.Text += ' ' + Emojis.elements[Element.Warning];
+                }
+            }
+
+            return true;
         }
 
     }

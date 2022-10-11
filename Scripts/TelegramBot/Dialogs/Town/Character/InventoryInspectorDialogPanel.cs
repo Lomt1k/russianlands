@@ -160,6 +160,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
                     RegisterButton(">>", () => OnClickNextPage());
             }
 
+            TryAppendTooltip(text);
             lastMessage = asNewMessage
                 ? await messageSender.SendTextMessage(session.chatId, text.ToString(), GetItemsPageKeyboard())
                 : await messageSender.EditTextMessage(session.chatId, lastMessage.MessageId, text.ToString(), GetItemsPageKeyboard());
@@ -224,9 +225,10 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
 
         private async Task ShowItemInspector(InventoryItem item)
         {
-            var text = item.GetView(session);
-            ClearButtons();
+            var sb = new StringBuilder();
+            sb.Append(item.GetView(session));
 
+            ClearButtons();
             if (item.isEquipped)
             {
                 RegisterButton(Localization.Get(session, "menu_item_unequip_button"), () => UnequipItem(item));
@@ -244,7 +246,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
             RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_back_to_list_button")} {categoryIcon}",
                 () => ShowItemsPage(asNewMessage: false));
 
-            lastMessage = await messageSender.EditTextMessage(session.chatId, lastMessage.MessageId, text, GetKeyboardWithRowSizes(2, 1));
+            TryAppendTooltip(sb);
+            lastMessage = await messageSender.EditTextMessage(session.chatId, lastMessage.MessageId, sb.ToString(), GetKeyboardWithRowSizes(2, 1));
         }
 
         private async Task StartEquipLogic(InventoryItem item)
