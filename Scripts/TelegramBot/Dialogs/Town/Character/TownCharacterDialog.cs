@@ -21,7 +21,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
             var sb = new StringBuilder();
             sb.AppendLine(session.player.GetGeneralUnitInfoView(session));
 
-            bool withTooltip = session.tooltipController.HasNext(this);
+            bool withTooltip = session.tooltipController.HasTooltipToAppend(this);
             if (withTooltip)
             {
                 sb.AppendLine(session.player.unitStats.GetView(session));

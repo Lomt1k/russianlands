@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
 using TextGameRPG.Scripts.GameCore.Localizations;
+using TextGameRPG.Scripts.GameCore.Quests.QuestStages;
 using TextGameRPG.Scripts.TelegramBot.CallbackData;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 
@@ -20,6 +21,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
         private Dictionary<byte, DialogPanelBase> registeredPanels = new Dictionary<byte, DialogPanelBase>();
 
         public GameSession session { get; }
+        public Tooltip? tooltip { get; private set; }
         protected int buttonsCount => registeredButtons.Count;
 
         public DialogBase(GameSession _session)
@@ -145,7 +147,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
 
         protected bool TryAppendTooltip(StringBuilder sb)
         {
-            var tooltip = session.tooltipController.TryGetNext(this);
+            tooltip = session.tooltipController.TryGetTooltip(this);
             if (tooltip == null)
                 return false;
 
@@ -172,6 +174,14 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
                         await Start();
                     };
                 }
+
+                // При клике по нужной кнопке сбрасываем тултип у этого диалога
+                var selectedAction = registeredButtons[selectedButton];
+                registeredButtons[selectedButton] = () =>
+                {
+                    tooltip = null;
+                    return selectedAction();
+                };
             }
 
             sb.AppendLine();

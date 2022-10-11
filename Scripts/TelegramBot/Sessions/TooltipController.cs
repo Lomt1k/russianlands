@@ -26,23 +26,23 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
             _currentIndex--;
         }
 
-        public bool HasNext(DialogBase dialogType)
+        public bool HasTooltipToAppend(DialogBase dialogType)
         {
             if (!hasTooltips)
                 return false;
 
-            return HasNext(dialogType.GetType().Name);
+            return HasTooltipToAppend(dialogType.GetType().Name);
         }
 
-        public bool HasNext(DialogPanelBase dialogPanelType)
+        public bool HasTooltipToAppend(DialogPanelBase dialogPanelType)
         {
             if (!hasTooltips)
                 return false;
 
-            return HasNext(dialogPanelType.GetType().Name);
+            return HasTooltipToAppend(dialogPanelType.GetType().Name);
         }
 
-        private bool HasNext(string dialogType)
+        private bool HasTooltipToAppend(string dialogType)
         {
             var tooltip = GetCurrentTooltip();
             if (tooltip == null)
@@ -54,23 +54,23 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
             return true;
         }
 
-        public Tooltip? TryGetNext(DialogBase dialogType)
+        public Tooltip? TryGetTooltip(DialogBase dialogType)
         {
             if (!hasTooltips)
                 return null;
 
-            return TryGetNext(dialogType.GetType().Name);
+            return TryGetTooltip(dialogType.GetType().Name);
         }
 
-        public Tooltip? TryGetNext(DialogPanelBase dialogPanelType)
+        public Tooltip? TryGetTooltip(DialogPanelBase dialogPanelType)
         {
             if (!hasTooltips)
                 return null;
 
-            return TryGetNext(dialogPanelType.GetType().Name);
+            return TryGetTooltip(dialogPanelType.GetType().Name);
         }
 
-        private Tooltip? TryGetNext(string dialogType)
+        private Tooltip? TryGetTooltip(string dialogType)
         {
             var tooltip = GetCurrentTooltip();
             if (tooltip == null)

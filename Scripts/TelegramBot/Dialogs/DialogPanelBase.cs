@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Telegram.Bot.Types;
 using System.Text;
 using TextGameRPG.Scripts.GameCore.Localizations;
+using TextGameRPG.Scripts.GameCore.Quests.QuestStages;
 
 namespace TextGameRPG.Scripts.TelegramBot.Dialogs
 {
@@ -18,6 +19,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
         protected static MessageSender messageSender => TelegramBot.instance.messageSender;
         public DialogBase dialog { get; }
         public GameSession session { get; }
+        public Tooltip? tooltip { get; private set; }
         public byte panelId { get; }
 
         protected Message? lastMessage; // необходимо присваивать, чтобы при выходе из диалога удалялся InlineKeyboard
@@ -151,7 +153,13 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
 
         protected bool TryAppendTooltip(StringBuilder sb)
         {
-            var tooltip = session.tooltipController.TryGetNext(this);
+            if (dialog.tooltip != null)
+            {
+                _registeredCallbacks.Clear();
+                return false;
+            }
+
+            tooltip = session.tooltipController.TryGetTooltip(this);
             if (tooltip == null)
                 return false;
 

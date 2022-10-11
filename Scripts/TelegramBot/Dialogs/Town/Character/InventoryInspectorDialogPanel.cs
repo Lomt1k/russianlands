@@ -22,8 +22,6 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
     {
         private const int browsedItemsOnPage = 5;
 
-        private readonly string _mainItemsInfo;
-
         private PlayerInventory _inventory;
 
         private ItemType _browsedCategory;
@@ -36,7 +34,6 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
         public InventoryInspectorDialogPanel(DialogBase _dialog, byte _panelId) : base(_dialog, _panelId)
         {
             _inventory = session.player.inventory;
-            _mainItemsInfo = BuildMainItemsInfo();
         }
 
         private string BuildMainItemsInfo()
@@ -86,7 +83,11 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
             RegisterButton($"{Emojis.items[ItemType.Equipped]} {Localization.Get(session, "menu_item_equipped")}",
                 () => ShowCategory(ItemType.Equipped));
 
-            lastMessage = await messageSender.SendTextMessage(session.chatId, _mainItemsInfo, GetMultilineKeyboard());
+            var sb = new StringBuilder();
+            sb.Append(BuildMainItemsInfo());
+
+            TryAppendTooltip(sb);
+            lastMessage = await messageSender.SendTextMessage(session.chatId, sb.ToString(), GetMultilineKeyboard());
         }
 
         public async Task ShowCategory(ItemType category)
