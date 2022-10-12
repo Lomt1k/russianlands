@@ -196,13 +196,28 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
                     };
                 }
 
-                // При клике по нужной кнопке сбрасываем тултип у этого диалога
-                var selectedAction = registeredButtons[selectedButton];
-                registeredButtons[selectedButton] = () =>
+                // Модифицируем логику клика по нужной кнопке (если еще не модифицировали)
+                if (!selectedButton.Text.Contains(Emojis.elements[Element.Warning]))
                 {
-                    tooltip = null;
-                    return selectedAction();
-                };
+                    var oldSelectedAction = registeredButtons[selectedButton];
+                    bool needRemoveDialog = tooltip.removeDialogAfterClickButton;
+                    Func<Task> newSelectedAction = async () =>
+                    {
+                        if (needRemoveDialog)
+                        {
+                            await DeleteDialogMessage();
+                        }
+                        if (oldSelectedAction != null)
+                        {
+                            await oldSelectedAction();
+                        }
+                    };
+                    registeredButtons[selectedButton] = () =>
+                    {
+                        tooltip = null;
+                        return newSelectedAction();
+                    };
+                }
             }
 
             sb.AppendLine();
