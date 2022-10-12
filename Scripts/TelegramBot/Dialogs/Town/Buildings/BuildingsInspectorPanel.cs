@@ -53,9 +53,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
             AppendProductionInfo(sb);
             RegisterButton(Localization.Get(session, "dialog_buildings_get_resources"), () => TryCollectResources());
 
-            lastMessage = lastMessage == null 
-                ? await messageSender.SendTextMessage(session.chatId, sb.ToString(), GetMultilineKeyboard())
-                : await messageSender.EditTextMessage(session.chatId, lastMessage.MessageId, sb.ToString(), GetMultilineKeyboard());
+            await SendPanelMessage(session, sb, GetMultilineKeyboard());
         }
 
         private void AppendProductionInfo(StringBuilder sb)
@@ -166,9 +164,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
             ClearButtons();
             RegisterButton(Localization.Get(session, "menu_item_ok_button"), () => ShowNotifications());
 
-            lastMessage = lastMessage == null
-                ? await messageSender.SendTextMessage(session.chatId, sb.ToString(), GetMultilineKeyboard())
-                : await messageSender.EditTextMessage(session.chatId, lastMessage.MessageId, sb.ToString(), GetMultilineKeyboard());
+            await SendPanelMessage(session, sb, GetMultilineKeyboard());
         }
 
         public async Task ShowBuildingsList(BuildingCategory category, bool asNewMessage)
@@ -186,9 +182,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
             RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_buildings")}",
                 () => ShowNotifications());
 
-            lastMessage = asNewMessage || lastMessage == null
-                ? await messageSender.SendTextMessage(session.chatId, text, GetListKeyboard(category))
-                : await messageSender.EditTextMessage(session.chatId, lastMessage.MessageId, text, GetListKeyboard(category));
+            await SendPanelMessage(session, text, GetListKeyboard(category), asNewMessage);
         }
 
         private string GetPrefix(BuildingBase building, ProfileBuildingsData data)
@@ -281,9 +275,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
             }
             RegisterBackButton(() => ShowBuildingsList(building.buildingType.GetCategory(), asNewMessage: false));
 
-            lastMessage = lastMessage == null
-                ? await messageSender.SendTextMessage(session.chatId, sb.ToString(), GetMultilineKeyboard())
-                : await messageSender.EditTextMessage(session.chatId, lastMessage.MessageId, sb.ToString(), GetMultilineKeyboard());
+            await SendPanelMessage(session, sb, GetMultilineKeyboard());
         }
 
         private async Task TryBoostConstructionForDiamonds(BuildingBase building)
@@ -332,9 +324,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
                 () => new ShopDialog(session).Start());
             RegisterBackButton(() => ShowBuildingCurrentLevelInfo(building));
 
-            lastMessage = lastMessage == null
-                ? await messageSender.SendTextMessage(session.chatId, text, GetMultilineKeyboard())
-                : await messageSender.EditTextMessage(session.chatId, lastMessage.MessageId, text, GetMultilineKeyboard());
+            await SendPanelMessage(session, text, GetMultilineKeyboard());
         }
 
         private async Task ShowConstructionAvailableInfo(BuildingBase building)
@@ -390,11 +380,9 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
             {
                 RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_back_to_list_button")}",
                     () => ShowBuildingsList(building.buildingType.GetCategory(), asNewMessage: false));
-            }            
+            }
 
-            lastMessage = lastMessage == null
-                ? await messageSender.SendTextMessage(session.chatId, sb.ToString(), GetMultilineKeyboard())
-                : await messageSender.EditTextMessage(session.chatId, lastMessage.MessageId, sb.ToString(), GetMultilineKeyboard());
+            await SendPanelMessage(session, sb, GetMultilineKeyboard());
         }
 
         private void AppendSpecialConstructionWarnings(BuildingBase building, StringBuilder sb)
@@ -477,9 +465,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
             }
             RegisterBackButton(() => ShowBuildingCurrentLevelInfo(building));
 
-            lastMessage = lastMessage == null
-                ? await messageSender.SendTextMessage(session.chatId, sb.ToString(), GetMultilineKeyboard())
-                : await messageSender.EditTextMessage(session.chatId, lastMessage.MessageId, sb.ToString(), GetMultilineKeyboard());
+            await SendPanelMessage(session, sb, GetMultilineKeyboard());
         }
 
         private Dictionary<ResourceType, int> GetRequiredResourcesForConstruction(BuildingBase building)
@@ -539,9 +525,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
             RegisterButton(Localization.Get(session, "dialog_buildings_go_to_storage_button"), () => ShowBuildingInfo(storageToUpgrade));
             RegisterBackButton(() => ShowConstructionAvailableInfo(currentBuilding));
 
-            lastMessage = lastMessage == null
-                ? await messageSender.SendTextMessage(session.chatId, sb.ToString(), GetMultilineKeyboard())
-                : await messageSender.EditTextMessage(session.chatId, lastMessage.MessageId, sb.ToString(), GetMultilineKeyboard());
+            await SendPanelMessage(session, sb, GetMultilineKeyboard());
         }
 
     }

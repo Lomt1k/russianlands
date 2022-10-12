@@ -22,7 +22,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
         public Tooltip? tooltip { get; private set; }
         public byte panelId { get; }
 
-        protected Message? lastMessage; // необходимо присваивать, чтобы при выходе из диалога удалялся InlineKeyboard
+        protected Message? lastMessage { get; set; } // необходимо присваивать, чтобы при выходе из диалога удалялся InlineKeyboard
 
         private Dictionary<int, InlineKeyboardButton> _registeredButtons = new Dictionary<int, InlineKeyboardButton>();
         private Dictionary<int, Func<Task>?> _registeredCallbacks = new Dictionary<int, Func<Task>?>();
@@ -208,6 +208,20 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
             }
 
             return true;
+        }
+
+        protected async Task<Message> SendPanelMessage(GameSession session, StringBuilder sb, InlineKeyboardMarkup? inlineKeyboard, bool asNewMessage = false)
+        {
+            return await SendPanelMessage(session, sb.ToString(), inlineKeyboard, asNewMessage);
+        }
+
+        protected async Task<Message> SendPanelMessage(GameSession session, string text, InlineKeyboardMarkup? inlineKeyboard, bool asNewMessage = false)
+        {
+            lastMessage = lastMessage == null || asNewMessage
+                ? await messageSender.SendTextMessage(session.chatId, text, inlineKeyboard)
+                : await messageSender.EditTextMessage(session.chatId, lastMessage.MessageId, text, inlineKeyboard);
+
+            return lastMessage;
         }
 
     }

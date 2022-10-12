@@ -33,9 +33,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.GlobalMap
             }
 
             var text = Localization.Get(session, "dialog_map_select_location");
-            lastMessage = lastMessage == null 
-                ? await messageSender.SendTextMessage(session.chatId, text, GetMultilineKeyboard())
-                : await messageSender.EditTextMessage(session.chatId, lastMessage.MessageId, text, GetMultilineKeyboard());
+            await SendPanelMessage(session, text, GetMultilineKeyboard());
         }
 
         private async Task ShowLockedLocationInfo(LocationType locationType)
