@@ -23,6 +23,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
         public GameSession session { get; }
         public Tooltip? tooltip { get; private set; }
         protected int buttonsCount => registeredButtons.Count;
+        protected Message? previousMessage { get; private set; }
 
         public DialogBase(GameSession _session)
         {
@@ -114,6 +115,26 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
         }
 
         public abstract Task Start();
+
+        protected async Task<Message> SendDialogMessage(StringBuilder sb, ReplyKeyboardMarkup? replyMarkup)
+        {
+            return await SendDialogMessage(sb.ToString(), replyMarkup);
+        }
+
+        protected async Task<Message> SendDialogMessage(string text, ReplyKeyboardMarkup? replyMarkup)
+        {
+            previousMessage = await messageSender.SendTextDialog(session.chatId, text, replyMarkup);
+            return previousMessage;
+        }
+
+        protected async Task DeleteDialogMessage()
+        {
+            if (previousMessage != null)
+            {
+                await messageSender.DeleteMessage(session.chatId, previousMessage.MessageId);
+                previousMessage = null;
+            }
+        }
 
         public virtual async Task HandleMessage(Message message)
         {

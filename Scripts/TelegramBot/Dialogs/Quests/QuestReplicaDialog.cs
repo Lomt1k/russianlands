@@ -49,7 +49,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Quests
 
         public override async Task Start()
         {
-            await messageSender.SendTextDialog(session.chatId, GetText(), GetMultilineKeyboard());
+            await SendDialogMessage(GetText(), GetMultilineKeyboard());
         }
     }
 }

@@ -32,7 +32,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
                 RegisterPanel(new TownCharacterDialogPanel(this, 0));
             }
 
-            await messageSender.SendTextDialog(session.chatId, sb.ToString(), GetKeyboardWithRowSizes(2, 1));
+            await SendDialogMessage(sb, GetKeyboardWithRowSizes(2, 1));
             await SendPanelsAsync();
         }
 

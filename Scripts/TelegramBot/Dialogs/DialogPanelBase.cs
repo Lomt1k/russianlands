@@ -122,6 +122,21 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
         }
 
         public abstract Task SendAsync();
+
+        protected async Task<Message> SendPanelMessage(StringBuilder sb, InlineKeyboardMarkup? inlineMarkup, bool asNewMessage = false)
+        {
+            return await SendPanelMessage(sb.ToString(), inlineMarkup, asNewMessage);
+        }
+
+        protected async Task<Message> SendPanelMessage(string text, InlineKeyboardMarkup? inlineMarkup, bool asNewMessage = false)
+        {
+            lastMessage = lastMessage == null || asNewMessage
+                ? await messageSender.SendTextMessage(session.chatId, text, inlineMarkup)
+                : await messageSender.EditTextMessage(session.chatId, lastMessage.MessageId, text, inlineMarkup);
+
+            return lastMessage;
+        }
+
         public virtual void OnDialogClose() 
         {
             RemoveKeyboardFromLastMessage();
@@ -208,20 +223,6 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
             }
 
             return true;
-        }
-
-        protected async Task<Message> SendPanelMessage(GameSession session, StringBuilder sb, InlineKeyboardMarkup? inlineKeyboard, bool asNewMessage = false)
-        {
-            return await SendPanelMessage(session, sb.ToString(), inlineKeyboard, asNewMessage);
-        }
-
-        protected async Task<Message> SendPanelMessage(GameSession session, string text, InlineKeyboardMarkup? inlineKeyboard, bool asNewMessage = false)
-        {
-            lastMessage = lastMessage == null || asNewMessage
-                ? await messageSender.SendTextMessage(session.chatId, text, inlineKeyboard)
-                : await messageSender.EditTextMessage(session.chatId, lastMessage.MessageId, text, inlineKeyboard);
-
-            return lastMessage;
         }
 
     }

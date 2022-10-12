@@ -139,13 +139,13 @@ namespace TextGameRPG.Scripts.GameCore.Units
         public async Task OnMineBatteTurnTimeEnd()
         {
             var text = $"{Localization.Get(session, "battle_mine_turn_time_end")} {Emojis.smiles[Smile.Sad]}";
-            await messageSender.SendTextDialog(session.chatId, text, silent: true);
+            await messageSender.SendTextMessage(session.chatId, text, silent: true);
         }
 
         public async Task OnEnemyBattleTurnTimeEnd()
         {
             var text = Localization.Get(session, "battle_enemy_turn_time_end");
-            await messageSender.SendTextDialog(session.chatId, text, silent: true);
+            await messageSender.SendTextMessage(session.chatId, text, silent: true);
         }
     }
 }

@@ -87,7 +87,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
             sb.Append(BuildMainItemsInfo());
 
             TryAppendTooltip(sb);
-            await SendPanelMessage(session, sb, GetMultilineKeyboard(), asNewMessage: true);
+            await SendPanelMessage(sb, GetMultilineKeyboard(), asNewMessage: true);
         }
 
         public async Task ShowCategory(ItemType category)
@@ -162,7 +162,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
             }
 
             TryAppendTooltip(text);
-            await SendPanelMessage(session, text, GetItemsPageKeyboard(), asNewMessage);
+            await SendPanelMessage(text, GetItemsPageKeyboard(), asNewMessage);
         }
 
         private string GetCategoryLocalization(ItemType category)
@@ -246,7 +246,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
                 () => ShowItemsPage(asNewMessage: false));
 
             TryAppendTooltip(sb);
-            await SendPanelMessage(session, sb, GetKeyboardWithRowSizes(2, 1));
+            await SendPanelMessage(sb, GetKeyboardWithRowSizes(2, 1));
         }
 
         private async Task StartEquipLogic(InventoryItem item)
@@ -259,7 +259,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
                     + string.Format(Localization.Get(session, "dialog_inventory_required_level"), requiredLevel) + $" {Emojis.smiles[Smile.Sad]}";
                 ClearButtons();
                 RegisterButton(Localization.Get(session, "menu_item_ok_button"), () => ShowItemInspector(item));
-                await SendPanelMessage(session, messageText, GetOneLineKeyboard());
+                await SendPanelMessage(messageText, GetOneLineKeyboard());
                 return;
             }
 
@@ -291,7 +291,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
             }
             RegisterBackButton(() => ShowItemInspector(item));
 
-            await SendPanelMessage(session, text, GetMultilineKeyboard());
+            await SendPanelMessage(text, GetMultilineKeyboard());
         }
 
         private async Task EquipSingleSlot(InventoryItem item)
@@ -340,7 +340,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
 
             RegisterButton(Localization.Get(session, "menu_item_compare_end_button"), () => EndComparison());
 
-            await SendPanelMessage(session, text, GetMultilineKeyboard());
+            await SendPanelMessage(text, GetMultilineKeyboard());
         }
 
         private async Task EndComparison()

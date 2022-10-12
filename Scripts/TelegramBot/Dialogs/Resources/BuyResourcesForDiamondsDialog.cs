@@ -45,7 +45,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Resources
             RegisterButton($"{Emojis.resources[ResourceType.Diamond]} {_priceInDiamonds}", () => TryPurchase());
             RegisterBackButton(_onCancel);
 
-            await messageSender.SendTextDialog(session.chatId, sb.ToString(), GetMultilineKeyboard());
+            await SendDialogMessage(sb, GetMultilineKeyboard());
         }
 
         private async Task TryPurchase()
@@ -75,7 +75,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Resources
                 () => new ShopDialog(session).Start());
             RegisterBackButton(_onCancel);
 
-            await messageSender.SendTextDialog(session.chatId, text, GetMultilineKeyboard());
+            await SendDialogMessage(text, GetMultilineKeyboard());
         }
 
     }

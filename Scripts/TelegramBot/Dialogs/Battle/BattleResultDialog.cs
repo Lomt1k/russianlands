@@ -46,7 +46,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Battle
                 RegisterButton(returnToTownText, ReturnToTown);
             }
 
-            await messageSender.SendTextDialog(session.chatId, sb.ToString(), GetMultilineKeyboard());
+            await SendDialogMessage(sb, GetMultilineKeyboard());
         }
 
         private async Task ReturnToTown()

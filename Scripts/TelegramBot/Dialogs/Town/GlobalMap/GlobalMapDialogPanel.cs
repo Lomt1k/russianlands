@@ -33,7 +33,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.GlobalMap
             }
 
             var text = Localization.Get(session, "dialog_map_select_location");
-            await SendPanelMessage(session, text, GetMultilineKeyboard());
+            await SendPanelMessage(text, GetMultilineKeyboard());
         }
 
         private async Task ShowLockedLocationInfo(LocationType locationType)

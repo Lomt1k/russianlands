@@ -59,7 +59,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
         private async Task SendHeader()
         {
             var header = $"{Emojis.menuItems[MenuItem.Buildings]} " + "<b>" + Localization.Get(session, "menu_item_buildings") + "</b>";
-            await messageSender.SendTextDialog(session.chatId, header, GetKeyboardWithRowSizes(2, 2, 1));
+            await SendDialogMessage(header, GetKeyboardWithRowSizes(2, 2, 1));
         }
 
     }

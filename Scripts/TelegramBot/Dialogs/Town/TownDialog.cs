@@ -69,7 +69,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town
                     break;
             }
 
-            await messageSender.SendTextDialog(session.chatId, sb.ToString(), _keyboard);
+            await SendDialogMessage(sb, _keyboard);
         }
 
     }

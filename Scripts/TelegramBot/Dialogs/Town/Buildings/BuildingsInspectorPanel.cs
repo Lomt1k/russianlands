@@ -53,7 +53,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
             AppendProductionInfo(sb);
             RegisterButton(Localization.Get(session, "dialog_buildings_get_resources"), () => TryCollectResources());
 
-            await SendPanelMessage(session, sb, GetMultilineKeyboard());
+            await SendPanelMessage(sb, GetMultilineKeyboard());
         }
 
         private void AppendProductionInfo(StringBuilder sb)
@@ -164,7 +164,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
             ClearButtons();
             RegisterButton(Localization.Get(session, "menu_item_ok_button"), () => ShowNotifications());
 
-            await SendPanelMessage(session, sb, GetMultilineKeyboard());
+            await SendPanelMessage(sb, GetMultilineKeyboard());
         }
 
         public async Task ShowBuildingsList(BuildingCategory category, bool asNewMessage)
@@ -182,7 +182,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
             RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_buildings")}",
                 () => ShowNotifications());
 
-            await SendPanelMessage(session, text, GetListKeyboard(category), asNewMessage);
+            await SendPanelMessage(text, GetListKeyboard(category), asNewMessage);
         }
 
         private string GetPrefix(BuildingBase building, ProfileBuildingsData data)
@@ -275,7 +275,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
             }
             RegisterBackButton(() => ShowBuildingsList(building.buildingType.GetCategory(), asNewMessage: false));
 
-            await SendPanelMessage(session, sb, GetMultilineKeyboard());
+            await SendPanelMessage(sb, GetMultilineKeyboard());
         }
 
         private async Task TryBoostConstructionForDiamonds(BuildingBase building)
@@ -324,7 +324,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
                 () => new ShopDialog(session).Start());
             RegisterBackButton(() => ShowBuildingCurrentLevelInfo(building));
 
-            await SendPanelMessage(session, text, GetMultilineKeyboard());
+            await SendPanelMessage(text, GetMultilineKeyboard());
         }
 
         private async Task ShowConstructionAvailableInfo(BuildingBase building)
@@ -382,7 +382,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
                     () => ShowBuildingsList(building.buildingType.GetCategory(), asNewMessage: false));
             }
 
-            await SendPanelMessage(session, sb, GetMultilineKeyboard());
+            await SendPanelMessage(sb, GetMultilineKeyboard());
         }
 
         private void AppendSpecialConstructionWarnings(BuildingBase building, StringBuilder sb)
@@ -465,7 +465,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
             }
             RegisterBackButton(() => ShowBuildingCurrentLevelInfo(building));
 
-            await SendPanelMessage(session, sb, GetMultilineKeyboard());
+            await SendPanelMessage(sb, GetMultilineKeyboard());
         }
 
         private Dictionary<ResourceType, int> GetRequiredResourcesForConstruction(BuildingBase building)
@@ -525,7 +525,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
             RegisterButton(Localization.Get(session, "dialog_buildings_go_to_storage_button"), () => ShowBuildingInfo(storageToUpgrade));
             RegisterBackButton(() => ShowConstructionAvailableInfo(currentBuilding));
 
-            await SendPanelMessage(session, sb, GetMultilineKeyboard());
+            await SendPanelMessage(sb, GetMultilineKeyboard());
         }
 
     }

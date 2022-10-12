@@ -47,7 +47,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
             sb.AppendLine($"{Emojis.menuItems[MenuItem.Inventory]} <b>{Localization.Get(session, "menu_item_inventory")}</b>");
             TryAppendTooltip(sb);
 
-            await messageSender.SendTextDialog(session.chatId, sb.ToString(), GetKeyboardWithRowSizes(3, 3, 3, 3));
+            await SendDialogMessage(sb, GetKeyboardWithRowSizes(3, 3, 3, 3));
             await SendPanelsAsync();
         }
     }

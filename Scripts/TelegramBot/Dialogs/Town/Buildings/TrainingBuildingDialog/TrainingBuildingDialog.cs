@@ -58,7 +58,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings.TrainingBuildin
             }
 
             RegisterBackButton(() => new BuildingsDialog(session).StartWithShowBuildingInfo(_building));
-            await messageSender.SendTextDialog(session.chatId, sb.ToString(), GetKeyboardWithFixedRowSize(2));
+            await SendDialogMessage(sb, GetKeyboardWithRowSizes(2));
         }
 
         private async Task ShowCurrentUnit(sbyte unitIndex, bool fromUnitsList = false)
@@ -143,7 +143,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings.TrainingBuildin
             {
                 RegisterBackButton(() => ShowUnitsList());
             }
-            await messageSender.SendTextDialog(session.chatId, sb.ToString(), GetMultilineKeyboard());
+            await SendDialogMessage(sb, GetMultilineKeyboard());
         }
 
         private void TrySilentFinishTrainings()
@@ -221,7 +221,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings.TrainingBuildin
                     var text = string.Format(Localization.Get(session, "resource_not_enough_diamonds"), Emojis.smiles[Smile.Sad]);
                     RegisterButton($"{Emojis.menuItems[MenuItem.Shop]} {Localization.Get(session, "menu_item_shop")}", () => new ShopDialog(session).Start());
                     RegisterBackButton(() => ShowCurrentUnit(unitIndex));
-                    await messageSender.SendTextDialog(session.chatId, text, GetMultilineKeyboard());
+                    await SendDialogMessage(text, GetMultilineKeyboard());
                     return;
                 }
             }
