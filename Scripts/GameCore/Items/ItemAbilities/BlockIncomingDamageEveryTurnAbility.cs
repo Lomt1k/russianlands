@@ -39,13 +39,25 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
             sb.AppendLine($"{debugDescription} (Вероятность {chanceToSuccessPercentage}%)");
 
             if (physicalDamage > 0)
-                sb.AppendLine($"physical: {physicalDamage}");
+            {
+                sb.AppendLine();
+                sb.Append($"physical: {physicalDamage}");
+            }
             if (fireDamage > 0)
-                sb.AppendLine($"fire: {fireDamage}");
+            {
+                sb.AppendLine();
+                sb.Append($"fire: {fireDamage}");
+            }                
             if (coldDamage > 0)
-                sb.AppendLine($"cold: {coldDamage}");
+            {
+                sb.AppendLine();
+                sb.Append($"cold: {coldDamage}");
+            }                
             if (lightningDamage > 0)
-                sb.AppendLine($"lightning: {lightningDamage}");
+            {
+                sb.AppendLine();
+                sb.Append($"lightning: {lightningDamage}");
+            }
 
             return sb.ToString();
         }
@@ -55,7 +67,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
             var sb = new StringBuilder();
             sb.AppendLine(string.Format(Localizations.Localization.Get(session, "ability_block_damage_percentage"), chanceToSuccessPercentage));
             var damage = new DamageInfo(physicalDamage, fireDamage, coldDamage, lightningDamage);
-            sb.AppendLine(damage.GetCompactView());
+            sb.Append(damage.GetCompactView());
 
             return sb.ToString();
         }

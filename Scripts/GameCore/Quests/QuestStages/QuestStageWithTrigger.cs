@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TextGameRPG.Scripts.GameCore.Quests.NextStageTriggers;
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
+using System.Runtime.Serialization;
 
 namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
 {
@@ -40,6 +41,15 @@ namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
         public string localizationKey = "dialog_tooltip_press_button";
         public int buttonId = -1;
         public int stageAfterButtonClick = -1;
+
+        [JsonIgnore]
+        public bool isTooltipForDialogPanel { get; private set; }
+
+        [OnDeserialized]
+        private void OnDeserialized(StreamingContext context)
+        {
+            isTooltipForDialogPanel = dialogType.Contains("Panel");
+        }
     }
 
 

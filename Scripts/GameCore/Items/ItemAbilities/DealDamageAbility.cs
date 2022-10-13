@@ -68,22 +68,26 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
         public override string GetView(GameSession session)
         {
             var sb = new StringBuilder();
-            sb.AppendLine(Localizations.Localization.Get(session, "ability_deals_damage"));
+            sb.Append(Localizations.Localization.Get(session, "ability_deals_damage"));
             if (minPhysicalDamage > 0)
             {
-                sb.AppendLine($"{Emojis.stats[Stat.PhysicalDamage]} {GetStringValue(DamageType.Physical)}");
+                sb.AppendLine();
+                sb.Append($"{Emojis.stats[Stat.PhysicalDamage]} {GetStringValue(DamageType.Physical)}");
             }
             if (minFireDamage > 0)
             {
-                sb.AppendLine($"{Emojis.stats[Stat.FireDamage]} {GetStringValue(DamageType.Fire)}");
+                sb.AppendLine();
+                sb.Append($"{Emojis.stats[Stat.FireDamage]} {GetStringValue(DamageType.Fire)}");
             }
             if (minColdDamage > 0)
             {
-                sb.AppendLine($"{Emojis.stats[Stat.ColdDamage]} {GetStringValue(DamageType.Cold)}");
+                sb.AppendLine();
+                sb.Append($"{Emojis.stats[Stat.ColdDamage]} {GetStringValue(DamageType.Cold)}");
             }
             if (minLightningDamage > 0)
             {
-                sb.AppendLine($"{Emojis.stats[Stat.LightningDamage]} {GetStringValue(DamageType.Lightning)}");
+                sb.AppendLine();
+                sb.Append($"{Emojis.stats[Stat.LightningDamage]} {GetStringValue(DamageType.Lightning)}");
             }
 
             return sb.ToString();

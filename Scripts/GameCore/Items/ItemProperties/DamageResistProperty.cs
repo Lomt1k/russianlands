@@ -50,7 +50,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties
             var sb = new StringBuilder();
             sb.AppendLine(Localizations.Localization.Get(session, "property_damage_resist"));
             var damage = new DamageInfo(physicalDamage, fireDamage, coldDamage, lightningDamage);
-            sb.AppendLine(damage.GetCompactView());
+            sb.Append(damage.GetCompactView());
 
             return sb.ToString();
         }

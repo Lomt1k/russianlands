@@ -27,20 +27,26 @@ namespace TextGameRPG.Scripts.GameCore.Items
         private static void AppendGeneralItemInfo(StringBuilder sb, GameSession session, InventoryItem item)
         {
             var data = item.data;
-            sb.AppendLine(string.Format(Localization.Get(session, "item_view_general_info"), data.itemRarity.GetView(session), data.requiredLevel));
-            sb.AppendLine();
+            sb.Append(string.Format(Localization.Get(session, "item_view_general_info"), data.itemRarity.GetView(session), data.requiredLevel));
 
+            
             if (item.data.ablitityByType.TryGetValue(AbilityType.DealDamage, out var dealDamage))
             {
-                sb.AppendLine(dealDamage.GetView(session));
+                sb.AppendLine();
+                sb.AppendLine();
+                sb.Append(dealDamage.GetView(session));
             }
             if (item.data.ablitityByType.TryGetValue(AbilityType.BlockIncomingDamageEveryTurn, out var blockDamage))
             {
-                sb.AppendLine(blockDamage.GetView(session));
+                sb.AppendLine();
+                sb.AppendLine();
+                sb.Append(blockDamage.GetView(session));
             }
             if (item.data.propertyByType.TryGetValue(PropertyType.DamageResist, out var damageResist))
             {
-                sb.AppendLine(damageResist.GetView(session));
+                sb.AppendLine();
+                sb.AppendLine();
+                sb.Append(damageResist.GetView(session));
             }
         }
 
@@ -76,7 +82,9 @@ namespace TextGameRPG.Scripts.GameCore.Items
             
             if (hasPassive)
             {
-                sb.AppendLine(Localization.Get(session, "item_view_properties_header"));
+                sb.AppendLine();
+                sb.AppendLine();
+                sb.Append(Localization.Get(session, "item_view_properties_header"));
             }
         }
 
@@ -86,7 +94,8 @@ namespace TextGameRPG.Scripts.GameCore.Items
             {
                 if (ability.abilityType != AbilityType.DealDamage && ability.abilityType != AbilityType.BlockIncomingDamageEveryTurn)
                 {
-                    sb.AppendLine($"{Emojis.elements[Element.SmallBlack]} " + ability.GetView(session));
+                    sb.AppendLine();
+                    sb.Append($"{Emojis.elements[Element.SmallBlack]} " + ability.GetView(session));
                 }
             }
         }
@@ -95,12 +104,12 @@ namespace TextGameRPG.Scripts.GameCore.Items
         {
             if (item.data.properties.Count > 0)
             {
-                sb.AppendLine();
                 foreach (var property in item.data.properties)
                 {
                     if (property.propertyType != PropertyType.DamageResist)
                     {
-                        sb.AppendLine($"{Emojis.elements[Element.SmallBlack]} " + property.GetView(session));
+                        sb.AppendLine();
+                        sb.Append($"{Emojis.elements[Element.SmallBlack]} " + property.GetView(session));
                     }
                 }
             }
@@ -110,15 +119,20 @@ namespace TextGameRPG.Scripts.GameCore.Items
         {
             if (item.manaCost > 0)
             {
-                sb.Append(string.Format(Localization.Get(session, "item_view_cost_of_use"), item.manaCost)
-                    + $" {Emojis.stats[Stat.Mana]}");
+                sb.AppendLine();
+                sb.AppendLine();
+                sb.Append(string.Format(Localization.Get(session, "item_view_cost_of_use"), item.manaCost) + $" {Emojis.stats[Stat.Mana]}");
             }
             if (item.data.isChargeRequired)
             {
+                sb.AppendLine();
+                sb.AppendLine();
                 sb.Append(string.Format(Localization.Get(session, "item_view_current_charge"), item.data.requiredCharge));
             }
             if (item.isEquipped)
             {
+                sb.AppendLine();
+                sb.AppendLine();
                 sb.Append(Localization.Get(session, "dialog_inventory_equipped_state"));
             }
         }

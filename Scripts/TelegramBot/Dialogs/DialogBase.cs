@@ -200,7 +200,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
                 if (!selectedButton.Text.Contains(Emojis.elements[Element.Warning]))
                 {
                     var oldSelectedAction = registeredButtons[selectedButton];
-                    bool needRemoveDialog = session.tooltipController.IfNextTooltipWaitingForPanelButtonClick();
+                    bool needRemoveDialog = session.tooltipController.IfNextTooltipForPanelWithWaitingButtonClick();
                     var newStage = tooltip.stageAfterButtonClick;
                     Func<Task> newSelectedAction = async () =>
                     {
