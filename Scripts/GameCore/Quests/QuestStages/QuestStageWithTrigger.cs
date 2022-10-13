@@ -39,7 +39,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
         public string dialogType = string.Empty;
         public string localizationKey = "dialog_tooltip_press_button";
         public int buttonId = -1;
-        public bool removeDialogAfterClickButton = false;
+        public int stageAfterButtonClick = -1;
     }
 
 

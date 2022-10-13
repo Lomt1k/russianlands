@@ -88,5 +88,15 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
             return _currentIndex >= _tooltips.Count ? null : _tooltips[_currentIndex];
         }
 
+        public bool IfNextTooltipWaitingForPanelButtonClick()
+        {
+            var nextIndex = _currentIndex + 1;
+            if (nextIndex >= _tooltips.Count)
+                return false;
+
+            var nextTooltip = _tooltips[nextIndex];
+            return nextTooltip.buttonId > -1 && nextTooltip.dialogType.Contains("Panel");
+        }
+
     }
 }

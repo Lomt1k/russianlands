@@ -200,7 +200,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
                 if (!selectedButton.Text.Contains(Emojis.elements[Element.Warning]))
                 {
                     var oldSelectedAction = registeredButtons[selectedButton];
-                    bool needRemoveDialog = tooltip.removeDialogAfterClickButton;
+                    bool needRemoveDialog = session.tooltipController.IfNextTooltipWaitingForPanelButtonClick();
+                    var newStage = tooltip.stageAfterButtonClick;
                     Func<Task> newSelectedAction = async () =>
                     {
                         if (needRemoveDialog)
@@ -210,6 +211,15 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
                         if (oldSelectedAction != null)
                         {
                             await oldSelectedAction();
+                        }
+                        if (newStage > -1)
+                        {
+                            var focusedQuest = session.profile.dynamicData.quests.GetFocusedQuest();
+                            if (focusedQuest != null)
+                            {
+                                var quest = GameCore.Quests.QuestsHolder.GetQuest(focusedQuest.Value);
+                                await quest.SetStage(session, newStage);
+                            }
                         }
                     };
                     registeredButtons[selectedButton] = () =>

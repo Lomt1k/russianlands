@@ -206,6 +206,34 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
                 }
             }
 
+            // Модифицируем логику клика по нужной кнопке
+            if (selectedButton.HasValue)
+            {
+                var oldSelectedAction = _registeredCallbacks[selectedButton.Value];
+                var newStage = tooltip.stageAfterButtonClick;
+                Func<Task> newSelectedAction = async () =>
+                {
+                    if (oldSelectedAction != null)
+                    {
+                        await oldSelectedAction();
+                    }
+                    if (newStage > -1)
+                    {
+                        var focusedQuest = session.profile.dynamicData.quests.GetFocusedQuest();
+                        if (focusedQuest != null)
+                        {
+                            var quest = GameCore.Quests.QuestsHolder.GetQuest(focusedQuest.Value);
+                            await quest.SetStage(session, newStage);
+                        }
+                    }
+                };
+                _registeredCallbacks[selectedButton.Value] = () =>
+                {
+                    tooltip = null;
+                    return newSelectedAction();
+                };
+            }
+
             sb.AppendLine();
             sb.AppendLine();
             sb.AppendLine($"{Emojis.elements[Element.Warning]} {Localization.Get(session, "dialog_tooltip_header")}");
