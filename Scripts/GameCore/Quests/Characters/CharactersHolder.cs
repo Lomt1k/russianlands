@@ -7,7 +7,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests.Characters
     {
         None = 0,
         Vasilisa = 10,
-        Muromec = 20,
+        Dobrynya = 20,
     }
 
     public static class CharacterTypeExtensions
@@ -28,7 +28,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests.Characters
         private static Dictionary<CharacterType, Character> _characters = new Dictionary<CharacterType, Character>
         {
             { CharacterType.Vasilisa, new Character() },
-            { CharacterType.Muromec, new Character() },
+            { CharacterType.Dobrynya, new Character() },
         };
 
 
