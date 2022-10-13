@@ -17,6 +17,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
 
         public override async Task InvokeStage(GameSession session)
         {
+            session.tooltipController.SetupTooltips(tooltips);
             foreach (var action in questActions)
             {
                 await action.Execute(session);
@@ -36,7 +37,9 @@ namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
     {
         public string comment = "New Tooltip";
         public string dialogType = string.Empty;
-        public string localizationKey = string.Empty;
+        public string localizationKey = "dialog_tooltip_press_button";
+        public int buttonId = -1;
+        public bool removeDialogAfterClickButton = false;
     }
 
 

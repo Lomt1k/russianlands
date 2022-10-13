@@ -8,7 +8,6 @@ using Telegram.Bot.Types.ReplyMarkups;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.TelegramBot.Managers.Battles;
 using System.Text;
-using Telegram.Bot.Types;
 
 namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Battle
 {
@@ -16,7 +15,6 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Battle
     {
         private Action<IBattleAction> _selectedActionCallback;
         private BattleTurn _battleTurn;
-        private Message? _message;
 
         public SelectBattleActionDialog(GameSession _session, BattleTurn battleTurn, Action<IBattleAction> callback) : base(_session)
         {
@@ -65,7 +63,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Battle
 
             sb.AppendLine(Localization.Get(session, "battle_mine_turn_start_select_item"));
 
-            _message = await messageSender.SendTextDialog(session.chatId, sb.ToString(), keyboard);
+            await SendDialogMessage(sb, keyboard);
         }
 
         public void AppendSingleSlotItems(ref List<List<KeyboardButton>> keyboardRows)
@@ -155,11 +153,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Battle
 
         public async Task HideKeyboard()
         {
-            if (_message != null)
-            {
-                await messageSender.DeleteMessage(session.chatId, _message.MessageId);
-                _message = null;
-            }
+            await DeleteDialogMessage();
         }
 
 

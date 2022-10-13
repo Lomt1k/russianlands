@@ -7,6 +7,9 @@ using Newtonsoft.Json;
 using System.Linq;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
+using System.Text;
+using TextGameRPG.Scripts.GameCore.Localizations;
+using TextGameRPG.Scripts.GameCore.Quests.QuestStages;
 
 namespace TextGameRPG.Scripts.TelegramBot.Dialogs
 {
@@ -16,9 +19,10 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
         protected static MessageSender messageSender => TelegramBot.instance.messageSender;
         public DialogBase dialog { get; }
         public GameSession session { get; }
+        public Tooltip? tooltip { get; private set; }
         public byte panelId { get; }
 
-        protected Message? lastMessage; // необходимо присваивать, чтобы при выходе из диалога удалялся InlineKeyboard
+        protected Message? lastMessage { get; set; } // необходимо присваивать, чтобы при выходе из диалога удалялся InlineKeyboard
 
         private Dictionary<int, InlineKeyboardButton> _registeredButtons = new Dictionary<int, InlineKeyboardButton>();
         private Dictionary<int, Func<Task>?> _registeredCallbacks = new Dictionary<int, Func<Task>?>();
@@ -118,6 +122,21 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
         }
 
         public abstract Task SendAsync();
+
+        protected async Task<Message> SendPanelMessage(StringBuilder sb, InlineKeyboardMarkup? inlineMarkup, bool asNewMessage = false)
+        {
+            return await SendPanelMessage(sb.ToString(), inlineMarkup, asNewMessage);
+        }
+
+        protected async Task<Message> SendPanelMessage(string text, InlineKeyboardMarkup? inlineMarkup, bool asNewMessage = false)
+        {
+            lastMessage = lastMessage == null || asNewMessage
+                ? await messageSender.SendTextMessage(session.chatId, text, inlineMarkup)
+                : await messageSender.EditTextMessage(session.chatId, lastMessage.MessageId, text, inlineMarkup);
+
+            return lastMessage;
+        }
+
         public virtual void OnDialogClose() 
         {
             RemoveKeyboardFromLastMessage();
@@ -145,6 +164,65 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
                 await callback();
             }
             await messageSender.AnswerQuery(queryId, query);
+        }
+
+        protected bool TryAppendTooltip(StringBuilder sb)
+        {
+            if (dialog.tooltip != null)
+            {
+                _registeredCallbacks.Clear();
+                return false;
+            }
+
+            tooltip = session.tooltipController.TryGetTooltip(this);
+            if (tooltip == null)
+                return false;
+
+            int? selectedButton = null;
+            if (tooltip.buttonId > -1 && tooltip.buttonId < buttonsCount)
+            {
+                var buttonsList = _registeredButtons.Keys.ToList();
+                selectedButton = buttonsList[tooltip.buttonId];
+
+                var selectedButtonText = _registeredButtons[selectedButton.Value].Text;
+                var hintBlock = string.Format(Localization.Get(session, tooltip.localizationKey), selectedButtonText).RemoveHtmlTags();
+
+                var buttonsToBlock = new List<int>();
+                foreach (var button in _registeredButtons)
+                {
+                    if (button.Key != selectedButton)
+                    {
+                        buttonsToBlock.Add(button.Key);
+                    }
+                }
+
+                foreach (var button in buttonsToBlock)
+                {
+                    _registeredCallbacks[button] = null;
+                    _registeredQueryAnswers[button] = () =>
+                    {
+                        return hintBlock;
+                    };
+                }
+            }
+
+            sb.AppendLine();
+            sb.AppendLine();
+            sb.AppendLine($"{Emojis.elements[Element.Warning]} {Localization.Get(session, "dialog_tooltip_header")}");
+            var hint = string.Format(
+                Localization.Get(session, tooltip.localizationKey), selectedButton.HasValue ? _registeredButtons[selectedButton.Value].Text : string.Empty);
+            sb.AppendLine(hint);
+
+            if (selectedButton.HasValue)
+            {
+                var button = _registeredButtons[selectedButton.Value];
+                if (!button.Text.Contains(Emojis.elements[Element.Warning]))
+                {
+                    button.Text += ' ' + Emojis.elements[Element.Warning];
+                }
+            }
+
+            return true;
         }
 
     }

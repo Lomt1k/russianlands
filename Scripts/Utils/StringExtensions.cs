@@ -2,6 +2,7 @@
 using System.Collections;
 using System.ComponentModel;
 using System.Text;
+using System.Text.RegularExpressions;
 
 public static class StringExtensions
 {
@@ -113,6 +114,11 @@ public static class StringExtensions
         }
 
         return new string(result);
+    }
+
+    public static string RemoveHtmlTags(this string input)
+    {
+        return Regex.Replace(input, "<.*?>", string.Empty);
     }
 
 

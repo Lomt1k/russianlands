@@ -93,37 +93,33 @@ namespace TextGameRPG.Scripts.GameCore.Items
 
         private static void AppendProperties(StringBuilder sb, GameSession session, InventoryItem item)
         {
-            bool needAppendLine = false;
             if (item.data.properties.Count > 0)
             {
+                sb.AppendLine();
                 foreach (var property in item.data.properties)
                 {
                     if (property.propertyType != PropertyType.DamageResist)
                     {
                         sb.AppendLine($"{Emojis.elements[Element.SmallBlack]} " + property.GetView(session));
-                        needAppendLine = true;
                     }
                 }
             }
-
-            if (needAppendLine)
-                sb.AppendLine();
         }
 
         private static void AppendBottomInfo(StringBuilder sb, GameSession session, InventoryItem item)
         {
             if (item.manaCost > 0)
             {
-                sb.AppendLine(string.Format(Localization.Get(session, "item_view_cost_of_use"), item.manaCost)
+                sb.Append(string.Format(Localization.Get(session, "item_view_cost_of_use"), item.manaCost)
                     + $" {Emojis.stats[Stat.Mana]}");
             }
             if (item.data.isChargeRequired)
             {
-                sb.AppendLine(string.Format(Localization.Get(session, "item_view_current_charge"), item.data.requiredCharge));
+                sb.Append(string.Format(Localization.Get(session, "item_view_current_charge"), item.data.requiredCharge));
             }
             if (item.isEquipped)
             {
-                sb.AppendLine(Localization.Get(session, "dialog_inventory_equipped_state"));
+                sb.Append(Localization.Get(session, "dialog_inventory_equipped_state"));
             }
         }
 

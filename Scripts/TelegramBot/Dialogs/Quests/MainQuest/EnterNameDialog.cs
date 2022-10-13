@@ -28,7 +28,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Quests.MainQuest
             sb.AppendLine(Localization.Get(session, "dialog_entry_name_header"));
 
             RegisterButton(session.player.nickname, null);
-            await messageSender.SendTextDialog(session.chatId, sb.ToString(), GetMultilineKeyboard());
+            await SendDialogMessage(sb, GetMultilineKeyboard());
         }
 
         public override async Task HandleMessage(Message message)

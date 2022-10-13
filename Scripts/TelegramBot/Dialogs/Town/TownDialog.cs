@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Text;
+using System.Threading.Tasks;
 using Telegram.Bot.Types.ReplyMarkups;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
@@ -42,25 +43,33 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town
 
         public override async Task Start()
         {
-            string header = $"{Emojis.menuItems[MenuItem.Town]} <b>" + Localization.Get(session, "menu_item_town") + "</b>\n";
+            var sb = new StringBuilder();
+            sb.AppendLine($"{Emojis.menuItems[MenuItem.Town]} <b>" + Localization.Get(session, "menu_item_town") + "</b>");
+            sb.AppendLine();
+
             string resources = session.player.resources.GetGeneralResourcesView();
-            string text;
             switch (_reason)
             {
                 case TownEntryReason.BackFromInnerDialog:
-                    text = header + "\n" + resources + "\n\n" + Localization.Get(session, "dialog_town_text_backFromInnerDialog");
-                    break;
                 case TownEntryReason.FromQuestAction:
-                    text = header + "\n" + resources + "\n\n" + Localization.Get(session, "dialog_town_text_backFromInnerDialog");
+                    sb.AppendLine(resources);
+                    bool withTooltip = TryAppendTooltip(sb);
+                    if (!withTooltip)
+                    {
+                        sb.AppendLine();
+                        sb.AppendLine(Localization.Get(session, "dialog_town_text_backFromInnerDialog"));
+                    }
                     break;
 
                 case TownEntryReason.StartNewSession:
                 default:
-                    text = header + "\n" + Localization.Get(session, "dialog_town_entry_text_newSession") + "\n\n" + resources;
+                    sb.AppendLine(Localization.Get(session, "dialog_town_entry_text_newSession"));
+                    sb.AppendLine();
+                    sb.AppendLine(resources);
                     break;
             }
-            
-            await messageSender.SendTextDialog(session.chatId, text, _keyboard);
+
+            await SendDialogMessage(sb, _keyboard);
         }
 
     }
