@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.GameCore.Items.Generators;
-using TextGameRPG.Scripts.GameCore.Locations;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 
 namespace TextGameRPG.Scripts.TelegramBot.Commands
@@ -18,7 +17,10 @@ namespace TextGameRPG.Scripts.TelegramBot.Commands
             if (!args[0].TryParse(out Rarity rarity))
                 return;
 
-            var settings = LocationsHolder.Get(LocationType.DarkForest).data.itemGenerationSettings;
+            var settings = new ItemGenerationSettings()
+            {
+                townHallLevel = 2,
+            };
             var item = ItemGenerationManager.GenerateItem(settings, rarity);
 
             var text = ItemViewBuilder.Build(session, item);

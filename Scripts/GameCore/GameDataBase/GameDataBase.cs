@@ -4,7 +4,6 @@ namespace TextGameRPG.Scripts.GameCore.GameDataBase
 {
     using Items;
     using TextGameRPG.Scripts.GameCore.Buildings.Data;
-    using TextGameRPG.Scripts.GameCore.Locations;
     using TextGameRPG.Scripts.GameCore.Units.Mobs;
     using TextGameRPG.ViewModels;
 
@@ -22,7 +21,6 @@ namespace TextGameRPG.Scripts.GameCore.GameDataBase
 
         public DataDictionaryWithIntegerID<BuildingData> buildings { get; private set; }
         public DataDictionaryWithIntegerID<ItemData> items { get; private set; }
-        public DataDictionaryWithIntegerID<LocationData> locations { get; private set; }
         public DataDictionaryWithIntegerID<MobData> mobs { get; private set; }
 
 #pragma warning restore CS8618
@@ -39,7 +37,6 @@ namespace TextGameRPG.Scripts.GameCore.GameDataBase
 
             buildings = LoadDataBaseWithIntegerID<BuildingData>("buildings");
             items = LoadDataBaseWithIntegerID<ItemData>("items");
-            locations = LoadDataBaseWithIntegerID<LocationData>("locations");
             mobs = LoadDataBaseWithIntegerID<MobData>("mobs");
             Localizations.Localization.LoadAll(_loaderVM, gameDataPath);
             Quests.QuestsHolder.LoadAll(_loaderVM, gameDataPath);

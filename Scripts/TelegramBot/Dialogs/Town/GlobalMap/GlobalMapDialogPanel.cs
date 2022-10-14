@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Locations;
 
@@ -18,22 +19,24 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.GlobalMap
         private async Task ShowGeneralMap()
         {
             ClearButtons();
-            var locations = LocationsHolder.GetAll();
-            foreach (var location in locations)
+            var locations = Enum.GetValues(typeof(LocationType));
+            foreach (LocationType locationType in locations)
             {
-                bool isLocked = location.data.id > session.profile.data.lastUnlockedLocation;
-                string locationName = Localization.Get(session, $"menu_item_location_{location.data.id}");
-                if (isLocked)
+                if (locationType == LocationType.None)
+                    continue;
+
+                string locationName = locationType.GetLocalization(session);
+                if (locationType.IsLocked(session))
                 {
                     locationName = Emojis.elements[Element.Locked] + Emojis.space + locationName;
-                    RegisterButton(locationName, () => ShowLockedLocationInfo(location.type));
+                    RegisterButton(locationName, () => ShowLockedLocationInfo(locationType));
                     continue;
                 }
-                RegisterButton(locationName, () => ShowLocation(location.type));
+                RegisterButton(locationName, () => ShowLocation(locationType));
             }
 
             var text = Localization.Get(session, "dialog_map_select_location");
-            await SendPanelMessage(text, GetMultilineKeyboard());
+            await SendPanelMessage(text, GetKeyboardWithFixedRowSize(2));
         }
 
         private async Task ShowLockedLocationInfo(LocationType locationType)
