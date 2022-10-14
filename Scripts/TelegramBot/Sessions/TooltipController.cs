@@ -7,9 +7,9 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
     public class TooltipController
     {
         private List<Tooltip> _tooltips = new List<Tooltip>();
-        private int _currentIndex;
+        private int _nextIndex;
 
-        public bool hasTooltips => _currentIndex < _tooltips.Count;
+        public bool hasTooltips => _nextIndex < _tooltips.Count;
 
         public TooltipController()
         {
@@ -18,12 +18,12 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
         public void SetupTooltips(List<Tooltip> tooltips)
         {
             _tooltips = tooltips;
-            _currentIndex = 0;
+            _nextIndex = 0;
         }
 
         public void SwitchToPrevious()
         {
-            _currentIndex--;
+            _nextIndex--;
         }
 
         public bool HasTooltipToAppend(DialogBase dialogType)
@@ -44,7 +44,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
 
         private bool HasTooltipToAppend(string dialogType)
         {
-            var tooltip = GetCurrentTooltip();
+            var tooltip = GetTooltip();
             if (tooltip == null)
                 return false;
 
@@ -72,29 +72,28 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
 
         private Tooltip? TryGetTooltip(string dialogType)
         {
-            var tooltip = GetCurrentTooltip();
+            var tooltip = GetTooltip();
             if (tooltip == null)
                 return null;
 
             if (!dialogType.Equals(tooltip.dialogType))
                 return null;
 
-            _currentIndex++;
+            _nextIndex++;
             return tooltip;
         }
 
-        private Tooltip? GetCurrentTooltip()
+        private Tooltip? GetTooltip()
         {
-            return _currentIndex >= _tooltips.Count ? null : _tooltips[_currentIndex];
+            return _nextIndex >= _tooltips.Count ? null : _tooltips[_nextIndex];
         }
 
         public bool IfNextTooltipForPanelWithWaitingButtonClick()
         {
-            var nextIndex = _currentIndex + 1;
-            if (nextIndex >= _tooltips.Count)
+            if (_nextIndex >= _tooltips.Count)
                 return false;
 
-            var nextTooltip = _tooltips[nextIndex];
+            var nextTooltip = _tooltips[_nextIndex];
             return nextTooltip.isTooltipForDialogPanel && nextTooltip.buttonId > -1;
         }
 
