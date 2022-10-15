@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Rewards;
 using TextGameRPG.Scripts.GameCore.Units;
 using TextGameRPG.Scripts.TelegramBot.Dialogs.Battle;
+using TextGameRPG.Scripts.TelegramBot.Dialogs.Town;
 using TextGameRPG.Scripts.TelegramBot.Dialogs.Town.GlobalMap;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 
@@ -21,6 +22,9 @@ namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
 
         public override async Task InvokeStage(GameSession session)
         {
+            if (session.currentDialog is TownDialog)
+                return; // При старте новой сессии
+
             var mobDB = GameDataBase.GameDataBase.instance.mobs;
             var mobData = mobDB[mobId];
 

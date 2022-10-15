@@ -38,7 +38,7 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
         public override void OnStartBattle()
         {
             base.OnStartBattle();
-            currentArrows = 3; //TODO: Add Arrows Calculation Logic
+            currentArrows = 1; //TODO: Add Arrows Calculation Logic
         }
 
         public override void OnStartMineTurn()

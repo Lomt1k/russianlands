@@ -8,6 +8,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests.Characters
         None = 0,
         Vasilisa = 10,
         Dobrynya = 20,
+        Magus_Oldman = 30,
     }
 
     public static class CharacterTypeExtensions

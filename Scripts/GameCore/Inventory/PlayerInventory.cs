@@ -8,7 +8,7 @@ namespace TextGameRPG.Scripts.GameCore.Inventory
     [JsonObject]
     public class PlayerInventory
     {
-        public const int DEFAULT_SIZE = 50;
+        public const int DEFAULT_SIZE = 100;
 
         [JsonIgnore]
         private readonly Dictionary<ItemType, List<InventoryItem>> _itemsByType = new Dictionary<ItemType, List<InventoryItem>>();

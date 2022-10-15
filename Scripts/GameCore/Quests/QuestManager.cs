@@ -31,13 +31,22 @@ namespace TextGameRPG.Scripts.GameCore.Quests
 
             var stageIdToSetup = stage.jumpToStageIfNewSession ?? stageId;
 
-            // Если stage имеет вход в город - сразу вводим игрока в город с TownEntryReason.StartNewSession
             if (focusedQuest.TryGetStageById(stageIdToSetup, out var stageToSetup))
             {
-                if (stageToSetup is QuestStageWithTrigger stageWithTrigger)
+                switch (stageToSetup)
                 {
-                    bool hasTownEntry = stageWithTrigger.questActions.Where(x => x is EntryTownAction).Count() > 0;
-                    await new TownDialog(session, TownEntryReason.StartNewSession).Start();
+                    // Если stage имеет вход в город - сразу вводим игрока в город с TownEntryReason.StartNewSession
+                    case QuestStageWithTrigger stageWithTrigger:
+                        bool hasTownEntry = stageWithTrigger.questActions.Where(x => x is EntryTownAction).Count() > 0;
+                        if (hasTownEntry)
+                        {
+                            await new TownDialog(session, TownEntryReason.StartNewSession).Start();
+                        }
+                        break;
+                    // Если игрок закончил игру на PvE точке (не вступив в бой) - также начинаем сессию с города
+                    case QuestStageWithBattlePoint stageWithBattlePoint:
+                        await new TownDialog(session, TownEntryReason.StartNewSession).Start();
+                        break;
                 }
             }
 

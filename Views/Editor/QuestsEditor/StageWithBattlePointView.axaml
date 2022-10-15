@@ -7,7 +7,7 @@
 
   <Border Background="WhiteSmoke" Padding="20,10" Width="500">
     <StackPanel Spacing="10">
-      <TextBlock Classes="h3" Text="Battle"/>
+      <TextBlock Classes="h3" Text="Battle Point"/>
       <TextBlock Text="mobId"/>
       <ComboBox Items="{Binding mobsList}"
                 SelectedItem="{Binding selectedMob}"/>

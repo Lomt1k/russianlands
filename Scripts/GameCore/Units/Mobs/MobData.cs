@@ -69,7 +69,7 @@ namespace TextGameRPG.Scripts.GameCore.Units.Mobs
     [JsonObject]
     public class MobAttack
     {
-        public string localizationKey = string.Empty;
+        public string localizationKey = "battle_action_mob_normal_attack";
         public int manaCost;
         public int minPhysicalDamage;
         public int maxPhysicalDamage;
