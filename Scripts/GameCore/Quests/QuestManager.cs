@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Quests.NextStageTriggers;
 using TextGameRPG.Scripts.GameCore.Quests.QuestStages;
+using TextGameRPG.Scripts.GameCore.Quests.StageActions;
 using TextGameRPG.Scripts.TelegramBot.Dialogs.Town;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 
@@ -28,12 +29,19 @@ namespace TextGameRPG.Scripts.GameCore.Quests
             var stageId = playerQuestsProgress.GetStage(focusedQuestType.Value);            
             var stage = focusedQuest.GetCurrentStage(session);
 
-            var stageToSetup = stage.jumpToStageIfNewSession ?? stageId;
-            await focusedQuest.SetStage(session, stageToSetup);
-            if (!focusedQuest.IsFocusRequired(session))
+            var stageIdToSetup = stage.jumpToStageIfNewSession ?? stageId;
+
+            // Если stage имеет вход в город - сразу вводим игрока в город с TownEntryReason.StartNewSession
+            if (focusedQuest.TryGetStageById(stageIdToSetup, out var stageToSetup))
             {
-                await new TownDialog(session, TownEntryReason.StartNewSession).Start();
+                if (stageToSetup is QuestStageWithTrigger stageWithTrigger)
+                {
+                    bool hasTownEntry = stageWithTrigger.questActions.Where(x => x is EntryTownAction).Count() > 0;
+                    await new TownDialog(session, TownEntryReason.StartNewSession).Start();
+                }
             }
+
+            await focusedQuest.SetStage(session, stageIdToSetup);
         }
 
         public static async Task TryInvokeTrigger(GameSession session, TriggerType triggerType)

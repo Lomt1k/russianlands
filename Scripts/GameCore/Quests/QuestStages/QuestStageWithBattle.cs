@@ -33,7 +33,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
                     var focusedQuestType = questProgress.GetFocusedQuest();
                     if (focusedQuestType != null)
                     {
-                        questProgress.SetStage(focusedQuestType.Value, nextStage, true);
+                        questProgress.SetStage(focusedQuestType.Value, nextStage);
                     }
                     return Task.CompletedTask;
                 },

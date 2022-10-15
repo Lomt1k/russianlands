@@ -10,6 +10,10 @@ namespace TextGameRPG.Scripts.GameCore.Quests.StageActions
     {
         public override async Task Execute(GameSession session)
         {
+            bool alreadyInTown = session.currentDialog is TownDialog;
+            if (alreadyInTown)
+                return;
+
             await new TownDialog(session, TownEntryReason.FromQuestAction).Start();
         }
     }

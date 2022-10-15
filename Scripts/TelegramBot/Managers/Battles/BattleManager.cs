@@ -18,7 +18,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
         }
 
         public Battle StartBattlePVP(Player opponentA, Player opponentB,
-            IEnumerable<RewardBase>? rewards = null,
+            List<RewardBase>? rewards = null,
             Func<Player, BattleResult, Task>? onBattleEndFunc = null,
             Func<Player, BattleResult, Task>? onContinueButtonFunc = null,
             Func<Player, BattleResult, bool>? isAvailableReturnToTownFunc = null)
@@ -30,7 +30,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
         }
 
         public Battle StartBattleWithMob(Player player, MobData mobData,
-            IEnumerable<RewardBase>? rewards = null,
+            List<RewardBase>? rewards = null,
             Func<Player, BattleResult, Task>? onBattleEndFunc = null,
             Func<Player, BattleResult, Task>? onContinueButtonFunc = null,
             Func<Player, BattleResult, bool>? isAvailableReturnToTownFunc = null)
@@ -40,7 +40,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
         }
 
         public Battle StartBattleWithMob(Player player, Mob mob,
-            IEnumerable<RewardBase>? rewards = null,
+            List<RewardBase>? rewards = null,
             Func<Player, BattleResult, Task>? onBattleEndFunc = null,
             Func<Player, BattleResult, Task>? onContinueButtonFunc = null,
             Func<Player, BattleResult, bool>? isAvailableReturnToTownFunc = null)

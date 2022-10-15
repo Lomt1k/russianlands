@@ -36,7 +36,13 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.GlobalMap
                     RegisterButton(locationName, () => ShowLockedLocationInfo(locationType));
                     continue;
                 }
-                RegisterButton(locationName, () => ShowLocation(locationType));
+
+                var questType = locationType.GetQuest();
+                var quest = questType.HasValue ? QuestsHolder.GetQuest(questType.Value) : null;
+                var hasStory = quest != null && quest.IsStarted(session) && !quest.IsCompleted(session);
+                var prefix = hasStory ? Emojis.locations[MapLocation.StoryMode] : string.Empty;
+
+                RegisterButton(prefix + Emojis.space + locationName, () => ShowLocation(locationType));
             }
 
             var sb = new StringBuilder();

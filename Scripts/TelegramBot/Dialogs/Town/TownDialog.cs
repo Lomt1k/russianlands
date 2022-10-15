@@ -47,26 +47,19 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town
             sb.AppendLine($"{Emojis.menuItems[MenuItem.Town]} <b>" + Localization.Get(session, "menu_item_town") + "</b>");
             sb.AppendLine();
 
-            string resources = session.player.resources.GetGeneralResourcesView();
-            switch (_reason)
+            if (_reason == TownEntryReason.StartNewSession)
             {
-                case TownEntryReason.BackFromInnerDialog:
-                case TownEntryReason.FromQuestAction:
-                    sb.AppendLine(resources);
-                    bool withTooltip = TryAppendTooltip(sb);
-                    if (!withTooltip)
-                    {
-                        sb.AppendLine();
-                        sb.AppendLine(Localization.Get(session, "dialog_town_text_backFromInnerDialog"));
-                    }
-                    break;
+                sb.AppendLine(Localization.Get(session, "dialog_town_text_newSession"));
+                sb.AppendLine();
+            }
+            string resources = session.player.resources.GetGeneralResourcesView();
+            sb.AppendLine(resources);
 
-                case TownEntryReason.StartNewSession:
-                default:
-                    sb.AppendLine(Localization.Get(session, "dialog_town_text_newSession"));
-                    sb.AppendLine();
-                    sb.AppendLine(resources);
-                    break;
+            bool withTooltip = TryAppendTooltip(sb);
+            if (!withTooltip)
+            {
+                sb.AppendLine();
+                sb.AppendLine(Localization.Get(session, "dialog_town_text_backFromInnerDialog"));
             }
 
             await SendDialogMessage(sb, _keyboard);

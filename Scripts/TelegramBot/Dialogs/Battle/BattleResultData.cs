@@ -16,7 +16,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Battle
     public struct BattleResultData
     {
         public BattleResult battleResult;
-        public IEnumerable<RewardBase>? rewards;
+        public List<RewardBase>? rewards;
         public Func<Player, BattleResult, Task>? onContinueButtonFunc;
         public bool isReturnToTownAvailable;
     }

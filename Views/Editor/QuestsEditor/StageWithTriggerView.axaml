@@ -11,8 +11,7 @@
       
       <StackPanel Spacing="10">
         <TextBlock Classes="h3" Text="Stage With Trigger" Padding="0,10,0,0"/>
-        <CheckBox Content="isFocusRequired" IsChecked="{Binding stage.isFocusRequired}"/>
-
+        
         <!-- Actions -->
         <TextBlock Classes="h3" Text="Actions"/>
         <ListBox

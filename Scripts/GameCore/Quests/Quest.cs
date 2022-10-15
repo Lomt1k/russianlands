@@ -16,6 +16,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests
         public QuestType questType;
         public List<QuestStage> stages = new List<QuestStage>();
 
+        [JsonIgnore]
         protected Dictionary<int, QuestStage> _stagesById = new Dictionary<int, QuestStage>();
 
         [JsonIgnore]
@@ -39,6 +40,11 @@ namespace TextGameRPG.Scripts.GameCore.Quests
             return _stagesById[stageId];
         }
 
+        public bool TryGetStageById(int stageId, out QuestStage? questStage)
+        {
+            return _stagesById.TryGetValue(stageId, out questStage);
+        }
+
         public async Task CompleteQuest(GameSession session)
         {
             if (IsStarted(session) && !IsCompleted(session))
@@ -49,15 +55,11 @@ namespace TextGameRPG.Scripts.GameCore.Quests
 
         public async Task SetStage(GameSession session, int stageId)
         {
+            session.profile.dynamicData.quests.SetStage(questType, stageId);
             if (stageId <= 0)
-            {
-                session.profile.dynamicData.quests.SetStage(questType, stageId, false);
                 return;
-            }
 
             var stage = _stagesById[stageId];
-            bool isFocusRequired = IsFocusRequired(stage);
-            session.profile.dynamicData.quests.SetStage(questType, stageId, isFocusRequired);
             await stage.InvokeStage(session);
         }
 
@@ -96,33 +98,6 @@ namespace TextGameRPG.Scripts.GameCore.Quests
                 }
             }
             return completedPoints;
-        }
-
-        public bool IsFocusRequired(GameSession session)
-        {
-            if (!IsStarted(session) || IsCompleted(session))
-                return false;
-
-            var stageId = GetCurrentStageId(session);
-            var stage = _stagesById[stageId];
-            return IsFocusRequired(stage);
-        }
-
-        public bool IsFocusRequired(QuestStage stage)
-        {
-            switch (stage)
-            {
-                case QuestStageWithReplica withReplica:
-                    return true;
-                case QuestStageWithBattle withBattle:
-                    return true;
-                case QuestStageWithBattlePoint withBattlePoint:
-                    return true;
-                case QuestStageWithTrigger withTrigger:
-                    return withTrigger.isFocusRequired;
-                default:
-                    return false;
-            }
         }
 
     }

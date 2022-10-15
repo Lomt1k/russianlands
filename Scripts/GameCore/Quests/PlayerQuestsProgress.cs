@@ -22,10 +22,17 @@ namespace TextGameRPG.Scripts.GameCore.Quests
             return IsStarted(questType) ? stages[(ushort)questType] : 0;
         }
 
-        public void SetStage(QuestType questType, int stage, bool isFocused)
+        public void SetStage(QuestType questType, int stage)
         {
             stages[(ushort)questType] = stage;
-            focusedQuest = isFocused ? questType : (QuestType?)null;
+            if (stage > 0)
+            {
+                focusedQuest = questType;
+            }
+            else if (focusedQuest == questType)
+            {
+                focusedQuest = null;
+            }
         }
 
         public bool IsCompleted(QuestType questType)

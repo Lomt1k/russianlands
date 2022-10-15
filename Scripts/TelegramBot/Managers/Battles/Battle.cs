@@ -15,7 +15,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
 
     public class Battle
     {
-        private IEnumerable<RewardBase>? _rewards;
+        private List<RewardBase>? _rewards;
         private Func<Player, BattleResult, Task>? _onBattleEndFunc;
         private Func<Player, BattleResult, Task>? _onContinueButtonFunc;
         private Func<Player, BattleResult, bool>? _isAvailableReturnToTownFunc;
@@ -27,7 +27,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
         public bool isPVE { get; private set; }
 
         public Battle(Player opponentA, IBattleUnit opponentB,
-            IEnumerable<RewardBase>? rewards = null,
+            List<RewardBase>? rewards = null,
             Func<Player, BattleResult, Task>? onBattleEndFunc = null,
             Func<Player, BattleResult, Task>? onContinueButtonFunc = null,
             Func<Player, BattleResult, bool>? isAvailableReturnToTownFunc = null)

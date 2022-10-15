@@ -24,7 +24,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Battle
             sb.AppendLine();
             sb.AppendLine(Localization.Get(session, descriptionLocalization));
 
-            if (_data.battleResult == BattleResult.Win && _data.rewards != null)
+            if (_data.battleResult == BattleResult.Win && _data.rewards != null && _data.rewards.Count > 0)
             {
                 sb.AppendLine();
                 sb.AppendLine(Localization.Get(session, "battle_result_header_rewards"));

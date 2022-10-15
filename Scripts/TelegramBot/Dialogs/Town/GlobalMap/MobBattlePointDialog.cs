@@ -17,7 +17,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.GlobalMap
     {
         public Mob mob;
         public int foodPrice;
-        public IEnumerable<RewardBase>? rewards;
+        public List<RewardBase>? rewards;
         public Func<Task>? onBackButtonFunc;
         public Func<Player, BattleResult, Task>? onBattleEndFunc;
         public Func<Player, BattleResult, Task>? onContinueButtonFunc;
