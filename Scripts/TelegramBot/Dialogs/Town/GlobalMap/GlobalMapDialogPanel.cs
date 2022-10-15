@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Locations;
@@ -41,7 +42,17 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.GlobalMap
 
         private async Task ShowLockedLocationInfo(LocationType locationType)
         {
-            //TODO
+            var sb = new StringBuilder();
+            var locationName = locationType.GetLocalization(session);
+            sb.AppendLine($"{Emojis.elements[Element.Locked]} <b>{locationName}</b>");
+
+            sb.AppendLine();
+            var previousLocation = (locationType - 1).GetLocalization(session);
+            sb.AppendLine(string.Format(Localization.Get(session, "dialog_map_location_locked"), previousLocation));
+
+            ClearButtons();
+            RegisterButton(Localization.Get(session, "menu_item_ok_button"), () => ShowGeneralMap());
+            await SendPanelMessage(sb, GetOneLineKeyboard());
         }
 
         private async Task ShowLocation(LocationType locationType)
