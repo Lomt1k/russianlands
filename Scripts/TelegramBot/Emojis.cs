@@ -45,6 +45,7 @@ namespace TextGameRPG.Scripts.TelegramBot
     public enum MapLocation
     {
         Arena,
+        StoryMode,
     }
 
     public enum CharIcon
@@ -186,6 +187,7 @@ namespace TextGameRPG.Scripts.TelegramBot
         public static readonly Dictionary<MapLocation, string> locations = new Dictionary<MapLocation, string>
         {
             { MapLocation.Arena, "\ud83c\udfdf" },
+            { MapLocation.StoryMode, "\ud83d\udea9" },
         };
 
         public static readonly Dictionary<CharIcon, string> characters = new Dictionary<CharIcon, string>

@@ -6,5 +6,6 @@ namespace TextGameRPG.Scripts.GameCore.Quests.NextStageTriggers
         None = 0,
         InvokeFromCode = 1,
         StartNextStageImmediate = 2,
+        ContinueStoryMode = 3,
     }
 }

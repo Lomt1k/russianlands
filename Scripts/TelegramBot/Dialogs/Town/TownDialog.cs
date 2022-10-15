@@ -63,7 +63,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town
 
                 case TownEntryReason.StartNewSession:
                 default:
-                    sb.AppendLine(Localization.Get(session, "dialog_town_entry_text_newSession"));
+                    sb.AppendLine(Localization.Get(session, "dialog_town_text_newSession"));
                     sb.AppendLine();
                     sb.AppendLine(resources);
                     break;

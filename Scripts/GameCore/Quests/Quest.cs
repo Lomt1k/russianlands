@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 using System.Runtime.Serialization;
 using System.Linq;
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Quests.QuestStages;
+using Newtonsoft.Json;
 
 namespace TextGameRPG.Scripts.GameCore.Quests
 {
-    [Serializable]
+    [JsonObject]
     public class Quest
     {
         private const int STAGE_FIRST = 100;
@@ -18,10 +18,14 @@ namespace TextGameRPG.Scripts.GameCore.Quests
 
         protected Dictionary<int, QuestStage> _stagesById = new Dictionary<int, QuestStage>();
 
+        [JsonIgnore]
+        public int battlePointsCount { get; private set; }
+
         [OnDeserialized]
         internal void OnDeserialized(StreamingContext context)
         {
             _stagesById = stages.ToDictionary(x => x.id);
+            battlePointsCount = stages.Where(x => x is QuestStageWithBattlePoint).Count();
         }
 
         public int GetCurrentStageId(GameSession session)
@@ -72,6 +76,28 @@ namespace TextGameRPG.Scripts.GameCore.Quests
             await SetStage(session, STAGE_FIRST);
         }
 
+        public int GetCompletedBattlePoints(GameSession session)
+        {
+            if (IsStarted(session))
+                return 0;
+            if (IsCompleted(session))
+                return battlePointsCount;
+
+            var currentStage = GetCurrentStageId(session);
+            int completedPoints = 0;
+            foreach (var stage in _stagesById)
+            {
+                if (stage.Key >= currentStage)
+                    break;
+
+                if (stage.Value is QuestStageWithBattlePoint)
+                {
+                    completedPoints++;
+                }
+            }
+            return completedPoints;
+        }
+
         public bool IsFocusRequired(GameSession session)
         {
             if (!IsStarted(session) || IsCompleted(session))
@@ -91,7 +117,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests
                 case QuestStageWithBattle withBattle:
                     return true;
                 case QuestStageWithBattlePoint withBattlePoint:
-                    return false;
+                    return true;
                 case QuestStageWithTrigger withTrigger:
                     return withTrigger.isFocusRequired;
                 default:

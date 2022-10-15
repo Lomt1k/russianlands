@@ -132,6 +132,7 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
             {
                 {"Invoke From Code", () => { stage.nextStageTriggers.Add(new InvokeFromCodeTrigger()); RefillTriggersCollection(); } },
                 {"Start Next Stage Immediate", () => { stage.nextStageTriggers.Add(new StartNextStageImmediateTrigger()); RefillTriggersCollection(); } },
+                {"Continue Story Mode", () => { stage.nextStageTriggers.Add(new ContinueStoryModeTrigger()); RefillTriggersCollection(); } },
             });
         }
 
