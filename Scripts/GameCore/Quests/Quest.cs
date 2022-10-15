@@ -90,6 +90,8 @@ namespace TextGameRPG.Scripts.GameCore.Quests
                     return true;
                 case QuestStageWithBattle withBattle:
                     return true;
+                case QuestStageWithBattlePoint withBattlePoint:
+                    return false;
                 case QuestStageWithTrigger withTrigger:
                     return withTrigger.isFocusRequired;
                 default:

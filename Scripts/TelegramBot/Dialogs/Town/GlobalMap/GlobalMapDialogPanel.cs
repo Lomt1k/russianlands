@@ -55,7 +55,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.GlobalMap
             await SendPanelMessage(sb, GetOneLineKeyboard());
         }
 
-        private async Task ShowLocation(LocationType locationType)
+        public async Task ShowLocation(LocationType locationType)
         {
             //TODO
         }

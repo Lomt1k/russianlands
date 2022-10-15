@@ -28,6 +28,9 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Resources
             }
         }
 
+        public BuyResourcesForDiamondsDialog(GameSession _session, ResourceType resourceType, int amount, Func<Task> onSuccess, Func<Task> onCancel)
+            : this(_session, new Dictionary<ResourceType, int> { { resourceType, amount } }, onSuccess, onCancel) { }
+
         public override async Task Start()
         {
             var sb = new StringBuilder();

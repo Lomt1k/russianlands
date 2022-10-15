@@ -76,7 +76,8 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
             {
                 { "Stage With Trigger", AddNewStageWithEndingTrigger },
                 { "Stage With Replica", AddNewStageWithReplica },
-                { "Stage With Battle", AddNewStageWithBattle }
+                { "Stage With Battle", AddNewStageWithBattle },
+                { "Stage With Battle Point", AddNewStageWithBattlePoint }
             });
         }
 
@@ -102,6 +103,15 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
         private void AddNewStageWithBattle()
         {
             var stage = new QuestStageWithBattle()
+            {
+                id = GetDefaultIdForNewStage()
+            };
+            questStages.Add(stage);
+        }
+
+        private void AddNewStageWithBattlePoint()
+        {
+            var stage = new QuestStageWithBattlePoint()
             {
                 id = GetDefaultIdForNewStage()
             };

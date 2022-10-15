@@ -69,6 +69,10 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
                     specialStageInspector = new StageWithBattleView();
                     specialStageInspector.DataContext = new StageWithBattleViewModel(withBattle);
                     break;
+                case QuestStageWithBattlePoint withBattlePoint:
+                    specialStageInspector = new StageWithBattlePointView();
+                    specialStageInspector.DataContext = new StageWithBattlePointViewModel(withBattlePoint);
+                    break;
             }
         }
 

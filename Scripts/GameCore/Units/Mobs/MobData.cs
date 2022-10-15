@@ -16,7 +16,7 @@ namespace TextGameRPG.Scripts.GameCore.Units.Mobs
         public string localizationKey { get; set; } = string.Empty;
         public MobType mobType { get; set; } = MobType.None;
         public Rarity rarity { get; set; } = Rarity.Common;
-        public bool withGrade { get; set; } = true;
+        public bool withGrade { get; set; } = false;
         public MobEncounterSettings encounterSettings { get; set; } = new MobEncounterSettings();
         public MobStatsSettings statsSettings { get; set; } = new MobStatsSettings();
 
@@ -43,12 +43,11 @@ namespace TextGameRPG.Scripts.GameCore.Units.Mobs
     [JsonObject]
     public class MobEncounterSettings
     {
+        public bool isEnabled = false;
         public bool anyLocation = false;
         public LocationType location = LocationType.None;
         public int requiredLevel;
         public int maxLevel = 9999;
-        public bool isAvoidanceAvailable = true;
-        public string encounterLocalization = string.Empty;
 
         public bool CanSpawnOnLocation(LocationType locationType)
         {
