@@ -33,7 +33,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles.Actions
         public string GetLocalization(GameSession session)
         {
             var shieldOwner = _battleTurn.enemy;
-            string header = Emojis.items[ItemType.Shield] + "<b>{0}</b>:";
+            string header = string.Empty;
             switch (shieldOwner)
             {
                 case Player player:
@@ -41,10 +41,10 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles.Actions
                     if (shield == null)
                         break;
 
-                    header = string.Format(header, shield.GetFullName(session));
+                    header = $"<b>{shield.GetFullName(session)}</b>";
                     break;
                 default:
-                    header = string.Format(header, Localization.Get(session, "battle_shield_default_header"));
+                    header = $"<b>{Emojis.items[ItemType.Shield]} {Localization.Get(session, "battle_shield_default_header")}</b>";
                     break;
             }
 

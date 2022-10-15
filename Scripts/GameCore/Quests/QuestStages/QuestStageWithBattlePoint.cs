@@ -14,6 +14,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
     {
         public int mobId { get; set; }
         public int foodPrice { get; set; }
+        public bool backButtonAvailable { get; set; } = true;
         public int nextStageIfWin { get; set; }
         public int nextStageIfLose { get; set; }
         public List<RewardBase> rewards { get; set; } = new List<RewardBase>();
@@ -53,6 +54,11 @@ namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
                     }
                 }
             };
+
+            if (!backButtonAvailable)
+            {
+                battlePointData.onBackButtonFunc = null;
+            }
 
             await new MobBattlePointDialog(session, battlePointData).Start();
         }

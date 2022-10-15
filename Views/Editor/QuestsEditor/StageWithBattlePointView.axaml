@@ -13,6 +13,8 @@
                 SelectedItem="{Binding selectedMob}"/>
       <TextBlock Text="foodPrice"/>
       <TextBox Text="{Binding stage.foodPrice}"/>
+      <CheckBox Content="backButtonAvailvable"
+        IsChecked="{Binding stage.backButtonAvailable}"/>
       <TextBlock Text="nextStageIfWin"/>
       <TextBox Text="{Binding stage.nextStageIfWin}"/>
       <TextBlock Text="nextStageIfLose"/>
