@@ -80,7 +80,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests
 
         public int GetCompletedBattlePoints(GameSession session)
         {
-            if (IsStarted(session))
+            if (!IsStarted(session))
                 return 0;
             if (IsCompleted(session))
                 return battlePointsCount;
