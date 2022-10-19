@@ -11,24 +11,23 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
     {
         private const int millisecondsInHour = 3_600_000;
         private const int millisecondsInMinute = 60_000;
-        private readonly int periodicSaveDatabaseInMinutes;
+        private readonly int periodicSaveDatabaseInMs;
 
-        private TelegramBot _telegramBot;
         private PerformanceManager _performanceManager;
-        private CancellationTokenSource _sessionManagerTasksCTS;
+        private CancellationTokenSource _allSessionsTasksCTS;
         private Dictionary<ChatId, GameSession> _sessions = new Dictionary<ChatId, GameSession>();
 
         public int sessionsCount => _sessions.Count;
+        public CancellationTokenSource allSessionsTasksCTS => _allSessionsTasksCTS;
 
         public SessionManager(TelegramBot telegramBot)
         {
-            _telegramBot = telegramBot;
             _performanceManager = GlobalManagers.performanceManager;
-            periodicSaveDatabaseInMinutes = telegramBot.config.periodicSaveDatabaseInMinutes * millisecondsInMinute;
+            periodicSaveDatabaseInMs = telegramBot.config.periodicSaveDatabaseInMinutes * millisecondsInMinute;
 
-            _sessionManagerTasksCTS = new CancellationTokenSource();
-            Task.Run(() => PeriodicSaveProfilesAsync(), _sessionManagerTasksCTS.Token);
-            Task.Run(() => CloseSessionsWithTimeoutAsync(), _sessionManagerTasksCTS.Token);
+            _allSessionsTasksCTS = new CancellationTokenSource();
+            Task.Run(() => PeriodicSaveProfilesAsync(), _allSessionsTasksCTS.Token);
+            Task.Run(() => CloseSessionsWithTimeoutAsync(), _allSessionsTasksCTS.Token);
         }
 
         public GameSession GetOrCreateSession(User user)
@@ -54,21 +53,21 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
 
         private async Task PeriodicSaveProfilesAsync()
         {
-            await Task.Delay(periodicSaveDatabaseInMinutes);
-            while (!_sessionManagerTasksCTS.IsCancellationRequested)
+            await Task.Delay(periodicSaveDatabaseInMs);
+            while (!_allSessionsTasksCTS.IsCancellationRequested)
             {
                 Program.logger.Info("Saving changes in database for active users...");
                 foreach (var session in _sessions.Values)
                 {
                     await session.SaveProfileIfNeed();
                 }
-                await Task.Delay(periodicSaveDatabaseInMinutes);
+                await Task.Delay(periodicSaveDatabaseInMs);
             }
         }
 
         private async Task CloseSessionsWithTimeoutAsync()
         {
-            while (!_sessionManagerTasksCTS.IsCancellationRequested)
+            while (!_allSessionsTasksCTS.IsCancellationRequested)
             {
                 List<ChatId> sessionsToClose = new List<ChatId>();
                 foreach (var chatId in _sessions.Keys)
@@ -107,7 +106,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
         public async Task CloseAllSessions()
         {
             Program.logger.Info($"Closing all sessions...");
-            _sessionManagerTasksCTS.Cancel();
+            _allSessionsTasksCTS.Cancel();
 
             foreach (var chatId in _sessions.Keys)
             {
