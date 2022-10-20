@@ -61,6 +61,10 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
                     specialStageInspector = new StageWithTriggerView();
                     specialStageInspector.DataContext = new StageWithTriggerViewModel(withTrigger);
                     break;
+                case QuestStageWithDefaultReplica withDefaultReplica:
+                    specialStageInspector = new StageWithDefaultReplicaView();
+                    specialStageInspector.DataContext = new StageWithDefaultReplicaViewModel(withDefaultReplica);
+                    break;
                 case QuestStageWithReplica withReplica:
                     specialStageInspector = new StageWithReplicaView();
                     specialStageInspector.DataContext = new StageWithReplicaViewModel(withReplica);

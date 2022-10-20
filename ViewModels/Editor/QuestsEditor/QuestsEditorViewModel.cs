@@ -75,10 +75,21 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
             RegularDialogHelper.ShowItemSelectionDialog("Select stage type:", new Dictionary<string, Action>()
             {
                 { "Stage With Trigger", AddNewStageWithEndingTrigger },
+                { "Stage With Default Replica", AddNewStageWithDefaultReplica },
                 { "Stage With Replica", AddNewStageWithReplica },
                 { "Stage With Battle", AddNewStageWithBattle },
-                { "Stage With Battle Point", AddNewStageWithBattlePoint }
+                { "Stage With Battle Point", AddNewStageWithBattlePoint },
             });
+        }
+
+        private void AddNewStageWithDefaultReplica()
+        {
+            var stage = new QuestStageWithDefaultReplica()
+            {
+                id = GetDefaultIdForNewStage(),
+                comment = "New Default Replica"
+            };
+            questStages.Add(stage);
         }
 
         private void AddNewStageWithReplica()

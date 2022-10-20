@@ -17,7 +17,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests
 
     public static class QuestTypeEstensions
     {
-        public static LocationType? GetQuest(this QuestType questType)
+        public static LocationType? GetLocation(this QuestType questType)
         {
             switch (questType)
             {

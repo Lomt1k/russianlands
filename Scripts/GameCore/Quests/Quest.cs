@@ -27,6 +27,11 @@ namespace TextGameRPG.Scripts.GameCore.Quests
         {
             _stagesById = stages.ToDictionary(x => x.id);
             battlePointsCount = stages.Where(x => x is QuestStageWithBattlePoint).Count();
+
+            foreach (var stage in stages)
+            {
+                stage.SetupQuest(this);
+            }
         }
 
         public int GetCurrentStageId(GameSession session)

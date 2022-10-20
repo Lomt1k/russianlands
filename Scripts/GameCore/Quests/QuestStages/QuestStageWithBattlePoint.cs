@@ -72,7 +72,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
             var questType = session.profile.dynamicData.quests.GetFocusedQuest();
             if (questType.HasValue)
             {
-                var locationType = questType.Value.GetQuest();
+                var locationType = questType.Value.GetLocation();
                 if (locationType.HasValue)
                 {
                     await new GlobalMapDialog(session).StartWithLocation(locationType.Value);
