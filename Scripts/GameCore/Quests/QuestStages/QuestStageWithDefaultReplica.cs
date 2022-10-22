@@ -10,16 +10,17 @@ namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
 {
     public enum ReplicaType : byte
     {
-        StartTravelToEnemyLoc01 = 0,
+        None = 0,
         BattleWin = 1,
         BattleLose = 2,
+        StartTravelToEnemyLoc01 = 3,
     }
 
     [JsonObject]
     public class QuestStageWithDefaultReplica : QuestStage
     {
         [JsonProperty]
-        public ReplicaType replicaType { get; set; } = ReplicaType.StartTravelToEnemyLoc01;
+        public ReplicaType replicaType { get; set; }
         [JsonProperty]
         public int nextStage { get; set; }
 
@@ -72,11 +73,10 @@ namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
                     return "quest_default_replica_battle_lose";
                 case ReplicaType.StartTravelToEnemyLoc01:
                     return $"quest_default_replica_start_travel_to_enemy_loc_01";
-            }
 
-            var errorMessage = $"Unknown replicaType {replicaType} for Default Replica";
-            Program.logger.Error(errorMessage);
-            return errorMessage;
+                default:
+                    return "Default Replica";
+            }
         }
 
     }

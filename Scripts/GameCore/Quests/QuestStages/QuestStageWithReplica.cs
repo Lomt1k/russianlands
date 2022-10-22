@@ -32,6 +32,12 @@ namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
         public string comment { get; set; } = "New Answer";
         public string localizationKey { get; set; } = string.Empty;
         public int nextStage { get; set; }
+
+        public bool IsReplyMessageEquals(GameSession session, string reply)
+        {
+            var localizedReply = Localizations.Localization.Get(session, localizationKey);
+            return localizedReply.Equals(reply);
+        }
     }
 
 

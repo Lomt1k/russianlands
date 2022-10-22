@@ -1,16 +1,20 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using Telegram.Bot.Types;
+using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Quests.NextStageTriggers;
 using TextGameRPG.Scripts.GameCore.Quests.QuestStages;
 using TextGameRPG.Scripts.GameCore.Quests.StageActions;
+using TextGameRPG.Scripts.TelegramBot;
 using TextGameRPG.Scripts.TelegramBot.Dialogs.Town;
+using TextGameRPG.Scripts.TelegramBot.Dialogs.Town.GlobalMap;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Quests
 {
     public class QuestManager
     {
-        public static async Task HandleNewSession(GameSession session)
+        public static async Task HandleNewSession(GameSession session, Update update)
         {
             var playerQuestsProgress = session.profile.dynamicData.quests;
             var focusedQuestType = playerQuestsProgress.GetFocusedQuest();
@@ -30,9 +34,11 @@ namespace TextGameRPG.Scripts.GameCore.Quests
             var stage = focusedQuest.GetCurrentStage(session);
 
             var stageIdToSetup = stage.jumpToStageIfNewSession ?? stageId;
+            bool isJumped = stage.jumpToStageIfNewSession.HasValue;
 
-            if (focusedQuest.TryGetStageById(stageIdToSetup, out var stageToSetup))
+            if (!isJumped && focusedQuest.TryGetStageById(stageIdToSetup, out var stageToSetup))
             {
+                string replyMessage = update.Message?.Text ?? string.Empty;
                 switch (stageToSetup)
                 {
                     // Если stage имеет вход в город - сразу вводим игрока в город с TownEntryReason.StartNewSession
@@ -43,9 +49,35 @@ namespace TextGameRPG.Scripts.GameCore.Quests
                             await new TownDialog(session, TownEntryReason.StartNewSession).Start();
                         }
                         break;
-                    // Если игрок закончил игру на PvE точке (не вступив в бой) - также начинаем сессию с города
+
+                    // Если игрок закончил игру на PvE точке и в начале новой сессии нажал "в бой" - запускаем бой
                     case QuestStageWithBattlePoint stageWithBattlePoint:
-                        await new TownDialog(session, TownEntryReason.StartNewSession).Start();
+                        bool isStartBattlePressed = replyMessage.Contains(Emojis.resources[Resources.ResourceType.Food]);
+                        if (isStartBattlePressed)
+                        {
+                            await stageWithBattlePoint.InvokeStageWithStartBattleImmediate(session);
+                        }
+                        else
+                        {
+                            await new TownDialog(session, TownEntryReason.StartNewSession).Start();
+                        }                        
+                        break;
+
+                    // Если игрок прислал корректный вариант ответа в диалоге - переходим на следующий этап диалога
+                    case QuestStageWithReplica stageWithReplica:
+                        foreach (var answer in stageWithReplica.replica.answers)
+                        {
+                            if (answer.IsReplyMessageEquals(session, replyMessage))
+                            {
+                                stageIdToSetup = answer.nextStage;
+                                break;
+                            }
+                        }
+                        break;
+
+                    // У Default Replica всегда один вариант ответа
+                    case QuestStageWithDefaultReplica stageWithDefaultReplica:
+                        stageIdToSetup = stageWithDefaultReplica.replica.answers[0].nextStage;
                         break;
                 }
             }

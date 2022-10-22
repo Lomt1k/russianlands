@@ -25,6 +25,18 @@ namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
             if (session.currentDialog is TownDialog)
                 return; // При старте новой сессии
 
+            var battlePointData = GetMobBattlePointData(session);
+            await new MobBattlePointDialog(session, battlePointData).Start();
+        }
+
+        public async Task InvokeStageWithStartBattleImmediate(GameSession session)
+        {
+            var battlePointData = GetMobBattlePointData(session);
+            await new MobBattlePointDialog(session, battlePointData).SilentStart();
+        }
+
+        private MobBattlePointData GetMobBattlePointData(GameSession session)
+        {
             var mobDB = GameDataBase.GameDataBase.instance.mobs;
             var mobData = mobDB[mobId];
 
@@ -64,7 +76,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
                 battlePointData.onBackButtonFunc = null;
             }
 
-            await new MobBattlePointDialog(session, battlePointData).Start();
+            return battlePointData;
         }
 
         private async Task BackToMap(GameSession session)

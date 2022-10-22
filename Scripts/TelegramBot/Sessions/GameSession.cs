@@ -67,7 +67,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
                 actualUser = refreshedUser;
                 if (profile == null)
                 {
-                    await OnStartNewSession(actualUser);
+                    await OnStartNewSession(actualUser, update);
                     _isHandlingUpdate = false;
                     return;
                 }
@@ -126,7 +126,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
             }
         }
 
-        private async Task OnStartNewSession(User actualUser)
+        private async Task OnStartNewSession(User actualUser, Update update)
         {
             var profilesTable = TelegramBot.instance.dataBase[Table.Profiles] as ProfilesDataTable;
             var profileData = await profilesTable.GetOrCreateProfileData(actualUser);
@@ -156,7 +156,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
             language = Enum.Parse<LanguageCode>(profileData.language);
             player = new Player(this);
 
-            await QuestManager.HandleNewSession(this);
+            await QuestManager.HandleNewSession(this, update);
         }
 
         public async Task OnCloseSession()
