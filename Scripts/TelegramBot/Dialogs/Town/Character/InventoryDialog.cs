@@ -14,35 +14,36 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
         {
             _inspectorPanel = new InventoryInspectorDialogPanel(this, 0);
             RegisterPanel(_inspectorPanel);
-
-            RegisterButton($"{Emojis.items[ItemType.Sword]} " + Localization.Get(session, "menu_item_swords"),
-                () => _inspectorPanel.ShowCategory(ItemType.Sword));
-            RegisterButton($"{Emojis.items[ItemType.Bow]} " + Localization.Get(session, "menu_item_bows"),
-                () => _inspectorPanel.ShowCategory(ItemType.Bow));
-            RegisterButton($"{Emojis.items[ItemType.Stick]} " + Localization.Get(session, "menu_item_sticks"),
-                () => _inspectorPanel.ShowCategory(ItemType.Stick));
-            RegisterButton($"{Emojis.items[ItemType.Helmet]} " + Localization.Get(session, "menu_item_helmets"),
-                () => _inspectorPanel.ShowCategory(ItemType.Helmet));
-            RegisterButton($"{Emojis.items[ItemType.Armor]} " + Localization.Get(session, "menu_item_armors"),
-                () => _inspectorPanel.ShowCategory(ItemType.Armor));
-            RegisterButton($"{Emojis.items[ItemType.Boots]} " + Localization.Get(session, "menu_item_boots"),
-                () => _inspectorPanel.ShowCategory(ItemType.Boots));
-            RegisterButton($"{Emojis.items[ItemType.Shield]} " + Localization.Get(session, "menu_item_shields"),
-                () => _inspectorPanel.ShowCategory(ItemType.Shield));
-            RegisterButton($"{Emojis.items[ItemType.Amulet]} " + Localization.Get(session, "menu_item_amulets"),
-                () => _inspectorPanel.ShowCategory(ItemType.Amulet));
-            RegisterButton($"{Emojis.items[ItemType.Ring]} " + Localization.Get(session, "menu_item_rings"),
-                () => _inspectorPanel.ShowCategory(ItemType.Ring));
-            RegisterButton($"{Emojis.items[ItemType.Scroll]} " + Localization.Get(session, "menu_item_scrolls"),
-                () => _inspectorPanel.ShowCategory(ItemType.Scroll));
-            RegisterButton($"{Emojis.items[ItemType.Poison]} " + Localization.Get(session, "menu_item_poisons"),
-                () => _inspectorPanel.ShowCategory(ItemType.Poison));
-
-            RegisterBackButton(() => new TownCharacterDialog(session).Start());
         }
 
         public override async Task Start()
         {
+            ClearButtons();
+            RegisterButton($"{Emojis.items[ItemType.Sword]} " + Localization.Get(session, "menu_item_swords"),
+                () => ShowCategory(ItemType.Sword));
+            RegisterButton($"{Emojis.items[ItemType.Bow]} " + Localization.Get(session, "menu_item_bows"),
+                () => ShowCategory(ItemType.Bow));
+            RegisterButton($"{Emojis.items[ItemType.Stick]} " + Localization.Get(session, "menu_item_sticks"),
+                () => ShowCategory(ItemType.Stick));
+            RegisterButton($"{Emojis.items[ItemType.Helmet]} " + Localization.Get(session, "menu_item_helmets"),
+                () => ShowCategory(ItemType.Helmet));
+            RegisterButton($"{Emojis.items[ItemType.Armor]} " + Localization.Get(session, "menu_item_armors"),
+                () => ShowCategory(ItemType.Armor));
+            RegisterButton($"{Emojis.items[ItemType.Boots]} " + Localization.Get(session, "menu_item_boots"),
+                () => ShowCategory(ItemType.Boots));
+            RegisterButton($"{Emojis.items[ItemType.Shield]} " + Localization.Get(session, "menu_item_shields"),
+                () => ShowCategory(ItemType.Shield));
+            RegisterButton($"{Emojis.items[ItemType.Amulet]} " + Localization.Get(session, "menu_item_amulets"),
+                () => ShowCategory(ItemType.Amulet));
+            RegisterButton($"{Emojis.items[ItemType.Ring]} " + Localization.Get(session, "menu_item_rings"),
+                () => ShowCategory(ItemType.Ring));
+            RegisterButton($"{Emojis.items[ItemType.Scroll]} " + Localization.Get(session, "menu_item_scrolls"),
+                () => ShowCategory(ItemType.Scroll));
+            RegisterButton($"{Emojis.items[ItemType.Poison]} " + Localization.Get(session, "menu_item_poisons"),
+                () => ShowCategory(ItemType.Poison));
+
+            RegisterBackButton(() => new TownCharacterDialog(session).Start());
+
             var sb = new StringBuilder();
             sb.AppendLine($"{Emojis.menuItems[MenuItem.Inventory]} <b>{Localization.Get(session, "menu_item_inventory")}</b>");
             bool hasTooltip = TryAppendTooltip(sb);
@@ -53,5 +54,18 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
                 await SendPanelsAsync();
             }
         }
+
+        public async Task ShowCategory(ItemType category)
+        {
+            ClearButtons();
+            RegisterBackButton(() => Start());
+            var keyboard = GetOneLineKeyboard();
+            keyboard.ResizeKeyboard = true;
+
+            var text = $"{Emojis.menuItems[MenuItem.Inventory]} <b>{Localization.Get(session, "menu_item_inventory")}</b>";
+            await SendDialogMessage(text, keyboard);
+            await _inspectorPanel.ShowCategory(category);
+        }
+
     }
 }

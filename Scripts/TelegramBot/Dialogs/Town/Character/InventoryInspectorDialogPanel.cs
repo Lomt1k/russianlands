@@ -20,7 +20,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
 
     public class InventoryInspectorDialogPanel : DialogPanelBase
     {
-        private const int browsedItemsOnPage = 5;
+        private const int browsedItemsOnPage = 8;
 
         private PlayerInventory _inventory;
 
@@ -81,7 +81,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
             await RemoveKeyboardFromLastMessage();
 
             RegisterButton($"{Emojis.items[ItemType.Equipped]} {Localization.Get(session, "menu_item_equipped")}",
-                () => ShowCategory(ItemType.Equipped));
+                () => ((InventoryDialog)dialog).ShowCategory(ItemType.Equipped));
 
             var sb = new StringBuilder();
             sb.Append(BuildMainItemsInfo());
@@ -148,7 +148,6 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
                 }
             }
 
-            RegisterButton(Emojis.menuItems[MenuItem.Inventory], () => OnClickCloseCategory());
             if (_pagesCount > 1)
             {
                 text.AppendLine(string.Format(Localization.Get(session, "dialog_inventory_current_page"), _currentPage + 1, _pagesCount));
@@ -210,13 +209,13 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
             if (_pagesCount < 2)
                 return GetMultilineKeyboard();
 
-            int lastRowButtons = _currentPage == _pagesCount - 1 || _currentPage == 0 ? 2 : 3;
-            var paramers = new int[buttonsCount - lastRowButtons + 1];
-            for (int i = 0; i < paramers.Length; i++)
+            int lastRowButtons = _currentPage == _pagesCount - 1 || _currentPage == 0 ? 1 : 2;
+            var parameters = new int[buttonsCount - lastRowButtons + 1];
+            for (int i = 0; i < parameters.Length; i++)
             {
-                paramers[i] = i < paramers.Length - 1 ? 1 : lastRowButtons;
+                parameters[i] = i < parameters.Length - 1 ? 1 : lastRowButtons;
             }
-            return GetKeyboardWithRowSizes(paramers);
+            return GetKeyboardWithRowSizes(parameters);
         }
 
         private async Task ShowItemInspector(InventoryItem item)
