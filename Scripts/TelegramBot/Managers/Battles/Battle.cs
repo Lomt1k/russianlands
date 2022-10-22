@@ -47,10 +47,11 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
             return isPVE ? opponentA : new Random().Next(2) == 0 ? opponentA : opponentB;
         }
 
-        public void StartBattle()
+        public async Task StartBattle()
         {
-            firstUnit.OnStartBattle(this);
-            secondUnit.OnStartBattle(this);
+            //Сначала второму юниту, так как первый уже сразу сможет ходить
+            await secondUnit.OnStartBattle(this);
+            await firstUnit.OnStartBattle(this);
 
             HandleBattleAsync();
         }

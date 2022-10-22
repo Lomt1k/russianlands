@@ -59,7 +59,7 @@ namespace TextGameRPG.Scripts.GameCore.Units
             return sb.ToString();
         }
 
-        public async void OnStartBattle(Battle battle)
+        public async Task OnStartBattle(Battle battle)
         {
             unitStats.OnStartBattle();
 

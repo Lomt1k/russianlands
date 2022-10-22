@@ -55,9 +55,10 @@ namespace TextGameRPG.Scripts.GameCore.Units
             return sb.ToString();
         }
 
-        public void OnStartBattle(Battle battle)
+        public Task OnStartBattle(Battle battle)
         {
             unitStats.OnStartBattle();
+            return Task.CompletedTask;
         }
 
         public async Task<List<IBattleAction>> GetActionsForBattleTurn(BattleTurn battleTurn)
