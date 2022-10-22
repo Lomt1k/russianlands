@@ -59,11 +59,9 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
         {
             ClearButtons();
             RegisterBackButton(() => Start());
-            var keyboard = GetOneLineKeyboard();
-            keyboard.ResizeKeyboard = true;
 
             var text = $"{Emojis.menuItems[MenuItem.Inventory]} <b>{Localization.Get(session, "menu_item_inventory")}</b>";
-            await SendDialogMessage(text, keyboard);
+            await SendDialogMessage(text, GetOneLineKeyboard());
             await _inspectorPanel.ShowCategory(category);
         }
 

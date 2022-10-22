@@ -42,6 +42,11 @@ namespace TextGameRPG.Scripts.TelegramBot
         public async Task<Message> SendTextDialog(ChatId id, string text, ReplyKeyboardMarkup? replyKeyboard = null,
             bool silent = false, bool disableWebPagePreview = false)
         {
+            if (replyKeyboard != null)
+            {
+                replyKeyboard.ResizeKeyboard = true;
+            }
+
             return await _botClient.SendTextMessageAsync(id, text, ParseMode.Html, replyMarkup: replyKeyboard,
                 disableNotification: silent, disableWebPagePreview: disableWebPagePreview);
         }

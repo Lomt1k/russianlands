@@ -105,7 +105,7 @@ namespace TextGameRPG.Scripts.GameCore.Units
 
             var waitingText = $"{Emojis.elements[Element.Hourgrlass]} {Localization.Get(session, "battle_enemy_turn_start")}";
             sb.AppendLine(waitingText);
-            var keyboard = new ReplyKeyboardMarkup(waitingText) { ResizeKeyboard = true };
+            var keyboard = new ReplyKeyboardMarkup(waitingText);
             await messageSender.SendTextDialog(session.chatId, sb.ToString(), keyboard, silent: true);
         }
 
