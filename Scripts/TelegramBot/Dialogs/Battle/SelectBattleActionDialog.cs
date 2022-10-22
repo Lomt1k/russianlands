@@ -122,10 +122,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Battle
         public async Task OnCategorySelected(ItemType category)
         {
             if (!_battleTurn.isWaitingForActions)
-            {
-                await HideKeyboard();
                 return;
-            }
 
             var equippedItems = session.player.inventory.equipped;
             switch (category)

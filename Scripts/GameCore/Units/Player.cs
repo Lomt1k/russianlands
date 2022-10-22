@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Telegram.Bot.Types.ReplyMarkups;
 using TextGameRPG.Scripts.GameCore.Buildings;
 using TextGameRPG.Scripts.GameCore.Inventory;
 using TextGameRPG.Scripts.GameCore.Items;
@@ -102,8 +103,10 @@ namespace TextGameRPG.Scripts.GameCore.Units
                 sb.AppendLine();
             }
 
-            sb.AppendLine($"{Emojis.elements[Element.Hourgrlass]} {Localization.Get(session, "battle_enemy_turn_start")}");
-            await messageSender.SendTextMessage(session.chatId, sb.ToString(), silent: true);
+            var waitingText = $"{Emojis.elements[Element.Hourgrlass]} {Localization.Get(session, "battle_enemy_turn_start")}";
+            sb.AppendLine(waitingText);
+            var keyboard = new ReplyKeyboardMarkup(waitingText) { ResizeKeyboard = true };
+            await messageSender.SendTextDialog(session.chatId, sb.ToString(), keyboard, silent: true);
         }
 
         public bool TryAddShieldOnStartEnemyTurn(out DamageInfo damageInfo)
