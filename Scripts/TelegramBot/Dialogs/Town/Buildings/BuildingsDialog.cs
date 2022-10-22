@@ -30,6 +30,11 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
 
         public override async Task Start()
         {
+            if (session.tooltipController.HasTooltipToAppend(this))
+            {
+                await SendHeader();
+                return;
+            }
             await SendHeader();
             await SendPanelsAsync();
         }
@@ -43,12 +48,6 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
                 return;
             }
             await _inspectorPanel.ShowBuildingCurrentLevelInfo(inspectedBuilding);
-        }
-
-        public async Task StartWithTryCollectResources()
-        {
-            await SendHeader();
-            await _inspectorPanel.TryCollectResources();
         }
 
         public async Task StartWithShowBuildingInfo(BuildingBase building)

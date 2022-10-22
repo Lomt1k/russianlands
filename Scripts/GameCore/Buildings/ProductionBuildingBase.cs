@@ -36,7 +36,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
         {
             return new Dictionary<string, Func<Task>>
             {
-                { Localization.Get(session, "dialog_buildings_get_resources"), () => new BuildingsDialog(session).StartWithTryCollectResources() },
+                { Localization.Get(session, "dialog_buildings_get_resources"), () => new TryCollectResourcesDialog(session).Start() },
             };
         }
 

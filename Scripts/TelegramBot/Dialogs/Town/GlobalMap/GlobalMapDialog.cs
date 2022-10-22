@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Localizations;
-using TextGameRPG.Scripts.GameCore.Locations;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 
 namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.GlobalMap
@@ -31,13 +30,6 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.GlobalMap
                 await SendDialogMessage(header, GetMultilineKeyboard());
             }            
             await SendPanelsAsync();
-        }
-
-        public async Task StartWithLocation(LocationType locationType)
-        {
-            var header = $"{Emojis.menuItems[MenuItem.Map]} <b>{Localization.Get(session, "menu_item_map")}</b>";
-            await SendDialogMessage(header, GetMultilineKeyboard());
-            await _mapPanel.ShowLocation(locationType);
         }
 
     }

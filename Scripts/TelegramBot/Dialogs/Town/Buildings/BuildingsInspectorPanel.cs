@@ -51,7 +51,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
             }
 
             AppendProductionInfo(sb);
-            RegisterButton(Localization.Get(session, "dialog_buildings_get_resources"), () => TryCollectResources());
+            RegisterButton(Localization.Get(session, "dialog_buildings_get_resources"), () => new TryCollectResourcesDialog(session).Start());
 
             TryAppendTooltip(sb);
             await SendPanelMessage(sb, GetMultilineKeyboard());
@@ -93,79 +93,6 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
                 else
                     resourcesToShow.Add(resourceType, value);
             }
-        }
-
-        public async Task TryCollectResources()
-        {
-            var limitedStorages = new HashSet<ResourceType>();
-            var collectedResources = new Dictionary<ResourceType, int>();
-
-            var playerResources = session.player.resources;
-            var productionBuildings = session.player.buildings.GetBuildingsByCategory(BuildingCategory.Production);
-            foreach (ProductionBuildingBase building in productionBuildings)
-            {
-                var farmedAmout = building.GetFarmedResourceAmount(_buildingsData);
-                if (farmedAmout < 1)
-                    continue;
-
-                var reallyAdded = playerResources.Add(building.resourceType, farmedAmout);
-                if (reallyAdded > 0)
-                {
-                    if (collectedResources.ContainsKey(building.resourceType))
-                        collectedResources[building.resourceType] += reallyAdded;
-                    else
-                        collectedResources.Add(building.resourceType, reallyAdded);
-                }
-
-                if (reallyAdded == farmedAmout)
-                {
-                    building.SetStartFarmTime(_buildingsData, DateTime.UtcNow.Ticks);
-                }
-                else
-                {
-                    var startFarmDt = new DateTime(building.GetStartFarmTime(_buildingsData));
-                    var totalFarmSeconds = (DateTime.UtcNow - startFarmDt).TotalSeconds;
-                    var collectedPart = (float)reallyAdded / farmedAmout;
-                    var secondsToRemove = totalFarmSeconds * collectedPart;
-                    var newStartFarmDt = startFarmDt.AddSeconds(secondsToRemove);
-                    building.SetStartFarmTime(_buildingsData, newStartFarmDt.Ticks);
-                    limitedStorages.Add(building.resourceType);
-                }
-            }
-
-            var sb = new StringBuilder();
-            if (collectedResources.Count == 0 && limitedStorages.Count == 0)
-            {
-                sb.AppendLine(Localization.Get(session, "dialog_buildings_no_resources_in_production"));
-            }
-            else
-            {
-                if (collectedResources.Count > 0)
-                {
-                    sb.AppendLine(Localization.Get(session, "dialog_buildings_collected_resources_header"));
-                    sb.AppendLine(ResourceHelper.GetCompactResourcesView(collectedResources));
-                    sb.AppendLine();
-                }
-                if (limitedStorages.Count > 0)
-                {
-                    sb.AppendLine(Localization.Get(session, "dialog_buildings_resources_not_collected"));
-                    sb.AppendLine();
-                    var storages = session.player.buildings.GetBuildingsByCategory(BuildingCategory.Storages);
-                    foreach (var resourceType in limitedStorages)
-                    {
-                        foreach (StorageBuildingBase storage in storages)
-                        {
-                            if (storage.resourceType == resourceType)
-                                sb.AppendLine($"{Emojis.elements[Element.SmallBlack]} {storage.GetLocalizedName(session, _buildingsData)}");
-                        }
-                    }
-                }
-            }
-
-            ClearButtons();
-            RegisterButton(Localization.Get(session, "menu_item_ok_button"), () => ShowNotifications());
-
-            await SendPanelMessage(sb, GetMultilineKeyboard());
         }
 
         public async Task ShowBuildingsList(BuildingCategory category, bool asNewMessage)
