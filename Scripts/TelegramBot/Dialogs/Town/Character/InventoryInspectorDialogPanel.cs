@@ -92,9 +92,6 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
 
         public async Task ShowCategory(ItemType category)
         {
-            if (lastMessage == null)
-                return;
-
             if (_compareData != null)
             {
                 await ResendComparedItemMessage();

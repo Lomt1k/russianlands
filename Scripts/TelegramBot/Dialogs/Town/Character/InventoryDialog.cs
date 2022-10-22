@@ -45,10 +45,13 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
         {
             var sb = new StringBuilder();
             sb.AppendLine($"{Emojis.menuItems[MenuItem.Inventory]} <b>{Localization.Get(session, "menu_item_inventory")}</b>");
-            TryAppendTooltip(sb);
+            bool hasTooltip = TryAppendTooltip(sb);
 
             await SendDialogMessage(sb, GetKeyboardWithRowSizes(3, 3, 3, 3));
-            await SendPanelsAsync();
+            if (!hasTooltip)
+            {
+                await SendPanelsAsync();
+            }
         }
     }
 }
