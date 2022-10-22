@@ -54,7 +54,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
             RegisterButton(Localization.Get(session, "dialog_buildings_get_resources"), () => new TryCollectResourcesDialog(session).Start());
 
             TryAppendTooltip(sb);
-            await SendPanelMessage(sb, GetMultilineKeyboard());
+            await SendPanelMessage(sb, GetMultilineKeyboard(), asNewMessage: true);
         }
 
         private void AppendProductionInfo(StringBuilder sb)
@@ -108,8 +108,6 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
                 var name = GetPrefix(building, _buildingsData) + building.GetLocalizedName(session, _buildingsData);
                 RegisterButton(name, () => ShowBuildingInfo(building));
             }
-            RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_buildings")}",
-                () => ShowNotifications());
 
             TryAppendTooltip(sb);
             await SendPanelMessage(sb, GetListKeyboard(category), asNewMessage);

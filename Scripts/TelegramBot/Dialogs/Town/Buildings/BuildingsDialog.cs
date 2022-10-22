@@ -14,18 +14,21 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
         {
             _inspectorPanel = new BuildingsInspectorPanel(this, 0);
             RegisterPanel(_inspectorPanel);
-
-            RegisterCategoryButton(BuildingCategory.General);
-            RegisterCategoryButton(BuildingCategory.Storages);
-            RegisterCategoryButton(BuildingCategory.Production);
-            RegisterCategoryButton(BuildingCategory.Training);
-
-            RegisterBackButton(() => new TownDialog(session, TownEntryReason.BackFromInnerDialog).Start());
         }
 
         private void RegisterCategoryButton(BuildingCategory category)
         {
-            RegisterButton(category.GetLocalization(session), () => _inspectorPanel.ShowBuildingsList(category, asNewMessage: true));
+            RegisterButton(category.GetLocalization(session), () => ShowBuildingsCategory(category));
+        }
+
+        public async Task ShowBuildingsCategory(BuildingCategory category)
+        {
+            ClearButtons();
+            RegisterBackButton(() => Start());
+
+            var text = $"{Emojis.menuItems[MenuItem.Buildings]} " + "<b>" + Localization.Get(session, "menu_item_buildings") + "</b>";
+            await SendDialogMessage(text, GetOneLineKeyboard());
+            await _inspectorPanel.ShowBuildingsList(category, asNewMessage: true);
         }
 
         public override async Task Start()
@@ -58,6 +61,14 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
 
         private async Task SendHeader()
         {
+            ClearButtons();
+            RegisterCategoryButton(BuildingCategory.General);
+            RegisterCategoryButton(BuildingCategory.Storages);
+            RegisterCategoryButton(BuildingCategory.Production);
+            RegisterCategoryButton(BuildingCategory.Training);
+
+            RegisterBackButton(() => new TownDialog(session, TownEntryReason.BackFromInnerDialog).Start());
+
             var sb = new StringBuilder();
             sb.Append($"{Emojis.menuItems[MenuItem.Buildings]} " + "<b>" + Localization.Get(session, "menu_item_buildings") + "</b>");
             TryAppendTooltip(sb);
