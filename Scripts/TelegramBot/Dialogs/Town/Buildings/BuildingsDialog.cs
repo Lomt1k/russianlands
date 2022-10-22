@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Text;
+using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Buildings;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
@@ -58,8 +59,10 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
 
         private async Task SendHeader()
         {
-            var header = $"{Emojis.menuItems[MenuItem.Buildings]} " + "<b>" + Localization.Get(session, "menu_item_buildings") + "</b>";
-            await SendDialogMessage(header, GetKeyboardWithRowSizes(2, 2, 1));
+            var sb = new StringBuilder();
+            sb.Append($"{Emojis.menuItems[MenuItem.Buildings]} " + "<b>" + Localization.Get(session, "menu_item_buildings") + "</b>");
+            TryAppendTooltip(sb);
+            await SendDialogMessage(sb, GetKeyboardWithRowSizes(2, 2, 1));
         }
 
     }

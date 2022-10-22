@@ -53,6 +53,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
             AppendProductionInfo(sb);
             RegisterButton(Localization.Get(session, "dialog_buildings_get_resources"), () => TryCollectResources());
 
+            TryAppendTooltip(sb);
             await SendPanelMessage(sb, GetMultilineKeyboard());
         }
 
@@ -170,7 +171,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
         public async Task ShowBuildingsList(BuildingCategory category, bool asNewMessage)
         {
             await RemoveKeyboardFromLastMessage();
-            var text = $"<b>{category.GetLocalization(session)}</b>";
+            var sb = new StringBuilder();
+            sb.Append($"<b>{category.GetLocalization(session)}</b>");
             var buildings = session.player.buildings.GetBuildingsByCategory(category);
             var sortedBuildings = buildings.OrderByDescending(x => x.IsBuilt(_buildingsData)).ThenBy(x => x.buildingData.levels[0].requiredTownHall);
 
@@ -182,7 +184,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
             RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_buildings")}",
                 () => ShowNotifications());
 
-            await SendPanelMessage(text, GetListKeyboard(category), asNewMessage);
+            TryAppendTooltip(sb);
+            await SendPanelMessage(sb, GetListKeyboard(category), asNewMessage);
         }
 
         private string GetPrefix(BuildingBase building, ProfileBuildingsData data)
@@ -275,6 +278,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
             }
             RegisterBackButton(() => ShowBuildingsList(building.buildingType.GetCategory(), asNewMessage: false));
 
+            TryAppendTooltip(sb);
             await SendPanelMessage(sb, GetMultilineKeyboard());
         }
 
@@ -382,6 +386,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
                     () => ShowBuildingsList(building.buildingType.GetCategory(), asNewMessage: false));
             }
 
+            TryAppendTooltip(sb);
             await SendPanelMessage(sb, GetMultilineKeyboard());
         }
 

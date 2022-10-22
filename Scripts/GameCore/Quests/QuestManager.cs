@@ -1,13 +1,11 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
-using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Quests.NextStageTriggers;
 using TextGameRPG.Scripts.GameCore.Quests.QuestStages;
 using TextGameRPG.Scripts.GameCore.Quests.StageActions;
 using TextGameRPG.Scripts.TelegramBot;
 using TextGameRPG.Scripts.TelegramBot.Dialogs.Town;
-using TextGameRPG.Scripts.TelegramBot.Dialogs.Town.GlobalMap;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Quests
