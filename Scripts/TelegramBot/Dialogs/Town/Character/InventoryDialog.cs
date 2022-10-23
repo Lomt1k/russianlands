@@ -18,6 +18,11 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
 
         public override async Task Start()
         {
+            await ShowCategories();
+        }
+
+        private async Task ShowCategories(CompareData? compareData = null)
+        {
             ClearButtons();
             RegisterButton($"{Emojis.items[ItemType.Sword]} " + Localization.Get(session, "menu_item_swords"),
                 () => ShowCategory(ItemType.Sword));
@@ -51,18 +56,32 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
             await SendDialogMessage(sb, GetKeyboardWithRowSizes(3, 3, 3, 3));
             if (!hasTooltip)
             {
-                await SendPanelsAsync();
+                _inspectorPanel.compareData = compareData;
+                await _inspectorPanel.ShowMainInfo();
             }
         }
 
-        public async Task ShowCategory(ItemType category)
+        public async Task ShowCategory(ItemType category, int page = 0, CompareData? newCompareData = null)
         {
-            ClearButtons();
-            RegisterBackButton(() => Start());
+            if (newCompareData.HasValue)
+            {
+                _inspectorPanel.compareData = newCompareData.Value;
+            }
 
-            var text = $"{Emojis.menuItems[MenuItem.Inventory]} <b>{Localization.Get(session, "menu_item_inventory")}</b>";
-            await SendDialogMessage(text, GetOneLineKeyboard());
-            await _inspectorPanel.ShowCategory(category);
+            ClearButtons();
+            RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_back_to_categories")} {Emojis.menuItems[MenuItem.Inventory]}",
+                () => ShowCategories(_inspectorPanel.compareData));
+
+            var sb = new StringBuilder();
+            sb.AppendLine($"{Emojis.menuItems[MenuItem.Inventory]} <b>{Localization.Get(session, "menu_item_inventory")}</b>");
+            if (_inspectorPanel.compareData.HasValue)
+            {
+                sb.AppendLine();
+                sb.AppendLine(Localization.Get(session, "menu_item_compare_button_header"));
+            }
+
+            await SendDialogMessage(sb, GetOneLineKeyboard());
+            await _inspectorPanel.ShowCategory(category, page);
         }
 
     }

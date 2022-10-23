@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
 using TextGameRPG.Scripts.GameCore.Inventory;
 using TextGameRPG.Scripts.GameCore.Items;
@@ -12,24 +11,21 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
     public struct CompareData
     {
         public InventoryItem comparedItem;
-        public Message comparedItemMessage;
         public ItemType categoryOnStartCompare;
         public int currentPageOnStartCompare;
-        public int pagesCountOnStartCompare;
     }
 
     public class InventoryInspectorDialogPanel : DialogPanelBase
     {
         private const int browsedItemsOnPage = 8;
 
-        private PlayerInventory _inventory;
+        public CompareData? compareData;
 
+        private PlayerInventory _inventory;
         private ItemType _browsedCategory;
         private InventoryItem[] _browsedItems;
         private int _currentPage;
         private int _pagesCount;
-
-        private CompareData? _compareData;
 
         public InventoryInspectorDialogPanel(DialogBase _dialog, byte _panelId) : base(_dialog, _panelId)
         {
@@ -90,15 +86,11 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
             await SendPanelMessage(sb, GetMultilineKeyboard(), asNewMessage: true);
         }
 
-        public async Task ShowCategory(ItemType category)
+        public async Task ShowCategory(ItemType category, int itemsPage = 0)
         {
-            if (_compareData != null)
-            {
-                await ResendComparedItemMessage();
-            }
-
             _browsedCategory = category;
             RefreshBrowsedItems();
+            _currentPage = itemsPage;
             await ShowItemsPage(asNewMessage: true);
         }
 
@@ -127,7 +119,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
 
         private async Task ShowItemsPage(bool asNewMessage)
         {
-            await RemoveKeyboardFromLastMessage();
+            ClearButtons();
             var categoryLocalization = GetCategoryLocalization(_browsedCategory);
             var text = new StringBuilder();
             text.Append($"<b>{categoryLocalization}:</b> ");
@@ -179,17 +171,12 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
 
         private async Task OnItemClick(InventoryItem item)
         {
-            if (_compareData != null)
+            if (compareData != null)
             {
-                await ShowComparingItems(item);
+                await new InventoryItemComparisonDialog(session, item, compareData.Value).Start();
                 return;
             }
-            await ShowItemInspector(item);
-        }
-
-        private async Task OnClickCloseCategory()
-        {
-            await ShowMainInfo();
+            await new InventoryItemDialog(session, item, _browsedCategory, _currentPage).Start();
         }
 
         private async Task OnClickPreviousPage()
@@ -216,160 +203,6 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
                 parameters[i] = i < parameters.Length - 1 ? 1 : lastRowButtons;
             }
             return GetKeyboardWithRowSizes(parameters);
-        }
-
-        private async Task ShowItemInspector(InventoryItem item)
-        {
-            var sb = new StringBuilder();
-            sb.Append(item.GetView(session));
-
-            ClearButtons();
-            if (item.isEquipped)
-            {
-                RegisterButton(Localization.Get(session, "menu_item_unequip_button"), () => UnequipItem(item));
-            }
-            else
-            {
-                RegisterButton(Localization.Get(session, "menu_item_equip_button"), () => StartEquipLogic(item));
-            }
-
-            RegisterButton(Localization.Get(session, "menu_item_compare_button"),
-                () => StartSelectItemForCompare(item),
-                () => Localization.Get(session, "menu_item_compare_button_callback"));
-
-            var categoryIcon = Emojis.items[_browsedCategory];
-            RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_back_to_list_button")} {categoryIcon}",
-                () => ShowItemsPage(asNewMessage: false));
-
-            TryAppendTooltip(sb);
-            await SendPanelMessage(sb, GetKeyboardWithRowSizes(2, 1));
-        }
-
-        private async Task StartEquipLogic(InventoryItem item)
-        {
-            var profileLevel = session.profile.data.level;
-            var requiredLevel = item.data.requiredLevel;
-            if (profileLevel < requiredLevel)
-            {
-                var messageText = $"<b>{item.GetFullName(session)}</b>\n\n"
-                    + string.Format(Localization.Get(session, "dialog_inventory_required_level"), requiredLevel) + $" {Emojis.smiles[Smile.Sad]}";
-                ClearButtons();
-                RegisterButton(Localization.Get(session, "menu_item_ok_button"), () => ShowItemInspector(item));
-                await SendPanelMessage(messageText, GetOneLineKeyboard());
-                return;
-            }
-
-            if (item.data.itemType.IsMultiSlot())
-            {
-                await SelectSlotForEquip(item);
-                return;
-            }
-
-            await EquipSingleSlot(item);
-        }
-
-        private async Task SelectSlotForEquip(InventoryItem item)
-        {
-            var type = item.data.itemType;
-            var slotsCount = type.GetSlotsCount();
-            var category = GetCategoryLocalization(type);
-            var text = string.Format(Localization.Get(session, "dialog_inventory_select_slot_for_equip"), category, slotsCount, item.GetFullName(session));
-
-            ClearButtons();
-            for (int i = 0; i < slotsCount; i++)
-            {
-                int slotId = i;
-                var equippedItem = _inventory.equipped[type, slotId];
-                var buttonText = equippedItem != null 
-                    ? equippedItem.GetFullName(session) 
-                    : $"{Emojis.items[type]} {Localization.Get(session, "menu_item_empty_slot_button")}";
-                RegisterButton(buttonText, () => EquipMultiSlot(item, slotId));
-            }
-            RegisterBackButton(() => ShowItemInspector(item));
-
-            await SendPanelMessage(text, GetMultilineKeyboard());
-        }
-
-        private async Task EquipSingleSlot(InventoryItem item)
-        {
-            _inventory.EquipSingleSlot(item);
-            RefreshBrowsedItems();
-            await ShowItemInspector(item);
-        }
-
-        private async Task EquipMultiSlot(InventoryItem item, int slotId)
-        {
-            _inventory.EquipMultiSlot(item, slotId);
-            RefreshBrowsedItems();
-            await ShowItemInspector(item);
-        }
-
-        private async Task UnequipItem(InventoryItem item)
-        {
-            _inventory.Unequip(item);
-            RefreshBrowsedItems();
-            await ShowItemInspector(item);
-        }
-
-        private async Task StartSelectItemForCompare(InventoryItem item)
-        {
-            _compareData = new CompareData
-            {
-                comparedItem = item,
-                categoryOnStartCompare = _browsedCategory,
-                currentPageOnStartCompare = _currentPage,
-                pagesCountOnStartCompare = _pagesCount,
-                comparedItemMessage = await messageSender.EditMessageKeyboard(session.chatId, lastMessage.MessageId, null)
-            };
-            lastMessage = _compareData.Value.comparedItemMessage;
-
-            await ShowItemsPage(asNewMessage: true);
-        }
-
-        private async Task ShowComparingItems(InventoryItem secondItem)
-        {
-            var text = secondItem.GetView(session);
-            ClearButtons();
-
-            RegisterButton(Localization.Get(session, "menu_item_compare_another_button"), () => ShowItemsPage(asNewMessage: false),
-                () => Localization.Get(session, "menu_item_compare_button_callback"));
-
-            RegisterButton(Localization.Get(session, "menu_item_compare_end_button"), () => EndComparison());
-
-            await SendPanelMessage(text, GetMultilineKeyboard());
-        }
-
-        private async Task EndComparison()
-        {
-            await messageSender.DeleteMessage(session.chatId, _compareData.Value.comparedItemMessage.MessageId);
-
-            _browsedCategory = _compareData.Value.categoryOnStartCompare;
-            _currentPage = _compareData.Value.currentPageOnStartCompare;
-            _pagesCount = _compareData.Value.pagesCountOnStartCompare;
-            var inspectedItem = _compareData.Value.comparedItem;
-            _compareData = null;
-
-            RefreshBrowsedItems();
-            await ShowItemInspector(inspectedItem);
-        }
-
-        private async Task ResendComparedItemMessage()
-        {
-            var messageToResend = _compareData.Value.comparedItemMessage;
-            if (lastMessage != messageToResend)
-            {
-                await messageSender.DeleteMessage(session.chatId, lastMessage.MessageId);
-            }
-            await messageSender.DeleteMessage(session.chatId, messageToResend.MessageId);
-            _compareData = new CompareData
-            {
-                comparedItem = _compareData.Value.comparedItem,
-                categoryOnStartCompare = _compareData.Value.categoryOnStartCompare,
-                currentPageOnStartCompare = _compareData.Value.currentPageOnStartCompare,
-                pagesCountOnStartCompare = _compareData.Value.pagesCountOnStartCompare,
-                comparedItemMessage = await messageSender.SendTextMessage(session.chatId, _compareData.Value.comparedItem.GetView(session), silent: true)
-            };
-            lastMessage = _compareData.Value.comparedItemMessage;
         }
 
     }
