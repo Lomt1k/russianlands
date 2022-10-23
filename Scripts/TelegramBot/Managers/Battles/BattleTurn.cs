@@ -23,19 +23,17 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
         public Battle battle { get; }
         public IBattleUnit unit { get; }
         public IBattleUnit enemy { get; }
-        public int secondsLimit { get; }
-        public int secondsLeft { get; private set; }
+        public int millisecondsLeft { get; private set; }
         public bool isLastChance { get; }
 
-        public bool isWaitingForActions => _battleActions == null && secondsLeft > 0;
+        public bool isWaitingForActions => _battleActions == null && millisecondsLeft > 0;
 
         public BattleTurn(Battle _battle, IBattleUnit _unit, int _secondsLimit = 60)
         {
             battle = _battle;
             unit = _unit;
             enemy = battle.GetEnemy(unit);
-            secondsLimit = _secondsLimit;
-            secondsLeft = _secondsLimit;
+            millisecondsLeft = _secondsLimit * 1_000;
             isLastChance = unit.unitStats.currentHP <= 0;
         }
 
@@ -81,14 +79,14 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
         {
             while (isWaitingForActions)
             {
-                await Task.Delay(1000);
-                secondsLeft--;
-                if (secondsLeft == 10)
+                await Task.Delay(500);
+                millisecondsLeft -= 500;
+                if (millisecondsLeft == 10_000)
                 {
                     unit.OnMineBattleTurnAlmostEnd();
                     continue;
                 }
-                if (secondsLeft == 0 && _battleActions == null)
+                if (millisecondsLeft == 0 && _battleActions == null)
                 {
                     await unit.OnMineBatteTurnTimeEnd();
                     var enemy = battle.GetEnemy(unit);

@@ -137,7 +137,6 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Battle
                     {
                         session.player.unitStats.OnUseItemInBattle(item);
                     }
-                    await HideKeyboard();
                     break;
                 case ItemType.Poison:
                     //TODO: Select poison dialog
@@ -147,14 +146,6 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Battle
                     break;
             }
         }
-
-        public async Task HideKeyboard()
-        {
-            await DeleteDialogMessage();
-        }
-
-
-
 
     }
 }
