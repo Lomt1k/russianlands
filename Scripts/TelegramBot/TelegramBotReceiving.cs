@@ -1,5 +1,5 @@
 ﻿using Telegram.Bot;
-using Telegram.Bot.Extensions.Polling;
+using Telegram.Bot.Polling;
 using System.Threading;
 
 namespace TextGameRPG.Scripts.TelegramBot

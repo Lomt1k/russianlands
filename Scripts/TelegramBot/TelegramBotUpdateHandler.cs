@@ -6,7 +6,7 @@ namespace TextGameRPG.Scripts.TelegramBot
     using System.Threading;
     using Telegram.Bot;
     using Telegram.Bot.Exceptions;
-    using Telegram.Bot.Extensions.Polling;
+    using Telegram.Bot.Polling;
     using Telegram.Bot.Types;
     using Telegram.Bot.Types.Enums;
     using Telegram.Bot.Types.ReplyMarkups;
@@ -67,7 +67,7 @@ namespace TextGameRPG.Scripts.TelegramBot
             return Task.CompletedTask;
         }
 
-        public Task HandleErrorAsync(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)
+        public Task HandlePollingErrorAsync(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)
         {
             switch (exception)
             {
@@ -78,6 +78,5 @@ namespace TextGameRPG.Scripts.TelegramBot
 
             return Task.CompletedTask;
         }
-
     }
 }
