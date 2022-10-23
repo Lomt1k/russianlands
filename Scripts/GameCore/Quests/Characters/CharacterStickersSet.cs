@@ -52,7 +52,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests.Characters
             var stickerSet = await botClient.GetStickerSetAsync(stickerSetName);
             if (stickerSet == null)
             {
-                Program.logger.Error($"Not found stickerSet '{stickerSetName}' on telegram servers");
+                Program.logger.Error($"Not found stickerset '{stickerSetName}' on telegram servers");
                 return;
             }
 
@@ -68,7 +68,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests.Characters
                         continue;
                     }                    
                 }
-                Program.logger.Error($"Not found sticker at position {stickerInfo.setPosition} in stickerSet '{stickerSetName}'");
+                Program.logger.Error($"Not found sticker at position {stickerInfo.setPosition} in stickerset '{stickerSetName}'");
             }
         }
 

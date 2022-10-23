@@ -32,14 +32,19 @@ namespace TextGameRPG.Scripts.GameCore.Quests.Characters
             _characterStickers = new Dictionary<CharacterType, CharacterStickersSet>
             {
                 {
-                    CharacterType.Vasilisa, new CharacterStickersSet("russlandbot")
-                            .RegisterSticker(Emotion.Idle, 0)
+                    CharacterType.Vasilisa, new CharacterStickersSet("RussianGirlVasilisa")
+                    .RegisterSticker(Emotion.Idle, 29)
+                    .RegisterSticker(Emotion.Joyfull, 21)
+                    .RegisterSticker(Emotion.Angry, 11)
+                    .RegisterSticker(Emotion.Surprised, 3)
                 },
                 {
                     CharacterType.Dobrynya, new CharacterStickersSet("russlandbot")
+                    .RegisterSticker(Emotion.Idle, 0)
                 },
                 {
                     CharacterType.Magus_Oldman, new CharacterStickersSet("russlandbot")
+                    .RegisterSticker(Emotion.Idle, 1)
                 },
             };
         }
