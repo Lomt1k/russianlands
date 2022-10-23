@@ -28,7 +28,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Quests
             if (_replica.characterType != CharacterType.None)
             {
                 var characterName = _replica.characterType.GetNameBold(session);
-                sb.AppendLine(characterName);
+                sb.AppendLine(characterName + ':');
                 sb.AppendLine();
             }
             sb.Append(Localization.Get(session, _replica.localizationKey));
@@ -49,6 +49,11 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Quests
 
         public override async Task Start()
         {
+            var sticker = _replica.characterType.GetSticker(_replica.emotion);
+            if (sticker != null)
+            {
+                await messageSender.SendSticker(session.chatId, sticker);
+            }
             await SendDialogMessage(GetText(), GetMultilineKeyboard());
         }
     }

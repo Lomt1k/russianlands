@@ -61,5 +61,10 @@ namespace TextGameRPG.Scripts.TelegramBot
             return await _botClient.SendTextMessageAsync(id, $"{Emojis.elements[Element.Warning]} <b>Program Error</b>\n\n" + text, ParseMode.Html);
         }
 
+        public async Task<Message> SendSticker(ChatId id, string stickerFileId)
+        {
+            return await _botClient.SendStickerAsync(id, stickerFileId);
+        }
+
     }
 }

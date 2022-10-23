@@ -11,10 +11,12 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
     public class StageWithReplicaViewModel : ViewModelBase
     {
         private EnumValueModel<CharacterType> _selectedCharacter;
+        private EnumValueModel<Emotion> _selectedEmotion;
         private Answer? _selectedAnswer;
 
         public QuestStageWithReplica stage { get; }
         public ObservableCollection<EnumValueModel<CharacterType>> characters { get; }
+        public ObservableCollection<EnumValueModel<Emotion>> emotions { get; }
         public ObservableCollection<Answer> answers { get; } = new ObservableCollection<Answer>();
         public EnumValueModel<CharacterType> selectedCharacter
         {
@@ -23,6 +25,15 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
             {
                 this.RaiseAndSetIfChanged(ref _selectedCharacter, value);
                 stage.replica.characterType = value.value;
+            }
+        }
+        public EnumValueModel<Emotion> selectedEmotion
+        {
+            get => _selectedEmotion;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _selectedEmotion, value);
+                stage.replica.emotion = value.value;
             }
         }
         public Answer? selectedAnswer
@@ -38,7 +49,9 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
         {
             this.stage = stage;
             characters = EnumValueModel<CharacterType>.CreateCollection();
+            emotions = EnumValueModel<Emotion>.CreateCollection();
             _selectedCharacter = characters.First(x => x.value == stage.replica.characterType);
+            _selectedEmotion = emotions.First(x => x.value == stage.replica.emotion);
 
             foreach (var answer in stage.replica.answers)
             {
