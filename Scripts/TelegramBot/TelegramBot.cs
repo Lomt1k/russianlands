@@ -10,6 +10,7 @@ namespace TextGameRPG.Scripts.TelegramBot
     using DataBase;
     using System.Threading.Tasks;
     using TextGameRPG.Scripts.TelegramBot.Managers;
+    using TextGameRPG.Scripts.GameCore.Quests.Characters;
 
     public class TelegramBot
     {
@@ -89,6 +90,9 @@ namespace TextGameRPG.Scripts.TelegramBot
             GlobalManagers.CreateManagers();
             messageSender = new MessageSender(client);
             sessionManager = new SessionManager(this);
+
+            await CharacterStickersHolder.StickersUpdate();
+
             botReceiving = new TelegramBotReceiving(this);
             botReceiving.StartReceiving();
 

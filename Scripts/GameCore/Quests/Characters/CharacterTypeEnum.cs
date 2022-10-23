@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using TextGameRPG.Scripts.TelegramBot.Sessions;
+﻿using TextGameRPG.Scripts.TelegramBot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Quests.Characters
 {
@@ -9,6 +8,15 @@ namespace TextGameRPG.Scripts.GameCore.Quests.Characters
         Vasilisa = 10,
         Dobrynya = 20,
         Magus_Oldman = 30,
+    }
+
+    public enum Emotion : byte
+    {
+        None = 0,
+        Idle = 1,
+        Joyfull = 2,
+        Angry = 3,
+        Surprised = 4,
     }
 
     public static class CharacterTypeExtensions
@@ -22,16 +30,11 @@ namespace TextGameRPG.Scripts.GameCore.Quests.Characters
         {
             return "<b>" + characterType.GetName(session) + "</b>";
         }
-    }
 
-    public static class CharactersHolder
-    {
-        private static Dictionary<CharacterType, Character> _characters = new Dictionary<CharacterType, Character>
+        public static string? GetSticker(this CharacterType characterType, Emotion emotion)
         {
-            { CharacterType.Vasilisa, new Character() },
-            { CharacterType.Dobrynya, new Character() },
-        };
-
+            return CharacterStickersHolder.GetSticker(characterType, emotion);
+        }
 
     }
 }
