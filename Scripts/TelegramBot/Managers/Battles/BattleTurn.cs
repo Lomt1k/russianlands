@@ -26,7 +26,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
         public int millisecondsLeft { get; private set; }
         public bool isLastChance { get; }
 
-        public bool isWaitingForActions => _battleActions == null && millisecondsLeft > 0;
+        public bool isWaitingForActions => _battleActions == null && millisecondsLeft > 0 && !battle.allSessionsCTS.IsCancellationRequested;
 
         public BattleTurn(Battle _battle, IBattleUnit _unit, int _secondsLimit = 60)
         {
@@ -39,8 +39,10 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
 
         public async Task HandleTurn()
         {
-            await enemy.OnStartEnemyTurn(this);
+            if (battle.allSessionsCTS.IsCancellationRequested)
+                return;
 
+            await enemy.OnStartEnemyTurn(this);
             OnStartMineTurn();
             AskUnitForBattleActions();
             await WaitAnswerFromUnit();
@@ -97,6 +99,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
 
         private async Task InvokeBattleActions()
         {
+            if (battle.allSessionsCTS.IsCancellationRequested)
+                return;
             if (_battleActions == null)
                 return;
 

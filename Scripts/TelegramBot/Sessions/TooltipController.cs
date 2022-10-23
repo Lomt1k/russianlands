@@ -88,13 +88,14 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
             return _nextIndex >= _tooltips.Count ? null : _tooltips[_nextIndex];
         }
 
-        public bool IfNextTooltipForPanelWithWaitingButtonClick()
+        public bool IfCurrentTooltipForPanelWithWaitingButtonClick()
         {
-            if (_nextIndex >= _tooltips.Count)
+            var currentIndex = _nextIndex - 1;
+            if (currentIndex < 0 || currentIndex >= _tooltips.Count)
                 return false;
 
-            var nextTooltip = _tooltips[_nextIndex];
-            return nextTooltip.isTooltipForDialogPanel && nextTooltip.buttonId > -1;
+            var currentTooltip = _tooltips[currentIndex];
+            return currentTooltip.isTooltipForDialogPanel && currentTooltip.buttonId > -1;
         }
 
     }

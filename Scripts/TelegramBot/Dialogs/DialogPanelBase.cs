@@ -178,6 +178,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
             if (tooltip == null)
                 return false;
 
+            dialog.BlockAllButtons();
             int? selectedButton = null;
             if (tooltip.buttonId > -1 && tooltip.buttonId < buttonsCount)
             {
@@ -251,6 +252,15 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
             }
 
             return true;
+        }
+
+        public async Task ResendLastMessageAsNew()
+        {
+            if (lastMessage == null)
+                return;
+
+            await messageSender.DeleteMessage(lastMessage.Chat.Id, lastMessage.MessageId);
+            lastMessage = await messageSender.SendTextMessage(session.chatId, lastMessage.Text, lastMessage.ReplyMarkup);
         }
 
     }

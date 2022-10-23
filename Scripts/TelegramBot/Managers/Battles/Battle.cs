@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Rewards;
@@ -25,6 +26,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
         public IBattleUnit secondUnit { get; private set; }
         public BattleTurn? currentTurn { get; private set; }
         public bool isPVE { get; private set; }
+        public CancellationTokenSource allSessionsCTS { get; private set; }
 
         public Battle(Player opponentA, IBattleUnit opponentB,
             List<RewardBase>? rewards = null,
@@ -35,6 +37,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
             isPVE = opponentB is Mob;
             firstUnit = SelectFirstUnit(opponentA, opponentB);
             secondUnit = firstUnit == opponentA ? opponentB : opponentA;
+            allSessionsCTS = TelegramBot.instance.sessionManager.allSessionsTasksCTS;
 
             _rewards = rewards;
             _onBattleEndFunc = onBattleEndFunc;
@@ -49,6 +52,9 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
 
         public async Task StartBattle()
         {
+            if (allSessionsCTS.IsCancellationRequested)
+                return;
+
             //Сначала второму юниту, так как первый уже сразу сможет ходить
             await secondUnit.OnStartBattle(this);
             await firstUnit.OnStartBattle(this);
@@ -106,6 +112,12 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
 
         private async Task BattleEnd()
         {
+            if (allSessionsCTS.IsCancellationRequested)
+            {
+                GlobalManagers.battleManager?.OnBattleEnd(this);
+                return;
+            }
+
             bool hasWinner = firstUnit.unitStats.currentHP > 0 || secondUnit.unitStats.currentHP > 0;
             if (firstUnit is Player firstPlayer)
             {

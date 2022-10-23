@@ -186,28 +186,15 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
                         buttonsToBlock.Add(button.Key);
                     }
                 }
-
-                foreach (var button in buttonsToBlock)
-                {
-                    registeredButtons[button] = async () =>
-                    {
-                        session.tooltipController.SwitchToPrevious();
-                        await Start();
-                    };
-                }
+                BlockButtons(buttonsToBlock);
 
                 // Модифицируем логику клика по нужной кнопке (если еще не модифицировали)
                 if (!selectedButton.Text.Contains(Emojis.elements[Element.Warning]))
                 {
                     var oldSelectedAction = registeredButtons[selectedButton];
-                    bool needRemoveDialog = session.tooltipController.IfNextTooltipForPanelWithWaitingButtonClick();
                     var newStage = tooltip.stageAfterButtonClick;
                     Func<Task> newSelectedAction = async () =>
                     {
-                        if (needRemoveDialog)
-                        {
-                            await DeleteDialogMessage();
-                        }
                         if (oldSelectedAction != null)
                         {
                             await oldSelectedAction();
@@ -242,6 +229,27 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
             }            
 
             return true;
+        }
+
+        public void BlockAllButtons()
+        {
+            var allButtons = registeredButtons.Keys.ToArray();
+            BlockButtons(allButtons);
+        }
+
+        private void BlockButtons(IEnumerable<KeyboardButton> buttonsToBlock)
+        {
+            foreach (var button in buttonsToBlock)
+            {
+                registeredButtons[button] = async () =>
+                {
+                    previousMessage = await messageSender.SendTextMessage(session.chatId, previousMessage.Text);
+                    foreach (var panel in registeredPanels.Values)
+                    {
+                        await panel.ResendLastMessageAsNew();
+                    }
+                };
+            }
         }
 
         public virtual void OnClose()
