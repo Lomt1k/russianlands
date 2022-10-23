@@ -24,7 +24,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
         public async Task ShowBuildingsCategory(BuildingCategory category)
         {
             ClearButtons();
-            RegisterBackButton(() => Start());
+            RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_back_to_categories")}",
+                () => Start());
 
             var text = $"{Emojis.menuItems[MenuItem.Buildings]} " + "<b>" + Localization.Get(session, "menu_item_buildings") + "</b>";
             await SendDialogMessage(text, GetOneLineKeyboard());
@@ -47,16 +48,16 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
             await SendHeader();
             if (successfullPurchase)
             {
-                await _inspectorPanel.TryStartConstruction(inspectedBuilding);
+                await new BuildingInfoDialog(session, inspectedBuilding).TryStartConstruction();
                 return;
             }
-            await _inspectorPanel.ShowBuildingCurrentLevelInfo(inspectedBuilding);
+            await new BuildingInfoDialog(session, inspectedBuilding).Start();
         }
 
         public async Task StartWithShowBuildingInfo(BuildingBase building)
         {
             await SendHeader();
-            await _inspectorPanel.ShowBuildingCurrentLevelInfo(building);
+            await new BuildingInfoDialog(session, building).Start();
         }
 
         private async Task SendHeader()
