@@ -8,6 +8,8 @@ namespace TextGameRPG.Scripts.GameCore.Quests.Characters
         Vasilisa = 10,
         Dobrynya = 20,
         Magus_Oldman = 30,
+        Demon_Cracy = 40,
+        Nightingale = 50,
     }
 
     public enum Emotion : byte
