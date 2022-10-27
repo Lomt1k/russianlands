@@ -4,12 +4,9 @@ namespace TextGameRPG.Scripts.GameCore.Units.Mobs
 {
     public enum MobType
     {
-        None = 0,
-        Humanoid = 1,
-        Animal = 2,
-        Monster = 3,
-        Demon = 4,
-        Undead = 5,
+        Default = 0,
+        Strong = 1,
+        Boss = 2,
     }
 
     public static class MobTypeExtensions

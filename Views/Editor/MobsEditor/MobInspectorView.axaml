@@ -21,9 +21,7 @@
       <TextBox Text="{Binding mob.localizationKey}" AcceptsReturn="True"/>
 
       <TextBlock Text="mobType"/>
-      <ComboBox Items="{Binding mobTypes}" SelectedItem="{Binding selectedMobType}"/>
-      <TextBlock Text="Rarity"/>
-      <ComboBox Items="{Binding rarities}" SelectedItem="{Binding selectedRarity}"/>      
+      <ComboBox Items="{Binding mobTypes}" SelectedItem="{Binding selectedMobType}"/>     
       <CheckBox Content="withGrade" IsChecked="{Binding mob.withGrade}"/>
 
       <UserControl Grid.Column="1" Content="{Binding encounterSettingsView}"/>

@@ -14,8 +14,7 @@ namespace TextGameRPG.Scripts.GameCore.Units.Mobs
         public int id { get; set; }
         public string debugName { get; set; } = "New Mob";
         public string localizationKey { get; set; } = string.Empty;
-        public MobType mobType { get; set; } = MobType.None;
-        public Rarity rarity { get; set; } = Rarity.Common;
+        public MobType mobType { get; set; } = MobType.Default;
         public bool withGrade { get; set; } = false;
         public MobEncounterSettings encounterSettings { get; set; } = new MobEncounterSettings();
         public MobStatsSettings statsSettings { get; set; } = new MobStatsSettings();
