@@ -180,6 +180,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Battle
                     RegisterButton(scrollItem.GetFullName(session), () => SelectScrollItem(scrollItem));
                 }
             }
+
             if (buttonsCount == 0)
             {
                 sb.AppendLine($"{Emojis.elements[Element.WarningGrey]} {Localization.Get(session, "battle_not_enough_mana")}");
