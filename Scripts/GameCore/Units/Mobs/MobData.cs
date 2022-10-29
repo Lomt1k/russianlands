@@ -20,7 +20,6 @@ namespace TextGameRPG.Scripts.GameCore.Units.Mobs
         public MobStatsSettings statsSettings { get; set; } = new MobStatsSettings();
 
         public List<MobAttack> mobAttacks { get; } = new List<MobAttack>();
-        //TODO: Add rewards
 
         public bool CanStartEncounter(GameSession session)
         {

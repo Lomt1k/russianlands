@@ -30,7 +30,11 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Battle
                 sb.AppendLine(Localization.Get(session, "battle_result_header_rewards"));
                 foreach (var reward in _data.rewards)
                 {
-                    sb.AppendLine(reward.GetRewardView(session));
+                    var addedReward = await reward.AddReward(session);
+                    if (!string.IsNullOrEmpty(addedReward))
+                    {
+                        sb.AppendLine(addedReward);
+                    }
                 }
             }
 

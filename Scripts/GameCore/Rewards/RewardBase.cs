@@ -1,6 +1,6 @@
 ﻿using JsonKnownTypes;
 using Newtonsoft.Json;
-using TextGameRPG.Scripts.GameCore.Units;
+using System.Threading.Tasks;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Rewards
@@ -9,7 +9,6 @@ namespace TextGameRPG.Scripts.GameCore.Rewards
     [JsonConverter(typeof(JsonKnownTypesConverter<RewardBase>))]
     public abstract class RewardBase
     {
-        public abstract void AddReward(Player player);
-        public abstract string GetRewardView(GameSession session);
+        public abstract Task<string> AddReward(GameSession session);
     }
 }

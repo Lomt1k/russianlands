@@ -137,11 +137,6 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
                 ? (player.unitStats.currentHP > enemy.unitStats.currentHP ? BattleResult.Win : BattleResult.Lose)
                 : BattleResult.Draw;
 
-            if (battleResult == BattleResult.Win)
-            {
-                GiveRewards(player);
-            }
-
             if (_onBattleEndFunc != null)
             {
                 await _onBattleEndFunc(player, battleResult);
@@ -160,17 +155,6 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
                 isReturnToTownAvailable = isReturnToTownAvailable
             };
             await new BattleResultDialog(player.session, data).Start();
-        }
-
-        private void GiveRewards(Player player)
-        {
-            if (_rewards == null)
-                return;
-
-            foreach (var reward in _rewards)
-            {
-                reward.AddReward(player);
-            }
         }
 
 
