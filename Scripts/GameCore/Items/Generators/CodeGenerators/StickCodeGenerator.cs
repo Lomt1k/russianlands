@@ -27,10 +27,6 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators
             {
                 throw new ArgumentException($"{GetType()} can not generate item with type '{_type}'");
             }
-            if (rarity == Rarity.Common)
-            {
-                throw new ArgumentException($"{GetType()} can not generate items with '{_rarity}' rarity");
-            }
         }
 
         public override void AppendSpecificInfo()
@@ -44,8 +40,9 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators
             int needOptionsCount = 0;
             switch (rarity)
             {
-                case Rarity.Epic: needOptionsCount = 1; break;
-                case Rarity.Legendary: needOptionsCount = 2; break;
+                case Rarity.Rare: needOptionsCount = 1; break;
+                case Rarity.Epic: needOptionsCount = 2; break;
+                case Rarity.Legendary: needOptionsCount = 3; break;
             }
 
             while (needOptionsCount > 0)

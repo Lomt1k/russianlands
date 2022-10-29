@@ -49,8 +49,7 @@ namespace TextGameRPG.Scripts.GameCore.Items
 
         public static bool IsSupportCommonRarity(this ItemType itemType)
         {
-            return itemType != ItemType.Stick
-                && itemType != ItemType.Amulet
+            return itemType != ItemType.Amulet
                 && itemType != ItemType.Ring
                 && itemType != ItemType.Scroll;
         }

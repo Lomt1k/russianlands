@@ -22,8 +22,6 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators
             () => { sb.Append("DL"); return true; }, //damage lightning
         };
 
-        private readonly string[] _rareOptions = new[] { "DF", "DC", "DL" };
-
         public WeaponCodeGenerator(ItemType _type, Rarity _rarity, int _townHallLevel) : base(_type, _rarity, _townHallLevel)
         {
             if (type != ItemType.Sword && type != ItemType.Bow)
@@ -35,17 +33,12 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators
         public override void AppendSpecificInfo()
         {
             var random = new Random();
-            if (rarity != Rarity.Common)
-            {
-                var index = random.Next(_rareOptions.Length);
-                sb.Append(_rareOptions[index]);
-            }
-
             int needOptionsCount = 0;
             switch (rarity)
             {
-                case Rarity.Epic: needOptionsCount = 1; break;
-                case Rarity.Legendary: needOptionsCount = 2; break;
+                case Rarity.Rare: needOptionsCount = 1; break;
+                case Rarity.Epic: needOptionsCount = 2; break;
+                case Rarity.Legendary: needOptionsCount = 3; break;
             }
 
             while (needOptionsCount > 0)
