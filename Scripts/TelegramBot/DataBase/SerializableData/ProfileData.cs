@@ -37,7 +37,7 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData
                 new TableColumn("level", "INTEGER", "1"),
                 new TableColumn("resourceGold", "INTEGER", "3500"),
                 new TableColumn("resourceFood", "INTEGER", "1000"),
-                new TableColumn("resourceDiamond", "INTEGER", "250"),
+                new TableColumn("resourceDiamond", "INTEGER", "150"),
                 new TableColumn("resourceHerbs", "INTEGER", "0"),
                 new TableColumn("resourceWood", "INTEGER", "0"),
             };

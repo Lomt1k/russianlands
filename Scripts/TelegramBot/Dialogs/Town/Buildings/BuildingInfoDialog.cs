@@ -64,11 +64,10 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
             bool isUnderConstruction = building.IsUnderConstruction(_buildingsData);
             if (!building.IsMaxLevel(_buildingsData))
             {
+                var currentLevel = building.GetCurrentLevel(_buildingsData);
+                var nextLevel = building.buildingData.levels[currentLevel];
                 if (isUnderConstruction)
                 {
-                    var currentLevel = building.GetCurrentLevel(_buildingsData);
-                    var nextLevel = building.buildingData.levels[currentLevel];
-
                     var time = building.GetEndConstructionTime(_buildingsData);
                     var secondsToEnd = (int)(time - DateTime.UtcNow).TotalSeconds;
                     var diamondsForBoost = ResourceHelper.CalculateConstructionBoostPriceInDiamonds(secondsToEnd);
@@ -80,7 +79,11 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
                 }
                 else
                 {
-                    RegisterButton($"{Emojis.elements[Element.LevelUp]} {Localization.Get(session, "dialog_buildings_construction_button")}",
+                    var playerTownHall = BuildingType.TownHall.GetBuilding().GetCurrentLevel(_buildingsData);
+                    var nextLevelIcon = playerTownHall < nextLevel.requiredTownHall
+                        ? Emojis.elements[Element.Locked]
+                        : Emojis.elements[Element.LevelUp];
+                    RegisterButton($"{nextLevelIcon} {Localization.Get(session, "dialog_buildings_construction_button")}",
                         () => ShowConstructionAvailableInfo());
                 }
             }
