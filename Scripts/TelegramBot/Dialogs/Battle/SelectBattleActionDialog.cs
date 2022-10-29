@@ -8,6 +8,7 @@ using Telegram.Bot.Types.ReplyMarkups;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.TelegramBot.Managers.Battles;
 using System.Text;
+using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
 
 namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Battle
 {
@@ -24,6 +25,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Battle
 
         public override async Task Start()
         {
+            ClearButtons();
             var keyboardRows = new List<List<KeyboardButton>>();
             AppendSingleSlotItems(ref keyboardRows);
             AppendMultiSlotItems(ref keyboardRows);
@@ -138,12 +140,69 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Battle
                         session.player.unitStats.OnUseItemInBattle(item);
                     }
                     break;
+                case ItemType.Scroll:
+                    await ShowScrollsCategory();
+                    break;
                 case ItemType.Poison:
                     //TODO: Select poison dialog
                     break;
-                case ItemType.Scroll:
-                    //TODO: Select scroll dialog
-                    break;
+            }
+        }
+
+        private async Task ShowScrollsCategory()
+        {
+            var equipped = session.player.inventory.equipped;
+            var unitStats = session.player.unitStats;
+
+            ClearButtons();
+            var sb = new StringBuilder();
+            sb.Append($"{Emojis.items[ItemType.Scroll]} <b>{Localization.Get(session, "menu_item_scrolls")}</b>");
+            sb.AppendLine($" {Emojis.stats[Stat.Mana]} {unitStats.currentMana}");
+            sb.AppendLine();
+
+            foreach (var scrollItem in GetAllEquippedScrolls())
+            {
+                if (scrollItem == null)
+                    continue;
+
+                sb.AppendLine($"<b>{scrollItem.GetFullName(session)}</b>");
+                var manaCost = Emojis.stats[Stat.Mana] + ' ' + scrollItem.manaCost;
+                sb.AppendLine(string.Format(Localization.Get(session, "item_view_cost_of_use").RemoveHtmlTags(), manaCost));
+                if (scrollItem.data.ablitityByType.TryGetValue(AbilityType.DealDamage, out var dealDamage))
+                {
+                    var simpleDamageView = ((DealDamageAbility)dealDamage).GetSimpleView(session);
+                    sb.AppendLine(simpleDamageView.RemoveHtmlTags());
+                }
+                sb.AppendLine();
+
+                if (unitStats.currentMana >= scrollItem.manaCost)
+                {
+                    RegisterButton(scrollItem.GetFullName(session), () => SelectScrollItem(scrollItem));
+                }
+            }
+            if (buttonsCount == 0)
+            {
+                sb.AppendLine($"{Emojis.elements[Element.WarningGrey]} {Localization.Get(session, "battle_not_enough_mana")}");
+            }
+
+            RegisterBackButton(() => Start());
+            await SendDialogMessage(sb, GetMultilineKeyboard());
+        }
+
+        private Task SelectScrollItem(InventoryItem scrollItem)
+        {
+            var attackWithItem = new PlayerAttackAction(session.player, scrollItem);
+            _selectedActionCallback(attackWithItem);
+            session.player.unitStats.OnUseItemInBattle(scrollItem);
+            return Task.CompletedTask;
+        }
+
+        private IEnumerable<InventoryItem?> GetAllEquippedScrolls()
+        {
+            var equipped = session.player.inventory.equipped;
+            for (int i = 0; i < ItemType.Scroll.GetSlotsCount(); i++)
+            {
+                yield return equipped[ItemType.Scroll, i];
             }
         }
 

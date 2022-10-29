@@ -42,6 +42,9 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
                 case ItemType.Stick:
                     currentStickCharge = 0;
                     break;
+                case ItemType.Scroll:
+                    currentMana -= item.manaCost;
+                    break;
             }
         }
 

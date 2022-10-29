@@ -2,7 +2,6 @@
 using System.Text;
 using TextGameRPG.Scripts.TelegramBot;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
-using TextGameRPG.Scripts.Utils;
 
 namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
 {
@@ -87,6 +86,33 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
             if (minLightningDamage > 0)
             {
                 sb.AppendLine();
+                sb.Append($"{Emojis.stats[Stat.LightningDamage]} {GetStringValue(DamageType.Lightning)}");
+            }
+
+            return sb.ToString();
+        }
+
+        /// <summary>
+        /// Только для свитков, так как у них всегда только один вид урона
+        /// </summary>
+        public string GetSimpleView(GameSession session)
+        {
+            var sb = new StringBuilder();
+            sb.Append(Localizations.Localization.Get(session, "ability_deals_damage") + ' ');
+            if (minPhysicalDamage > 0)
+            {
+                sb.Append($"{Emojis.stats[Stat.PhysicalDamage]} {GetStringValue(DamageType.Physical)}");
+            }
+            if (minFireDamage > 0)
+            {
+                sb.Append($"{Emojis.stats[Stat.FireDamage]} {GetStringValue(DamageType.Fire)}");
+            }
+            if (minColdDamage > 0)
+            {
+                sb.Append($"{Emojis.stats[Stat.ColdDamage]} {GetStringValue(DamageType.Cold)}");
+            }
+            if (minLightningDamage > 0)
+            {
                 sb.Append($"{Emojis.stats[Stat.LightningDamage]} {GetStringValue(DamageType.Lightning)}");
             }
 
