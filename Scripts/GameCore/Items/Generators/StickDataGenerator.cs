@@ -18,7 +18,6 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
                 case Rarity.Legendary: rarityMult = 1.3f; break;
             }
             AddBaseParameters(rarityMult);
-            AddProperties();
         }
 
         private void AddBaseParameters(float rarityMult)
@@ -27,32 +26,20 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             var minGeneralDamage = (int)Math.Round(generalDamage * 0.87f);
             var maxGeneralDamage = (int)Math.Round(generalDamage * 1.13f);
 
-            var secondaryDamage = (int)Math.Round(generalDamage * 0.25f);
-            bool isFirst = true;
             foreach (var param in seed.baseParameters)
             {
                 switch (param)
                 {
                     case "DF":
-                        if (isFirst)
-                            AddDealFireDamage(minGeneralDamage, maxGeneralDamage);
-                        else
-                            AddDealFireDamage(secondaryDamage);
+                        AddDealFireDamage(minGeneralDamage, maxGeneralDamage);
                         break;
                     case "DC":
-                        if (isFirst)
-                            AddDealColdDamage(minGeneralDamage, maxGeneralDamage);
-                        else
-                            AddDealColdDamage(secondaryDamage);
+                        AddDealColdDamage(minGeneralDamage, maxGeneralDamage);
                         break;
                     case "DL":
-                        if (isFirst)
-                            AddDealLightningDamage(minGeneralDamage, maxGeneralDamage);
-                        else
-                            AddDealLightningDamage(secondaryDamage);
+                        AddDealLightningDamage(minGeneralDamage, maxGeneralDamage);
                         break;
                 }
-                isFirst = false;
             }
         }
 
