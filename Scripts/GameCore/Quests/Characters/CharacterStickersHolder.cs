@@ -52,6 +52,27 @@ namespace TextGameRPG.Scripts.GameCore.Quests.Characters
                     .RegisterSticker(Emotion.Angry, 1)
                     .RegisterSticker(Emotion.Surprised, 1)
                 },
+                {
+                    CharacterType.Demon_Cracy, new CharacterStickersSet("russlandbot")
+                    .RegisterSticker(Emotion.Idle, 3)
+                },
+                {
+                    CharacterType.Nightingale, new CharacterStickersSet("russlandbot")
+                    .RegisterSticker(Emotion.Idle, 4)
+                },
+                {
+                    CharacterType.Yaga, new CharacterStickersSet("russlandbot")
+                    .RegisterSticker(Emotion.Idle, 5)
+                    .RegisterSticker(Emotion.Surprised, 5)
+                },
+                {
+                    CharacterType.Wood_Goblin, new CharacterStickersSet("russlandbot")
+                    .RegisterSticker(Emotion.Idle, 6)
+                },
+                {
+                    CharacterType.Rogue_Mage, new CharacterStickersSet("russlandbot")
+                    .RegisterSticker(Emotion.Idle, 7)
+                },
             };
         }
 
