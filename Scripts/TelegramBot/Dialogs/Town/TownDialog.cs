@@ -32,9 +32,9 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town
             RegisterButton($"{Emojis.characters[CharIcon.Male]} " + Localization.Get(session, "menu_item_character"),
                 () => new Character.TownCharacterDialog(session).Start());
             RegisterButton($"{Emojis.menuItems[MenuItem.Quests]} " + Localization.Get(session, "menu_item_quests"),
-                null);
+                () => messageSender.SendTextMessage(session.chatId, "Задания недоступны в текущей версии игры")); //заглушка
             RegisterButton($"{Emojis.menuItems[MenuItem.Mail]} " + Localization.Get(session, "menu_item_mail"),
-                null);
+                () => messageSender.SendTextMessage(session.chatId, "Почта недоступна в текущей версии игры")); //заглушка
             RegisterButton($"{Emojis.menuItems[MenuItem.Shop]} " + Localization.Get(session, "menu_item_shop"),
                 () => new Shop.ShopDialog(session).Start());
 

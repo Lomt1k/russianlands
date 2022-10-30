@@ -10,7 +10,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
         public TownCharacterDialog(GameSession _session) : base(_session)
         {
             RegisterButton($"{Emojis.menuItems[MenuItem.Avatar]} " + Localization.Get(session, "menu_item_avatar"),
-                   null);
+                   () => messageSender.SendTextMessage(session.chatId, "Смена аватара недоступна в текущей версии игры")); //заглушка
             RegisterButton($"{Emojis.menuItems[MenuItem.Inventory]} " + Localization.Get(session, "menu_item_inventory"),
                 () => new InventoryDialog(session).Start());
             RegisterBackButton(() => new TownDialog(session, TownEntryReason.BackFromInnerDialog).Start());

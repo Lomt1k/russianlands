@@ -14,6 +14,9 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Quests.MainQuest
 
         public override async Task Start()
         {
+            await SetupLanguage(LanguageCode.ru);
+            return; //заглушка: пока что тупо ставим русский язык
+
             string text = "Please select your language:\n" +
                 "-----------------------\n" +
                 "Пожалуйста, выберите ваш язык:";
