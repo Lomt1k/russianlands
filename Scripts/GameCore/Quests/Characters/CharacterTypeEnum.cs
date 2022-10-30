@@ -14,6 +14,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests.Characters
         Nightingale = 50,
         Yaga = 60,
         Rogue_Mage = 70,
+        Wood_Goblin = 80,
     }
 
     public enum Emotion : byte
