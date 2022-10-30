@@ -32,39 +32,46 @@ namespace TextGameRPG.Scripts.TelegramBot
         public Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
         {
             //Program.logger.Debug($"Handle Update ID: {update.Id} Type: {update.Type}");
-
-            User? fromUser = null;
-            switch (update.Type)
+            try
             {
-                case UpdateType.Message: fromUser = update.Message?.From; break;
-                case UpdateType.CallbackQuery: fromUser = update.CallbackQuery?.From; break;
+                User? fromUser = null;
+                switch (update.Type)
+                {
+                    case UpdateType.Message: fromUser = update.Message?.From; break;
+                    case UpdateType.CallbackQuery: fromUser = update.CallbackQuery?.From; break;
 
-                default:
-                    Program.logger.Warn($"Unhandled Update {update.Id} (unsupported type)");
+                    default:
+                        Program.logger.Warn($"Unhandled Update {update.Id} (unsupported type)");
+                        return Task.CompletedTask;
+                }
+
+                if (fromUser == null)
+                {
+                    Program.logger.Warn($"Unhandled Update {update.Id} (Update not from user)");
                     return Task.CompletedTask;
-            }
+                }
 
-            if (fromUser == null)
-            {
-                Program.logger.Warn($"Unhandled Update {update.Id} (Update not from user)");
+                bool serverIsBusy = _performanceManager.currentState == PerformanceState.Busy;
+                var gameSession = serverIsBusy
+                    ? _sessionManager.GetSessionIfExists(fromUser)
+                    : _sessionManager.GetOrCreateSession(fromUser);
+
+                if (gameSession == null)
+                {
+                    _messageSender.SendTextDialog(fromUser.Id, serverIsBusyText, serverIsBusyKeyboard, silent: true);
+                }
+                else
+                {
+                    gameSession.HandleUpdateAsync(fromUser, update);
+                }
+
                 return Task.CompletedTask;
             }
-
-            bool serverIsBusy = _performanceManager.currentState == PerformanceState.Busy;
-            var gameSession = serverIsBusy 
-                ? _sessionManager.GetSessionIfExists(fromUser) 
-                : _sessionManager.GetOrCreateSession(fromUser);
-
-            if (gameSession == null)
+            catch (Exception ex)
             {
-                _messageSender.SendTextDialog(fromUser.Id, serverIsBusyText, serverIsBusyKeyboard, silent: true);
-            }
-            else
-            {
-                gameSession.HandleUpdateAsync(fromUser, update);
+                Program.logger.Error($"Exception on handle update with ID: {update.Id}\n{ex}\n");
+                return Task.CompletedTask;
             }            
-
-            return Task.CompletedTask;
         }
 
         public Task HandlePollingErrorAsync(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)
