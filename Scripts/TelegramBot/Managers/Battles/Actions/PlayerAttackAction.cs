@@ -70,7 +70,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles.Actions
                 ? _item.GetFullName(session) 
                 : $"{Emojis.stats[Stat.PhysicalDamage]} {Localization.Get(session, "battle_attack_fists")}";
 
-            sb.AppendLine($"<b>{itemName}:</b>");
+            sb.AppendLine($"<b>{itemName}</b>");
             sb.Append(string.Format(Localization.Get(session, "battle_action_attack_description"), totalDamage));
             var resultDamageView = _resultDamage.GetCompactView();
             if (resultDamageView != null)
