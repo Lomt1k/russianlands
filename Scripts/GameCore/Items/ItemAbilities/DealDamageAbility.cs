@@ -145,5 +145,17 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
 
             return minDamage == maxDamage ? minDamage.ToString() : $"{minDamage} - {maxDamage}";
         }
+
+        /// <summary>
+        /// Только для свитков!
+        /// </summary>
+        public DamageType GetDamageTypeForScroll()
+        {
+            if (minFireDamage > 0) return DamageType.Fire;
+            if (minColdDamage > 0) return DamageType.Cold;
+            if (minLightningDamage > 0) return DamageType.Lightning;
+            return DamageType.Physical;
+        }
+
     }
 }

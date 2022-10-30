@@ -7,6 +7,7 @@ using TextGameRPG.Scripts.TelegramBot.Sessions;
 namespace TextGameRPG.Scripts.GameCore.Items
 {
     using TextGameRPG.Scripts.GameCore.Items.Generators;
+    using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
 
     public enum ItemState : byte { IsNewAndNotEquipped = 0, IsNotEquipped = 1, IsEquipped = 2 }
 
@@ -120,6 +121,23 @@ namespace TextGameRPG.Scripts.GameCore.Items
             if (!data.isGeneratedItem)
             {
                 return Localizations.Localization.Get(session, $"item_name_{id}");
+            }
+
+            if (data.itemType == ItemType.Scroll)
+            {
+                var grade = data.grade;
+                var hall = data.requiredTownHall;
+                var prefix = Localizations.Localization.Get(session, $"item_scroll_prefix_hall_{hall}_grade_{grade}");
+                var scroll = Localizations.Localization.Get(session, "item_scroll");
+
+                var suffix = string.Empty;
+                if (data.ablitityByType.TryGetValue(AbilityType.DealDamage, out var ability))
+                {
+                    var dealDamage = (DealDamageAbility)ability;
+                    var damageType = dealDamage.GetDamageTypeForScroll().ToString().ToLower();
+                    suffix = Localizations.Localization.Get(session, $"item_scroll_name_suffix_{damageType}_mana_{manaCost}");
+                }
+                return prefix + ' ' + scroll + ' ' + suffix;
             }
 
             var itemType = data.itemType.ToString().ToLower();
