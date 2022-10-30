@@ -38,6 +38,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
 
             _performanceManager = GlobalManagers.performanceManager;
             Program.logger.Info($"Started a new session for {user}");
+            Program.logger.Debug($"Sessions Count: {TelegramBot.instance.sessionManager.sessionsCount + 1}"); //for debug
         }
 
         public void SetupActiveDialog(DialogBase dialog)
@@ -93,6 +94,12 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
 
         public async Task HandleMessageAsync(Message message)
         {
+            //debug
+            if (message.Text != null)
+            {
+                Program.logger.Debug($"Message from {actualUser}: {message.Text}");
+            }
+
             if (message.Text != null && message.Text.StartsWith('/'))
             {
                 await Commands.CommandHandler.HandleCommand(this, message.Text);
