@@ -14,7 +14,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.GlobalMap
             RegisterPanel(_mapPanel);
 
             RegisterButton($"{Emojis.locations[MapLocation.Arena]} " + Localization.Get(session, "menu_item_arena"),
-                null);
+                () => messageSender.SendTextMessage(session.chatId, "Арена недоступна в текущей версии игры")); // заглушка
             RegisterBackButton(() => new TownDialog(session, TownEntryReason.BackFromInnerDialog).Start());
         }
 
