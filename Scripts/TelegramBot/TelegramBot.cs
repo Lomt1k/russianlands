@@ -132,6 +132,8 @@ namespace TextGameRPG.Scripts.TelegramBot
             var allActiveChats = sessionManager.GetAllChats().Select(x => x.Identifier).ToList();
 
             await StopListening();
+            await Task.Delay(3_000);
+            await WaitForNetworkConnection();
             await StartListening();
             isRestarting = false;
 
