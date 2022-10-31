@@ -84,7 +84,7 @@ namespace TextGameRPG.ViewModels.BotControl
         {
             canStartListening = false;
 
-            bool success = await _bot.StartListeningAsync();
+            bool success = await _bot.StartListening();
             isBotListening = success;
 
             canStartListening = !success;

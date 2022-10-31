@@ -115,6 +115,11 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
             Program.logger.Info($"All sessions closed. Profiles data saved.");
         }
 
+        public IEnumerable<ChatId> GetAllChats()
+        {
+            return _sessions.Keys;
+        }
+
 
     }
 }
