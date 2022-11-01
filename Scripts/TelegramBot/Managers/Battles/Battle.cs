@@ -64,11 +64,12 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
 
         private async void HandleBattleAsync()
         {
+            var battleTurnTimeInSeconds = isPVE ? 180 : 80;
             while (!HasDefeatedUnits())
             {
-                currentTurn = new BattleTurn(this, firstUnit);
+                currentTurn = new BattleTurn(this, firstUnit, battleTurnTimeInSeconds);
                 await currentTurn.HandleTurn();
-                currentTurn = new BattleTurn(this, secondUnit);
+                currentTurn = new BattleTurn(this, secondUnit, battleTurnTimeInSeconds);
                 await currentTurn.HandleTurn();
             }
             currentTurn = null;
