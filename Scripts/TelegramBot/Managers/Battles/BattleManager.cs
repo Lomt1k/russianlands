@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Rewards;
 using TextGameRPG.Scripts.GameCore.Units;
@@ -70,7 +71,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
             return battle;
         }
 
-        public void OnBattleEnd(Battle battle)
+        public void UnregisterBattle(Battle battle)
         {
             _battles.Remove(battle);
             if (battle.firstUnit is Player firstPlayer)
@@ -81,6 +82,17 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
             {
                 _battlesByPlayers.Remove(secondPlayer);
             }
+        }
+
+        public void UnregisterAllBattles()
+        {
+            _battles.Clear();
+            _battlesByPlayers.Clear();
+        }
+
+        public List<Player> GetAllPlayers()
+        {
+            return _battlesByPlayers.Keys.ToList();
         }
 
     }

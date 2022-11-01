@@ -12,7 +12,6 @@ namespace TextGameRPG.Scripts.TelegramBot
     using TextGameRPG.Scripts.TelegramBot.Managers;
     using TextGameRPG.Scripts.GameCore.Quests.Characters;
     using System.Net.Http;
-    using System.Linq;
 
     public class TelegramBot
     {
@@ -29,7 +28,6 @@ namespace TextGameRPG.Scripts.TelegramBot
         public TelegramBotReceiving botReceiving { get; private set; }
 
         public bool isReceiving => botReceiving != null && botReceiving.isReceiving;
-        public bool isRestarting { get; private set; }
 
         public TelegramBot(string botDataPath)
         {
@@ -83,10 +81,7 @@ namespace TextGameRPG.Scripts.TelegramBot
             client = new TelegramBotClient(config.token);
             mineUser = await client.GetMeAsync();
             mineUser.CanJoinGroups = false;
-            if (!isRestarting)
-            {
-                Program.mainWindow.Title = $"{mineUser.Username} [{dataPath}]"; // без этого тут зависает при рестарте!
-            }
+            Program.mainWindow.Title = $"{mineUser.Username} [{dataPath}]";
 
             dataBase = new BotDataBase(dataPath);
             bool isConnected = await dataBase.Connect();
@@ -122,36 +117,57 @@ namespace TextGameRPG.Scripts.TelegramBot
             botReceiving = null;
         }
 
-        public async Task Restart(bool withNotifyUsers = true)
+        //public async Task Restart(bool withNotifyUsers = true)
+        //{
+        //    if (isRestarting)
+        //        return;
+
+        //    Program.logger.Info("Restarting...");
+        //    isRestarting = true;
+        //    var allActiveChats = sessionManager.GetAllChats().Select(x => x.Identifier).ToList();
+
+        //    await StopListening();
+        //    await Task.Delay(3_000);
+        //    await WaitForNetworkConnection();
+        //    await StartListening();
+        //    isRestarting = false;
+
+        //    if (withNotifyUsers)
+        //    {
+        //        foreach (var chatId in allActiveChats)
+        //        {
+        //            Program.logger.Info($"Restart notification for {chatId}");
+        //            await messageSender.SendTextMessage(chatId.Value, "The bot has been restarted due to an unstable internet connection.\n\nNow you can continue playing!");
+        //        }
+        //    }
+        //}
+
+        public async void Reconnect()
         {
-            if (isRestarting)
+            if (!isReceiving)
                 return;
 
-            Program.logger.Info("Restarting...");
-            isRestarting = true;
-            var allActiveChats = sessionManager.GetAllChats().Select(x => x.Identifier).ToList();
-
-            await StopListening();
-            await Task.Delay(3_000);
-            await WaitForNetworkConnection();
-            await StartListening();
-            isRestarting = false;
-
-            if (withNotifyUsers)
+            Program.logger.Info("Reconnection starts...");
+            botReceiving.StopReceiving();
+            var battleManager = GlobalManagers.battleManager;
+            if (battleManager != null)
             {
-                foreach (var chatId in allActiveChats)
+                var playersInBattle = battleManager.GetAllPlayers();
+                foreach (var player in playersInBattle)
                 {
-                    Program.logger.Info($"Restart notification for {chatId}");
-                    await messageSender.SendTextMessage(chatId.Value, "The bot has been restarted due to an unstable internet connection.\n\nNow you can continue playing!");
+                    await sessionManager.CloseSession(player.session.chatId, onError: true);
                 }
+                battleManager.UnregisterAllBattles();
             }
+            await WaitForNetworkConnection();
+            botReceiving.StartReceiving();
         }
 
         private async Task WaitForNetworkConnection()
         {
-            Program.logger.Debug("Waiting for connection with telegram servers...");
             while (true)
             {
+                Program.logger.Debug("Connecting to telegram servers...");
                 try
                 {
                     using HttpRequestMessage checkConnectionRequest = new HttpRequestMessage(HttpMethod.Get, "https://t.me");

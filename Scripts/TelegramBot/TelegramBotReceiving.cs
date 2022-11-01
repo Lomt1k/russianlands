@@ -18,6 +18,9 @@ namespace TextGameRPG.Scripts.TelegramBot
 
         public void StartReceiving()
         {
+            if (isReceiving)
+                return;
+
             _cts = new CancellationTokenSource();
             var receiverOptions = new ReceiverOptions
             {

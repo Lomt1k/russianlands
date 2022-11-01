@@ -40,9 +40,9 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
             return session;
         }
 
-        public GameSession? GetSessionIfExists(User user)
+        public GameSession? GetSessionIfExists(ChatId id)
         {
-            _sessions.TryGetValue(user.Id, out GameSession? session);
+            _sessions.TryGetValue(id, out GameSession? session);
             return session;
         }
 
@@ -94,12 +94,12 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
             return millisecondsFromLastActivity > timeoutMs;
         }
 
-        public async Task CloseSession(ChatId chatId)
+        public async Task CloseSession(ChatId chatId, bool onError = false)
         {
             if (_sessions.TryGetValue(chatId, out var session))
             {
                 _sessions.Remove(chatId);
-                await session.OnCloseSession();                
+                await session.OnCloseSession(onError);                
             }
         }
 

@@ -53,16 +53,16 @@ namespace TextGameRPG.Scripts.TelegramBot
 
                 bool serverIsBusy = _performanceManager.currentState == PerformanceState.Busy;
                 var gameSession = serverIsBusy
-                    ? _sessionManager.GetSessionIfExists(fromUser)
+                    ? _sessionManager.GetSessionIfExists(fromUser.Id)
                     : _sessionManager.GetOrCreateSession(fromUser);
 
-                if (gameSession == null)
+                if (gameSession != null)
                 {
-                    _messageSender.SendTextDialog(fromUser.Id, serverIsBusyText, serverIsBusyKeyboard, silent: true);
+                    gameSession.HandleUpdateAsync(fromUser, update);
                 }
                 else
                 {
-                    gameSession.HandleUpdateAsync(fromUser, update);
+                    _messageSender.SendTextDialog(fromUser.Id, serverIsBusyText, serverIsBusyKeyboard, silent: true);
                 }
 
                 return Task.CompletedTask;

@@ -21,12 +21,19 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
         private Func<Player, BattleResult, Task>? _onContinueButtonFunc;
         private Func<Player, BattleResult, bool>? _isAvailableReturnToTownFunc;
 
+        private CancellationTokenSource _allSessionsCTS;
+        private CancellationTokenSource _playerOneCTS;
+        private CancellationTokenSource? _playerTwoCTS;
+
         public BattleType battleType { get; }
         public IBattleUnit firstUnit { get; private set; }
         public IBattleUnit secondUnit { get; private set; }
         public BattleTurn? currentTurn { get; private set; }
         public bool isPVE { get; private set; }
-        public CancellationTokenSource allSessionsCTS { get; private set; }
+
+        public bool isCancellationRequested => _allSessionsCTS.IsCancellationRequested
+            || _playerOneCTS.IsCancellationRequested
+            || (_playerTwoCTS != null && _playerTwoCTS.IsCancellationRequested);
 
         public Battle(Player opponentA, IBattleUnit opponentB,
             List<RewardBase>? rewards = null,
@@ -37,7 +44,13 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
             isPVE = opponentB is Mob;
             firstUnit = SelectFirstUnit(opponentA, opponentB);
             secondUnit = firstUnit == opponentA ? opponentB : opponentA;
-            allSessionsCTS = TelegramBot.instance.sessionManager.allSessionsTasksCTS;
+
+            _allSessionsCTS = TelegramBot.instance.sessionManager.allSessionsTasksCTS;
+            _playerOneCTS = opponentA.session.sessionTasksCTS;
+            if (opponentB is Player secondPlayer)
+            {
+                _playerTwoCTS = secondPlayer.session.sessionTasksCTS;
+            }
 
             _rewards = rewards;
             _onBattleEndFunc = onBattleEndFunc;
@@ -52,7 +65,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
 
         public async Task StartBattle()
         {
-            if (allSessionsCTS.IsCancellationRequested)
+            if (isCancellationRequested)
                 return;
 
             //Сначала второму юниту, так как первый уже сразу сможет ходить
@@ -105,7 +118,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
         {
             if (currentTurn == null)
             {
-                await TelegramBot.instance.messageSender.AnswerQuery(queryId);
+                await TelegramBot.instance.messageSender.AnswerQuery(player.session.chatId, queryId);
                 return;
             }
             await currentTurn.HandleBattleTooltipCallback(player, queryId, callback);
@@ -113,9 +126,9 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
 
         private async Task BattleEnd()
         {
-            if (allSessionsCTS.IsCancellationRequested)
+            if (isCancellationRequested)
             {
-                GlobalManagers.battleManager?.OnBattleEnd(this);
+                GlobalManagers.battleManager?.UnregisterBattle(this);
                 return;
             }
 
@@ -128,7 +141,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
             {
                 await HandleBattleEndForPlayer(secondPlayer, hasWinner);
             }
-            GlobalManagers.battleManager?.OnBattleEnd(this);
+            GlobalManagers.battleManager?.UnregisterBattle(this);
         }
 
         private async Task HandleBattleEndForPlayer(Player player, bool hasWinner)

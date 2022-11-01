@@ -26,7 +26,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
         public int millisecondsLeft { get; private set; }
         public bool isLastChance { get; }
 
-        public bool isWaitingForActions => _battleActions == null && millisecondsLeft > 0 && !battle.allSessionsCTS.IsCancellationRequested;
+        public bool isWaitingForActions => _battleActions == null && millisecondsLeft > 0 && !battle.isCancellationRequested;
 
         public BattleTurn(Battle _battle, IBattleUnit _unit, int _secondsLimit)
         {
@@ -39,7 +39,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
 
         public async Task HandleTurn()
         {
-            if (battle.allSessionsCTS.IsCancellationRequested)
+            if (battle.isCancellationRequested)
                 return;
 
             await enemy.OnStartEnemyTurn(this);
@@ -99,7 +99,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
 
         private async Task InvokeBattleActions()
         {
-            if (battle.allSessionsCTS.IsCancellationRequested)
+            if (battle.isCancellationRequested)
                 return;
             if (_battleActions == null)
                 return;
@@ -154,7 +154,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
             var ingoreList = _queryTooltipsToIgnoreByPlayers[player];
             if (ingoreList.Contains(callback.tooltip))
             {
-                await TelegramBot.instance.messageSender.AnswerQuery(queryId);
+                await TelegramBot.instance.messageSender.AnswerQuery(player.session.chatId, queryId);
                 return;
             }
 
@@ -183,7 +183,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
             var messageSender = TelegramBot.instance.messageSender;
             var text = targetUnit.GetFullUnitInfoView(player.session);
             await messageSender.SendTextMessage(player.session.chatId, text);
-            await messageSender.AnswerQuery(queryId);
+            await messageSender.AnswerQuery(player.session.chatId, queryId);
         }
 
 

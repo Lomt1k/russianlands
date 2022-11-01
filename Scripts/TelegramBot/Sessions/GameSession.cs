@@ -11,11 +11,16 @@ using TextGameRPG.Scripts.TelegramBot.DataBase.TablesStructure;
 using TextGameRPG.Scripts.TelegramBot.Dialogs;
 using TextGameRPG.Scripts.GameCore.Quests;
 using TextGameRPG.Scripts.TelegramBot.Managers;
+using System.Threading;
 
 namespace TextGameRPG.Scripts.TelegramBot.Sessions
 {
     public class GameSession
     {
+        private bool _isHandlingUpdate;
+        private PerformanceManager _performanceManager;
+        private CancellationTokenSource _sessionTasksCTS = new CancellationTokenSource();
+
         public ChatId chatId { get; }
         public DateTime startTime { get; }
         public DateTime lastActivityTime { get; private set; }
@@ -25,10 +30,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
         public LanguageCode language { get; private set; } = LanguageCode.en;
         public DialogBase? currentDialog { get; private set; }
         public TooltipController tooltipController { get; } = new TooltipController();
+        public CancellationTokenSource sessionTasksCTS => _sessionTasksCTS;
         public bool isAdmin => profile.data.adminStatus > 0;
-
-        private bool _isHandlingUpdate;
-        private PerformanceManager _performanceManager;
 
         public GameSession(User user)
         {
@@ -53,7 +56,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
             {
                 if (update.Type == UpdateType.CallbackQuery)
                 {
-                    await TelegramBot.instance.messageSender.AnswerQuery(update.CallbackQuery.Id);
+                    await TelegramBot.instance.messageSender.AnswerQuery(refreshedUser.Id, update.CallbackQuery.Id);
                 }
                 return;
             }
@@ -166,10 +169,11 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
             await QuestManager.HandleNewSession(this, update);
         }
 
-        public async Task OnCloseSession()
+        public async Task OnCloseSession(bool onError)
         {
             await SaveProfileIfNeed();
-            Program.logger.Info($"Session closed for {actualUser}");
+            sessionTasksCTS.Cancel();
+            Program.logger.Info($"Session closed for {actualUser}" + (onError ? " [ON ERROR]" : string.Empty));
         }
 
         public async Task SaveProfileIfNeed()
