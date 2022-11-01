@@ -63,6 +63,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
 
         public async Task ShowCategory(ItemType category, int page = 0, CompareData? newCompareData = null)
         {
+            _inspectorPanel.OnDialogClose(); // Чтобы убрать кнопку "Экипированное"
             if (newCompareData.HasValue)
             {
                 _inspectorPanel.compareData = newCompareData.Value;

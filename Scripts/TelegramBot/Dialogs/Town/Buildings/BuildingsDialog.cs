@@ -34,6 +34,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
 
         public override async Task Start()
         {
+            _inspectorPanel.OnDialogClose(); // чтобы убрать inline-клавиатуру, когда start вызван из "Назад к категориям"
             if (session.tooltipController.HasTooltipToAppend(this))
             {
                 await SendHeader();
