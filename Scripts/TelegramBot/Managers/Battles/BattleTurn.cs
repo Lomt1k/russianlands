@@ -28,7 +28,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
 
         public bool isWaitingForActions => _battleActions == null && millisecondsLeft > 0 && !battle.allSessionsCTS.IsCancellationRequested;
 
-        public BattleTurn(Battle _battle, IBattleUnit _unit, int _secondsLimit = 60)
+        public BattleTurn(Battle _battle, IBattleUnit _unit, int _secondsLimit = 120)
         {
             battle = _battle;
             unit = _unit;

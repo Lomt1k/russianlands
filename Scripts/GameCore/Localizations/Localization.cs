@@ -30,7 +30,8 @@ namespace TextGameRPG.Scripts.GameCore.Localizations
                 var filePath = Path.Combine(localizationFolder, $"localization_{code}.json");
                 data[code] = LoadLocalization(filePath);
             }
-            AlertMissingKeys(loaderVM);
+            // Убрал AlertMissingKeys так как пока разрабатываем только для русского языка и не следим за другими локализациями
+            //AlertMissingKeys(loaderVM);
         }
 
         public static string Get(GameSession session, string key)
