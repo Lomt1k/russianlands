@@ -153,11 +153,11 @@ namespace TextGameRPG.Scripts.TelegramBot
             if (battleManager != null)
             {
                 var playersInBattle = battleManager.GetAllPlayers();
+                battleManager.UnregisterAllBattles(); //специально вызываем перед закрытием сессий!
                 foreach (var player in playersInBattle)
                 {
                     await sessionManager.CloseSession(player.session.chatId, onError: true);
                 }
-                battleManager.UnregisterAllBattles();
             }
             await WaitForNetworkConnection();
             botReceiving.StartReceiving();
@@ -172,7 +172,7 @@ namespace TextGameRPG.Scripts.TelegramBot
                 {
                     using HttpRequestMessage checkConnectionRequest = new HttpRequestMessage(HttpMethod.Get, "https://t.me");
                     var result = await httpClient.SendAsync(checkConnectionRequest);
-                    if (result.IsSuccessStatusCode && result.StatusCode == System.Net.HttpStatusCode.OK)
+                    if (result.StatusCode == System.Net.HttpStatusCode.OK)
                     {
                         Program.logger.Debug($"Status Code: {result.StatusCode}");
                         return; //success!

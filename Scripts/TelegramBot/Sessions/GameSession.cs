@@ -174,6 +174,11 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
             await SaveProfileIfNeed();
             sessionTasksCTS.Cancel();
             Program.logger.Info($"Session closed for {actualUser}" + (onError ? " [ON ERROR]" : string.Empty));
+
+            if (onError)
+            {
+                GlobalManagers.battleManager?.BreakBattleOnSessionError(player);
+            }
         }
 
         public async Task SaveProfileIfNeed()

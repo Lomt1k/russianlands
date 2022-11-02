@@ -24,16 +24,13 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
         private CancellationTokenSource _allSessionsCTS;
         private CancellationTokenSource _playerOneCTS;
         private CancellationTokenSource? _playerTwoCTS;
+        private CancellationTokenSource _forceBattleCTS;
 
         public BattleType battleType { get; }
         public IBattleUnit firstUnit { get; private set; }
         public IBattleUnit secondUnit { get; private set; }
         public BattleTurn? currentTurn { get; private set; }
         public bool isPVE { get; private set; }
-
-        public bool isCancellationRequested => _allSessionsCTS.IsCancellationRequested
-            || _playerOneCTS.IsCancellationRequested
-            || (_playerTwoCTS != null && _playerTwoCTS.IsCancellationRequested);
 
         public Battle(Player opponentA, IBattleUnit opponentB,
             List<RewardBase>? rewards = null,
@@ -51,11 +48,19 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
             {
                 _playerTwoCTS = secondPlayer.session.sessionTasksCTS;
             }
+            _forceBattleCTS = new CancellationTokenSource();
 
             _rewards = rewards;
             _onBattleEndFunc = onBattleEndFunc;
             _onContinueButtonFunc = onContinueButtonFunc;
             _isAvailableReturnToTownFunc = isAvailableReturnToTownFunc;
+        }
+
+        public bool IsCancellationRequested()
+        {
+            return _allSessionsCTS.IsCancellationRequested || _playerOneCTS.IsCancellationRequested
+            || (_playerTwoCTS != null && _playerTwoCTS.IsCancellationRequested)
+            || _forceBattleCTS.IsCancellationRequested;
         }
 
         public IBattleUnit SelectFirstUnit(Player opponentA, IBattleUnit opponentB)
@@ -65,7 +70,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
 
         public async Task StartBattle()
         {
-            if (isCancellationRequested)
+            if (IsCancellationRequested())
                 return;
 
             //Сначала второму юниту, так как первый уже сразу сможет ходить
@@ -126,7 +131,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
 
         private async Task BattleEnd()
         {
-            if (isCancellationRequested)
+            if (IsCancellationRequested())
             {
                 GlobalManagers.battleManager?.UnregisterBattle(this);
                 return;
@@ -151,6 +156,38 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
                 ? (player.unitStats.currentHP > enemy.unitStats.currentHP ? BattleResult.Win : BattleResult.Lose)
                 : BattleResult.Draw;
 
+            await HandleBattleEndForPlayer(player, battleResult);
+        }
+
+        // Вызывается при ошибке (либо читом)
+        public async Task ForceBattleEndWithResult(Player player, BattleResult battleResult)
+        {
+            GlobalManagers.battleManager?.UnregisterBattle(this);
+            _forceBattleCTS.Cancel();
+
+            var allSessionsCTS = TelegramBot.instance.sessionManager.allSessionsTasksCTS;
+            if (allSessionsCTS.IsCancellationRequested)
+                return;
+
+            if (!player.session.sessionTasksCTS.IsCancellationRequested)
+            {
+                await HandleBattleEndForPlayer(player, battleResult);
+            }
+
+            var enemy = GetEnemy(player);
+            if (enemy is Player anotherPlayer)
+            {
+                if (!anotherPlayer.session.sessionTasksCTS.IsCancellationRequested)
+                {
+                    if (battleResult == BattleResult.Win) battleResult = BattleResult.Lose;
+                    else if (battleResult == BattleResult.Lose) battleResult = BattleResult.Win;
+                    await HandleBattleEndForPlayer(anotherPlayer, battleResult);
+                }                
+            }
+        }
+
+        private async Task HandleBattleEndForPlayer(Player player, BattleResult battleResult)
+        {
             if (_onBattleEndFunc != null)
             {
                 await _onBattleEndFunc(player, battleResult);
@@ -170,6 +207,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
             };
             await new BattleResultDialog(player.session, data).Start();
         }
+
+
 
 
     }

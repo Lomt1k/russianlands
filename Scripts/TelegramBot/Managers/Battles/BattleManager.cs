@@ -90,6 +90,15 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
             _battlesByPlayers.Clear();
         }
 
+        public async void BreakBattleOnSessionError(Player player)
+        {
+            var battle = GetCurrentBattle(player);
+            if (battle != null)
+            {
+                await battle.ForceBattleEndWithResult(player, BattleResult.Lose);
+            }
+        }
+
         public List<Player> GetAllPlayers()
         {
             return _battlesByPlayers.Keys.ToList();
