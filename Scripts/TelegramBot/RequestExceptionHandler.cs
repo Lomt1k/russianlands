@@ -21,9 +21,10 @@ namespace TextGameRPG.Scripts.TelegramBot
                 case ApiRequestException apiEx:
                     await HandleApiException(id, apiEx);
                     return;
+                default:
+                    await HandleUnknownException(id, hanldingEx);
+                    return;
             }
-
-            Program.logger.Error($"{hanldingEx.GetType().Name}: {hanldingEx.Message}");
         }
 
         private async Task HandleHttpException(ChatId id, HttpRequestException ex)
@@ -38,6 +39,13 @@ namespace TextGameRPG.Scripts.TelegramBot
         private async Task HandleApiException(ChatId id, ApiRequestException ex)
         {
             Program.logger.Error($"ApiRequestException: {ex.Message}");
+            var sessionManager = TelegramBot.instance.sessionManager;
+            await sessionManager.CloseSession(id, onError: true);
+        }
+
+        private async Task HandleUnknownException(ChatId id, System.Exception ex)
+        {
+            Program.logger.Error("Unkwown Exception: " + ex);
             var sessionManager = TelegramBot.instance.sessionManager;
             await sessionManager.CloseSession(id, onError: true);
         }
