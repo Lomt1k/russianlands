@@ -1,4 +1,5 @@
 ﻿using System.Net.Http;
+using System.Threading.Tasks;
 using Telegram.Bot.Exceptions;
 using Telegram.Bot.Types;
 
@@ -6,27 +7,26 @@ namespace TextGameRPG.Scripts.TelegramBot
 {
     public class RequestExceptionHandler
     {
-        public void HandleException(ChatId id, RequestException ex)
+        public async Task HandleException(ChatId id, RequestException ex)
         {
-            Program.logger.Error($"Catched exception on sending request...");
-            if (ex.InnerException != null)
+            var user = TelegramBot.instance.sessionManager.GetSessionIfExists(id)?.actualUser;
+            Program.logger.Error($"Catched exception on sending request to " + (user != null ? user.ToString() : id.ToString()));
+
+            var hanldingEx = ex.InnerException ?? ex;
+            switch (hanldingEx)
             {
-                var innerEx = ex.InnerException;
-                switch (innerEx)
-                {
-                    case HttpRequestException httpEx:
-                        HandleHttpException(id, httpEx);
-                        return;
-                    case ApiRequestException apiEx:
-                        HandleApiException(id, apiEx);
-                        return;
-                }
+                case HttpRequestException httpEx:
+                    await HandleHttpException(id, httpEx);
+                    return;
+                case ApiRequestException apiEx:
+                    await HandleApiException(id, apiEx);
+                    return;
             }
 
-            Program.logger.Error($"{ex.GetType().Name}: {ex.Message}");
+            Program.logger.Error($"{hanldingEx.GetType().Name}: {hanldingEx.Message}");
         }
 
-        private async void HandleHttpException(ChatId id, HttpRequestException ex)
+        private async Task HandleHttpException(ChatId id, HttpRequestException ex)
         {
             Program.logger.Error($"HttpRequestException: {ex.Message}");
 
@@ -35,10 +35,11 @@ namespace TextGameRPG.Scripts.TelegramBot
             await sessionManager.CloseSession(id, onError: true);
         }
 
-        private void HandleApiException(ChatId id, ApiRequestException ex)
+        private async Task HandleApiException(ChatId id, ApiRequestException ex)
         {
             Program.logger.Error($"ApiRequestException: {ex.Message}");
-            // TODO
+            var sessionManager = TelegramBot.instance.sessionManager;
+            await sessionManager.CloseSession(id, onError: true);
         }
 
     }

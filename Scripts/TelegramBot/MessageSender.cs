@@ -28,7 +28,7 @@ namespace TextGameRPG.Scripts.TelegramBot
             }
             catch (RequestException ex)
             {
-                _requestExceptionHandler.HandleException(id, ex);
+                await _requestExceptionHandler.HandleException(id, ex);
                 return null;
             }
         }
@@ -43,7 +43,7 @@ namespace TextGameRPG.Scripts.TelegramBot
             }
             catch (RequestException ex)
             {
-                _requestExceptionHandler.HandleException(id, ex);
+                await _requestExceptionHandler.HandleException(id, ex);
                 return null;
             }
         }
@@ -56,7 +56,7 @@ namespace TextGameRPG.Scripts.TelegramBot
             }
             catch (RequestException ex)
             {
-                _requestExceptionHandler.HandleException(id, ex);
+                await _requestExceptionHandler.HandleException(id, ex);
             }
         }
 
@@ -68,7 +68,7 @@ namespace TextGameRPG.Scripts.TelegramBot
             }
             catch (RequestException ex)
             {
-                _requestExceptionHandler.HandleException(id, ex);
+                await _requestExceptionHandler.HandleException(id, ex);
                 return null;
             }
         }
@@ -88,7 +88,7 @@ namespace TextGameRPG.Scripts.TelegramBot
             }
             catch (RequestException ex)
             {
-                _requestExceptionHandler.HandleException(id, ex);
+                await _requestExceptionHandler.HandleException(id, ex);
                 return null;
             }
         }
@@ -101,7 +101,7 @@ namespace TextGameRPG.Scripts.TelegramBot
             }
             catch (RequestException ex)
             {
-                _requestExceptionHandler.HandleException(id, ex);
+                await _requestExceptionHandler.HandleException(id, ex);
             }
         }
 
@@ -113,7 +113,7 @@ namespace TextGameRPG.Scripts.TelegramBot
             }
             catch (RequestException ex)
             {
-                _requestExceptionHandler.HandleException(id, ex);
+                await _requestExceptionHandler.HandleException(id, ex);
                 return null;
             }
         }
@@ -126,7 +126,7 @@ namespace TextGameRPG.Scripts.TelegramBot
             }
             catch (RequestException ex)
             {
-                _requestExceptionHandler.HandleException(id, ex);
+                await _requestExceptionHandler.HandleException(id, ex);
                 return null;
             }
         }
