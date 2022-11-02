@@ -6,6 +6,7 @@ using System;
 using log4net;
 using log4net.Config;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace TextGameRPG
 {
@@ -13,6 +14,7 @@ namespace TextGameRPG
 
     public class Program
     {
+        public static bool isUnix => Environment.OSVersion.Platform == PlatformID.Unix;
         public static AppMode appMode { get; private set; } = AppMode.None;
         public static Window mainWindow { get; set; }
         public readonly static ILog logger = LogManager.GetLogger(typeof(Program));
@@ -27,6 +29,20 @@ namespace TextGameRPG
         {
             ConfigureLogger();
             PerformanceMonitor.Start();
+            SelectGUIModeAndRun(args);
+        }
+
+        private static void SelectGUIModeAndRun(string[] args)
+        {
+            if (isUnix)
+            {
+                bool withGUI = ConsoleMode.ConsoleHelper.AskYesNo("Start with GUI?");
+                if (!withGUI)
+                {
+                    StartInConsoleMode(args);
+                    return;
+                }
+            }
             StartAvalonia(args);
         }
 
@@ -47,6 +63,17 @@ namespace TextGameRPG
                 .UsePlatformDetect()
                 .LogToTrace()
                 .UseReactiveUI();
+
+        public static async void StartInConsoleMode(string[] args)
+        {
+            SetupAppMode(AppMode.Bot);
+            var gameDataLoader = new ViewModels.ConsoleGameDataLoaderViewModel();
+            while (!gameDataLoader.isCompleted)
+            {
+                await Task.Delay(15);
+            }
+            new ConsoleMode.ConsoleHandler().Start(args);
+        }
 
         public static void SetupAppMode(AppMode _appMode)
         {

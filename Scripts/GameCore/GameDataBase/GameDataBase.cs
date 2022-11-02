@@ -17,7 +17,7 @@ namespace TextGameRPG.Scripts.GameCore.GameDataBase
 
         public static GameDataBase instance => _instance ??= new GameDataBase();
 
-        private GameDataLoaderViewModel _loaderVM;
+        private IGameDataLoader _loaderVM;
 
         public DataDictionaryWithIntegerID<BuildingData> buildings { get; private set; }
         public DataDictionaryWithIntegerID<ItemData> items { get; private set; }
@@ -25,7 +25,7 @@ namespace TextGameRPG.Scripts.GameCore.GameDataBase
 
 #pragma warning restore CS8618
 
-        public void LoadAllData(GameDataLoaderViewModel loaderVM)
+        public void LoadAllData(IGameDataLoader loaderVM)
         {
             _loaderVM = loaderVM;
 

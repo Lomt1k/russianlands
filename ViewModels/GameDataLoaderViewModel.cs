@@ -6,7 +6,7 @@ using TextGameRPG.Models;
 
 namespace TextGameRPG.ViewModels
 {
-    public class GameDataLoaderViewModel : ViewModelBase
+    public class GameDataLoaderViewModel : ViewModelBase, IGameDataLoader
     {
         private GameDataLoaderStateInfo _currentState;
 

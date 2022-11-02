@@ -13,7 +13,7 @@ namespace TextGameRPG.Scripts.GameCore.Localizations
         private static Dictionary<LanguageCode, Dictionary<string, string>> data = new Dictionary<LanguageCode, Dictionary<string, string>>();
         private static HashSet<string> allKeys = new HashSet<string>();
 
-        public static void LoadAll(GameDataLoaderViewModel loaderVM, string gamedataPath)
+        public static void LoadAll(IGameDataLoader loaderVM, string gamedataPath)
         {
             allKeys.Clear();
             loaderVM.AddNextState("Loading localization...");

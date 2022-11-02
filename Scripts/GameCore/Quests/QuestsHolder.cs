@@ -12,7 +12,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests
         private static string questFolderPath = string.Empty;
         private static Dictionary<QuestType, Quest> quests = new Dictionary<QuestType, Quest>();
 
-        public static void LoadAll(GameDataLoaderViewModel loaderVM, string gamedataPath)
+        public static void LoadAll(IGameDataLoader loaderVM, string gamedataPath)
         {
             loaderVM.AddNextState("Loading quests...");
             quests.Clear();
@@ -32,7 +32,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests
             }
         }
 
-        public static void LoadQuest(QuestType questType, GameDataLoaderViewModel? loaderVM = null)
+        public static void LoadQuest(QuestType questType, IGameDataLoader? loaderVM = null)
         {
             var fileName = $"{questType}.json";
             loaderVM?.AddInfoToCurrentState($"\n* {fileName}");
