@@ -16,7 +16,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers
         // memory settings 
         public int memoryUsageLimit { get; }
         public int memoryUsageHighload { get; }
-        public int sessionTimeoutDefalut { get; }
+        public int sessionTimeoutDefault { get; }
         public int sessionTimeoutWhenMemoryHighload { get; }
 
         public PerformanceState currentCpuState { get; private set; }
@@ -46,8 +46,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers
 
             memoryUsageLimit = config.memoryUsageLimitInMegabytes;
             memoryUsageHighload = config.memoryUsageToHighloadState;
-            sessionTimeoutDefalut = config.sessionTimeoutInHours;
-            sessionTimeoutWhenMemoryHighload = config.sessionTimeoutInHoursWhenMemoryHighoad;
+            sessionTimeoutDefault = config.sessionTimeoutInMinutes;
+            sessionTimeoutWhenMemoryHighload = config.sessionTimeoutInMinutesWhenMemoryHighoad;
 
             UpdateCurrentState(PerformanceMonitor.cpuUsage, PerformanceMonitor.memoryUsage);
             SubscribeEvents();
@@ -96,7 +96,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers
 
         public int GetCurrentSessionTimeout()
         {
-            return currentMemoryState == PerformanceState.Normal ? sessionTimeoutDefalut : sessionTimeoutWhenMemoryHighload;
+            return currentMemoryState == PerformanceState.Normal ? sessionTimeoutDefault : sessionTimeoutWhenMemoryHighload;
         }
 
         public override void OnDestroy()

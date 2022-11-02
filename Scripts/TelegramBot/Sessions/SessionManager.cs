@@ -72,7 +72,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
                 List<ChatId> sessionsToClose = new List<ChatId>();
                 foreach (var chatId in _sessions.Keys)
                 {
-                    var timeoutMs = _performanceManager.GetCurrentSessionTimeout() * millisecondsInHour;
+                    var timeoutMs = _performanceManager.GetCurrentSessionTimeout() * millisecondsInMinute;
                     if (IsTimeout(chatId, timeoutMs))
                     {
                         sessionsToClose.Add(chatId);
