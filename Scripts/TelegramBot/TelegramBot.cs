@@ -117,31 +117,6 @@ namespace TextGameRPG.Scripts.TelegramBot
             botReceiving = null;
         }
 
-        //public async Task Restart(bool withNotifyUsers = true)
-        //{
-        //    if (isRestarting)
-        //        return;
-
-        //    Program.logger.Info("Restarting...");
-        //    isRestarting = true;
-        //    var allActiveChats = sessionManager.GetAllChats().Select(x => x.Identifier).ToList();
-
-        //    await StopListening();
-        //    await Task.Delay(3_000);
-        //    await WaitForNetworkConnection();
-        //    await StartListening();
-        //    isRestarting = false;
-
-        //    if (withNotifyUsers)
-        //    {
-        //        foreach (var chatId in allActiveChats)
-        //        {
-        //            Program.logger.Info($"Restart notification for {chatId}");
-        //            await messageSender.SendTextMessage(chatId.Value, "The bot has been restarted due to an unstable internet connection.\n\nNow you can continue playing!");
-        //        }
-        //    }
-        //}
-
         public async void Reconnect()
         {
             if (!isReceiving)

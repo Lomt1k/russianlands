@@ -90,7 +90,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
             _battlesByPlayers.Clear();
         }
 
-        public async void BreakBattleOnSessionError(Player player)
+        public async void OnSessionClosedWithError(Player player)
         {
             var battle = GetCurrentBattle(player);
             if (battle != null)

@@ -163,7 +163,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
             {
                 await callback();
             }
-            await messageSender.AnswerQuery(queryId, query);
+            await messageSender.AnswerQuery(session.chatId, queryId, query);
         }
 
         protected bool TryAppendTooltip(StringBuilder sb)

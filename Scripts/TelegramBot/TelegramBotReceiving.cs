@@ -1,6 +1,7 @@
 ﻿using Telegram.Bot;
 using Telegram.Bot.Polling;
 using System.Threading;
+using Telegram.Bot.Types.Enums;
 
 namespace TextGameRPG.Scripts.TelegramBot
 {
@@ -24,7 +25,12 @@ namespace TextGameRPG.Scripts.TelegramBot
             _cts = new CancellationTokenSource();
             var receiverOptions = new ReceiverOptions
             {
-                AllowedUpdates = { }, // receive all update types
+                //AllowedUpdates = { }, // receive all update types
+                AllowedUpdates = new UpdateType[]
+                {
+                    UpdateType.Message, 
+                    UpdateType.CallbackQuery,
+                },
                 Offset = -1 // После рестарта бота обработает только последнее сообщение, отправленное за время офлайна (оно запустит новую сессию)
             };
             _bot.client.ReceiveAsync<TelegramBotUpdateHandler>(receiverOptions, _cts.Token);

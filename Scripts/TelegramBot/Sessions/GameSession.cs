@@ -177,7 +177,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
 
             if (onError)
             {
-                GlobalManagers.battleManager?.BreakBattleOnSessionError(player);
+                GlobalManagers.battleManager?.OnSessionClosedWithError(player);
             }
         }
 

@@ -41,7 +41,7 @@ namespace TextGameRPG.Scripts.TelegramBot
                     case UpdateType.CallbackQuery: fromUser = update.CallbackQuery?.From; break;
 
                     default:
-                        Program.logger.Warn($"Unhandled Update {update.Id} (unsupported type)");
+                        Program.logger.Warn($"Unhandled Update {update.Id} (unsupported type: {update.Type})");
                         return Task.CompletedTask;
                 }
 
