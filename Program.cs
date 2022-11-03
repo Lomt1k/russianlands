@@ -1,4 +1,4 @@
-using Avalonia;
+﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.ReactiveUI;
@@ -35,7 +35,8 @@ namespace TextGameRPG
 
         private static void SelectGUIModeAndRun(string[] args)
         {
-            if (isUnix)
+            // Catching exception when application started not from console (from .exe)
+            try
             {
                 bool withGUI = ConsoleMode.ConsoleHelper.AskYesNo("Start with GUI?");
                 if (!withGUI)
@@ -44,6 +45,7 @@ namespace TextGameRPG
                     return;
                 }
             }
+            catch (Exception ex) { }
             StartAvalonia(args);
         }
 
