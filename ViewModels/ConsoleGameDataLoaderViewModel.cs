@@ -26,6 +26,7 @@ namespace TextGameRPG.ViewModels
         public void OnGameDataLoaded()
         {
             AddNextState("All Game Data successfully loaded");
+            Console.WriteLine();
             isCompleted = true;
         }
     }

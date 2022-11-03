@@ -31,7 +31,6 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase
 
         public async Task<bool> Connect()
         {
-            Program.logger.Info("Connecting to bot database...");
             try
             {
                 connection = new SQLiteConnection("Data Source=" + dataBasePath);

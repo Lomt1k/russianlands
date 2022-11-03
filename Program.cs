@@ -16,6 +16,7 @@ namespace TextGameRPG
     {
         public static bool isUnix => Environment.OSVersion.Platform == PlatformID.Unix;
         public static AppMode appMode { get; private set; } = AppMode.None;
+        public static bool isConsoleMode { get; private set; }
         public static Window mainWindow { get; set; }
         public readonly static ILog logger = LogManager.GetLogger(typeof(Program));
 
@@ -66,6 +67,7 @@ namespace TextGameRPG
 
         public static async void StartInConsoleMode(string[] args)
         {
+            isConsoleMode = true;
             SetupAppMode(AppMode.Bot);
             var gameDataLoader = new ViewModels.ConsoleGameDataLoaderViewModel();
             while (!gameDataLoader.isCompleted)
@@ -82,6 +84,14 @@ namespace TextGameRPG
 
             appMode = _appMode;
             onSetupAppMode?.Invoke(_appMode);
+        }
+
+        public static void SetTitle(string title)
+        {
+            if (isConsoleMode)
+                Console.Title = title;
+            else
+                mainWindow.Title = title;
         }
     }
 }

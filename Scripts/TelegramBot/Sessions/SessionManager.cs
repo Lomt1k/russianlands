@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
@@ -115,9 +116,9 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
             Program.logger.Info($"All sessions closed. Profiles data saved.");
         }
 
-        public IEnumerable<ChatId> GetAllChats()
+        public List<GameSession> GetAllSessions()
         {
-            return _sessions.Keys;
+            return _sessions.Values.ToList();
         }
 
 
