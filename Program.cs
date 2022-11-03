@@ -70,6 +70,7 @@ namespace TextGameRPG
         public static async void StartInConsoleMode(string[] args)
         {
             isConsoleMode = true;
+            Console.OutputEncoding = System.Text.Encoding.Unicode;
             SetupAppMode(AppMode.Bot);
             var gameDataLoader = new ViewModels.ConsoleGameDataLoaderViewModel();
             while (!gameDataLoader.isCompleted)
