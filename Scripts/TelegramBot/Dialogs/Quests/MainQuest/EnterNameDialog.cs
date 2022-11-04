@@ -73,7 +73,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Quests.MainQuest
                 }
             }
 
-            if (message.Text == null || message.Text.Equals(GetQuestButtonText(session))
+            if (message.Text == null || message.Text.Equals(GetQuestButtonText(session)))
                 return;
 
             var nickname = message.Text;
