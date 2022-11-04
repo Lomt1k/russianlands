@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Telegram.Bot.Types;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Quests;
+using TextGameRPG.Scripts.GameCore.Quests.Characters;
 using TextGameRPG.Scripts.GameCore.Quests.NextStageTriggers;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 
@@ -13,8 +14,37 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Quests.MainQuest
         private const int minLength = 3;
         private const int maxLength = 16;
 
+        private bool _isQuestReplicaStage = false;
+
         public EnterNameDialog(GameSession _session) : base(_session)
         {
+        }
+
+        /*
+         * Тут идёт реплика персонажа, но не через QuestReplicaStage, а костыльно
+         * Сделано для того, чтобы пользователь мог либо:
+         * - нажать на кнопку "Представиться" в релпике и тогда уже перейти к вводу имени
+         * - сразу ввести имя, не нажимая кнопку "представиться"
+         * Сделано чтобы избежать отвала игроков, когда они вместо нажатия на кнопку сразу вводят имя и ловят ступор
+         */
+        public async Task StartFromQuest()
+        {
+            _isQuestReplicaStage = true;
+            var sticker = CharacterType.Vasilisa.GetSticker(Emotion.Idle);
+            if (sticker != null)
+            {
+                await messageSender.SendSticker(session.chatId, sticker);
+            }
+
+            var text = Localization.Get(session, "quest_main_vasilisa_encounter_replica");
+            var buttonText = GetQuestButtonText(session);
+            RegisterButton(buttonText, null);
+            await SendDialogMessage(text, GetOneLineKeyboard());
+        }
+
+        private string GetQuestButtonText(GameSession session)
+        {
+            return Localization.Get(session, "quest_main_vasilisa_encounter_answer");
         }
 
         public override async Task Start()
@@ -33,7 +63,15 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Quests.MainQuest
 
         public override async Task HandleMessage(Message message)
         {
-            await base.HandleMessage(message);
+            if (_isQuestReplicaStage)
+            {
+                if (string.IsNullOrWhiteSpace(message.Text) || message.Text.Equals(GetQuestButtonText(session)))
+                {
+                    _isQuestReplicaStage = false;
+                    await Start();
+                    return;
+                }
+            }
 
             if (message.Text == null)
                 return;

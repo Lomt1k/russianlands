@@ -10,7 +10,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests.StageActions
     {
         public override async Task Execute(GameSession session)
         {
-            await new EnterNameDialog(session).Start();
+            await new EnterNameDialog(session).StartFromQuest();
         }
     }
 }
