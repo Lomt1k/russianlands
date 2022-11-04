@@ -77,7 +77,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Quests.MainQuest
                 return;
 
             var nickname = message.Text;
-            if (!nickname.IsCorrectNickname())
+            if (!nickname.IsCorrectNickname() || message.Text.Equals(GetQuestButtonText(session)))
             {
                 await Start();
                 return;
