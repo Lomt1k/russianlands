@@ -56,5 +56,11 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Quests
             }
             await SendDialogMessage(GetText(), GetMultilineKeyboard());
         }
+
+        public override Task TryResendDialog()
+        {
+            return Start();
+        }
+
     }
 }
