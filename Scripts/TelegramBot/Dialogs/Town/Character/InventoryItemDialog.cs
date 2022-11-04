@@ -52,7 +52,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
                 () => new InventoryDialog(session).Start());
 
             TryAppendTooltip(sb);
-            await SendDialogMessage(sb, GetKeyboardWithRowSizes(2, 2));
+            await SendDialogMessage(sb, GetMultilineKeyboardWithDoubleBack());
         }
 
         private async Task StartEquipLogic(InventoryItem item)
