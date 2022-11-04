@@ -61,8 +61,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
 
             sb.AppendLine();
             sb.Append($"{Emojis.items[ItemType.Scroll]} {_inventory.GetItemsCountByType(ItemType.Scroll)}");
-            sb.Append(Emojis.bigSpace);
-            sb.AppendLine($"{Emojis.items[ItemType.Poison]} {_inventory.GetItemsCountByType(ItemType.Poison)}");
+            //sb.Append(Emojis.bigSpace);
+            //sb.AppendLine($"{Emojis.items[ItemType.Poison]} {_inventory.GetItemsCountByType(ItemType.Poison)}");
 
             return sb.ToString();
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Telegram.Bot.Types.ReplyMarkups;
 using TextGameRPG.Scripts.GameCore.Buildings;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Resources;
@@ -92,11 +93,14 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
             {
                 RegisterButton(button.Key, () => button.Value());
             }
-            RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_back_to_list_button")}",
-                () => new BuildingsDialog(session).ShowBuildingsCategory(building.buildingType.GetCategory()));
+            var category = building.buildingType.GetCategory();
+            RegisterButton($"{Emojis.elements[Element.Back]} {category.GetLocalization(session)}",
+                () => new BuildingsDialog(session).ShowBuildingsCategory(category));
+            RegisterButton($"{Emojis.elements[Element.FullBack]} {Localization.Get(session, "menu_item_buildings")} {Emojis.menuItems[MenuItem.Buildings]}",
+                () => new BuildingsDialog(session).Start());
 
             TryAppendTooltip(sb);
-            await SendDialogMessage(sb, GetMultilineKeyboard());
+            await SendDialogMessage(sb, GetMultilineKeyboardWithDoubleBack());
         }
 
         private async Task TryBoostConstructionForDiamonds()
@@ -195,12 +199,15 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
             }
             else
             {
-                RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_back_to_list_button")}",
-                    () => new BuildingsDialog(session).ShowBuildingsCategory(building.buildingType.GetCategory()));
+                var category = building.buildingType.GetCategory();
+                RegisterButton($"{Emojis.elements[Element.Back]} {category.GetLocalization(session)}",
+                    () => new BuildingsDialog(session).ShowBuildingsCategory(category));
             }
+            RegisterButton($"{Emojis.elements[Element.FullBack]} {Localization.Get(session, "menu_item_buildings")} {Emojis.menuItems[MenuItem.Buildings]}",
+                () => new BuildingsDialog(session).Start());
 
             TryAppendTooltip(sb);
-            await SendDialogMessage(sb, GetMultilineKeyboard());
+            await SendDialogMessage(sb, GetMultilineKeyboardWithDoubleBack());
         }
 
         private void AppendSpecialConstructionWarnings(StringBuilder sb)

@@ -46,11 +46,13 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
                 () => StartSelectItemForCompare(item));
 
             var categoryIcon = Emojis.items[_browsedCategory];
-            RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_back_to_list_button")} {categoryIcon}",
+            RegisterButton($"{Emojis.elements[Element.Back]} {_browsedCategory.GetCategoryLocalization(session)} {categoryIcon}",
                 () => new InventoryDialog(session).ShowCategory(_browsedCategory, _browsedPage));
+            RegisterButton($"{Emojis.elements[Element.FullBack]} {Localization.Get(session, "menu_item_inventory")} {Emojis.menuItems[MenuItem.Inventory]}",
+                () => new InventoryDialog(session).Start());
 
             TryAppendTooltip(sb);
-            await SendDialogMessage(sb, GetKeyboardWithRowSizes(2, 1));
+            await SendDialogMessage(sb, GetKeyboardWithRowSizes(2, 2));
         }
 
         private async Task StartEquipLogic(InventoryItem item)

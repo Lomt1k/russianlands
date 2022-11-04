@@ -24,8 +24,9 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
         public async Task ShowBuildingsCategory(BuildingCategory category)
         {
             ClearButtons();
-            RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_back_to_categories")}",
+            RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_buildings")} {Emojis.menuItems[MenuItem.Buildings]}",
                 () => Start());
+            RegisterTownButton(isFullBack: true);
 
             var text = $"{Emojis.menuItems[MenuItem.Buildings]} " + "<b>" + Localization.Get(session, "menu_item_buildings") + "</b>";
             await SendDialogMessage(text, GetOneLineKeyboard());
@@ -69,7 +70,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
             RegisterCategoryButton(BuildingCategory.Production);
             RegisterCategoryButton(BuildingCategory.Training);
 
-            RegisterBackButton(() => new TownDialog(session, TownEntryReason.BackFromInnerDialog).Start());
+            RegisterTownButton(isFullBack: false);
 
             var sb = new StringBuilder();
             sb.Append($"{Emojis.menuItems[MenuItem.Buildings]} " + "<b>" + Localization.Get(session, "menu_item_buildings") + "</b>");

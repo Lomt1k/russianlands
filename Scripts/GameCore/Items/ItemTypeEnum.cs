@@ -1,4 +1,6 @@
 ﻿
+using TextGameRPG.Scripts.TelegramBot.Sessions;
+
 namespace TextGameRPG.Scripts.GameCore.Items
 {
     public enum ItemType : sbyte
@@ -51,6 +53,22 @@ namespace TextGameRPG.Scripts.GameCore.Items
         {
             return itemType != ItemType.Amulet
                 && itemType != ItemType.Ring;
+        }
+
+        public static string GetCategoryLocalization(this ItemType category, GameSession session)
+        {
+            switch (category)
+            {
+                case ItemType.Equipped:
+                    return Localizations.Localization.Get(session, $"menu_item_equipped");
+                default:
+                    string stringCategory = category.ToString().ToLower();
+                    if (!stringCategory.EndsWith('s'))
+                    {
+                        stringCategory = stringCategory + 's';
+                    }
+                    return Localizations.Localization.Get(session, $"menu_item_{stringCategory}");
+            }
         }
 
     }    

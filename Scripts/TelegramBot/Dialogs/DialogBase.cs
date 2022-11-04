@@ -37,6 +37,13 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
             RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_back_button")}", callback);
         }
 
+        protected void RegisterTownButton(bool isFullBack)
+        {
+            var element = isFullBack ? Element.FullBack : Element.Back;
+            RegisterButton($"{Emojis.elements[element]} {Localization.Get(session, "menu_item_town")} {Emojis.menuItems[MenuItem.Town]}", 
+                () => new Town.TownDialog(session, Town.TownEntryReason.BackFromInnerDialog).Start());
+        }
+
         protected void RegisterButton(string text, Func<Task>? callback)
         {
             registeredButtons.Add(text, callback);
@@ -105,6 +112,17 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
             rows.Add(currentRow);
 
             return new ReplyKeyboardMarkup(rows);
+        }
+
+        protected ReplyKeyboardMarkup GetMultilineKeyboardWithDoubleBack()
+        {
+            switch (buttonsCount)
+            {
+                case 3: return GetKeyboardWithRowSizes(1, 2);
+                case 4: return GetKeyboardWithRowSizes(1, 1, 2);
+                case 5: return GetKeyboardWithRowSizes(1, 1, 1, 2);
+                default: return GetKeyboardWithRowSizes(2);
+            }
         }
 
         protected async Task SendPanelsAsync()

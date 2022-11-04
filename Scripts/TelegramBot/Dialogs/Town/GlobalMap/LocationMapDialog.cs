@@ -40,10 +40,12 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.GlobalMap
                         () => ContinueStoryMode());
                 }
             }
-            RegisterBackButton(() => new GlobalMapDialog(session).Start());
+            RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_map")} {Emojis.menuItems[MenuItem.Map]}",
+                () => new GlobalMapDialog(session).Start());
+            RegisterTownButton(isFullBack: true);
 
             TryAppendTooltip(sb);
-            await SendDialogMessage(sb, GetMultilineKeyboard());
+            await SendDialogMessage(sb, GetMultilineKeyboardWithDoubleBack());
         }
 
         private async Task ContinueStoryMode()
