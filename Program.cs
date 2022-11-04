@@ -14,7 +14,7 @@ namespace TextGameRPG
 
     public class Program
     {
-        public static bool isUnix => Environment.OSVersion.Platform == PlatformID.Unix;
+        public static bool isUnixPlatform => Environment.OSVersion.Platform == PlatformID.Unix;
         public static AppMode appMode { get; private set; } = AppMode.None;
         public static bool isConsoleMode { get; private set; }
         public static Window mainWindow { get; set; }
@@ -35,7 +35,7 @@ namespace TextGameRPG
 
         private static void SelectGUIModeAndRun(string[] args)
         {
-            // Catching exception when application started not from console (from .exe)
+            // Catching exception when application started from .exe (not from console)
             try
             {
                 bool withGUI = ConsoleMode.ConsoleHelper.AskYesNo("Start with GUI?");
@@ -71,7 +71,7 @@ namespace TextGameRPG
         {
             isConsoleMode = true;
             SetupAppMode(AppMode.Bot);
-            if (!isUnix) // там менять кодировку не надо
+            if (!isUnixPlatform) // там менять кодировку не надо
             {
                 Console.OutputEncoding = System.Text.Encoding.Unicode;
             }

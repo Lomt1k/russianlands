@@ -32,14 +32,24 @@ namespace TextGameRPG.Scripts.TelegramBot.Commands
             recentlyActive = allSessions.Where(x => (dtNow - x.lastActivityTime).TotalMinutes < 5).Count();
             sb.AppendLine($"Now playing: {recentlyActive}");
 
-            sb.AppendLine();
-            sb.AppendLine("<b>Last activity:</b>");
             var orderedByActivity = allSessions.OrderByDescending(x => x.lastActivityTime).ToArray();
-            for (int i = 0; i < orderedByActivity.Length && i < 10; i++)
+            if (orderedByActivity.Length > 1)
             {
-                var activeSession = orderedByActivity[i];
-                sb.AppendLine($"{activeSession.lastActivityTime.ToLongTimeString()} | {activeSession.actualUser}");
-            }
+                sb.AppendLine();
+                sb.AppendLine("<b>Last activity:</b>");
+                int i = 0;
+                foreach (var activeSession in orderedByActivity)
+                {
+                    if (session == activeSession)
+                        continue;
+
+                    var timeSpan = (dtNow - activeSession.lastActivityTime).GetShortView(session);
+                    sb.AppendLine($"{timeSpan} | {activeSession.actualUser}");
+                    i++;
+                    if (i == 10)
+                        break;
+                }
+            }            
 
             await messageSender.SendTextMessage(session.chatId, sb.ToString());
         }
