@@ -19,11 +19,12 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
 
         private Dictionary<KeyboardButton, Func<Task>?> registeredButtons = new Dictionary<KeyboardButton, Func<Task>?>();
         private Dictionary<byte, DialogPanelBase> registeredPanels = new Dictionary<byte, DialogPanelBase>();
+        private Func<Task<Message?>>? resendLastMessageFunc;
 
         public GameSession session { get; }
         public Tooltip? tooltip { get; private set; }
         protected int buttonsCount => registeredButtons.Count;
-        protected Message? previousMessage { get; private set; }
+        protected Message? lastMessage { get; private set; }
 
         public DialogBase(GameSession _session)
         {
@@ -33,7 +34,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
 
         protected void RegisterBackButton(Func<Task> callback)
         {
-            RegisterButton($"{Emojis.elements[Element.Back]} {GameCore.Localizations.Localization.Get(session, "menu_item_back_button")}", callback);
+            RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_back_button")}", callback);
         }
 
         protected void RegisterButton(string text, Func<Task>? callback)
@@ -116,23 +117,39 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
 
         public abstract Task Start();
 
-        protected async Task<Message> SendDialogMessage(StringBuilder sb, ReplyKeyboardMarkup? replyMarkup)
+        protected async Task<Message?> SendDialogMessage(StringBuilder sb, ReplyKeyboardMarkup? replyMarkup)
         {
             return await SendDialogMessage(sb.ToString(), replyMarkup);
         }
 
-        protected async Task<Message> SendDialogMessage(string text, ReplyKeyboardMarkup? replyMarkup)
+        protected async Task<Message?> SendDialogMessage(string text, ReplyKeyboardMarkup? replyMarkup)
         {
-            previousMessage = await messageSender.SendTextDialog(session.chatId, text, replyMarkup);
-            return previousMessage;
+            resendLastMessageFunc = async() => await messageSender.SendTextDialog(session.chatId, text, replyMarkup);
+            lastMessage = await resendLastMessageFunc();
+            return lastMessage;
         }
 
-        protected async Task DeleteDialogMessage()
+        public async Task TryResendDialogWithAntiFloodDelay()
         {
-            if (previousMessage != null)
+            if (lastMessage == null)
+                return;
+
+            var secondsFromPreviousSent = (DateTime.UtcNow - lastMessage.Date).TotalSeconds;
+            if (lastMessage == null || secondsFromPreviousSent < 3)
+                return;
+
+            await TryResendDialog();
+        }
+
+        public virtual async Task TryResendDialog()
+        {
+            if (resendLastMessageFunc == null)
+                return;
+
+            lastMessage = await resendLastMessageFunc();
+            foreach (var panel in registeredPanels.Values)
             {
-                await messageSender.DeleteMessage(session.chatId, previousMessage.MessageId);
-                previousMessage = null;
+                await panel.ResendLastMessageAsNew();
             }
         }
 
@@ -155,6 +172,11 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
             if (callback != null)
             {
                 await Task.Run(callback);
+            }
+            else
+            {
+                // пришел какой-то другой ответ от игрока (не одна из кнопок). Возможно у него пропала клавиатура или весь чат, надо переотправить диалог
+                await TryResendDialogWithAntiFloodDelay();
             }
         }
 
@@ -241,14 +263,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
         {
             foreach (var button in buttonsToBlock)
             {
-                registeredButtons[button] = async () =>
-                {
-                    previousMessage = await messageSender.SendTextMessage(session.chatId, previousMessage.Text);
-                    foreach (var panel in registeredPanels.Values)
-                    {
-                        await panel.ResendLastMessageAsNew();
-                    }
-                };
+                registeredButtons[button] = () => TryResendDialog();
             }
         }
 

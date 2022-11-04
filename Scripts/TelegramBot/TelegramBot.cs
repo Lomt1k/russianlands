@@ -125,6 +125,7 @@ namespace TextGameRPG.Scripts.TelegramBot
             messageSender = null;
             sessionManager = null;
             botReceiving = null;
+            client = null;
         }
 
         public async void Reconnect()

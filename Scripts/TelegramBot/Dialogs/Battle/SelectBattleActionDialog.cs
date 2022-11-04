@@ -207,5 +207,14 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Battle
             }
         }
 
+        public override Task TryResendDialog()
+        {
+            if (_battleTurn.isWaitingForActions)
+            {
+                return base.TryResendDialog();
+            }
+            return Task.CompletedTask;
+        }
+
     }
 }
