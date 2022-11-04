@@ -121,6 +121,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
 
         public async Task HandleBattleTooltipCallback(Player player, string queryId, BattleTooltipCallbackData callback)
         {
+            Program.logger.Debug($"Message from {player.session.actualUser}: {callback.tooltip}");
             if (currentTurn == null)
             {
                 await TelegramBot.instance.messageSender.AnswerQuery(player.session.chatId, queryId);

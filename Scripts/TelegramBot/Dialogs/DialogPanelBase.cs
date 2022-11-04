@@ -156,6 +156,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
             if (!_registeredCallbacks.TryGetValue(buttonId, out var callback))
                 return;
 
+            Program.logger.Debug($"Message from {session.actualUser}: {_registeredButtons[buttonId].Text}");
+
             var generateQueryFunc = _registeredQueryAnswers[buttonId];
             var query = generateQueryFunc != null ? generateQueryFunc() : null;
 
