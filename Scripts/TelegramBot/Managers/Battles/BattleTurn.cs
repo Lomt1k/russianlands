@@ -13,7 +13,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
 {
     public class BattleTurn
     {
-        public const int MOB_TURN_MILISECONDS_DELAY = 5_000;
+        public const int MOB_TURN_MILISECONDS_DELAY = 3_000;
 
         private List<IBattleAction> _battleActions;
         private Dictionary<Player, List<BattleTooltipType>> _queryTooltipsToIgnoreByPlayers = new Dictionary<Player, List<BattleTooltipType>>();
