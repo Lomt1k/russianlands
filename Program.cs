@@ -28,6 +28,11 @@ namespace TextGameRPG
         [STAThread]
         public static void Main(string[] args)
         {
+            if (!isUnixPlatform) // на юниксе менять кодировку не надо
+            {
+                Console.OutputEncoding = System.Text.Encoding.Unicode;
+            }
+
             ConfigureLogger();
             PerformanceMonitor.Start();
             SelectGUIModeAndRun(args);
@@ -35,7 +40,7 @@ namespace TextGameRPG
 
         private static void SelectGUIModeAndRun(string[] args)
         {
-            // Catching exception when application started from .exe (not from console)
+            // Catching exception when application started with GUI
             try
             {
                 bool withGUI = ConsoleMode.ConsoleHelper.AskYesNo("Start with GUI?");
@@ -71,10 +76,6 @@ namespace TextGameRPG
         {
             isConsoleMode = true;
             SetupAppMode(AppMode.Bot);
-            if (!isUnixPlatform) // там менять кодировку не надо
-            {
-                Console.OutputEncoding = System.Text.Encoding.Unicode;
-            }
 
             var gameDataLoader = new ViewModels.ConsoleGameDataLoaderViewModel();
             while (!gameDataLoader.isCompleted)

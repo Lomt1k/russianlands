@@ -1,12 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <Nullable>enable</Nullable>
     <!--Avalonia doesen't support TrimMode=link currently,but we are working on that https://github.com/AvaloniaUI/Avalonia/issues/6892 -->
     <TrimMode>copyused</TrimMode>
     <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
     <UseWPF>False</UseWPF>
+    <AssemblyName>MarkOne</AssemblyName>
+    <RootNamespace>TextGameRPG</RootNamespace>
+    <BaseOutputPath>bin\</BaseOutputPath>
   </PropertyGroup>
   <ItemGroup>
     <AvaloniaResource Include="Assets\**" />
