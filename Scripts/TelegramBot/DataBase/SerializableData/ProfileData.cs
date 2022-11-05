@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Reflection;
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.TelegramBot.DataBase.TablesStructure;
 
@@ -7,6 +8,9 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData
 {
     public class ProfileData : DatabaseSerializableData
     {
+        static FieldInfo[] staticFieldsInfo = typeof(ProfileData).GetFields();
+        public override FieldInfo[] fieldsInfo => staticFieldsInfo;
+
         public long dbid;
         public long telegram_id;
         public long endPremiumTime;

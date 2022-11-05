@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Reflection;
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 
@@ -10,6 +11,8 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData
         public GameSession session { get; protected set; }
         protected bool isDeserializationCompleted { get; private set; } = false;
 
+        public abstract FieldInfo[] fieldsInfo { get; }
+
         public DatabaseSerializableData(DataRow data)
         {
             Deserialize(data);
@@ -18,8 +21,7 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData
 
         protected virtual void Deserialize(DataRow data)
         {
-            var fields = GetType().GetFields();
-            foreach (var field in fields)
+            foreach (var field in fieldsInfo)
             {
                 var dbValue = data[field.Name];
                 if (dbValue != null)

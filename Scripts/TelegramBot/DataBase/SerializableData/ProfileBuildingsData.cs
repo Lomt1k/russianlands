@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using System.Reflection;
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.TelegramBot.DataBase.TablesStructure;
 
@@ -6,6 +7,9 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData
 {
     public class ProfileBuildingsData : DatabaseSerializableData
     {
+        static FieldInfo[] staticFieldsInfo = typeof(ProfileBuildingsData).GetFields();
+        public override FieldInfo[] fieldsInfo => staticFieldsInfo;
+
         public long dbid;
 
         public byte townHallLevel = 1;

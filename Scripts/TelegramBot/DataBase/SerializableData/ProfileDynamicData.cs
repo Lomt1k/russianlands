@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.Data;
+using System.Reflection;
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Inventory;
 using TextGameRPG.Scripts.GameCore.Quests;
@@ -9,6 +10,9 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData
 {
     public class ProfileDynamicData : DatabaseSerializableData
     {
+        static FieldInfo[] staticFieldsInfo = typeof(ProfileDynamicData).GetFields();
+        public override FieldInfo[] fieldsInfo => staticFieldsInfo;
+
         public long dbid;
         public PlayerInventory inventory;
         public PlayerQuestsProgress quests;

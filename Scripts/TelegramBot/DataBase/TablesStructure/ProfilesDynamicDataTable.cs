@@ -59,7 +59,7 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase.TablesStructure
         {
             var sb = new StringBuilder();
             sb.Append($"UPDATE {tableName} SET ");
-            var fields = data.GetType().GetFields();
+            var fields = data.fieldsInfo;
             for (int i = 1; i < fields.Length; i++) //avoid dbid
             {
                 var field = fields[i];
