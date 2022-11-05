@@ -91,7 +91,7 @@ namespace TextGameRPG.Scripts.TelegramBot
 
             Program.logger.Info("Connecting to bot database...");
             dataBase = new BotDataBase(dataPath);
-            bool isConnected = await dataBase.Connect();
+            bool isConnected = await dataBase.ConnectAsync();
             if (!isConnected)
             {
                 Program.logger.Info($"Reject database connection!...");
@@ -120,10 +120,12 @@ namespace TextGameRPG.Scripts.TelegramBot
 
             botReceiving.StopReceiving();
             await sessionManager.CloseAllSessions();
+            await dataBase.CloseAsync();
 
             GlobalManagers.DisposeManagers();
             messageSender = null;
             sessionManager = null;
+            dataBase = null;
             botReceiving = null;
             client = null;
         }

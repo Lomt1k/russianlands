@@ -29,7 +29,7 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase
             };
         }
 
-        public async Task<bool> Connect()
+        public async Task<bool> ConnectAsync()
         {
             try
             {
@@ -44,6 +44,22 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase
                 Program.logger.Fatal(ex);
             }
             return false;
+        }
+
+        public async Task CloseAsync()
+        {
+            try
+            {
+                if (connection != null && connection.State != ConnectionState.Closed)
+                {
+                    await connection.CloseAsync();
+                    Program.logger.Info("Closed connection to database");
+                }
+            }
+            catch (Exception ex)
+            {
+                Program.logger.Error(ex);
+            }
         }
 
         private async Task<int> RefreshTableStructure()
