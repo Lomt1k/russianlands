@@ -17,6 +17,7 @@ namespace TextGameRPG.ConsoleMode
             {"start", (args) => StartBotCommand(args) },
             {"stop", (args) => StopBotCommand(args) },
             {"status", (args) => StatusCommand(args) },
+            {"collect", (args) => CollectCommand(args) }
         };
 
         public void Start(string[] args)
@@ -101,6 +102,12 @@ namespace TextGameRPG.ConsoleMode
         private static void StopBotCommand(string[] args)
         {
             TelegramBot.instance.StopListening();
+        }
+
+        private static void CollectCommand(string[] args)
+        {
+            GC.Collect();
+            Console.WriteLine("GC.Collect invoked");
         }
 
         private static void StatusCommand(string[] args)
