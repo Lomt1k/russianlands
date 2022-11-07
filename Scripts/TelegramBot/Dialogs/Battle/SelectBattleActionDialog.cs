@@ -65,7 +65,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Battle
 
             sb.AppendLine(Localization.Get(session, "battle_mine_turn_start_select_item"));
 
-            await SendDialogMessage(sb, keyboard);
+            await SendDialogMessage(sb, keyboard)
+                .ConfigureAwait(false);
         }
 
         public void AppendSingleSlotItems(ref List<List<KeyboardButton>> keyboardRows)
@@ -141,7 +142,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Battle
                     }
                     break;
                 case ItemType.Scroll:
-                    await ShowScrollsCategory();
+                    await ShowScrollsCategory()
+                        .ConfigureAwait(false);
                     break;
                 case ItemType.Poison:
                     //TODO: Select poison dialog
@@ -187,7 +189,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Battle
             }
 
             RegisterBackButton(() => Start());
-            await SendDialogMessage(sb, GetMultilineKeyboard());
+            await SendDialogMessage(sb, GetMultilineKeyboard())
+                .ConfigureAwait(false);
         }
 
         private Task SelectScrollItem(InventoryItem scrollItem)

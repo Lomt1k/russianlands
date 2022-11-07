@@ -33,13 +33,15 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Quests.MainQuest
             var sticker = CharacterType.Vasilisa.GetSticker(Emotion.Idle);
             if (sticker != null)
             {
-                await messageSender.SendSticker(session.chatId, sticker);
+                await messageSender.SendSticker(session.chatId, sticker)
+                    .ConfigureAwait(false);
             }
 
             var text = Localization.Get(session, "quest_main_vasilisa_encounter_replica");
             var buttonText = GetQuestButtonText(session);
             RegisterButton(buttonText, null);
-            await SendDialogMessage(text, GetOneLineKeyboard());
+            await SendDialogMessage(text, GetOneLineKeyboard())
+                .ConfigureAwait(false);
         }
 
         private string GetQuestButtonText(GameSession session)
@@ -58,7 +60,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Quests.MainQuest
             sb.AppendLine(Localization.Get(session, "dialog_entry_name_header"));
 
             RegisterButton(session.player.nickname, null);
-            await SendDialogMessage(sb, GetMultilineKeyboard());
+            await SendDialogMessage(sb, GetMultilineKeyboard())
+                .ConfigureAwait(false);
         }
 
         public override async Task HandleMessage(Message message)
@@ -68,7 +71,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Quests.MainQuest
                 if (string.IsNullOrWhiteSpace(message.Text) || message.Text.Equals(GetQuestButtonText(session)))
                 {
                     _isQuestReplicaStage = false;
-                    await Start();
+                    await Start().ConfigureAwait(false);
                     return;
                 }
             }
@@ -79,12 +82,13 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Quests.MainQuest
             var nickname = message.Text;
             if (!nickname.IsCorrectNickname())
             {
-                await Start();
+                await Start().ConfigureAwait(false);
                 return;
             }
 
             session.profile.data.nickname = nickname;
-            await QuestManager.TryInvokeTrigger(session, TriggerType.InvokeFromCode);
+            await QuestManager.TryInvokeTrigger(session, TriggerType.InvokeFromCode)
+                .ConfigureAwait(false);
         }
     }
 }

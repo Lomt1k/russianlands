@@ -24,7 +24,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
 
         public override async Task Start()
         {
-            await ShowItemInspector(_item);
+            await ShowItemInspector(_item)
+                .ConfigureAwait(false);
         }
 
         private async Task ShowItemInspector(InventoryItem item)
@@ -52,7 +53,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
                 () => new InventoryDialog(session).Start());
 
             TryAppendTooltip(sb);
-            await SendDialogMessage(sb, GetMultilineKeyboardWithDoubleBack());
+            await SendDialogMessage(sb, GetMultilineKeyboardWithDoubleBack())
+                .ConfigureAwait(false);
         }
 
         private async Task StartEquipLogic(InventoryItem item)
@@ -65,17 +67,20 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
                     + string.Format(Localization.Get(session, "dialog_inventory_required_level"), requiredLevel) + $" {Emojis.smiles[Smile.Sad]}";
                 ClearButtons();
                 RegisterButton(Localization.Get(session, "menu_item_ok_button"), () => ShowItemInspector(item));
-                await SendDialogMessage(messageText, GetOneLineKeyboard());
+                await SendDialogMessage(messageText, GetOneLineKeyboard())
+                    .ConfigureAwait(false);
                 return;
             }
 
             if (item.data.itemType.IsMultiSlot())
             {
-                await SelectSlotForEquip(item);
+                await SelectSlotForEquip(item)
+                    .ConfigureAwait(false);
                 return;
             }
 
-            await EquipSingleSlot(item);
+            await EquipSingleSlot(item)
+                .ConfigureAwait(false);
         }
 
         private async Task SelectSlotForEquip(InventoryItem item)
@@ -97,7 +102,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
             }
             RegisterBackButton(() => ShowItemInspector(item));
 
-            await SendDialogMessage(text, GetMultilineKeyboard());
+            await SendDialogMessage(text, GetMultilineKeyboard())
+                .ConfigureAwait(false);
         }
 
         private string GetCategoryLocalization(ItemType category)
@@ -119,19 +125,22 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
         private async Task EquipSingleSlot(InventoryItem item)
         {
             inventory.EquipSingleSlot(item);
-            await ShowItemInspector(item);
+            await ShowItemInspector(item)
+                .ConfigureAwait(false);
         }
 
         private async Task EquipMultiSlot(InventoryItem item, int slotId)
         {
             inventory.EquipMultiSlot(item, slotId);
-            await ShowItemInspector(item);
+            await ShowItemInspector(item)
+                .ConfigureAwait(false);
         }
 
         private async Task UnequipItem(InventoryItem item)
         {
             inventory.Unequip(item);
-            await ShowItemInspector(item);
+            await ShowItemInspector(item)
+                .ConfigureAwait(false);
         }
 
         private async Task StartSelectItemForCompare(InventoryItem item)
@@ -143,7 +152,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
                 currentPageOnStartCompare = _browsedPage,
             };
 
-            await new InventoryDialog(session).ShowCategory(_browsedCategory, newCompareData: compareData);
+            await new InventoryDialog(session).ShowCategory(_browsedCategory, newCompareData: compareData)
+                .ConfigureAwait(false);
         }
 
     }

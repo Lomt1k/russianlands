@@ -20,10 +20,12 @@ namespace TextGameRPG.Scripts.GameCore.Quests
             {
                 if (!playerQuestsProgress.IsStarted(QuestType.MainQuest))
                 {
-                    await QuestsHolder.GetQuest(QuestType.MainQuest).StartQuest(session);
+                    await QuestsHolder.GetQuest(QuestType.MainQuest).StartQuest(session)
+                        .ConfigureAwait(false);
                     return;
                 }
-                await new TownDialog(session, TownEntryReason.StartNewSession).Start();
+                await new TownDialog(session, TownEntryReason.StartNewSession).Start()
+                    .ConfigureAwait(false);
                 return;
             }
 
@@ -44,7 +46,8 @@ namespace TextGameRPG.Scripts.GameCore.Quests
                         bool hasTownEntry = stageWithTrigger.questActions.Where(x => x is EntryTownAction).Count() > 0;
                         if (hasTownEntry)
                         {
-                            await new TownDialog(session, TownEntryReason.StartNewSession).Start();
+                            await new TownDialog(session, TownEntryReason.StartNewSession).Start()
+                                .ConfigureAwait(false);
                         }
                         break;
 
@@ -53,11 +56,13 @@ namespace TextGameRPG.Scripts.GameCore.Quests
                         bool isStartBattlePressed = replyMessage.Contains(Emojis.resources[Resources.ResourceType.Food]);
                         if (isStartBattlePressed)
                         {
-                            await stageWithBattlePoint.InvokeStageWithStartBattleImmediate(session);
+                            await stageWithBattlePoint.InvokeStageWithStartBattleImmediate(session)
+                                .ConfigureAwait(false);
                         }
                         else
                         {
-                            await new TownDialog(session, TownEntryReason.StartNewSession).Start();
+                            await new TownDialog(session, TownEntryReason.StartNewSession).Start()
+                                .ConfigureAwait(false);
                         }                        
                         break;
 
@@ -80,7 +85,8 @@ namespace TextGameRPG.Scripts.GameCore.Quests
                 }
             }
 
-            await focusedQuest.SetStage(session, stageIdToSetup);
+            await focusedQuest.SetStage(session, stageIdToSetup)
+                .ConfigureAwait(false);
         }
 
         public static async Task TryInvokeTrigger(GameSession session, TriggerType triggerType)
@@ -99,7 +105,8 @@ namespace TextGameRPG.Scripts.GameCore.Quests
                 bool success = trigger.TryInvoke();
                 if (success)
                 {
-                    await focusedQuest.SetStage(session, trigger.nextStage);
+                    await focusedQuest.SetStage(session, trigger.nextStage)
+                        .ConfigureAwait(false);
                 }
             }
         }

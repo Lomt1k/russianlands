@@ -22,7 +22,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests.Characters
             RefillStickersInfo();
             foreach (var characterStickers in _characterStickers.Values)
             {
-                await characterStickers.SetupFileIdsFromStickerSet();
+                await characterStickers.SetupFileIdsFromStickerSet().ConfigureAwait(false);
             }
             Program.logger.Info("Stickers update completed");
         }

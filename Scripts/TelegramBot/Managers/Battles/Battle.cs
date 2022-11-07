@@ -74,8 +74,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
                 return;
 
             //Сначала второму юниту, так как первый уже сразу сможет ходить
-            await secondUnit.OnStartBattle(this);
-            await firstUnit.OnStartBattle(this);
+            await secondUnit.OnStartBattle(this).ConfigureAwait(false);
+            await firstUnit.OnStartBattle(this).ConfigureAwait(false);
 
             HandleBattleAsync();
         }
@@ -86,12 +86,12 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
             while (!HasDefeatedUnits())
             {
                 currentTurn = new BattleTurn(this, firstUnit, battleTurnTimeInSeconds);
-                await currentTurn.HandleTurn();
+                await currentTurn.HandleTurn().ConfigureAwait(false);
                 currentTurn = new BattleTurn(this, secondUnit, battleTurnTimeInSeconds);
-                await currentTurn.HandleTurn();
+                await currentTurn.HandleTurn().ConfigureAwait(false);
             }
             currentTurn = null;
-            await BattleEnd();
+            await BattleEnd().ConfigureAwait(false);
         }
 
         public string GetStatsView(GameSession session)
@@ -124,10 +124,12 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
             Program.logger.Debug($"Message from {player.session.actualUser}: {callback.tooltip}");
             if (currentTurn == null)
             {
-                await TelegramBot.instance.messageSender.AnswerQuery(player.session.chatId, queryId);
+                await TelegramBot.instance.messageSender.AnswerQuery(player.session.chatId, queryId)
+                    .ConfigureAwait(false);
                 return;
             }
-            await currentTurn.HandleBattleTooltipCallback(player, queryId, callback);
+            await currentTurn.HandleBattleTooltipCallback(player, queryId, callback)
+                .ConfigureAwait(false);
         }
 
         private async Task BattleEnd()
@@ -141,11 +143,11 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
             bool hasWinner = firstUnit.unitStats.currentHP > 0 || secondUnit.unitStats.currentHP > 0;
             if (firstUnit is Player firstPlayer)
             {
-                await HandleBattleEndForPlayer(firstPlayer, hasWinner);
+                await HandleBattleEndForPlayer(firstPlayer, hasWinner).ConfigureAwait(false);
             }
             if (secondUnit is Player secondPlayer)
             {
-                await HandleBattleEndForPlayer(secondPlayer, hasWinner);
+                await HandleBattleEndForPlayer(secondPlayer, hasWinner).ConfigureAwait(false);
             }
             GlobalManagers.battleManager?.UnregisterBattle(this);
         }
@@ -157,7 +159,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
                 ? (player.unitStats.currentHP > enemy.unitStats.currentHP ? BattleResult.Win : BattleResult.Lose)
                 : BattleResult.Draw;
 
-            await HandleBattleEndForPlayer(player, battleResult);
+            await HandleBattleEndForPlayer(player, battleResult).ConfigureAwait(false);
         }
 
         // Вызывается при ошибке (либо читом)
@@ -172,7 +174,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
 
             if (!player.session.sessionTasksCTS.IsCancellationRequested)
             {
-                await HandleBattleEndForPlayer(player, battleResult);
+                await HandleBattleEndForPlayer(player, battleResult).ConfigureAwait(false);
             }
 
             var enemy = GetEnemy(player);
@@ -182,7 +184,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
                 {
                     if (battleResult == BattleResult.Win) battleResult = BattleResult.Lose;
                     else if (battleResult == BattleResult.Lose) battleResult = BattleResult.Win;
-                    await HandleBattleEndForPlayer(anotherPlayer, battleResult);
+                    await HandleBattleEndForPlayer(anotherPlayer, battleResult).ConfigureAwait(false);
                 }                
             }
         }
@@ -191,7 +193,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
         {
             if (_onBattleEndFunc != null)
             {
-                await _onBattleEndFunc(player, battleResult);
+                await _onBattleEndFunc(player, battleResult).ConfigureAwait(false);
             }
 
             bool hasContinueButton = _onContinueButtonFunc != null;
@@ -206,7 +208,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
                 onContinueButtonFunc = _onContinueButtonFunc,
                 isReturnToTownAvailable = isReturnToTownAvailable
             };
-            await new BattleResultDialog(player.session, data).Start();
+            await new BattleResultDialog(player.session, data).Start().ConfigureAwait(false);
         }
 
 

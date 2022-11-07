@@ -42,11 +42,11 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
             if (battle.IsCancellationRequested())
                 return;
 
-            await enemy.OnStartEnemyTurn(this);
+            await enemy.OnStartEnemyTurn(this).ConfigureAwait(false);
             OnStartMineTurn();
             AskUnitForBattleActions();
-            await WaitAnswerFromUnit();
-            await InvokeBattleActions();
+            await WaitAnswerFromUnit().ConfigureAwait(false);
+            await InvokeBattleActions().ConfigureAwait(false);
             OnEndMineTurn();
         }
 
@@ -57,7 +57,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
 
         private async void AskUnitForBattleActions()
         {
-            var selectedActions = await unit.GetActionsForBattleTurn(this);
+            var selectedActions = await unit.GetActionsForBattleTurn(this).ConfigureAwait(false);
             if (isWaitingForActions)
             {
                 _battleActions = selectedActions.OrderBy(x => x.priority).ToList();
@@ -81,7 +81,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
         {
             while (isWaitingForActions)
             {
-                await Task.Delay(500);
+                await Task.Delay(500).ConfigureAwait(false);
                 millisecondsLeft -= 500;
                 if (millisecondsLeft == 20_000)
                 {
@@ -90,9 +90,9 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
                 }
                 if (millisecondsLeft == 0 && _battleActions == null)
                 {
-                    await unit.OnMineBatteTurnTimeEnd();
+                    await unit.OnMineBatteTurnTimeEnd().ConfigureAwait(false);
                     var enemy = battle.GetEnemy(unit);
-                    await enemy.OnEnemyBattleTurnTimeEnd();
+                    await enemy.OnEnemyBattleTurnTimeEnd().ConfigureAwait(false);
                 }
             }
         }
@@ -128,14 +128,16 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
                 mineStringBuilder.AppendLine();
                 mineStringBuilder.AppendLine(battle.GetStatsView(unit.session));
                 var keyboard = BattleToolipHelper.GetStatsKeyboard(unit.session);
-                await messageSender.SendTextMessage(unit.session.chatId, mineStringBuilder.ToString(), keyboard);
+                await messageSender.SendTextMessage(unit.session.chatId, mineStringBuilder.ToString(), keyboard)
+                    .ConfigureAwait(false);
             }
             if (enemyStringBuilder != null)
             {
                 enemyStringBuilder.AppendLine();
                 enemyStringBuilder.AppendLine(battle.GetStatsView(enemy.session));
                 var keyboard = BattleToolipHelper.GetStatsKeyboard(enemy.session);
-                await messageSender.SendTextMessage(enemy.session.chatId, enemyStringBuilder.ToString(), keyboard);
+                await messageSender.SendTextMessage(enemy.session.chatId, enemyStringBuilder.ToString(), keyboard)
+                    .ConfigureAwait(false);
             }
         }
 
@@ -154,7 +156,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
             var ingoreList = _queryTooltipsToIgnoreByPlayers[player];
             if (ingoreList.Contains(callback.tooltip))
             {
-                await TelegramBot.instance.messageSender.AnswerQuery(player.session.chatId, queryId);
+                await TelegramBot.instance.messageSender.AnswerQuery(player.session.chatId, queryId)
+                    .ConfigureAwait(false);
                 return;
             }
 
@@ -162,7 +165,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
             {
                 ingoreList.Add(callback.tooltip);
             }
-            await CreateTooltip(player, queryId, callback);
+            await CreateTooltip(player, queryId, callback).ConfigureAwait(false);
         }
 
         private async Task CreateTooltip(Player player, string queryId, BattleTooltipCallbackData callback)
@@ -170,10 +173,10 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
             switch (callback.tooltip)
             {
                 case BattleTooltipType.ShowMineStats:
-                    await CreateUnitStatsTooltip(player, queryId, unit);
+                    await CreateUnitStatsTooltip(player, queryId, unit).ConfigureAwait(false);
                     break;
                 case BattleTooltipType.ShowEnemyStats:
-                    await CreateUnitStatsTooltip(player, queryId, battle.GetEnemy(unit));
+                    await CreateUnitStatsTooltip(player, queryId, battle.GetEnemy(unit)).ConfigureAwait(false);
                     break;
             }
         }
@@ -182,8 +185,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
         {
             var messageSender = TelegramBot.instance.messageSender;
             var text = targetUnit.GetFullUnitInfoView(player.session);
-            await messageSender.SendTextMessage(player.session.chatId, text);
-            await messageSender.AnswerQuery(player.session.chatId, queryId);
+            await messageSender.SendTextMessage(player.session.chatId, text).ConfigureAwait(false);
+            await messageSender.AnswerQuery(player.session.chatId, queryId).ConfigureAwait(false);
         }
 
 

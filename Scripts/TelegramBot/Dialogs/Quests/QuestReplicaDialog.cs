@@ -54,12 +54,13 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Quests
             {
                 await messageSender.SendSticker(session.chatId, sticker);
             }
-            await SendDialogMessage(GetText(), GetMultilineKeyboard());
+            await SendDialogMessage(GetText(), GetMultilineKeyboard())
+                .ConfigureAwait(false);
         }
 
-        public override Task TryResendDialog()
+        public override async Task TryResendDialog()
         {
-            return Start();
+            await Start().ConfigureAwait(false);
         }
 
     }

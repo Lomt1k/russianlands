@@ -48,12 +48,14 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.GlobalMap
                 RegisterBackButton(_data.onBackButtonFunc);
             }
 
-            await SendDialogMessage(sb, GetMultilineKeyboard());
+            await SendDialogMessage(sb, GetMultilineKeyboard())
+                .ConfigureAwait(false);
         }
 
         public async Task SilentStart()
         {
-            await TryStartBattle();
+            await TryStartBattle()
+                .ConfigureAwait(false);
         }
 
         private async Task TryStartBattle()

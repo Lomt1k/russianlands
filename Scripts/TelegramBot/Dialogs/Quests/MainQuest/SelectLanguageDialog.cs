@@ -24,24 +24,29 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Quests.MainQuest
             RegisterButton($"{Emojis.flags[Flag.GreatBritain]} English", () => OnSelectEnglish());
             RegisterButton($"{Emojis.flags[Flag.Russia]} Русский", () => OnSelectRussian());
 
-            await SendDialogMessage(text, GetMultilineKeyboard());
+            await SendDialogMessage(text, GetMultilineKeyboard())
+                .ConfigureAwait(false);
         }
 
         private async Task OnSelectRussian()
         {
-            await SetupLanguage(LanguageCode.ru);
+            await SetupLanguage(LanguageCode.ru)
+                .ConfigureAwait(false);
         }
 
         private async Task OnSelectEnglish()
         {
-            await SetupLanguage(LanguageCode.en);
+            await SetupLanguage(LanguageCode.en)
+                .ConfigureAwait(false);
         }
 
         private async Task SetupLanguage(LanguageCode language)
         {
             session.SetupLanguage(language);
-            await session.profile.SetupProfileOnFirstLaunch(session.actualUser, language);
-            await QuestManager.TryInvokeTrigger(session, TriggerType.InvokeFromCode);
+            await session.profile.SetupProfileOnFirstLaunch(session.actualUser, language)
+                .ConfigureAwait(false);
+            await QuestManager.TryInvokeTrigger(session, TriggerType.InvokeFromCode)
+                .ConfigureAwait(false);
         }
     }
 }

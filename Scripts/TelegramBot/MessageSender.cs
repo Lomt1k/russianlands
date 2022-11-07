@@ -24,11 +24,11 @@ namespace TextGameRPG.Scripts.TelegramBot
             try
             {
                 return await _botClient.SendTextMessageAsync(id, text, ParseMode.Html, replyMarkup: inlineKeyboard,
-                    disableNotification: silent, disableWebPagePreview: disableWebPagePreview);
+                    disableNotification: silent, disableWebPagePreview: disableWebPagePreview).ConfigureAwait(false);
             }
             catch (RequestException ex)
             {
-                await _requestExceptionHandler.HandleException(id, ex);
+                await _requestExceptionHandler.HandleException(id, ex).ConfigureAwait(false);
                 return null;
             }
         }
@@ -39,11 +39,11 @@ namespace TextGameRPG.Scripts.TelegramBot
             try
             {
                 return await _botClient.EditMessageTextAsync(id, messageId, text, ParseMode.Html, replyMarkup: inlineKeyboard,
-                    disableWebPagePreview: disableWebPagePreview);
+                    disableWebPagePreview: disableWebPagePreview).ConfigureAwait(false);
             }
             catch (RequestException ex)
             {
-                await _requestExceptionHandler.HandleException(id, ex);
+                await _requestExceptionHandler.HandleException(id, ex).ConfigureAwait(false);
                 return null;
             }
         }
@@ -52,11 +52,11 @@ namespace TextGameRPG.Scripts.TelegramBot
         {
             try
             {
-                await _botClient.DeleteMessageAsync(id, messageId);
+                await _botClient.DeleteMessageAsync(id, messageId).ConfigureAwait(false);
             }
             catch (RequestException ex)
             {
-                await _requestExceptionHandler.HandleException(id, ex);
+                await _requestExceptionHandler.HandleException(id, ex).ConfigureAwait(false);
             }
         }
 
@@ -64,11 +64,11 @@ namespace TextGameRPG.Scripts.TelegramBot
         {
             try
             {
-                return await _botClient.EditMessageReplyMarkupAsync(id, messageId, inlineKeyboard);
+                return await _botClient.EditMessageReplyMarkupAsync(id, messageId, inlineKeyboard).ConfigureAwait(false);
             }
             catch (RequestException ex)
             {
-                await _requestExceptionHandler.HandleException(id, ex);
+                await _requestExceptionHandler.HandleException(id, ex).ConfigureAwait(false);
                 return null;
             }
         }
@@ -84,11 +84,11 @@ namespace TextGameRPG.Scripts.TelegramBot
             try
             {
                 return await _botClient.SendTextMessageAsync(id, text, ParseMode.Html, replyMarkup: replyKeyboard,
-                disableNotification: silent, disableWebPagePreview: disableWebPagePreview);
+                disableNotification: silent, disableWebPagePreview: disableWebPagePreview).ConfigureAwait(false);
             }
             catch (RequestException ex)
             {
-                await _requestExceptionHandler.HandleException(id, ex);
+                await _requestExceptionHandler.HandleException(id, ex).ConfigureAwait(false);
                 return null;
             }
         }
@@ -97,11 +97,11 @@ namespace TextGameRPG.Scripts.TelegramBot
         {
             try
             {
-                await _botClient.AnswerCallbackQueryAsync(queryId, text);
+                await _botClient.AnswerCallbackQueryAsync(queryId, text).ConfigureAwait(false);
             }
             catch (RequestException ex)
             {
-                await _requestExceptionHandler.HandleException(id, ex);
+                await _requestExceptionHandler.HandleException(id, ex).ConfigureAwait(false);
             }
         }
 
@@ -109,11 +109,12 @@ namespace TextGameRPG.Scripts.TelegramBot
         {
             try
             {
-                return await _botClient.SendTextMessageAsync(id, $"{Emojis.elements[Element.Warning]} <b>Program Error</b>\n\n" + text, ParseMode.Html);
+                return await _botClient.SendTextMessageAsync(id, $"{Emojis.elements[Element.Warning]} <b>Program Error</b>\n\n" + text, ParseMode.Html)
+                    .ConfigureAwait(false);
             }
             catch (RequestException ex)
             {
-                await _requestExceptionHandler.HandleException(id, ex);
+                await _requestExceptionHandler.HandleException(id, ex).ConfigureAwait(false);
                 return null;
             }
         }
@@ -122,11 +123,11 @@ namespace TextGameRPG.Scripts.TelegramBot
         {
             try
             {
-                return await _botClient.SendStickerAsync(id, stickerFileId);
+                return await _botClient.SendStickerAsync(id, stickerFileId).ConfigureAwait(false);
             }
             catch (RequestException ex)
             {
-                await _requestExceptionHandler.HandleException(id, ex);
+                await _requestExceptionHandler.HandleException(id, ex).ConfigureAwait(false);
                 return null;
             }
         }

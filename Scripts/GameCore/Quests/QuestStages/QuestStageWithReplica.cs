@@ -14,7 +14,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
 
         public override async Task InvokeStage(GameSession session)
         {
-            await new QuestReplicaDialog(session, replica).Start();
+            await new QuestReplicaDialog(session, replica).Start().ConfigureAwait(false);
         }
     }
 

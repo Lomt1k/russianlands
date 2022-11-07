@@ -95,7 +95,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
             var battle = GetCurrentBattle(player);
             if (battle != null)
             {
-                await battle.ForceBattleEndWithResult(player, BattleResult.Lose);
+                await battle.ForceBattleEndWithResult(player, BattleResult.Lose)
+                    .ConfigureAwait(false);
             }
         }
 

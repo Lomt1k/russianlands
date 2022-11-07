@@ -20,7 +20,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
 
         public override async Task SendAsync()
         {
-            await ShowNotifications();
+            await ShowNotifications()
+                .ConfigureAwait(false);
         }
 
         public async Task ShowNotifications()
@@ -48,7 +49,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
             RegisterButton(Localization.Get(session, "dialog_buildings_get_resources"), () => new TryCollectResourcesDialog(session).Start());
 
             TryAppendTooltip(sb);
-            await SendPanelMessage(sb, GetMultilineKeyboard(), asNewMessage: true);
+            await SendPanelMessage(sb, GetMultilineKeyboard(), asNewMessage: true)
+                .ConfigureAwait(false);
         }
 
         private void AppendProductionInfo(StringBuilder sb)
@@ -91,7 +93,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
 
         public async Task ShowBuildingsList(BuildingCategory category, bool asNewMessage)
         {
-            await RemoveKeyboardFromLastMessage();
+            await RemoveKeyboardFromLastMessage().ConfigureAwait(false);
             var sb = new StringBuilder();
             sb.Append($"<b>{category.GetLocalization(session)}</b>");
             var buildings = session.player.buildings.GetBuildingsByCategory(category);
@@ -104,7 +106,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
             }
 
             TryAppendTooltip(sb);
-            await SendPanelMessage(sb, GetListKeyboard(category), asNewMessage);
+            await SendPanelMessage(sb, GetListKeyboard(category), asNewMessage)
+                .ConfigureAwait(false);
         }
 
         private string GetPrefix(BuildingBase building, ProfileBuildingsData data)
@@ -134,7 +137,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
 
         private async Task ShowBuildingInfo(BuildingBase building)
         {
-            await new BuildingInfoDialog(session, building).Start();
+            await new BuildingInfoDialog(session, building).Start()
+                .ConfigureAwait(false);
         }
 
         

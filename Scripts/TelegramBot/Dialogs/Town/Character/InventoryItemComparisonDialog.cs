@@ -23,20 +23,24 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
             RegisterButton(Localization.Get(session, "menu_item_compare_another_button"), () => SelectAnotherItemToCompare());
             RegisterButton(Localization.Get(session, "menu_item_compare_end_button"), () => EndComparison());
 
-            await SendDialogMessage(_compareData.comparedItem.GetView(session), null);
-            await SendDialogMessage(_item.GetView(session), GetMultilineKeyboard());
+            await SendDialogMessage(_compareData.comparedItem.GetView(session), null)
+                .ConfigureAwait(false);
+            await SendDialogMessage(_item.GetView(session), GetMultilineKeyboard())
+                .ConfigureAwait(false);
         }
 
         private async Task SelectAnotherItemToCompare()
         {
-            await new InventoryDialog(session).ShowCategory(_compareData.categoryOnStartCompare, 0, _compareData);
+            await new InventoryDialog(session).ShowCategory(_compareData.categoryOnStartCompare, 0, _compareData)
+                .ConfigureAwait(false);
         }
 
         private async Task EndComparison()
         {
             await new InventoryItemDialog(session, _compareData.comparedItem,
                 _compareData.categoryOnStartCompare,
-                _compareData.currentPageOnStartCompare).Start();
+                _compareData.currentPageOnStartCompare).Start()
+                .ConfigureAwait(false);
         }
 
     }

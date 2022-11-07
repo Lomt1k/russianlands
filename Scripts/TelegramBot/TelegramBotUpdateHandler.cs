@@ -29,7 +29,7 @@ namespace TextGameRPG.Scripts.TelegramBot
             _messageSender = TelegramBot.instance.messageSender;
         }
 
-        public Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
+        public async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
         {
             //Program.logger.Debug($"Handle Update ID: {update.Id} Type: {update.Type}");
             try
@@ -42,13 +42,13 @@ namespace TextGameRPG.Scripts.TelegramBot
 
                     default:
                         Program.logger.Warn($"Unhandled Update {update.Id} (unsupported type: {update.Type})");
-                        return Task.CompletedTask;
+                        return;
                 }
 
                 if (fromUser == null)
                 {
                     Program.logger.Warn($"Unhandled Update {update.Id} (Update not from user)");
-                    return Task.CompletedTask;
+                    return;
                 }
 
                 bool serverIsBusy = _performanceManager.currentState == PerformanceState.Busy;
@@ -58,19 +58,19 @@ namespace TextGameRPG.Scripts.TelegramBot
 
                 if (gameSession != null)
                 {
-                    gameSession.HandleUpdateAsync(fromUser, update);
+                    await gameSession.HandleUpdateAsync(fromUser, update)
+                        .ConfigureAwait(false);
                 }
                 else
                 {
-                    _messageSender.SendTextDialog(fromUser.Id, serverIsBusyText, serverIsBusyKeyboard, silent: true);
+                    await _messageSender.SendTextDialog(fromUser.Id, serverIsBusyText, serverIsBusyKeyboard, silent: true)
+                        .ConfigureAwait(false);
                 }
-
-                return Task.CompletedTask;
             }
             catch (Exception ex)
             {
                 Program.logger.Error($"Exception on handle update with ID: {update.Id}\n{ex}\n");
-                return Task.CompletedTask;
+                return;
             }            
         }
 

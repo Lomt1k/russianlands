@@ -29,8 +29,10 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
             RegisterTownButton(isFullBack: true);
 
             var text = $"{Emojis.menuItems[MenuItem.Buildings]} " + "<b>" + Localization.Get(session, "menu_item_buildings") + "</b>";
-            await SendDialogMessage(text, GetOneLineKeyboard());
-            await _inspectorPanel.ShowBuildingsList(category, asNewMessage: true);
+            await SendDialogMessage(text, GetOneLineKeyboard())
+                .ConfigureAwait(false);
+            await _inspectorPanel.ShowBuildingsList(category, asNewMessage: true)
+                .ConfigureAwait(false);
         }
 
         public override async Task Start()
@@ -38,28 +40,34 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
             _inspectorPanel.OnDialogClose(); // чтобы убрать inline-клавиатуру, когда start вызван из "Назад к категориям"
             if (session.tooltipController.HasTooltipToAppend(this))
             {
-                await SendHeader();
+                await SendHeader()
+                    .ConfigureAwait(false);
                 return;
             }
-            await SendHeader();
-            await SendPanelsAsync();
+            await SendHeader()
+                .ConfigureAwait(false);
+            await SendPanelsAsync()
+                .ConfigureAwait(false);
         }
 
         public async Task StartFromBuyResourcesDialog(BuildingBase inspectedBuilding, bool successfullPurchase)
         {
-            await SendHeader();
+            await SendHeader().ConfigureAwait(false);
             if (successfullPurchase)
             {
-                await new BuildingInfoDialog(session, inspectedBuilding).TryStartConstruction();
+                await new BuildingInfoDialog(session, inspectedBuilding).TryStartConstruction()
+                    .ConfigureAwait(false);
                 return;
             }
-            await new BuildingInfoDialog(session, inspectedBuilding).Start();
+            await new BuildingInfoDialog(session, inspectedBuilding).Start()
+                .ConfigureAwait(false);
         }
 
         public async Task StartWithShowBuildingInfo(BuildingBase building)
         {
-            await SendHeader();
-            await new BuildingInfoDialog(session, building).Start();
+            await SendHeader().ConfigureAwait(false);
+            await new BuildingInfoDialog(session, building).Start()
+                .ConfigureAwait(false);
         }
 
         private async Task SendHeader()
@@ -75,7 +83,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
             var sb = new StringBuilder();
             sb.Append($"{Emojis.menuItems[MenuItem.Buildings]} " + "<b>" + Localization.Get(session, "menu_item_buildings") + "</b>");
             TryAppendTooltip(sb);
-            await SendDialogMessage(sb, GetKeyboardWithRowSizes(2, 2, 1));
+            await SendDialogMessage(sb, GetKeyboardWithRowSizes(2, 2, 1))
+                .ConfigureAwait(false);
         }
 
     }

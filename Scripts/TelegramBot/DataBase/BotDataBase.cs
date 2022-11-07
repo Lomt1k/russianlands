@@ -34,8 +34,8 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase
             try
             {
                 connection = new SQLiteConnection("Data Source=" + dataBasePath);
-                await connection.OpenAsync();
-                await RefreshTableStructure();
+                await connection.OpenAsync().ConfigureAwait(false);
+                await RefreshTableStructure().ConfigureAwait(false);
                 Program.logger.Info("Successfully connected to database");
                 return connection.State == ConnectionState.Open;
             }
@@ -52,7 +52,7 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase
             {
                 if (connection != null && connection.State != ConnectionState.Closed)
                 {
-                    await connection.CloseAsync();
+                    await connection.CloseAsync().ConfigureAwait(false);
                     Program.logger.Info("Closed connection to database");
                 }
             }
@@ -66,7 +66,7 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase
         {
             foreach (var table in _tables.Values)
             {
-                await ExecuteQueryAsync(table.GetAllCommandsToRefreshStructure());
+                await ExecuteQueryAsync(table.GetAllCommandsToRefreshStructure()).ConfigureAwait(false);
             }
             return 0;
         }
@@ -75,7 +75,7 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase
         {
             foreach (var query in querries)
             {
-                await ExecuteQueryAsync(query);
+                await ExecuteQueryAsync(query).ConfigureAwait(false);
             }
             return 0;
         }
@@ -85,7 +85,7 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase
             try
             {
                 var command = new SQLiteCommand(commandText, connection);
-                await command.ExecuteNonQueryAsync();
+                await command.ExecuteNonQueryAsync().ConfigureAwait(false);
                 return command;
             }
             catch (Exception ex)

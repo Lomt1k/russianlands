@@ -18,7 +18,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
 
         public override async Task Start()
         {
-            await ShowCategories();
+            await ShowCategories()
+                .ConfigureAwait(false);
         }
 
         private async Task ShowCategories(CompareData? compareData = null)
@@ -54,11 +55,13 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
             sb.AppendLine($"{Emojis.menuItems[MenuItem.Inventory]} <b>{Localization.Get(session, "menu_item_inventory")}</b>");
             bool hasTooltip = TryAppendTooltip(sb);
 
-            await SendDialogMessage(sb, GetKeyboardWithRowSizes(3, 3, 3, 3));
+            await SendDialogMessage(sb, GetKeyboardWithRowSizes(3, 3, 3, 3))
+                .ConfigureAwait(false);
             if (!hasTooltip)
             {
                 _inspectorPanel.compareData = compareData;
-                await _inspectorPanel.ShowMainInfo();
+                await _inspectorPanel.ShowMainInfo()
+                    .ConfigureAwait(false);
             }
         }
 
@@ -83,8 +86,10 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
                 sb.AppendLine(Localization.Get(session, "menu_item_compare_button_header"));
             }
 
-            await SendDialogMessage(sb, GetOneLineKeyboard());
-            await _inspectorPanel.ShowCategory(category, page);
+            await SendDialogMessage(sb, GetOneLineKeyboard())
+                .ConfigureAwait(false);
+            await _inspectorPanel.ShowCategory(category, page)
+                .ConfigureAwait(false);
         }
 
     }

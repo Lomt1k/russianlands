@@ -15,7 +15,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.GlobalMap
 
         public override async Task SendAsync()
         {
-            await ShowGeneralMap();
+            await ShowGeneralMap()
+                .ConfigureAwait(false);
         }
 
         private async Task ShowGeneralMap()
@@ -46,7 +47,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.GlobalMap
             var sb = new StringBuilder();
             sb.Append(Localization.Get(session, "dialog_map_select_location"));
             TryAppendTooltip(sb);
-            await SendPanelMessage(sb, GetKeyboardWithFixedRowSize(2));
+            await SendPanelMessage(sb, GetKeyboardWithFixedRowSize(2))
+                .ConfigureAwait(false);
         }
 
         private async Task ShowLockedLocationInfo(LocationType locationType)
@@ -61,12 +63,14 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.GlobalMap
 
             ClearButtons();
             RegisterButton(Localization.Get(session, "menu_item_ok_button"), () => ShowGeneralMap());
-            await SendPanelMessage(sb, GetOneLineKeyboard());
+            await SendPanelMessage(sb, GetOneLineKeyboard())
+                .ConfigureAwait(false);
         }
 
         public async Task ShowLocation(LocationType locationType)
         {
-            await new LocationMapDialog(session, locationType).Start();
+            await new LocationMapDialog(session, locationType).Start()
+                .ConfigureAwait(false);
         }
 
     }

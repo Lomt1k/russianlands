@@ -46,7 +46,7 @@ namespace TextGameRPG
             _lastProcessorTime = _process.TotalProcessorTime.TotalMilliseconds;
             while (true)
             {
-                await Task.Delay(_nextMsDelay);
+                await Task.Delay(_nextMsDelay).ConfigureAwait(false);
                 _process.Refresh();
 
                 // CPU

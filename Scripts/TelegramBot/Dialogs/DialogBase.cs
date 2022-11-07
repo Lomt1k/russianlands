@@ -129,7 +129,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
         {
             foreach (var panel in registeredPanels.Values)
             {
-                await panel.SendAsync();
+                await panel.SendAsync()
+                    .ConfigureAwait(false);
             }
         }
 
@@ -137,13 +138,16 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
 
         protected async Task<Message?> SendDialogMessage(StringBuilder sb, ReplyKeyboardMarkup? replyMarkup)
         {
-            return await SendDialogMessage(sb.ToString(), replyMarkup);
+            return await SendDialogMessage(sb.ToString(), replyMarkup)
+                .ConfigureAwait(false);
         }
 
         protected async Task<Message?> SendDialogMessage(string text, ReplyKeyboardMarkup? replyMarkup)
         {
-            resendLastMessageFunc = async() => await messageSender.SendTextDialog(session.chatId, text, replyMarkup);
-            lastMessage = await resendLastMessageFunc();
+            resendLastMessageFunc = async() => await messageSender.SendTextDialog(session.chatId, text, replyMarkup)
+                .ConfigureAwait(false);
+            lastMessage = await resendLastMessageFunc()
+                .ConfigureAwait(false);
             return lastMessage;
         }
 
@@ -156,7 +160,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
             if (lastMessage == null || secondsFromPreviousSent < 3)
                 return;
 
-            await TryResendDialog();
+            await TryResendDialog()
+                .ConfigureAwait(false);
         }
 
         public virtual async Task TryResendDialog()
@@ -164,10 +169,12 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
             if (resendLastMessageFunc == null)
                 return;
 
-            lastMessage = await resendLastMessageFunc();
+            lastMessage = await resendLastMessageFunc()
+                .ConfigureAwait(false);
             foreach (var panel in registeredPanels.Values)
             {
-                await panel.ResendLastMessageAsNew();
+                await panel.ResendLastMessageAsNew()
+                    .ConfigureAwait(false);
             }
         }
 
@@ -189,12 +196,13 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
 
             if (callback != null)
             {
-                await Task.Run(callback);
+                await Task.Run(callback).ConfigureAwait(false);
             }
             else
             {
                 // пришел какой-то другой ответ от игрока (не одна из кнопок). Возможно у него пропала клавиатура или весь чат, надо переотправить диалог
-                await TryResendDialogWithAntiFloodDelay();
+                await TryResendDialogWithAntiFloodDelay()
+                    .ConfigureAwait(false);
             }
         }
 
@@ -202,7 +210,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
         {
             if (registeredPanels.TryGetValue(callback.panelId, out var panel))
             {
-                await panel.HandleButtonPress(callback.buttonId, queryId);
+                await panel.HandleButtonPress(callback.buttonId, queryId)
+                    .ConfigureAwait(false);
             }
         }
 
@@ -237,7 +246,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
                     {
                         if (oldSelectedAction != null)
                         {
-                            await oldSelectedAction();
+                            await oldSelectedAction().ConfigureAwait(false);
                         }
                         if (newStage > -1)
                         {
@@ -245,7 +254,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
                             if (focusedQuest != null)
                             {
                                 var quest = GameCore.Quests.QuestsHolder.GetQuest(focusedQuest.Value);
-                                await quest.SetStage(session, newStage);
+                                await quest.SetStage(session, newStage)
+                                    .ConfigureAwait(false);
                             }
                         }
                     };

@@ -15,7 +15,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Shop
         {
             var text = $"<b>{Emojis.menuItems[MenuItem.Shop]} {Localization.Get(session, "menu_item_shop")}</b>"
                 + "\n\nВ разработке...";
-            await SendDialogMessage(text, GetMultilineKeyboard());
+            await SendDialogMessage(text, GetMultilineKeyboard())
+                .ConfigureAwait(false);
         }
     }
 }

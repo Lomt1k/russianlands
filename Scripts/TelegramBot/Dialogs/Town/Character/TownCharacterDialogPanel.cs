@@ -11,7 +11,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
 
         public override async Task SendAsync()
         {
-            await ShowUnitView();
+            await ShowUnitView()
+                .ConfigureAwait(false);
         }
 
         public async Task ShowUnitView()
@@ -20,7 +21,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
             RegisterButton($"{Emojis.elements[Element.Info]} {Localization.Get(session, "dialog_character_attributes_tooltip")}", () => ShowAttributesInfo());
             var text = session.player.unitStats.GetView(session);
 
-            await SendPanelMessage(text, GetMultilineKeyboard());
+            await SendPanelMessage(text, GetMultilineKeyboard())
+                .ConfigureAwait(false);
         }
 
         public async Task ShowAttributesInfo()
@@ -31,7 +33,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
                 Emojis.stats[Stat.AttributeStrength], Emojis.stats[Stat.AttributeVitality],
                 Emojis.stats[Stat.AttributeSorcery], Emojis.stats[Stat.AttributeLuck]);
 
-            await SendPanelMessage(text, GetOneLineKeyboard());
+            await SendPanelMessage(text, GetOneLineKeyboard())
+                .ConfigureAwait(false);
         }
 
     }

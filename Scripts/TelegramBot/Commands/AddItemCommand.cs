@@ -37,7 +37,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Commands
                 return;
 
             string message = $"Successfully added item '{firstAddedItem.data.debugName}' (Count: {result})";
-            await messageSender.SendTextMessage(session.chatId, message);
+            await messageSender.SendTextMessage(session.chatId, message).ConfigureAwait(false);
         }
     }
 }

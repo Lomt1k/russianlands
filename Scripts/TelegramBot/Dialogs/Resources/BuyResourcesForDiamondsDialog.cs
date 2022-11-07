@@ -48,7 +48,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Resources
             RegisterButton($"{Emojis.resources[ResourceType.Diamond]} {_priceInDiamonds}", () => TryPurchase());
             RegisterBackButton(_onCancel);
 
-            await SendDialogMessage(sb, GetMultilineKeyboard());
+            await SendDialogMessage(sb, GetMultilineKeyboard())
+                .ConfigureAwait(false);
         }
 
         private async Task TryPurchase()
@@ -67,8 +68,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Resources
                     sb.AppendLine(resource.Key.GetLocalizedView(session, resource.Value));
                 }
 
-                await messageSender.SendTextMessage(session.chatId, sb.ToString());
-                await _onSuccess();
+                await messageSender.SendTextMessage(session.chatId, sb.ToString()).ConfigureAwait(false);
+                await _onSuccess().ConfigureAwait(false);
                 return;
             }
 
@@ -78,7 +79,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Resources
                 () => new ShopDialog(session).Start());
             RegisterBackButton(_onCancel);
 
-            await SendDialogMessage(text, GetMultilineKeyboard());
+            await SendDialogMessage(text, GetMultilineKeyboard())
+                .ConfigureAwait(false);
         }
 
     }

@@ -34,22 +34,22 @@ namespace TextGameRPG.Scripts.GameCore.Profiles
         {
             data.language = language.ToString();
             data.nickname = actualUser.FirstName.IsCorrectNickname() ? actualUser.FirstName : "Player_" + (1_000 + new Random().Next(9_000));
-            await SaveProfile();
+            await SaveProfile().ConfigureAwait(false);
         }
 
         public async Task SaveProfileIfNeed(DateTime lastActivityTime)
         {
             if (lastSaveProfileTime < lastActivityTime)
             {
-                await SaveProfile();
+                await SaveProfile().ConfigureAwait(false);
             }
         }
 
         private async Task SaveProfile()
         {
-            await data.UpdateInDatabase();
-            await dynamicData.UpdateInDatabase();
-            await buildingsData.UpdateInDatabase();
+            await data.UpdateInDatabase().ConfigureAwait(false);
+            await dynamicData.UpdateInDatabase().ConfigureAwait(false);
+            await buildingsData.UpdateInDatabase().ConfigureAwait(false);
             lastSaveProfileTime = DateTime.UtcNow;
         }
 

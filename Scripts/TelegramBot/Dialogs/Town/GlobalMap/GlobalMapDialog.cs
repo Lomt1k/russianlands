@@ -21,8 +21,10 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.GlobalMap
         public override async Task Start()
         {
             var header = $"{Emojis.menuItems[MenuItem.Map]} <b>{Localization.Get(session, "menu_item_map")}</b>";
-            await SendDialogMessage(header, GetMultilineKeyboard());
-            await SendPanelsAsync();
+            await SendDialogMessage(header, GetMultilineKeyboard())
+                .ConfigureAwait(false);
+            await SendPanelsAsync()
+                .ConfigureAwait(false);
         }
 
     }

@@ -84,7 +84,7 @@ namespace TextGameRPG.ViewModels.BotControl
         {
             canStartListening = false;
 
-            bool success = await _bot.StartListening();
+            bool success = await _bot.StartListening().ConfigureAwait(false);
             isBotListening = success;
 
             canStartListening = !success;
@@ -104,7 +104,7 @@ namespace TextGameRPG.ViewModels.BotControl
         {
             canStopListening = false;
 
-            await _bot.StopListening();
+            await _bot.StopListening().ConfigureAwait(false);
             isBotListening = false;
             canStartListening = true;
             performanceStatus = "Current status: -";

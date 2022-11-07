@@ -26,7 +26,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings.TrainingBuildin
         {
             if (_building is WarriorTrainingBuilding)
             {
-                await ShowCurrentUnit(0, fromUnitsList: true);
+                await ShowCurrentUnit(0, fromUnitsList: true).ConfigureAwait(false);
                 return;
             }
             await ShowUnitsList();
@@ -58,7 +58,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings.TrainingBuildin
             }
 
             RegisterBackButton(() => new BuildingsDialog(session).StartWithShowBuildingInfo(_building));
-            await SendDialogMessage(sb, GetKeyboardWithRowSizes(2));
+            await SendDialogMessage(sb, GetKeyboardWithRowSizes(2))
+                .ConfigureAwait(false);
         }
 
         private async Task ShowCurrentUnit(sbyte unitIndex, bool fromUnitsList = false)
@@ -143,7 +144,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings.TrainingBuildin
             {
                 RegisterBackButton(() => ShowUnitsList());
             }
-            await SendDialogMessage(sb, GetMultilineKeyboard());
+            await SendDialogMessage(sb, GetMultilineKeyboard())
+                .ConfigureAwait(false);
         }
 
         private void TrySilentFinishTrainings()
@@ -171,7 +173,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings.TrainingBuildin
                 _building.SetSecondTrainingUnitIndex(_data, unitIndex);
                 _building.SetSecondTrainingUnitStartTime(_data, DateTime.UtcNow.Ticks);
             }
-            await ShowCurrentUnit(unitIndex);
+            await ShowCurrentUnit(unitIndex)
+                .ConfigureAwait(false);
         }
 
         private async Task TryBoostTraining(sbyte unitIndex)
@@ -185,13 +188,15 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings.TrainingBuildin
             {
                 _building.LevelUpFirst(session, _data);
                 var message = $"{Emojis.elements[Element.Training]} {Localization.Get(session, "dialog_training_boost_expired")}";
-                await messageSender.SendTextMessage(session.chatId, message);
+                await messageSender.SendTextMessage(session.chatId, message)
+                    .ConfigureAwait(false);
             }
             else if (isSecondTrainingCanBeFinished)
             {
                 _building.LevelUpSecond(session, _data);
                 var message = $"{Emojis.elements[Element.Training]} {Localization.Get(session, "dialog_training_boost_expired")}";
-                await messageSender.SendTextMessage(session.chatId, message);
+                await messageSender.SendTextMessage(session.chatId, message)
+                    .ConfigureAwait(false);
             }
             else
             {
@@ -213,7 +218,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings.TrainingBuildin
                     sb.AppendLine();
                     sb.AppendLine(Localization.Get(session, "resource_header_spent"));
                     sb.AppendLine(ResourceType.Diamond.GetLocalizedView(session, requiredDiamonds));
-                    await messageSender.SendTextMessage(session.chatId, sb.ToString());
+                    await messageSender.SendTextMessage(session.chatId, sb.ToString())
+                        .ConfigureAwait(false);
                 }
                 else
                 {
@@ -221,12 +227,14 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings.TrainingBuildin
                     var text = string.Format(Localization.Get(session, "resource_not_enough_diamonds"), Emojis.smiles[Smile.Sad]);
                     RegisterButton($"{Emojis.menuItems[MenuItem.Shop]} {Localization.Get(session, "menu_item_shop")}", () => new ShopDialog(session).Start());
                     RegisterBackButton(() => ShowCurrentUnit(unitIndex));
-                    await SendDialogMessage(text, GetMultilineKeyboard());
+                    await SendDialogMessage(text, GetMultilineKeyboard())
+                        .ConfigureAwait(false);
                     return;
                 }
             }
 
-            await ShowCurrentUnit(unitIndex);
+            await ShowCurrentUnit(unitIndex)
+                .ConfigureAwait(false);
         }
 
         private async Task CancelTraining(sbyte unitIndex)
@@ -258,7 +266,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings.TrainingBuildin
                 }
             }
 
-            await ShowCurrentUnit(unitIndex);
+            await ShowCurrentUnit(unitIndex)
+                .ConfigureAwait(false);
         }
 
     }

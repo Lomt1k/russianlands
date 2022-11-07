@@ -45,7 +45,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.GlobalMap
             RegisterTownButton(isFullBack: true);
 
             TryAppendTooltip(sb);
-            await SendDialogMessage(sb, GetMultilineKeyboardWithDoubleBack());
+            await SendDialogMessage(sb, GetMultilineKeyboardWithDoubleBack())
+                .ConfigureAwait(false);
         }
 
         private async Task ContinueStoryMode()
@@ -65,7 +66,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.GlobalMap
                 return;
             }
 
-            await QuestManager.TryInvokeTrigger(session, TriggerType.ContinueStoryMode);
+            await QuestManager.TryInvokeTrigger(session, TriggerType.ContinueStoryMode)
+                .ConfigureAwait(false);
         }
     }
 }

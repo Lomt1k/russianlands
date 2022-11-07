@@ -31,10 +31,12 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
         {
             if (!building.IsBuilt(_buildingsData) && !building.IsUnderConstruction(_buildingsData))
             {
-                await ShowConstructionAvailableInfo();
+                await ShowConstructionAvailableInfo()
+                    .ConfigureAwait(false);
                 return;
             }
-            await ShowBuildingCurrentLevelInfo();
+            await ShowBuildingCurrentLevelInfo()
+                .ConfigureAwait(false);
         }
 
         public async Task ShowBuildingCurrentLevelInfo()
@@ -100,7 +102,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
                 () => new BuildingsDialog(session).Start());
 
             TryAppendTooltip(sb);
-            await SendDialogMessage(sb, GetMultilineKeyboardWithDoubleBack());
+            await SendDialogMessage(sb, GetMultilineKeyboardWithDoubleBack())
+                .ConfigureAwait(false);
         }
 
         private async Task TryBoostConstructionForDiamonds()
@@ -108,8 +111,9 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
             if (!building.IsUnderConstruction(_buildingsData) || building.IsConstructionCanBeFinished(_buildingsData))
             {
                 var message = $"{Emojis.elements[Element.Construction]} {Localization.Get(session, "dialog_buildings_construction_boost_expired")}";
-                await messageSender.SendTextMessage(session.chatId, message);
-                await ShowBuildingCurrentLevelInfo();
+                await messageSender.SendTextMessage(session.chatId, message).ConfigureAwait(false);
+                await ShowBuildingCurrentLevelInfo()
+                    .ConfigureAwait(false);
                 return;
             }
 
@@ -135,8 +139,10 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
                     sb.AppendLine(ResourceType.Diamond.GetLocalizedView(session, requiredDiamonds));
                 }
 
-                await messageSender.SendTextMessage(session.chatId, sb.ToString());
-                await ShowBuildingCurrentLevelInfo();
+                await messageSender.SendTextMessage(session.chatId, sb.ToString())
+                    .ConfigureAwait(false);
+                await ShowBuildingCurrentLevelInfo()
+                    .ConfigureAwait(false);
                 return;
             }
 
@@ -146,14 +152,15 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
                 () => new ShopDialog(session).Start());
             RegisterBackButton(() => ShowBuildingCurrentLevelInfo());
 
-            await SendDialogMessage(text, GetMultilineKeyboard());
+            await SendDialogMessage(text, GetMultilineKeyboard()).ConfigureAwait(false);
         }
 
         private async Task ShowConstructionAvailableInfo()
         {
             if (building.IsMaxLevel(_buildingsData))
             {
-                await ShowBuildingCurrentLevelInfo();
+                await ShowBuildingCurrentLevelInfo()
+                    .ConfigureAwait(false);
                 return;
             }
 
@@ -207,7 +214,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
                 () => new BuildingsDialog(session).Start());
 
             TryAppendTooltip(sb);
-            await SendDialogMessage(sb, GetMultilineKeyboardWithDoubleBack());
+            await SendDialogMessage(sb, GetMultilineKeyboardWithDoubleBack())
+                .ConfigureAwait(false);
         }
 
         private void AppendSpecialConstructionWarnings(StringBuilder sb)
@@ -228,7 +236,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
         {
             if (building.IsMaxLevel(_buildingsData))
             {
-                await ShowBuildingCurrentLevelInfo();
+                await ShowBuildingCurrentLevelInfo()
+                    .ConfigureAwait(false);
                 return;
             }
 
@@ -238,7 +247,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
             var constructions = allBuildings.Where(x => x.IsUnderConstruction(_buildingsData) && !x.IsConstructionCanBeFinished(_buildingsData)).ToArray();
             if (constructions.Length >= constructionsLimit)
             {
-                await ShowConstructionsLimitMessage(constructions);
+                await ShowConstructionsLimitMessage(constructions)
+                    .ConfigureAwait(false);
                 return;
             }
 
@@ -248,20 +258,23 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
             if (successfullPurchase)
             {
                 building.StartConstruction(_buildingsData);
-                await ShowBuildingCurrentLevelInfo();
+                await ShowBuildingCurrentLevelInfo()
+                    .ConfigureAwait(false);
                 return;
             }
 
             if (IsStorageUpgradeRequired(requiredResources, out var storageBuilding))
             {
-                await ShowStorageUpgradeRequired(storageBuilding);
+                await ShowStorageUpgradeRequired(storageBuilding)
+                    .ConfigureAwait(false);
                 return;
             }
 
             var buyResourcesDialog = new BuyResourcesForDiamondsDialog(session, notEnoughResources,
-                onSuccess: async () => await new BuildingsDialog(session).StartFromBuyResourcesDialog(building, true),
-                onCancel: async () => await new BuildingsDialog(session).StartFromBuyResourcesDialog(building, false));
-            await buyResourcesDialog.Start();
+                onSuccess: async () => await new BuildingsDialog(session).StartFromBuyResourcesDialog(building, true).ConfigureAwait(false),
+                onCancel: async () => await new BuildingsDialog(session).StartFromBuyResourcesDialog(building, false).ConfigureAwait(false));
+            await buyResourcesDialog.Start()
+                .ConfigureAwait(false);
         }
 
         private async Task ShowConstructionsLimitMessage(BuildingBase[] constructions)
@@ -290,7 +303,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
             }
             RegisterBackButton(() => ShowBuildingCurrentLevelInfo());
 
-            await SendDialogMessage(sb, GetMultilineKeyboard());
+            await SendDialogMessage(sb, GetMultilineKeyboard())
+                .ConfigureAwait(false);
         }
 
         private Dictionary<ResourceType, int> GetRequiredResourcesForConstruction()
@@ -350,7 +364,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Buildings
             RegisterButton(Localization.Get(session, "dialog_buildings_go_to_storage_button"), () => new BuildingInfoDialog(session, storageToUpgrade).Start());
             RegisterBackButton(() => ShowConstructionAvailableInfo());
 
-            await SendDialogMessage(sb, GetMultilineKeyboard());
+            await SendDialogMessage(sb, GetMultilineKeyboard())
+                .ConfigureAwait(false);
         }
 
     }

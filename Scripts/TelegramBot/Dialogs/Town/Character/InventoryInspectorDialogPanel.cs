@@ -69,12 +69,14 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
 
         public override async Task SendAsync()
         {
-            await ShowMainInfo();
+            await ShowMainInfo()
+                .ConfigureAwait(false);
         }
 
         public async Task ShowMainInfo()
         {
-            await RemoveKeyboardFromLastMessage();
+            await RemoveKeyboardFromLastMessage()
+                .ConfigureAwait(false);
 
             RegisterButton($"{Emojis.items[ItemType.Equipped]} {Localization.Get(session, "menu_item_equipped")}",
                 () => ((InventoryDialog)dialog).ShowCategory(ItemType.Equipped));
@@ -83,7 +85,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
             sb.Append(BuildMainItemsInfo());
 
             TryAppendTooltip(sb);
-            await SendPanelMessage(sb, GetMultilineKeyboard(), asNewMessage: true);
+            await SendPanelMessage(sb, GetMultilineKeyboard(), asNewMessage: true)
+                .ConfigureAwait(false);
         }
 
         public async Task ShowCategory(ItemType category, int itemsPage = 0)
@@ -91,7 +94,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
             _browsedCategory = category;
             RefreshBrowsedItems();
             _currentPage = itemsPage;
-            await ShowItemsPage(asNewMessage: true);
+            await ShowItemsPage(asNewMessage: true)
+                .ConfigureAwait(false);
         }
 
         private void RefreshBrowsedItems()
@@ -150,7 +154,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
             }
 
             TryAppendTooltip(text);
-            await SendPanelMessage(text, GetItemsPageKeyboard(), asNewMessage);
+            await SendPanelMessage(text, GetItemsPageKeyboard(), asNewMessage)
+                .ConfigureAwait(false);
         }
 
         private string GetCategoryLocalization(ItemType category)
@@ -173,22 +178,26 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
         {
             if (compareData != null)
             {
-                await new InventoryItemComparisonDialog(session, item, compareData.Value).Start();
+                await new InventoryItemComparisonDialog(session, item, compareData.Value).Start()
+                    .ConfigureAwait(false);
                 return;
             }
-            await new InventoryItemDialog(session, item, _browsedCategory, _currentPage).Start();
+            await new InventoryItemDialog(session, item, _browsedCategory, _currentPage).Start()
+                .ConfigureAwait(false);
         }
 
         private async Task OnClickPreviousPage()
         {
             _currentPage--;
-            await ShowItemsPage(asNewMessage: false);
+            await ShowItemsPage(asNewMessage: false)
+                .ConfigureAwait(false);
         }
 
         private async Task OnClickNextPage()
         {
             _currentPage++;
-            await ShowItemsPage(asNewMessage: false);
+            await ShowItemsPage(asNewMessage: false)
+                .ConfigureAwait(false);
         }
 
         private InlineKeyboardMarkup GetItemsPageKeyboard()

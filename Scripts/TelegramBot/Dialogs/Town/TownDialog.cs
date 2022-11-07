@@ -62,7 +62,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town
                 sb.AppendLine(Localization.Get(session, "dialog_town_text_backFromInnerDialog"));
             }
 
-            await SendDialogMessage(sb, _keyboard);
+            await SendDialogMessage(sb, _keyboard)
+                .ConfigureAwait(false);
         }
 
     }

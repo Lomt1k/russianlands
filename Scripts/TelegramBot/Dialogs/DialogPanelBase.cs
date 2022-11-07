@@ -125,14 +125,15 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
 
         protected async Task<Message> SendPanelMessage(StringBuilder sb, InlineKeyboardMarkup? inlineMarkup, bool asNewMessage = false)
         {
-            return await SendPanelMessage(sb.ToString(), inlineMarkup, asNewMessage);
+            return await SendPanelMessage(sb.ToString(), inlineMarkup, asNewMessage)
+                .ConfigureAwait(false);
         }
 
         protected async Task<Message> SendPanelMessage(string text, InlineKeyboardMarkup? inlineMarkup, bool asNewMessage = false)
         {
             lastMessage = lastMessage == null || asNewMessage
-                ? await messageSender.SendTextMessage(session.chatId, text, inlineMarkup)
-                : await messageSender.EditTextMessage(session.chatId, lastMessage.MessageId, text, inlineMarkup);
+                ? await messageSender.SendTextMessage(session.chatId, text, inlineMarkup).ConfigureAwait(false)
+                : await messageSender.EditTextMessage(session.chatId, lastMessage.MessageId, text, inlineMarkup).ConfigureAwait(false);
 
             return lastMessage;
         }
@@ -147,7 +148,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
             ClearButtons();
             if (lastMessage?.ReplyMarkup != null)
             {
-                await messageSender.EditMessageKeyboard(session.chatId, lastMessage.MessageId, null);
+                await messageSender.EditMessageKeyboard(session.chatId, lastMessage.MessageId, null)
+                    .ConfigureAwait(false);
             }
         }
 
@@ -163,9 +165,10 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
 
             if (callback != null)
             {
-                await callback();
+                await callback().ConfigureAwait(false);
             }
-            await messageSender.AnswerQuery(session.chatId, queryId, query);
+            await messageSender.AnswerQuery(session.chatId, queryId, query)
+                .ConfigureAwait(false);
         }
 
         protected bool TryAppendTooltip(StringBuilder sb)
@@ -218,7 +221,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
                 {
                     if (oldSelectedAction != null)
                     {
-                        await oldSelectedAction();
+                        await oldSelectedAction().ConfigureAwait(false);
                     }
                     if (newStage > -1)
                     {
@@ -226,7 +229,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
                         if (focusedQuest != null)
                         {
                             var quest = GameCore.Quests.QuestsHolder.GetQuest(focusedQuest.Value);
-                            await quest.SetStage(session, newStage);
+                            await quest.SetStage(session, newStage).ConfigureAwait(false);
                         }
                     }
                 };
@@ -261,8 +264,10 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs
             if (lastMessage == null)
                 return;
 
-            await messageSender.DeleteMessage(lastMessage.Chat.Id, lastMessage.MessageId);
-            lastMessage = await messageSender.SendTextMessage(session.chatId, lastMessage.Text, lastMessage.ReplyMarkup);
+            await messageSender.DeleteMessage(lastMessage.Chat.Id, lastMessage.MessageId)
+                .ConfigureAwait(false);
+            lastMessage = await messageSender.SendTextMessage(session.chatId, lastMessage.Text, lastMessage.ReplyMarkup)
+                .ConfigureAwait(false);
         }
 
     }
