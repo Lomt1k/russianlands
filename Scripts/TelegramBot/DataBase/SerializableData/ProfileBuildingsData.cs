@@ -14,6 +14,8 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData
 
         public byte townHallLevel = 1;
         public long townHallStartConstructionTime;
+        public byte tyrLevel = 1;
+        public long tyrConstructionTime;
         public byte hospitalLevel = 1;
         public long hospitalStartConstructionTime;
 
@@ -141,6 +143,8 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData
 
                 new TableColumn("townHallLevel", "INTEGER", "1"),
                 new TableColumn("townHallStartConstructionTime", "INTEGER", "0"),
+                new TableColumn("tyrLevel", "INTEGER", "1"),
+                new TableColumn("tyrConstructionTime", "INTEGER", "0"),
                 new TableColumn("hospitalLevel", "INTEGER", "1"),
                 new TableColumn("hospitalStartConstructionTime", "INTEGER", "0"),
 

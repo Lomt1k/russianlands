@@ -90,9 +90,9 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Data
     }
 
     [JsonObject]
-    public class BarracksLevelInfo : BuildingLevelInfo
+    public class TyrLevelInfo : BuildingLevelInfo
     {
-        public int unitsAmount;
+        public int arrowsAmount;
     }
 
 

@@ -20,7 +20,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
     {
         // --- Основные
         TownHall = 100, // Ратуша
-        Barracks = 101, // Казарма
+        Tyr = 101, // Стрельбище
         Hospital = 102, // Здравница
         AlchemyShop = 103, // Алхимическая лавка
         Laboratory = 104, // Лаборатория
@@ -62,6 +62,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
         {
             // --- Основные
             { BuildingType.TownHall, new TownHallBuilding() },
+            { BuildingType.Tyr, new TyrBuilding() },
 
             // --- Хранилища
             { BuildingType.GoldStorage, new GoldStorageBuilding() },
@@ -128,8 +129,8 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
                 case BuildingType.Hospital:
                     return new HospitalLevelInfo();
 
-                case BuildingType.Barracks:
-                    return new BarracksLevelInfo();
+                case BuildingType.Tyr:
+                    return new TyrLevelInfo();
 
                 default:
                     return new BuildingLevelInfo();

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 
@@ -34,6 +32,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
         public IEnumerable<BuildingBase> GetAllBuildings()
         {
             yield return BuildingType.TownHall.GetBuilding();
+            yield return BuildingType.Tyr.GetBuilding();
 
             yield return BuildingType.GoldStorage.GetBuilding();
             yield return BuildingType.FoodStorage.GetBuilding();
@@ -65,6 +64,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             {
                 case BuildingCategory.General:
                     yield return BuildingType.TownHall.GetBuilding();
+                    yield return BuildingType.Tyr.GetBuilding();
                     break;
 
                 case BuildingCategory.Storages:

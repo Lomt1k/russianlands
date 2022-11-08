@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Text;
+using TextGameRPG.Scripts.GameCore.Buildings;
+using TextGameRPG.Scripts.GameCore.Buildings.General;
 using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.GameCore.Items.ItemProperties;
 using TextGameRPG.Scripts.GameCore.Localizations;
@@ -38,7 +40,14 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
         public override void OnStartBattle()
         {
             base.OnStartBattle();
-            currentArrows = 1; //TODO: Add Arrows Calculation Logic
+            SetupArrowsAmount();
+        }
+
+        private void SetupArrowsAmount()
+        {
+            var buildingsData = _player.session.profile.buildingsData;
+            var tyrBuilding = (TyrBuilding)BuildingType.Tyr.GetBuilding();
+            currentArrows = tyrBuilding.GetArrowsAmount(_player.session, buildingsData);
         }
 
         public override void OnStartMineTurn()
