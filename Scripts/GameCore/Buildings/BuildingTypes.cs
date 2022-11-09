@@ -63,6 +63,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             // --- Основные
             { BuildingType.TownHall, new TownHallBuilding() },
             { BuildingType.Tyr, new TyrBuilding() },
+            { BuildingType.Hospital, new HospitalBuilding() },
 
             // --- Хранилища
             { BuildingType.GoldStorage, new GoldStorageBuilding() },
