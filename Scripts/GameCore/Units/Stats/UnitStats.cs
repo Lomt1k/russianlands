@@ -37,6 +37,7 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
         public int currentStickCharge { get; protected set; }
         public int currentArrows { get; protected set; }
         public DamageInfo resistance { get; protected set; }
+        public bool isFullHealth => currentHP >= maxHP;
 
         public void RecalculateCurrentHP()
         {

@@ -70,7 +70,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.General
             return sb.ToString();
         }
 
-        public int GetHealthRestorePerSecond(ProfileBuildingsData data)
+        public int GetHealthRestorePerMinute(ProfileBuildingsData data)
         {
             var currentLevel = GetCurrentLevel(data);
             if (currentLevel < 1)
@@ -78,6 +78,16 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.General
 
             var levelInfo = (HospitalLevelInfo)buildingData.levels[currentLevel - 1];
             return levelInfo.restoreHealthPerMinute;
+        }
+
+        public void SetLastRegenTimeAsNow(ProfileBuildingsData data)
+        {
+            data.hospitalLastHealthRestoreTime = System.DateTime.UtcNow.Ticks;
+        }
+
+        public long GetLastRegenTime(ProfileBuildingsData data)
+        {
+            return data.hospitalLastHealthRestoreTime;
         }
 
     }

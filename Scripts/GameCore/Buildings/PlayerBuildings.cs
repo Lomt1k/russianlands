@@ -32,7 +32,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
         public int GetHealthRestorePerSecond()
         {
             var hospital = (HospitalBuilding)BuildingType.Hospital.GetBuilding();
-            return hospital.GetHealthRestorePerSecond(_buildingsData);
+            return hospital.GetHealthRestorePerMinute(_buildingsData);
         }
 
         // TODO: когда будут готовы все здания - заменить на пробег по enum BuildingType 

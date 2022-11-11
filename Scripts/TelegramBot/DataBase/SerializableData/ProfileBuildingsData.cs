@@ -18,6 +18,7 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData
         public long tyrConstructionTime;
         public byte hospitalLevel = 1;
         public long hospitalStartConstructionTime;
+        public long hospitalLastHealthRestoreTime;
 
         // --- Хранилища
         public byte goldStorageLevel = 1;
@@ -147,6 +148,7 @@ namespace TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData
                 new TableColumn("tyrConstructionTime", "INTEGER", "0"),
                 new TableColumn("hospitalLevel", "INTEGER", "1"),
                 new TableColumn("hospitalStartConstructionTime", "INTEGER", "0"),
+                new TableColumn("hospitalLastHealthRestoreTime", "INTEGER", "0"),
 
                 // --- Хранилища
                 new TableColumn("goldStorageLevel", "INTEGER", "1"),

@@ -25,6 +25,7 @@ namespace TextGameRPG.Scripts.GameCore.Units
         public UnitStats unitStats { get; private set; }
         public PlayerResources resources { get; private set; }
         public PlayerBuildings buildings { get; private set; }
+        public HealthRegenerationController healhRegenerationController { get; };
         public PlayerInventory inventory => session.profile.dynamicData.inventory;
         public string nickname => session.profile.data.nickname;
         public byte level => session.profile.data.level;
@@ -37,6 +38,8 @@ namespace TextGameRPG.Scripts.GameCore.Units
             unitStats = new PlayerStats(this);
             resources = new PlayerResources(_session);
             buildings = new PlayerBuildings(_session);
+
+            healhRegenerationController = new HealthRegenerationController(this);
         }
 
         public string GetGeneralUnitInfoView(GameSession sessionToSend)
@@ -77,6 +80,7 @@ namespace TextGameRPG.Scripts.GameCore.Units
         public void OnBattleEnd(Battle battle, BattleResult battleResult)
         {
             unitStats.OnBattleEnd();
+            healhRegenerationController.SetLastRegenTimeAsNow();
         }
 
         public async Task<List<IBattleAction>> GetActionsForBattleTurn(BattleTurn battleTurn)
