@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.TelegramBot;
@@ -8,23 +9,64 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
 {
     public abstract class UnitStats
     {
+        private int _currentHP;
+        private int _damagedHP;
+        private int _maxHP;
 
-        public int maxHP { get; protected set; }
-        public int currentHP { get; protected set; }
+        public int currentHP => _currentHP;
+        public int damagedHP
+        {
+            get => _damagedHP;
+            set
+            {
+                _damagedHP = value;
+                RecalculateCurrentHP();
+            }
+        }
+        public int maxHP
+        {
+            get => _maxHP;
+            set
+            {
+                _maxHP = value;
+                RecalculateCurrentHP();
+            }
+        }
+
         public int currentMana { get; protected set; }
         public int currentStickCharge { get; protected set; }
         public int currentArrows { get; protected set; }
         public DamageInfo resistance { get; protected set; }
 
+        public void RecalculateCurrentHP()
+        {
+            var hp = _maxHP - _damagedHP;
+            _currentHP = Math.Max(hp, 1);
+        }
+
         public void SetFullHealth()
         {
-            currentHP = maxHP;
+            damagedHP = 0;
+        }
+
+        public void RestoreHealth(int hp)
+        {
+            damagedHP = Math.Max(damagedHP - hp, 0);
         }
 
         public virtual void OnStartBattle()
         {
             currentMana = 0;
             currentStickCharge = 0;
+        }
+
+        public virtual void OnBattleEnd()
+        {
+            // Гарантируем, что после боя у игрока будет хотя бы 1 HP
+            if (damagedHP >= maxHP)
+            {
+                damagedHP = maxHP - 1;
+            }
         }
 
         public virtual void OnStartMineTurn()
@@ -56,7 +98,9 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
         public DamageInfo TryDealDamage(DamageInfo damage)
         {
             var resultDamage = (damage - resistance).EscapeNegative();
-            currentHP -= resultDamage.GetTotalValue();
+            var damageValue = resultDamage.GetTotalValue();
+            _currentHP -= damageValue;
+            _damagedHP += damageValue;
             return resultDamage;
         }
 

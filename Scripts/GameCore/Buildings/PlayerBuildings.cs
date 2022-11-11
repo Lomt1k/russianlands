@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using TextGameRPG.Scripts.GameCore.Buildings.General;
 using TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 
@@ -28,8 +29,14 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             return false;
         }
 
+        public int GetHealthRestorePerSecond()
+        {
+            var hospital = (HospitalBuilding)BuildingType.Hospital.GetBuilding();
+            return hospital.GetHealthRestorePerSecond(_buildingsData);
+        }
+
         // TODO: когда будут готовы все здания - заменить на пробег по enum BuildingType 
-        public IEnumerable<BuildingBase> GetAllBuildings()
+        public static IEnumerable<BuildingBase> GetAllBuildings()
         {
             yield return BuildingType.TownHall.GetBuilding();
             yield return BuildingType.Tyr.GetBuilding();
@@ -59,7 +66,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             yield return BuildingType.WoodTraining.GetBuilding();
         }
 
-        public IEnumerable<BuildingBase> GetBuildingsByCategory(BuildingCategory category)
+        public static IEnumerable<BuildingBase> GetBuildingsByCategory(BuildingCategory category)
         {
             switch (category)
             {
@@ -99,7 +106,6 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
                     break;
             }
         }
-
 
     }
 }

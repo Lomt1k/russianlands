@@ -74,6 +74,11 @@ namespace TextGameRPG.Scripts.GameCore.Units
             await messageSender.SendTextMessage(session.chatId, sb.ToString(), keyboard);
         }
 
+        public void OnBattleEnd(Battle battle, BattleResult battleResult)
+        {
+            unitStats.OnBattleEnd();
+        }
+
         public async Task<List<IBattleAction>> GetActionsForBattleTurn(BattleTurn battleTurn)
         {
             var result = new List<IBattleAction>();

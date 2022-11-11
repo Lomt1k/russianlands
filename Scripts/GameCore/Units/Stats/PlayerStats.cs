@@ -66,10 +66,7 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
             ApplyItemProperties();
             ApplyAttributes();
 
-            // Временно SetFullHealth - потом надо будет настроить логику, чтобы путем смены экипировки
-            // нельзя было восстановить здоровье после боя
-            //currentHP = currentHP > maxHP ? maxHP : currentHP;
-            SetFullHealth();
+            RecalculateCurrentHP();
         }
 
         private void CalculateBaseValues()

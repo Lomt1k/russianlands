@@ -191,6 +191,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
 
         private async Task HandleBattleEndForPlayer(Player player, BattleResult battleResult)
         {
+            player.OnBattleEnd(this, battleResult);
             if (_onBattleEndFunc != null)
             {
                 await _onBattleEndFunc(player, battleResult).ConfigureAwait(false);

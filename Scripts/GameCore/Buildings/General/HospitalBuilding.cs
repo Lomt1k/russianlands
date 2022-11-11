@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Text;
 using TextGameRPG.Scripts.GameCore.Buildings.Data;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.TelegramBot;
@@ -70,6 +68,16 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.General
             sb.Append($"{Emojis.stats[Stat.Health]} {nextHealthAmount} (<i>+{delta}</i>)");
 
             return sb.ToString();
+        }
+
+        public int GetHealthRestorePerSecond(ProfileBuildingsData data)
+        {
+            var currentLevel = GetCurrentLevel(data);
+            if (currentLevel < 1)
+                return 0;
+
+            var levelInfo = (HospitalLevelInfo)buildingData.levels[currentLevel - 1];
+            return levelInfo.restoreHealthPerMinute;
         }
 
     }
