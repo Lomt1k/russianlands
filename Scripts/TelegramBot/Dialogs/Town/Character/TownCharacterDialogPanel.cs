@@ -48,19 +48,23 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
 
         private async void WaitOneSecondAndInvokeRegen()
         {
-            while (!session.player.unitStats.isFullHealth)
+            try
             {
-                await Task.Delay(1_000).ConfigureAwait(false);
-                if (session.IsTasksCancelled() || dialog != session.currentDialog)
-                    return;
-
-                if (_isUnitsViewShowed)
+                while (!session.player.unitStats.isFullHealth)
                 {
-                    session.player.healhRegenerationController.InvokeRegen();
-                    await ShowUnitView()
-                        .ConfigureAwait(false);
+                    await Task.Delay(1_000).ConfigureAwait(false);
+                    if (session.IsTasksCancelled() || dialog != session.currentDialog)
+                        return;
+
+                    if (_isUnitsViewShowed)
+                    {
+                        session.player.healhRegenerationController.InvokeRegen();
+                        await ShowUnitView()
+                            .ConfigureAwait(false);
+                    }
                 }
             }
+            catch (System.Exception ex) { } //ignored
         }
 
     }

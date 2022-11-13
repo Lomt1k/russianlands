@@ -76,38 +76,46 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town
 
         private async Task SendHealthRegenMessage()
         {
-            var stats = session.player.unitStats;
-            if (stats.currentHP >= stats.maxHP || session.currentDialog != this)
+            try
             {
-                if (_regenHealthMessageId.HasValue)
+                var stats = session.player.unitStats;
+                if (stats.currentHP >= stats.maxHP || session.currentDialog != this)
                 {
-                    await messageSender.DeleteMessage(session.chatId, _regenHealthMessageId.Value)
-                        .ConfigureAwait(false);
+                    if (_regenHealthMessageId.HasValue)
+                    {
+                        await messageSender.DeleteMessage(session.chatId, _regenHealthMessageId.Value)
+                            .ConfigureAwait(false);
+                    }
+                    return;
                 }
-                return;
+
+                var sb = new StringBuilder();
+                sb.AppendLine();
+                sb.AppendLine(Localization.Get(session, "unit_view_health_regen"));
+                sb.AppendLine($"{Emojis.stats[Stat.Health]} {stats.currentHP} / {stats.maxHP}");
+
+                var message = _regenHealthMessageId == null
+                    ? await messageSender.SendTextMessage(session.chatId, sb.ToString(), silent: true).ConfigureAwait(false)
+                    : await messageSender.EditTextMessage(session.chatId, _regenHealthMessageId.Value, sb.ToString()).ConfigureAwait(false);
+                _regenHealthMessageId = message?.MessageId;
+
+                WaitOneSecondAndInvokeHealthRegen();
             }
-
-            var sb = new StringBuilder();
-            sb.AppendLine();
-            sb.AppendLine(Localization.Get(session, "unit_view_health_regen"));
-            sb.AppendLine($"{Emojis.stats[Stat.Health]} {stats.currentHP} / {stats.maxHP}");
-
-            var message = _regenHealthMessageId == null
-                ? await messageSender.SendTextMessage(session.chatId, sb.ToString(), silent: true).ConfigureAwait(false)
-                : await messageSender.EditTextMessage(session.chatId, _regenHealthMessageId.Value, sb.ToString()).ConfigureAwait(false);
-            _regenHealthMessageId = message?.MessageId;          
-
-            WaitOneSecondAndInvokeHealthRegen();
+            catch (System.Exception ex) { } //ignored
         }
 
         private async void WaitOneSecondAndInvokeHealthRegen()
         {
-            await Task.Delay(1_000).ConfigureAwait(false);
-            if (session.IsTasksCancelled())
-                return;
+            try
+            {
+                await Task.Delay(1_000).ConfigureAwait(false);
+                if (session.IsTasksCancelled())
+                    return;
 
-            session.player.healhRegenerationController.InvokeRegen();
-            await SendHealthRegenMessage().ConfigureAwait(false);
+                session.player.healhRegenerationController.InvokeRegen();
+                await SendHealthRegenMessage().ConfigureAwait(false);
+            }
+            catch (System.Exception ex) { } //ignored
         }
 
     }
