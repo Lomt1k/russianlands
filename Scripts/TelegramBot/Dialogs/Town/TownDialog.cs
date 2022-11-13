@@ -17,6 +17,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town
     {
         private TownEntryReason _reason;
         private ReplyKeyboardMarkup _keyboard;
+        private int? _regenHealthMessageId;
 
         public TownDialog(GameSession _session, TownEntryReason reason) : base(_session)
         {
@@ -63,7 +64,50 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town
             }
 
             await SendDialogMessage(sb, _keyboard)
-                .ConfigureAwait(false);
+                    .ConfigureAwait(false);
+
+            session.player.healhRegenerationController.InvokeRegen();
+            if (!session.player.unitStats.isFullHealth)
+            {
+                await SendHealthRegenMessage()
+                    .ConfigureAwait(false);
+            }
+        }
+
+        private async Task SendHealthRegenMessage()
+        {
+            var stats = session.player.unitStats;
+            if (stats.currentHP >= stats.maxHP || session.currentDialog != this)
+            {
+                if (_regenHealthMessageId.HasValue)
+                {
+                    await messageSender.DeleteMessage(session.chatId, _regenHealthMessageId.Value)
+                        .ConfigureAwait(false);
+                }
+                return;
+            }
+
+            var sb = new StringBuilder();
+            sb.AppendLine();
+            sb.AppendLine(Localization.Get(session, "unit_view_health_regen"));
+            sb.AppendLine($"{Emojis.stats[Stat.Health]} {stats.currentHP} / {stats.maxHP}");
+
+            var message = _regenHealthMessageId == null
+                ? await messageSender.SendTextMessage(session.chatId, sb.ToString(), silent: true).ConfigureAwait(false)
+                : await messageSender.EditTextMessage(session.chatId, _regenHealthMessageId.Value, sb.ToString()).ConfigureAwait(false);
+            _regenHealthMessageId = message?.MessageId;          
+
+            WaitOneSecondAndInvokeHealthRegen();
+        }
+
+        private async void WaitOneSecondAndInvokeHealthRegen()
+        {
+            await Task.Delay(1_000).ConfigureAwait(false);
+            if (session.IsTasksCancelled())
+                return;
+
+            session.player.healhRegenerationController.InvokeRegen();
+            await SendHealthRegenMessage().ConfigureAwait(false);
         }
 
     }

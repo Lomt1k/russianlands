@@ -18,6 +18,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
 
         public override async Task Start()
         {
+            session.player.healhRegenerationController.InvokeRegen();
+
             var sb = new StringBuilder();
             sb.AppendLine(session.player.GetGeneralUnitInfoView(session));
 

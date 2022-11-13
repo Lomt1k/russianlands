@@ -24,9 +24,12 @@ namespace TextGameRPG.Scripts.GameCore.Units
 
             var prevRegenTime = hospital.GetLastRegenTime(buildingsData);
             var prevRegenTimeDt = new DateTime(prevRegenTime);
-            var minutes = (DateTime.UtcNow - prevRegenTimeDt).TotalMinutes;
+            var timeSpan = DateTime.UtcNow - prevRegenTimeDt;
+            if (timeSpan.TotalSeconds < 1)
+                return;
+
             var healthPerMinute = hospital.GetHealthRestorePerMinute(buildingsData);
-            var heathAmount = (int)Math.Round(minutes * healthPerMinute);
+            var heathAmount = (int)Math.Round(timeSpan.TotalMinutes * healthPerMinute);
             _player.unitStats.RestoreHealth(heathAmount);
             SetLastRegenTimeAsNow();
         }

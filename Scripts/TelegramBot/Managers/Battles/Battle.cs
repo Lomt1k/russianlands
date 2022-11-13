@@ -22,8 +22,6 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
         private Func<Player, BattleResult, bool>? _isAvailableReturnToTownFunc;
 
         private CancellationTokenSource _allSessionsCTS;
-        private CancellationTokenSource _playerOneCTS;
-        private CancellationTokenSource? _playerTwoCTS;
         private CancellationTokenSource _forceBattleCTS;
 
         public BattleType battleType { get; }
@@ -43,11 +41,6 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
             secondUnit = firstUnit == opponentA ? opponentB : opponentA;
 
             _allSessionsCTS = TelegramBot.instance.sessionManager.allSessionsTasksCTS;
-            _playerOneCTS = opponentA.session.sessionTasksCTS;
-            if (opponentB is Player secondPlayer)
-            {
-                _playerTwoCTS = secondPlayer.session.sessionTasksCTS;
-            }
             _forceBattleCTS = new CancellationTokenSource();
 
             _rewards = rewards;
@@ -58,9 +51,17 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
 
         public bool IsCancellationRequested()
         {
-            return _allSessionsCTS.IsCancellationRequested || _playerOneCTS.IsCancellationRequested
-            || (_playerTwoCTS != null && _playerTwoCTS.IsCancellationRequested)
-            || _forceBattleCTS.IsCancellationRequested;
+            if (firstUnit is Player firstPlayer)
+            {
+                if (firstPlayer.session.IsTasksCancelled())
+                    return true;
+            }
+            if (secondUnit is Player secondPlayer)
+            {
+                if (secondPlayer.session.IsTasksCancelled())
+                    return true;
+            }
+            return false;
         }
 
         public IBattleUnit SelectFirstUnit(Player opponentA, IBattleUnit opponentB)
@@ -73,11 +74,25 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
             if (IsCancellationRequested())
                 return;
 
+            InvokeHealthRegen();
+
             //Сначала второму юниту, так как первый уже сразу сможет ходить
             await secondUnit.OnStartBattle(this).ConfigureAwait(false);
             await firstUnit.OnStartBattle(this).ConfigureAwait(false);
 
             HandleBattleAsync();
+        }
+
+        private void InvokeHealthRegen()
+        {
+            if (firstUnit is Player firstPlayer)
+            {
+                firstPlayer.healhRegenerationController.InvokeRegen();
+            }
+            if (secondUnit is Player secondPlayer)
+            {
+                secondPlayer.healhRegenerationController.InvokeRegen();
+            }
         }
 
         private async void HandleBattleAsync()
@@ -168,11 +183,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
             GlobalManagers.battleManager?.UnregisterBattle(this);
             _forceBattleCTS.Cancel();
 
-            var allSessionsCTS = TelegramBot.instance.sessionManager.allSessionsTasksCTS;
-            if (allSessionsCTS.IsCancellationRequested)
-                return;
-
-            if (!player.session.sessionTasksCTS.IsCancellationRequested)
+            if (!player.session.IsTasksCancelled())
             {
                 await HandleBattleEndForPlayer(player, battleResult).ConfigureAwait(false);
             }
@@ -180,7 +191,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
             var enemy = GetEnemy(player);
             if (enemy is Player anotherPlayer)
             {
-                if (!anotherPlayer.session.sessionTasksCTS.IsCancellationRequested)
+                if (!anotherPlayer.session.IsTasksCancelled())
                 {
                     if (battleResult == BattleResult.Win) battleResult = BattleResult.Lose;
                     else if (battleResult == BattleResult.Lose) battleResult = BattleResult.Win;

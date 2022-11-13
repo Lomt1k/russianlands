@@ -30,7 +30,6 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
         public LanguageCode language { get; private set; } = LanguageCode.en;
         public DialogBase? currentDialog { get; private set; }
         public TooltipController tooltipController { get; } = new TooltipController();
-        public CancellationTokenSource sessionTasksCTS => _sessionTasksCTS;
         public bool isAdmin => profile.data.adminStatus > 0;
 
         public GameSession(User user)
@@ -176,7 +175,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
         public async Task OnCloseSession(bool onError)
         {
             await SaveProfileIfNeed().ConfigureAwait(false);
-            sessionTasksCTS.Cancel();
+            _sessionTasksCTS.Cancel();
             Program.logger.Info($"Session closed for {actualUser}" + (onError ? " [ON ERROR]" : string.Empty));
 
             if (onError)
@@ -191,6 +190,15 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
             {
                 await profile.SaveProfileIfNeed(lastActivityTime).ConfigureAwait(false);
             }
+        }
+
+        public bool IsTasksCancelled()
+        {
+            if (_sessionTasksCTS.IsCancellationRequested)
+                return true;
+
+            var sessionManager = TelegramBot.instance.sessionManager;
+            return sessionManager == null || sessionManager.allSessionsTasksCTS.IsCancellationRequested;
         }
 
         public void SetupLanguage(LanguageCode languageCode)
