@@ -17,7 +17,6 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
             var gradeMult = mob.gradeMult;
 
             maxHP = (int)Math.Round(statsSettings.health * gradeMult);
-            currentHP = maxHP;
             resistance = new Items.DamageInfo(
                 physicalDamage: (int)Math.Round(statsSettings.physicalResist * gradeMult),
                 fireDamage: (int)Math.Round(statsSettings.fireResist * gradeMult),

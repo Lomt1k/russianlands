@@ -25,7 +25,7 @@ namespace TextGameRPG.Scripts.GameCore.Units
         public UnitStats unitStats { get; private set; }
         public PlayerResources resources { get; private set; }
         public PlayerBuildings buildings { get; private set; }
-        public HealthRegenerationController healhRegenerationController { get; };
+        public HealthRegenerationController healhRegenerationController { get; }
         public PlayerInventory inventory => session.profile.dynamicData.inventory;
         public string nickname => session.profile.data.nickname;
         public byte level => session.profile.data.level;

@@ -36,7 +36,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
         }
 
         // TODO: когда будут готовы все здания - заменить на пробег по enum BuildingType 
-        public static IEnumerable<BuildingBase> GetAllBuildings()
+        public IEnumerable<BuildingBase> GetAllBuildings()
         {
             yield return BuildingType.TownHall.GetBuilding();
             yield return BuildingType.Tyr.GetBuilding();
@@ -66,7 +66,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             yield return BuildingType.WoodTraining.GetBuilding();
         }
 
-        public static IEnumerable<BuildingBase> GetBuildingsByCategory(BuildingCategory category)
+        public IEnumerable<BuildingBase> GetBuildingsByCategory(BuildingCategory category)
         {
             switch (category)
             {
