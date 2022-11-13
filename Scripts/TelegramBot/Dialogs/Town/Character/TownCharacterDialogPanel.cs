@@ -5,6 +5,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
 {
     public class TownCharacterDialogPanel : DialogPanelBase
     {
+        private bool _isUnitsViewShowed;
+
         public TownCharacterDialogPanel(DialogBase _dialog, byte _panelId) : base(_dialog, _panelId)
         {
         }
@@ -13,6 +15,11 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
         {
             await ShowUnitView()
                 .ConfigureAwait(false);
+
+            if (!session.player.unitStats.isFullHealth)
+            {
+                WaitOneSecondAndInvokeRegen();
+            }
         }
 
         public async Task ShowUnitView()
@@ -23,10 +30,12 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
 
             await SendPanelMessage(text, GetMultilineKeyboard())
                 .ConfigureAwait(false);
+            _isUnitsViewShowed = true;
         }
 
         public async Task ShowAttributesInfo()
         {
+            _isUnitsViewShowed = false;
             ClearButtons();
             RegisterBackButton(() => ShowUnitView());
             var text = string.Format(Localization.Get(session, "dialog_character_attributes_info"), 
@@ -35,6 +44,23 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
 
             await SendPanelMessage(text, GetOneLineKeyboard())
                 .ConfigureAwait(false);
+        }
+
+        private async void WaitOneSecondAndInvokeRegen()
+        {
+            while (!session.player.unitStats.isFullHealth)
+            {
+                await Task.Delay(1_000).ConfigureAwait(false);
+                if (session.IsTasksCancelled() || dialog != session.currentDialog)
+                    return;
+
+                if (_isUnitsViewShowed)
+                {
+                    session.player.healhRegenerationController.InvokeRegen();
+                    await ShowUnitView()
+                        .ConfigureAwait(false);
+                }
+            }
         }
 
     }
