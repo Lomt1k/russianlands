@@ -41,6 +41,11 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
             return session;
         }
 
+        public bool IsSessionExists(ChatId id)
+        {
+            return _sessions.ContainsKey(id);
+        }
+
         public GameSession? GetSessionIfExists(ChatId id)
         {
             _sessions.TryGetValue(id, out GameSession? session);

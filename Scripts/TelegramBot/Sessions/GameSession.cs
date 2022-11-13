@@ -50,7 +50,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Sessions
             currentDialog = dialog;
         }
 
-        public async Task HandleUpdateAsync(User refreshedUser, Update update)
+        public async void HandleUpdateAsync(User refreshedUser, Update update)
         {
             if (_isHandlingUpdate)
             {

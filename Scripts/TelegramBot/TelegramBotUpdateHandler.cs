@@ -52,26 +52,26 @@ namespace TextGameRPG.Scripts.TelegramBot
                 }
 
                 bool serverIsBusy = _performanceManager.currentState == PerformanceState.Busy;
-                var gameSession = serverIsBusy
-                    ? _sessionManager.GetSessionIfExists(fromUser.Id)
-                    : _sessionManager.GetOrCreateSession(fromUser);
+                if (serverIsBusy && !_sessionManager.IsSessionExists(fromUser.Id))
+                {
+                    SendServerIsBusyMessage(fromUser.Id);
+                    return;
+                }
 
-                if (gameSession != null)
-                {
-                    await gameSession.HandleUpdateAsync(fromUser, update)
-                        .ConfigureAwait(false);
-                }
-                else
-                {
-                    await _messageSender.SendTextDialog(fromUser.Id, serverIsBusyText, serverIsBusyKeyboard, silent: true)
-                        .ConfigureAwait(false);
-                }
+                var gameSession = _sessionManager.GetOrCreateSession(fromUser);
+                gameSession.HandleUpdateAsync(fromUser, update);
             }
             catch (Exception ex)
             {
                 Program.logger.Error($"Exception on handle update with ID: {update.Id}\n{ex}\n");
                 return;
             }            
+        }
+
+        private async void SendServerIsBusyMessage(ChatId id)
+        {
+            await _messageSender.SendTextDialog(id, serverIsBusyText, serverIsBusyKeyboard, silent: true)
+                .ConfigureAwait(false);
         }
 
         public Task HandlePollingErrorAsync(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)
