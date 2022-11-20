@@ -105,12 +105,15 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
             return resultDamage;
         }
 
-        public string GetView(GameSession sessionToSend)
+        public string GetView(GameSession sessionToSend, bool withHealth = true)
         {
             var sb = new StringBuilder();
-            sb.AppendLine(Localization.Get(sessionToSend, "unit_view_health"));
-            sb.AppendLine($"{Emojis.stats[Stat.Health]} {currentHP} / {maxHP}");
-            sb.AppendLine();
+            if (withHealth)
+            {
+                sb.AppendLine(Localization.Get(sessionToSend, "unit_view_health"));
+                sb.AppendLine($"{Emojis.stats[Stat.Health]} {currentHP} / {maxHP}");
+                sb.AppendLine();
+            }
             AppendResistsCompactView(sb, sessionToSend);
 
             return sb.ToString();

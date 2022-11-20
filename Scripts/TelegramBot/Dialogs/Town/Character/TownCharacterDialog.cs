@@ -7,6 +7,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
 {
     public class TownCharacterDialog : DialogBase
     {
+        private int? _regenHealthMessageId;
+
         public TownCharacterDialog(GameSession _session) : base(_session)
         {
             RegisterButton($"{Emojis.menuItems[MenuItem.Avatar]} " + Localization.Get(session, "menu_item_avatar"),
@@ -22,30 +24,60 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
 
             var sb = new StringBuilder();
             sb.AppendLine(session.player.GetGeneralUnitInfoView(session));
-            sb.AppendLine(session.player.unitStats.GetView(session));
+            bool isFullHealth = session.player.unitStats.isFullHealth;
+            sb.AppendLine(session.player.unitStats.GetView(session, isFullHealth));
             TryAppendTooltip(sb);
 
             await SendDialogMessage(sb, GetKeyboardWithRowSizes(2, 1))
                 .ConfigureAwait(false);
 
-            if (!session.player.unitStats.isFullHealth)
+            if (!isFullHealth)
             {
-                WaitOneSecondAndInvokeRegen();
+                await SendHealthRegenMessage()
+                    .ConfigureAwait(false);
             }
         }
 
-        private async void WaitOneSecondAndInvokeRegen()
+        private async Task SendHealthRegenMessage()
         {
             try
             {
-                while (!session.player.unitStats.isFullHealth)
+                var stats = session.player.unitStats;
+                if (stats.currentHP >= stats.maxHP || session.currentDialog != this)
                 {
-                    await Task.Delay(1_000).ConfigureAwait(false);
-                    if (session.IsTasksCancelled() || session.currentDialog != this)
-                        return;
-
-                    await Start();
+                    if (_regenHealthMessageId.HasValue)
+                    {
+                        await messageSender.DeleteMessage(session.chatId, _regenHealthMessageId.Value)
+                            .ConfigureAwait(false);
+                    }
+                    return;
                 }
+
+                var sb = new StringBuilder();
+                sb.AppendLine();
+                sb.AppendLine(Localization.Get(session, "unit_view_health_regen"));
+                sb.AppendLine($"{Emojis.stats[Stat.Health]} {stats.currentHP} / {stats.maxHP}");
+
+                var message = _regenHealthMessageId == null
+                    ? await messageSender.SendTextMessage(session.chatId, sb.ToString(), silent: true).ConfigureAwait(false)
+                    : await messageSender.EditTextMessage(session.chatId, _regenHealthMessageId.Value, sb.ToString()).ConfigureAwait(false);
+                _regenHealthMessageId = message?.MessageId;
+
+                WaitOneSecondAndInvokeHealthRegen();
+            }
+            catch (System.Exception ex) { } //ignored
+        }
+
+        private async void WaitOneSecondAndInvokeHealthRegen()
+        {
+            try
+            {
+                await Task.Delay(1_000).ConfigureAwait(false);
+                if (session.IsTasksCancelled())
+                    return;
+
+                session.player.healhRegenerationController.InvokeRegen();
+                await SendHealthRegenMessage().ConfigureAwait(false);
             }
             catch (System.Exception ex) { } //ignored
         }
