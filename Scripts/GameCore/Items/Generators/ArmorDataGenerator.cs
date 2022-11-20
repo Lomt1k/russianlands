@@ -26,7 +26,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             var physicalDamage = (int)Math.Round(rarityMult * gradedPoints);
             AddPhysicalDamageResist(physicalDamage);
 
-            var secondaryDamage = (int)Math.Round(rarityMult * gradedPoints / 2);
+            var secondaryDamage = (int)Math.Round(rarityMult * gradedPoints * 0.4f);
             foreach (var param in seed.baseParameters)
             {
                 switch (param)

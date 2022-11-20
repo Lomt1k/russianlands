@@ -19,7 +19,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
 
         private void AddBaseParameters()
         {
-            var damageResist = (int)Math.Round(gradedPoints * 0.25);
+            var damageResist = (int)Math.Round(gradedPoints * 0.15);
             foreach (var param in seed.baseParameters)
             {
                 switch (param)
@@ -55,10 +55,10 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             switch (abilityType)
             {
                 case AbilityType.RestoreHealthEveryTurn:
-                    AddRestoreHealthEveryTurn((int)Math.Round(gradedPoints * 0.65), 20f);
+                    AddRestoreHealthEveryTurn((int)Math.Round(gradedPoints * 0.5), 17f);
                     break;
                 case AbilityType.AddManaEveryTurn:
-                    var chance = 8 + (int)Math.Round(seed.requiredLevel / 7f);
+                    var chance = 10 + (int)Math.Round(seed.requiredLevel / 5f);
                     AddManaEveryTurn(1, chance);
                     break;
             }

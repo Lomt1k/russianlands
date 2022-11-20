@@ -28,7 +28,14 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             var maxPhysicalDamage = (int)Math.Round(physicalDamage * 1.13f);
             AddDealPhysicalDamage(minPhysicalDamage, maxPhysicalDamage);
 
-            var secondaryDamage = (int)Math.Round(physicalDamage * 0.25f);
+            var secondaryDamage = seed.rarity switch
+            {
+                Rarity.Rare => (int)Math.Round(physicalDamage * 0.25f),
+                Rarity.Epic => (int)Math.Round(physicalDamage * 0.50f),
+                Rarity.Legendary => (int)Math.Round(physicalDamage * 0.55f),
+                _ => 0
+            };
+
             foreach (var param in seed.baseParameters)
             {
                 switch (param)

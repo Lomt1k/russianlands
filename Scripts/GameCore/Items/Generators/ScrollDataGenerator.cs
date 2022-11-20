@@ -48,7 +48,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
                 case 2: return 2.5f;
                 case 3: return 3.25f;
                 case 4: return 4f;
-                case 5: return 5.5f;
+                case 5: return 5f;
             }
             return 0f;
         }
