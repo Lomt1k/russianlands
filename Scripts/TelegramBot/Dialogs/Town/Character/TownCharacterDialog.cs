@@ -42,18 +42,26 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
         {
             try
             {
+                var sb = new StringBuilder();
                 var stats = session.player.unitStats;
-                if (stats.currentHP >= stats.maxHP || session.currentDialog != this)
+                if (_regenHealthMessageId.HasValue)
                 {
-                    if (_regenHealthMessageId.HasValue)
+                    if (session.currentDialog != this)
                     {
                         await messageSender.DeleteMessage(session.chatId, _regenHealthMessageId.Value)
                             .ConfigureAwait(false);
+                        return;
                     }
-                    return;
+                    else if (stats.currentHP >= stats.maxHP)
+                    {
+                        sb.AppendLine(Localization.Get(session, "unit_view_health"));
+                        sb.AppendLine($"{Emojis.stats[Stat.Health]} {stats.currentHP} / {stats.maxHP}");
+                        await messageSender.EditTextMessage(session.chatId, _regenHealthMessageId.Value, sb.ToString())
+                            .ConfigureAwait(false);
+                        return;
+                    }
                 }
 
-                var sb = new StringBuilder();
                 sb.AppendLine();
                 sb.AppendLine(Localization.Get(session, "unit_view_health_regen"));
                 sb.AppendLine($"{Emojis.stats[Stat.Health]} {stats.currentHP} / {stats.maxHP}");
