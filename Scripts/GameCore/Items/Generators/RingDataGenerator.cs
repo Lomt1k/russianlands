@@ -45,7 +45,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             switch (propertyType)
             {
                 case PropertyType.IncreaseMaxHealth:
-                    AddIncreaseMaxHealth((int)Math.Round(gradedPoints * 0.4f));
+                    AddIncreaseMaxHealth((int)Math.Round(gradedPoints * 0.5f));
                     break;
             }
         }
