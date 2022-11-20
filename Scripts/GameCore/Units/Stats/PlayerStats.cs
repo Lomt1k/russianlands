@@ -7,9 +7,6 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
 {
     public class PlayerStats : UnitStats
     {
-        public const int DEFAULT_HEALTH = 100;
-        public const int HEALTH_PER_LEVEL = 20;
-
         private Player _player;
 
         public PlayerStats(Player player)
@@ -60,8 +57,7 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
         {
             var profileData = _player.session.profile.data;
 
-            var defaultHealth = DEFAULT_HEALTH + HEALTH_PER_LEVEL * (profileData.level - 1);
-            maxHP = defaultHealth;
+            maxHP = PlayerHealthByLevel.Get(profileData.level);
             resistance = DamageInfo.Zero;
         }
 

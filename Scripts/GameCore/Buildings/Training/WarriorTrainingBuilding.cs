@@ -127,7 +127,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Training
                 return sb.ToString();
             }
 
-            var bonusPerLevel = PlayerStats.HEALTH_PER_LEVEL;
+            var bonusPerLevel = PlayerHealthByLevel.Get(currentUnitLevel + 1) - PlayerHealthByLevel.Get(currentUnitLevel);
             var nextHealth = currentHealth + bonusPerLevel;
 
             sb.AppendLine(Localization.Get(session, "building_training_max_health_header"));
