@@ -12,21 +12,10 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
 
         public override ActivationType activationType => ActivationType.EveryTurn;
 
-        public override bool isSupportLevelUp => true;
-
         public int physicalDamage;
         public int fireDamage;
         public int coldDamage;
         public int lightningDamage;
-
-        public override void ApplyItemLevel(byte level)
-        {
-            IncreaseByTenPercentByLevel(ref physicalDamage, level);
-            IncreaseByTenPercentByLevel(ref fireDamage, level);
-            IncreaseByTenPercentByLevel(ref coldDamage, level);
-            IncreaseByTenPercentByLevel(ref lightningDamage, level);
-            IncreaseByTenPercentByLevel(ref manaCost, level);
-        }
 
         public DamageInfo GetValues()
         {

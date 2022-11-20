@@ -44,22 +44,6 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
         {
             switch (propertyType)
             {
-                case PropertyType.IncreaseAttributeStrength:
-                    var strength = (int)Math.Round(seed.requiredLevel * gradeMult * 2.5f);
-                    AddIncreaseAttributeStrength(strength);
-                    break;
-                case PropertyType.IncreaseAttributeVitality:
-                    var vitality = (int)Math.Round(seed.requiredLevel * gradeMult * 2.5f);
-                    AddIncreaseAttributeVitality(vitality);
-                    break;
-                case PropertyType.IncreaseAttributeSorcery:
-                    var sorcery = (int)Math.Round(seed.requiredLevel * gradeMult * 2.5f);
-                    AddIncreaseAttributeSorcery(sorcery);
-                    break;
-                case PropertyType.IncreaseAttributeLuck:
-                    var luck = (int)Math.Round(seed.requiredLevel * gradeMult * 2.5f);
-                    AddIncreaseAttributeLuck(luck);
-                    break;
                 case PropertyType.IncreaseMaxHealth:
                     AddIncreaseMaxHealth((int)Math.Round(gradedPoints * 0.8f));
                     break;

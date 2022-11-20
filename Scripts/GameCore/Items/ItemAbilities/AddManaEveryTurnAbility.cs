@@ -10,11 +10,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
 
         public override ActivationType activationType => ActivationType.EveryTurn;
 
-        public override bool isSupportLevelUp => false;
-
         public int manaValue;
-
-        public override void ApplyItemLevel(byte level) { }
 
         public override string ToString()
         {

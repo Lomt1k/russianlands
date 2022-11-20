@@ -5,7 +5,6 @@ using TextGameRPG.Scripts.GameCore.Units.Stats;
 using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
 using TextGameRPG.Scripts.TelegramBot.Sessions;
 using TextGameRPG.Scripts.GameCore.Localizations;
-using System;
 
 namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles.Actions
 {
@@ -31,26 +30,6 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles.Actions
             }
             _item = item;
             _damageInfo = dealDamageAbility.GetRandomValues();
-            AppendDamageBonusByAttributes(attacker, item);
-        }
-
-        private void AppendDamageBonusByAttributes(Player attacker, InventoryItem? item)
-        {
-            if (item == null)
-                return;
-
-            var playerStats = (PlayerStats)attacker.unitStats;
-            var itemType = item.data.itemType;
-            var attrValue = itemType == ItemType.Stick || itemType == ItemType.Scroll
-                ? playerStats.attributeSorcery : playerStats.attributeStrength;
-
-            var damageInfo = _damageInfo;
-            foreach (DamageType damageType in Enum.GetValues(typeof(DamageType)))
-            {
-                var bonusPerAttributePoint = (float)damageInfo[damageType] / 500; // +0.02% к урону за очко силы / колдовства
-                damageInfo[damageType] += (int)(bonusPerAttributePoint * attrValue);
-            }
-            _damageInfo = damageInfo;
         }
 
         public void ApplyActionWithMineStats(UnitStats stats)

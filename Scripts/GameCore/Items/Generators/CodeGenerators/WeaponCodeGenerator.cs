@@ -11,10 +11,6 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators
     {
         private List<Func<bool>> _options => new List<Func<bool>>
         {
-            () => ForceAppendProperty(PropertyType.IncreaseAttributeStrength),
-            () => ForceAppendProperty(PropertyType.IncreaseAttributeVitality),
-            () => ForceAppendProperty(PropertyType.IncreaseAttributeSorcery),
-            () => ForceAppendProperty(PropertyType.IncreaseAttributeLuck),
             () => ForceAppendProperty(PropertyType.IncreaseMaxHealth),
 
             () => { sb.Append("DF"); return true; }, //damage fire

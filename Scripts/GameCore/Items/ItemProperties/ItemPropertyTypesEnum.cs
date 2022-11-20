@@ -4,11 +4,7 @@
     {
         None = 0,
         DamageResist = 1,
-        IncreaseAttributeStrength = 2,
-        IncreaseAttributeVitality = 3,
-        IncreaseAttributeSorcery = 4,
-        IncreaseAttributeLuck = 5,
-        IncreaseMaxHealth = 6,
+        IncreaseMaxHealth = 2,
     }
 
 }

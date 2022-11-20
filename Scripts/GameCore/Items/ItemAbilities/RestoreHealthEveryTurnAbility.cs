@@ -10,15 +10,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
 
         public override ActivationType activationType => ActivationType.EveryTurn;
 
-        public override bool isSupportLevelUp => true;
-
         public int healthValue;
-
-        public override void ApplyItemLevel(byte level)
-        {
-            IncreaseByTenPercentByLevel(ref healthValue, level);
-            IncreaseByTenPercentByLevel(ref manaCost, level);
-        }
 
         public override string ToString()
         {

@@ -1,12 +1,7 @@
-﻿using System;
-using System.Text;
-using TextGameRPG.Scripts.GameCore.Buildings;
+﻿using TextGameRPG.Scripts.GameCore.Buildings;
 using TextGameRPG.Scripts.GameCore.Buildings.General;
 using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.GameCore.Items.ItemProperties;
-using TextGameRPG.Scripts.GameCore.Localizations;
-using TextGameRPG.Scripts.TelegramBot;
-using TextGameRPG.Scripts.TelegramBot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Units.Stats
 {
@@ -17,19 +12,12 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
 
         private Player _player;
 
-        // Attributes
-        public int attributeStrength { get; protected set; }
-        public int attributeVitality { get; protected set; }
-        public int attributeSorcery { get; protected set; }
-        public int attributeLuck { get; protected set; }
-
         public PlayerStats(Player player)
         {
             _player = player;
-            SubscribeEvents();
             Recalculate();
-
             SetFullHealth();
+            SubscribeEvents();
         }
 
         public void SubscribeEvents()
@@ -64,7 +52,6 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
         {
             CalculateBaseValues();
             ApplyItemProperties();
-            ApplyAttributes();
 
             RecalculateCurrentHP();
         }
@@ -75,11 +62,6 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
 
             var defaultHealth = DEFAULT_HEALTH + HEALTH_PER_LEVEL * (profileData.level - 1);
             maxHP = defaultHealth;
-
-            attributeStrength = 1;
-            attributeVitality = 1;
-            attributeSorcery = 1;
-            attributeLuck = 1;
             resistance = DamageInfo.Zero;
         }
 
@@ -107,34 +89,10 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
                     tempResist[DamageType.Lightning] += resistProperty.lightningDamage;
                     resistance = tempResist;
                     break;
-                case IncreaseAttributeStrengthProperty increaseStrength:
-                    this.attributeStrength += increaseStrength.value;
-                    break;
-                case IncreaseAttributeVitalityProperty increaseVitality:
-                    this.attributeVitality += increaseVitality.value;
-                    break;
-                case IncreaseAttributeSorceryProperty increaseSorcery:
-                    this.attributeSorcery += increaseSorcery.value;
-                    break;
-                case IncreaseAttributeLuckProperty increaseLuck:
-                    this.attributeLuck += increaseLuck.value;
-                    break;
                 case IncreaseMaxHealthProperty increaseMaxHealth:
-                    this.maxHP += increaseMaxHealth.value;
+                    maxHP += increaseMaxHealth.value;
                     break;
             }
-        }
-
-        private void ApplyAttributes()
-        {
-            // vitality
-            var tempResist = resistance;
-            foreach (DamageType damageType in Enum.GetValues(typeof(DamageType)))
-            {
-                var bonusPerVitalityPoint = (float)tempResist[damageType] / 500; // +0.02% за очко стойкости
-                tempResist[damageType] += (int)(bonusPerVitalityPoint * attributeVitality);
-            }
-            resistance = tempResist;
         }
 
     }

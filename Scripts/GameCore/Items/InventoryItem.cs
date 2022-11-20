@@ -15,7 +15,6 @@ namespace TextGameRPG.Scripts.GameCore.Items
     {
         public string id;
         public ItemState state;
-        public byte mod;
 
         [JsonIgnore]
         public ItemData data { get; private set; }
@@ -41,17 +40,15 @@ namespace TextGameRPG.Scripts.GameCore.Items
             RecalculateDynamicData();
         }
 
-        public InventoryItem(int _id, byte _mod = 0)
+        public InventoryItem(int _id)
         {
             id = _id.ToString();
-            mod = _mod;
             RecalculateDynamicData();
         }
 
-        public InventoryItem(string _dataCode, byte _mod = 0)
+        public InventoryItem(string _dataCode)
         {
             id = _dataCode;
-            mod = _mod;
             RecalculateDynamicData();
         }
 
@@ -60,7 +57,6 @@ namespace TextGameRPG.Scripts.GameCore.Items
             var clone = new InventoryItem()
             {
                 id = id,
-                mod = mod,
                 state = ItemState.IsNewAndNotEquipped,
             };
             clone.RecalculateDynamicData();
@@ -76,12 +72,7 @@ namespace TextGameRPG.Scripts.GameCore.Items
             manaCost = 0;
             foreach (var ability in data.abilities)
             {
-                ability.ApplyItemLevel(mod);
                 manaCost += ability.manaCost;
-            }
-            foreach (var property in data.properties)
-            {
-                property.ApplyItemLevel(mod);
             }
         }
 
@@ -99,10 +90,7 @@ namespace TextGameRPG.Scripts.GameCore.Items
         {
             var sb = new StringBuilder();
             sb.Append($"{Emojis.items[data.itemType]} {GetLocalizationName(session)}");
-            if (mod > 0)
-            {
-                sb.Append($" +{mod}");
-            }
+
             var statIcons = data.statIcons;
             if (statIcons.Count > 0)
             {
@@ -142,21 +130,6 @@ namespace TextGameRPG.Scripts.GameCore.Items
 
             var itemType = data.itemType.ToString().ToLower();
             return Localizations.Localization.Get(session, $"item_{itemType}_hall_{data.requiredTownHall}_grade_{data.grade}");
-        }
-
-        public bool IsSupportLevelUp()
-        {
-            foreach (var ability in data.abilities)
-            {
-                if (ability.isSupportLevelUp)
-                    return true;
-            }
-            foreach (var property in data.properties)
-            {
-                if (property.isSupportLevelUp)
-                    return true;
-            }
-            return false;
         }
 
 

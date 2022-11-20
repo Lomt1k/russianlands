@@ -58,28 +58,6 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
         //--- overriden for rings and amulets
         protected virtual void AddProperty(PropertyType propertyType)
         {
-            switch (propertyType)
-            {
-                case PropertyType.IncreaseAttributeStrength:
-                    var strength = (int)Math.Round(seed.requiredLevel * gradeMult);
-                    AddIncreaseAttributeStrength(strength);
-                    break;
-                case PropertyType.IncreaseAttributeVitality:
-                    var vitality = (int)Math.Round(seed.requiredLevel * gradeMult);
-                    AddIncreaseAttributeVitality(vitality);
-                    break;
-                case PropertyType.IncreaseAttributeSorcery:
-                    var sorcery = (int)Math.Round(seed.requiredLevel * gradeMult);
-                    AddIncreaseAttributeSorcery(sorcery);
-                    break;
-                case PropertyType.IncreaseAttributeLuck:
-                    var luck = (int)Math.Round(seed.requiredLevel * gradeMult);
-                    AddIncreaseAttributeLuck(luck);
-                    break;
-                case PropertyType.IncreaseMaxHealth:
-                    AddIncreaseMaxHealth((int)Math.Round(gradedPoints * 0.25));
-                    break;
-            }
         }
 
         protected virtual void AddAbility(AbilityType abilityType)

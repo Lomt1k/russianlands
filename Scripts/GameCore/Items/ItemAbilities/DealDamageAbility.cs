@@ -10,7 +10,6 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
         public override string debugDescription => "Наносит урон";
         public override AbilityType abilityType => AbilityType.DealDamage;
         public override ActivationType activationType => ActivationType.ByUser;
-        public override bool isSupportLevelUp => true;
 
         // Не очень красиво, но так как эти поля меняются через рефлексию - проще так оставить
         public int minPhysicalDamage;
@@ -30,21 +29,6 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
                 random.Next(minFireDamage, maxFireDamage + 1),
                 random.Next(minColdDamage, maxColdDamage + 1),
                 random.Next(minLightningDamage, maxLightningDamage + 1));
-        }
-
-        public override void ApplyItemLevel(byte level)
-        {
-            IncreaseByTenPercentByLevel(ref minPhysicalDamage, level);
-            IncreaseByTenPercentByLevel(ref maxPhysicalDamage, level);
-
-            IncreaseByTenPercentByLevel(ref minFireDamage, level);
-            IncreaseByTenPercentByLevel(ref maxFireDamage, level);
-
-            IncreaseByTenPercentByLevel(ref minColdDamage, level);
-            IncreaseByTenPercentByLevel(ref maxColdDamage, level);
-
-            IncreaseByTenPercentByLevel(ref minLightningDamage, level);
-            IncreaseByTenPercentByLevel(ref maxLightningDamage, level);
         }
 
         public override string ToString()

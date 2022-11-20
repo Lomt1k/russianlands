@@ -68,62 +68,6 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             _properties.Add(PropertyType.DamageResist, property);
         }
 
-        protected void AddIncreaseAttributeStrength(int value)
-        {
-            _statIcons.Add(Stat.AttributeStrength);
-            if (_properties.TryGetValue(PropertyType.IncreaseAttributeStrength, out var property))
-            {
-                ((IncreaseAttributeStrengthProperty)property).value += value;
-                return;
-            }
-
-            var newProperty = (IncreaseAttributeStrengthProperty)ItemPropertyRegistry.GetNewProperty(PropertyType.IncreaseAttributeStrength);
-            newProperty.value = value;
-            _properties.Add(PropertyType.IncreaseAttributeStrength, newProperty);
-        }
-
-        protected void AddIncreaseAttributeVitality(int value)
-        {
-            _statIcons.Add(Stat.AttributeVitality);
-            if (_properties.TryGetValue(PropertyType.IncreaseAttributeVitality, out var property))
-            {
-                ((IncreaseAttributeVitalityProperty)property).value += value;
-                return;
-            }
-
-            var newProperty = (IncreaseAttributeVitalityProperty)ItemPropertyRegistry.GetNewProperty(PropertyType.IncreaseAttributeVitality);
-            newProperty.value = value;
-            _properties.Add(PropertyType.IncreaseAttributeVitality, newProperty);
-        }
-
-        protected void AddIncreaseAttributeSorcery(int value)
-        {
-            _statIcons.Add(Stat.AttributeSorcery);
-            if (_properties.TryGetValue(PropertyType.IncreaseAttributeSorcery, out var property))
-            {
-                ((IncreaseAttributeSorceryProperty)property).value += value;
-                return;
-            }
-
-            var newProperty = (IncreaseAttributeSorceryProperty)ItemPropertyRegistry.GetNewProperty(PropertyType.IncreaseAttributeSorcery);
-            newProperty.value = value;
-            _properties.Add(PropertyType.IncreaseAttributeSorcery, newProperty);
-        }
-
-        protected void AddIncreaseAttributeLuck(int value)
-        {
-            _statIcons.Add(Stat.AttributeLuck);
-            if (_properties.TryGetValue(PropertyType.IncreaseAttributeLuck, out var property))
-            {
-                ((IncreaseAttributeLuckProperty)property).value += value;
-                return;
-            }
-
-            var newProperty = (IncreaseAttributeLuckProperty)ItemPropertyRegistry.GetNewProperty(PropertyType.IncreaseAttributeLuck);
-            newProperty.value = value;
-            _properties.Add(PropertyType.IncreaseAttributeLuck, newProperty);
-        }
-
         protected void AddIncreaseMaxHealth(int value)
         {
             _statIcons.Add(Stat.IncreaseHealth);
