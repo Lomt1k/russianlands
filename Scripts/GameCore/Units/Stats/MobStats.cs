@@ -24,17 +24,5 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
                 lightningDamage: (int)Math.Round(statsSettings.lightningResist * gradeMult));
         }
 
-        public override string GetView(GameSession sessionToSend)
-        {
-            var sb = new StringBuilder();
-            sb.AppendLine(Localization.Get(sessionToSend, "unit_view_health"));
-            sb.AppendLine($"{Emojis.stats[Stat.Health]} {currentHP} / {maxHP}");
-
-            sb.AppendLine();
-            AppendResistsCompactView(sb, sessionToSend);
-
-            return sb.ToString();
-        }
-
     }
 }

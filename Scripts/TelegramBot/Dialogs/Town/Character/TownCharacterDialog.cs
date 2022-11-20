@@ -22,22 +22,32 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Town.Character
 
             var sb = new StringBuilder();
             sb.AppendLine(session.player.GetGeneralUnitInfoView(session));
-
-            bool withTooltip = session.tooltipController.HasTooltipToAppend(this);
-            if (withTooltip)
-            {
-                sb.AppendLine(session.player.unitStats.GetView(session));
-                TryAppendTooltip(sb);
-            }
-            else
-            {
-                RegisterPanel(new TownCharacterDialogPanel(this, 0));
-            }
+            sb.AppendLine(session.player.unitStats.GetView(session));
+            TryAppendTooltip(sb);
 
             await SendDialogMessage(sb, GetKeyboardWithRowSizes(2, 1))
                 .ConfigureAwait(false);
-            await SendPanelsAsync()
-                .ConfigureAwait(false);
+
+            if (!session.player.unitStats.isFullHealth)
+            {
+                WaitOneSecondAndInvokeRegen();
+            }
+        }
+
+        private async void WaitOneSecondAndInvokeRegen()
+        {
+            try
+            {
+                while (!session.player.unitStats.isFullHealth)
+                {
+                    await Task.Delay(1_000).ConfigureAwait(false);
+                    if (session.IsTasksCancelled() || session.currentDialog != this)
+                        return;
+
+                    await Start();
+                }
+            }
+            catch (System.Exception ex) { } //ignored
         }
 
     }

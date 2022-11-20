@@ -105,16 +105,13 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
             return resultDamage;
         }
 
-        public abstract string GetView(GameSession session);
-
-        public string GetStartTurnView(GameSession session)
+        public string GetView(GameSession sessionToSend)
         {
             var sb = new StringBuilder();
-            sb.AppendLine($"\n{Emojis.stats[Stat.Health]} {currentHP} / {maxHP}" +
-                $"{Emojis.bigSpace}{Emojis.stats[Stat.Mana]} {currentMana}");
-
+            sb.AppendLine(Localization.Get(sessionToSend, "unit_view_health"));
+            sb.AppendLine($"{Emojis.stats[Stat.Health]} {currentHP} / {maxHP}");
             sb.AppendLine();
-            AppendResistsCompactView(sb, session);
+            AppendResistsCompactView(sb, sessionToSend);
 
             return sb.ToString();
         }
