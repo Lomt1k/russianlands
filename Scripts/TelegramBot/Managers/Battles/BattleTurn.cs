@@ -60,20 +60,20 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
             var selectedActions = await unit.GetActionsForBattleTurn(this).ConfigureAwait(false);
             if (isWaitingForActions)
             {
+                TryAppendShieldAction(ref selectedActions);
                 _battleActions = selectedActions.OrderBy(x => x.priority).ToList();
-                TryAppendShieldAction();
             }
         }
 
-        private void TryAppendShieldAction()
+        private void TryAppendShieldAction(ref List<IBattleAction> selectedActions)
         {
-            if (_battleActions == null)
+            if (selectedActions == null)
                 return;
 
             if (enemy.TryAddShieldOnStartEnemyTurn(out DamageInfo enemyShieldBlock))
             {
                 var enemyShieldAction = new AddShieldOnEnemyTurnAction(this, enemyShieldBlock);
-                _battleActions.Insert(0, enemyShieldAction);
+                selectedActions.Insert(0, enemyShieldAction);
             }
         }
 
