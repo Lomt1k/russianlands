@@ -7,7 +7,6 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
         private static Dictionary<AbilityType, ItemAbilityBase> _abilities = new Dictionary<AbilityType, ItemAbilityBase>()
         {
             { AbilityType.DealDamage, new DealDamageAbility() },
-            { AbilityType.RestoreHealth, new RestoreHealthAbility() },
 
             // every turn
             { AbilityType.BlockIncomingDamageEveryTurn, new BlockIncomingDamageEveryTurnAbility() },
