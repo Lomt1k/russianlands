@@ -75,8 +75,11 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
             currentMana++;
         }
 
-        public virtual void OnUseItemInBattle(InventoryItem item)
+        public virtual void OnUseItemInBattle(InventoryItem? item)
         {
+            if (item == null)
+                return;
+
             switch (item.data.itemType)
             {
                 case ItemType.Bow:

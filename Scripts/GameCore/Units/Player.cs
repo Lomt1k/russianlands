@@ -83,24 +83,21 @@ namespace TextGameRPG.Scripts.GameCore.Units
             healhRegenerationController.SetLastRegenTimeAsNow();
         }
 
-        public async Task<List<IBattleAction>> GetActionsForBattleTurn(BattleTurn battleTurn)
+        public async Task<IBattleAction?> GetAttackActionForBattleTurn(BattleTurn battleTurn)
         {
-            var result = new List<IBattleAction>();
             IBattleAction? actionBySelection = null;
-
-            var dialog = new SelectBattleActionDialog(session, battleTurn, (selectedAction) => actionBySelection = selectedAction).Start();
+            var dialog = new SelectBattleActionDialog(session, battleTurn, (item) =>
+            {
+                unitStats.OnUseItemInBattle(item);
+                actionBySelection = new PlayerAttackAction(this, item);
+            })
+            .Start().ConfigureAwait(false);
             while (actionBySelection == null && battleTurn.isWaitingForActions)
             {
-                await Task.Delay(1000);
-            }
-            if (actionBySelection != null)
-            {
-                result.Add(actionBySelection);
+                await Task.Delay(500).ConfigureAwait(false);
             }
 
-            //TODO: Add actions from rings and amulets TO result
-
-            return result;
+            return actionBySelection;
         }
 
         public async Task OnStartEnemyTurn(BattleTurn battleTurn)

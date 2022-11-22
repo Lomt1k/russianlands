@@ -57,15 +57,18 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
 
         private async void AskUnitForBattleActions()
         {
-            var selectedActions = await unit.GetActionsForBattleTurn(this).ConfigureAwait(false);
-            if (isWaitingForActions)
+            var attackAction = await unit.GetAttackActionForBattleTurn(this).ConfigureAwait(false);
+            if (!isWaitingForActions)
+                return;
+
+            if (attackAction != null)
             {
-                TryAppendShieldAction(ref selectedActions);
-                _battleActions = selectedActions.OrderBy(x => x.priority).ToList();
+                _battleActions.Add(attackAction);
             }
+            TryAppendEveryTurnActions(_battleActions);
         }
 
-        private void TryAppendShieldAction(ref List<IBattleAction> selectedActions)
+        private void TryAppendEveryTurnActions(List<IBattleAction> selectedActions)
         {
             if (selectedActions == null)
                 return;
@@ -75,6 +78,8 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles
                 var enemyShieldAction = new AddShieldOnEnemyTurnAction(this, enemyShieldBlock);
                 selectedActions.Insert(0, enemyShieldAction);
             }
+
+            //TODO!
         }
 
         private async Task WaitAnswerFromUnit()

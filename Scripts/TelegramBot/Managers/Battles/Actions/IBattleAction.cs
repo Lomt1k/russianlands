@@ -4,10 +4,12 @@ using TextGameRPG.Scripts.TelegramBot.Sessions;
 namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles.Actions
 {
     public enum BattleActionPriority { BeforeAttack, OnAttack, AfterAttack }
+    public enum ActivationType { EveryTurn, OnSelectItem }
 
     public interface IBattleAction
     {
         public BattleActionPriority priority { get; }
+        public ActivationType activationType { get; }
 
         public void ApplyActionWithMineStats(UnitStats stats);
         public void ApplyActionWithEnemyStats(UnitStats stats);

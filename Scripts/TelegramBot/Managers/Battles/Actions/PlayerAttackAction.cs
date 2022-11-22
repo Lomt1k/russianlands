@@ -11,6 +11,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles.Actions
     public class PlayerAttackAction : IBattleAction
     {
         public BattleActionPriority priority => BattleActionPriority.OnAttack;
+        public ActivationType activationType => ActivationType.OnSelectItem;
 
         private readonly InventoryItem? _item;
         private DamageInfo _damageInfo;

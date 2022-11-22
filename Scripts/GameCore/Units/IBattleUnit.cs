@@ -18,7 +18,7 @@ namespace TextGameRPG.Scripts.GameCore.Units
         public string GetFullUnitInfoView(GameSession sessionToSend);
 
         public Task OnStartBattle(Battle battle);
-        public Task<List<IBattleAction>> GetActionsForBattleTurn(BattleTurn battleTurn);
+        public Task<IBattleAction?> GetAttackActionForBattleTurn(BattleTurn battleTurn);
         public Task OnStartEnemyTurn(BattleTurn battleTurn);
         public bool TryAddShieldOnStartEnemyTurn(out DamageInfo damageInfo);
         public void OnMineBattleTurnAlmostEnd();

@@ -10,6 +10,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Managers.Battles.Actions
     public class AddShieldOnEnemyTurnAction : IBattleAction
     {
         public BattleActionPriority priority => BattleActionPriority.BeforeAttack;
+        public ActivationType activationType => ActivationType.EveryTurn;
 
         private DamageInfo _resistance;
         private BattleTurn _battleTurn;

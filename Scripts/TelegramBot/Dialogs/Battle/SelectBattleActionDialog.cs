@@ -14,10 +14,10 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Battle
 {
     public class SelectBattleActionDialog : DialogBase
     {
-        private Action<IBattleAction> _selectedActionCallback;
+        private Action<InventoryItem?> _selectedActionCallback;
         private BattleTurn _battleTurn;
 
-        public SelectBattleActionDialog(GameSession _session, BattleTurn battleTurn, Action<IBattleAction> callback) : base(_session)
+        public SelectBattleActionDialog(GameSession _session, BattleTurn battleTurn, Action<InventoryItem?> callback) : base(_session)
         {
             _battleTurn = battleTurn;
             _selectedActionCallback = callback;
@@ -134,12 +134,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Battle
                 case ItemType.Bow:
                 case ItemType.Stick:
                     var item = equippedItems[category];
-                    var attackWithItem = new PlayerAttackAction(session.player, item);
-                    _selectedActionCallback(attackWithItem);
-                    if (item != null)
-                    {
-                        session.player.unitStats.OnUseItemInBattle(item);
-                    }
+                    _selectedActionCallback(item);
                     break;
                 case ItemType.Scroll:
                     await ShowScrollsCategory()
@@ -195,9 +190,7 @@ namespace TextGameRPG.Scripts.TelegramBot.Dialogs.Battle
 
         private Task SelectScrollItem(InventoryItem scrollItem)
         {
-            var attackWithItem = new PlayerAttackAction(session.player, scrollItem);
-            _selectedActionCallback(attackWithItem);
-            session.player.unitStats.OnUseItemInBattle(scrollItem);
+            _selectedActionCallback(scrollItem);
             return Task.CompletedTask;
         }
 

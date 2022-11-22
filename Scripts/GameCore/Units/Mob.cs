@@ -61,19 +61,19 @@ namespace TextGameRPG.Scripts.GameCore.Units
             return Task.CompletedTask;
         }
 
-        public async Task<List<IBattleAction>> GetActionsForBattleTurn(BattleTurn battleTurn)
+        public async Task<IBattleAction?> GetAttackActionForBattleTurn(BattleTurn battleTurn)
         {
             await Task.Delay(BattleTurn.MOB_TURN_MILISECONDS_DELAY);
 
             var availableAttacks = GetAvailableAttacks();
             if (availableAttacks.Count == 0)
             {
-                return new List<IBattleAction>();
+                return null;
             }
 
             var attackIndex = new Random().Next(availableAttacks.Count);
             var attackAction = new MobAttackAction(availableAttacks[attackIndex], gradeMult);
-            return new List<IBattleAction>() { attackAction };
+            return attackAction;
         }
 
         private List<MobAttack> GetAvailableAttacks()
@@ -96,6 +96,7 @@ namespace TextGameRPG.Scripts.GameCore.Units
 
         public bool TryAddShieldOnStartEnemyTurn(out DamageInfo damageInfo)
         {
+            //ignored
             damageInfo = DamageInfo.Zero;
             return false;
         }
