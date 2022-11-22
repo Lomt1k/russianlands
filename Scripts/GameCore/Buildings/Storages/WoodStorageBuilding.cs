@@ -1,5 +1,5 @@
 ﻿using TextGameRPG.Scripts.GameCore.Resources;
-using TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData;
+using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
 
 namespace TextGameRPG.Scripts.GameCore.Buildings.Storages
 {

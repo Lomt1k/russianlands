@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using TextGameRPG.Scripts.TelegramBot.Sessions;
+using TextGameRPG.Scripts.Bot.Sessions;
 using System.Runtime.Serialization;
 using System.Linq;
 using System.Threading.Tasks;

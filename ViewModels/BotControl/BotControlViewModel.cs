@@ -1,10 +1,10 @@
 ﻿using System;
-using TextGameRPG.Scripts.TelegramBot;
+using TextGameRPG.Scripts.Bot;
 using ReactiveUI;
 using TextGameRPG.Scripts.Utils;
 using System.Reactive;
 using System.Threading.Tasks;
-using TextGameRPG.Scripts.TelegramBot.Managers;
+using TextGameRPG.Scripts.GameCore.Managers;
 
 namespace TextGameRPG.ViewModels.BotControl
 {

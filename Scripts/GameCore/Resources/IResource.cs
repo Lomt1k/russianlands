@@ -1,5 +1,5 @@
-﻿using TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData;
-using TextGameRPG.Scripts.TelegramBot.Sessions;
+﻿using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
+using TextGameRPG.Scripts.Bot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Resources
 {

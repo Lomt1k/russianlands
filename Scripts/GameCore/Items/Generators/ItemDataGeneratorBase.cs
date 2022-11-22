@@ -6,7 +6,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
     using ItemProperties;
     using System;
     using System.Linq;
-    using TextGameRPG.Scripts.TelegramBot;
+    using TextGameRPG.Scripts.Bot;
 
     public abstract partial class ItemDataGeneratorBase
     {

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Rewards;
 using TextGameRPG.Scripts.GameCore.Units;
-using TextGameRPG.Scripts.TelegramBot.Dialogs.Battle;
-using TextGameRPG.Scripts.TelegramBot.Dialogs.Town;
-using TextGameRPG.Scripts.TelegramBot.Dialogs.Town.GlobalMap;
-using TextGameRPG.Scripts.TelegramBot.Sessions;
+using TextGameRPG.Scripts.Bot.Dialogs.Battle;
+using TextGameRPG.Scripts.Bot.Dialogs.Town;
+using TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap;
+using TextGameRPG.Scripts.Bot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
 {

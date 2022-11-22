@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using TextGameRPG.Scripts.TelegramBot.Sessions;
+using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.ViewModels;
 
 namespace TextGameRPG.Scripts.GameCore.Localizations

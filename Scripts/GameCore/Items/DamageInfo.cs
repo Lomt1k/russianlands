@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using TextGameRPG.Scripts.TelegramBot;
+using TextGameRPG.Scripts.Bot;
 
 namespace TextGameRPG.Scripts.GameCore.Items
 {

@@ -8,7 +8,7 @@ namespace TextGameRPG.Scripts.GameCore.Items
     using System.Linq;
     using TextGameRPG.Scripts.GameCore.Items.Generators;
     using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
-    using TextGameRPG.Scripts.TelegramBot;
+    using TextGameRPG.Scripts.Bot;
 
     public class ItemData : IDataWithIntegerID
     {

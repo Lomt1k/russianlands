@@ -2,9 +2,9 @@
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.GameCore.Units.Stats;
-using TextGameRPG.Scripts.TelegramBot.Managers.Battles;
-using TextGameRPG.Scripts.TelegramBot.Managers.Battles.Actions;
-using TextGameRPG.Scripts.TelegramBot.Sessions;
+using TextGameRPG.Scripts.GameCore.Managers.Battles;
+using TextGameRPG.Scripts.GameCore.Managers.Battles.Actions;
+using TextGameRPG.Scripts.Bot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Units
 {

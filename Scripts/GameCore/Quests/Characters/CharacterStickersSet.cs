@@ -48,7 +48,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests.Characters
 
         public async Task SetupFileIdsFromStickerSet()
         {
-            var botClient = TelegramBot.TelegramBot.instance.client;
+            var botClient = Bot.TelegramBot.instance.client;
             var stickerSet = await botClient.GetStickerSetAsync(stickerSetName).ConfigureAwait(false);
             if (stickerSet == null)
             {

@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Items;
-using TextGameRPG.Scripts.TelegramBot.Sessions;
+using TextGameRPG.Scripts.Bot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Rewards
 {
@@ -26,7 +26,7 @@ namespace TextGameRPG.Scripts.GameCore.Rewards
             }
             catch (Exception ex)
             {
-                await TelegramBot.TelegramBot.instance.messageSender.SendErrorMessage(session.chatId, ex.Message);
+                await Bot.TelegramBot.instance.messageSender.SendErrorMessage(session.chatId, ex.Message);
                 return string.Empty;
             }
         }

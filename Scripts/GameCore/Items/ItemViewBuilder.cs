@@ -1,11 +1,11 @@
 ﻿using System.Text;
-using TextGameRPG.Scripts.TelegramBot.Sessions;
+using TextGameRPG.Scripts.Bot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Items
 {
     using ItemProperties;
     using ItemAbilities;
-    using TextGameRPG.Scripts.TelegramBot;
+    using TextGameRPG.Scripts.Bot;
     using Localizations;
 
     public static class ItemViewBuilder

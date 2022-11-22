@@ -4,7 +4,7 @@ using TextGameRPG.Scripts.GameCore.Buildings.General;
 using TextGameRPG.Scripts.GameCore.Buildings.Production;
 using TextGameRPG.Scripts.GameCore.Buildings.Storages;
 using TextGameRPG.Scripts.GameCore.Buildings.Training;
-using TextGameRPG.Scripts.TelegramBot.Sessions;
+using TextGameRPG.Scripts.Bot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Buildings
 {

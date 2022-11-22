@@ -38,7 +38,7 @@ namespace TextGameRPG.ViewModels
         private void LauchBot(string botDataPath)
         {
             Program.SetupAppMode(AppMode.Bot);
-            var telegramBot = new Scripts.TelegramBot.TelegramBot(botDataPath);
+            var telegramBot = new Scripts.Bot.TelegramBot(botDataPath);
             mainContentView = new Views.BotControl.BotControl();
             mainContentView.DataContext = new BotControl.BotControlViewModel(telegramBot);
         }

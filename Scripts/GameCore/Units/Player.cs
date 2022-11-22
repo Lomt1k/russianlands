@@ -9,12 +9,12 @@ using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Resources;
 using TextGameRPG.Scripts.GameCore.Units.Stats;
-using TextGameRPG.Scripts.TelegramBot;
-using TextGameRPG.Scripts.TelegramBot.CallbackData;
-using TextGameRPG.Scripts.TelegramBot.Dialogs.Battle;
-using TextGameRPG.Scripts.TelegramBot.Managers.Battles;
-using TextGameRPG.Scripts.TelegramBot.Managers.Battles.Actions;
-using TextGameRPG.Scripts.TelegramBot.Sessions;
+using TextGameRPG.Scripts.Bot;
+using TextGameRPG.Scripts.Bot.CallbackData;
+using TextGameRPG.Scripts.Bot.Dialogs.Battle;
+using TextGameRPG.Scripts.GameCore.Managers.Battles;
+using TextGameRPG.Scripts.GameCore.Managers.Battles.Actions;
+using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.Utils;
 
 namespace TextGameRPG.Scripts.GameCore.Units
@@ -30,7 +30,7 @@ namespace TextGameRPG.Scripts.GameCore.Units
         public string nickname => session.profile.data.nickname;
         public byte level => session.profile.data.level;
 
-        private static MessageSender messageSender => TelegramBot.TelegramBot.instance.messageSender;
+        private static MessageSender messageSender => Bot.TelegramBot.instance.messageSender;
 
         public Player(GameSession _session)
         {
@@ -86,7 +86,7 @@ namespace TextGameRPG.Scripts.GameCore.Units
         public async Task<IBattleAction?> GetAttackActionForBattleTurn(BattleTurn battleTurn)
         {
             IBattleAction? actionBySelection = null;
-            var dialog = new SelectBattleActionDialog(session, battleTurn, (item) =>
+            var dialog = new SelectBattleItemDialog(session, battleTurn, (item) =>
             {
                 unitStats.OnUseItemInBattle(item);
                 actionBySelection = new PlayerAttackAction(this, item);
