@@ -57,7 +57,7 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles
 
         private async void AskUnitForBattleActions()
         {
-            var attackAction = await unit.GetAttackActionForBattleTurn(this).ConfigureAwait(false);
+            var attackAction = await unit.actionHandler.GetAttackAction(this).ConfigureAwait(false);
             if (!isWaitingForActions)
                 return;
 
@@ -73,13 +73,14 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles
             if (selectedActions == null)
                 return;
 
-            if (enemy.TryAddShieldOnStartEnemyTurn(out DamageInfo enemyShieldBlock))
+            if (enemy.actionHandler.TryAddShieldOnStartEnemyTurn(out DamageInfo enemyShieldBlock))
             {
                 var enemyShieldAction = new AddShieldOnEnemyTurnAction(this, enemyShieldBlock);
                 selectedActions.Insert(0, enemyShieldAction);
             }
 
-            //TODO!
+            var everyTurnActions = unit.actionHandler.GetEveryTurnActions(this);
+            selectedActions.AddRange(everyTurnActions);
         }
 
         private async Task WaitAnswerFromUnit()

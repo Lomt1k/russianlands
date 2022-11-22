@@ -1,11 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Text;
+﻿using System.Text;
 using System.Threading.Tasks;
 using Telegram.Bot.Types.ReplyMarkups;
 using TextGameRPG.Scripts.GameCore.Buildings;
 using TextGameRPG.Scripts.GameCore.Inventory;
-using TextGameRPG.Scripts.GameCore.Items;
-using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Resources;
 using TextGameRPG.Scripts.GameCore.Units.Stats;
@@ -13,18 +10,18 @@ using TextGameRPG.Scripts.Bot;
 using TextGameRPG.Scripts.Bot.CallbackData;
 using TextGameRPG.Scripts.Bot.Dialogs.Battle;
 using TextGameRPG.Scripts.GameCore.Managers.Battles;
-using TextGameRPG.Scripts.GameCore.Managers.Battles.Actions;
 using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.Utils;
+using TextGameRPG.Scripts.GameCore.Units.ActionHandlers;
 
 namespace TextGameRPG.Scripts.GameCore.Units
 {
     public class Player : IBattleUnit
     {
-        public GameSession session { get; private set; }
-        public UnitStats unitStats { get; private set; }
-        public PlayerResources resources { get; private set; }
-        public PlayerBuildings buildings { get; private set; }
+        public GameSession session { get; }
+        public UnitStats unitStats { get; }
+        public IBattleActionHandler actionHandler { get; }
+        public PlayerResources resources { get; }
+        public PlayerBuildings buildings { get; }
         public HealthRegenerationController healhRegenerationController { get; }
         public PlayerInventory inventory => session.profile.dynamicData.inventory;
         public string nickname => session.profile.data.nickname;
@@ -36,6 +33,7 @@ namespace TextGameRPG.Scripts.GameCore.Units
         {
             session = _session;
             unitStats = new PlayerStats(this);
+            actionHandler = new PlayerActionHandler(this);
             resources = new PlayerResources(_session);
             buildings = new PlayerBuildings(_session);
 
@@ -83,23 +81,6 @@ namespace TextGameRPG.Scripts.GameCore.Units
             healhRegenerationController.SetLastRegenTimeAsNow();
         }
 
-        public async Task<IBattleAction?> GetAttackActionForBattleTurn(BattleTurn battleTurn)
-        {
-            IBattleAction? actionBySelection = null;
-            var dialog = new SelectBattleItemDialog(session, battleTurn, (item) =>
-            {
-                unitStats.OnUseItemInBattle(item);
-                actionBySelection = new PlayerAttackAction(this, item);
-            })
-            .Start().ConfigureAwait(false);
-            while (actionBySelection == null && battleTurn.isWaitingForActions)
-            {
-                await Task.Delay(500).ConfigureAwait(false);
-            }
-
-            return actionBySelection;
-        }
-
         public async Task OnStartEnemyTurn(BattleTurn battleTurn)
         {
             var sb = new StringBuilder();
@@ -113,30 +94,6 @@ namespace TextGameRPG.Scripts.GameCore.Units
             sb.AppendLine(waitingText);
             var keyboard = new ReplyKeyboardMarkup(waitingText);
             await messageSender.SendTextDialog(session.chatId, sb.ToString(), keyboard, silent: true);
-        }
-
-        public bool TryAddShieldOnStartEnemyTurn(out DamageInfo damageInfo)
-        {
-            damageInfo = DamageInfo.Zero;
-
-            var shield = inventory.equipped[ItemType.Shield];
-            if (shield == null)
-                return false;
-
-            var blockAbility = shield.data.ablitityByType[AbilityType.BlockIncomingDamageEveryTurn] as BlockIncomingDamageEveryTurnAbility;
-            if (blockAbility == null)
-                return false;
-
-            var success = Randomizer.TryPercentage(blockAbility.chanceToSuccessPercentage);
-            if (!success)
-                return false;
-
-            damageInfo = new DamageInfo(
-                physicalDamage: blockAbility.physicalDamage,
-                fireDamage: blockAbility.fireDamage,
-                coldDamage: blockAbility.coldDamage,
-                lightningDamage: blockAbility.lightningDamage);
-            return true;
         }
 
         public async void OnMineBattleTurnAlmostEnd()
@@ -156,5 +113,6 @@ namespace TextGameRPG.Scripts.GameCore.Units
             var text = Localization.Get(session, "battle_enemy_turn_time_end");
             await messageSender.SendTextMessage(session.chatId, text, silent: true);
         }
+
     }
 }

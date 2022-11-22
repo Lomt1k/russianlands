@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Text;
 using System.Threading.Tasks;
-using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Units.Mobs;
 using TextGameRPG.Scripts.GameCore.Units.Stats;
 using TextGameRPG.Scripts.GameCore.Managers.Battles;
-using TextGameRPG.Scripts.GameCore.Managers.Battles.Actions;
 using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.Utils;
+using TextGameRPG.Scripts.GameCore.Units.ActionHandlers;
 
 namespace TextGameRPG.Scripts.GameCore.Units
 {
@@ -17,6 +14,7 @@ namespace TextGameRPG.Scripts.GameCore.Units
     {
         public GameSession session { get; }
         public UnitStats unitStats { get; }
+        public IBattleActionHandler actionHandler { get; }
         public MobData mobData { get; }
         public int? grade { get; }
         public float gradeMult { get; } = 1.0f;
@@ -35,6 +33,7 @@ namespace TextGameRPG.Scripts.GameCore.Units
             }
 
             unitStats = new MobStats(this);
+            actionHandler = new MobActionHandler(this);
         }
 
         public string GetGeneralUnitInfoView(GameSession sessionToSend)
@@ -61,48 +60,14 @@ namespace TextGameRPG.Scripts.GameCore.Units
             return Task.CompletedTask;
         }
 
-        public async Task<IBattleAction?> GetAttackActionForBattleTurn(BattleTurn battleTurn)
-        {
-            await Task.Delay(BattleTurn.MOB_TURN_MILISECONDS_DELAY);
-
-            var availableAttacks = GetAvailableAttacks();
-            if (availableAttacks.Count == 0)
-            {
-                return null;
-            }
-
-            var attackIndex = new Random().Next(availableAttacks.Count);
-            var attackAction = new MobAttackAction(availableAttacks[attackIndex], gradeMult);
-            return attackAction;
-        }
-
-        private List<MobAttack> GetAvailableAttacks()
-        {
-            var result = new List<MobAttack>();
-            foreach (var attack in mobData.mobAttacks)
-            {
-                if (attack.manaCost <= unitStats.currentMana)
-                {
-                    result.Add(attack);
-                }
-            }
-            return result;
-        }
-
         public Task OnStartEnemyTurn(BattleTurn battleTurn)
         {
             return Task.CompletedTask;
         }
 
-        public bool TryAddShieldOnStartEnemyTurn(out DamageInfo damageInfo)
-        {
-            //ignored
-            damageInfo = DamageInfo.Zero;
-            return false;
-        }
-
         public void OnMineBattleTurnAlmostEnd()
         {
+            //igored
         }
 
         public Task OnMineBatteTurnTimeEnd()
