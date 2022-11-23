@@ -59,10 +59,29 @@ namespace TextGameRPG.Scripts.GameCore.Units.ActionHandlers
             return true;
         }
 
-        public List<IBattleAction> GetEveryTurnActions(BattleTurn battleTurn)
+        public IEnumerable<IBattleAction> GetEveryTurnActions(BattleTurn battleTurn)
         {
+            var allEquipped = player.inventory.equipped.allEquipped;
+
+            // Restore Health
+            var restoreHealthAction = new RestoreHealthAction();
+            foreach (var item in allEquipped)
+            {
+                if (item.data.ablitityByType.TryGetValue(AbilityType.RestoreHealthEveryTurn, out var ability))
+                {
+                    var restoreHealthAbility = (RestoreHealthEveryTurnAbility)ability;
+                    if (restoreHealthAbility.TryChance())
+                    {
+                        restoreHealthAction.Add(item, restoreHealthAbility.healthValue);
+                    }
+                }
+            }
+            if (restoreHealthAction.healthAmount > 0)
+            {
+                yield return restoreHealthAction;
+            }
+
             //TODO
-            return new List<IBattleAction>();
         }
 
     }

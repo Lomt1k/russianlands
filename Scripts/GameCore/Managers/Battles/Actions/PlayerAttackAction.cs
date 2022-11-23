@@ -12,7 +12,6 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles.Actions
     public class PlayerAttackAction : IBattleAction
     {
         public BattleActionPriority priority => BattleActionPriority.OnAttack;
-        public ActivationType activationType => ActivationType.OnSelectItem;
 
         private readonly InventoryItem? _item;
         private DamageInfo _damageInfo;
@@ -43,16 +42,21 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles.Actions
             _resultDamage = stats.TryDealDamage(_damageInfo);
         }
 
-        public string GetLocalization(GameSession session)
+        public string GetHeader(GameSession session)
+        {
+            var itemName = _item != null
+                ? _item.GetFullName(session)
+                : $"{Emojis.stats[Stat.PhysicalDamage]} {Localization.Get(session, "battle_attack_fists")}";
+
+            return $"<b>{itemName}</b>";
+        }
+
+        public string GetDescription(GameSession session)
         {
             var sb = new StringBuilder();
             var totalDamage = _resultDamage.GetTotalValue();
-            var itemName = _item != null
-                ? _item.GetFullName(session) 
-                : $"{Emojis.stats[Stat.PhysicalDamage]} {Localization.Get(session, "battle_attack_fists")}";
-
-            sb.AppendLine($"<b>{itemName}</b>");
             sb.Append(string.Format(Localization.Get(session, "battle_action_attack_description"), totalDamage));
+
             var resultDamageView = _resultDamage.GetCompactView();
             if (resultDamageView != null)
             {
@@ -61,5 +65,6 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles.Actions
             }
             return sb.ToString();
         }
+
     }
 }

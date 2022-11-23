@@ -122,10 +122,12 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles
                 action.ApplyActionWithEnemyStats(enemy.unitStats);
 
                 mineStringBuilder?.AppendLine();
-                mineStringBuilder?.AppendLine(action.GetLocalization(unit.session));
+                mineStringBuilder?.AppendLine(action.GetHeader(unit.session));
+                mineStringBuilder?.AppendLine(action.GetDescription(unit.session));
 
                 enemyStringBuilder?.AppendLine();
-                enemyStringBuilder?.AppendLine(action.GetLocalization(enemy.session));
+                enemyStringBuilder?.AppendLine(action.GetHeader(enemy.session));
+                enemyStringBuilder?.AppendLine(action.GetDescription(enemy.session));
             }
 
             var messageSender = TelegramBot.instance.messageSender;

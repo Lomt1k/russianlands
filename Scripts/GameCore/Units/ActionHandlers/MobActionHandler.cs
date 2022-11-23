@@ -52,10 +52,10 @@ namespace TextGameRPG.Scripts.GameCore.Units.ActionHandlers
             return false;
         }
 
-        public List<IBattleAction> GetEveryTurnActions(BattleTurn battleTurn)
+        public IEnumerable<IBattleAction> GetEveryTurnActions(BattleTurn battleTurn)
         {
             //ignored
-            return new List<IBattleAction>();
+            return new IBattleAction[0];
         }
 
     }

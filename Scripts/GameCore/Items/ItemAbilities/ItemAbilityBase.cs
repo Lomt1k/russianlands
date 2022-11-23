@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using JsonKnownTypes;
 using TextGameRPG.Scripts.Bot.Sessions;
+using TextGameRPG.Scripts.Utils;
 
 namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
 {
@@ -17,6 +18,11 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
         public ItemAbilityBase Clone()
         {
             return (ItemAbilityBase)MemberwiseClone();
+        }
+
+        public bool TryChance()
+        {
+            return Randomizer.TryPercentage(chanceToSuccessPercentage);
         }
 
         public abstract string GetView(GameSession session);

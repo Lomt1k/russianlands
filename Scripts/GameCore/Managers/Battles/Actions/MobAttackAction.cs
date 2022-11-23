@@ -10,7 +10,6 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles.Actions
     public class MobAttackAction : IBattleAction
     {
         public BattleActionPriority priority => BattleActionPriority.OnAttack;
-        public ActivationType activationType => ActivationType.OnSelectItem;
 
         private readonly MobAttack _mobAttack;
         private readonly DamageInfo _damageInfo;
@@ -29,14 +28,19 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles.Actions
         public void ApplyActionWithEnemyStats(UnitStats stats)
         {
             _resultDamage = stats.TryDealDamage(_damageInfo);
-        }        
+        }
 
-        public string GetLocalization(GameSession session)
+        public string GetHeader(GameSession session)
+        {
+            return Localization.Get(session, _mobAttack.localizationKey);
+        }
+
+        public string GetDescription(GameSession session)
         {
             var sb = new StringBuilder();
             var totalDamage = _resultDamage.GetTotalValue();
-            sb.AppendLine(Localization.Get(session, _mobAttack.localizationKey));
             sb.Append(string.Format(Localization.Get(session, "battle_action_attack_description"), totalDamage));
+
             var resultDamageView = _resultDamage.GetCompactView();
             if (resultDamageView != null)
             {
@@ -45,5 +49,6 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles.Actions
             }
             return sb.ToString();
         }
+
     }
 }

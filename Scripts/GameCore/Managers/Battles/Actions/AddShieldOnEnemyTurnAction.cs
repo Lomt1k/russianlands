@@ -11,7 +11,6 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles.Actions
     public class AddShieldOnEnemyTurnAction : IBattleAction
     {
         public BattleActionPriority priority => BattleActionPriority.BeforeAttack;
-        public ActivationType activationType => ActivationType.EveryTurn;
 
         private DamageInfo _resistance;
         private BattleTurn _battleTurn;
@@ -32,7 +31,7 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles.Actions
             _battleTurn.onBattleTurnEnd += () => stats.AddOrRemoveResistance(-_resistance);
         }
 
-        public string GetLocalization(GameSession session)
+        public string GetHeader(GameSession session)
         {
             var shieldOwner = _battleTurn.enemy;
             string header = string.Empty;
@@ -50,14 +49,19 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles.Actions
                     break;
             }
 
+            return header;
+        }
+
+        public string GetDescription(GameSession session)
+        {
+            var shieldOwner = _battleTurn.enemy;
             var sb = new StringBuilder();
-            sb.AppendLine(header);
             sb.AppendLine(shieldOwner == session.player
                 ? Localization.Get(session, "battle_shield_mine_usage")
                 : Localization.Get(session, "battle_shield_enemy_usage"));
-
             sb.Append(_resistance.GetCompactView());
             return sb.ToString();
         }
+
     }
 }

@@ -10,6 +10,6 @@ namespace TextGameRPG.Scripts.GameCore.Units.ActionHandlers
     {
         public Task<IBattleAction?> GetAttackAction(BattleTurn battleTurn);
         public bool TryAddShieldOnStartEnemyTurn(out DamageInfo damageInfo);
-        public List<IBattleAction> GetEveryTurnActions(BattleTurn battleTurn);
+        public IEnumerable<IBattleAction> GetEveryTurnActions(BattleTurn battleTurn);
     }
 }
