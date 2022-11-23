@@ -63,7 +63,7 @@ namespace TextGameRPG.Scripts.GameCore.Units.ActionHandlers
         {
             var allEquipped = player.inventory.equipped.allEquipped;
 
-            // Restore Health
+            // --- Restore Health
             var restoreHealthAction = new RestoreHealthAction();
             foreach (var item in allEquipped)
             {
@@ -81,7 +81,25 @@ namespace TextGameRPG.Scripts.GameCore.Units.ActionHandlers
                 yield return restoreHealthAction;
             }
 
-            //TODO
+            // --- Add Mana
+            var addManaAction = new AddManaAction();
+            foreach (var item in allEquipped)
+            {
+                if (item.data.ablitityByType.TryGetValue(AbilityType.AddManaEveryTurn, out var ability))
+                {
+                    var addManaAbility = (AddManaEveryTurnAbility)ability;
+                    if (addManaAbility.TryChance())
+                    {
+                        addManaAction.Add(item, addManaAbility.manaValue);
+                    }
+                }
+            }
+            if (addManaAction.manaAmount > 0)
+            {
+                yield return addManaAction;
+            }
+
+            // ...
         }
 
     }

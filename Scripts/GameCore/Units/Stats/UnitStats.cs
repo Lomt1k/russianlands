@@ -55,6 +55,11 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
             damagedHP = Math.Max(damagedHP - hp, 0);
         }
 
+        public void AddMana(int manaAmount)
+        {
+            currentMana += manaAmount;
+        }
+
         public virtual void OnStartBattle()
         {
             currentMana = 0;
