@@ -15,7 +15,7 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles
     {
         public const int MOB_TURN_MILISECONDS_DELAY = 3_000;
 
-        private List<IBattleAction> _battleActions;
+        private List<IBattleAction> _battleActions = new List<IBattleAction>();
         private Dictionary<Player, List<BattleTooltipType>> _queryTooltipsToIgnoreByPlayers = new Dictionary<Player, List<BattleTooltipType>>();
 
         public Action? onBattleTurnEnd;
@@ -26,7 +26,7 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles
         public int millisecondsLeft { get; private set; }
         public bool isLastChance { get; }
 
-        public bool isWaitingForActions => _battleActions == null && millisecondsLeft > 0 && !battle.IsCancellationRequested();
+        public bool isWaitingForActions => _battleActions.Count == 0 && millisecondsLeft > 0 && !battle.IsCancellationRequested();
 
         public BattleTurn(Battle _battle, IBattleUnit _unit, int _secondsLimit)
         {
@@ -107,7 +107,7 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles
         {
             if (battle.IsCancellationRequested())
                 return;
-            if (_battleActions == null)
+            if (_battleActions.Count < 1)
                 return;
 
             var mineStringBuilder = unit is Player ? new StringBuilder() : null;
