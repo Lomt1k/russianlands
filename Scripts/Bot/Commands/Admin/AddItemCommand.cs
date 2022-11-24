@@ -2,7 +2,7 @@
 using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.Bot.Sessions;
 
-namespace TextGameRPG.Scripts.Bot.Commands
+namespace TextGameRPG.Scripts.Bot.Commands.Admin
 {
     public class AddItemCommand : CommandBase
     {

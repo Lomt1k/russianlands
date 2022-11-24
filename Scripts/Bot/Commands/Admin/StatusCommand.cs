@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Managers;
 using TextGameRPG.Scripts.Bot.Sessions;
 
-namespace TextGameRPG.Scripts.Bot.Commands
+namespace TextGameRPG.Scripts.Bot.Commands.Admin
 {
     public class StatusCommand : CommandBase
     {

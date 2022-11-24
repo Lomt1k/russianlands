@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TextGameRPG.Scripts.Bot.Commands.Admin;
 using TextGameRPG.Scripts.Bot.Sessions;
 
 namespace TextGameRPG.Scripts.Bot.Commands
@@ -21,6 +22,10 @@ namespace TextGameRPG.Scripts.Bot.Commands
                 { "/status", new StatusCommand() },
                 { "/additem", new AddItemCommand() },
                 { "/test", new TestCommand() },
+                { "/battle", new BattleCommand() },
+                { "/win", new WinCommand() },
+                { "/lose", new LoseCommand() },
+                { "/draw", new DrawCommand() },
             };
         }
 
