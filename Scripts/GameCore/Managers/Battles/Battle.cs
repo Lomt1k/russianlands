@@ -22,7 +22,6 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles
         private Func<Player, BattleResult, Task>? _onContinueButtonFunc;
         private Func<Player, BattleResult, bool>? _isAvailableReturnToTownFunc;
 
-        private CancellationTokenSource _allSessionsCTS;
         private CancellationTokenSource _forceBattleCTS;
 
         public BattleType battleType { get; }
@@ -41,7 +40,6 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles
             firstUnit = SelectFirstUnit(opponentA, opponentB);
             secondUnit = firstUnit == opponentA ? opponentB : opponentA;
 
-            _allSessionsCTS = TelegramBot.instance.sessionManager.allSessionsTasksCTS;
             _forceBattleCTS = new CancellationTokenSource();
 
             _rewards = rewards;
@@ -52,6 +50,8 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles
 
         public bool IsCancellationRequested()
         {
+            if (_forceBattleCTS.IsCancellationRequested)
+                return true;
             if (firstUnit is Player firstPlayer)
             {
                 if (firstPlayer.session.IsTasksCancelled())
