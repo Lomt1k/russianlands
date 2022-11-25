@@ -15,7 +15,7 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles
     {
         public const int MOB_TURN_MILISECONDS_DELAY = 3_000;
 
-        private List<IBattleAction> _battleActions = new List<IBattleAction>();
+        private List<IBattleAction>? _battleActions = null;
         private Dictionary<Player, List<BattleTooltipType>> _queryTooltipsToIgnoreByPlayers = new Dictionary<Player, List<BattleTooltipType>>();
 
         public Action? onBattleTurnEnd;
@@ -26,7 +26,7 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles
         public int millisecondsLeft { get; private set; }
         public bool isLastChance { get; }
 
-        public bool isWaitingForActions => _battleActions.Count == 0 && millisecondsLeft > 0 && !battle.IsCancellationRequested();
+        public bool isWaitingForActions => _battleActions == null && millisecondsLeft > 0 && !battle.IsCancellationRequested();
 
         public BattleTurn(Battle _battle, IBattleUnit _unit, int _secondsLimit)
         {
@@ -61,26 +61,25 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles
             if (!isWaitingForActions)
                 return;
 
+            var actionsList = new List<IBattleAction>();
             if (attackAction != null)
             {
-                _battleActions.Add(attackAction);
+                actionsList.Add(attackAction);
             }
-            TryAppendEveryTurnActions(_battleActions);
+            TryAppendEveryTurnActions(actionsList);
+            _battleActions = actionsList; // Важно, что мы присваиваем уже полностью готовый список, который больше не модифицируем
         }
 
-        private void TryAppendEveryTurnActions(List<IBattleAction> selectedActions)
+        private void TryAppendEveryTurnActions(List<IBattleAction> actionsList)
         {
-            if (selectedActions == null)
-                return;
-
             if (enemy.actionHandler.TryAddShieldOnStartEnemyTurn(out DamageInfo enemyShieldBlock))
             {
                 var enemyShieldAction = new AddShieldOnEnemyTurnAction(this, enemyShieldBlock);
-                selectedActions.Insert(0, enemyShieldAction);
+                actionsList.Insert(0, enemyShieldAction);
             }
 
             var everyTurnActions = unit.actionHandler.GetEveryTurnActions(this);
-            selectedActions.AddRange(everyTurnActions);
+            actionsList.AddRange(everyTurnActions);
         }
 
         private async Task WaitAnswerFromUnit()
@@ -107,7 +106,7 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles
         {
             if (battle.IsCancellationRequested())
                 return;
-            if (_battleActions.Count < 1)
+            if (_battleActions == null)
                 return;
 
             var mineStringBuilder = unit is Player ? new StringBuilder() : null;
