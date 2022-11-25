@@ -4,8 +4,6 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
     public enum AbilityType : short
     {
         None = 0,
-
-        // --- Абилки, которые активируются при применении самого предмета
         DealDamage = 1,
         BlockIncomingDamageEveryTurn = 2,
         RestoreHealthEveryTurn = 3,
