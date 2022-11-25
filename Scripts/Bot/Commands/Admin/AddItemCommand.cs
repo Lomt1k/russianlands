@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.Bot.Sessions;
+using System;
 
 namespace TextGameRPG.Scripts.Bot.Commands.Admin
 {
@@ -10,34 +11,28 @@ namespace TextGameRPG.Scripts.Bot.Commands.Admin
 
         public override async Task Execute(GameSession session, string[] args)
         {
-            if (args.Length < 1 || args.Length > 2)
+            if (args.Length < 1)
                 return;
 
-            if (!int.TryParse(args[0], out var itemId))
-                return;
-
-            int count = 1;
-            if (args.Length >= 2 && !int.TryParse(args[1], out count))
-                return;
-
-            int result = 0;
-            InventoryItem? firstAddedItem = null;
-            for (int i = 0; i < count; i++)
+            InventoryItem? item = null;
+            try
             {
-                var addedItem = session.player.inventory.TryAddItem(itemId);
-                if (addedItem == null)
-                    break;
-
-                result++;
-                if (result == 1)
-                    firstAddedItem = addedItem;
+                item = int.TryParse(args[0], out int itemId)
+                ? new InventoryItem(itemId)
+                : new InventoryItem(args[0].ToUpperInvariant());
             }
-
-            if (result == 0)
+            catch (Exception ex)
+            {
+                await messageSender.SendTextMessage(session.chatId, $"Incorrect item ID\n\n{ex.Message}");
                 return;
+            }            
 
-            string message = $"Successfully added item '{firstAddedItem.data.debugName}' (Count: {result})";
+            bool success = session.player.inventory.TryAddItem(item);
+            string message = success
+                ? $"Added item with ID {item.id}:\n{item.GetFullName(session)}"
+                : "Can`t add item: Inventory is full";
             await messageSender.SendTextMessage(session.chatId, message).ConfigureAwait(false);
         }
+
     }
 }

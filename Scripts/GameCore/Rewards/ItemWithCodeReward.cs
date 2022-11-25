@@ -17,10 +17,10 @@ namespace TextGameRPG.Scripts.GameCore.Rewards
             try
             {
                 var item = new InventoryItem(itemCode);
-                var addedItem = session.player.inventory.TryAddItem(item);
-                if (addedItem != null)
+                var success = session.player.inventory.TryAddItem(item);
+                if (success)
                 {
-                    return $"<b>{addedItem.GetFullName(session)}</b>";
+                    return $"<b>{item.GetFullName(session)}</b>";
                 }
                 return string.Empty;
             }
