@@ -7,11 +7,9 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
 
         // --- Абилки, которые активируются при применении самого предмета
         DealDamage = 1,
-
-        // --- Абилки, которые активируются каждый ход (когда просто экипированы)
-        BlockIncomingDamageEveryTurn = 100,
-        RestoreHealthEveryTurn = 101,
-        AddManaEveryTurn = 102
+        BlockIncomingDamageEveryTurn = 2,
+        RestoreHealthEveryTurn = 3,
+        AddManaEveryTurn = 4
     }
 
     public enum ActivationType : byte
