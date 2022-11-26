@@ -30,38 +30,25 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
 
         private static InventoryItem GenerateItem(ItemType _type, Rarity _rarity, int _townHallLevel)
         {
-            string dataCode;
-            switch (_type)
+            string dataCode = _type switch
             {
-                case ItemType.Sword:
-                case ItemType.Bow:
-                    dataCode = new WeaponCodeGenerator(_type, _rarity, _townHallLevel).GetCode();
-                    break;
-                case ItemType.Stick:
-                    dataCode = new StickCodeGenerator(_type, _rarity, _townHallLevel).GetCode();
-                    break;
-                case ItemType.Armor:
-                case ItemType.Boots:
-                case ItemType.Helmet:
-                    dataCode = new ArmorCodeGenerator(_type, _rarity, _townHallLevel).GetCode();
-                    break;
-                case ItemType.Shield:
-                    dataCode = new ShieldCodeGenerator(_type, _rarity, _townHallLevel).GetCode();
-                    break;
-                case ItemType.Amulet:
-                    dataCode = new AmuletCodeGenerator(_type, _rarity, _townHallLevel).GetCode();
-                    break;
-                case ItemType.Ring:
-                    dataCode = new RingCodeGenerator(_type, _rarity, _townHallLevel).GetCode();
-                    break;
-                case ItemType.Scroll:
-                    dataCode = new ScrollCodeGenerator(_type, _rarity, _townHallLevel).GetCode();
-                    break;
+                ItemType.Sword => new SwordCodeGenerator(_type, _rarity, _townHallLevel).GetCode(),
+                ItemType.Bow => new BowCodeGenerator(_type, _rarity, _townHallLevel).GetCode(),
+                ItemType.Stick => new StickCodeGenerator(_type, _rarity, _townHallLevel).GetCode(),
+                ItemType.Armor => new ArmorCodeGenerator(_type, _rarity, _townHallLevel).GetCode(),
+                ItemType.Boots => new ArmorCodeGenerator(_type, _rarity, _townHallLevel).GetCode(),
+                ItemType.Helmet => new ArmorCodeGenerator(_type, _rarity, _townHallLevel).GetCode(),
+                ItemType.Shield => new ShieldCodeGenerator(_type, _rarity, _townHallLevel).GetCode(),
+                ItemType.Amulet => new AmuletCodeGenerator(_type, _rarity, _townHallLevel).GetCode(),
+                ItemType.Ring => new RingCodeGenerator(_type, _rarity, _townHallLevel).GetCode(),
+                ItemType.Scroll => new ScrollCodeGenerator(_type, _rarity, _townHallLevel).GetCode(),
+                _ => string.Empty
+            };
 
-                default: //unsupported ItemType
-                    Program.logger.Error($"ItemGenerationManager: Can not create item with type {_type}. Creating a sword...");
-                    dataCode = new WeaponCodeGenerator(ItemType.Sword, _rarity, _townHallLevel).GetCode();
-                    break;
+            if (string.IsNullOrEmpty(dataCode))
+            {
+                Program.logger.Error($"ItemGenerationManager: Can not create item with type '{_type}'. Creating a sword...");
+                dataCode = new SwordCodeGenerator(ItemType.Sword, _rarity, _townHallLevel).GetCode();
             }
 
             return new InventoryItem(dataCode);

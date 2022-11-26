@@ -35,7 +35,7 @@ namespace TextGameRPG.Scripts.GameCore.Units.ActionHandlers
             return actionBySelection;
         }
 
-        public bool TryAddShieldOnStartEnemyTurn(out DamageInfo damageInfo)
+        public bool TryAddShieldOnEnemyTurn(out DamageInfo damageInfo)
         {
             damageInfo = DamageInfo.Zero;
 
@@ -56,6 +56,30 @@ namespace TextGameRPG.Scripts.GameCore.Units.ActionHandlers
                 fireDamage: blockAbility.fireDamage,
                 coldDamage: blockAbility.coldDamage,
                 lightningDamage: blockAbility.lightningDamage);
+            return true;
+        }
+
+        public bool TryAddSwordBlockOnEnemyTurn(out DamageInfo damageInfo)
+        {
+            damageInfo = DamageInfo.Zero;
+
+            var sword = player.inventory.equipped[ItemType.Sword];
+            if (sword == null)
+                return false;
+
+            var swordBlockAbility = sword.data.ablitityByType[AbilityType.SwordBlockEveryTurnKeyword] as SwordBlockKeywordAbility;
+            if (swordBlockAbility == null)
+                return false;
+
+            var success = Randomizer.TryPercentage(swordBlockAbility.chanceToSuccessPercentage);
+            if (!success)
+                return false;
+
+            damageInfo = new DamageInfo(
+                physicalDamage: swordBlockAbility.physicalDamage,
+                fireDamage: swordBlockAbility.fireDamage,
+                coldDamage: swordBlockAbility.coldDamage,
+                lightningDamage: swordBlockAbility.lightningDamage);
             return true;
         }
 

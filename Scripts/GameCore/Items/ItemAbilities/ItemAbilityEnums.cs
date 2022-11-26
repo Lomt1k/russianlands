@@ -7,7 +7,8 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
         DealDamage = 1,
         BlockIncomingDamageEveryTurn = 2,
         RestoreHealthEveryTurn = 3,
-        AddManaEveryTurn = 4
+        AddManaEveryTurn = 4,
+        SwordBlockEveryTurnKeyword = 5,
     }
 
     public enum ActivationType : byte

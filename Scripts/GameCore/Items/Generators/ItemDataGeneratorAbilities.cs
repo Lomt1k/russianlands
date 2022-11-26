@@ -1,5 +1,4 @@
-﻿
-namespace TextGameRPG.Scripts.GameCore.Items.Generators
+﻿namespace TextGameRPG.Scripts.GameCore.Items.Generators
 {
     using ItemAbilities;
     using System;
@@ -251,7 +250,6 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             var newAbility = (BlockIncomingDamageEveryTurnAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
             newAbility.physicalDamage = value;
             newAbility.chanceToSuccessPercentage = chancePercentage;
-            newAbility.chanceToSuccessPercentage = chancePercentage;
             _stackOfChances[abilityType] = 1;
             _abilities.Add(abilityType, newAbility);
         }
@@ -276,7 +274,6 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             var newAbility = (BlockIncomingDamageEveryTurnAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
             newAbility.fireDamage = value;
             newAbility.chanceToSuccessPercentage = chancePercentage;
-            newAbility.chanceToSuccessPercentage = chancePercentage;
             _stackOfChances[abilityType] = 1;
             _abilities.Add(abilityType, newAbility);
         }
@@ -300,7 +297,6 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
 
             var newAbility = (BlockIncomingDamageEveryTurnAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
             newAbility.coldDamage = value;
-            newAbility.chanceToSuccessPercentage = chancePercentage;
             newAbility.chanceToSuccessPercentage = chancePercentage;
             _stackOfChances[abilityType] = 1;
             _abilities.Add(abilityType, newAbility);
@@ -353,7 +349,6 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             var newAbility = (RestoreHealthEveryTurnAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
             newAbility.healthValue = value;
             newAbility.chanceToSuccessPercentage = chancePercentage;
-            newAbility.chanceToSuccessPercentage = chancePercentage;
             _stackOfChances[abilityType] = 1;
             _abilities.Add(abilityType, newAbility);
         }
@@ -378,7 +373,6 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
 
             var newAbility = (AddManaEveryTurnAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
             newAbility.manaValue = value;
-            newAbility.chanceToSuccessPercentage = chancePercentage;
             newAbility.chanceToSuccessPercentage = chancePercentage;
             _stackOfChances[abilityType] = 1;
             _abilities.Add(abilityType, newAbility);

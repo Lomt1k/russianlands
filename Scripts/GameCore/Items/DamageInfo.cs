@@ -49,6 +49,23 @@ namespace TextGameRPG.Scripts.GameCore.Items
             return new DamageInfo(-a[DamageType.Physical], -a[DamageType.Fire], -a[DamageType.Cold], -a[DamageType.Lightning]);
         }
         public static DamageInfo operator -(DamageInfo a, DamageInfo b) => a + (-b);
+        public static DamageInfo operator *(DamageInfo a, int b)
+        {
+            return new DamageInfo(a[DamageType.Physical] * b, a[DamageType.Fire] * b, a[DamageType.Cold] * b, a[DamageType.Lightning] * b);
+        }
+        public static DamageInfo operator *(DamageInfo a, float b)
+        {
+            return new DamageInfo(
+                (int)Math.Round(a[DamageType.Physical] * b),
+                (int)Math.Round(a[DamageType.Fire] * b),
+                (int)Math.Round(a[DamageType.Cold] * b),
+                (int)Math.Round(a[DamageType.Lightning] * b)
+                );
+        }
+        public static DamageInfo operator /(DamageInfo a, int b)
+        {
+            return new DamageInfo(a[DamageType.Physical] / b, a[DamageType.Fire] / b, a[DamageType.Cold] / b, a[DamageType.Lightning] / b);
+        }
         public static DamageInfo Zero => new DamageInfo(0);
 
         public int GetTotalValue()

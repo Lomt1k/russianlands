@@ -7,15 +7,16 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators
 {
     public abstract class ItemCodeGeneratorBase
     {
+        private List<AbilityType> _abilities = new List<AbilityType>();
+        private List<PropertyType> _properties = new List<PropertyType>();
+
         protected ItemType type { get; private set; }
         protected Rarity rarity { get; private set; }
         protected byte townHallLevel { get; private set; }
         protected byte grade { get; private set; }
-
         protected StringBuilder sb { get; private set; }
-
-        private List<AbilityType> _abilities = new List<AbilityType>();
-        private List<PropertyType> _properties = new List<PropertyType>();
+        protected int abilitiesCount => _abilities.Count;
+        protected int propertiesCount => _properties.Count;
 
         public ItemCodeGeneratorBase(ItemType _type, Rarity _rarity, int _townHallLevel)
         {

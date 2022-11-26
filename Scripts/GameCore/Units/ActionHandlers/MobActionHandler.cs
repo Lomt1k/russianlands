@@ -45,7 +45,14 @@ namespace TextGameRPG.Scripts.GameCore.Units.ActionHandlers
             return result;
         }
 
-        public bool TryAddShieldOnStartEnemyTurn(out DamageInfo damageInfo)
+        public bool TryAddShieldOnEnemyTurn(out DamageInfo damageInfo)
+        {
+            //ignored
+            damageInfo = DamageInfo.Zero;
+            return false;
+        }
+
+        public bool TryAddSwordBlockOnEnemyTurn(out DamageInfo damageInfo)
         {
             //ignored
             damageInfo = DamageInfo.Zero;

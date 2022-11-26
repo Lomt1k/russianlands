@@ -28,7 +28,18 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
                 random.Next(minPhysicalDamage, maxPhysicalDamage + 1),
                 random.Next(minFireDamage, maxFireDamage + 1),
                 random.Next(minColdDamage, maxColdDamage + 1),
-                random.Next(minLightningDamage, maxLightningDamage + 1));
+                random.Next(minLightningDamage, maxLightningDamage + 1)
+                );
+        }
+
+        public DamageInfo GetAverageValues()
+        {
+            return new DamageInfo(
+                (minPhysicalDamage + maxPhysicalDamage) / 2,
+                (minFireDamage + maxFireDamage) / 2,
+                (minColdDamage + maxColdDamage) / 2,
+                (minLightningDamage + maxLightningDamage) / 2
+                );
         }
 
         public override string ToString()

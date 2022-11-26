@@ -72,12 +72,18 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles
 
         private void TryAppendEveryTurnActions(List<IBattleAction> actionsList)
         {
-            if (enemy.actionHandler.TryAddShieldOnStartEnemyTurn(out DamageInfo enemyShieldBlock))
+            // --- блок щитом / мечом
+            if (enemy.actionHandler.TryAddShieldOnEnemyTurn(out DamageInfo enemyShieldBlock))
             {
                 var enemyShieldAction = new AddShieldOnEnemyTurnAction(this, enemyShieldBlock);
                 actionsList.Insert(0, enemyShieldAction);
             }
-
+            else if (enemy.actionHandler.TryAddSwordBlockOnEnemyTurn(out DamageInfo enemySwordBlock))
+            {
+                var enemySwordAction = new AddSwordBlockOnEnemyTurnAction(this, enemySwordBlock);
+                actionsList.Insert(0, enemySwordAction);
+            }
+            
             var everyTurnActions = unit.actionHandler.GetEveryTurnActions(this);
             actionsList.AddRange(everyTurnActions);
         }

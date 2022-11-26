@@ -36,6 +36,7 @@ namespace TextGameRPG.Scripts.Bot
         Mana,
         IncreaseHealth,
         Premium,
+        KeywordSwordBlock,
     }
 
     public enum MapLocation
@@ -149,6 +150,7 @@ namespace TextGameRPG.Scripts.Bot
             { Stat.RestoreHealth, "\ud83d\udc96" },
             { Stat.IncreaseHealth, "\ud83d\udc97" },
             { Stat.Premium, "\ud83d\udc51" },
+            { Stat.KeywordSwordBlock, "\ud83d\udee1" },
         };
 
         public static readonly Dictionary<ItemType, string> items = new Dictionary<ItemType, string>
