@@ -9,7 +9,6 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
     {
         public override string debugDescription => "Наносит урон";
         public override AbilityType abilityType => AbilityType.DealDamage;
-        public override ActivationType activationType => ActivationType.ByUser;
 
         // Не очень красиво, но так как эти поля меняются через рефлексию - проще так оставить
         public int minPhysicalDamage;

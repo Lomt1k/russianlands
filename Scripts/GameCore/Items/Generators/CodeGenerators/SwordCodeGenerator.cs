@@ -40,7 +40,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators
             while (abilitiesCount < targetKeywordsCount)
             {
                 var index = random.Next(_availableKeywords.Count);
-                AppendAbilityOnlyOnce(_availableKeywords[index]);
+                AppendAbilityAsKeyword(_availableKeywords[index]);
             }
         }
 

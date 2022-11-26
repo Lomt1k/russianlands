@@ -10,8 +10,6 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles.Actions
 {
     public class AddShieldOnEnemyTurnAction : IBattleAction
     {
-        public BattleActionPriority priority => BattleActionPriority.BeforeAttack;
-
         private DamageInfo _resistance;
         private BattleTurn _battleTurn;
 

@@ -28,7 +28,7 @@ namespace TextGameRPG.Scripts.GameCore.Units.ActionHandlers
                 player.unitStats.OnUseItemInBattle(item);
                 var generalAttackAction = new PlayerAttackAction(player, item);
                 result.Add(generalAttackAction);
-                ItemKeywordActionsHandler.AddKeywords(battleTurn, item, ref generalAttackAction, ref result);
+                ItemKeywordActionsHandler.HandleKeywords(battleTurn, item, ref generalAttackAction, ref result);
                 isActionsReady = true;
             })
             .Start().ConfigureAwait(false);
@@ -49,10 +49,10 @@ namespace TextGameRPG.Scripts.GameCore.Units.ActionHandlers
             if (shield == null)
                 return false;
 
-            var blockAbility = shield.data.ablitityByType[AbilityType.BlockIncomingDamageEveryTurn] as BlockIncomingDamageEveryTurnAbility;
-            if (blockAbility == null)
+            if (!shield.data.ablitityByType.TryGetValue(AbilityType.BlockIncomingDamageEveryTurn, out var shieldBlockAbility))
                 return false;
 
+            var blockAbility = (BlockIncomingDamageEveryTurnAbility)shieldBlockAbility;
             var success = Randomizer.TryPercentage(blockAbility.chanceToSuccessPercentage);
             if (!success)
                 return false;
@@ -73,19 +73,19 @@ namespace TextGameRPG.Scripts.GameCore.Units.ActionHandlers
             if (sword == null)
                 return false;
 
-            var swordBlockAbility = sword.data.ablitityByType[AbilityType.SwordBlockEveryTurnKeyword] as SwordBlockKeywordAbility;
-            if (swordBlockAbility == null)
+            if (!sword.data.ablitityByType.TryGetValue(AbilityType.SwordBlockEveryTurnKeyword, out var swordBlockAbility))
                 return false;
 
-            var success = Randomizer.TryPercentage(swordBlockAbility.chanceToSuccessPercentage);
+            var blockAbility = (SwordBlockKeywordAbility)swordBlockAbility;
+            var success = Randomizer.TryPercentage(blockAbility.chanceToSuccessPercentage);
             if (!success)
                 return false;
 
             damageInfo = new DamageInfo(
-                physicalDamage: swordBlockAbility.physicalDamage,
-                fireDamage: swordBlockAbility.fireDamage,
-                coldDamage: swordBlockAbility.coldDamage,
-                lightningDamage: swordBlockAbility.lightningDamage);
+                physicalDamage: blockAbility.physicalDamage,
+                fireDamage: blockAbility.fireDamage,
+                coldDamage: blockAbility.coldDamage,
+                lightningDamage: blockAbility.lightningDamage);
             return true;
         }
 

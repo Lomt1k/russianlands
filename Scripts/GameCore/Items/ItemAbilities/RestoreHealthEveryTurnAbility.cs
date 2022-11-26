@@ -8,8 +8,6 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
 
         public override AbilityType abilityType => AbilityType.RestoreHealthEveryTurn;
 
-        public override ActivationType activationType => ActivationType.EveryTurn;
-
         public int healthValue;
 
         public override string ToString()

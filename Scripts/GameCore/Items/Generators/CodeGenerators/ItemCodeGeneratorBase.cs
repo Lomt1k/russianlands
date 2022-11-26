@@ -61,7 +61,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators
         /// <summary>
         /// Добавит предмету способность, если такой способности еще не было
         /// </summary>
-        protected bool AppendAbilityOnlyOnce(AbilityType abilityType)
+        protected bool AppendAbilityAsKeyword(AbilityType abilityType)
         {
             if (_abilities.Contains(abilityType))
                 return false;

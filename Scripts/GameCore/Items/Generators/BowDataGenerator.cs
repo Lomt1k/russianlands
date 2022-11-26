@@ -1,4 +1,5 @@
 ﻿using System;
+using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
 
 namespace TextGameRPG.Scripts.GameCore.Items.Generators
 {
@@ -19,6 +20,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             }
             AddBaseParameters(rarityMult);
             AddProperties();
+            AddAbilities();
         }
 
         private void AddBaseParameters(float rarityMult)
@@ -48,6 +50,16 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
                         AddDealLightningDamage(secondaryDamage);
                         break;
                 }
+            }
+        }
+
+        protected override void AddAbility(AbilityType abilityType)
+        {
+            switch (abilityType)
+            {
+                case AbilityType.BowLastShotKeyword:
+                    AddBowLastShotKeyword();
+                    break;
             }
         }
 

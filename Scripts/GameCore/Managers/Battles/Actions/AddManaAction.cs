@@ -9,8 +9,6 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles.Actions
 {
     public class AddManaAction : IBattleAction
     {
-        public BattleActionPriority priority => BattleActionPriority.BeforeAttack;
-
         public int manaAmount;
         public HashSet<InventoryItem> fromItems = new HashSet<InventoryItem>();
 

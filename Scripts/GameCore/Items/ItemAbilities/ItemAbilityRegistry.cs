@@ -13,6 +13,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
             { AbilityType.RestoreHealthEveryTurn, new RestoreHealthEveryTurnAbility() },
             { AbilityType.AddManaEveryTurn, new AddManaEveryTurnAbility() },
             { AbilityType.SwordBlockEveryTurnKeyword, new SwordBlockKeywordAbility() },
+            { AbilityType.BowLastShotKeyword, new BowLastShotKeywordAbility() },
         };
 
         public static ItemAbilityBase GetNewAbility(AbilityType type)

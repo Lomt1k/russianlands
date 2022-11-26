@@ -9,8 +9,6 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles.Actions
 {
     public class AddSwordBlockOnEnemyTurnAction : IBattleAction
     {
-        public BattleActionPriority priority => BattleActionPriority.BeforeAttack;
-
         private DamageInfo _resistance;
         private BattleTurn _battleTurn;
 

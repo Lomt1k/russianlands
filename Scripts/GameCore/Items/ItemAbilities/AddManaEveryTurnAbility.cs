@@ -8,8 +8,6 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
 
         public override AbilityType abilityType => AbilityType.AddManaEveryTurn;
 
-        public override ActivationType activationType => ActivationType.EveryTurn;
-
         public int manaValue;
 
         public override string ToString()

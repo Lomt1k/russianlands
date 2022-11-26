@@ -9,8 +9,6 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
 
         public override AbilityType abilityType => AbilityType.BlockIncomingDamageEveryTurn;
 
-        public override ActivationType activationType => ActivationType.EveryTurn;
-
         public int physicalDamage;
         public int fireDamage;
         public int coldDamage;

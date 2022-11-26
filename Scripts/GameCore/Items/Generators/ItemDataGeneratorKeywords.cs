@@ -24,6 +24,14 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             _abilities.Add(abilityType, newAbility);
         }
 
+        protected void AddBowLastShotKeyword()
+        {
+            _statIcons.Add(Stat.KeywordBowLastShot);
+            var abilityType = AbilityType.BowLastShotKeyword;
+            var newAbility = (BowLastShotKeywordAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
+            _abilities.Add(abilityType, newAbility);
+        }
+
 
     }
 }

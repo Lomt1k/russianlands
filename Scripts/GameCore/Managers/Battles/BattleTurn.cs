@@ -8,6 +8,7 @@ using TextGameRPG.Scripts.GameCore.Units;
 using TextGameRPG.Scripts.Bot.CallbackData;
 using TextGameRPG.Scripts.GameCore.Managers.Battles.Actions;
 using TextGameRPG.Scripts.Bot;
+using System.Linq;
 
 namespace TextGameRPG.Scripts.GameCore.Managers.Battles
 {
@@ -64,7 +65,8 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles
             var actionsList = new List<IBattleAction>();
             actionsList.AddRange(attackActions);
             TryAppendEveryTurnActions(actionsList);
-            _battleActions = actionsList; // Важно, что мы присваиваем уже полностью готовый список, который больше не модифицируем
+            // Важно, что мы присваиваем уже полностью готовый список, который больше не модифицируем
+            _battleActions = actionsList;
         }
 
         private void TryAppendEveryTurnActions(List<IBattleAction> actionsList)
@@ -80,7 +82,7 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles
                 var enemySwordAction = new AddSwordBlockOnEnemyTurnAction(this, enemySwordBlock);
                 actionsList.Insert(0, enemySwordAction);
             }
-            
+
             var everyTurnActions = unit.actionHandler.GetEveryTurnActions(this);
             actionsList.AddRange(everyTurnActions);
         }

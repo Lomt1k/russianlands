@@ -10,7 +10,6 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
     {
         [JsonIgnore] public abstract string debugDescription { get; }
         [JsonIgnore] public abstract AbilityType abilityType { get; }
-        [JsonIgnore] public abstract ActivationType activationType { get; }
 
         public float chanceToSuccessPercentage = 100;
         public int manaCost;

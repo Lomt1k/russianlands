@@ -9,8 +9,6 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles.Actions
 {
     public class RestoreHealthAction : IBattleAction
     {
-        public BattleActionPriority priority => BattleActionPriority.BeforeAttack;
-
         public int healthAmount;
         public HashSet<InventoryItem> fromItems = new HashSet<InventoryItem>();
 

@@ -16,7 +16,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators
 
         private static List<AbilityType> _availableKeywords => new List<AbilityType>
         {
-            //TODO
+            AbilityType.BowLastShotKeyword,
         };
 
         public BowCodeGenerator(ItemType _type, Rarity _rarity, int _townHallLevel) : base(_type, _rarity, _townHallLevel)
@@ -40,7 +40,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators
             while (abilitiesCount < targetKeywordsCount)
             {
                 var index = random.Next(_availableKeywords.Count);
-                AppendAbilityOnlyOnce(_availableKeywords[index]);
+                AppendAbilityAsKeyword(_availableKeywords[index]);
             }
         }
 

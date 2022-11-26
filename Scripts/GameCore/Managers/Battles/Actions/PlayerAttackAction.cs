@@ -11,10 +11,9 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles.Actions
 {
     public class PlayerAttackAction : IBattleAction
     {
-        public BattleActionPriority priority => BattleActionPriority.OnAttack;
+        public DamageInfo damageInfo;
 
-        private readonly InventoryItem? _item;
-        private DamageInfo _damageInfo;
+        private readonly InventoryItem? _item;        
         private DamageInfo _resultDamage;
 
         /// <summary>
@@ -26,11 +25,11 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles.Actions
             var dealDamageAbility = item?.data.ablitityByType[AbilityType.DealDamage] as DealDamageAbility;
             if (dealDamageAbility == null)
             {
-                _damageInfo = new DamageInfo(10, 0, 0, 0); // Урон кулаком: 10 единиц (меньше любого оружия)
+                damageInfo = new DamageInfo(10, 0, 0, 0); // Урон кулаком: 10 единиц (меньше любого оружия)
                 return;
             }
             _item = item;
-            _damageInfo = dealDamageAbility.GetRandomValues();
+            damageInfo = dealDamageAbility.GetRandomValues();
         }
 
         public void ApplyActionWithMineStats(UnitStats stats)
@@ -39,7 +38,7 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles.Actions
 
         public void ApplyActionWithEnemyStats(UnitStats stats)
         {
-            _resultDamage = stats.TryDealDamage(_damageInfo);
+            _resultDamage = stats.TryDealDamage(damageInfo);
         }
 
         public string GetHeader(GameSession session)

@@ -9,13 +9,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
         RestoreHealthEveryTurn = 3,
         AddManaEveryTurn = 4,
         SwordBlockEveryTurnKeyword = 5,
-    }
-
-    public enum ActivationType : byte
-    {
-        None = 0,
-        ByUser = 1,
-        EveryTurn = 2        
+        BowLastShotKeyword = 6,
     }
 
 

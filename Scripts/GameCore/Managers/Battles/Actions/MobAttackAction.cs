@@ -9,8 +9,6 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles.Actions
 {
     public class MobAttackAction : IBattleAction
     {
-        public BattleActionPriority priority => BattleActionPriority.OnAttack;
-
         private readonly MobAttack _mobAttack;
         private readonly DamageInfo _damageInfo;
         private DamageInfo _resultDamage;
