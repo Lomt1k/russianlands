@@ -17,19 +17,21 @@ namespace TextGameRPG.Scripts.GameCore.Units.ActionHandlers
             this.mob = mob;
         }
 
-        public async Task<IBattleAction?> GetAttackAction(BattleTurn battleTurn)
+        public async Task<List<IBattleAction>> GetActionsBySelectedItem(BattleTurn battleTurn)
         {
             await Task.Delay(BattleTurn.MOB_TURN_MILISECONDS_DELAY);
+            var result = new List<IBattleAction>();
 
             var availableAttacks = GetAvailableAttacks();
             if (availableAttacks.Count == 0)
             {
-                return null;
+                return result;
             }
 
             var attackIndex = new Random().Next(availableAttacks.Count);
             var attackAction = new MobAttackAction(availableAttacks[attackIndex], mob.gradeMult);
-            return attackAction;
+            result.Add(attackAction);
+            return result;
         }
 
         private List<MobAttack> GetAvailableAttacks()

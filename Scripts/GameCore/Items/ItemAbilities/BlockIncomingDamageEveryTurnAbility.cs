@@ -1,5 +1,4 @@
 ﻿using System.Text;
-using TextGameRPG.Scripts.Bot;
 using TextGameRPG.Scripts.Bot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities

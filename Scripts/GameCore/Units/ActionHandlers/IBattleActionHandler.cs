@@ -8,7 +8,7 @@ namespace TextGameRPG.Scripts.GameCore.Units.ActionHandlers
 {
     public interface IBattleActionHandler
     {
-        public Task<IBattleAction?> GetAttackAction(BattleTurn battleTurn);
+        public Task<List<IBattleAction>> GetActionsBySelectedItem(BattleTurn battleTurn);
         public bool TryAddShieldOnEnemyTurn(out DamageInfo damageInfo);
         public bool TryAddSwordBlockOnEnemyTurn(out DamageInfo damageInfo);
         public IEnumerable<IBattleAction> GetEveryTurnActions(BattleTurn battleTurn);

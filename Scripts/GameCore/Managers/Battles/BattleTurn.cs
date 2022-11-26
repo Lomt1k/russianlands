@@ -57,15 +57,12 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles
 
         private async void AskUnitForBattleActions()
         {
-            var attackAction = await unit.actionHandler.GetAttackAction(this).ConfigureAwait(false);
+            var attackActions = await unit.actionHandler.GetActionsBySelectedItem(this).ConfigureAwait(false);
             if (!isWaitingForActions)
                 return;
 
             var actionsList = new List<IBattleAction>();
-            if (attackAction != null)
-            {
-                actionsList.Add(attackAction);
-            }
+            actionsList.AddRange(attackActions);
             TryAppendEveryTurnActions(actionsList);
             _battleActions = actionsList; // Важно, что мы присваиваем уже полностью готовый список, который больше не модифицируем
         }

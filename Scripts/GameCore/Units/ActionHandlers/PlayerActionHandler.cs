@@ -18,21 +18,27 @@ namespace TextGameRPG.Scripts.GameCore.Units.ActionHandlers
             this.player = player;
         }
 
-        public async Task<IBattleAction?> GetAttackAction(BattleTurn battleTurn)
+        public async Task<List<IBattleAction>> GetActionsBySelectedItem(BattleTurn battleTurn)
         {
-            IBattleAction? actionBySelection = null;
+            var result = new List<IBattleAction>();
+
+            bool isActionsReady = false;
             var dialog = new SelectBattleItemDialog(player.session, battleTurn, (item) =>
             {
                 player.unitStats.OnUseItemInBattle(item);
-                actionBySelection = new PlayerAttackAction(player, item);
+                var generalAttackAction = new PlayerAttackAction(player, item);
+                result.Add(generalAttackAction);
+                ItemKeywordActionsHandler.AddKeywords(battleTurn, item, ref generalAttackAction, ref result);
+                isActionsReady = true;
             })
             .Start().ConfigureAwait(false);
-            while (actionBySelection == null && battleTurn.isWaitingForActions)
+
+            while (battleTurn.isWaitingForActions && !isActionsReady)
             {
                 await Task.Delay(500).ConfigureAwait(false);
             }
 
-            return actionBySelection;
+            return result;
         }
 
         public bool TryAddShieldOnEnemyTurn(out DamageInfo damageInfo)
