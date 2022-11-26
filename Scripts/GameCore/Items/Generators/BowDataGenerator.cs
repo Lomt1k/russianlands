@@ -60,6 +60,9 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
                 case AbilityType.BowLastShotKeyword:
                     AddBowLastShotKeyword();
                     break;
+                case AbilityType.StealManaKeyword:
+                    AddStealManaKeyword(25);
+                    break;
             }
         }
 

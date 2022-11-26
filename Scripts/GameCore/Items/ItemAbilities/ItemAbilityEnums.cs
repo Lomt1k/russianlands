@@ -10,6 +10,7 @@
         SwordBlockEveryTurnKeyword = 5,
         BowLastShotKeyword = 6,
         AddArrowKeyword = 7,
+        StealManaKeyword = 8,
     }
 
     public static class AblilityTypeExtensions

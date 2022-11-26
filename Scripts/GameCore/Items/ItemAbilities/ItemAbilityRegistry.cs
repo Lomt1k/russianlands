@@ -15,6 +15,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
             { AbilityType.SwordBlockEveryTurnKeyword, new SwordBlockKeywordAbility() },
             { AbilityType.BowLastShotKeyword, new BowLastShotKeywordAbility() },
             { AbilityType.AddArrowKeyword, new AddArrowAbility() },
+            { AbilityType.StealManaKeyword, new StealManaAbility() },
         };
 
         public static ItemAbilityBase GetNewAbility(AbilityType type)

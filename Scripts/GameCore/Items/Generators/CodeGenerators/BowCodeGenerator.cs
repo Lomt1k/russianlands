@@ -1,22 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
 
 namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators
 {
     public class BowCodeGenerator : ItemCodeGeneratorBase
     {
-        private static List<Action<StringBuilder>> _rareOptions => new List<Action<StringBuilder>>
-        {
-            sb => sb.Append("DF"), //damage fire
-            sb => sb.Append("DC"), //damage cold
-            sb => sb.Append("DL"), //damage lightning
-        };
+        private static string[] _rareOptions = new[] { "DF", "DC", "DL" };
 
         private static List<AbilityType> _availableKeywords => new List<AbilityType>
         {
             AbilityType.BowLastShotKeyword,
+            AbilityType.StealManaKeyword,
         };
 
         public BowCodeGenerator(ItemType _type, Rarity _rarity, int _townHallLevel) : base(_type, _rarity, _townHallLevel)
@@ -32,8 +27,8 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators
             var random = new Random();
             if (rarity != Rarity.Common)
             {
-                var index = random.Next(_rareOptions.Count);
-                _rareOptions[index](sb);
+                var index = random.Next(_rareOptions.Length);
+                sb.Append(_rareOptions[index]);
             }
 
             int targetKeywordsCount = rarity.GetKeywordsCount();

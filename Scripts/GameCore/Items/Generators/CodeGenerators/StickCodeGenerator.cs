@@ -1,10 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
+using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
 
 namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators
 {
     public class StickCodeGenerator : ItemCodeGeneratorBase
     {
-        private readonly string[] _mainOption = new[] { "DF", "DC", "DL" };
+        private static string[] _mainOption = new[] { "DF", "DC", "DL" };
+
+        private static List<AbilityType> _availableKeywords => new List<AbilityType>
+        {
+            AbilityType.StealManaKeyword,
+        };
 
         public StickCodeGenerator(ItemType _type, Rarity _rarity, int _townHallLevel) : base(_type, _rarity, _townHallLevel)
         {
@@ -20,6 +27,13 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators
             var index = random.Next(_mainOption.Length);
             sb.Append(_mainOption[index]);
             sb.Append("C3"); // required charge 3
+
+            int targetKeywordsCount = rarity.GetKeywordsCount();
+            while (abilitiesCount < targetKeywordsCount)
+            {
+                index = random.Next(_availableKeywords.Count);
+                AppendAbilityAsKeyword(_availableKeywords[index]);
+            }
         }
 
 

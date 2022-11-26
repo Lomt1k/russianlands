@@ -43,6 +43,17 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             _abilities.Add(abilityType, newAbility);
         }
 
+        protected void AddStealManaKeyword(float chancePercentage)
+        {
+            _statIcons.Add(Stat.KeywordStealMana);
+            var abilityType = AbilityType.StealManaKeyword;
+            var newAbility = (StealManaAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
+
+            newAbility.chanceToSuccessPercentage = chancePercentage;
+
+            _abilities.Add(abilityType, newAbility);
+        }
+
 
     }
 }

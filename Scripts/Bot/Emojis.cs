@@ -39,6 +39,7 @@ namespace TextGameRPG.Scripts.Bot
         KeywordSwordBlock,
         KeywordBowLastShot,
         KeywordAddArrow,
+        KeywordStealMana,
     }
 
     public enum MapLocation
@@ -155,6 +156,7 @@ namespace TextGameRPG.Scripts.Bot
             { Stat.KeywordSwordBlock, "\ud83d\udee1" },
             { Stat.KeywordBowLastShot, "\ud83c\udf40" },
             { Stat.KeywordAddArrow, "\ud83c\udfaf" },
+            { Stat.KeywordStealMana, "\ud83e\udeac" },
         };
 
         public static readonly Dictionary<ItemType, string> items = new Dictionary<ItemType, string>

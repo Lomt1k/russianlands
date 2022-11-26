@@ -22,14 +22,10 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles.Actions
         /// </summary>
         public PlayerAttackAction(Player attacker, InventoryItem? item)
         {
-            var dealDamageAbility = item?.data.ablitityByType[AbilityType.DealDamage] as DealDamageAbility;
-            if (dealDamageAbility == null)
-            {
-                damageInfo = new DamageInfo(10, 0, 0, 0); // Урон кулаком: 10 единиц (меньше любого оружия)
-                return;
-            }
             _item = item;
-            damageInfo = dealDamageAbility.GetRandomValues();
+            damageInfo = item != null && item.data.ablitityByType.TryGetValue(AbilityType.DealDamage, out var dealDamageAbility)
+                ? ((DealDamageAbility)dealDamageAbility).GetRandomValues()
+                : new DamageInfo(10, 0, 0, 0); // Урон кулаком: 10 единиц (меньше любого оружия)
         }
 
         public void ApplyActionWithMineStats(UnitStats stats)

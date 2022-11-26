@@ -70,6 +70,9 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
                 case AbilityType.AddArrowKeyword:
                     AddAddArrowKeyword(50);
                     break;
+                case AbilityType.StealManaKeyword:
+                    AddStealManaKeyword(65);
+                    break;
             }
         }
 

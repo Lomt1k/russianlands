@@ -1,4 +1,5 @@
 ﻿using System;
+using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
 
 namespace TextGameRPG.Scripts.GameCore.Items.Generators
 {
@@ -18,6 +19,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
                 case Rarity.Legendary: rarityMult = 1.45f; break;
             }
             AddBaseParameters(rarityMult);
+            AddAbilities();
         }
 
         private void AddBaseParameters(float rarityMult)
@@ -40,6 +42,16 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
                         AddDealLightningDamage(minGeneralDamage, maxGeneralDamage);
                         break;
                 }
+            }
+        }
+
+        protected override void AddAbility(AbilityType abilityType)
+        {
+            switch (abilityType)
+            {
+                case AbilityType.StealManaKeyword:
+                    AddStealManaKeyword(40);
+                    break;
             }
         }
 

@@ -26,6 +26,16 @@ namespace TextGameRPG.Scripts.GameCore.Units.ActionHandlers
                     resultActionsList.Add(new AddArrowAction());
                 }
             }
+
+            // Mana Steal
+            if (abilitiesDict.TryGetValue(AbilityType.StealManaKeyword, out var manaStealAbility))
+            {
+                if (manaStealAbility.TryChance())
+                {
+                    resultActionsList.Add(new StealManaAction(battleTurn));
+                }
+            }
+
         }
 
         public static void HandleGeneralAttackModifiers(BattleTurn battleTurn, InventoryItem selectedItem,
