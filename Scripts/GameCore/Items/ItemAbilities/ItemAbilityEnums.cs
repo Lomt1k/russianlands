@@ -12,5 +12,25 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
         BowLastShotKeyword = 6,
     }
 
+    public static class AblilityTypeExtensions
+    {
+        public static ViewPriority GetPriority(this AbilityType type)
+        {
+            return type switch
+            {
+                AbilityType.None => ViewPriority.GeneralInfo,
+                AbilityType.DealDamage => ViewPriority.GeneralInfo,
+                AbilityType.BlockIncomingDamageEveryTurn => ViewPriority.GeneralInfo,
+
+                AbilityType.RestoreHealthEveryTurn => ViewPriority.Passive,
+                AbilityType.AddManaEveryTurn => ViewPriority.Passive,
+                AbilityType.SwordBlockEveryTurnKeyword => ViewPriority.Passive,
+
+                _ => ViewPriority.SecondoryInfo
+            };
+        }
+    }
+
+
 
 }

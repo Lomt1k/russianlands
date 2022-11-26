@@ -8,6 +8,14 @@ namespace TextGameRPG.Scripts.GameCore.Items
     using TextGameRPG.Scripts.Bot;
     using Localizations;
 
+    // влияет на порядок отрисовки абилки в описании предмета
+    public enum ViewPriority : byte
+    {
+        GeneralInfo = 0,
+        SecondoryInfo = 1,
+        Passive = 2,
+    }
+
     public static class ItemViewBuilder
     {
         public static string Build(GameSession session, InventoryItem item)
@@ -16,10 +24,7 @@ namespace TextGameRPG.Scripts.GameCore.Items
             sb.AppendLine("<b>" + item.GetFullName(session) + "</b>");
 
             AppendGeneralItemInfo(sb, session, item);
-            AppendPassiveHeader(sb, session, item);
-            AppendAbilities(sb, session, item);
-            AppendProperties(sb, session, item);
-
+            AppendPassiveBonuses(sb, session, item);
             AppendBottomInfo(sb, session, item);
             return sb.ToString();
         }
@@ -29,84 +34,83 @@ namespace TextGameRPG.Scripts.GameCore.Items
             var data = item.data;
             sb.Append(string.Format(Localization.Get(session, "item_view_general_info"), data.itemRarity.GetView(session), data.requiredLevel));
 
-            
-            if (item.data.ablitityByType.TryGetValue(AbilityType.DealDamage, out var dealDamage))
+            // general info
+            foreach (var ability in item.data.abilities)
             {
-                sb.AppendLine();
-                sb.AppendLine();
-                sb.Append(dealDamage.GetView(session));
+                if (ability.abilityType.GetPriority() == ViewPriority.GeneralInfo)
+                {
+                    sb.AppendLine();
+                    sb.AppendLine();
+                    sb.Append(ability.GetView(session));
+                }
             }
-            if (item.data.ablitityByType.TryGetValue(AbilityType.BlockIncomingDamageEveryTurn, out var blockDamage))
+            foreach (var property in item.data.properties)
             {
-                sb.AppendLine();
-                sb.AppendLine();
-                sb.Append(blockDamage.GetView(session));
+                if (property.propertyType.GetPriority() == ViewPriority.GeneralInfo)
+                {
+                    sb.AppendLine();
+                    sb.AppendLine();
+                    sb.Append(property.GetView(session));
+                }
             }
-            if (item.data.propertyByType.TryGetValue(PropertyType.DamageResist, out var damageResist))
+
+            //secondary info
+            foreach (var ability in item.data.abilities)
             {
-                sb.AppendLine();
-                sb.AppendLine();
-                sb.Append(damageResist.GetView(session));
+                if (ability.abilityType.GetPriority() == ViewPriority.SecondoryInfo)
+                {
+                    sb.AppendLine();
+                    sb.AppendLine();
+                    sb.Append(ability.GetView(session));
+                }
             }
         }
 
-        private static void AppendPassiveHeader(StringBuilder sb, GameSession session, InventoryItem item)
+        private static void AppendPassiveBonuses(StringBuilder sb, GameSession session, InventoryItem item)
         {
-            bool hasPassive = false;
+            bool hasPassiveAbilities = false;
+            bool hasPassiveProperties = false;
             foreach (var ability in item.data.abilities)
             {
-                switch (ability.abilityType)
+                if (ability.abilityType.GetPriority() == ViewPriority.Passive)
                 {
-                    case AbilityType.DealDamage:
-                    case AbilityType.BlockIncomingDamageEveryTurn:
-                        continue;
-                    default:
-                        hasPassive = true;
-                        break;
+                    hasPassiveAbilities = true;
+                    break;
                 }
             }
-            if (!hasPassive)
+            foreach (var property in item.data.properties)
             {
-                foreach (var property in item.data.properties)
+                if (property.propertyType.GetPriority() == ViewPriority.Passive)
                 {
-                    switch (property.propertyType)
+                    hasPassiveProperties = true;
+                    break;
+                }
+            }
+            if (!hasPassiveAbilities && !hasPassiveProperties)
+                return;
+
+            // passive header
+            sb.AppendLine();
+            sb.AppendLine();
+            sb.Append(Localization.Get(session, "item_view_properties_header"));
+
+            // passive info
+            if (hasPassiveAbilities)
+            {
+                foreach (var ability in item.data.abilities)
+                {
+                    if (ability.abilityType.GetPriority() == ViewPriority.Passive)
                     {
-                        case PropertyType.DamageResist:
-                            continue;
-                        default:
-                            hasPassive = true;
-                            break;
+                        sb.AppendLine();
+                        sb.Append($"{Emojis.elements[Element.SmallBlack]} " + ability.GetView(session));
                     }
                 }
             }
-            
-            if (hasPassive)
-            {
-                sb.AppendLine();
-                sb.AppendLine();
-                sb.Append(Localization.Get(session, "item_view_properties_header"));
-            }
-        }
-
-        private static void AppendAbilities(StringBuilder sb, GameSession session, InventoryItem item)
-        {
-            foreach (var ability in item.data.abilities)
-            {
-                if (ability.abilityType != AbilityType.DealDamage && ability.abilityType != AbilityType.BlockIncomingDamageEveryTurn)
-                {
-                    sb.AppendLine();
-                    sb.Append($"{Emojis.elements[Element.SmallBlack]} " + ability.GetView(session));
-                }
-            }
-        }
-
-        private static void AppendProperties(StringBuilder sb, GameSession session, InventoryItem item)
-        {
-            if (item.data.properties.Count > 0)
+            if (hasPassiveProperties)
             {
                 foreach (var property in item.data.properties)
                 {
-                    if (property.propertyType != PropertyType.DamageResist)
+                    if (property.propertyType.GetPriority() == ViewPriority.Passive)
                     {
                         sb.AppendLine();
                         sb.Append($"{Emojis.elements[Element.SmallBlack]} " + property.GetView(session));

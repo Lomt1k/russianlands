@@ -7,4 +7,16 @@
         IncreaseMaxHealth = 2,
     }
 
+    public static class PropertyTypeExtensions
+    {
+        public static ViewPriority GetPriority(this PropertyType type)
+        {
+            return type switch
+            {
+                PropertyType.DamageResist => ViewPriority.GeneralInfo,
+                _ => ViewPriority.Passive
+            };
+        }
+    }
+
 }

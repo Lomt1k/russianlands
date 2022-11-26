@@ -1,4 +1,5 @@
-﻿using TextGameRPG.Scripts.Bot.Sessions;
+﻿using TextGameRPG.Scripts.Bot;
+using TextGameRPG.Scripts.Bot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
 {
@@ -14,7 +15,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
 
         public override string GetView(GameSession session)
         {
-            return Localizations.Localization.Get(session, "ability_bow_last_shot");
+            return $"{Emojis.stats[Stat.KeywordBowLastShot]} {Localizations.Localization.Get(session, "ability_bow_last_shot")}";
         }
 
     }
