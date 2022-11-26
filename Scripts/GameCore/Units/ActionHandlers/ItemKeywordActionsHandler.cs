@@ -16,15 +16,31 @@ namespace TextGameRPG.Scripts.GameCore.Units.ActionHandlers
 
             var unit = battleTurn.unit;
             var abilitiesDict = selectedItem.data.ablitityByType;
+            HandleGeneralAttackModifiers(battleTurn, selectedItem, ref generalAttack, ref resultActionsList);
 
-            // --- Last shot (bow only)
+            // Add Arrow
+            if (abilitiesDict.TryGetValue(AbilityType.AddArrowKeyword, out var addArrowAbility))
+            {
+                if (addArrowAbility.TryChance())
+                {
+                    resultActionsList.Add(new AddArrowAction());
+                }
+            }
+        }
+
+        public static void HandleGeneralAttackModifiers(BattleTurn battleTurn, InventoryItem selectedItem,
+            ref PlayerAttackAction generalAttack, ref List<IBattleAction> resultActionsList)
+        {
+            var unit = battleTurn.unit;
+            var abilitiesDict = selectedItem.data.ablitityByType;
+
+            // Last shot (bow only)
             bool hasLastShot = abilitiesDict.TryGetValue(AbilityType.BowLastShotKeyword, out var lastShotAbility);
             if (hasLastShot && unit.unitStats.currentArrows == 0)
             {
                 generalAttack.damageInfo *= 2;
                 resultActionsList.Add(new BowLastShotAction());
             }
-
         }
 
     }

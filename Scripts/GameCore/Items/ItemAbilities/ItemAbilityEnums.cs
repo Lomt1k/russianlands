@@ -1,5 +1,4 @@
-﻿
-namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
+﻿namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
 {
     public enum AbilityType : short
     {
@@ -10,6 +9,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
         AddManaEveryTurn = 4,
         SwordBlockEveryTurnKeyword = 5,
         BowLastShotKeyword = 6,
+        AddArrowKeyword = 7,
     }
 
     public static class AblilityTypeExtensions

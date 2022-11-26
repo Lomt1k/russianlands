@@ -67,6 +67,9 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
                         AddSwordBlockKeyword(blockInfo, 15);
                     }
                     break;
+                case AbilityType.AddArrowKeyword:
+                    AddAddArrowKeyword(50);
+                    break;
             }
         }
 

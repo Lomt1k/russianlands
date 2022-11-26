@@ -60,6 +60,11 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
             currentMana += manaAmount;
         }
 
+        public void AddArrows(int arrowsAmount)
+        {
+            currentArrows += arrowsAmount;
+        }
+
         public virtual void OnStartBattle()
         {
             currentMana = 0;

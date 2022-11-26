@@ -32,6 +32,17 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             _abilities.Add(abilityType, newAbility);
         }
 
+        protected void AddAddArrowKeyword(float chancePercentage)
+        {
+            _statIcons.Add(Stat.KeywordAddArrow);
+            var abilityType = AbilityType.AddArrowKeyword;
+            var newAbility = (AddArrowAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
+
+            newAbility.chanceToSuccessPercentage = chancePercentage;
+
+            _abilities.Add(abilityType, newAbility);
+        }
+
 
     }
 }
