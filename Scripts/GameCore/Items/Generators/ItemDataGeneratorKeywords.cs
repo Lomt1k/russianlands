@@ -1,5 +1,6 @@
 ﻿using TextGameRPG.Scripts.Bot;
 using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
+using TextGameRPG.Scripts.GameCore.Items.ItemAbilities.Keywords;
 
 namespace TextGameRPG.Scripts.GameCore.Items.Generators
 {
@@ -36,7 +37,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
         {
             _statIcons.Add(Stat.KeywordAddArrow);
             var abilityType = AbilityType.AddArrowKeyword;
-            var newAbility = (AddArrowAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
+            var newAbility = (AddArrowKeywordAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
 
             newAbility.chanceToSuccessPercentage = chancePercentage;
 
@@ -47,9 +48,45 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
         {
             _statIcons.Add(Stat.KeywordStealMana);
             var abilityType = AbilityType.StealManaKeyword;
-            var newAbility = (StealManaAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
+            var newAbility = (StealManaKeywordAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
 
             newAbility.chanceToSuccessPercentage = chancePercentage;
+
+            _abilities.Add(abilityType, newAbility);
+        }
+
+        protected void AddAdditionalFireDamageKeyword(int damage, float chancePercentage)
+        {
+            _statIcons.Add(Stat.KeywordAdditionalDamage);
+            var abilityType = AbilityType.AdditionalFireDamageKeyword;
+            var newAbility = (AdditionalFireDamageKeywordAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
+
+            newAbility.chanceToSuccessPercentage = chancePercentage;
+            newAbility.damageAmount = damage;
+
+            _abilities.Add(abilityType, newAbility);
+        }
+
+        protected void AddAdditionalColdDamageKeyword(int damage, float chancePercentage)
+        {
+            _statIcons.Add(Stat.KeywordAdditionalDamage);
+            var abilityType = AbilityType.AdditionalColdDamageKeyword;
+            var newAbility = (AdditionalColdDamageKeywordAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
+
+            newAbility.chanceToSuccessPercentage = chancePercentage;
+            newAbility.damageAmount = damage;
+
+            _abilities.Add(abilityType, newAbility);
+        }
+
+        protected void AddAdditionalLightningDamageKeyword(int damage, float chancePercentage)
+        {
+            _statIcons.Add(Stat.KeywordAdditionalDamage);
+            var abilityType = AbilityType.AdditionalLightningDamageKeyword;
+            var newAbility = (AdditionalLightningDamageKeywordAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
+
+            newAbility.chanceToSuccessPercentage = chancePercentage;
+            newAbility.damageAmount = damage;
 
             _abilities.Add(abilityType, newAbility);
         }

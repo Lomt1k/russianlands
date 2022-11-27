@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using TextGameRPG.Scripts.Bot.Sessions;
 
-namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
+namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities.Keywords
 {
     public class SwordBlockKeywordAbility : ItemAbilityBase
     {

@@ -5,6 +5,8 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
 {
     public class BowDataGenerator : ItemDataGeneratorBase
     {
+        private int _secondaryDamage;
+
         public BowDataGenerator(ItemDataSeed _seed) : base(_seed)
         {
         }
@@ -30,7 +32,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             var maxPhysicalDamage = (int)Math.Round(physicalDamage * 1.13f);
             AddDealPhysicalDamage(minPhysicalDamage, maxPhysicalDamage);
 
-            var secondaryDamage = seed.rarity switch
+            _secondaryDamage = seed.rarity switch
             {
                 Rarity.Rare => (int)Math.Round(physicalDamage * 0.20f),
                 _ => (int)Math.Round(physicalDamage * 0.40f)
@@ -41,13 +43,13 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
                 switch (param)
                 {
                     case "DF":
-                        AddDealFireDamage(secondaryDamage);
+                        AddDealFireDamage(_secondaryDamage);
                         break;
                     case "DC":
-                        AddDealColdDamage(secondaryDamage);
+                        AddDealColdDamage(_secondaryDamage);
                         break;
                     case "DL":
-                        AddDealLightningDamage(secondaryDamage);
+                        AddDealLightningDamage(_secondaryDamage);
                         break;
                 }
             }
@@ -62,6 +64,15 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
                     break;
                 case AbilityType.StealManaKeyword:
                     AddStealManaKeyword(25);
+                    break;
+                case AbilityType.AdditionalFireDamageKeyword:
+                    AddAdditionalFireDamageKeyword(_secondaryDamage, 20);
+                    break;
+                case AbilityType.AdditionalColdDamageKeyword:
+                    AddAdditionalColdDamageKeyword(_secondaryDamage, 20);
+                    break;
+                case AbilityType.AdditionalLightningDamageKeyword:
+                    AddAdditionalLightningDamageKeyword(_secondaryDamage, 20);
                     break;
             }
         }

@@ -6,7 +6,7 @@ using TextGameRPG.Scripts.GameCore.Units.Stats;
 namespace TextGameRPG.Scripts.GameCore.Managers.Battles.Actions
 {
     // Используется только для вывода локализации, сам урон учитывается в ItemKeywordActionsHandler.cs
-    public class BowLastShotAction : IBattleAction
+    public class AdditionalFireDamageAction : IBattleAction
     {
         public void ApplyActionWithMineStats(UnitStats stats)
         {
@@ -18,13 +18,14 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles.Actions
 
         public string GetHeader(GameSession session)
         {
-            return $"{Emojis.stats[Stat.KeywordBowLastShot]} {Localization.Get(session, "battle_action_bow_last_shot_header")}";
+            return $"{Emojis.stats[Stat.KeywordAdditionalDamage]} {Localization.Get(session, "battle_action_additional_fire_damage_header")}";
         }
 
         public string GetDescription(GameSession session)
         {
-            return Localization.Get(session, "battle_action_bow_last_shot_description");
+            return Localization.Get(session, "battle_action_additional_fire_damage_description");
         }
+
         
     }
 }

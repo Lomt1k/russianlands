@@ -5,6 +5,8 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
 {
     public class StickDataGenerator : ItemDataGeneratorBase
     {
+        private float _generalDamage;
+
         public StickDataGenerator(ItemDataSeed _seed) : base(_seed)
         {
         }
@@ -24,9 +26,9 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
 
         private void AddBaseParameters(float rarityMult)
         {
-            var generalDamage = Math.Round(rarityMult * gradedPoints * 3.75f);
-            var minGeneralDamage = (int)Math.Round(generalDamage * 0.87f);
-            var maxGeneralDamage = (int)Math.Round(generalDamage * 1.13f);
+            _generalDamage = (float)Math.Round(rarityMult * gradedPoints * 3.75f);
+            var minGeneralDamage = (int)Math.Round(_generalDamage * 0.87f);
+            var maxGeneralDamage = (int)Math.Round(_generalDamage * 1.13f);
 
             foreach (var param in seed.baseParameters)
             {
@@ -51,6 +53,15 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             {
                 case AbilityType.StealManaKeyword:
                     AddStealManaKeyword(40);
+                    break;
+                case AbilityType.AdditionalFireDamageKeyword:
+                    AddAdditionalFireDamageKeyword((int)Math.Round(_generalDamage * 0.4f), 20);
+                    break;
+                case AbilityType.AdditionalColdDamageKeyword:
+                    AddAdditionalColdDamageKeyword((int)Math.Round(_generalDamage * 0.4f), 20);
+                    break;
+                case AbilityType.AdditionalLightningDamageKeyword:
+                    AddAdditionalLightningDamageKeyword((int)Math.Round(_generalDamage * 0.4f), 20);
                     break;
             }
         }

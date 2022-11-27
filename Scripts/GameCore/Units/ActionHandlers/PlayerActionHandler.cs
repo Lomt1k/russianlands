@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using TextGameRPG.Scripts.Bot.Dialogs.Battle;
 using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
+using TextGameRPG.Scripts.GameCore.Items.ItemAbilities.Keywords;
 using TextGameRPG.Scripts.GameCore.Managers.Battles;
 using TextGameRPG.Scripts.GameCore.Managers.Battles.Actions;
 using TextGameRPG.Scripts.Utils;

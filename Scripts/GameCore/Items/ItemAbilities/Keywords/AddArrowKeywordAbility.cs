@@ -1,18 +1,13 @@
 ﻿using TextGameRPG.Scripts.Bot;
 using TextGameRPG.Scripts.Bot.Sessions;
 
-namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
+namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities.Keywords
 {
-    public class AddArrowAbility : ItemAbilityBase
+    public class AddArrowKeywordAbility : ItemAbilityBase
     {
         public override string debugDescription => "Лучник: Даёт дополнительную стрелу";
 
         public override AbilityType abilityType => AbilityType.AddArrowKeyword;
-
-        public override string ToString()
-        {
-            return $"{debugDescription} (Вероятность {chanceToSuccessPercentage}%)";
-        }
 
         public override string GetView(GameSession session)
         {

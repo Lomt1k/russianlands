@@ -11,6 +11,9 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators
         private static List<AbilityType> _availableKeywords => new List<AbilityType>
         {
             AbilityType.StealManaKeyword,
+            AbilityType.AdditionalFireDamageKeyword,
+            AbilityType.AdditionalColdDamageKeyword,
+            AbilityType.AdditionalLightningDamageKeyword,
         };
 
         public StickCodeGenerator(ItemType _type, Rarity _rarity, int _townHallLevel) : base(_type, _rarity, _townHallLevel)
@@ -23,16 +26,32 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators
 
         public override void AppendSpecificInfo()
         {
+            sb.Append("C3"); // required charge 3 (наверно стоит избавиться от этого и сделать charge 3 константой для всех посохов в игре)
+
             var random = new Random();
+            var blockedKeywords = new HashSet<AbilityType>();
             var index = random.Next(_mainOption.Length);
-            sb.Append(_mainOption[index]);
-            sb.Append("C3"); // required charge 3
+            var mainOption = _mainOption[index];
+            sb.Append(mainOption);
+
+            var abilityToBlock = mainOption switch
+            {
+                "DF" => AbilityType.AdditionalFireDamageKeyword,
+                "DC" => AbilityType.AdditionalColdDamageKeyword,
+                "DL" => AbilityType.AdditionalLightningDamageKeyword,
+                _ => AbilityType.None
+            };
+            blockedKeywords.Add(abilityToBlock);
 
             int targetKeywordsCount = rarity.GetKeywordsCount();
             while (abilitiesCount < targetKeywordsCount)
             {
                 index = random.Next(_availableKeywords.Count);
-                AppendAbilityAsKeyword(_availableKeywords[index]);
+                var keyword = _availableKeywords[index];
+                if (!blockedKeywords.Contains(keyword))
+                {
+                    AppendAbilityAsKeyword(_availableKeywords[index]);
+                }
             }
         }
 

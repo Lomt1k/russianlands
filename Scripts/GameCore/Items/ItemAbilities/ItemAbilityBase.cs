@@ -24,6 +24,11 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
             return Randomizer.TryPercentage(chanceToSuccessPercentage);
         }
 
+        public override string ToString()
+        {
+            return $"{debugDescription} (Вероятность {chanceToSuccessPercentage}%)";
+        }
+
         public abstract string GetView(GameSession session);
 
     }

@@ -13,6 +13,9 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators
             AbilityType.SwordBlockEveryTurnKeyword,
             AbilityType.AddArrowKeyword,
             AbilityType.StealManaKeyword,
+            AbilityType.AdditionalFireDamageKeyword,
+            AbilityType.AdditionalColdDamageKeyword,
+            AbilityType.AdditionalLightningDamageKeyword,
         };
 
         public SwordCodeGenerator(ItemType _type, Rarity _rarity, int _townHallLevel) : base(_type, _rarity, _townHallLevel)
@@ -26,17 +29,32 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators
         public override void AppendSpecificInfo()
         {
             var random = new Random();
+            var blockedKeywords = new HashSet<AbilityType>();
             if (rarity != Rarity.Common)
             {
                 var index = random.Next(_rareOptions.Length);
-                sb.Append(_rareOptions[index]);
+                var rareOption = _rareOptions[index];
+                sb.Append(rareOption);
+
+                var abilityToBlock = rareOption switch
+                {
+                    "DF" => AbilityType.AdditionalFireDamageKeyword,
+                    "DC" => AbilityType.AdditionalColdDamageKeyword,
+                    "DL" => AbilityType.AdditionalLightningDamageKeyword,
+                    _ => AbilityType.None
+                };
+                blockedKeywords.Add(abilityToBlock);
             }
 
             int targetKeywordsCount = rarity.GetKeywordsCount();
             while (abilitiesCount < targetKeywordsCount)
             {
                 var index = random.Next(_availableKeywords.Count);
-                AppendAbilityAsKeyword(_availableKeywords[index]);
+                var keyword = _availableKeywords[index];
+                if (!blockedKeywords.Contains(keyword))
+                {
+                    AppendAbilityAsKeyword(_availableKeywords[index]);
+                }
             }
         }
 

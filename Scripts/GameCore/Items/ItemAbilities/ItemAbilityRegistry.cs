@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using TextGameRPG.Scripts.GameCore.Items.ItemAbilities.Keywords;
 
 namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
 {
@@ -12,10 +13,15 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
             { AbilityType.BlockIncomingDamageEveryTurn, new BlockIncomingDamageEveryTurnAbility() },
             { AbilityType.RestoreHealthEveryTurn, new RestoreHealthEveryTurnAbility() },
             { AbilityType.AddManaEveryTurn, new AddManaEveryTurnAbility() },
+
+            // keywords
             { AbilityType.SwordBlockEveryTurnKeyword, new SwordBlockKeywordAbility() },
             { AbilityType.BowLastShotKeyword, new BowLastShotKeywordAbility() },
-            { AbilityType.AddArrowKeyword, new AddArrowAbility() },
-            { AbilityType.StealManaKeyword, new StealManaAbility() },
+            { AbilityType.AddArrowKeyword, new AddArrowKeywordAbility() },
+            { AbilityType.StealManaKeyword, new StealManaKeywordAbility() },
+            { AbilityType.AdditionalFireDamageKeyword, new AdditionalFireDamageKeywordAbility() },
+            { AbilityType.AdditionalColdDamageKeyword, new AdditionalColdDamageKeywordAbility() },
+            { AbilityType.AdditionalLightningDamageKeyword, new AdditionalLightningDamageKeywordAbility() },
         };
 
         public static ItemAbilityBase GetNewAbility(AbilityType type)

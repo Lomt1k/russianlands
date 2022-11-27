@@ -11,6 +11,9 @@
         BowLastShotKeyword = 6,
         AddArrowKeyword = 7,
         StealManaKeyword = 8,
+        AdditionalFireDamageKeyword = 9,
+        AdditionalColdDamageKeyword = 10,
+        AdditionalLightningDamageKeyword = 11,
     }
 
     public static class AblilityTypeExtensions
