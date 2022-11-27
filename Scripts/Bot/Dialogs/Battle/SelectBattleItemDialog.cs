@@ -43,14 +43,14 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
                 sb.Append($" {Emojis.stats[Stat.Mana]} {playerStats.currentMana}");
             }
             sb.AppendLine();
-            sb.AppendLine();
 
             if (_battleTurn.isLastChance)
             {
-                sb.AppendLine($"{Emojis.elements[Element.BrokenHeart]} {Localization.Get(session, "battle_mine_turn_start_last_chance")}");
                 sb.AppendLine();
+                sb.AppendLine($"{Emojis.elements[Element.BrokenHeart]} {Localization.Get(session, "battle_mine_turn_start_last_chance")}");
             }
 
+            bool additionalLineUsed = false;
             var equippedStick = session.player.inventory.equipped[ItemType.Stick];
             if (equippedStick != null)
             {
@@ -58,22 +58,33 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
                 var requiredCharge = equippedStick.data.requiredCharge;
                 if (currentCharge < requiredCharge)
                 {
-                    var localization = Localization.Get(session, "battle_mine_turn_stick_charge");
-                    sb.AppendLine(string.Format(localization, Emojis.items[ItemType.Stick], currentCharge, requiredCharge));
-                    sb.AppendLine();
+                    TryAppendAdditionalLine();
+                    var localization = $"{Emojis.items[ItemType.Stick]} {Localization.Get(session, "battle_mine_turn_stick_charge")}";
+                    sb.AppendLine(string.Format(localization, currentCharge, requiredCharge));
                 }
             }
 
             if (playerStats.rageAbilityCounter > 0)
             {
-                sb.AppendLine($"{Emojis.stats[Stat.KeywordRage]} {Localization.Get(session, "battle_action_rage_header")}: {playerStats.rageAbilityCounter} / 3");
-                sb.AppendLine();
+                TryAppendAdditionalLine();
+                sb.AppendLine($"{Emojis.stats[Stat.KeywordRage]} {Localization.Get(session, "battle_action_rage_header")}: " +
+                    $"{playerStats.rageAbilityCounter} / 3");
             }
 
+            sb.AppendLine();
             sb.AppendLine(Localization.Get(session, "battle_mine_turn_start_select_item"));
 
             await SendDialogMessage(sb, keyboard)
                 .ConfigureAwait(false);
+
+            void TryAppendAdditionalLine()
+            {
+                if (!additionalLineUsed)
+                {
+                    additionalLineUsed = true;
+                    sb.AppendLine();
+                }
+            }
         }
 
         public void AppendSingleSlotItems(ref List<List<KeyboardButton>> keyboardRows)
