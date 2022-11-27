@@ -26,7 +26,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
 
         public override string ToString()
         {
-            return $"{debugDescription} (Вероятность {chanceToSuccessPercentage}%)";
+            return debugDescription + (chanceToSuccessPercentage < 100 ? $" (Вероятность {chanceToSuccessPercentage}%)" : string.Empty);
         }
 
         public abstract string GetView(GameSession session);

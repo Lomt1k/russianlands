@@ -91,6 +91,14 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             _abilities.Add(abilityType, newAbility);
         }
 
+        protected void AddRageKeyword()
+        {
+            _statIcons.Add(Stat.KeywordRage);
+            var abilityType = AbilityType.RageKeyword;
+            var newAbility = (RageKeywordAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
+            _abilities.Add(abilityType, newAbility);
+        }
+
 
     }
 }

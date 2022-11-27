@@ -8,6 +8,7 @@ using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Managers.Battles;
 using System.Text;
 using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
+using TextGameRPG.Scripts.GameCore.Units.Stats;
 
 namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
 {
@@ -30,15 +31,16 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
             AppendMultiSlotItems(ref keyboardRows);
             var keyboard = new ReplyKeyboardMarkup(keyboardRows);
 
+            var playerStats = (PlayerStats)session.player.unitStats;
             var sb = new StringBuilder();
             sb.Append($"{Emojis.menuItems[MenuItem.Battle]} {Localization.Get(session, "battle_mine_turn_start")}");
             if (session.player.inventory.equipped.HasItem(ItemType.Bow))
             {
-                sb.Append($" {Emojis.stats[Stat.Arrows]} {session.player.unitStats.currentArrows}");
+                sb.Append($" {Emojis.stats[Stat.Arrows]} {playerStats.currentArrows}");
             }
             if (session.player.inventory.equipped.HasItem(ItemType.Scroll))
             {
-                sb.Append($" {Emojis.stats[Stat.Mana]} {session.player.unitStats.currentMana}");
+                sb.Append($" {Emojis.stats[Stat.Mana]} {playerStats.currentMana}");
             }
             sb.AppendLine();
             sb.AppendLine();
@@ -60,6 +62,12 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
                     sb.AppendLine(string.Format(localization, Emojis.items[ItemType.Stick], currentCharge, requiredCharge));
                     sb.AppendLine();
                 }
+            }
+
+            if (playerStats.rageAbilityCounter > 0)
+            {
+                sb.AppendLine($"{Emojis.stats[Stat.KeywordRage]} {Localization.Get(session, "battle_action_rage_header")}: {playerStats.rageAbilityCounter} / 3");
+                sb.AppendLine();
             }
 
             sb.AppendLine(Localization.Get(session, "battle_mine_turn_start_select_item"));

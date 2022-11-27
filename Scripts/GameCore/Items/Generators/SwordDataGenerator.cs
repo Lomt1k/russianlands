@@ -84,6 +84,9 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
                 case AbilityType.AdditionalLightningDamageKeyword:
                     AddAdditionalLightningDamageKeyword(_secondaryDamage, 20);
                     break;
+                case AbilityType.RageKeyword:
+                    AddRageKeyword();
+                    break;
             }
         }
 

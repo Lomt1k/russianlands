@@ -7,6 +7,8 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
 {
     public class PlayerStats : UnitStats
     {
+        public byte rageAbilityCounter;
+
         private Player _player;
 
         public PlayerStats(Player player)
@@ -26,6 +28,7 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
         {
             base.OnStartBattle();
             SetupArrowsAmount();
+            rageAbilityCounter = 0;
         }
 
         private void SetupArrowsAmount()

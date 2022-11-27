@@ -41,6 +41,7 @@ namespace TextGameRPG.Scripts.Bot
         KeywordAddArrow,
         KeywordStealMana,
         KeywordAdditionalDamage,
+        KeywordRage,
     }
 
     public enum MapLocation
@@ -159,6 +160,7 @@ namespace TextGameRPG.Scripts.Bot
             { Stat.KeywordAddArrow, "\ud83c\udfaf" },
             { Stat.KeywordStealMana, "\ud83e\udeac" },
             { Stat.KeywordAdditionalDamage, "\ud83d\udca5" },
+            { Stat.KeywordRage, "\u270a" },
         };
 
         public static readonly Dictionary<ItemType, string> items = new Dictionary<ItemType, string>

@@ -4,6 +4,7 @@ using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
 using TextGameRPG.Scripts.GameCore.Items.ItemAbilities.Keywords;
 using TextGameRPG.Scripts.GameCore.Managers.Battles;
 using TextGameRPG.Scripts.GameCore.Managers.Battles.Actions;
+using TextGameRPG.Scripts.GameCore.Units.Stats;
 
 namespace TextGameRPG.Scripts.GameCore.Units.ActionHandlers
 {
@@ -43,6 +44,7 @@ namespace TextGameRPG.Scripts.GameCore.Units.ActionHandlers
             ref PlayerAttackAction generalAttack, ref List<IBattleAction> resultActionsList)
         {
             var unit = battleTurn.unit;
+            var playerStats = (PlayerStats)unit.unitStats;
             var abilitiesDict = selectedItem.data.ablitityByType;
             // --- Абилки, которые приплюсовывают урон
             // Additional Fire Damage
@@ -86,6 +88,19 @@ namespace TextGameRPG.Scripts.GameCore.Units.ActionHandlers
                 generalAttack.damageInfo *= 2;
                 resultActionsList.Add(new BowLastShotAction());
             }
+
+            // Rage
+            if (abilitiesDict.TryGetValue(AbilityType.RageKeyword, out var rageAbility))
+            {
+                playerStats.rageAbilityCounter++;
+                if (playerStats.rageAbilityCounter == 3)
+                {
+                    playerStats.rageAbilityCounter = 0;
+                    generalAttack.damageInfo *= 2;
+                    resultActionsList.Add(new RageAction());
+                }
+            }
+
         }
 
     }

@@ -22,6 +22,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
             { AbilityType.AdditionalFireDamageKeyword, new AdditionalFireDamageKeywordAbility() },
             { AbilityType.AdditionalColdDamageKeyword, new AdditionalColdDamageKeywordAbility() },
             { AbilityType.AdditionalLightningDamageKeyword, new AdditionalLightningDamageKeywordAbility() },
+            { AbilityType.RageKeyword, new RageKeywordAbility() },
         };
 
         public static ItemAbilityBase GetNewAbility(AbilityType type)
