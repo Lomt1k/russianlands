@@ -22,7 +22,7 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles.Actions
 
         public void ApplyActionWithEnemyStats(UnitStats stats)
         {
-            stats.AddMana(-1);
+            stats.RemoveMana(1);
         }
 
         public string GetHeader(GameSession session)

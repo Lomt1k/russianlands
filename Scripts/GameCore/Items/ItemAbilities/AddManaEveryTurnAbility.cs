@@ -8,7 +8,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
 
         public override AbilityType abilityType => AbilityType.AddManaEveryTurn;
 
-        public int manaValue;
+        public byte manaValue;
 
         public override string GetView(GameSession session)
         {

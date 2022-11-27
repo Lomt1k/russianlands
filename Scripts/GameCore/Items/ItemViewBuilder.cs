@@ -127,11 +127,11 @@ namespace TextGameRPG.Scripts.GameCore.Items
                 sb.AppendLine();
                 sb.Append(string.Format(Localization.Get(session, "item_view_cost_of_use"), item.manaCost) + $" {Emojis.stats[Stat.Mana]}");
             }
-            if (item.data.isChargeRequired)
+            if (item.data.itemType == ItemType.Stick)
             {
                 sb.AppendLine();
                 sb.AppendLine();
-                sb.Append(string.Format(Localization.Get(session, "item_view_current_charge"), item.data.requiredCharge));
+                sb.Append(string.Format(Localization.Get(session, "item_view_current_charge"), InventoryItem.requiredStickCharge));
             }
             if (item.isEquipped)
             {

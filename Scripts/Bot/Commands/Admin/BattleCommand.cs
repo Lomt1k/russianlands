@@ -119,7 +119,7 @@ namespace TextGameRPG.Scripts.Bot.Commands.Admin
                 maxColdDamage = dealDamage.maxColdDamage,
                 minLightningDamage = dealDamage.minLightningDamage,
                 maxLightningDamage = dealDamage.maxLightningDamage,
-                manaCost = item.data.isChargeRequired ? item.data.requiredCharge : item.manaCost,
+                manaCost = item.data.itemType == ItemType.Stick ? InventoryItem.requiredStickCharge : item.manaCost,
             };
 
             return attack;

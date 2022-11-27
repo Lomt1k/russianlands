@@ -9,10 +9,10 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles.Actions
 {
     public class AddManaAction : IBattleAction
     {
-        public int manaAmount;
+        public byte manaAmount;
         public HashSet<InventoryItem> fromItems = new HashSet<InventoryItem>();
 
-        public void Add(InventoryItem _itemFrom, int _manaAmount)
+        public void Add(InventoryItem _itemFrom, byte _manaAmount)
         {
             manaAmount += _manaAmount;
             fromItems.Add(_itemFrom);

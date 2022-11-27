@@ -17,7 +17,6 @@ namespace TextGameRPG.Scripts.GameCore.Items
         public ItemType itemType { get; set; }
         public Rarity itemRarity { get; set; }
         public byte requiredLevel { get; set; }
-        public byte requiredCharge { get; set; }
         public List<ItemAbilityBase> abilities { get; private set; } = new List<ItemAbilityBase>();
         public List<ItemPropertyBase> properties { get; private set; } = new List<ItemPropertyBase>();
         public List<Stat> statIcons { get; private set; } = new List<Stat>();
@@ -26,8 +25,6 @@ namespace TextGameRPG.Scripts.GameCore.Items
         public byte requiredTownHall { get; }
         [JsonIgnore]
         public byte grade { get; }
-        [JsonIgnore]
-        public bool isChargeRequired => requiredCharge > 0;
         [JsonIgnore]
         public bool isGeneratedItem => id == -1;
         [JsonIgnore]
@@ -55,7 +52,6 @@ namespace TextGameRPG.Scripts.GameCore.Items
             itemType = _seed.itemType;
             itemRarity = _seed.rarity;
             requiredLevel = _seed.requiredLevel;
-            requiredCharge = _seed.requiredCharge;
             requiredTownHall = _seed.townHallLevel;
             grade = _seed.grade;
             abilities = _abilities;

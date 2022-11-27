@@ -13,6 +13,8 @@ namespace TextGameRPG.Scripts.GameCore.Items
 
     public class InventoryItem
     {
+        public static byte requiredStickCharge = 3;
+
         public string id;
         public ItemState state;
 
@@ -20,7 +22,7 @@ namespace TextGameRPG.Scripts.GameCore.Items
         public ItemData data { get; private set; }
 
         [JsonIgnore]
-        public int manaCost { get; private set; }
+        public byte manaCost { get; private set; }
 
         [JsonIgnore]
         public bool isEquipped

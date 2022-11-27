@@ -42,7 +42,7 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
         {
             base.OnStartMineTurn();
             var equippedStick = _player.inventory.equipped[Items.ItemType.Stick];
-            if (equippedStick != null && currentStickCharge < equippedStick.data.requiredCharge)
+            if (equippedStick != null && currentStickCharge < InventoryItem.requiredStickCharge)
             {
                 currentStickCharge++;
             }

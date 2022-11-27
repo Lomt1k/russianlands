@@ -4,14 +4,12 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
 {
     using ItemAbilities;
     using ItemProperties;
-    using System;
     using System.Linq;
     using TextGameRPG.Scripts.Bot;
 
     public abstract partial class ItemDataGeneratorBase
     {
         protected ItemDataSeed seed { get; }
-        protected byte requiredCharge { get; set; }
         protected float gradedPoints { get; }
         protected float gradeMult { get; }
 

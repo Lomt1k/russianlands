@@ -55,7 +55,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
             if (equippedStick != null)
             {
                 var currentCharge = session.player.unitStats.currentStickCharge;
-                var requiredCharge = equippedStick.data.requiredCharge;
+                var requiredCharge = InventoryItem.requiredStickCharge;
                 if (currentCharge < requiredCharge)
                 {
                     TryAppendAdditionalLine();
@@ -107,7 +107,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
             }
 
             var stickItem = equipped[ItemType.Stick];
-            if (stickItem != null && unitStats.currentStickCharge >= stickItem.data.requiredCharge)
+            if (stickItem != null && unitStats.currentStickCharge >= InventoryItem.requiredStickCharge)
             {
                 var stickAttackText = stickItem.GetFullName(session);
                 RegisterButton(stickAttackText, () => OnCategorySelected(ItemType.Stick));

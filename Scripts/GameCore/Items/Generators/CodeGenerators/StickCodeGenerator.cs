@@ -27,8 +27,6 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators
 
         public override void AppendSpecificInfo()
         {
-            sb.Append("C3"); // required charge 3 (наверно стоит избавиться от этого и сделать charge 3 константой для всех посохов в игре)
-
             var random = new Random();
             var blockedKeywords = new HashSet<AbilityType>();
             var index = random.Next(_mainOption.Length);
