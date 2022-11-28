@@ -55,19 +55,22 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
                     AddStealManaKeyword(40);
                     break;
                 case AbilityType.AdditionalFireDamageKeyword:
-                    AddAdditionalFireDamageKeyword((int)Math.Round(_generalDamage * 0.4f), 20);
+                    AddAdditionalFireDamageKeyword((int)Math.Round(_generalDamage * 0.4f), 25);
                     break;
                 case AbilityType.AdditionalColdDamageKeyword:
-                    AddAdditionalColdDamageKeyword((int)Math.Round(_generalDamage * 0.4f), 20);
+                    AddAdditionalColdDamageKeyword((int)Math.Round(_generalDamage * 0.4f), 25);
                     break;
                 case AbilityType.AdditionalLightningDamageKeyword:
-                    AddAdditionalLightningDamageKeyword((int)Math.Round(_generalDamage * 0.4f), 20);
+                    AddAdditionalLightningDamageKeyword((int)Math.Round(_generalDamage * 0.4f), 25);
                     break;
                 case AbilityType.RageKeyword:
                     AddRageKeyword();
                     break;
                 case AbilityType.FinishingKeyword:
                     AddFinishingKeyword(30);
+                    break;
+                case AbilityType.AbsorptionKeyword:
+                    AddAbsorptionKeyword(25);
                     break;
             }
         }

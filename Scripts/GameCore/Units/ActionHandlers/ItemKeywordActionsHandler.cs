@@ -38,6 +38,18 @@ namespace TextGameRPG.Scripts.GameCore.Units.ActionHandlers
                 }
             }
 
+            // Absorption
+            if (abilitiesDict.TryGetValue(AbilityType.AbsorptionKeyword, out var absorptionAbility))
+            {
+                if (absorptionAbility.TryChance())
+                {
+                    var enemyStats = battleTurn.enemy.unitStats;
+                    enemyStats.PredictDealDamageResult(generalAttack.damageInfo, out var resultDamage, out var resultHealth);
+                    var healthToRestore = resultDamage.GetTotalValue();
+                    resultActionsList.Add(new AbsorptionAction(healthToRestore));
+                }
+            }
+
         }
 
         public static void HandleGeneralAttackModifiers(BattleTurn battleTurn, InventoryItem selectedItem,

@@ -24,6 +24,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
             { AbilityType.AdditionalLightningDamageKeyword, new AdditionalLightningDamageKeywordAbility() },
             { AbilityType.RageKeyword, new RageKeywordAbility() },
             { AbilityType.FinishingKeyword, new FinishingKeywordAbility() },
+            { AbilityType.AbsorptionKeyword, new AbsorptionKeywordAbility() },
         };
 
         public static ItemAbilityBase GetNewAbility(AbilityType type)

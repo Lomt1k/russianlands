@@ -66,16 +66,19 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
                     AddStealManaKeyword(25);
                     break;
                 case AbilityType.AdditionalFireDamageKeyword:
-                    AddAdditionalFireDamageKeyword(_secondaryDamage, 20);
+                    AddAdditionalFireDamageKeyword(_secondaryDamage, 25);
                     break;
                 case AbilityType.AdditionalColdDamageKeyword:
-                    AddAdditionalColdDamageKeyword(_secondaryDamage, 20);
+                    AddAdditionalColdDamageKeyword(_secondaryDamage, 25);
                     break;
                 case AbilityType.AdditionalLightningDamageKeyword:
-                    AddAdditionalLightningDamageKeyword(_secondaryDamage, 20);
+                    AddAdditionalLightningDamageKeyword(_secondaryDamage, 25);
                     break;
                 case AbilityType.FinishingKeyword:
                     AddFinishingKeyword(40);
+                    break;
+                case AbilityType.AbsorptionKeyword:
+                    AddAbsorptionKeyword(20);
                     break;
             }
         }

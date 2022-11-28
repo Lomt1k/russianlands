@@ -110,6 +110,17 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             _abilities.Add(abilityType, newAbility);
         }
 
+        protected void AddAbsorptionKeyword(float chancePercentage)
+        {
+            _statIcons.Add(Stat.KeywordAbsorption);
+            var abilityType = AbilityType.AbsorptionKeyword;
+            var newAbility = (AbsorptionKeywordAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
+
+            newAbility.chanceToSuccessPercentage = chancePercentage;
+
+            _abilities.Add(abilityType, newAbility);
+        }
+
 
     }
 }
