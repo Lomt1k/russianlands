@@ -15,6 +15,7 @@
         AdditionalColdDamageKeyword = 10,
         AdditionalLightningDamageKeyword = 11,
         RageKeyword = 12,
+        FinishingKeyword = 13,
     }
 
     public static class AblilityTypeExtensions

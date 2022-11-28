@@ -15,6 +15,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators
             AbilityType.AdditionalColdDamageKeyword,
             AbilityType.AdditionalLightningDamageKeyword,
             AbilityType.RageKeyword,
+            AbilityType.FinishingKeyword,
         };
 
         public StickCodeGenerator(ItemType _type, Rarity _rarity, int _townHallLevel) : base(_type, _rarity, _townHallLevel)

@@ -114,6 +114,12 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
             resistance += value;
         }
 
+        public void PredictDealDamageResult(DamageInfo damage, out DamageInfo resultDamage, out int resultHealth)
+        {
+            resultDamage = (damage - resistance).EscapeNegative();
+            resultHealth = _currentHP - resultDamage.GetTotalValue();
+        }
+
         public DamageInfo TryDealDamage(DamageInfo damage)
         {
             var resultDamage = (damage - resistance).EscapeNegative();

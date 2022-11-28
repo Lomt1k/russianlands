@@ -101,6 +101,19 @@ namespace TextGameRPG.Scripts.GameCore.Units.ActionHandlers
                 }
             }
 
+            // Finishing (должна быть последней в этом методе!)
+            if (abilitiesDict.TryGetValue(AbilityType.FinishingKeyword, out var finishingAbility))
+            {
+                var ability = (FinishingKeywordAbility)finishingAbility;
+                var multiplicator = ((float)ability.damageBonusPercentage / 100) + 1f;
+                var damageWithFinishing = generalAttack.damageInfo * multiplicator;
+                battleTurn.enemy.unitStats.PredictDealDamageResult(damageWithFinishing, out var resultDamage, out var resultHealth);
+                if (resultHealth < 1)
+                {
+                    generalAttack.damageInfo *= multiplicator;
+                    resultActionsList.Add(new FinishingAction(ability.damageBonusPercentage));
+                }
+            }
         }
 
     }

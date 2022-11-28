@@ -6,8 +6,15 @@ using TextGameRPG.Scripts.GameCore.Units.Stats;
 namespace TextGameRPG.Scripts.GameCore.Managers.Battles.Actions
 {
     // Используется только для вывода локализации, сам урон учитывается в ItemKeywordActionsHandler.cs
-    public class RageAction : IBattleAction
+    public class FinishingAction : IBattleAction
     {
+        private byte _damageBonusPercentage;
+
+        public FinishingAction(byte damageBonusPercentage)
+        {
+            _damageBonusPercentage = damageBonusPercentage;
+        }
+
         public void ApplyActionWithMineStats(UnitStats stats)
         {
         }
@@ -18,13 +25,13 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles.Actions
 
         public string GetHeader(GameSession session)
         {
-            return $"{Emojis.stats[Stat.KeywordRage]} {Localization.Get(session, "battle_action_rage_header")}";
+            return $"{Emojis.stats[Stat.KeywordFinishing]} {Localization.Get(session, "battle_action_finishing_header")}";
         }
 
         public string GetDescription(GameSession session)
         {
-            return Localization.Get(session, "battle_action_rage_description");
+            return string.Format(Localization.Get(session, "battle_action_finishing_description"), _damageBonusPercentage);
         }
-        
+
     }
 }

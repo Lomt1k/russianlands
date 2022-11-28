@@ -15,6 +15,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators
             AbilityType.AdditionalFireDamageKeyword,
             AbilityType.AdditionalColdDamageKeyword,
             AbilityType.AdditionalLightningDamageKeyword,
+            AbilityType.FinishingKeyword,
         };
 
         public BowCodeGenerator(ItemType _type, Rarity _rarity, int _townHallLevel) : base(_type, _rarity, _townHallLevel)

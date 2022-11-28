@@ -99,6 +99,17 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             _abilities.Add(abilityType, newAbility);
         }
 
+        protected void AddFinishingKeyword(byte bonusDamagePercentage)
+        {
+            _statIcons.Add(Stat.KeywordFinishing);
+            var abilityType = AbilityType.FinishingKeyword;
+            var newAbility = (FinishingKeywordAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
+
+            newAbility.damageBonusPercentage = bonusDamagePercentage;
+
+            _abilities.Add(abilityType, newAbility);
+        }
+
 
     }
 }

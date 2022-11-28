@@ -87,6 +87,9 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
                 case AbilityType.RageKeyword:
                     AddRageKeyword();
                     break;
+                case AbilityType.FinishingKeyword:
+                    AddFinishingKeyword(50);
+                    break;
             }
         }
 
