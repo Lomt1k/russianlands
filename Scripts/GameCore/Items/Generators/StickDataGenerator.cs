@@ -75,6 +75,9 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
                 case AbilityType.AddManaKeyword:
                     AddAddManaKeyword(50);
                     break;
+                case AbilityType.StunKeyword:
+                    AddStunKeyword(20);
+                    break;
             }
         }
 

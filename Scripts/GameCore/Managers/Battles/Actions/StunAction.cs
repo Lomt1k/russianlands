@@ -5,27 +5,25 @@ using TextGameRPG.Scripts.GameCore.Units.Stats;
 
 namespace TextGameRPG.Scripts.GameCore.Managers.Battles.Actions
 {
-    public class StealManaAction : IBattleAction
+    public class StunAction : IBattleAction
     {
         public void ApplyActionWithMineStats(UnitStats stats)
         {
-            stats.AddMana(1);
         }
 
         public void ApplyActionWithEnemyStats(UnitStats stats)
         {
-            stats.RemoveMana(1);
+            stats.isSkipNextTurnRequired = true;
         }
 
         public string GetHeader(GameSession session)
         {
-            return $"{Emojis.stats[Stat.KeywordStealMana]} {Localization.Get(session, "battle_action_mana_steal_header")}";
+            return $"{Emojis.stats[Stat.KeywordStun]} {Localization.Get(session, "battle_action_stun_header")}";
         }
 
         public string GetDescription(GameSession session)
         {
-            return Localization.Get(session, "battle_action_mana_steal_description");
+            return Localization.Get(session, "battle_action_stun_description");
         }
-        
     }
 }

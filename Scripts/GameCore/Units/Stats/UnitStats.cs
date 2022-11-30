@@ -38,6 +38,7 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
         public byte currentArrows { get; protected set; }
         public DamageInfo resistance { get; protected set; }
         public bool isFullHealth => currentHP >= maxHP;
+        public bool isSkipNextTurnRequired = false;
 
         public void RecalculateCurrentHP()
         {
@@ -74,6 +75,7 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
         {
             currentMana = 0;
             currentStickCharge = 0;
+            isSkipNextTurnRequired = false;
         }
 
         public virtual void OnBattleEnd()

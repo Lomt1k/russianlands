@@ -93,6 +93,9 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
                 case AbilityType.AbsorptionKeyword:
                     AddAbsorptionKeyword(35);
                     break;
+                case AbilityType.StunKeyword:
+                    AddStunKeyword(20);
+                    break;
             }
         }
 

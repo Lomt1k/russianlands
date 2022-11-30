@@ -43,6 +43,12 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles
             if (battle.IsCancellationRequested())
                 return;
 
+            if (unit.unitStats.isSkipNextTurnRequired)
+            {
+                unit.unitStats.isSkipNextTurnRequired = false;
+                return;
+            }
+
             await enemy.OnStartEnemyTurn(this).ConfigureAwait(false);
             OnStartMineTurn();
             AskUnitForBattleActions();

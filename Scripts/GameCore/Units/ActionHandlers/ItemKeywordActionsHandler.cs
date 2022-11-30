@@ -29,15 +29,6 @@ namespace TextGameRPG.Scripts.GameCore.Units.ActionHandlers
                 }
             }
 
-            // Mana Steal
-            if (abilitiesDict.TryGetValue(AbilityType.StealManaKeyword, out var manaStealAbility))
-            {
-                if (manaStealAbility.TryChance())
-                {
-                    resultActionsList.Add(new StealManaAction(battleTurn));
-                }
-            }
-
             // Absorption
             if (abilitiesDict.TryGetValue(AbilityType.AbsorptionKeyword, out var absorptionAbility))
             {
@@ -50,12 +41,30 @@ namespace TextGameRPG.Scripts.GameCore.Units.ActionHandlers
                 }
             }
 
+            // Mana Steal
+            if (abilitiesDict.TryGetValue(AbilityType.StealManaKeyword, out var manaStealAbility))
+            {
+                if (manaStealAbility.TryChance())
+                {
+                    resultActionsList.Add(new StealManaAction());
+                }
+            }            
+
             // Add Mana
             if (abilitiesDict.TryGetValue(AbilityType.AddManaKeyword, out var addManaAbility))
             {
                 if (addManaAbility.TryChance())
                 {
                     resultActionsList.Add(new AddManaKeywordAction());
+                }
+            }
+
+            // Stun
+            if (abilitiesDict.TryGetValue(AbilityType.StunKeyword, out var stunAbility))
+            {
+                if (stunAbility.TryChance())
+                {
+                    resultActionsList.Add(new StunAction());
                 }
             }
 

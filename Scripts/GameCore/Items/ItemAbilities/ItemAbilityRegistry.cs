@@ -26,6 +26,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
             { AbilityType.FinishingKeyword, new FinishingKeywordAbility() },
             { AbilityType.AbsorptionKeyword, new AbsorptionKeywordAbility() },
             { AbilityType.AddManaKeyword, new AddManaKeywordAbility() },
+            { AbilityType.StunKeyword, new StunKeywordAbility() },
         };
 
         public static ItemAbilityBase GetNewAbility(AbilityType type)

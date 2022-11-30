@@ -132,6 +132,17 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             _abilities.Add(abilityType, newAbility);
         }
 
+        protected void AddStunKeyword(float chancePercentage)
+        {
+            _statIcons.Add(Stat.KeywordStun);
+            var abilityType = AbilityType.StunKeyword;
+            var newAbility = (StunKeywordAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
+
+            newAbility.chanceToSuccessPercentage = chancePercentage;
+
+            _abilities.Add(abilityType, newAbility);
+        }
+
 
     }
 }
