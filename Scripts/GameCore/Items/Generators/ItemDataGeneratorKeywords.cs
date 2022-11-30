@@ -10,7 +10,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
      */
     public abstract partial class ItemDataGeneratorBase
     {
-        protected void AddSwordBlockKeyword(DamageInfo blockInfo, float chancePercentage = 100f)
+        protected void AddSwordBlockKeyword(DamageInfo blockInfo, byte chancePercentage = 100)
         {
             _statIcons.Add(Stat.KeywordSwordBlock);
             var abilityType = AbilityType.SwordBlockEveryTurnKeyword;
@@ -33,7 +33,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             _abilities.Add(abilityType, newAbility);
         }
 
-        protected void AddAddArrowKeyword(float chancePercentage)
+        protected void AddAddArrowKeyword(byte chancePercentage)
         {
             _statIcons.Add(Stat.KeywordAddArrow);
             var abilityType = AbilityType.AddArrowKeyword;
@@ -44,7 +44,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             _abilities.Add(abilityType, newAbility);
         }
 
-        protected void AddStealManaKeyword(float chancePercentage)
+        protected void AddStealManaKeyword(byte chancePercentage)
         {
             _statIcons.Add(Stat.KeywordStealMana);
             var abilityType = AbilityType.StealManaKeyword;
@@ -55,7 +55,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             _abilities.Add(abilityType, newAbility);
         }
 
-        protected void AddAdditionalFireDamageKeyword(int damage, float chancePercentage)
+        protected void AddAdditionalFireDamageKeyword(int damage, byte chancePercentage)
         {
             _statIcons.Add(Stat.KeywordAdditionalDamage);
             var abilityType = AbilityType.AdditionalFireDamageKeyword;
@@ -67,7 +67,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             _abilities.Add(abilityType, newAbility);
         }
 
-        protected void AddAdditionalColdDamageKeyword(int damage, float chancePercentage)
+        protected void AddAdditionalColdDamageKeyword(int damage, byte chancePercentage)
         {
             _statIcons.Add(Stat.KeywordAdditionalDamage);
             var abilityType = AbilityType.AdditionalColdDamageKeyword;
@@ -79,7 +79,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             _abilities.Add(abilityType, newAbility);
         }
 
-        protected void AddAdditionalLightningDamageKeyword(int damage, float chancePercentage)
+        protected void AddAdditionalLightningDamageKeyword(int damage, byte chancePercentage)
         {
             _statIcons.Add(Stat.KeywordAdditionalDamage);
             var abilityType = AbilityType.AdditionalLightningDamageKeyword;
@@ -110,7 +110,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             _abilities.Add(abilityType, newAbility);
         }
 
-        protected void AddAbsorptionKeyword(float chancePercentage)
+        protected void AddAbsorptionKeyword(byte chancePercentage)
         {
             _statIcons.Add(Stat.KeywordAbsorption);
             var abilityType = AbilityType.AbsorptionKeyword;
@@ -121,7 +121,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             _abilities.Add(abilityType, newAbility);
         }
 
-        protected void AddAddManaKeyword(float chancePercentage)
+        protected void AddAddManaKeyword(byte chancePercentage)
         {
             _statIcons.Add(Stat.Mana);
             var abilityType = AbilityType.AddManaKeyword;
@@ -132,7 +132,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             _abilities.Add(abilityType, newAbility);
         }
 
-        protected void AddStunKeyword(float chancePercentage)
+        protected void AddStunKeyword(byte chancePercentage)
         {
             _statIcons.Add(Stat.KeywordStun);
             var abilityType = AbilityType.StunKeyword;

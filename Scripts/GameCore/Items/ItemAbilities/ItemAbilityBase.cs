@@ -11,7 +11,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
         [JsonIgnore] public abstract string debugDescription { get; }
         [JsonIgnore] public abstract AbilityType abilityType { get; }
 
-        public float chanceToSuccessPercentage = 100;
+        public byte chanceToSuccessPercentage = 100;
         public byte manaCost;
 
         public ItemAbilityBase Clone()

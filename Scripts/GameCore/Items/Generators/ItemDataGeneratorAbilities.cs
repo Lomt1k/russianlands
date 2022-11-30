@@ -11,7 +11,7 @@
 
         #region Deal Damage
 
-        protected void AddDealPhysicalDamage(int value, float chancePercentage = 100f)
+        protected void AddDealPhysicalDamage(int value, byte chancePercentage = 100)
         {
             var abilityType = AbilityType.DealDamage;
             if (_abilities.TryGetValue(abilityType, out var ability))
@@ -21,10 +21,10 @@
                     dealDamage.minPhysicalDamage += value;
                     dealDamage.maxPhysicalDamage += value;
 
-                    var temp = dealDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
+                    float temp = dealDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
                     temp += chancePercentage;
                     _stackOfChances[abilityType]++;
-                    dealDamage.chanceToSuccessPercentage = (float)Math.Round(temp / _stackOfChances[abilityType]);
+                    dealDamage.chanceToSuccessPercentage = (byte)Math.Round(temp / _stackOfChances[abilityType]);
                     _statIcons.Add(Stat.PhysicalDamage);
                 }
                 return;
@@ -38,7 +38,7 @@
             _abilities.Add(abilityType, newAbility);
         }
 
-        protected void AddDealPhysicalDamage(int minDamage, int maxDamage, float chancePercentage = 100f)
+        protected void AddDealPhysicalDamage(int minDamage, int maxDamage, byte chancePercentage = 100)
         {
             var abilityType = AbilityType.DealDamage;
             if (_abilities.TryGetValue(abilityType, out var ability))
@@ -48,10 +48,10 @@
                     dealDamage.minPhysicalDamage += minDamage;
                     dealDamage.maxPhysicalDamage += maxDamage;
 
-                    var temp = dealDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
+                    float temp = dealDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
                     temp += chancePercentage;
                     _stackOfChances[abilityType]++;
-                    dealDamage.chanceToSuccessPercentage = (float)Math.Round(temp / _stackOfChances[abilityType]);
+                    dealDamage.chanceToSuccessPercentage = (byte)Math.Round(temp / _stackOfChances[abilityType]);
                     _statIcons.Add(Stat.PhysicalDamage);
                 }
                 return;
@@ -65,7 +65,7 @@
             _abilities.Add(abilityType, newAbility);
         }
 
-        protected void AddDealFireDamage(int value, float chancePercentage = 100f)
+        protected void AddDealFireDamage(int value, byte chancePercentage = 100)
         {
             _statIcons.Add(Stat.FireDamage);
             var abilityType = AbilityType.DealDamage;
@@ -76,10 +76,10 @@
                     dealDamage.minFireDamage += value;
                     dealDamage.maxFireDamage += value;
 
-                    var temp = dealDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
+                    float temp = dealDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
                     temp += chancePercentage;
                     _stackOfChances[abilityType]++;
-                    dealDamage.chanceToSuccessPercentage = (float)Math.Round(temp / _stackOfChances[abilityType]);
+                    dealDamage.chanceToSuccessPercentage = (byte)Math.Round(temp / _stackOfChances[abilityType]);
                 }
                 return;
             }
@@ -92,7 +92,7 @@
             _abilities.Add(abilityType, newAbility);
         }
 
-        protected void AddDealFireDamage(int minDamage, int maxDamage, float chancePercentage = 100f)
+        protected void AddDealFireDamage(int minDamage, int maxDamage, byte chancePercentage = 100)
         {
             _statIcons.Add(Stat.FireDamage);
             var abilityType = AbilityType.DealDamage;
@@ -103,10 +103,10 @@
                     dealDamage.minFireDamage += minDamage;
                     dealDamage.maxFireDamage += maxDamage;
 
-                    var temp = dealDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
+                    float temp = dealDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
                     temp += chancePercentage;
                     _stackOfChances[abilityType]++;
-                    dealDamage.chanceToSuccessPercentage = (float)Math.Round(temp / _stackOfChances[abilityType]);
+                    dealDamage.chanceToSuccessPercentage = (byte)Math.Round(temp / _stackOfChances[abilityType]);
                 }
                 return;
             }
@@ -119,7 +119,7 @@
             _abilities.Add(abilityType, newAbility);
         }
 
-        protected void AddDealColdDamage(int value, float chancePercentage = 100f)
+        protected void AddDealColdDamage(int value, byte chancePercentage = 100)
         {
             _statIcons.Add(Stat.ColdDamage);
             var abilityType = AbilityType.DealDamage;
@@ -130,10 +130,10 @@
                     dealDamage.minColdDamage += value;
                     dealDamage.maxColdDamage += value;
 
-                    var temp = dealDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
+                    float temp = dealDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
                     temp += chancePercentage;
                     _stackOfChances[abilityType]++;
-                    dealDamage.chanceToSuccessPercentage = (float)Math.Round(temp / _stackOfChances[abilityType]);
+                    dealDamage.chanceToSuccessPercentage = (byte)Math.Round(temp / _stackOfChances[abilityType]);
                 }
                 return;
             }
@@ -146,7 +146,7 @@
             _abilities.Add(abilityType, newAbility);
         }
 
-        protected void AddDealColdDamage(int minDamage, int maxDamage, float chancePercentage = 100f)
+        protected void AddDealColdDamage(int minDamage, int maxDamage, byte chancePercentage = 100)
         {
             _statIcons.Add(Stat.ColdDamage);
             var abilityType = AbilityType.DealDamage;
@@ -157,10 +157,10 @@
                     dealDamage.minColdDamage += minDamage;
                     dealDamage.maxColdDamage += maxDamage;
 
-                    var temp = dealDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
+                    float temp = dealDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
                     temp += chancePercentage;
                     _stackOfChances[abilityType]++;
-                    dealDamage.chanceToSuccessPercentage = (float)Math.Round(temp / _stackOfChances[abilityType]);
+                    dealDamage.chanceToSuccessPercentage = (byte)Math.Round(temp / _stackOfChances[abilityType]);
                 }
                 return;
             }
@@ -173,7 +173,7 @@
             _abilities.Add(abilityType, newAbility);
         }
 
-        protected void AddDealLightningDamage(int value, float chancePercentage = 100f)
+        protected void AddDealLightningDamage(int value, byte chancePercentage = 100)
         {
             _statIcons.Add(Stat.LightningDamage);
             var abilityType = AbilityType.DealDamage;
@@ -184,10 +184,10 @@
                     dealDamage.minLightningDamage += value;
                     dealDamage.maxLightningDamage += value;
 
-                    var temp = dealDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
+                    float temp = dealDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
                     temp += chancePercentage;
                     _stackOfChances[abilityType]++;
-                    dealDamage.chanceToSuccessPercentage = (float)Math.Round(temp / _stackOfChances[abilityType]);
+                    dealDamage.chanceToSuccessPercentage = (byte)Math.Round(temp / _stackOfChances[abilityType]);
                 }
                 return;
             }
@@ -200,7 +200,7 @@
             _abilities.Add(abilityType, newAbility);
         }
 
-        protected void AddDealLightningDamage(int minDamage, int maxDamage, float chancePercentage = 100f)
+        protected void AddDealLightningDamage(int minDamage, int maxDamage, byte chancePercentage = 100)
         {
             _statIcons.Add(Stat.LightningDamage);
             var abilityType = AbilityType.DealDamage;
@@ -211,10 +211,10 @@
                     dealDamage.minLightningDamage += minDamage;
                     dealDamage.maxLightningDamage += maxDamage;
 
-                    var temp = dealDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
+                    float temp = dealDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
                     temp += chancePercentage;
                     _stackOfChances[abilityType]++;
-                    dealDamage.chanceToSuccessPercentage = (float)Math.Round(temp / _stackOfChances[abilityType]);
+                    dealDamage.chanceToSuccessPercentage = (byte)Math.Round(temp / _stackOfChances[abilityType]);
                 }
                 return;
             }
@@ -230,7 +230,7 @@
 
         #region Block Incoming Damage
 
-        protected void AddBlockIncomingPhysicalDamage(int value, float chancePercentage = 30f)
+        protected void AddBlockIncomingPhysicalDamage(int value, byte chancePercentage = 30)
         {
             var abilityType = AbilityType.BlockIncomingDamageEveryTurn;
             if (_abilities.TryGetValue(abilityType, out var ability))
@@ -238,10 +238,10 @@
                 if (ability is BlockIncomingDamageEveryTurnAbility blockDamage)
                 {
                     blockDamage.physicalDamage += value;
-                    var temp = blockDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
+                    float temp = blockDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
                     temp += chancePercentage;
                     _stackOfChances[abilityType]++;
-                    blockDamage.chanceToSuccessPercentage = (float)Math.Round(temp / _stackOfChances[abilityType]);
+                    blockDamage.chanceToSuccessPercentage = (byte)Math.Round(temp / _stackOfChances[abilityType]);
                     _statIcons.Add(Stat.PhysicalDamage);
                 }
                 return;
@@ -254,7 +254,7 @@
             _abilities.Add(abilityType, newAbility);
         }
 
-        protected void AddBlockIncomingFireDamage(int value, float chancePercentage = 30f)
+        protected void AddBlockIncomingFireDamage(int value, byte chancePercentage = 30)
         {
             _statIcons.Add(Stat.FireDamage);
             var abilityType = AbilityType.BlockIncomingDamageEveryTurn;
@@ -263,10 +263,10 @@
                 if (ability is BlockIncomingDamageEveryTurnAbility blockDamage)
                 {
                     blockDamage.fireDamage += value;
-                    var temp = blockDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
+                    float temp = blockDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
                     temp += chancePercentage;
                     _stackOfChances[abilityType]++;
-                    blockDamage.chanceToSuccessPercentage = (float)Math.Round(temp / _stackOfChances[abilityType]);
+                    blockDamage.chanceToSuccessPercentage = (byte)Math.Round(temp / _stackOfChances[abilityType]);
                 }
                 return;
             }
@@ -278,7 +278,7 @@
             _abilities.Add(abilityType, newAbility);
         }
 
-        protected void AddBlockIncomingColdDamage(int value, float chancePercentage = 30f)
+        protected void AddBlockIncomingColdDamage(int value, byte chancePercentage = 30)
         {
             _statIcons.Add(Stat.ColdDamage);
             var abilityType = AbilityType.BlockIncomingDamageEveryTurn;
@@ -287,10 +287,10 @@
                 if (ability is BlockIncomingDamageEveryTurnAbility blockDamage)
                 {
                     blockDamage.coldDamage += value;
-                    var temp = blockDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
+                    float temp = blockDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
                     temp += chancePercentage;
                     _stackOfChances[abilityType]++;
-                    blockDamage.chanceToSuccessPercentage = (float)Math.Round(temp / _stackOfChances[abilityType]);
+                    blockDamage.chanceToSuccessPercentage = (byte)Math.Round(temp / _stackOfChances[abilityType]);
                 }
                 return;
             }
@@ -302,7 +302,7 @@
             _abilities.Add(abilityType, newAbility);
         }
 
-        protected void AddBlockIncomingLightningDamage(int value, float chancePercentage = 30f)
+        protected void AddBlockIncomingLightningDamage(int value, byte chancePercentage = 30)
         {
             _statIcons.Add(Stat.LightningDamage);
             var abilityType = AbilityType.BlockIncomingDamageEveryTurn;
@@ -311,10 +311,10 @@
                 if (ability is BlockIncomingDamageEveryTurnAbility blockDamage)
                 {
                     blockDamage.lightningDamage += value;
-                    var temp = blockDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
+                    float temp = blockDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
                     temp += chancePercentage;
                     _stackOfChances[abilityType]++;
-                    blockDamage.chanceToSuccessPercentage = (float)Math.Round(temp / _stackOfChances[abilityType]);
+                    blockDamage.chanceToSuccessPercentage = (byte)Math.Round(temp / _stackOfChances[abilityType]);
                 }
                 return;
             }
@@ -328,7 +328,7 @@
 
         #endregion
 
-        protected void AddRestoreHealthEveryTurn(int value, float chancePercentage = 100f)
+        protected void AddRestoreHealthEveryTurn(int value, byte chancePercentage = 100)
         {
             _statIcons.Add(Stat.RestoreHealth);
             var abilityType = AbilityType.RestoreHealthEveryTurn;
@@ -338,10 +338,10 @@
                 {
                     restoreHealth.healthValue += value;
 
-                    var temp = restoreHealth.chanceToSuccessPercentage * _stackOfChances[abilityType];
+                    float temp = restoreHealth.chanceToSuccessPercentage * _stackOfChances[abilityType];
                     temp += chancePercentage;
                     _stackOfChances[abilityType]++;
-                    restoreHealth.chanceToSuccessPercentage = (float)Math.Round(temp / _stackOfChances[abilityType]);
+                    restoreHealth.chanceToSuccessPercentage = (byte)Math.Round(temp / _stackOfChances[abilityType]);
                 }
                 return;
             }
@@ -353,7 +353,7 @@
             _abilities.Add(abilityType, newAbility);
         }
 
-        protected void AddManaEveryTurn(byte manaAmount, float chancePercentage = 100f)
+        protected void AddManaEveryTurn(byte manaAmount, byte chancePercentage = 100)
         {
             _statIcons.Add(Stat.Mana);
             var abilityType = AbilityType.AddManaEveryTurn;
@@ -363,10 +363,10 @@
                 {
                     addManaAbility.manaValue = (byte)(addManaAbility.manaValue + manaAmount);
 
-                    var temp = addManaAbility.chanceToSuccessPercentage * _stackOfChances[abilityType];
+                    float temp = addManaAbility.chanceToSuccessPercentage * _stackOfChances[abilityType];
                     temp += chancePercentage;
                     _stackOfChances[abilityType]++;
-                    addManaAbility.chanceToSuccessPercentage = (float)Math.Round(temp / _stackOfChances[abilityType]);
+                    addManaAbility.chanceToSuccessPercentage = (byte)Math.Round(temp / _stackOfChances[abilityType]);
                 }
                 return;
             }
