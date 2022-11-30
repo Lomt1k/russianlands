@@ -72,6 +72,9 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
                 case AbilityType.AbsorptionKeyword:
                     AddAbsorptionKeyword(25);
                     break;
+                case AbilityType.AddManaKeyword:
+                    AddAddManaKeyword(50);
+                    break;
             }
         }
 

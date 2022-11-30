@@ -17,6 +17,7 @@
         RageKeyword = 12,
         FinishingKeyword = 13,
         AbsorptionKeyword = 14,
+        AddManaKeyword = 15,
     }
 
     public static class AblilityTypeExtensions

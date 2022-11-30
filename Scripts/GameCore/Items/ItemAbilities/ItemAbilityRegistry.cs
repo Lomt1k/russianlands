@@ -25,6 +25,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
             { AbilityType.RageKeyword, new RageKeywordAbility() },
             { AbilityType.FinishingKeyword, new FinishingKeywordAbility() },
             { AbilityType.AbsorptionKeyword, new AbsorptionKeywordAbility() },
+            { AbilityType.AddManaKeyword, new AddManaKeywordAbility() },
         };
 
         public static ItemAbilityBase GetNewAbility(AbilityType type)

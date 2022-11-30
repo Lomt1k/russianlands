@@ -50,6 +50,15 @@ namespace TextGameRPG.Scripts.GameCore.Units.ActionHandlers
                 }
             }
 
+            // Add Mana
+            if (abilitiesDict.TryGetValue(AbilityType.AddManaKeyword, out var addManaAbility))
+            {
+                if (addManaAbility.TryChance())
+                {
+                    resultActionsList.Add(new AddManaKeywordAction());
+                }
+            }
+
         }
 
         public static void HandleGeneralAttackModifiers(BattleTurn battleTurn, InventoryItem selectedItem,

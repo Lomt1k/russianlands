@@ -121,6 +121,17 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             _abilities.Add(abilityType, newAbility);
         }
 
+        protected void AddAddManaKeyword(float chancePercentage)
+        {
+            _statIcons.Add(Stat.Mana);
+            var abilityType = AbilityType.AddManaKeyword;
+            var newAbility = (AddManaKeywordAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
+
+            newAbility.chanceToSuccessPercentage = chancePercentage;
+
+            _abilities.Add(abilityType, newAbility);
+        }
+
 
     }
 }
