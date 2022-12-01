@@ -68,7 +68,7 @@ namespace TextGameRPG.Scripts.GameCore.Units.Mobs
     public class MobAttack
     {
         public string localizationKey = "battle_action_mob_normal_attack";
-        public int manaCost;
+        public sbyte manaCost;
         public int minPhysicalDamage;
         public int maxPhysicalDamage;
         public int minFireDamage;

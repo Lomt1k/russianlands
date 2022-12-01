@@ -19,6 +19,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators
             AbilityType.AbsorptionKeyword,
             AbilityType.AddManaKeyword,
             AbilityType.StunKeyword,
+            AbilityType.SanctionsKeyword,
         };
 
         public StickCodeGenerator(ItemType _type, Rarity _rarity, int _townHallLevel) : base(_type, _rarity, _townHallLevel)

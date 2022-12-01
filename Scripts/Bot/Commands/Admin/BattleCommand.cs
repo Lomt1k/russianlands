@@ -110,7 +110,7 @@ namespace TextGameRPG.Scripts.Bot.Commands.Admin
 
             var attack = new MobAttack()
             {
-                localizationKey = item.GetFullName(player.session),
+                localizationKey = $"<b>{item.GetFullName(player.session)}</b>",
                 minPhysicalDamage = dealDamage.minPhysicalDamage,
                 maxPhysicalDamage = dealDamage.maxPhysicalDamage,
                 minFireDamage = dealDamage.minFireDamage,
@@ -119,7 +119,7 @@ namespace TextGameRPG.Scripts.Bot.Commands.Admin
                 maxColdDamage = dealDamage.maxColdDamage,
                 minLightningDamage = dealDamage.minLightningDamage,
                 maxLightningDamage = dealDamage.maxLightningDamage,
-                manaCost = item.data.itemType == ItemType.Stick ? InventoryItem.requiredStickCharge : item.manaCost,
+                manaCost = item.data.itemType == ItemType.Stick ? (sbyte)InventoryItem.requiredStickCharge : item.manaCost,
             };
 
             return attack;

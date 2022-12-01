@@ -33,9 +33,9 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
             }
         }
 
-        public byte currentMana { get; protected set; }
+        public sbyte currentMana { get; set; }
+        public byte currentArrows { get; set; }
         public byte currentStickCharge { get; protected set; }
-        public byte currentArrows { get; protected set; }
         public DamageInfo resistance { get; protected set; }
         public bool isFullHealth => currentHP >= maxHP;
         public bool isSkipNextTurnRequired = false;
@@ -54,21 +54,6 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
         public void RestoreHealth(int hp)
         {
             damagedHP = Math.Max(damagedHP - hp, 0);
-        }
-
-        public void AddMana(byte manaAmount)
-        {
-            currentMana += manaAmount;
-        }
-
-        public void RemoveMana(byte manaAmount)
-        {
-            currentMana -= manaAmount;
-        }
-
-        public void AddArrows(byte arrowsAmount)
-        {
-            currentArrows += arrowsAmount;
         }
 
         public virtual void OnStartBattle()

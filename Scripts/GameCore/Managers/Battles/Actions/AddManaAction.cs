@@ -9,10 +9,10 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles.Actions
 {
     public class AddManaAction : IBattleAction
     {
-        public byte manaAmount;
+        public sbyte manaAmount;
         public HashSet<InventoryItem> fromItems = new HashSet<InventoryItem>();
 
-        public void Add(InventoryItem _itemFrom, byte _manaAmount)
+        public void Add(InventoryItem _itemFrom, sbyte _manaAmount)
         {
             manaAmount += _manaAmount;
             fromItems.Add(_itemFrom);
@@ -20,7 +20,7 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles.Actions
 
         public void ApplyActionWithMineStats(UnitStats stats)
         {
-            stats.AddMana(manaAmount);
+            stats.currentMana += manaAmount;
         }
 
         public void ApplyActionWithEnemyStats(UnitStats stats)

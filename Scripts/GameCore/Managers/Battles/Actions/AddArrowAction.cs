@@ -9,7 +9,7 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles.Actions
     {
         public void ApplyActionWithMineStats(UnitStats stats)
         {
-            stats.AddArrows(1);
+            stats.currentArrows++;
         }
 
         public void ApplyActionWithEnemyStats(UnitStats stats)

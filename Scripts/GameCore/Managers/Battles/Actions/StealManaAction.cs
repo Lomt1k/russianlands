@@ -9,12 +9,12 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles.Actions
     {
         public void ApplyActionWithMineStats(UnitStats stats)
         {
-            stats.AddMana(1);
+            stats.currentMana++;
         }
 
         public void ApplyActionWithEnemyStats(UnitStats stats)
         {
-            stats.RemoveMana(1);
+            stats.currentMana--;
         }
 
         public string GetHeader(GameSession session)

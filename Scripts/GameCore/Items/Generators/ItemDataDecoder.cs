@@ -14,7 +14,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
         public Rarity rarity;
         public byte townHallLevel;
         public byte grade;
-        public byte manaCost;
+        public sbyte manaCost;
 
         public List<AbilityType> abilities;
         public List<PropertyType> properties;
@@ -29,7 +29,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
         private Rarity _rarity;
         private byte _townHallLevel;
         private byte _grade;
-        private byte _manaCost;
+        private sbyte _manaCost;
 
         private List<AbilityType> _abilities = new List<AbilityType>();
         private List<PropertyType> _properties = new List<PropertyType>();

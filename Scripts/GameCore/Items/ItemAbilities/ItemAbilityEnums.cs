@@ -19,6 +19,7 @@
         AbsorptionKeyword = 14,
         AddManaKeyword = 15,
         StunKeyword = 16,
+        SanctionsKeyword = 17,
     }
 
     public static class AblilityTypeExtensions

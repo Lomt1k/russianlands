@@ -27,6 +27,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
             { AbilityType.AbsorptionKeyword, new AbsorptionKeywordAbility() },
             { AbilityType.AddManaKeyword, new AddManaKeywordAbility() },
             { AbilityType.StunKeyword, new StunKeywordAbility() },
+            { AbilityType.SanctionsKeyword, new SanctionsKeywordAbility() },
         };
 
         public static ItemAbilityBase GetNewAbility(AbilityType type)

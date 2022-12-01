@@ -20,6 +20,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators
             AbilityType.FinishingKeyword,
             AbilityType.AbsorptionKeyword,
             AbilityType.StunKeyword,
+            AbilityType.SanctionsKeyword,
         };
 
         public SwordCodeGenerator(ItemType _type, Rarity _rarity, int _townHallLevel) : base(_type, _rarity, _townHallLevel)

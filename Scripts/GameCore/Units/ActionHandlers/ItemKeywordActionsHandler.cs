@@ -16,58 +16,8 @@ namespace TextGameRPG.Scripts.GameCore.Units.ActionHandlers
             if (selectedItem == null)
                 return;
 
-            var unit = battleTurn.unit;
-            var abilitiesDict = selectedItem.data.ablitityByType;
             HandleGeneralAttackModifiers(battleTurn, selectedItem, ref generalAttack, ref resultActionsList);
-
-            // Add Arrow
-            if (abilitiesDict.TryGetValue(AbilityType.AddArrowKeyword, out var addArrowAbility))
-            {
-                if (addArrowAbility.TryChance())
-                {
-                    resultActionsList.Add(new AddArrowAction());
-                }
-            }
-
-            // Absorption
-            if (abilitiesDict.TryGetValue(AbilityType.AbsorptionKeyword, out var absorptionAbility))
-            {
-                if (absorptionAbility.TryChance())
-                {
-                    var enemyStats = battleTurn.enemy.unitStats;
-                    enemyStats.PredictDealDamageResult(generalAttack.damageInfo, out var resultDamage, out var resultHealth);
-                    var healthToRestore = resultDamage.GetTotalValue();
-                    resultActionsList.Add(new AbsorptionAction(healthToRestore));
-                }
-            }
-
-            // Mana Steal
-            if (abilitiesDict.TryGetValue(AbilityType.StealManaKeyword, out var manaStealAbility))
-            {
-                if (manaStealAbility.TryChance())
-                {
-                    resultActionsList.Add(new StealManaAction());
-                }
-            }            
-
-            // Add Mana
-            if (abilitiesDict.TryGetValue(AbilityType.AddManaKeyword, out var addManaAbility))
-            {
-                if (addManaAbility.TryChance())
-                {
-                    resultActionsList.Add(new AddManaKeywordAction());
-                }
-            }
-
-            // Stun
-            if (abilitiesDict.TryGetValue(AbilityType.StunKeyword, out var stunAbility))
-            {
-                if (stunAbility.TryChance())
-                {
-                    resultActionsList.Add(new StunAction());
-                }
-            }
-
+            HandleOtherKeywords(battleTurn, selectedItem, ref generalAttack, ref resultActionsList);
         }
 
         public static void HandleGeneralAttackModifiers(BattleTurn battleTurn, InventoryItem selectedItem,
@@ -142,6 +92,69 @@ namespace TextGameRPG.Scripts.GameCore.Units.ActionHandlers
                 {
                     generalAttack.damageInfo *= multiplicator;
                     resultActionsList.Add(new FinishingAction(ability.damageBonusPercentage));
+                }
+            }
+        }
+
+        private static void HandleOtherKeywords(BattleTurn battleTurn, InventoryItem selectedItem,
+            ref PlayerAttackAction generalAttack, ref List<IBattleAction> resultActionsList)
+        {
+            var abilitiesDict = selectedItem.data.ablitityByType;
+
+            // Add Arrow
+            if (abilitiesDict.TryGetValue(AbilityType.AddArrowKeyword, out var addArrowAbility))
+            {
+                if (addArrowAbility.TryChance())
+                {
+                    resultActionsList.Add(new AddArrowAction());
+                }
+            }
+
+            // Absorption
+            if (abilitiesDict.TryGetValue(AbilityType.AbsorptionKeyword, out var absorptionAbility))
+            {
+                if (absorptionAbility.TryChance())
+                {
+                    var enemyStats = battleTurn.enemy.unitStats;
+                    enemyStats.PredictDealDamageResult(generalAttack.damageInfo, out var resultDamage, out var resultHealth);
+                    var healthToRestore = resultDamage.GetTotalValue();
+                    resultActionsList.Add(new AbsorptionAction(healthToRestore));
+                }
+            }
+
+            // Mana Steal
+            if (abilitiesDict.TryGetValue(AbilityType.StealManaKeyword, out var manaStealAbility))
+            {
+                if (manaStealAbility.TryChance())
+                {
+                    resultActionsList.Add(new StealManaAction());
+                }
+            }
+
+            // Sanctions
+            if (abilitiesDict.TryGetValue(AbilityType.SanctionsKeyword, out var sanctionsAbility))
+            {
+                if (sanctionsAbility.TryChance())
+                {
+                    resultActionsList.Add(new SanctionsAction());
+                }
+            }
+
+            // Add Mana
+            if (abilitiesDict.TryGetValue(AbilityType.AddManaKeyword, out var addManaAbility))
+            {
+                if (addManaAbility.TryChance())
+                {
+                    resultActionsList.Add(new AddManaKeywordAction());
+                }
+            }
+
+            // Stun
+            if (abilitiesDict.TryGetValue(AbilityType.StunKeyword, out var stunAbility))
+            {
+                if (stunAbility.TryChance())
+                {
+                    resultActionsList.Add(new StunAction());
                 }
             }
         }

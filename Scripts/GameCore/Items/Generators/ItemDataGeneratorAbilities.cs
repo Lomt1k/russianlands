@@ -353,7 +353,7 @@
             _abilities.Add(abilityType, newAbility);
         }
 
-        protected void AddManaEveryTurn(byte manaAmount, byte chancePercentage = 100)
+        protected void AddManaEveryTurn(sbyte manaAmount, byte chancePercentage = 100)
         {
             _statIcons.Add(Stat.Mana);
             var abilityType = AbilityType.AddManaEveryTurn;
@@ -361,7 +361,7 @@
             {
                 if (ability is AddManaEveryTurnAbility addManaAbility)
                 {
-                    addManaAbility.manaValue = (byte)(addManaAbility.manaValue + manaAmount);
+                    addManaAbility.manaValue = (sbyte)(addManaAbility.manaValue + manaAmount);
 
                     float temp = addManaAbility.chanceToSuccessPercentage * _stackOfChances[abilityType];
                     temp += chancePercentage;

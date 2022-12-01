@@ -96,6 +96,9 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
                 case AbilityType.StunKeyword:
                     AddStunKeyword(20);
                     break;
+                case AbilityType.SanctionsKeyword:
+                    AddSanctionsKeyword(75);
+                    break;
             }
         }
 

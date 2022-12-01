@@ -22,7 +22,7 @@ namespace TextGameRPG.Scripts.GameCore.Items
         public ItemData data { get; private set; }
 
         [JsonIgnore]
-        public byte manaCost { get; private set; }
+        public sbyte manaCost { get; private set; }
 
         [JsonIgnore]
         public bool isEquipped

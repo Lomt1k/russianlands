@@ -143,6 +143,17 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             _abilities.Add(abilityType, newAbility);
         }
 
+        protected void AddSanctionsKeyword(byte chancePercentage)
+        {
+            _statIcons.Add(Stat.KeywordSanctions);
+            var abilityType = AbilityType.SanctionsKeyword;
+            var newAbility = (SanctionsKeywordAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
+
+            newAbility.chanceToSuccessPercentage = chancePercentage;
+
+            _abilities.Add(abilityType, newAbility);
+        }
+
 
     }
 }
