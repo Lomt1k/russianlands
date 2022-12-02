@@ -131,21 +131,21 @@ namespace TextGameRPG.Scripts.GameCore.Units.ActionHandlers
                 }
             }
 
-            // Sanctions
-            if (abilitiesDict.TryGetValue(AbilityType.SanctionsKeyword, out var sanctionsAbility))
-            {
-                if (sanctionsAbility.TryChance())
-                {
-                    resultActionsList.Add(new SanctionsAction());
-                }
-            }
-
             // Add Mana
             if (abilitiesDict.TryGetValue(AbilityType.AddManaKeyword, out var addManaAbility))
             {
                 if (addManaAbility.TryChance())
                 {
                     resultActionsList.Add(new AddManaKeywordAction());
+                }
+            }
+
+            // Sanctions
+            if (abilitiesDict.TryGetValue(AbilityType.SanctionsKeyword, out var sanctionsAbility))
+            {
+                if (sanctionsAbility.TryChance())
+                {
+                    resultActionsList.Add(new SanctionsAction());
                 }
             }
 
