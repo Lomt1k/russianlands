@@ -3,9 +3,9 @@ using System.Text;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Resources;
 using TextGameRPG.Scripts.GameCore.Units.Stats;
-using TextGameRPG.Scripts.TelegramBot;
-using TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData;
-using TextGameRPG.Scripts.TelegramBot.Sessions;
+using TextGameRPG.Scripts.Bot;
+using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
+using TextGameRPG.Scripts.Bot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Buildings.Training
 {
@@ -127,7 +127,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Training
                 return sb.ToString();
             }
 
-            var bonusPerLevel = PlayerStats.HEALTH_PER_LEVEL;
+            var bonusPerLevel = PlayerHealthByLevel.Get(currentUnitLevel + 1) - PlayerHealthByLevel.Get(currentUnitLevel);
             var nextHealth = currentHealth + bonusPerLevel;
 
             sb.AppendLine(Localization.Get(session, "building_training_max_health_header"));

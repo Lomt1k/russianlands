@@ -1,6 +1,6 @@
 ﻿using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Quests;
-using TextGameRPG.Scripts.TelegramBot.Sessions;
+using TextGameRPG.Scripts.Bot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Locations
 {

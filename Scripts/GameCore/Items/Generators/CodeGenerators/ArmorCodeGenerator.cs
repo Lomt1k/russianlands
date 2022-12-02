@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using TextGameRPG.Scripts.GameCore.Items.ItemProperties;
 
 namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators
 {
@@ -11,12 +10,6 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators
     {
         private List<Func<bool>> _options => new List<Func<bool>>
         {
-            () => ForceAppendProperty(PropertyType.IncreaseAttributeStrength),
-            () => ForceAppendProperty(PropertyType.IncreaseAttributeVitality),
-            () => ForceAppendProperty(PropertyType.IncreaseAttributeSorcery),
-            () => ForceAppendProperty(PropertyType.IncreaseAttributeLuck),
-            () => ForceAppendProperty(PropertyType.IncreaseMaxHealth),
-
             () => { sb.Append("DF"); return true; }, //damage resist fire
             () => { sb.Append("DC"); return true; }, //damage resist cold
             () => { sb.Append("DL"); return true; }, //damage resist lightning

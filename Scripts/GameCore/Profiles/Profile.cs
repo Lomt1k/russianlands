@@ -2,8 +2,8 @@
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
 using TextGameRPG.Scripts.GameCore.Localizations;
-using TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData;
-using TextGameRPG.Scripts.TelegramBot.Sessions;
+using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
+using TextGameRPG.Scripts.Bot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Profiles
 {

@@ -4,9 +4,9 @@ using Telegram.Bot.Types;
 using TextGameRPG.Scripts.GameCore.Quests.NextStageTriggers;
 using TextGameRPG.Scripts.GameCore.Quests.QuestStages;
 using TextGameRPG.Scripts.GameCore.Quests.StageActions;
-using TextGameRPG.Scripts.TelegramBot;
-using TextGameRPG.Scripts.TelegramBot.Dialogs.Town;
-using TextGameRPG.Scripts.TelegramBot.Sessions;
+using TextGameRPG.Scripts.Bot;
+using TextGameRPG.Scripts.Bot.Dialogs.Town;
+using TextGameRPG.Scripts.Bot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Quests
 {

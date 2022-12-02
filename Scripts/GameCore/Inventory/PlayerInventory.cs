@@ -79,28 +79,14 @@ namespace TextGameRPG.Scripts.GameCore.Inventory
             return _itemsByType[type].Count;
         }
 
-        public InventoryItem? TryAddItem(int itemId)
+        public bool TryAddItem(InventoryItem item)
         {
             if (isFull)
-                return null;
-
-            if (!GameDataBase.GameDataBase.instance.items.ContainsKey(itemId))
-                return null;
-
-            var item = new InventoryItem(itemId);
-            items.Add(item);
-            _itemsByType[item.data.itemType].Add(item);
-            return item;
-        }
-
-        public InventoryItem? TryAddItem(InventoryItem item)
-        {
-            if (isFull)
-                return null;
+                return false;
 
             items.Add(item);
             _itemsByType[item.data.itemType].Add(item);
-            return item;
+            return true;
         }
 
         public void RemoveItem(InventoryItem item)

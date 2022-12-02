@@ -1,9 +1,12 @@
 ﻿using System;
+using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
 
 namespace TextGameRPG.Scripts.GameCore.Items.Generators
 {
     public class BowDataGenerator : ItemDataGeneratorBase
     {
+        private int _secondaryDamage;
+
         public BowDataGenerator(ItemDataSeed _seed) : base(_seed)
         {
         }
@@ -19,6 +22,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             }
             AddBaseParameters(rarityMult);
             AddProperties();
+            AddAbilities();
         }
 
         private void AddBaseParameters(float rarityMult)
@@ -28,21 +32,60 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             var maxPhysicalDamage = (int)Math.Round(physicalDamage * 1.13f);
             AddDealPhysicalDamage(minPhysicalDamage, maxPhysicalDamage);
 
-            var secondaryDamage = (int)Math.Round(physicalDamage * 0.25f);
+            _secondaryDamage = seed.rarity switch
+            {
+                Rarity.Rare => (int)Math.Round(physicalDamage * 0.20f),
+                _ => (int)Math.Round(physicalDamage * 0.40f)
+            };
+
             foreach (var param in seed.baseParameters)
             {
                 switch (param)
                 {
                     case "DF":
-                        AddDealFireDamage(secondaryDamage);
+                        AddDealFireDamage(_secondaryDamage);
                         break;
                     case "DC":
-                        AddDealColdDamage(secondaryDamage);
+                        AddDealColdDamage(_secondaryDamage);
                         break;
                     case "DL":
-                        AddDealLightningDamage(secondaryDamage);
+                        AddDealLightningDamage(_secondaryDamage);
                         break;
                 }
+            }
+        }
+
+        protected override void AddAbility(AbilityType abilityType)
+        {
+            switch (abilityType)
+            {
+                case AbilityType.BowLastShotKeyword:
+                    AddBowLastShotKeyword();
+                    break;
+                case AbilityType.StealManaKeyword:
+                    AddStealManaKeyword(25);
+                    break;
+                case AbilityType.AdditionalFireDamageKeyword:
+                    AddAdditionalFireDamageKeyword(_secondaryDamage, 25);
+                    break;
+                case AbilityType.AdditionalColdDamageKeyword:
+                    AddAdditionalColdDamageKeyword(_secondaryDamage, 25);
+                    break;
+                case AbilityType.AdditionalLightningDamageKeyword:
+                    AddAdditionalLightningDamageKeyword(_secondaryDamage, 25);
+                    break;
+                case AbilityType.FinishingKeyword:
+                    AddFinishingKeyword(40);
+                    break;
+                case AbilityType.AbsorptionKeyword:
+                    AddAbsorptionKeyword(20);
+                    break;
+                case AbilityType.StunKeyword:
+                    AddStunKeyword(15);
+                    break;
+                case AbilityType.SanctionsKeyword:
+                    AddSanctionsKeyword(30);
+                    break;
             }
         }
 

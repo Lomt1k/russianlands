@@ -2,8 +2,8 @@
 using System.Text;
 using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.GameCore.Localizations;
-using TextGameRPG.Scripts.TelegramBot;
-using TextGameRPG.Scripts.TelegramBot.Sessions;
+using TextGameRPG.Scripts.Bot;
+using TextGameRPG.Scripts.Bot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Units.Stats
 {
@@ -33,11 +33,12 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
             }
         }
 
-        public int currentMana { get; protected set; }
-        public int currentStickCharge { get; protected set; }
-        public int currentArrows { get; protected set; }
+        public sbyte currentMana { get; set; }
+        public byte currentArrows { get; set; }
+        public byte currentStickCharge { get; protected set; }
         public DamageInfo resistance { get; protected set; }
         public bool isFullHealth => currentHP >= maxHP;
+        public bool isSkipNextTurnRequired = false;
 
         public void RecalculateCurrentHP()
         {
@@ -59,6 +60,7 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
         {
             currentMana = 0;
             currentStickCharge = 0;
+            isSkipNextTurnRequired = false;
         }
 
         public virtual void OnBattleEnd()
@@ -75,8 +77,11 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
             currentMana++;
         }
 
-        public virtual void OnUseItemInBattle(InventoryItem item)
+        public virtual void OnUseItemInBattle(InventoryItem? item)
         {
+            if (item == null)
+                return;
+
             switch (item.data.itemType)
             {
                 case ItemType.Bow:
@@ -96,6 +101,12 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
             resistance += value;
         }
 
+        public void PredictDealDamageResult(DamageInfo damage, out DamageInfo resultDamage, out int resultHealth)
+        {
+            resultDamage = (damage - resistance).EscapeNegative();
+            resultHealth = _currentHP - resultDamage.GetTotalValue();
+        }
+
         public DamageInfo TryDealDamage(DamageInfo damage)
         {
             var resultDamage = (damage - resistance).EscapeNegative();
@@ -105,16 +116,16 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
             return resultDamage;
         }
 
-        public abstract string GetView(GameSession session);
-
-        public string GetStartTurnView(GameSession session)
+        public string GetView(GameSession sessionToSend, bool withHealth = true)
         {
             var sb = new StringBuilder();
-            sb.AppendLine($"\n{Emojis.stats[Stat.Health]} {currentHP} / {maxHP}" +
-                $"{Emojis.bigSpace}{Emojis.stats[Stat.Mana]} {currentMana}");
-
-            sb.AppendLine();
-            AppendResistsCompactView(sb, session);
+            if (withHealth)
+            {
+                sb.AppendLine(Localization.Get(sessionToSend, "unit_view_health"));
+                sb.AppendLine($"{Emojis.stats[Stat.Health]} {currentHP} / {maxHP}");
+                sb.AppendLine();
+            }
+            AppendResistsCompactView(sb, sessionToSend);
 
             return sb.ToString();
         }

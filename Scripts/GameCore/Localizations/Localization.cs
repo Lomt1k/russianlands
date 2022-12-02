@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using TextGameRPG.Scripts.TelegramBot.Sessions;
+using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.ViewModels;
 
 namespace TextGameRPG.Scripts.GameCore.Localizations
@@ -34,13 +34,13 @@ namespace TextGameRPG.Scripts.GameCore.Localizations
             //AlertMissingKeys(loaderVM);
         }
 
-        public static string Get(GameSession session, string key)
+        public static string Get(GameSession session, string key, params object[] args)
         {
             if (data.TryGetValue(session.language, out var localization))
             {
                 if (localization.TryGetValue(key, out var value) && !string.IsNullOrWhiteSpace(value))
                 {
-                    return value;
+                    return args.Length > 0 ? string.Format(value, args) : value;
                 }
             }
             return key;

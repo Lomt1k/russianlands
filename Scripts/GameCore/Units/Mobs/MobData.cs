@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using TextGameRPG.Scripts.GameCore.GameDataBase;
 using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.GameCore.Locations;
-using TextGameRPG.Scripts.TelegramBot.Sessions;
+using TextGameRPG.Scripts.Bot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Units.Mobs
 {
@@ -68,7 +68,7 @@ namespace TextGameRPG.Scripts.GameCore.Units.Mobs
     public class MobAttack
     {
         public string localizationKey = "battle_action_mob_normal_attack";
-        public int manaCost;
+        public sbyte manaCost;
         public int minPhysicalDamage;
         public int maxPhysicalDamage;
         public int minFireDamage;

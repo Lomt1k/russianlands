@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using TextGameRPG.Scripts.GameCore.Quests.NextStageTriggers;
 using System.Threading.Tasks;
-using TextGameRPG.Scripts.TelegramBot.Sessions;
+using TextGameRPG.Scripts.Bot.Sessions;
 using System.Runtime.Serialization;
 
 namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages

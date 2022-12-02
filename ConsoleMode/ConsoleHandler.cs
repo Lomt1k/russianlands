@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using TextGameRPG.Scripts.TelegramBot;
-using TextGameRPG.Scripts.TelegramBot.Managers;
+using TextGameRPG.Scripts.Bot;
+using TextGameRPG.Scripts.GameCore.Managers;
 
 namespace TextGameRPG.ConsoleMode
 {

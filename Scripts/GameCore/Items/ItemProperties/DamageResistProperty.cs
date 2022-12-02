@@ -1,6 +1,5 @@
 ﻿using System.Text;
-using TextGameRPG.Scripts.TelegramBot;
-using TextGameRPG.Scripts.TelegramBot.Sessions;
+using TextGameRPG.Scripts.Bot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties
 {
@@ -8,20 +7,11 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties
     {
         public override string debugDescription => "Сопротивление урону";
         public override PropertyType propertyType => PropertyType.DamageResist;
-        public override bool isSupportLevelUp => true;
 
         public int physicalDamage;
         public int fireDamage;
         public int coldDamage;
         public int lightningDamage;
-
-        public override void ApplyItemLevel(byte level)
-        {
-            IncreaseByTenPercentByLevel(ref physicalDamage, level);
-            IncreaseByTenPercentByLevel(ref fireDamage, level);
-            IncreaseByTenPercentByLevel(ref coldDamage, level);
-            IncreaseByTenPercentByLevel(ref lightningDamage, level);
-        }
 
         public DamageInfo GetValues()
         {

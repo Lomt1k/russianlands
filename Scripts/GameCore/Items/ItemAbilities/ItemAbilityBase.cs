@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using JsonKnownTypes;
-using TextGameRPG.Scripts.TelegramBot.Sessions;
+using TextGameRPG.Scripts.Bot.Sessions;
+using TextGameRPG.Scripts.Utils;
 
 namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
 {
@@ -9,25 +10,26 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
     {
         [JsonIgnore] public abstract string debugDescription { get; }
         [JsonIgnore] public abstract AbilityType abilityType { get; }
-        [JsonIgnore] public abstract ActivationType activationType { get; }
-        [JsonIgnore] public abstract bool isSupportLevelUp { get; }
 
-        public float chanceToSuccessPercentage = 100;
-        public int manaCost;
+        public byte chanceToSuccessPercentage = 100;
+        public sbyte manaCost;
 
         public ItemAbilityBase Clone()
         {
             return (ItemAbilityBase)MemberwiseClone();
         }
 
-        public abstract void ApplyItemLevel(byte level);
-        public abstract string GetView(GameSession session);
-
-        protected void IncreaseByTenPercentByLevel(ref int value, byte level)
+        public bool TryChance()
         {
-            float bonusPerLevel = value / 10 > 0 ? (float)value / 10 : 1;
-            value += (int)(bonusPerLevel * level);
+            return Randomizer.TryPercentage(chanceToSuccessPercentage);
         }
+
+        public override string ToString()
+        {
+            return debugDescription + (chanceToSuccessPercentage < 100 ? $" (Вероятность {chanceToSuccessPercentage}%)" : string.Empty);
+        }
+
+        public abstract string GetView(GameSession session);
 
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
-using TextGameRPG.Scripts.TelegramBot;
-using TextGameRPG.Scripts.TelegramBot.Sessions;
+using TextGameRPG.Scripts.Bot;
+using TextGameRPG.Scripts.Bot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
 {
@@ -9,8 +9,6 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
     {
         public override string debugDescription => "Наносит урон";
         public override AbilityType abilityType => AbilityType.DealDamage;
-        public override ActivationType activationType => ActivationType.ByUser;
-        public override bool isSupportLevelUp => true;
 
         // Не очень красиво, но так как эти поля меняются через рефлексию - проще так оставить
         public int minPhysicalDamage;
@@ -29,22 +27,18 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
                 random.Next(minPhysicalDamage, maxPhysicalDamage + 1),
                 random.Next(minFireDamage, maxFireDamage + 1),
                 random.Next(minColdDamage, maxColdDamage + 1),
-                random.Next(minLightningDamage, maxLightningDamage + 1));
+                random.Next(minLightningDamage, maxLightningDamage + 1)
+                );
         }
 
-        public override void ApplyItemLevel(byte level)
+        public DamageInfo GetAverageValues()
         {
-            IncreaseByTenPercentByLevel(ref minPhysicalDamage, level);
-            IncreaseByTenPercentByLevel(ref maxPhysicalDamage, level);
-
-            IncreaseByTenPercentByLevel(ref minFireDamage, level);
-            IncreaseByTenPercentByLevel(ref maxFireDamage, level);
-
-            IncreaseByTenPercentByLevel(ref minColdDamage, level);
-            IncreaseByTenPercentByLevel(ref maxColdDamage, level);
-
-            IncreaseByTenPercentByLevel(ref minLightningDamage, level);
-            IncreaseByTenPercentByLevel(ref maxLightningDamage, level);
+            return new DamageInfo(
+                (minPhysicalDamage + maxPhysicalDamage) / 2,
+                (minFireDamage + maxFireDamage) / 2,
+                (minColdDamage + maxColdDamage) / 2,
+                (minLightningDamage + maxLightningDamage) / 2
+                );
         }
 
         public override string ToString()

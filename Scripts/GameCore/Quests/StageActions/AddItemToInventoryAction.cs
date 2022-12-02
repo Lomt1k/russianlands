@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Items;
-using TextGameRPG.Scripts.TelegramBot.Sessions;
+using TextGameRPG.Scripts.Bot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Quests.StageActions
 {
@@ -18,17 +18,18 @@ namespace TextGameRPG.Scripts.GameCore.Quests.StageActions
         public override Task Execute(GameSession session)
         {
             var inventory = session.player.inventory;
-            var addedItem = inventory.TryAddItem(itemId);
-            if (addedItem == null || !forceEquip)
+            var item = new InventoryItem(itemId);
+            var success = inventory.TryAddItem(item);
+            if (!success || !forceEquip)
                 return Task.CompletedTask;
 
-            if (addedItem.data.itemType.IsMultiSlot())
+            if (item.data.itemType.IsMultiSlot())
             {
-                inventory.EquipMultiSlot(addedItem, slotIdForMultiSlot);
+                inventory.EquipMultiSlot(item, slotIdForMultiSlot);
             }
             else
             {
-                inventory.EquipSingleSlot(addedItem);
+                inventory.EquipSingleSlot(item);
             }
             return Task.CompletedTask;
         }

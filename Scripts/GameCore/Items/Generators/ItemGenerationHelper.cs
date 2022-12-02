@@ -15,12 +15,12 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             { 2, 20 },
             { 3, 30 },
             { 4, 40 },
-            { 5, 55 },
+            { 5, 50 },
             { 6, 70 },
-            { 7, 90 },
-            { 8, 110 },
-            { 9, 130 },
-            { 10, 150 },
+            { 7, 100 },
+            { 8, 140 },
+            { 9, 180 },
+            { 10, 220 },
         };
 
         static ItemGenerationHelper()

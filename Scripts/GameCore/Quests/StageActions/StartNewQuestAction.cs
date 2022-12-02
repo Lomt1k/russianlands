@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.Threading.Tasks;
-using TextGameRPG.Scripts.TelegramBot.Sessions;
+using TextGameRPG.Scripts.Bot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Quests.StageActions
 {

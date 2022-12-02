@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Resources;
-using TextGameRPG.Scripts.TelegramBot.Sessions;
+using TextGameRPG.Scripts.Bot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Rewards
 {

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Quests.Characters;
-using TextGameRPG.Scripts.TelegramBot.Dialogs.Quests;
-using TextGameRPG.Scripts.TelegramBot.Sessions;
+using TextGameRPG.Scripts.Bot.Dialogs.Quests;
+using TextGameRPG.Scripts.Bot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
 {

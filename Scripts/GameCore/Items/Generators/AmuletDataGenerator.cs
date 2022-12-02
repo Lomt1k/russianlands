@@ -19,7 +19,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
 
         private void AddBaseParameters()
         {
-            var damageResist = (int)Math.Round(gradedPoints * 0.5);
+            var damageResist = (int)Math.Round(gradedPoints * 0.3);
             foreach (var param in seed.baseParameters)
             {
                 switch (param)
@@ -44,24 +44,8 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
         {
             switch (propertyType)
             {
-                case PropertyType.IncreaseAttributeStrength:
-                    var strength = (int)Math.Round(seed.requiredLevel * gradeMult * 2.5f);
-                    AddIncreaseAttributeStrength(strength);
-                    break;
-                case PropertyType.IncreaseAttributeVitality:
-                    var vitality = (int)Math.Round(seed.requiredLevel * gradeMult * 2.5f);
-                    AddIncreaseAttributeVitality(vitality);
-                    break;
-                case PropertyType.IncreaseAttributeSorcery:
-                    var sorcery = (int)Math.Round(seed.requiredLevel * gradeMult * 2.5f);
-                    AddIncreaseAttributeSorcery(sorcery);
-                    break;
-                case PropertyType.IncreaseAttributeLuck:
-                    var luck = (int)Math.Round(seed.requiredLevel * gradeMult * 2.5f);
-                    AddIncreaseAttributeLuck(luck);
-                    break;
                 case PropertyType.IncreaseMaxHealth:
-                    AddIncreaseMaxHealth((int)Math.Round(gradedPoints * 0.8f));
+                    AddIncreaseMaxHealth((int)Math.Round(gradedPoints * 1f));
                     break;
             }
         }
@@ -71,10 +55,10 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             switch (abilityType)
             {
                 case AbilityType.RestoreHealthEveryTurn:
-                    AddRestoreHealthEveryTurn((int)Math.Round(gradedPoints * 1.3), 20f);
+                    AddRestoreHealthEveryTurn((int)Math.Round(gradedPoints * 1.0), 17);
                     break;
                 case AbilityType.AddManaEveryTurn:
-                    var chance = 15 + (int)Math.Round(seed.requiredLevel / 5f);
+                    var chance = (byte)(13 + Math.Round(seed.requiredLevel / 5f));
                     AddManaEveryTurn(1, chance);
                     break;
             }

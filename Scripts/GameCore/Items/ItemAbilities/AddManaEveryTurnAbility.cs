@@ -1,27 +1,14 @@
-﻿using TextGameRPG.Scripts.TelegramBot.Sessions;
+﻿using TextGameRPG.Scripts.Bot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
 {
     public class AddManaEveryTurnAbility : ItemAbilityBase
     {
-        public override string debugDescription => "Дает дополнительное очко маны (каждый ход)";
+        public override string debugDescription => "Каждый ход даёт дополнительное очко маны";
 
         public override AbilityType abilityType => AbilityType.AddManaEveryTurn;
 
-        public override ActivationType activationType => ActivationType.EveryTurn;
-
-        public override bool isSupportLevelUp => false;
-
-        public int manaValue;
-
-        public override void ApplyItemLevel(byte level) { }
-
-        public override string ToString()
-        {
-            return chanceToSuccessPercentage >= 100
-                ? $"Каждый ход добавляет {manaValue} к мане"
-                : $"Кадый ход с вероятностью {chanceToSuccessPercentage}% добавляет {manaValue} к мане";
-        }
+        public sbyte manaValue;
 
         public override string GetView(GameSession session)
         {

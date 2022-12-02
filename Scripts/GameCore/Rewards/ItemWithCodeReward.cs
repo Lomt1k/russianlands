@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Items;
-using TextGameRPG.Scripts.TelegramBot.Sessions;
+using TextGameRPG.Scripts.Bot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Rewards
 {
@@ -17,16 +17,16 @@ namespace TextGameRPG.Scripts.GameCore.Rewards
             try
             {
                 var item = new InventoryItem(itemCode);
-                var addedItem = session.player.inventory.TryAddItem(item);
-                if (addedItem != null)
+                var success = session.player.inventory.TryAddItem(item);
+                if (success)
                 {
-                    return $"<b>{addedItem.GetFullName(session)}</b>";
+                    return $"<b>{item.GetFullName(session)}</b>";
                 }
                 return string.Empty;
             }
             catch (Exception ex)
             {
-                await TelegramBot.TelegramBot.instance.messageSender.SendErrorMessage(session.chatId, ex.Message);
+                await Bot.TelegramBot.instance.messageSender.SendErrorMessage(session.chatId, ex.Message);
                 return string.Empty;
             }
         }

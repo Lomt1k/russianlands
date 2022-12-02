@@ -1,5 +1,4 @@
-﻿
-using TextGameRPG.Scripts.TelegramBot.Sessions;
+﻿using TextGameRPG.Scripts.Bot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Items
 {
@@ -17,5 +16,16 @@ namespace TextGameRPG.Scripts.GameCore.Items
         {
             return Localizations.Localization.Get(session, $"item_rarity_{rarity.ToString().ToLower()}");
         }
+
+        public static int GetKeywordsCount(this Rarity rarity)
+        {
+            return rarity switch
+            {
+                Rarity.Epic => 1,
+                Rarity.Legendary => 2,
+                _ => 0
+            };
+        }
+
     }
 }

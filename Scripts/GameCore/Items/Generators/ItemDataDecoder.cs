@@ -14,8 +14,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
         public Rarity rarity;
         public byte townHallLevel;
         public byte grade;
-        public byte requiredCharge;
-        public byte manaCost;
+        public sbyte manaCost;
 
         public List<AbilityType> abilities;
         public List<PropertyType> properties;
@@ -30,8 +29,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
         private Rarity _rarity;
         private byte _townHallLevel;
         private byte _grade;
-        public byte _requiredCharge;
-        private byte _manaCost;
+        private sbyte _manaCost;
 
         private List<AbilityType> _abilities = new List<AbilityType>();
         private List<PropertyType> _properties = new List<PropertyType>();
@@ -76,7 +74,6 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
                 abilities = _abilities,
                 properties = _properties,
                 baseParameters = _baseParameters,
-                requiredCharge = _requiredCharge,
                 manaCost = _manaCost,
             };
         }
@@ -137,9 +134,6 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
                     return;
                 case 'G':
                     ReadNextDigits(reader).TryParse(out _grade);
-                    return;
-                case 'C':
-                    ReadNextDigits(reader).TryParse(out _requiredCharge);
                     return;
                 case 'M':
                     ReadNextDigits(reader).TryParse(out _manaCost);

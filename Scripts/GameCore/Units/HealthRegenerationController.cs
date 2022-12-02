@@ -1,7 +1,7 @@
 ﻿using System;
 using TextGameRPG.Scripts.GameCore.Buildings;
 using TextGameRPG.Scripts.GameCore.Buildings.General;
-using TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData;
+using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
 
 namespace TextGameRPG.Scripts.GameCore.Units
 {

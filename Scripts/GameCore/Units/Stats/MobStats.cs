@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Text;
 using TextGameRPG.Scripts.GameCore.Localizations;
-using TextGameRPG.Scripts.TelegramBot;
-using TextGameRPG.Scripts.TelegramBot.Sessions;
+using TextGameRPG.Scripts.Bot;
+using TextGameRPG.Scripts.Bot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Units.Stats
 {
@@ -22,18 +22,6 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
                 fireDamage: (int)Math.Round(statsSettings.fireResist * gradeMult),
                 coldDamage: (int)Math.Round(statsSettings.coldResist * gradeMult),
                 lightningDamage: (int)Math.Round(statsSettings.lightningResist * gradeMult));
-        }
-
-        public override string GetView(GameSession sessionToSend)
-        {
-            var sb = new StringBuilder();
-            sb.AppendLine(Localization.Get(sessionToSend, "unit_view_health"));
-            sb.AppendLine($"{Emojis.stats[Stat.Health]} {currentHP} / {maxHP}");
-
-            sb.AppendLine();
-            AppendResistsCompactView(sb, sessionToSend);
-
-            return sb.ToString();
         }
 
     }

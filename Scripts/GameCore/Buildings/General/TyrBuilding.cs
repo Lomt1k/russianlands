@@ -1,9 +1,9 @@
 ﻿using System.Text;
 using TextGameRPG.Scripts.GameCore.Buildings.Data;
 using TextGameRPG.Scripts.GameCore.Localizations;
-using TextGameRPG.Scripts.TelegramBot;
-using TextGameRPG.Scripts.TelegramBot.DataBase.SerializableData;
-using TextGameRPG.Scripts.TelegramBot.Sessions;
+using TextGameRPG.Scripts.Bot;
+using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
+using TextGameRPG.Scripts.Bot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Buildings.General
 {
@@ -70,14 +70,14 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.General
             return sb.ToString();
         }
 
-        public int GetArrowsAmount(GameSession session, ProfileBuildingsData data)
+        public byte GetArrowsAmount(GameSession session, ProfileBuildingsData data)
         {
             var currentLevel = GetCurrentLevel(data);
             if (currentLevel < 1)
                 return 0;
 
             var currentLevelInfo = (TyrLevelInfo)buildingData.levels[currentLevel - 1];
-            return currentLevelInfo.arrowsAmount;
+            return (byte)currentLevelInfo.arrowsAmount;
         }
 
     }

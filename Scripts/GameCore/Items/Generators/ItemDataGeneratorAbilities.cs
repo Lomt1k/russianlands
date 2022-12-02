@@ -1,10 +1,9 @@
-﻿
-namespace TextGameRPG.Scripts.GameCore.Items.Generators
+﻿namespace TextGameRPG.Scripts.GameCore.Items.Generators
 {
     using ItemAbilities;
     using System;
     using System.Collections.Generic;
-    using TextGameRPG.Scripts.TelegramBot;
+    using TextGameRPG.Scripts.Bot;
 
     public abstract partial class ItemDataGeneratorBase
     {
@@ -12,7 +11,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
 
         #region Deal Damage
 
-        protected void AddDealPhysicalDamage(int value, float chancePercentage = 100f)
+        protected void AddDealPhysicalDamage(int value, byte chancePercentage = 100)
         {
             var abilityType = AbilityType.DealDamage;
             if (_abilities.TryGetValue(abilityType, out var ability))
@@ -22,10 +21,10 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
                     dealDamage.minPhysicalDamage += value;
                     dealDamage.maxPhysicalDamage += value;
 
-                    var temp = dealDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
+                    float temp = dealDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
                     temp += chancePercentage;
                     _stackOfChances[abilityType]++;
-                    dealDamage.chanceToSuccessPercentage = (float)Math.Round(temp / _stackOfChances[abilityType]);
+                    dealDamage.chanceToSuccessPercentage = (byte)Math.Round(temp / _stackOfChances[abilityType]);
                     _statIcons.Add(Stat.PhysicalDamage);
                 }
                 return;
@@ -39,7 +38,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             _abilities.Add(abilityType, newAbility);
         }
 
-        protected void AddDealPhysicalDamage(int minDamage, int maxDamage, float chancePercentage = 100f)
+        protected void AddDealPhysicalDamage(int minDamage, int maxDamage, byte chancePercentage = 100)
         {
             var abilityType = AbilityType.DealDamage;
             if (_abilities.TryGetValue(abilityType, out var ability))
@@ -49,10 +48,10 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
                     dealDamage.minPhysicalDamage += minDamage;
                     dealDamage.maxPhysicalDamage += maxDamage;
 
-                    var temp = dealDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
+                    float temp = dealDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
                     temp += chancePercentage;
                     _stackOfChances[abilityType]++;
-                    dealDamage.chanceToSuccessPercentage = (float)Math.Round(temp / _stackOfChances[abilityType]);
+                    dealDamage.chanceToSuccessPercentage = (byte)Math.Round(temp / _stackOfChances[abilityType]);
                     _statIcons.Add(Stat.PhysicalDamage);
                 }
                 return;
@@ -66,7 +65,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             _abilities.Add(abilityType, newAbility);
         }
 
-        protected void AddDealFireDamage(int value, float chancePercentage = 100f)
+        protected void AddDealFireDamage(int value, byte chancePercentage = 100)
         {
             _statIcons.Add(Stat.FireDamage);
             var abilityType = AbilityType.DealDamage;
@@ -77,10 +76,10 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
                     dealDamage.minFireDamage += value;
                     dealDamage.maxFireDamage += value;
 
-                    var temp = dealDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
+                    float temp = dealDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
                     temp += chancePercentage;
                     _stackOfChances[abilityType]++;
-                    dealDamage.chanceToSuccessPercentage = (float)Math.Round(temp / _stackOfChances[abilityType]);
+                    dealDamage.chanceToSuccessPercentage = (byte)Math.Round(temp / _stackOfChances[abilityType]);
                 }
                 return;
             }
@@ -93,7 +92,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             _abilities.Add(abilityType, newAbility);
         }
 
-        protected void AddDealFireDamage(int minDamage, int maxDamage, float chancePercentage = 100f)
+        protected void AddDealFireDamage(int minDamage, int maxDamage, byte chancePercentage = 100)
         {
             _statIcons.Add(Stat.FireDamage);
             var abilityType = AbilityType.DealDamage;
@@ -104,10 +103,10 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
                     dealDamage.minFireDamage += minDamage;
                     dealDamage.maxFireDamage += maxDamage;
 
-                    var temp = dealDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
+                    float temp = dealDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
                     temp += chancePercentage;
                     _stackOfChances[abilityType]++;
-                    dealDamage.chanceToSuccessPercentage = (float)Math.Round(temp / _stackOfChances[abilityType]);
+                    dealDamage.chanceToSuccessPercentage = (byte)Math.Round(temp / _stackOfChances[abilityType]);
                 }
                 return;
             }
@@ -120,7 +119,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             _abilities.Add(abilityType, newAbility);
         }
 
-        protected void AddDealColdDamage(int value, float chancePercentage = 100f)
+        protected void AddDealColdDamage(int value, byte chancePercentage = 100)
         {
             _statIcons.Add(Stat.ColdDamage);
             var abilityType = AbilityType.DealDamage;
@@ -131,10 +130,10 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
                     dealDamage.minColdDamage += value;
                     dealDamage.maxColdDamage += value;
 
-                    var temp = dealDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
+                    float temp = dealDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
                     temp += chancePercentage;
                     _stackOfChances[abilityType]++;
-                    dealDamage.chanceToSuccessPercentage = (float)Math.Round(temp / _stackOfChances[abilityType]);
+                    dealDamage.chanceToSuccessPercentage = (byte)Math.Round(temp / _stackOfChances[abilityType]);
                 }
                 return;
             }
@@ -147,7 +146,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             _abilities.Add(abilityType, newAbility);
         }
 
-        protected void AddDealColdDamage(int minDamage, int maxDamage, float chancePercentage = 100f)
+        protected void AddDealColdDamage(int minDamage, int maxDamage, byte chancePercentage = 100)
         {
             _statIcons.Add(Stat.ColdDamage);
             var abilityType = AbilityType.DealDamage;
@@ -158,10 +157,10 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
                     dealDamage.minColdDamage += minDamage;
                     dealDamage.maxColdDamage += maxDamage;
 
-                    var temp = dealDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
+                    float temp = dealDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
                     temp += chancePercentage;
                     _stackOfChances[abilityType]++;
-                    dealDamage.chanceToSuccessPercentage = (float)Math.Round(temp / _stackOfChances[abilityType]);
+                    dealDamage.chanceToSuccessPercentage = (byte)Math.Round(temp / _stackOfChances[abilityType]);
                 }
                 return;
             }
@@ -174,7 +173,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             _abilities.Add(abilityType, newAbility);
         }
 
-        protected void AddDealLightningDamage(int value, float chancePercentage = 100f)
+        protected void AddDealLightningDamage(int value, byte chancePercentage = 100)
         {
             _statIcons.Add(Stat.LightningDamage);
             var abilityType = AbilityType.DealDamage;
@@ -185,10 +184,10 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
                     dealDamage.minLightningDamage += value;
                     dealDamage.maxLightningDamage += value;
 
-                    var temp = dealDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
+                    float temp = dealDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
                     temp += chancePercentage;
                     _stackOfChances[abilityType]++;
-                    dealDamage.chanceToSuccessPercentage = (float)Math.Round(temp / _stackOfChances[abilityType]);
+                    dealDamage.chanceToSuccessPercentage = (byte)Math.Round(temp / _stackOfChances[abilityType]);
                 }
                 return;
             }
@@ -201,7 +200,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             _abilities.Add(abilityType, newAbility);
         }
 
-        protected void AddDealLightningDamage(int minDamage, int maxDamage, float chancePercentage = 100f)
+        protected void AddDealLightningDamage(int minDamage, int maxDamage, byte chancePercentage = 100)
         {
             _statIcons.Add(Stat.LightningDamage);
             var abilityType = AbilityType.DealDamage;
@@ -212,10 +211,10 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
                     dealDamage.minLightningDamage += minDamage;
                     dealDamage.maxLightningDamage += maxDamage;
 
-                    var temp = dealDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
+                    float temp = dealDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
                     temp += chancePercentage;
                     _stackOfChances[abilityType]++;
-                    dealDamage.chanceToSuccessPercentage = (float)Math.Round(temp / _stackOfChances[abilityType]);
+                    dealDamage.chanceToSuccessPercentage = (byte)Math.Round(temp / _stackOfChances[abilityType]);
                 }
                 return;
             }
@@ -231,7 +230,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
 
         #region Block Incoming Damage
 
-        protected void AddBlockIncomingPhysicalDamage(int value, float chancePercentage = 30f)
+        protected void AddBlockIncomingPhysicalDamage(int value, byte chancePercentage = 30)
         {
             var abilityType = AbilityType.BlockIncomingDamageEveryTurn;
             if (_abilities.TryGetValue(abilityType, out var ability))
@@ -239,10 +238,10 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
                 if (ability is BlockIncomingDamageEveryTurnAbility blockDamage)
                 {
                     blockDamage.physicalDamage += value;
-                    var temp = blockDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
+                    float temp = blockDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
                     temp += chancePercentage;
                     _stackOfChances[abilityType]++;
-                    blockDamage.chanceToSuccessPercentage = (float)Math.Round(temp / _stackOfChances[abilityType]);
+                    blockDamage.chanceToSuccessPercentage = (byte)Math.Round(temp / _stackOfChances[abilityType]);
                     _statIcons.Add(Stat.PhysicalDamage);
                 }
                 return;
@@ -251,12 +250,11 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             var newAbility = (BlockIncomingDamageEveryTurnAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
             newAbility.physicalDamage = value;
             newAbility.chanceToSuccessPercentage = chancePercentage;
-            newAbility.chanceToSuccessPercentage = chancePercentage;
             _stackOfChances[abilityType] = 1;
             _abilities.Add(abilityType, newAbility);
         }
 
-        protected void AddBlockIncomingFireDamage(int value, float chancePercentage = 30f)
+        protected void AddBlockIncomingFireDamage(int value, byte chancePercentage = 30)
         {
             _statIcons.Add(Stat.FireDamage);
             var abilityType = AbilityType.BlockIncomingDamageEveryTurn;
@@ -265,10 +263,10 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
                 if (ability is BlockIncomingDamageEveryTurnAbility blockDamage)
                 {
                     blockDamage.fireDamage += value;
-                    var temp = blockDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
+                    float temp = blockDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
                     temp += chancePercentage;
                     _stackOfChances[abilityType]++;
-                    blockDamage.chanceToSuccessPercentage = (float)Math.Round(temp / _stackOfChances[abilityType]);
+                    blockDamage.chanceToSuccessPercentage = (byte)Math.Round(temp / _stackOfChances[abilityType]);
                 }
                 return;
             }
@@ -276,12 +274,11 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             var newAbility = (BlockIncomingDamageEveryTurnAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
             newAbility.fireDamage = value;
             newAbility.chanceToSuccessPercentage = chancePercentage;
-            newAbility.chanceToSuccessPercentage = chancePercentage;
             _stackOfChances[abilityType] = 1;
             _abilities.Add(abilityType, newAbility);
         }
 
-        protected void AddBlockIncomingColdDamage(int value, float chancePercentage = 30f)
+        protected void AddBlockIncomingColdDamage(int value, byte chancePercentage = 30)
         {
             _statIcons.Add(Stat.ColdDamage);
             var abilityType = AbilityType.BlockIncomingDamageEveryTurn;
@@ -290,10 +287,10 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
                 if (ability is BlockIncomingDamageEveryTurnAbility blockDamage)
                 {
                     blockDamage.coldDamage += value;
-                    var temp = blockDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
+                    float temp = blockDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
                     temp += chancePercentage;
                     _stackOfChances[abilityType]++;
-                    blockDamage.chanceToSuccessPercentage = (float)Math.Round(temp / _stackOfChances[abilityType]);
+                    blockDamage.chanceToSuccessPercentage = (byte)Math.Round(temp / _stackOfChances[abilityType]);
                 }
                 return;
             }
@@ -301,12 +298,11 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             var newAbility = (BlockIncomingDamageEveryTurnAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
             newAbility.coldDamage = value;
             newAbility.chanceToSuccessPercentage = chancePercentage;
-            newAbility.chanceToSuccessPercentage = chancePercentage;
             _stackOfChances[abilityType] = 1;
             _abilities.Add(abilityType, newAbility);
         }
 
-        protected void AddBlockIncomingLightningDamage(int value, float chancePercentage = 30f)
+        protected void AddBlockIncomingLightningDamage(int value, byte chancePercentage = 30)
         {
             _statIcons.Add(Stat.LightningDamage);
             var abilityType = AbilityType.BlockIncomingDamageEveryTurn;
@@ -315,10 +311,10 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
                 if (ability is BlockIncomingDamageEveryTurnAbility blockDamage)
                 {
                     blockDamage.lightningDamage += value;
-                    var temp = blockDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
+                    float temp = blockDamage.chanceToSuccessPercentage * _stackOfChances[abilityType];
                     temp += chancePercentage;
                     _stackOfChances[abilityType]++;
-                    blockDamage.chanceToSuccessPercentage = (float)Math.Round(temp / _stackOfChances[abilityType]);
+                    blockDamage.chanceToSuccessPercentage = (byte)Math.Round(temp / _stackOfChances[abilityType]);
                 }
                 return;
             }
@@ -332,7 +328,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
 
         #endregion
 
-        protected void AddRestoreHealthEveryTurn(int value, float chancePercentage = 100f)
+        protected void AddRestoreHealthEveryTurn(int value, byte chancePercentage = 100)
         {
             _statIcons.Add(Stat.RestoreHealth);
             var abilityType = AbilityType.RestoreHealthEveryTurn;
@@ -342,10 +338,10 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
                 {
                     restoreHealth.healthValue += value;
 
-                    var temp = restoreHealth.chanceToSuccessPercentage * _stackOfChances[abilityType];
+                    float temp = restoreHealth.chanceToSuccessPercentage * _stackOfChances[abilityType];
                     temp += chancePercentage;
                     _stackOfChances[abilityType]++;
-                    restoreHealth.chanceToSuccessPercentage = (float)Math.Round(temp / _stackOfChances[abilityType]);
+                    restoreHealth.chanceToSuccessPercentage = (byte)Math.Round(temp / _stackOfChances[abilityType]);
                 }
                 return;
             }
@@ -353,12 +349,11 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             var newAbility = (RestoreHealthEveryTurnAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
             newAbility.healthValue = value;
             newAbility.chanceToSuccessPercentage = chancePercentage;
-            newAbility.chanceToSuccessPercentage = chancePercentage;
             _stackOfChances[abilityType] = 1;
             _abilities.Add(abilityType, newAbility);
         }
 
-        protected void AddManaEveryTurn(int value, float chancePercentage = 100f)
+        protected void AddManaEveryTurn(sbyte manaAmount, byte chancePercentage = 100)
         {
             _statIcons.Add(Stat.Mana);
             var abilityType = AbilityType.AddManaEveryTurn;
@@ -366,19 +361,18 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             {
                 if (ability is AddManaEveryTurnAbility addManaAbility)
                 {
-                    addManaAbility.manaValue += value;
+                    addManaAbility.manaValue = (sbyte)(addManaAbility.manaValue + manaAmount);
 
-                    var temp = addManaAbility.chanceToSuccessPercentage * _stackOfChances[abilityType];
+                    float temp = addManaAbility.chanceToSuccessPercentage * _stackOfChances[abilityType];
                     temp += chancePercentage;
                     _stackOfChances[abilityType]++;
-                    addManaAbility.chanceToSuccessPercentage = (float)Math.Round(temp / _stackOfChances[abilityType]);
+                    addManaAbility.chanceToSuccessPercentage = (byte)Math.Round(temp / _stackOfChances[abilityType]);
                 }
                 return;
             }
 
             var newAbility = (AddManaEveryTurnAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
-            newAbility.manaValue = value;
-            newAbility.chanceToSuccessPercentage = chancePercentage;
+            newAbility.manaValue = manaAmount;
             newAbility.chanceToSuccessPercentage = chancePercentage;
             _stackOfChances[abilityType] = 1;
             _abilities.Add(abilityType, newAbility);
