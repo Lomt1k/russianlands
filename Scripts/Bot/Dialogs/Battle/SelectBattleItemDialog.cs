@@ -208,7 +208,10 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
 
         private Task SelectScrollItem(InventoryItem scrollItem)
         {
-            _selectedAttackItemCallback(scrollItem);
+            if (_battleTurn.isWaitingForActions)
+            {
+                _selectedAttackItemCallback(scrollItem);
+            }
             return Task.CompletedTask;
         }
 
