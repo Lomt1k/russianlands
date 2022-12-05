@@ -18,6 +18,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests.Characters
 
         // LOC 02
         Koschey = 90,
+        Kikimora = 100,
     }
 
     public enum Emotion : byte
