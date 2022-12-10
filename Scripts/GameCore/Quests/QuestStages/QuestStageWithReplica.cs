@@ -22,7 +22,6 @@ namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
     public class Replica
     {
         public CharacterType characterType { get; set; } = CharacterType.None;
-        public Emotion emotion { get; set; } = Emotion.None;
         public string localizationKey { get; set; } = string.Empty;
         public List<Answer> answers { get; set; } = new List<Answer>();
     }

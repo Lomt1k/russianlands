@@ -49,7 +49,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Quests
 
         public override async Task Start()
         {
-            var sticker = _replica.characterType.GetSticker(_replica.emotion);
+            var sticker = _replica.characterType.GetSticker();
             if (sticker != null)
             {
                 await messageSender.SendSticker(session.chatId, sticker);

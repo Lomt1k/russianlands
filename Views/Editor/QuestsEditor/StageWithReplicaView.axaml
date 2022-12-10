@@ -11,9 +11,6 @@
       <TextBlock Text="characterType"/>
       <ComboBox Items="{Binding characters}" 
                 SelectedItem="{Binding selectedCharacter}"/>
-      <TextBlock Text="emotion"/>
-      <ComboBox Items="{Binding emotions}"
-                SelectedItem="{Binding selectedEmotion}"/>
       <TextBlock Text="localizationKey"/>
       <TextBox Text="{Binding stage.replica.localizationKey}"/>
 

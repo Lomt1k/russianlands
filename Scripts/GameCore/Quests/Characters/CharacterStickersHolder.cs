@@ -5,13 +5,13 @@ namespace TextGameRPG.Scripts.GameCore.Quests.Characters
 {
     public static class CharacterStickersHolder
     {
-        private static Dictionary<CharacterType, CharacterStickersSet> _characterStickers;
+        private static Dictionary<CharacterType, StickerInfo> _characterStickers;
 
-        public static string? GetSticker(CharacterType characterType, Emotion emotion)
+        public static string? GetSticker(CharacterType characterType)
         {
-            if (_characterStickers.TryGetValue(characterType, out var charStickers))
+            if (_characterStickers.TryGetValue(characterType, out var stickerInfo))
             {
-                return charStickers.GetStickerFileId(emotion);
+                return stickerInfo.fileId;
             }
             return null;
         }
@@ -22,57 +22,25 @@ namespace TextGameRPG.Scripts.GameCore.Quests.Characters
             RefillStickersInfo();
             foreach (var characterStickers in _characterStickers.Values)
             {
-                await characterStickers.SetupFileIdsFromStickerSet().ConfigureAwait(false);
+                await characterStickers.SetupFileIdFromStickerSet().ConfigureAwait(false);
             }
             Program.logger.Info("Stickers update completed");
         }
 
         private static void RefillStickersInfo()
         {
-            _characterStickers = new Dictionary<CharacterType, CharacterStickersSet>
+            _characterStickers = new Dictionary<CharacterType, StickerInfo>
             {
-                {
-                    CharacterType.Vasilisa, new CharacterStickersSet("russlandbot")
-                    .RegisterSticker(Emotion.Idle, 2)
-                    .RegisterSticker(Emotion.Joyfull, 2)
-                    .RegisterSticker(Emotion.Angry, 2)
-                    .RegisterSticker(Emotion.Surprised, 2)
-                },
-                {
-                    CharacterType.Dobrynya, new CharacterStickersSet("russlandbot")
-                    .RegisterSticker(Emotion.Idle, 0)
-                    .RegisterSticker(Emotion.Joyfull, 0)
-                    .RegisterSticker(Emotion.Angry, 0)
-                    .RegisterSticker(Emotion.Surprised, 0)
-                },
-                {
-                    CharacterType.Magus_Oldman, new CharacterStickersSet("russlandbot")
-                    .RegisterSticker(Emotion.Idle, 1)
-                    .RegisterSticker(Emotion.Joyfull, 1)
-                    .RegisterSticker(Emotion.Angry, 1)
-                    .RegisterSticker(Emotion.Surprised, 1)
-                },
-                {
-                    CharacterType.Demon_Cracy, new CharacterStickersSet("russlandbot")
-                    .RegisterSticker(Emotion.Idle, 3)
-                },
-                {
-                    CharacterType.Nightingale, new CharacterStickersSet("russlandbot")
-                    .RegisterSticker(Emotion.Idle, 4)
-                },
-                {
-                    CharacterType.Yaga, new CharacterStickersSet("russlandbot")
-                    .RegisterSticker(Emotion.Idle, 5)
-                    .RegisterSticker(Emotion.Surprised, 5)
-                },
-                {
-                    CharacterType.Wood_Goblin, new CharacterStickersSet("russlandbot")
-                    .RegisterSticker(Emotion.Idle, 6)
-                },
-                {
-                    CharacterType.Rogue_Mage, new CharacterStickersSet("russlandbot")
-                    .RegisterSticker(Emotion.Idle, 7)
-                },
+                { CharacterType.Vasilisa, new StickerInfo("russlandbot", 0) },
+                { CharacterType.Dobrynya, new StickerInfo("russlandbot", 1) },
+                { CharacterType.Demon_Cracy, new StickerInfo("russlandbot", 2) },
+                { CharacterType.Nightingale, new StickerInfo("russlandbot", 3) },
+                { CharacterType.Yaga, new StickerInfo("russlandbot", 4) },
+                { CharacterType.Rogue_Mage, new StickerInfo("russlandbot", 5) },
+                { CharacterType.Wood_Goblin, new StickerInfo("russlandbot", 6) },
+                { CharacterType.Koschey, new StickerInfo("russlandbot", 7) },
+                { CharacterType.Kikimora, new StickerInfo("russlandbot", 8) },
+                { CharacterType.Aquatic, new StickerInfo("russlandbot", 9) },
             };
         }
 

@@ -30,7 +30,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Quests.MainQuest
         public async Task StartFromQuest()
         {
             _isQuestReplicaStage = true;
-            var sticker = CharacterType.Vasilisa.GetSticker(Emotion.Idle);
+            var sticker = CharacterType.Vasilisa.GetSticker();
             if (sticker != null)
             {
                 await messageSender.SendSticker(session.chatId, sticker)

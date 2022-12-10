@@ -44,7 +44,6 @@ namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
             replica = new Replica
             {
                 characterType = GetCharacterType(),
-                emotion = GetEmotion(),
                 localizationKey = GetLocalizationKey(),
                 answers = new List<Answer>
                 {
@@ -62,15 +61,6 @@ namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
             {
                 case ReplicaType.BattleLose: return CharacterType.Vasilisa;
                 default: return CharacterType.None;
-            }
-        }
-
-        public Emotion GetEmotion()
-        {
-            switch (replicaType)
-            {
-                case ReplicaType.BattleLose: return Emotion.Surprised;
-                default: return Emotion.None;
             }
         }
 

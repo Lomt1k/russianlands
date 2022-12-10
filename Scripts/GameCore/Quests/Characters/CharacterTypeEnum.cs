@@ -22,15 +22,6 @@ namespace TextGameRPG.Scripts.GameCore.Quests.Characters
         Aquatic = 110,
     }
 
-    public enum Emotion : byte
-    {
-        None = 0,
-        Idle = 1,
-        Joyfull = 2,
-        Angry = 3,
-        Surprised = 4,
-    }
-
     public static class CharacterTypeExtensions
     {
         public static string GetName(this CharacterType characterType, GameSession session)
@@ -43,9 +34,9 @@ namespace TextGameRPG.Scripts.GameCore.Quests.Characters
             return "<b>" + characterType.GetName(session) + "</b>";
         }
 
-        public static string? GetSticker(this CharacterType characterType, Emotion emotion)
+        public static string? GetSticker(this CharacterType characterType)
         {
-            return CharacterStickersHolder.GetSticker(characterType, emotion);
+            return CharacterStickersHolder.GetSticker(characterType);
         }
 
     }
