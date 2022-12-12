@@ -33,14 +33,15 @@ namespace TextGameRPG.Scripts.GameCore.Quests.Characters
             {
                 { CharacterType.Vasilisa, new StickerInfo("russlandbot", 0) },
                 { CharacterType.Dobrynya, new StickerInfo("russlandbot", 1) },
-                { CharacterType.Demon_Cracy, new StickerInfo("russlandbot", 2) },
-                { CharacterType.Nightingale, new StickerInfo("russlandbot", 3) },
-                { CharacterType.Yaga, new StickerInfo("russlandbot", 4) },
-                { CharacterType.Rogue_Mage, new StickerInfo("russlandbot", 5) },
-                { CharacterType.Wood_Goblin, new StickerInfo("russlandbot", 6) },
-                { CharacterType.Koschey, new StickerInfo("russlandbot", 7) },
-                { CharacterType.Kikimora, new StickerInfo("russlandbot", 8) },
-                { CharacterType.Aquatic, new StickerInfo("russlandbot", 9) },
+                { CharacterType.Magus_Oldman, new StickerInfo("russlandbot", 2) },
+                { CharacterType.Demon_Cracy, new StickerInfo("russlandbot", 3) },
+                { CharacterType.Nightingale, new StickerInfo("russlandbot", 4) },
+                { CharacterType.Yaga, new StickerInfo("russlandbot", 5) },
+                { CharacterType.Rogue_Mage, new StickerInfo("russlandbot", 6) },
+                { CharacterType.Wood_Goblin, new StickerInfo("russlandbot", 7) },
+                { CharacterType.Koschey, new StickerInfo("russlandbot", 8) },
+                { CharacterType.Kikimora, new StickerInfo("russlandbot", 9) },
+                { CharacterType.Aquatic, new StickerInfo("russlandbot", 10) },
             };
         }
 
