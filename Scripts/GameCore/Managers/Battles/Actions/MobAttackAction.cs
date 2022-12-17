@@ -13,10 +13,10 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles.Actions
         private readonly DamageInfo _damageInfo;
         private DamageInfo _resultDamage;
 
-        public MobAttackAction(MobAttack attack, float gradeMult)
+        public MobAttackAction(MobAttack attack)
         {
             _mobAttack = attack;
-            _damageInfo = _mobAttack.GetRandomValues(gradeMult);
+            _damageInfo = _mobAttack.GetRandomValues();
         }
 
         public void ApplyActionWithMineStats(UnitStats stats)

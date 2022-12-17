@@ -3,8 +3,6 @@ using System;
 using System.Collections.Generic;
 using TextGameRPG.Scripts.GameCore.GameDataBase;
 using TextGameRPG.Scripts.GameCore.Items;
-using TextGameRPG.Scripts.GameCore.Locations;
-using TextGameRPG.Scripts.Bot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Units.Mobs
 {
@@ -15,19 +13,9 @@ namespace TextGameRPG.Scripts.GameCore.Units.Mobs
         public string debugName { get; set; } = "New Mob";
         public string localizationKey { get; set; } = string.Empty;
         public MobType mobType { get; set; } = MobType.Default;
-        public bool withGrade { get; set; } = false;
-        public MobEncounterSettings encounterSettings { get; set; } = new MobEncounterSettings();
         public MobStatsSettings statsSettings { get; set; } = new MobStatsSettings();
 
         public List<MobAttack> mobAttacks { get; } = new List<MobAttack>();
-
-        public bool CanStartEncounter(GameSession session)
-        {
-            //TODO: Add rarity check logic
-            var playerLevel = session.profile.data.level;
-            return playerLevel >= encounterSettings.requiredLevel
-                && playerLevel <= encounterSettings.maxLevel;
-        }
 
         public void OnSetupAppMode(AppMode appMode)
         {
@@ -35,21 +23,6 @@ namespace TextGameRPG.Scripts.GameCore.Units.Mobs
             {
                 debugName = string.Empty;
             }
-        }
-    }
-
-    [JsonObject]
-    public class MobEncounterSettings
-    {
-        public bool isEnabled = false;
-        public bool anyLocation = false;
-        public LocationType location = LocationType.None;
-        public int requiredLevel;
-        public int maxLevel = 9999;
-
-        public bool CanSpawnOnLocation(LocationType locationType)
-        {
-            return anyLocation || locationType == location;
         }
     }
 

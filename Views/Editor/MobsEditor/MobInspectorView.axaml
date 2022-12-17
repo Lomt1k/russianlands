@@ -22,9 +22,7 @@
 
       <TextBlock Text="mobType"/>
       <ComboBox Items="{Binding mobTypes}" SelectedItem="{Binding selectedMobType}"/>     
-      <CheckBox Content="withGrade" IsChecked="{Binding mob.withGrade}"/>
 
-      <UserControl Grid.Column="1" Content="{Binding encounterSettingsView}"/>
     </StackPanel>
 
     <!-- Column 2: Subsettings -->

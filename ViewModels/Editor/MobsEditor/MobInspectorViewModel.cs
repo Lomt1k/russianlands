@@ -15,7 +15,6 @@ namespace TextGameRPG.ViewModels.Editor.MobsEditor
         private MobData? _mob;
         private string _header = string.Empty;
         private EnumValueModel<MobType>? _selectedMobType;
-        private ObjectFieldsEditorView? _encounterSettingsView;
         private ObjectFieldsEditorView? _statsSettingsView;
         private ObjectFieldsEditorView? _selectedAttackView;
         private MobsEditorViewModel _mobEditorVM;
@@ -46,11 +45,7 @@ namespace TextGameRPG.ViewModels.Editor.MobsEditor
                 }
             }
         }
-        public ObjectFieldsEditorView? encounterSettingsView
-        {
-            get => _encounterSettingsView;
-            set => this.RaiseAndSetIfChanged(ref _encounterSettingsView, value);
-        }
+
         public ObjectFieldsEditorView? statsSettingsView
         {
             get => _statsSettingsView;
@@ -86,7 +81,6 @@ namespace TextGameRPG.ViewModels.Editor.MobsEditor
             mob = data;
             header = $"{data.debugName} [ID: {data.id}]";
             selectedMobType = mobTypes.First(x => x.value == data.mobType);
-            encounterSettingsView = UserControlsHelper.CreateObjectEditorView(data.encounterSettings);
             statsSettingsView = UserControlsHelper.CreateObjectEditorView(data.statsSettings);
 
             UserControlsHelper.RefillObjectEditorsCollection(attackViews, data.mobAttacks);
@@ -116,7 +110,6 @@ namespace TextGameRPG.ViewModels.Editor.MobsEditor
             if (mob == null)
                 return;
 
-            _encounterSettingsView?.vm.SaveObjectChanges();
             _statsSettingsView?.vm.SaveObjectChanges();
             foreach (var attackView in attackViews)
             {

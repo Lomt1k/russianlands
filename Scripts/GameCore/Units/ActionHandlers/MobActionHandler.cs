@@ -29,7 +29,7 @@ namespace TextGameRPG.Scripts.GameCore.Units.ActionHandlers
             }
 
             var attackIndex = new Random().Next(availableAttacks.Count);
-            var attackAction = new MobAttackAction(availableAttacks[attackIndex], mob.gradeMult);
+            var attackAction = new MobAttackAction(availableAttacks[attackIndex]);
             result.Add(attackAction);
             return result;
         }

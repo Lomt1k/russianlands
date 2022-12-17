@@ -1,9 +1,4 @@
-﻿using System;
-using System.Text;
-using TextGameRPG.Scripts.GameCore.Localizations;
-using TextGameRPG.Scripts.Bot;
-using TextGameRPG.Scripts.Bot.Sessions;
-
+﻿
 namespace TextGameRPG.Scripts.GameCore.Units.Stats
 {
     public class MobStats : UnitStats
@@ -14,14 +9,13 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
         {
             _mob = mob;
             var statsSettings = mob.mobData.statsSettings;
-            var gradeMult = mob.gradeMult;
 
-            maxHP = (int)Math.Round(statsSettings.health * gradeMult);
+            maxHP = statsSettings.health;
             resistance = new Items.DamageInfo(
-                physicalDamage: (int)Math.Round(statsSettings.physicalResist * gradeMult),
-                fireDamage: (int)Math.Round(statsSettings.fireResist * gradeMult),
-                coldDamage: (int)Math.Round(statsSettings.coldResist * gradeMult),
-                lightningDamage: (int)Math.Round(statsSettings.lightningResist * gradeMult));
+                physicalDamage: statsSettings.physicalResist,
+                fireDamage: statsSettings.fireResist,
+                coldDamage: statsSettings.coldResist,
+                lightningDamage: statsSettings.lightningResist);
         }
 
     }

@@ -23,6 +23,18 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             { 10, 220 },
         };
 
+        private static readonly Dictionary<int, int[]> itemGradesByTownHall = new Dictionary<int, int[]>
+        {
+            { 1, new [] { 5 } },
+            { 2, new [] { 3, 7 } },
+            { 3, new [] { 2, 5, 8 } },
+            { 4, new [] { 1, 4, 7, 10 } },
+            { 5, new [] { 1, 3, 5, 7, 10 } },
+            { 6, new [] { 1, 3, 4, 6, 8, 10 } },
+            { 7, new [] { 1, 2, 3, 4, 6, 8, 10 } },
+            { 8, new [] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 } },
+        };
+
         static ItemGenerationHelper()
         {
             minItemLevelByTownHall = new Dictionary<int, int>();
@@ -42,28 +54,9 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
 
         public static int GetRandomGrade(byte townHallLevel)
         {
-            var random = new Random();
-            int randValue = random.Next(100);
-            switch (townHallLevel)
-            {
-                case 1:
-                    return 5;
-                case 2: // Ратуша 2: Равновероятное выпадение грейда 3 либо 7
-                    return randValue < 50 ? 3 : 7;
-                case 3: // Ратуша 3: 50% - 2, 30% - 5, 20% - 8
-                    return randValue < 50 ? 2 : randValue < 80 ? 5 : 8;
-                case 4: // Ратуша 4: 35% - 2, 30% - 4, 20% - 6, 15% - 8
-                    return randValue < 35 ? 2 : randValue < 65 ? 4 : randValue < 85 ? 6 : 8;
-                case 5: // Ратуша 5: 27% - 1, 23% - 3, 20% - 5, 17% - 7, 13% - 9
-                    return randValue < 27 ? 1 : randValue < 50 ? 3 : randValue < 70 ? 5 : randValue < 87 ? 7 : 9;
-                case 6: // Ратуша 6: 25% - 1, 21% - 3, 16% - 4, 16% - 6, 13% - 8, 9% - 10
-                    return randValue < 25 ? 1 : randValue < 46 ? 3 : randValue < 62 ? 4
-                        : randValue < 78 ? 6 : randValue < 91 ? 8 : 10;
-                case 7: // Ратуша 7: 21% - 1, 18% - 2, 16% - 3, 14% - 4, 12% - 6, 11% - 8, 8% - 10
-                    return randValue < 21 ? 1 : randValue < 39 ? 2 : randValue < 55 ? 3
-                        : randValue < 69 ? 4 : randValue < 81 ? 6 : randValue < 92 ? 8 : 10;
-            }
-            return Randomizer.GetGrade();
+            var grades = itemGradesByTownHall[townHallLevel];
+            var index = new Random().Next(grades.Length);
+            return grades[index];
         }
 
         public static int GetBasisPoint(int townHallLevel)
