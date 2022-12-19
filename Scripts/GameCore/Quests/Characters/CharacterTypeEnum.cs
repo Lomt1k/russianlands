@@ -20,6 +20,10 @@ namespace TextGameRPG.Scripts.GameCore.Quests.Characters
         Koschey = 90,
         Kikimora = 100,
         Aquatic = 110,
+
+        // LOC 03
+        Dovahkiin = 120,
+        Gorinich = 130,
     }
 
     public static class CharacterTypeExtensions

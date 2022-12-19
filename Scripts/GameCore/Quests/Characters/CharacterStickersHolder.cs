@@ -42,6 +42,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests.Characters
                 { CharacterType.Koschey, new StickerInfo("russlandbot", 8) },
                 { CharacterType.Kikimora, new StickerInfo("russlandbot", 9) },
                 { CharacterType.Aquatic, new StickerInfo("russlandbot", 10) },
+                { CharacterType.Dovahkiin, new StickerInfo("russlandbot", 11) },
             };
         }
 
