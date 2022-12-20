@@ -16,6 +16,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
     {
         private Action<InventoryItem?> _selectedAttackItemCallback;
         private BattleTurn _battleTurn;
+        private bool _isActionAlreadySelected;
 
         public SelectBattleItemDialog(GameSession _session, BattleTurn battleTurn, Action<InventoryItem?> callback) : base(_session)
         {
@@ -142,7 +143,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
 
         public async Task OnCategorySelected(ItemType category)
         {
-            if (!_battleTurn.isWaitingForActions)
+            if (_isActionAlreadySelected)
                 return;
 
             var equippedItems = session.player.inventory.equipped;
@@ -152,7 +153,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
                 case ItemType.Bow:
                 case ItemType.Stick:
                     var item = equippedItems[category];
-                    _selectedAttackItemCallback(item);
+                    TryInvokeItemSelection(item);
                     break;
                 case ItemType.Scroll:
                     await ShowScrollsCategory()
@@ -208,10 +209,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
 
         private Task SelectScrollItem(InventoryItem scrollItem)
         {
-            if (_battleTurn.isWaitingForActions)
-            {
-                _selectedAttackItemCallback(scrollItem);
-            }
+            TryInvokeItemSelection(scrollItem);
             return Task.CompletedTask;
         }
 
@@ -231,6 +229,15 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
                 return base.TryResendDialog();
             }
             return Task.CompletedTask;
+        }
+
+        private void TryInvokeItemSelection(InventoryItem? item)
+        {
+            if (_isActionAlreadySelected || !_battleTurn.isWaitingForActions)
+                return;
+
+            _selectedAttackItemCallback(item);
+            _isActionAlreadySelected = true;
         }
 
     }
