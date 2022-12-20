@@ -24,6 +24,8 @@ namespace TextGameRPG.Scripts.GameCore.Quests.Characters
         // LOC 03
         Dovahkiin = 120,
         Gorinich = 130,
+        GorinichTwoHeads = 140,
+        GorinichOneHead = 150,
     }
 
     public static class CharacterTypeExtensions

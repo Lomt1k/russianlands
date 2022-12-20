@@ -43,6 +43,9 @@ namespace TextGameRPG.Scripts.GameCore.Quests.Characters
                 { CharacterType.Kikimora, new StickerInfo("russlandbot", 9) },
                 { CharacterType.Aquatic, new StickerInfo("russlandbot", 10) },
                 { CharacterType.Dovahkiin, new StickerInfo("russlandbot", 11) },
+                { CharacterType.Gorinich, new StickerInfo("russlandbot", 12) },
+                { CharacterType.GorinichTwoHeads, new StickerInfo("russlandbot", 13) },
+                { CharacterType.GorinichOneHead, new StickerInfo("russlandbot", 14) },
             };
         }
 
