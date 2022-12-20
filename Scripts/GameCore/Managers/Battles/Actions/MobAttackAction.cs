@@ -21,6 +21,7 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles.Actions
 
         public void ApplyActionWithMineStats(UnitStats stats)
         {
+            stats.currentMana -= _mobAttack.manaCost;
         }
 
         public void ApplyActionWithEnemyStats(UnitStats stats)
