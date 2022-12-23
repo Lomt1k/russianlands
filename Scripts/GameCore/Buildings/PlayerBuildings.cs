@@ -77,6 +77,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
                     break;
 
                 case BuildingCategory.Storages:
+                    yield return BuildingType.ItemsStorage.GetBuilding();
                     yield return BuildingType.GoldStorage.GetBuilding();
                     yield return BuildingType.FoodStorage.GetBuilding();
                     yield return BuildingType.HerbsStorage.GetBuilding();

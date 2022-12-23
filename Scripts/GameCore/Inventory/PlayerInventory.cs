@@ -2,28 +2,34 @@
 using TextGameRPG.Scripts.GameCore.Items;
 using Newtonsoft.Json;
 using System.Runtime.Serialization;
+using TextGameRPG.Scripts.Bot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Inventory
 {
     [JsonObject]
     public class PlayerInventory
     {
-        public const int DEFAULT_SIZE = 100;
-
         [JsonIgnore]
         private readonly Dictionary<ItemType, List<InventoryItem>> _itemsByType = new Dictionary<ItemType, List<InventoryItem>>();
 
         [JsonProperty]
-        public int inventorySize { get; private set; } = DEFAULT_SIZE;
-        [JsonProperty]
-        public List<InventoryItem> items { get; private set; } = new List<InventoryItem>(DEFAULT_SIZE);
-
+        public List<InventoryItem> items { get; private set; } = new List<InventoryItem>();
+      
         [JsonIgnore]
         public EquippedItems equipped { get; private set; }
+        [JsonIgnore]
+        public GameSession session { get; private set; }
         [JsonIgnore]
         public bool isFull => items.Count >= inventorySize;
         [JsonIgnore]
         public int itemsCount => items.Count;
+        [JsonIgnore]
+        public int inventorySize => session.player.resources.GetResourceLimit(Resources.ResourceType.InventoryItems);
+
+        public void SetupSession(GameSession _session)
+        {
+            session = _session;
+        }
 
         [OnDeserialized]
         internal void OnDeserialized(StreamingContext context)
@@ -139,14 +145,6 @@ namespace TextGameRPG.Scripts.GameCore.Inventory
                 }
             }
             _itemsByType[itemType].Insert(index, item);
-        }
-
-        public void AddNewItemSlots(int count)
-        {
-            if (count < 1)
-                return;
-
-            inventorySize += count;
         }
 
     }

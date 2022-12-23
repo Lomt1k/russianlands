@@ -128,6 +128,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
             switch (category)
             {
                 case BuildingCategory.Storages:
+                    return GetKeyboardWithRowSizes(1, 2, 2);
                 case BuildingCategory.Production:
                     return GetKeyboardWithFixedRowSize(2);
                 default:

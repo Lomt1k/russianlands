@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Inventory;
 using TextGameRPG.Scripts.GameCore.Quests;
 using TextGameRPG.Scripts.Bot.DataBase.TablesStructure;
+using TextGameRPG.Scripts.Bot.Sessions;
 
 namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
 {
@@ -48,6 +49,12 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
             var dataTable = TelegramBot.instance.dataBase[Table.ProfilesDynamic] as ProfilesDynamicDataTable;
             var success = await dataTable.UpdateDataInDatabase(this).ConfigureAwait(false);
             return success;
+        }
+
+        public override void SetupSession(GameSession _session)
+        {
+            base.SetupSession(_session);
+            inventory.SetupSession(_session);
         }
     }
 }

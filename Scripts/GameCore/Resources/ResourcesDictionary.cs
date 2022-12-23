@@ -21,7 +21,8 @@ namespace TextGameRPG.Scripts.GameCore.Resources
                 { ResourceType.Wood, new ResourceWood() },
 
                 //additional
-                //-- TODO
+                { ResourceType.InventoryItems, new ResourceInventoryItems() }, // регулирует размер инвентаря
+                //-TODO
             };
         }
 

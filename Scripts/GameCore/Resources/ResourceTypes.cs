@@ -14,6 +14,7 @@ namespace TextGameRPG.Scripts.GameCore.Resources
         Wood = 4,
 
         //Others
+        InventoryItems = 5,
     }
 
     public static class ResourceTypeExtensions

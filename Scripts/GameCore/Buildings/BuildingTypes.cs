@@ -35,6 +35,8 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
         HerbsStorage = 202,
         WoodStorage = 203,
 
+        ItemsStorage = 210,
+
         // --- Добыча ресурсов
         GoldProductionFirst = 300,
         GoldProductionSecond = 301,
@@ -66,6 +68,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             { BuildingType.Hospital, new HospitalBuilding() },
 
             // --- Хранилища
+            { BuildingType.ItemsStorage, new ItemsStorageBuilding() },
             { BuildingType.GoldStorage, new GoldStorageBuilding() },
             { BuildingType.FoodStorage, new FoodStorageBuilding() },
             { BuildingType.HerbsStorage, new HerbsStorageBuilding() },
@@ -96,6 +99,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
         {
             switch (buildingType)
             {
+                case BuildingType.ItemsStorage:
                 case BuildingType.GoldStorage:
                 case BuildingType.FoodStorage:
                 case BuildingType.HerbsStorage:
@@ -152,6 +156,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
         {
             switch (buildingType)
             {
+                case BuildingType.ItemsStorage:
                 case BuildingType.GoldStorage:
                 case BuildingType.FoodStorage:
                 case BuildingType.HerbsStorage:

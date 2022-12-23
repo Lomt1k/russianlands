@@ -100,7 +100,7 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
             return parsed;
         }
 
-        public void SetupSession(GameSession _session)
+        public virtual void SetupSession(GameSession _session)
         {
             session = _session;
         }

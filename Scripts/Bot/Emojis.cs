@@ -195,6 +195,8 @@ namespace TextGameRPG.Scripts.Bot
             { ResourceType.Food, "\ud83c\udf56" },
             { ResourceType.Herbs, "\ud83c\udf3f" },
             { ResourceType.Wood, "\ud83e\udeb5" },
+
+            { ResourceType.InventoryItems, "\ud83c\udf92" },
         };
 
         public static readonly Dictionary<MapLocation, string> locations = new Dictionary<MapLocation, string>

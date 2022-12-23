@@ -34,7 +34,6 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Data
         public int requiredTownHall;
         public int constructionTime;
         public bool isBoostAvailable;
-        public int exp;
         public int requiredGold;
         public int requiredHerbs;
         public int requiredWood;

@@ -29,6 +29,8 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
         public long herbsStorageStartConstructionTime;
         public byte woodStorageLevel;
         public long woodStorageStartConstructionTime;
+        public byte itemsStorageLevel;
+        public long itemsStorageStartConstructionTime;
 
         // --- Добыча ресурсов: Золото
         public byte goldProdFirstLevel = 1;
@@ -159,6 +161,8 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
                 new TableColumn("herbsStorageStartConstructionTime", "INTEGER", "0"),
                 new TableColumn("woodStorageLevel", "INTEGER", "0"),
                 new TableColumn("woodStorageStartConstructionTime", "INTEGER", "0"),
+                new TableColumn("itemsStorageLevel", "INTEGER", "1"),
+                new TableColumn("itemsStorageStartConstructionTime", "INTEGER", "0"),
 
                 // --- Добыча ресурсов: Золото
                 new TableColumn("goldProdFirstLevel", "INTEGER", "1"),
