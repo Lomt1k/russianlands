@@ -1,0 +1,60 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="600"
+             x:Class="TextGameRPG.Views.Editor.PotionsEditor.PotionsEditorView">
+
+  <Grid Margin="40">
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="auto"/>
+      <ColumnDefinition Width="500"/>
+    </Grid.ColumnDefinitions>
+
+    <Grid.RowDefinitions>
+      <RowDefinition Height="50"/>
+      <RowDefinition Height="auto"/>
+    </Grid.RowDefinitions>
+
+    <!-- Column 2: Items List -->
+    <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="0" Margin="40,0"
+                Background="DarkGray" MaxHeight="40">
+      <TextBlock Text="ID" Width="80" Classes="h3" Padding="10"/>
+      <TextBlock Text="Potion" MinWidth="300" Classes="h3" Padding="10"/>
+      <TextBlock Text="Workshop" Width="120" Classes="h3" Padding="10"/>
+    </StackPanel>
+
+    <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Vertical"
+                Margin="40,0" VerticalAlignment="Top">
+
+      <ListBox MaxHeight="600"
+               Items="{Binding showedPotions}"
+               SelectedItem="{Binding selectedPotion}">
+        <ListBox.ItemTemplate>
+
+          <DataTemplate>
+            <StackPanel Orientation="Horizontal">
+              <TextBlock Text="{Binding id}" Width="80"/>
+              <TextBlock Text="{Binding debugName}" MinWidth="300"/>
+              <TextBlock Text="{Binding workshopLevel, StringFormat='Lvl {0}'}"
+                         Width="120"/>
+            </StackPanel>
+          </DataTemplate>
+
+        </ListBox.ItemTemplate>
+      </ListBox>
+
+      <Button Content="Add New" Classes="Neutral" Margin="0,20"
+              Command="{Binding addNewPotionCommand}"/>
+
+    </StackPanel>
+
+    <!-- Column 3: Item Inspector -->
+    <UserControl Grid.Column="1" Grid.Row="1" Margin="40,0" VerticalAlignment="Top"
+                 Content="{Binding potionInspector}"
+                 IsVisible="{Binding selectedPotion, Converter={x:Static ObjectConverters.IsNotNull}}"/>
+
+
+  </Grid>
+  
+</UserControl>
