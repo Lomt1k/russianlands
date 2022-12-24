@@ -22,12 +22,12 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
         TownHall = 100, // Ратуша
         Tyr = 101, // Стрельбище
         Hospital = 102, // Здравница
-        AlchemyShop = 103, // Алхимическая лавка
-        Laboratory = 104, // Лаборатория
-        WeaponForge = 105, // Кузница оружия
-        ArmorForge = 106, // Кузница доспехов
-        Jewerly = 107, // Ювелирная
-        Workshop = 108, // Мастерская
+        PotionWorkshop = 103, // Мастерская зелий
+        ElixirWorkshop = 104, // Мастерская эликсиров
+        WeaponsWorkshop = 105, // Мастерская оружия
+        ArmorWorkshop = 106, // Мастерская брони
+        Jewerly = 107, // Ювелирная мастерская
+        ScribesHouse = 108, // Дом писарей
 
         // --- Хранилища
         GoldStorage = 200,
@@ -126,8 +126,8 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
                 case BuildingType.WoodTraining:
                     return new TrainingLevelInfo();
 
-                case BuildingType.WeaponForge:
-                case BuildingType.ArmorForge:
+                case BuildingType.WeaponsWorkshop:
+                case BuildingType.ArmorWorkshop:
                 case BuildingType.Jewerly:
                     return new CraftLevelInfo();
 
