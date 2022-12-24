@@ -21,7 +21,6 @@ namespace TextGameRPG.Scripts.GameCore.Inventory
         private Dictionary<ItemType, InventoryItem?[]> _multiEquipped = new Dictionary<ItemType, InventoryItem?[]>
         {
             { ItemType.Ring, new InventoryItem?[ItemType.Ring.GetSlotsCount()] },
-            { ItemType.Poison, new InventoryItem?[ItemType.Poison.GetSlotsCount()] },
             { ItemType.Scroll, new InventoryItem?[ItemType.Scroll.GetSlotsCount()] },
         };
 

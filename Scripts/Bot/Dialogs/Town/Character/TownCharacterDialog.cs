@@ -11,10 +11,12 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
 
         public TownCharacterDialog(GameSession _session) : base(_session)
         {
-            RegisterButton($"{Emojis.menuItems[MenuItem.Avatar]} " + Localization.Get(session, "menu_item_avatar"),
-                   () => messageSender.SendTextMessage(session.chatId, "Смена аватара недоступна в текущей версии игры")); //заглушка
             RegisterButton($"{Emojis.menuItems[MenuItem.Inventory]} " + Localization.Get(session, "menu_item_inventory"),
                 () => new InventoryDialog(session).Start());
+            RegisterButton($"{Emojis.menuItems[MenuItem.Poisons]} " + Localization.Get(session, "menu_item_poisons"), null);
+            RegisterButton($"{Emojis.menuItems[MenuItem.Skills]} " + Localization.Get(session, "menu_item_skills"), null);
+            RegisterButton($"{Emojis.menuItems[MenuItem.Avatar]} " + Localization.Get(session, "menu_item_avatar"), null);
+            RegisterButton($"{Emojis.menuItems[MenuItem.NameChange]} " + Localization.Get(session, "menu_item_namechange"), null);
             RegisterTownButton(isFullBack: false);
         }
 
@@ -28,7 +30,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
             sb.AppendLine(session.player.unitStats.GetView(session, isFullHealth));
             TryAppendTooltip(sb);
 
-            await SendDialogMessage(sb, GetKeyboardWithRowSizes(2, 1))
+            await SendDialogMessage(sb, GetKeyboardWithRowSizes(1, 2, 3))
                 .ConfigureAwait(false);
 
             if (!isFullHealth)

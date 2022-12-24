@@ -95,7 +95,6 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
                 case "RI": return ItemType.Ring;
                 case "AM": return ItemType.Amulet;
                 case "SC": return ItemType.Scroll;
-                case "PO": return ItemType.Poison;
             }
             throw new Exception($"Error when parsed item type with type code: {itemTypeCode}");
         }

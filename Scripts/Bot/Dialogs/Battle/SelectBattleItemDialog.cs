@@ -121,12 +121,12 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
             var equipped = session.player.inventory.equipped;
             var multiRow = new List<KeyboardButton>();
 
-            if (equipped.HasItem(ItemType.Poison))
-            {
-                var poisonsButtonText = $"{Emojis.items[ItemType.Poison]} {Localization.Get(session, "menu_item_poisons")}";
-                RegisterButton(poisonsButtonText, () => OnCategorySelected(ItemType.Poison));
-                multiRow.Add(poisonsButtonText);
-            }
+            //if (equipped.HasItem(ItemType.Poison))
+            //{
+            //    var poisonsButtonText = $"{Emojis.items[ItemType.Poison]} {Localization.Get(session, "menu_item_poisons")}";
+            //    RegisterButton(poisonsButtonText, () => OnCategorySelected(ItemType.Poison));
+            //    multiRow.Add(poisonsButtonText);
+            //}
             if (equipped.HasItem(ItemType.Scroll))
             {
                 var scrollsButtonText = $"{Emojis.items[ItemType.Scroll]} {Localization.Get(session, "menu_item_scrolls")}";
@@ -158,9 +158,6 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
                 case ItemType.Scroll:
                     await ShowScrollsCategory()
                         .ConfigureAwait(false);
-                    break;
-                case ItemType.Poison:
-                    //TODO: Select poison dialog
                     break;
             }
         }
