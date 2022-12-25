@@ -10,9 +10,12 @@ namespace TextGameRPG.Scripts.GameCore.Potions
     {
         public string debugName { get; set; } = "New Potion";
         public int id { get; set; }
-        public byte workshopLevel { get; set; }
-        public string localizationKey { get; set; } = string.Empty;
-        public byte potionLevel { get; set; }
+        public byte workshopLevel;
+        public string localizationKey = string.Empty;
+        public byte potionLevel;
+
+        // костыль для отображения в редакторе
+        public byte workshopLevelProperty => workshopLevel;
 
         public PotionData(int _id)
         {

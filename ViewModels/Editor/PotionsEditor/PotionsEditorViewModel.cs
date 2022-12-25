@@ -32,16 +32,18 @@ namespace TextGameRPG.ViewModels.Editor.PotionsEditor
         public PotionInspectorViewModel potionInspectorViewModel { get; }
 
         public ReactiveCommand<Unit, Unit> addNewPotionCommand { get; }
+        public ReactiveCommand<Unit, Unit> removePotionCommand { get; }
 
         public PotionsEditorViewModel()
         {
             potionInspector = new PotionInspectorView();
             potionInspector.DataContext = potionInspectorViewModel = new PotionInspectorViewModel();
 
-            addNewPotionCommand = ReactiveCommand.Create(AddNewItem);
+            addNewPotionCommand = ReactiveCommand.Create(AddNewPotion);
+            removePotionCommand = ReactiveCommand.Create(RemoveSelectedPotion);
 
             RefreshShowedItems();
-            GameDataBase.instance.items.onDataChanged += OnDataBaseChanged;
+            GameDataBase.instance.potions.onDataChanged += OnDataBaseChanged;
         }
 
         private void OnDataBaseChanged()
@@ -57,14 +59,20 @@ namespace TextGameRPG.ViewModels.Editor.PotionsEditor
 
         private void RefreshShowedItems(IEnumerable<PotionData> potions)
         {
+            var oldSelectedId = selectedPotion?.id;
             showedPotions.Clear();
+
             foreach (var potion in potions)
             {
                 showedPotions.Add(potion);
+                if (potion.id == oldSelectedId)
+                {
+                    selectedPotion = potion;
+                }
             }
         }
 
-        private void AddNewItem()
+        private void AddNewPotion()
         {
             var allPotions = GameDataBase.instance.potions.GetAllData().ToList();
             int newPotionId = allPotions.Count > 0 ? allPotions.Max(x => x.id) + 1 : 1;
@@ -82,9 +90,14 @@ namespace TextGameRPG.ViewModels.Editor.PotionsEditor
             GameDataBase.instance.potions.AddData(newPotionData.id, newPotionData);
             RefreshShowedItems();
             selectedPotion = newPotionData;
+        }
 
-            //var inspectorViewModel = potionInspector.DataContext as PotionInspectorViewModel;
-            //inspectorViewModel.StartEditItem(isNewItem: true);
+        private void RemoveSelectedPotion()
+        {
+            if (selectedPotion == null)
+                return;
+
+            GameDataBase.instance.potions.RemoveData(selectedPotion.id);
         }
 
     }

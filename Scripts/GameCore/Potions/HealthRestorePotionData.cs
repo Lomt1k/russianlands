@@ -1,11 +1,10 @@
-﻿using Newtonsoft.Json;
-using TextGameRPG.Scripts.Bot.Sessions;
+﻿using TextGameRPG.Scripts.Bot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Potions
 {
     public class HealthRestorePotionData : PotionData
     {
-        public int healthAmount { get; set; }
+        public int healthAmount;
 
         public HealthRestorePotionData(int _id) : base(_id)
         {

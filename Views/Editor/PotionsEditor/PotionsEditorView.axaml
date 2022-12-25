@@ -8,7 +8,7 @@
   <Grid Margin="40">
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="auto"/>
-      <ColumnDefinition Width="500"/>
+      <ColumnDefinition Width="auto"/>
     </Grid.ColumnDefinitions>
 
     <Grid.RowDefinitions>
@@ -36,7 +36,7 @@
             <StackPanel Orientation="Horizontal">
               <TextBlock Text="{Binding id}" Width="80"/>
               <TextBlock Text="{Binding debugName}" MinWidth="300"/>
-              <TextBlock Text="{Binding workshopLevel, StringFormat='Lvl {0}'}"
+              <TextBlock Text="{Binding workshopLevelProperty, StringFormat='Lvl {0}'}"
                          Width="120"/>
             </StackPanel>
           </DataTemplate>
@@ -44,8 +44,13 @@
         </ListBox.ItemTemplate>
       </ListBox>
 
-      <Button Content="Add New" Classes="Neutral" Margin="0,20"
+      <StackPanel Margin="0,20" Spacing="20" Orientation="Horizontal">
+        <Button Content="Add New" Classes="Neutral"
               Command="{Binding addNewPotionCommand}"/>
+        <Button Content="Remove" Classes="Neutral"
+                Command="{Binding removePotionCommand}"/>
+      </StackPanel>
+      
 
     </StackPanel>
 
