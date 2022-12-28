@@ -82,12 +82,7 @@ namespace TextGameRPG.Scripts.Bot
             }
 
             Program.logger.Info($"Starting bot with data... {dataPath}");
-            await WaitForNetworkConnection();
             config = GetConfig(); //reload config: maybe something was changed before start
-            client = new TelegramBotClient(config.token);
-            mineUser = await client.GetMeAsync();
-            mineUser.CanJoinGroups = false;
-            Program.SetTitle($"{mineUser.Username} [{dataPath}]");
 
             Program.logger.Info("Connecting to bot database...");
             dataBase = new BotDataBase(dataPath);
@@ -97,6 +92,12 @@ namespace TextGameRPG.Scripts.Bot
                 Program.logger.Info($"Reject database connection!...");
                 return false;
             }
+
+            await WaitForNetworkConnection();
+            client = new TelegramBotClient(config.token);
+            mineUser = await client.GetMeAsync();
+            mineUser.CanJoinGroups = false;
+            Program.SetTitle($"{mineUser.Username} [{dataPath}]");
 
             GlobalManagers.CreateManagers();
             messageSender = new MessageSender(client);
