@@ -22,7 +22,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
         TownHall = 100, // Ратуша
         Tyr = 101, // Стрельбище
         Hospital = 102, // Здравница
-        PotionWorkshop = 103, // Мастерская зелий
+        AlchemyLab = 103, // Мастерская зелий
         ElixirWorkshop = 104, // Мастерская эликсиров
         WeaponsWorkshop = 105, // Мастерская оружия
         ArmorWorkshop = 106, // Мастерская брони
@@ -66,6 +66,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             { BuildingType.TownHall, new TownHallBuilding() },
             { BuildingType.Tyr, new TyrBuilding() },
             { BuildingType.Hospital, new HospitalBuilding() },
+            { BuildingType.AlchemyLab, new AlchemyLabBuilding() },
 
             // --- Хранилища
             { BuildingType.ItemsStorage, new ItemsStorageBuilding() },
@@ -136,6 +137,9 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
 
                 case BuildingType.Tyr:
                     return new TyrLevelInfo();
+
+                case BuildingType.AlchemyLab:
+                    return new AlchemyLabLevelInfo();
 
                 default:
                     return new BuildingLevelInfo();

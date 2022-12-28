@@ -41,6 +41,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             yield return BuildingType.TownHall.GetBuilding();
             yield return BuildingType.Tyr.GetBuilding();
             yield return BuildingType.Hospital.GetBuilding();
+            yield return BuildingType.AlchemyLab.GetBuilding();
 
             yield return BuildingType.GoldStorage.GetBuilding();
             yield return BuildingType.FoodStorage.GetBuilding();
@@ -74,6 +75,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
                     yield return BuildingType.TownHall.GetBuilding();
                     yield return BuildingType.Tyr.GetBuilding();
                     yield return BuildingType.Hospital.GetBuilding();
+                    yield return BuildingType.AlchemyLab.GetBuilding();
                     break;
 
                 case BuildingCategory.Storages:

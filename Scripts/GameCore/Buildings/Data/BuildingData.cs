@@ -94,5 +94,11 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Data
         public int arrowsAmount;
     }
 
+    [JsonObject]
+    public class AlchemyLabLevelInfo : BuildingLevelInfo
+    {
+        public int potionsInBattle;
+    }
+
 
 }
