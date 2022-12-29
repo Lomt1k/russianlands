@@ -133,7 +133,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.General
             if (!IsUnderConstruction(data))
             {
                 result.Add($"{Emojis.menuItems[MenuItem.Potions]} {Localization.Get(session, "menu_item_potions")}",
-                    () => new PotionsDialog(session, backToBuilding: true).Start());
+                    () => new PotionsDialog(session).Start());
             }
 
             return result;
