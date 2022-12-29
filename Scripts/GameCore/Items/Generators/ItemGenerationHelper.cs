@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using TextGameRPG.Scripts.GameCore.Buildings;
-using TextGameRPG.Scripts.Utils;
 
 namespace TextGameRPG.Scripts.GameCore.Items.Generators
 {

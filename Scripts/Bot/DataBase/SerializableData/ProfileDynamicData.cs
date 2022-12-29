@@ -6,6 +6,7 @@ using TextGameRPG.Scripts.GameCore.Inventory;
 using TextGameRPG.Scripts.GameCore.Quests;
 using TextGameRPG.Scripts.Bot.DataBase.TablesStructure;
 using TextGameRPG.Scripts.Bot.Sessions;
+using TextGameRPG.Scripts.GameCore.Potions;
 
 namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
 {
@@ -16,6 +17,7 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
 
         public long dbid;
         public PlayerInventory inventory;
+        public PlayerPotions potions;
         public PlayerQuestsProgress quests;
 
         public static TableColumn[] GetTableColumns()
@@ -23,8 +25,9 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
             return new TableColumn[]
             {
                 new TableColumn("dbid", "INTEGER PRIMARY KEY AUTOINCREMENT", "0"),
-                new TableColumn("inventory", "TEXT", "'{ }'"),
-                new TableColumn("quests", "TEXT", "'{ }'")
+                new TableColumn("inventory", "TEXT", "'{}'"),
+                new TableColumn("potions", "TEXT", "'{}'"),
+                new TableColumn("quests", "TEXT", "'{}'")
             };
         }
 
@@ -37,6 +40,8 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
             dbid = (long)data["dbid"];
             var inventoryJson = (string)data["inventory"];
             inventory = JsonConvert.DeserializeObject<PlayerInventory>(inventoryJson);
+            var potionsJson = (string)data["potions"];
+            potions = JsonConvert.DeserializeObject<PlayerPotions>(potionsJson);
             var questsJson = (string)data["quests"];
             quests = JsonConvert.DeserializeObject<PlayerQuestsProgress>(questsJson);
         }
@@ -55,6 +60,7 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
         {
             base.SetupSession(_session);
             inventory.SetupSession(_session);
+            potions.SetupSession(_session);
         }
     }
 }

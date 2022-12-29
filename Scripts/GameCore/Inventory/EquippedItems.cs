@@ -36,7 +36,7 @@ namespace TextGameRPG.Scripts.GameCore.Inventory
 
         public EquippedItems(PlayerInventory inventory)
         {
-            var allEquipped = inventory.GetAllItems().Where(x => x.isEquipped).OrderBy(x => x.data.itemType);
+            var allEquipped = inventory.items.Where(x => x.isEquipped).OrderBy(x => x.data.itemType);
             foreach (var item in allEquipped)
             {
                 TrySetupAsEquipped(item);
