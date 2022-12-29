@@ -45,8 +45,6 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
                 () => ShowCategory(ItemType.Ring));
             RegisterButton($"{Emojis.items[ItemType.Scroll]} " + Localization.Get(session, "menu_item_scrolls"),
                 () => ShowCategory(ItemType.Scroll));
-            //RegisterButton($"{Emojis.items[ItemType.Poison]} " + Localization.Get(session, "menu_item_poisons"),
-            //    () => ShowCategory(ItemType.Poison));
 
             RegisterBackButton(() => new TownCharacterDialog(session).Start());
             RegisterTownButton(isFullBack: true);

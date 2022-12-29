@@ -17,7 +17,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
             var potionsIcon = IsPotionsDialogAvailable()
                 ? Emojis.menuItems[MenuItem.Potions]
                 : Emojis.elements[Element.Locked];
-            RegisterButton(potionsIcon + ' ' + Localization.Get(session, "menu_item_poisons"), () => TryShowPotionsDialog());
+            RegisterButton(potionsIcon + ' ' + Localization.Get(session, "menu_item_potions"), () => TryShowPotionsDialog());
             RegisterButton($"{Emojis.menuItems[MenuItem.Skills]} " + Localization.Get(session, "menu_item_skills"), null);
             RegisterButton($"{Emojis.menuItems[MenuItem.Avatar]} " + Localization.Get(session, "menu_item_avatar"), null);
             RegisterButton($"{Emojis.menuItems[MenuItem.NameChange]} " + Localization.Get(session, "menu_item_namechange"), null);

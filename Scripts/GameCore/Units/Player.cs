@@ -12,6 +12,8 @@ using TextGameRPG.Scripts.Bot.Dialogs.Battle;
 using TextGameRPG.Scripts.GameCore.Managers.Battles;
 using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Units.ActionHandlers;
+using TextGameRPG.Scripts.GameCore.Potions;
+using System.Collections.Generic;
 
 namespace TextGameRPG.Scripts.GameCore.Units
 {
@@ -24,6 +26,7 @@ namespace TextGameRPG.Scripts.GameCore.Units
         public PlayerBuildings buildings { get; }
         public HealthRegenerationController healhRegenerationController { get; }
         public PlayerInventory inventory => session.profile.dynamicData.inventory;
+        public List<PotionItem> potions => session.profile.dynamicData.potions;
         public string nickname => session.profile.data.nickname;
         public byte level => session.profile.data.level;
 

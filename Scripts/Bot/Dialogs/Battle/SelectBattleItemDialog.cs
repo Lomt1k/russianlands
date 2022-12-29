@@ -123,7 +123,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
 
             //if (equipped.HasItem(ItemType.Poison))
             //{
-            //    var poisonsButtonText = $"{Emojis.items[ItemType.Poison]} {Localization.Get(session, "menu_item_poisons")}";
+            //    var poisonsButtonText = $"{Emojis.items[ItemType.Poison]} {Localization.Get(session, "menu_item_potions")}";
             //    RegisterButton(poisonsButtonText, () => OnCategorySelected(ItemType.Poison));
             //    multiRow.Add(poisonsButtonText);
             //}
