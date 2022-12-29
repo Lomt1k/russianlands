@@ -98,6 +98,8 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Data
     public class AlchemyLabLevelInfo : BuildingLevelInfo
     {
         public int potionsInBattle;
+        public int craftCostInHerbs;
+        public int craftTime;
     }
 
 

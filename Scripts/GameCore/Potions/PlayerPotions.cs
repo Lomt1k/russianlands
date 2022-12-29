@@ -13,7 +13,7 @@ namespace TextGameRPG.Scripts.GameCore.Potions
         [JsonIgnore]
         public GameSession session { get; private set; }
         [JsonIgnore]
-        public int maxCount => session.profile.data.IsPremiumActive() ? 16 : 8;
+        public int maxCount => session.profile.data.IsPremiumActive() ? 12 : 6;
         [JsonIgnore]
         public bool isFull => potions.Count >= maxCount;
 
