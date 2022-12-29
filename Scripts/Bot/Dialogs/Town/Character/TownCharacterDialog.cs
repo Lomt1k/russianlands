@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.Bot.Sessions;
+using TextGameRPG.Scripts.GameCore.Buildings;
 
 namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
 {
@@ -13,7 +14,10 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
         {
             RegisterButton($"{Emojis.menuItems[MenuItem.Inventory]} " + Localization.Get(session, "menu_item_inventory"),
                 () => new InventoryDialog(session).Start());
-            RegisterButton($"{Emojis.menuItems[MenuItem.Poisons]} " + Localization.Get(session, "menu_item_poisons"), null);
+            var potionsIcon = IsPotionsDialogAvailable()
+                ? Emojis.menuItems[MenuItem.Potions]
+                : Emojis.elements[Element.Locked];
+            RegisterButton(potionsIcon + ' ' + Localization.Get(session, "menu_item_poisons"), () => TryShowPotionsDialog());
             RegisterButton($"{Emojis.menuItems[MenuItem.Skills]} " + Localization.Get(session, "menu_item_skills"), null);
             RegisterButton($"{Emojis.menuItems[MenuItem.Avatar]} " + Localization.Get(session, "menu_item_avatar"), null);
             RegisterButton($"{Emojis.menuItems[MenuItem.NameChange]} " + Localization.Get(session, "menu_item_namechange"), null);
@@ -30,7 +34,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
             sb.AppendLine(session.player.unitStats.GetView(session, isFullHealth));
             TryAppendTooltip(sb);
 
-            await SendDialogMessage(sb, GetKeyboardWithRowSizes(1, 2, 3))
+            await SendDialogMessage(sb, GetKeyboardWithRowSizes(1, 2, 2, 1))
                 .ConfigureAwait(false);
 
             if (!isFullHealth)
@@ -38,6 +42,25 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
                 await SendHealthRegenMessage()
                     .ConfigureAwait(false);
             }
+        }
+
+        private async Task TryShowPotionsDialog()
+        {
+            if (!IsPotionsDialogAvailable())
+            {
+                ClearButtons();
+                var text = Localization.Get(session, "building_potions_alchemy_required");
+                RegisterBackButton(() => new TownCharacterDialog(session).Start());
+                await SendDialogMessage(text, GetOneLineKeyboard());
+                return;
+            }
+            await new PotionsDialog(session).Start().ConfigureAwait(false);
+        }
+
+        private bool IsPotionsDialogAvailable()
+        {
+            var buildingsData = session.profile.buildingsData;
+            return BuildingType.AlchemyLab.GetBuilding().GetCurrentLevel(buildingsData) > 0;
         }
 
         private async Task SendHealthRegenMessage()

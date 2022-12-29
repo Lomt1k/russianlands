@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using TextGameRPG.Scripts.GameCore.Buildings.General;
 using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
 using TextGameRPG.Scripts.Bot.Sessions;
 
@@ -27,12 +26,6 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
                 }
             }
             return false;
-        }
-
-        public int GetHealthRestorePerSecond()
-        {
-            var hospital = (HospitalBuilding)BuildingType.Hospital.GetBuilding();
-            return hospital.GetHealthRestorePerMinute(_buildingsData);
         }
 
         // TODO: когда будут готовы все здания - заменить на пробег по enum BuildingType 
