@@ -29,7 +29,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
 
         public override async Task Start()
         {
-            var header = $"<b>{Emojis.menuItems[MenuItem.Potions]} {Localization.Get(session, "menu_item_potions")}</b>";
+            var amount = session.player.potions.Count;
+            var header = $"<b>{Emojis.menuItems[MenuItem.Potions]} {Localization.Get(session, "menu_item_potions")} ({amount})</b>";
             await SendDialogMessage(header, GetMultilineKeyboardWithDoubleBack())
                 .ConfigureAwait(false);
             await SendPanelsAsync().ConfigureAwait(false);

@@ -1,7 +1,9 @@
 ﻿using JsonKnownTypes;
 using Newtonsoft.Json;
+using TextGameRPG.Scripts.Bot;
 using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.GameDataBase;
+using TextGameRPG.Scripts.GameCore.Localizations;
 
 namespace TextGameRPG.Scripts.GameCore.Potions
 {
@@ -30,6 +32,12 @@ namespace TextGameRPG.Scripts.GameCore.Potions
         public void OnSetupAppMode(AppMode appMode)
         {
             //ignored
+        }
+
+        public string GetLocalizedName(GameSession session)
+        {
+            return $"{Emojis.menuItems[MenuItem.Potions]} {Localization.Get(session, localizationKey)}" +
+                $" {string.Format(Localization.Get(session, "level_suffix"), potionLevel)}";
         }
 
         public abstract string GetView(GameSession session);

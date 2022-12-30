@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using TextGameRPG.Scripts.GameCore.Localizations;
 
 namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
 {
@@ -11,9 +12,20 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
         {
         }
 
-        public override Task SendAsync()
+        public override async Task SendAsync()
         {
-            throw new NotImplementedException();
+            var playerPotions = session.player.potions;
+            var readyPotionsCount = playerPotions.GetReadyPotionsCount();
+            var inProductionCount = playerPotions.Count - readyPotionsCount;
+
+            var sb = new StringBuilder();
+            sb.AppendLine(string.Format(Localization.Get(session, "dialog_potions_ready_amount"),
+                readyPotionsCount));
+            sb.AppendLine(string.Format(Localization.Get(session, "dialog_potions_in_production_amount"),
+                inProductionCount));
+
+            await SendPanelMessage(sb, GetMultilineKeyboard())
+                .ConfigureAwait(false);
         }
     }
 }
