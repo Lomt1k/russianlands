@@ -4,7 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Localizations;
 
-namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
+namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
 {
     public class PotionsDialogPanel : DialogPanelBase
     {

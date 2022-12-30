@@ -34,13 +34,13 @@ namespace TextGameRPG.Scripts.GameCore.Potions
             //ignored
         }
 
-        public string GetLocalizedName(GameSession session)
+        public string GetName(GameSession session)
         {
             return $"{Emojis.menuItems[MenuItem.Potions]} {Localization.Get(session, localizationKey)}" +
                 $" {string.Format(Localization.Get(session, "level_suffix"), potionLevel)}";
         }
 
-        public abstract string GetView(GameSession session);
+        public abstract string GetDescription(GameSession session);
 
     }
 }

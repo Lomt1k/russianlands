@@ -1,4 +1,7 @@
-﻿using TextGameRPG.Scripts.Bot.Sessions;
+﻿using System.Text;
+using TextGameRPG.Scripts.Bot;
+using TextGameRPG.Scripts.Bot.Sessions;
+using TextGameRPG.Scripts.GameCore.Localizations;
 
 namespace TextGameRPG.Scripts.GameCore.Potions
 {
@@ -10,10 +13,14 @@ namespace TextGameRPG.Scripts.GameCore.Potions
         {
         }
 
-        public override string GetView(GameSession session)
+        public override string GetDescription(GameSession session)
         {
-            //TODO
-            return string.Empty;
+            var sb = new StringBuilder();
+            sb.AppendLine(Localization.Get(session, "potion_health_description"));
+            sb.AppendLine();
+            sb.AppendLine(Localization.Get(session, "unit_view_health"));
+            sb.Append($"{Emojis.stats[Stat.Health]} {healthAmount}");
+            return sb.ToString();
         }
     }
 }

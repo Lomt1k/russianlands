@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using TextGameRPG.Scripts.Bot;
 using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
 using TextGameRPG.Scripts.Bot.Dialogs.Town.Character;
+using TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions;
 using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Buildings.Data;
 using TextGameRPG.Scripts.GameCore.GameDataBase;

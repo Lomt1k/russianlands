@@ -2,7 +2,7 @@
 using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Localizations;
 
-namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
+namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
 {
     public class PotionsProductionDialog : DialogBase
     {

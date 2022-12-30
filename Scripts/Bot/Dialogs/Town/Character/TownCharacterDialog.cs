@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Buildings;
+using TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions;
 
 namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
 {

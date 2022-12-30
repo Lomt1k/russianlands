@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Buildings;
 using TextGameRPG.Scripts.GameCore.Buildings.General;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Potions;
 
-namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
+namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
 {
     public class PotionsProductionDialogPanel : DialogPanelBase
     {
@@ -17,7 +14,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
             var potionsList = alchemyLab.GetPotionsForCurrentLevel(session.profile.buildingsData);
             foreach (var potionData in potionsList)
             {
-                RegisterButton(potionData.GetLocalizedName(session), () => OpenCreatePotionDialog(potionData));
+                RegisterButton(potionData.GetName(session), () => OpenCreatePotionDialog(potionData));
             }
         }
 
@@ -30,7 +27,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
 
         private async Task OpenCreatePotionDialog(PotionData potion)
         {
-            //TODO
+            await new CreatePotionDialog(session, potion).Start()
+                .ConfigureAwait(false);
         }
 
     }
