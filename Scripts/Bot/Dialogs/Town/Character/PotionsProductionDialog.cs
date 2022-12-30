@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.Bot.Sessions;
+using TextGameRPG.Scripts.GameCore.Localizations;
 
 namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
 {
@@ -14,11 +15,18 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
         {
             _productionPanel = new PotionsProductionDialogPanel(this, 0);
             RegisterPanel(_productionPanel);
+            RegisterBackButton($"{Localization.Get(session, "menu_item_potions")} {Emojis.menuItems[MenuItem.Potions]}",
+                () => new PotionsDialog(session).Start());
+            RegisterDoubleBackButton($"{Localization.Get(session, "menu_item_character")} {Emojis.characters[CharIcon.Male]}",
+                () => new TownCharacterDialog(session).Start());
         }
 
-        public override Task Start()
+        public override async Task Start()
         {
-            throw new NotImplementedException();
+            var text = $"<b>{Localization.Get(session, "dialog_potions_produce_button")}</b>";
+            await SendDialogMessage(text, GetMultilineKeyboardWithDoubleBack())
+                .ConfigureAwait(false);
+            await SendPanelsAsync().ConfigureAwait(false);
         }
     }
 }

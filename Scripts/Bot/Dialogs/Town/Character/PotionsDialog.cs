@@ -22,16 +22,17 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
                 () => TryOpenProductionDialog());
             //TODO: Кнопка "Ускорить всё"
 
-            RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_character")} {Emojis.characters[CharIcon.Male]}",
+            RegisterBackButton($"{Localization.Get(session, "menu_item_character")} {Emojis.characters[CharIcon.Male]}",
                 () => new TownCharacterDialog(session).Start());
-            RegisterTownButton(isFullBack: true);
+            RegisterTownButton(isDoubleBack: true);
         }
 
         public override async Task Start()
         {
             var header = $"<b>{Emojis.menuItems[MenuItem.Potions]} {Localization.Get(session, "menu_item_potions")}</b>";
-            await SendDialogMessage(header, GetMultilineKeyboardWithDoubleBack());
-            await SendPanelsAsync();
+            await SendDialogMessage(header, GetMultilineKeyboardWithDoubleBack())
+                .ConfigureAwait(false);
+            await SendPanelsAsync().ConfigureAwait(false);
         }
 
         private async Task TryOpenProductionDialog()
@@ -51,11 +52,13 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
                 }
 
                 RegisterBackButton(() => new PotionsDialog(session).Start());
-                await SendDialogMessage(sb, GetMultilineKeyboard());
+                await SendDialogMessage(sb, GetMultilineKeyboard())
+                    .ConfigureAwait(false);
                 return;
             }
 
-            await new PotionsProductionDialog(session).Start();
+            await new PotionsProductionDialog(session).Start()
+                .ConfigureAwait(false);
         }
 
     }

@@ -26,7 +26,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
             ClearButtons();
             RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_buildings")} {Emojis.menuItems[MenuItem.Buildings]}",
                 () => Start());
-            RegisterTownButton(isFullBack: true);
+            RegisterTownButton(isDoubleBack: true);
 
             var text = $"{Emojis.menuItems[MenuItem.Buildings]} " + "<b>" + Localization.Get(session, "menu_item_buildings") + "</b>";
             await SendDialogMessage(text, GetOneLineKeyboard())
@@ -78,7 +78,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
             RegisterCategoryButton(BuildingCategory.Production);
             RegisterCategoryButton(BuildingCategory.Training);
 
-            RegisterTownButton(isFullBack: false);
+            RegisterTownButton(isDoubleBack: false);
 
             var sb = new StringBuilder();
             sb.Append($"{Emojis.menuItems[MenuItem.Buildings]} " + "<b>" + Localization.Get(session, "menu_item_buildings") + "</b>");

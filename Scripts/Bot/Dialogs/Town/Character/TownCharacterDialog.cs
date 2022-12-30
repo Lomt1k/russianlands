@@ -21,7 +21,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
             RegisterButton($"{Emojis.menuItems[MenuItem.Skills]} " + Localization.Get(session, "menu_item_skills"), null);
             RegisterButton($"{Emojis.menuItems[MenuItem.Avatar]} " + Localization.Get(session, "menu_item_avatar"), null);
             RegisterButton($"{Emojis.menuItems[MenuItem.NameChange]} " + Localization.Get(session, "menu_item_namechange"), null);
-            RegisterTownButton(isFullBack: false);
+            RegisterTownButton(isDoubleBack: false);
         }
 
         public override async Task Start()

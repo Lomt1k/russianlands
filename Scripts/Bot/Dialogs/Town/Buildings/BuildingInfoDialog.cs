@@ -98,7 +98,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
             var category = building.buildingType.GetCategory();
             RegisterButton($"{Emojis.elements[Element.Back]} {category.GetLocalization(session)}",
                 () => new BuildingsDialog(session).ShowBuildingsCategory(category));
-            RegisterButton($"{Emojis.elements[Element.FullBack]} {Localization.Get(session, "menu_item_buildings")} {Emojis.menuItems[MenuItem.Buildings]}",
+            RegisterDoubleBackButton($"{Localization.Get(session, "menu_item_buildings")} {Emojis.menuItems[MenuItem.Buildings]}",
                 () => new BuildingsDialog(session).Start());
 
             TryAppendTooltip(sb);
@@ -210,7 +210,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
                 RegisterButton($"{Emojis.elements[Element.Back]} {category.GetLocalization(session)}",
                     () => new BuildingsDialog(session).ShowBuildingsCategory(category));
             }
-            RegisterButton($"{Emojis.elements[Element.FullBack]} {Localization.Get(session, "menu_item_buildings")} {Emojis.menuItems[MenuItem.Buildings]}",
+            RegisterDoubleBackButton($"{Localization.Get(session, "menu_item_buildings")} {Emojis.menuItems[MenuItem.Buildings]}",
                 () => new BuildingsDialog(session).Start());
 
             TryAppendTooltip(sb);

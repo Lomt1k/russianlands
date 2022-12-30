@@ -47,7 +47,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
                 () => ShowCategory(ItemType.Scroll));
 
             RegisterBackButton(() => new TownCharacterDialog(session).Start());
-            RegisterTownButton(isFullBack: true);
+            RegisterTownButton(isDoubleBack: true);
 
             var sb = new StringBuilder();
             sb.AppendLine($"{Emojis.menuItems[MenuItem.Inventory]} <b>{Localization.Get(session, "menu_item_inventory")}</b>");
@@ -74,7 +74,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
             ClearButtons();
             RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_inventory")} {Emojis.menuItems[MenuItem.Inventory]}",
                 () => ShowCategories(_inspectorPanel.compareData));
-            RegisterTownButton(isFullBack: true);
+            RegisterBackButton($"{Localization.Get(session, "menu_item_character")} {Emojis.characters[CharIcon.Male]}",
+                () => new TownCharacterDialog(session).Start());
 
             var sb = new StringBuilder();
             sb.AppendLine($"{Emojis.menuItems[MenuItem.Inventory]} <b>{Localization.Get(session, "menu_item_inventory")}</b>");

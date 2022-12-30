@@ -49,7 +49,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
             var categoryIcon = Emojis.items[_browsedCategory];
             RegisterButton($"{Emojis.elements[Element.Back]} {_browsedCategory.GetCategoryLocalization(session)} {categoryIcon}",
                 () => new InventoryDialog(session).ShowCategory(_browsedCategory, _browsedPage));
-            RegisterButton($"{Emojis.elements[Element.FullBack]} {Localization.Get(session, "menu_item_inventory")} {Emojis.menuItems[MenuItem.Inventory]}",
+            RegisterDoubleBackButton($"{Localization.Get(session, "menu_item_inventory")} {Emojis.menuItems[MenuItem.Inventory]}",
                 () => new InventoryDialog(session).Start());
 
             TryAppendTooltip(sb);
