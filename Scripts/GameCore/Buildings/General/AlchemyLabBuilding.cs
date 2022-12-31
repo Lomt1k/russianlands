@@ -165,6 +165,17 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.General
             return levelInfo.craftTime;
         }
 
+        public Dictionary<ResourceType, int> GetCraftCostForBuildingLevel(int level)
+        {
+            var result = new Dictionary<ResourceType, int>();
+            if (level < 1)
+                return result;
+
+            var levelInfo = (AlchemyLabLevelInfo)buildingData.levels[level - 1];
+            result.Add(ResourceType.Herbs, levelInfo.craftCostInHerbs);
+            return result;
+        }
+
 
     }
 }

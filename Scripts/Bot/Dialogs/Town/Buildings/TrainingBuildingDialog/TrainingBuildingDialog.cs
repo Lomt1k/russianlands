@@ -58,7 +58,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.TrainingBuildingDialog
             }
 
             RegisterBackButton(() => new BuildingInfoDialog(session, _building).Start());
-            await SendDialogMessage(sb, GetKeyboardWithRowSizes(2))
+            await SendDialogMessage(sb, GetKeyboardWithFixedRowSize(2))
                 .ConfigureAwait(false);
         }
 

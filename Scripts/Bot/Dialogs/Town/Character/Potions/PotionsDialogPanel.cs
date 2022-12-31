@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Text;
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Localizations;
+using TextGameRPG.Scripts.GameCore.Potions;
 
 namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
 {
@@ -12,7 +11,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
         {
             foreach (var item in session.player.potions)
             {
-                RegisterButton(item.GetData().GetName(session), null);
+                RegisterButton(item.GetNameForList(session), () => OpenPotionInfo(item));
             }
         }
 
@@ -31,5 +30,12 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
             await SendPanelMessage(sb, GetMultilineKeyboard())
                 .ConfigureAwait(false);
         }
+
+        private async Task OpenPotionInfo(PotionItem item)
+        {
+            await new PotionItemInfoDialog(session, item).Start()
+                .ConfigureAwait(false);
+        }
+
     }
 }

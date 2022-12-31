@@ -117,6 +117,7 @@ namespace TextGameRPG.Scripts.Bot
         LevelUp,
         Clock,
         Training,
+        Cancel,
     }
 
     public enum Smile
@@ -272,6 +273,7 @@ namespace TextGameRPG.Scripts.Bot
             { Element.LevelUp, "\u23eb" },
             { Element.Clock, "\ud83d\udd53" },
             { Element.Training, "\ud83c\udf93" },
+            { Element.Cancel, "\ud83d\udeab" },
         };
 
         public static readonly Dictionary<Smile, string> smiles = new Dictionary<Smile, string>

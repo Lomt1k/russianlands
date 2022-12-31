@@ -86,7 +86,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
             }
 
             ClearButtons();
-            RegisterButton(Localization.Get(session, "menu_item_ok_button"), () => new BuildingsDialog(session).Start());
+            RegisterButton(Localization.Get(session, "menu_item_continue_button"), () => new BuildingsDialog(session).Start());
 
             await SendDialogMessage(sb, GetMultilineKeyboard())
                 .ConfigureAwait(false);

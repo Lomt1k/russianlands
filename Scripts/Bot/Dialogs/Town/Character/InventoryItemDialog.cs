@@ -66,7 +66,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
                 var messageText = $"<b>{item.GetFullName(session)}</b>\n\n"
                     + string.Format(Localization.Get(session, "dialog_inventory_required_level"), requiredLevel) + $" {Emojis.smiles[Smile.Sad]}";
                 ClearButtons();
-                RegisterButton(Localization.Get(session, "menu_item_ok_button"), () => ShowItemInspector(item));
+                RegisterBackButton(() => ShowItemInspector(item));
                 await SendDialogMessage(messageText, GetOneLineKeyboard())
                     .ConfigureAwait(false);
                 return;

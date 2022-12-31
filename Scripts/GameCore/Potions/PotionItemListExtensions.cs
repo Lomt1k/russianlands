@@ -31,11 +31,34 @@ public static class PotionItemListExtensions
         return false;
     }
 
+    public static bool HasPotionsInProduction(this List<PotionItem> potions)
+    {
+        foreach (var item in potions)
+        {
+            if (!item.IsReady())
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static IEnumerable<PotionItem> GetReadyPotions(this List<PotionItem> potions)
     {
         foreach (var item in potions)
         {
             if (item.IsReady())
+            {
+                yield return item;
+            }
+        }
+    }
+
+    public static IEnumerable<PotionItem> GetPotionsInProduction(this List<PotionItem> potions)
+    {
+        foreach (var item in potions)
+        {
+            if (!item.IsReady())
             {
                 yield return item;
             }
@@ -53,6 +76,24 @@ public static class PotionItemListExtensions
             }
         }
         return count;
+    }
+
+    public static int GetPotionsInProductionCount(this List<PotionItem> potions)
+    {
+        int count = 0;
+        foreach (var item in potions)
+        {
+            if (!item.IsReady())
+            {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public static void SortByPreparationTime(this List<PotionItem> potions)
+    {
+        potions.Sort((x, y) => x.preparationTime.CompareTo(y.preparationTime));
     }
 
 }

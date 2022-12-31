@@ -29,6 +29,8 @@ namespace TextGameRPG.Scripts.GameCore.Resources
             { 604_800, 1_950 },
         };
 
+        private static int boostPotionCraftInDiamondsPerHour = 45;
+
         private static KeyValuePair<int, int> minPriceInDiamondsByResource;
         private static KeyValuePair<int, int> maxPriceInDiamondsByResource;
         private static KeyValuePair<int, int> minBoostConstructionInDiamondsBySeconds;
@@ -182,6 +184,13 @@ namespace TextGameRPG.Scripts.GameCore.Resources
             var progression = (float)(seconds - lowerKVP.Key) / secondsDelta;
 
             return (int)Math.Round(progression * priceDelta) + lowerKVP.Value;
+        }
+
+        public static int CalculatePotionCraftBoostPriceInDiamonds(int seconds)
+        {
+            var hours = (float)seconds / 3600;
+            var price = (int)Math.Round(hours * boostPotionCraftInDiamondsPerHour);
+            return Math.Max(price, 1);
         }
 
 
