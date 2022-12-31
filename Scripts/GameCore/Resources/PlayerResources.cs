@@ -22,7 +22,7 @@ namespace TextGameRPG.Scripts.GameCore.Resources
         public string GetGeneralResourcesView()
         {
             var sb = new StringBuilder();
-            sb.AppendLine(Localizations.Localization.Get(_session, "resource_header_resources"));
+            sb.AppendLine(Localizations.Localization.Get(_session, "resource_header_ours"));
             var generalResources = resourceDictionary.GetGeneralResourceTypes();
 
             var dictionary = new Dictionary<ResourceType,int>();

@@ -112,7 +112,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
 
             foreach (var button in buttons)
             {
-                if (currentRow.Count == 2)
+                if (currentRow.Count == rowSize)
                 {
                     rows.Add(currentRow);
                     currentRow = new List<KeyboardButton>();

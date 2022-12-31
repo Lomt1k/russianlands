@@ -9,6 +9,11 @@ public static class PotionItemListExtensions
         return session.profile.data.IsPremiumActive() ? 14 : 7;
     }
 
+    public static int GetFreeSlotsCount(this List<PotionItem> potions, GameSession session)
+    {
+        return potions.GetMaxCount(session) - potions.Count;
+    }
+
     public static bool IsFull(this List<PotionItem> potions, GameSession session)
     {
         return potions.Count >= potions.GetMaxCount(session);

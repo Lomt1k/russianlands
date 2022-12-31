@@ -1,11 +1,8 @@
 ﻿using System.Text;
 using System.Threading.Tasks;
-using TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings;
 using TextGameRPG.Scripts.Bot.Dialogs.Town.Shop;
 using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Buildings;
 using TextGameRPG.Scripts.GameCore.Localizations;
-using TextGameRPG.Scripts.GameCore.Potions;
 
 namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
 {
@@ -18,7 +15,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
             _potionsPanel = new PotionsDialogPanel(this, 0);
             RegisterPanel(_potionsPanel);
 
-            RegisterButton($"{Emojis.elements[Element.Plus]} " + Localization.Get(session, "dialog_potions_produce_button"),
+            var freeSlots = session.player.potions.GetFreeSlotsCount(session);
+            RegisterButton($"{Emojis.elements[Element.Plus]} {Localization.Get(session, "dialog_potions_produce_button")} ({freeSlots})",
                 () => TryOpenProductionDialog());
             //TODO: Кнопка "Ускорить всё"
 

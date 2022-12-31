@@ -15,10 +15,13 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
         {
             RegisterButton($"{Emojis.menuItems[MenuItem.Inventory]} " + Localization.Get(session, "menu_item_inventory"),
                 () => new InventoryDialog(session).Start());
-            var potionsIcon = IsPotionsDialogAvailable()
-                ? Emojis.menuItems[MenuItem.Potions]
-                : Emojis.elements[Element.Locked];
-            RegisterButton(potionsIcon + ' ' + Localization.Get(session, "menu_item_potions"), () => TryShowPotionsDialog());
+
+            var potionsText = Localization.Get(session, "menu_item_potions");
+            var potionsButton = IsPotionsDialogAvailable()
+                ? $"{Emojis.menuItems[MenuItem.Potions]} {potionsText} ({session.player.potions.Count})"
+                : $"{Emojis.elements[Element.Locked]} {potionsText}";
+            RegisterButton(potionsButton, () => TryShowPotionsDialog());
+
             RegisterButton($"{Emojis.menuItems[MenuItem.Skills]} " + Localization.Get(session, "menu_item_skills"), null);
             RegisterButton($"{Emojis.menuItems[MenuItem.Avatar]} " + Localization.Get(session, "menu_item_avatar"), null);
             RegisterButton($"{Emojis.menuItems[MenuItem.NameChange]} " + Localization.Get(session, "menu_item_namechange"), null);

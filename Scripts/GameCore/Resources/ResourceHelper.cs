@@ -94,7 +94,17 @@ namespace TextGameRPG.Scripts.GameCore.Resources
             return (int)Math.Round(progression * priceDelta) + lowerKVP.Value;
         }
 
-
+        public static string GetResourcesView(GameSession session, Dictionary<ResourceType, int> resources)
+        {
+            var sb = new StringBuilder();
+            foreach (var kvp in resources)
+            {
+                var resourceType = kvp.Key;
+                var resourceAmount = kvp.Value;
+                sb.AppendLine(resourceType.GetLocalizedView(session, resourceAmount));
+            }
+            return sb.ToString();
+        }
 
         public static string GetPriceView(GameSession session, Dictionary<ResourceType,int> resources)
         {

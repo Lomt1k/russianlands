@@ -10,6 +10,10 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
     {
         public PotionsDialogPanel(DialogBase _dialog, byte _panelId) : base(_dialog, _panelId)
         {
+            foreach (var item in session.player.potions)
+            {
+                RegisterButton(item.GetData().GetName(session), null);
+            }
         }
 
         public override async Task SendAsync()

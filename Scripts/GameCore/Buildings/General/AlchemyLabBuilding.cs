@@ -11,6 +11,7 @@ using TextGameRPG.Scripts.GameCore.Buildings.Data;
 using TextGameRPG.Scripts.GameCore.GameDataBase;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Potions;
+using TextGameRPG.Scripts.GameCore.Resources;
 
 namespace TextGameRPG.Scripts.GameCore.Buildings.General
 {
@@ -133,11 +134,35 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.General
 
             if (!IsUnderConstruction(data))
             {
-                result.Add($"{Emojis.menuItems[MenuItem.Potions]} {Localization.Get(session, "menu_item_potions")}",
+                result.Add($"{Emojis.menuItems[MenuItem.Potions]} {Localization.Get(session, "menu_item_potions")}" +
+                    $" ({session.player.potions.Count})",
                     () => new PotionsDialog(session).Start());
             }
 
             return result;
+        }
+
+        public Dictionary<ResourceType,int> GetCurrentCraftCost(ProfileBuildingsData data)
+        {
+            var result = new Dictionary<ResourceType,int>();
+
+            var level = GetCurrentLevel(data);
+            if (level < 1)
+                return result;
+
+            var levelInfo = (AlchemyLabLevelInfo)buildingData.levels[level - 1];
+            result.Add(ResourceType.Herbs, levelInfo.craftCostInHerbs);
+            return result;
+        }
+
+        public int GetCurrentCraftTimeInSeconds(ProfileBuildingsData data)
+        {
+            var level = GetCurrentLevel(data);
+            if (level < 1)
+                return 0;
+
+            var levelInfo = (AlchemyLabLevelInfo)buildingData.levels[level - 1];
+            return levelInfo.craftTime;
         }
 
 
