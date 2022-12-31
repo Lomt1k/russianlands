@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.Bot.Dialogs.Town.Shop;
 using TextGameRPG.Scripts.Bot.Sessions;

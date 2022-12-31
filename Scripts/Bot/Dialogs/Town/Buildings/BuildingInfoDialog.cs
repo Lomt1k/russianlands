@@ -298,6 +298,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
             if (!session.profile.data.IsPremiumActive())
             {
                 sb.AppendLine();
+                sb.AppendLine($"{Emojis.menuItems[MenuItem.Premium]} <b>{Localization.Get(session, "menu_item_premium")}</b>");
                 sb.AppendLine(string.Format(Localization.Get(session, "dialog_buildings_construction_limit_can_buy_premium"), maxConstructionsPremium));
                 RegisterButton($"{Emojis.menuItems[MenuItem.Shop]} {Localization.Get(session, "menu_item_shop")}", () => new ShopDialog(session).Start());
             }
