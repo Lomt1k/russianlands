@@ -268,7 +268,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
 
         private async Task SelectPotionItem(PotionItem potionItem)
         {
-            if (_isPotionAlreadySelected)
+            if (_isPotionAlreadySelected || !_battleTurn.isWaitingForActions)
                 return;
 
             _isPotionAlreadySelected = true;

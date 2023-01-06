@@ -4,6 +4,7 @@ using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Managers.Battles;
 using TextGameRPG.Scripts.GameCore.Units;
+using TextGameRPG.Scripts.GameCore.Units.Stats.StatEffects;
 
 namespace TextGameRPG.Scripts.GameCore.Potions
 {
@@ -37,7 +38,8 @@ namespace TextGameRPG.Scripts.GameCore.Potions
 
         public override void Apply(BattleTurn battleTurn, IBattleUnit unit)
         {
-            //TODO
+            var statEffect = new ExtraResistanceStatEffect(GetValues(unit.session), (byte)turnsCount);
+            unit.unitStats.statEffects.Add(statEffect);
         }
     }
 }
