@@ -176,6 +176,15 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.General
             return result;
         }
 
+        public int GetCurrentPotionsInBattle(ProfileBuildingsData data)
+        {
+            var level = GetCurrentLevel(data);
+            if (level < 1)
+                return 0;
+
+            var levelInfo = (AlchemyLabLevelInfo)buildingData.levels[level - 1];
+            return levelInfo.potionsInBattle;
+        }
 
     }
 }

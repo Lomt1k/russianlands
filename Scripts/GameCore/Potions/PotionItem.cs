@@ -52,6 +52,11 @@ namespace TextGameRPG.Scripts.GameCore.Potions
             return requiredDiamonds;
         }
 
+        public string GetName(GameSession session)
+        {
+            return GetData().GetName(session);
+        }
+
         public string GetNameForList(GameSession session)
         {
             if (IsReady())
@@ -69,7 +74,7 @@ namespace TextGameRPG.Scripts.GameCore.Potions
             var data = GetData();
             sb.AppendLine(data.GetName(session));
             sb.AppendLine();
-            sb.AppendLine(data.GetDescription(session));
+            sb.AppendLine(data.GetDescription(session, session));
 
             if (!IsReady())
             {

@@ -9,6 +9,10 @@ using TextGameRPG.Scripts.GameCore.Managers.Battles;
 using System.Text;
 using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
 using TextGameRPG.Scripts.GameCore.Units.Stats;
+using TextGameRPG.Scripts.GameCore.Inventory;
+using System.Linq;
+using TextGameRPG.Scripts.GameCore.Potions;
+using TextGameRPG.Scripts.GameCore.Units;
 
 namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
 {
@@ -17,6 +21,10 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
         private Action<InventoryItem?> _selectedAttackItemCallback;
         private BattleTurn _battleTurn;
         private bool _isActionAlreadySelected;
+        private bool _isPotionAlreadySelected;
+
+        public PlayerStats playerStats => (PlayerStats)session.player.unitStats;
+        public EquippedItems equipped => session.player.inventory.equipped;
 
         public SelectBattleItemDialog(GameSession _session, BattleTurn battleTurn, Action<InventoryItem?> callback) : base(_session)
         {
@@ -32,14 +40,17 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
             AppendMultiSlotItems(ref keyboardRows);
             var keyboard = new ReplyKeyboardMarkup(keyboardRows);
 
-            var playerStats = (PlayerStats)session.player.unitStats;
             var sb = new StringBuilder();
             sb.Append($"{Emojis.menuItems[MenuItem.Battle]} {Localization.Get(session, "battle_mine_turn_start")}");
-            if (session.player.inventory.equipped.HasItem(ItemType.Bow))
+            if (equipped.HasItem(ItemType.Bow) && playerStats.currentArrows > 0)
             {
                 sb.Append($" {Emojis.stats[Stat.Arrows]} {playerStats.currentArrows}");
             }
-            if (session.player.inventory.equipped.HasItem(ItemType.Scroll))
+            if (playerStats.availablePotions > 0)
+            {
+                sb.Append($" {Emojis.menuItems[MenuItem.Potions]} {playerStats.availablePotions}");
+            }
+            if (equipped.HasItem(ItemType.Scroll))
             {
                 sb.Append($" {Emojis.stats[Stat.Mana]} {playerStats.currentMana}");
             }
@@ -55,7 +66,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
             var equippedStick = session.player.inventory.equipped[ItemType.Stick];
             if (equippedStick != null)
             {
-                var currentCharge = session.player.unitStats.currentStickCharge;
+                var currentCharge = playerStats.currentStickCharge;
                 var requiredCharge = InventoryItem.requiredStickCharge;
                 if (currentCharge < requiredCharge)
                 {
@@ -90,9 +101,6 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
 
         public void AppendSingleSlotItems(ref List<List<KeyboardButton>> keyboardRows)
         {
-            var equipped = session.player.inventory.equipped;
-            var unitStats = session.player.unitStats;
-
             var swordItem = equipped[ItemType.Sword];
             var swordAttackText = swordItem != null ? swordItem.GetFullName(session) 
                 : $"{Emojis.stats[Stat.PhysicalDamage]} {Localization.Get(session, "battle_attack_fists")}";
@@ -100,7 +108,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
             keyboardRows.Add(new List<KeyboardButton> { swordAttackText });
 
             var bowItem = equipped[ItemType.Bow];
-            if (bowItem != null && unitStats.currentArrows > 0)
+            if (bowItem != null && playerStats.currentArrows > 0)
             {
                 var bowAttakText = bowItem.GetFullName(session);
                 RegisterButton(bowAttakText, () => OnCategorySelected(ItemType.Bow));
@@ -108,7 +116,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
             }
 
             var stickItem = equipped[ItemType.Stick];
-            if (stickItem != null && unitStats.currentStickCharge >= InventoryItem.requiredStickCharge)
+            if (stickItem != null && playerStats.currentStickCharge >= InventoryItem.requiredStickCharge)
             {
                 var stickAttackText = stickItem.GetFullName(session);
                 RegisterButton(stickAttackText, () => OnCategorySelected(ItemType.Stick));
@@ -118,15 +126,13 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
 
         public void AppendMultiSlotItems(ref List<List<KeyboardButton>> keyboardRows)
         {
-            var equipped = session.player.inventory.equipped;
             var multiRow = new List<KeyboardButton>();
-
-            //if (equipped.HasItem(ItemType.Poison))
-            //{
-            //    var poisonsButtonText = $"{Emojis.items[ItemType.Poison]} {Localization.Get(session, "menu_item_potions")}";
-            //    RegisterButton(poisonsButtonText, () => OnCategorySelected(ItemType.Poison));
-            //    multiRow.Add(poisonsButtonText);
-            //}
+            if (playerStats.availablePotions > 0)
+            {
+                var potionsButtonText = $"{Emojis.menuItems[MenuItem.Potions]} {Localization.Get(session, "menu_item_potions")}";
+                RegisterButton(potionsButtonText, () => ShowPotionsSelection());
+                multiRow.Add(potionsButtonText);
+            }
             if (equipped.HasItem(ItemType.Scroll))
             {
                 var scrollsButtonText = $"{Emojis.items[ItemType.Scroll]} {Localization.Get(session, "menu_item_scrolls")}";
@@ -146,13 +152,12 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
             if (_isActionAlreadySelected)
                 return;
 
-            var equippedItems = session.player.inventory.equipped;
             switch (category)
             {
                 case ItemType.Sword:
                 case ItemType.Bow:
                 case ItemType.Stick:
-                    var item = equippedItems[category];
+                    var item = equipped[category];
                     TryInvokeItemSelection(item);
                     break;
                 case ItemType.Scroll:
@@ -164,13 +169,10 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
 
         private async Task ShowScrollsCategory()
         {
-            var equipped = session.player.inventory.equipped;
-            var unitStats = session.player.unitStats;
-
             ClearButtons();
             var sb = new StringBuilder();
             sb.Append($"{Emojis.items[ItemType.Scroll]} <b>{Localization.Get(session, "menu_item_scrolls")}</b>");
-            sb.AppendLine($" {Emojis.stats[Stat.Mana]} {unitStats.currentMana}");
+            sb.AppendLine($" {Emojis.stats[Stat.Mana]} {playerStats.currentMana}");
             sb.AppendLine();
 
             foreach (var scrollItem in GetAllEquippedScrolls())
@@ -188,7 +190,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
                 }
                 sb.AppendLine();
 
-                if (unitStats.currentMana >= scrollItem.manaCost)
+                if (playerStats.currentMana >= scrollItem.manaCost)
                 {
                     RegisterButton(scrollItem.GetFullName(session), () => SelectScrollItem(scrollItem));
                 }
@@ -212,7 +214,6 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
 
         private IEnumerable<InventoryItem?> GetAllEquippedScrolls()
         {
-            var equipped = session.player.inventory.equipped;
             for (int i = 0; i < ItemType.Scroll.GetSlotsCount(); i++)
             {
                 yield return equipped[ItemType.Scroll, i];
@@ -235,6 +236,85 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
 
             _selectedAttackItemCallback(item);
             _isActionAlreadySelected = true;
+        }
+
+        private async Task ShowPotionsSelection()
+        {
+            if (_isPotionAlreadySelected)
+            {
+                await TelegramBot.instance.messageSender.SendTextMessage(session.chatId, Localization.Get(session, "battle_potion_already_used"))
+                    .ConfigureAwait(false);
+                return;
+            }
+
+            var sb = new StringBuilder();
+            sb.AppendLine($"{Emojis.menuItems[MenuItem.Potions]} <b>{Localization.Get(session, "menu_item_potions")}</b>");
+            sb.AppendLine();
+            sb.AppendLine(Localization.Get(session, "battle_potion_selection"));
+
+            ClearButtons();
+            RegisterBackButton(() => Start());
+
+            var startBattleTime = _battleTurn.battle.startTime.Ticks;
+            var potions = session.player.potions.Where(x => x.preparationTime < startBattleTime);
+            foreach (var potionItem in potions)
+            {
+                RegisterButton(potionItem.GetName(session), () => SelectPotionItem(potionItem));
+            }
+
+            await SendDialogMessage(sb, GetMultilineKeyboard())
+                .ConfigureAwait(false);
+        }
+
+        private async Task SelectPotionItem(PotionItem potionItem)
+        {
+            if (_isPotionAlreadySelected)
+                return;
+
+            _isPotionAlreadySelected = true;
+            playerStats.availablePotions--;
+            session.player.potions.Remove(potionItem);
+
+            var potionData = potionItem.GetData();
+            potionData.Apply(_battleTurn, session.player);
+
+            SendPotionMessageForEnemy(potionData);
+            await SendPotionMessage(potionData)
+                .ConfigureAwait(false);
+            await Start()
+                .ConfigureAwait(false);
+        }
+
+        private async Task SendPotionMessage(PotionData potionData)
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine(Localization.Get(session, "battle_potion_mine_usage"));
+            sb.AppendLine($"<b>{potionData.GetName(session)}</b>");
+            sb.AppendLine();
+            sb.AppendLine(potionData.GetDescription(session, session));
+
+            var messageSender = TelegramBot.instance.messageSender;
+            await messageSender.SendTextMessage(session.chatId, sb.ToString())
+                .ConfigureAwait(false);
+        }
+
+        private async void SendPotionMessageForEnemy(PotionData potionData)
+        {
+            var enemy = _battleTurn.enemy;
+            var isPlayer = enemy is Player;
+            if (!isPlayer)
+                return;
+
+            var enemySession = enemy.session;
+            var sb = new StringBuilder();
+            sb.AppendLine(string.Format(Localization.Get(enemySession, "battle_potion_enemy_usage"), session.player.nickname));
+            sb.AppendLine($"<b>{potionData.GetName(enemySession)}</b>");
+            sb.AppendLine();
+            sb.AppendLine(potionData.GetDescription(session, enemySession));
+
+            var messageSender = TelegramBot.instance.messageSender;
+            await messageSender.SendTextMessage(enemySession.chatId, sb.ToString())
+                .ConfigureAwait(false);
         }
 
     }

@@ -4,6 +4,8 @@ using TextGameRPG.Scripts.Bot;
 using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.GameDataBase;
 using TextGameRPG.Scripts.GameCore.Localizations;
+using TextGameRPG.Scripts.GameCore.Managers.Battles;
+using TextGameRPG.Scripts.GameCore.Units;
 
 namespace TextGameRPG.Scripts.GameCore.Potions
 {
@@ -46,7 +48,8 @@ namespace TextGameRPG.Scripts.GameCore.Potions
                 + $" {string.Format(Localization.Get(session, "level_suffix"), potionLevel)}";
         }
 
-        public abstract string GetDescription(GameSession session);
+        public abstract string GetDescription(GameSession sessionForValues, GameSession sessionForView);
+        public abstract void Apply(BattleTurn battleTurn, IBattleUnit unit);
 
     }
 }

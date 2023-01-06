@@ -2,6 +2,8 @@
 using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.GameCore.Localizations;
+using TextGameRPG.Scripts.GameCore.Managers.Battles;
+using TextGameRPG.Scripts.GameCore.Units;
 
 namespace TextGameRPG.Scripts.GameCore.Potions
 {
@@ -22,15 +24,19 @@ namespace TextGameRPG.Scripts.GameCore.Potions
             return new DamageInfo(physicalDamage, fireDamage, coldDamage, lightningDamage);
         }
 
-        public override string GetDescription(GameSession session)
+        public override string GetDescription(GameSession sessionForValues, GameSession sessionForView)
         {
             var sb = new StringBuilder();
-            sb.AppendLine(Localization.Get(session, "potion_add_damage_description"));
+            sb.AppendLine(Localization.Get(sessionForView, "potion_add_damage_description"));
             sb.AppendLine();
-            sb.AppendLine(Localization.Get(session, "potion_description_damage_header"));
-            sb.Append(GetValues(session).GetCompactView());
+            sb.AppendLine(Localization.Get(sessionForView, "potion_description_damage_header"));
+            sb.Append(GetValues(sessionForValues).GetCompactView());
             return sb.ToString();
         }
 
+        public override void Apply(BattleTurn battleTurn, IBattleUnit unit)
+        {
+            //TODO
+        }
     }
 }

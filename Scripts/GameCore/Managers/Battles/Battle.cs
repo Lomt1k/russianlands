@@ -13,7 +13,7 @@ using TextGameRPG.Scripts.Bot;
 
 namespace TextGameRPG.Scripts.GameCore.Managers.Battles
 {
-    public enum BattleType { PVP, PVE }
+    public enum BattleType { PVE, PVP }
 
     public class Battle
     {
@@ -29,6 +29,7 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles
         public IBattleUnit secondUnit { get; private set; }
         public BattleTurn? currentTurn { get; private set; }
         public bool isPVE { get; private set; }
+        public DateTime startTime { get; private set; }
 
         public Battle(Player opponentA, IBattleUnit opponentB,
             List<RewardBase>? rewards = null,
@@ -37,6 +38,7 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles
             Func<Player, BattleResult, bool>? isAvailableReturnToTownFunc = null)
         {
             isPVE = opponentB is Mob;
+            startTime = DateTime.UtcNow;
             firstUnit = SelectFirstUnit(opponentA, opponentB);
             secondUnit = firstUnit == opponentA ? opponentB : opponentA;
 

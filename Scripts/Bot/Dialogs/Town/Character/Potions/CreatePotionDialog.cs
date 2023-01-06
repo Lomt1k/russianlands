@@ -36,7 +36,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
             sb.AppendLine("<b>" + _data.GetName(session) + "</b>");
 
             sb.AppendLine();
-            sb.AppendLine(_data.GetDescription(session));
+            sb.AppendLine(_data.GetDescription(session, session));
 
             sb.AppendLine();            
             var requiredResources = GetCraftCost();
