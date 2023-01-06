@@ -25,15 +25,12 @@ namespace TextGameRPG.Scripts.Bot
         [OnDeserialized]
         private void OnDeserialized(StreamingContext context)
         {
-            if (System.Enum.TryParse(typeof(LanguageCode), defaultLanguage.ToUpper(), out var parsedValue))
-            {
-                defaultLanguageCode = (LanguageCode)parsedValue;
-            }
-            else
+            if (!System.Enum.TryParse(defaultLanguage.ToUpper(), out defaultLanguageCode))
             {
                 defaultLanguageCode = LanguageCode.EN;
                 Program.logger.Error($"Incorrect language code in config field 'defaultLanguage'. Setuped {defaultLanguageCode} by default");
             }
         }
+
     }
 }
