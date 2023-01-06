@@ -8,7 +8,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Shop
     {
         public ShopDialog(GameSession _session) : base(_session)
         {
-            RegisterTownButton(isFullBack: false);
+            RegisterTownButton(isDoubleBack: false);
         }
 
         public override async Task Start()

@@ -18,7 +18,10 @@ namespace TextGameRPG.Scripts.Bot
         Quests,
         Mail,
         Shop,
+        Potions,
+        Skills,
         Avatar,
+        NameChange,
         Inventory,
         Battle,
         Premium,
@@ -105,7 +108,7 @@ namespace TextGameRPG.Scripts.Bot
         QuestionRed,
         QuestionGrey,
         Back,
-        FullBack,
+        DoubleBack,
         Info,
         Locked,
         Hourgrlass,
@@ -114,6 +117,7 @@ namespace TextGameRPG.Scripts.Bot
         LevelUp,
         Clock,
         Training,
+        Cancel,
     }
 
     public enum Smile
@@ -141,7 +145,10 @@ namespace TextGameRPG.Scripts.Bot
             { MenuItem.Quests, "\ud83d\udccc" },
             { MenuItem.Mail, "\ud83d\udceb" },
             { MenuItem.Shop, "\ud83d\uded2" },
+            { MenuItem.Potions, "\ud83e\uddea" },
+            { MenuItem.Skills, "\ud83d\udcaa" },
             { MenuItem.Avatar, "\ud83d\udc40" },
+            { MenuItem.NameChange, "\ud83c\udff7" },
             { MenuItem.Inventory, "\ud83c\udf92" },
             { MenuItem.Battle, "\u2694\ufe0f" },
             { MenuItem.Premium, "\ud83d\udc51" },
@@ -182,7 +189,6 @@ namespace TextGameRPG.Scripts.Bot
             { ItemType.Shield, "\ud83d\udee1" },
             { ItemType.Amulet, "\ud83d\udcff" },
             { ItemType.Ring, "\ud83d\udc8d" },
-            { ItemType.Poison, "\ud83e\uddea" },            
             { ItemType.Scroll, "\ud83d\udcdc" },
             { ItemType.Any, ""},
             { ItemType.Equipped, "\ud83d\udc4b" },
@@ -258,7 +264,7 @@ namespace TextGameRPG.Scripts.Bot
             { Element.QuestionRed, "\u2753" },
             { Element.QuestionGrey, "\u2754" },
             { Element.Back, "\u25c0\ufe0f" },
-            { Element.FullBack, "\u23ea" },
+            { Element.DoubleBack, "\u23ea" },
             { Element.Info, "\u2139\ufe0f" },
             { Element.Locked, "\ud83d\udd12" },
             { Element.Hourgrlass, "\u23f3" },
@@ -267,6 +273,7 @@ namespace TextGameRPG.Scripts.Bot
             { Element.LevelUp, "\u23eb" },
             { Element.Clock, "\ud83d\udd53" },
             { Element.Training, "\ud83c\udf93" },
+            { Element.Cancel, "\ud83d\udeab" },
         };
 
         public static readonly Dictionary<Smile, string> smiles = new Dictionary<Smile, string>

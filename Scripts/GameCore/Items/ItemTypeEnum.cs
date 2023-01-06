@@ -20,7 +20,6 @@ namespace TextGameRPG.Scripts.GameCore.Items
         Amulet = 7,
         Ring = 8,
         Scroll = 9,
-        Poison = 10,
     }
 
     static class ItemTypeExtensions
@@ -28,7 +27,6 @@ namespace TextGameRPG.Scripts.GameCore.Items
         public static bool IsMultiSlot(this ItemType itemType)
         {
             return itemType == ItemType.Ring
-                || itemType == ItemType.Poison
                 || itemType == ItemType.Scroll;
         }
 
@@ -40,7 +38,6 @@ namespace TextGameRPG.Scripts.GameCore.Items
                     return 0;
                 case ItemType.Ring:
                     return 2;
-                case ItemType.Poison:
                 case ItemType.Scroll:
                     return 3;
 

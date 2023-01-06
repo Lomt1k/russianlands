@@ -27,7 +27,7 @@ namespace TextGameRPG.Scripts.Bot.Sessions
         public User actualUser { get; private set; }
         public Profile profile { get; private set; }
         public Player player { get; private set; }
-        public LanguageCode language { get; private set; } = LanguageCode.en;
+        public LanguageCode language { get; private set; } = TelegramBot.instance.config.defaultLanguageCode;
         public DialogBase? currentDialog { get; private set; }
         public TooltipController tooltipController { get; } = new TooltipController();
         public bool isAdmin => profile.data.adminStatus > 0;

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using TextGameRPG.Scripts.GameCore.Buildings.General;
 using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
 using TextGameRPG.Scripts.Bot.Sessions;
 
@@ -29,18 +28,13 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             return false;
         }
 
-        public int GetHealthRestorePerSecond()
-        {
-            var hospital = (HospitalBuilding)BuildingType.Hospital.GetBuilding();
-            return hospital.GetHealthRestorePerMinute(_buildingsData);
-        }
-
         // TODO: когда будут готовы все здания - заменить на пробег по enum BuildingType 
         public IEnumerable<BuildingBase> GetAllBuildings()
         {
             yield return BuildingType.TownHall.GetBuilding();
             yield return BuildingType.Tyr.GetBuilding();
             yield return BuildingType.Hospital.GetBuilding();
+            yield return BuildingType.AlchemyLab.GetBuilding();
 
             yield return BuildingType.GoldStorage.GetBuilding();
             yield return BuildingType.FoodStorage.GetBuilding();
@@ -74,6 +68,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
                     yield return BuildingType.TownHall.GetBuilding();
                     yield return BuildingType.Tyr.GetBuilding();
                     yield return BuildingType.Hospital.GetBuilding();
+                    yield return BuildingType.AlchemyLab.GetBuilding();
                     break;
 
                 case BuildingCategory.Storages:

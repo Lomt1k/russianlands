@@ -15,10 +15,12 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
         public byte townHallLevel = 1;
         public long townHallStartConstructionTime;
         public byte tyrLevel = 1;
-        public long tyrConstructionTime;
+        public long tyrStartConstructionTime;
         public byte hospitalLevel = 1;
         public long hospitalStartConstructionTime;
         public long hospitalLastHealthRestoreTime;
+        public byte potionWorkshopLevel;
+        public long potionWorkshopStartConstructionTime;
 
         // --- Хранилища
         public byte goldStorageLevel = 1;
@@ -147,10 +149,12 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
                 new TableColumn("townHallLevel", "INTEGER", "1"),
                 new TableColumn("townHallStartConstructionTime", "INTEGER", "0"),
                 new TableColumn("tyrLevel", "INTEGER", "1"),
-                new TableColumn("tyrConstructionTime", "INTEGER", "0"),
+                new TableColumn("tyrStartConstructionTime", "INTEGER", "0"),
                 new TableColumn("hospitalLevel", "INTEGER", "1"),
                 new TableColumn("hospitalStartConstructionTime", "INTEGER", "0"),
                 new TableColumn("hospitalLastHealthRestoreTime", "INTEGER", "0"),
+                new TableColumn("potionWorkshopLevel", "INTEGER", "0"),
+                new TableColumn("potionWorkshopStartConstructionTime", "INTEGER", "0"),
 
                 // --- Хранилища
                 new TableColumn("goldStorageLevel", "INTEGER", "1"),

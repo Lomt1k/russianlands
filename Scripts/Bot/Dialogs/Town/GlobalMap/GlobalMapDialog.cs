@@ -15,7 +15,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
 
             RegisterButton($"{Emojis.locations[MapLocation.Arena]} " + Localization.Get(session, "menu_item_arena"),
                 () => messageSender.SendTextMessage(session.chatId, "Арена недоступна в текущей версии игры")); // заглушка
-            RegisterTownButton(isFullBack: false);
+            RegisterTownButton(isDoubleBack: false);
         }
 
         public override async Task Start()

@@ -18,14 +18,14 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
             }
             if (withTownButton)
             {
-                RegisterTownButton(isFullBack: false);
+                RegisterTownButton(isDoubleBack: false);
             }
         }
 
         public SimpleDialog(GameSession _session, string text) : base(_session)
         {
             _text = text;
-            RegisterTownButton(isFullBack: false);
+            RegisterTownButton(isDoubleBack: false);
         }
 
         public override async Task Start()

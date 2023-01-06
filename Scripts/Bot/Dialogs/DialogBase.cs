@@ -32,22 +32,32 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
             session.SetupActiveDialog(this);
         }
 
+        protected void RegisterButton(string text, Func<Task>? callback)
+        {
+            registeredButtons.Add(text, callback);
+        }
+
         protected void RegisterBackButton(Func<Task> callback)
         {
             RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_back_button")}", callback);
         }
 
-        protected void RegisterTownButton(bool isFullBack)
+        protected void RegisterBackButton(string text, Func<Task> callback)
         {
-            var element = isFullBack ? Element.FullBack : Element.Back;
-            RegisterButton($"{Emojis.elements[element]} {Localization.Get(session, "menu_item_town")} {Emojis.menuItems[MenuItem.Town]}", 
-                () => new Town.TownDialog(session, Town.TownEntryReason.BackFromInnerDialog).Start());
+            RegisterButton($"{Emojis.elements[Element.Back]} {text}", callback);
         }
 
-        protected void RegisterButton(string text, Func<Task>? callback)
+        protected void RegisterDoubleBackButton(string text, Func<Task> callback)
         {
-            registeredButtons.Add(text, callback);
+            RegisterButton($"{Emojis.elements[Element.DoubleBack]} {text}", callback);
         }
+
+        protected void RegisterTownButton(bool isDoubleBack)
+        {
+            var element = isDoubleBack ? Element.DoubleBack : Element.Back;
+            RegisterButton($"{Emojis.elements[element]} {Localization.Get(session, "menu_item_town")} {Emojis.menuItems[MenuItem.Town]}", 
+                () => new Town.TownDialog(session, Town.TownEntryReason.BackFromInnerDialog).Start());
+        }        
 
         protected void ClearButtons()
         {
@@ -102,7 +112,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
 
             foreach (var button in buttons)
             {
-                if (currentRow.Count == 2)
+                if (currentRow.Count == rowSize)
                 {
                     rows.Add(currentRow);
                     currentRow = new List<KeyboardButton>();

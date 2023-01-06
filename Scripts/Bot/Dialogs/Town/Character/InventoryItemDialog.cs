@@ -49,7 +49,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
             var categoryIcon = Emojis.items[_browsedCategory];
             RegisterButton($"{Emojis.elements[Element.Back]} {_browsedCategory.GetCategoryLocalization(session)} {categoryIcon}",
                 () => new InventoryDialog(session).ShowCategory(_browsedCategory, _browsedPage));
-            RegisterButton($"{Emojis.elements[Element.FullBack]} {Localization.Get(session, "menu_item_inventory")} {Emojis.menuItems[MenuItem.Inventory]}",
+            RegisterDoubleBackButton($"{Localization.Get(session, "menu_item_inventory")} {Emojis.menuItems[MenuItem.Inventory]}",
                 () => new InventoryDialog(session).Start());
 
             TryAppendTooltip(sb);
@@ -66,7 +66,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
                 var messageText = $"<b>{item.GetFullName(session)}</b>\n\n"
                     + string.Format(Localization.Get(session, "dialog_inventory_required_level"), requiredLevel) + $" {Emojis.smiles[Smile.Sad]}";
                 ClearButtons();
-                RegisterButton(Localization.Get(session, "menu_item_ok_button"), () => ShowItemInspector(item));
+                RegisterBackButton(() => ShowItemInspector(item));
                 await SendDialogMessage(messageText, GetOneLineKeyboard())
                     .ConfigureAwait(false);
                 return;

@@ -4,6 +4,8 @@ using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.Bot;
 using TextGameRPG.Scripts.Bot.Sessions;
+using System.Collections.Generic;
+using TextGameRPG.Scripts.GameCore.Units.Stats.StatEffects;
 
 namespace TextGameRPG.Scripts.GameCore.Units.Stats
 {
@@ -39,6 +41,26 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
         public DamageInfo resistance { get; protected set; }
         public bool isFullHealth => currentHP >= maxHP;
         public bool isSkipNextTurnRequired = false;
+        public List<StatEffectBase> statEffects = new List<StatEffectBase>();
+
+        /// <summary>
+        /// resistance with temporary stat effects
+        /// </summary>
+        public DamageInfo totalResistance
+        {
+            get
+            {
+                var result = resistance;
+                foreach (var statEffect in statEffects)
+                {
+                    if (statEffect is ExtraResistanceStatEffect extraResistance)
+                    {
+                        result += extraResistance.resistance;
+                    }
+                }
+                return result;
+            }
+        }
 
         public void RecalculateCurrentHP()
         {
@@ -61,6 +83,7 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
             currentMana = 0;
             currentStickCharge = 0;
             isSkipNextTurnRequired = false;
+            statEffects.Clear();
         }
 
         public virtual void OnBattleEnd()
@@ -70,6 +93,7 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
             {
                 damagedHP = maxHP - 1;
             }
+            statEffects.Clear();
         }
 
         public virtual void OnStartMineTurn()
@@ -103,16 +127,17 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
 
         public void PredictDealDamageResult(DamageInfo damage, out DamageInfo resultDamage, out int resultHealth)
         {
-            resultDamage = (damage - resistance).EscapeNegative();
+            resultDamage = (damage - totalResistance).EscapeNegative();
             resultHealth = _currentHP - resultDamage.GetTotalValue();
         }
 
         public DamageInfo TryDealDamage(DamageInfo damage)
         {
-            var resultDamage = (damage - resistance).EscapeNegative();
+            var resultDamage = (damage - totalResistance).EscapeNegative();
             var damageValue = resultDamage.GetTotalValue();
             _currentHP -= damageValue;
             _damagedHP += damageValue;
+            statEffects.OnResistanceStatEffectsUsed();
             return resultDamage;
         }
 
@@ -134,19 +159,19 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
         {
             sb.AppendLine(Localization.Get(session, "unit_view_total_resistance"));
 
-            if (resistance.HasBigValues())
+            if (totalResistance.HasBigValues())
             {
-                sb.Append($"{Emojis.stats[Stat.PhysicalDamage]} " + resistance[DamageType.Physical]);
-                sb.AppendLine(Emojis.bigSpace + $"{Emojis.stats[Stat.FireDamage]} " + resistance[DamageType.Fire]);
-                sb.Append($"{Emojis.stats[Stat.ColdDamage]} " + resistance[DamageType.Cold]);
-                sb.AppendLine(Emojis.bigSpace + $"{Emojis.stats[Stat.LightningDamage]} " + resistance[DamageType.Lightning]);
+                sb.Append($"{Emojis.stats[Stat.PhysicalDamage]} " + totalResistance[DamageType.Physical]);
+                sb.AppendLine(Emojis.bigSpace + $"{Emojis.stats[Stat.FireDamage]} " + totalResistance[DamageType.Fire]);
+                sb.Append($"{Emojis.stats[Stat.ColdDamage]} " + totalResistance[DamageType.Cold]);
+                sb.AppendLine(Emojis.bigSpace + $"{Emojis.stats[Stat.LightningDamage]} " + totalResistance[DamageType.Lightning]);
             }
             else
             {
-                sb.Append($"{Emojis.stats[Stat.PhysicalDamage]} " + resistance[DamageType.Physical]);
-                sb.Append(Emojis.middleSpace + $"{Emojis.stats[Stat.FireDamage]} " + resistance[DamageType.Fire]);
-                sb.Append(Emojis.middleSpace + $"{Emojis.stats[Stat.ColdDamage]} " + resistance[DamageType.Cold]);
-                sb.Append(Emojis.middleSpace + $"{Emojis.stats[Stat.LightningDamage]} " + resistance[DamageType.Lightning]);
+                sb.Append($"{Emojis.stats[Stat.PhysicalDamage]} " + totalResistance[DamageType.Physical]);
+                sb.Append(Emojis.middleSpace + $"{Emojis.stats[Stat.FireDamage]} " + totalResistance[DamageType.Fire]);
+                sb.Append(Emojis.middleSpace + $"{Emojis.stats[Stat.ColdDamage]} " + totalResistance[DamageType.Cold]);
+                sb.Append(Emojis.middleSpace + $"{Emojis.stats[Stat.LightningDamage]} " + totalResistance[DamageType.Lightning]);
             }
         }
 

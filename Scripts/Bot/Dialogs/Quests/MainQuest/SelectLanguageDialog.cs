@@ -14,7 +14,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Quests.MainQuest
 
         public override async Task Start()
         {
-            await SetupLanguage(LanguageCode.ru);
+            await SetupLanguage(LanguageCode.RU);
             return; //заглушка: пока что тупо ставим русский язык
 
             string text = "Please select your language:\n" +
@@ -30,13 +30,13 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Quests.MainQuest
 
         private async Task OnSelectRussian()
         {
-            await SetupLanguage(LanguageCode.ru)
+            await SetupLanguage(LanguageCode.RU)
                 .ConfigureAwait(false);
         }
 
         private async Task OnSelectEnglish()
         {
-            await SetupLanguage(LanguageCode.en)
+            await SetupLanguage(LanguageCode.EN)
                 .ConfigureAwait(false);
         }
 

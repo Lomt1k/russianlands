@@ -12,11 +12,12 @@ namespace TextGameRPG.Scripts.Bot
     using Telegram.Bot.Types.ReplyMarkups;
     using TextGameRPG.Scripts.GameCore.Managers;
     using TextGameRPG.Scripts.Bot.Sessions;
+    using TextGameRPG.Scripts.GameCore.Localizations;
 
     public class TelegramBotUpdateHandler : IUpdateHandler
     {
-        private readonly string serverIsBusyText = $"{Emojis.elements[Element.Warning]} Server is busy. Please try later...";
-        private readonly ReplyKeyboardMarkup serverIsBusyKeyboard = new ReplyKeyboardMarkup("Restart");
+        private readonly string serverIsBusyText = $"{Emojis.elements[Element.Warning]} {Localization.GetDefault("server_is_busy_message")}";
+        private readonly ReplyKeyboardMarkup serverIsBusyKeyboard = new ReplyKeyboardMarkup(Localization.GetDefault("server_is_busy_restart_button"));
 
         private SessionManager _sessionManager;
         private PerformanceManager _performanceManager;

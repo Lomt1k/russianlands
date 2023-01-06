@@ -86,7 +86,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
         {
             var currentLevel = GetCurrentLevel(data);
             return Localization.Get(session, "building_name_" + buildingType.ToString())
-                + (currentLevel > 0 ? string.Format(Localization.Get(session, "building_level_suffix"), currentLevel) : string.Empty );
+                + (currentLevel > 0 ? string.Format(Localization.Get(session, "level_suffix"), currentLevel) : string.Empty );
         }
 
         public string GetNextLevelLocalizedName(GameSession session, ProfileBuildingsData data)
@@ -96,7 +96,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
 
             var nextLevel = GetCurrentLevel(data) + 1;
             return Localization.Get(session, "building_name_" + buildingType.ToString())
-                + (nextLevel > 0 ? string.Format(Localization.Get(session, "building_level_suffix"), nextLevel) : string.Empty);
+                + (nextLevel > 0 ? string.Format(Localization.Get(session, "level_suffix"), nextLevel) : string.Empty);
         }
 
 

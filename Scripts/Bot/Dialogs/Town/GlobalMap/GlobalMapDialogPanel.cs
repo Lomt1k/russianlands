@@ -62,7 +62,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
             sb.AppendLine(string.Format(Localization.Get(session, "dialog_map_location_locked"), previousLocation));
 
             ClearButtons();
-            RegisterButton(Localization.Get(session, "menu_item_ok_button"), () => ShowGeneralMap());
+            RegisterBackButton(() => ShowGeneralMap());
             await SendPanelMessage(sb, GetOneLineKeyboard())
                 .ConfigureAwait(false);
         }

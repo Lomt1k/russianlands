@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using TextGameRPG.Scripts.Bot;
 using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.ViewModels;
 
@@ -27,16 +28,27 @@ namespace TextGameRPG.Scripts.GameCore.Localizations
             {
                 var code = (LanguageCode)element;
                 loaderVM.AddInfoToCurrentState(code.ToString());
-                var filePath = Path.Combine(localizationFolder, $"localization_{code}.json");
+                var filePath = Path.Combine(localizationFolder, $"localization_{code.ToString().ToLower()}.json");
                 data[code] = LoadLocalization(filePath);
             }
             // Убрал AlertMissingKeys так как пока разрабатываем только для русского языка и не следим за другими локализациями
             //AlertMissingKeys(loaderVM);
         }
 
+        public static string GetDefault(string key, params object[] args)
+        {
+            var defaultLanguage = TelegramBot.instance?.config.defaultLanguageCode ?? LanguageCode.EN;
+            return Get(defaultLanguage, key, args);
+        }
+
         public static string Get(GameSession session, string key, params object[] args)
         {
-            if (data.TryGetValue(session.language, out var localization))
+            return Get(session.language, key, args);
+        }
+
+        public static string Get(LanguageCode languageCode, string key, params object[] args)
+        {
+            if (data.TryGetValue(languageCode, out var localization))
             {
                 if (localization.TryGetValue(key, out var value) && !string.IsNullOrWhiteSpace(value))
                 {

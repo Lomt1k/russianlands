@@ -42,7 +42,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
             }
             RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_map")} {Emojis.menuItems[MenuItem.Map]}",
                 () => new GlobalMapDialog(session).Start());
-            RegisterTownButton(isFullBack: true);
+            RegisterTownButton(isDoubleBack: true);
 
             TryAppendTooltip(sb);
             await SendDialogMessage(sb, GetMultilineKeyboardWithDoubleBack())

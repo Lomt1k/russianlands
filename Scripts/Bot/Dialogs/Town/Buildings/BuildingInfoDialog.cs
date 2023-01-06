@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Telegram.Bot.Types.ReplyMarkups;
 using TextGameRPG.Scripts.GameCore.Buildings;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Resources;
@@ -98,7 +97,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
             var category = building.buildingType.GetCategory();
             RegisterButton($"{Emojis.elements[Element.Back]} {category.GetLocalization(session)}",
                 () => new BuildingsDialog(session).ShowBuildingsCategory(category));
-            RegisterButton($"{Emojis.elements[Element.FullBack]} {Localization.Get(session, "menu_item_buildings")} {Emojis.menuItems[MenuItem.Buildings]}",
+            RegisterDoubleBackButton($"{Localization.Get(session, "menu_item_buildings")} {Emojis.menuItems[MenuItem.Buildings]}",
                 () => new BuildingsDialog(session).Start());
 
             TryAppendTooltip(sb);
@@ -189,6 +188,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
             }
             else
             {
+                AppendOurResources(sb, requiredResources);
                 AppendSpecialConstructionWarnings(sb);
             }
 
@@ -210,12 +210,28 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
                 RegisterButton($"{Emojis.elements[Element.Back]} {category.GetLocalization(session)}",
                     () => new BuildingsDialog(session).ShowBuildingsCategory(category));
             }
-            RegisterButton($"{Emojis.elements[Element.FullBack]} {Localization.Get(session, "menu_item_buildings")} {Emojis.menuItems[MenuItem.Buildings]}",
+            RegisterDoubleBackButton($"{Localization.Get(session, "menu_item_buildings")} {Emojis.menuItems[MenuItem.Buildings]}",
                 () => new BuildingsDialog(session).Start());
 
             TryAppendTooltip(sb);
             await SendDialogMessage(sb, GetMultilineKeyboardWithDoubleBack())
                 .ConfigureAwait(false);
+        }
+
+        private void AppendOurResources(StringBuilder sb, Dictionary<ResourceType,int> requiredResources)
+        {
+            sb.AppendLine();
+            sb.AppendLine(Localization.Get(session, "resource_header_ours"));
+            var ourResources = new Dictionary<ResourceType, int>();
+            foreach (var kvp in requiredResources)
+            {
+                if (kvp.Value > 0)
+                {
+                    var resourceType = kvp.Key;
+                    ourResources.Add(resourceType, session.player.resources.GetValue(resourceType));
+                }
+            }
+            sb.Append(ResourceHelper.GetResourcesView(session, ourResources));
         }
 
         private void AppendSpecialConstructionWarnings(StringBuilder sb)
@@ -298,6 +314,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
             if (!session.profile.data.IsPremiumActive())
             {
                 sb.AppendLine();
+                sb.AppendLine($"{Emojis.menuItems[MenuItem.Premium]} <b>{Localization.Get(session, "menu_item_premium")}</b>");
                 sb.AppendLine(string.Format(Localization.Get(session, "dialog_buildings_construction_limit_can_buy_premium"), maxConstructionsPremium));
                 RegisterButton($"{Emojis.menuItems[MenuItem.Shop]} {Localization.Get(session, "menu_item_shop")}", () => new ShopDialog(session).Start());
             }

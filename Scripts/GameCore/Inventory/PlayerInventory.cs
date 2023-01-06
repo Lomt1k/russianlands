@@ -65,16 +65,6 @@ namespace TextGameRPG.Scripts.GameCore.Inventory
             }
         }
 
-        public List<InventoryItem> GetAllItems()
-        {
-            return items;
-        }
-
-        public IEnumerable<ItemType> GetItemTypes()
-        {
-            return _itemsByType.Keys;
-        }
-
         public IEnumerable<InventoryItem> GetItemsByType(ItemType type)
         {
             return _itemsByType[type];

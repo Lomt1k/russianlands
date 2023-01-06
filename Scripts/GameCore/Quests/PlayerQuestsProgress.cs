@@ -6,7 +6,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests
     [JsonObject]
     public class PlayerQuestsProgress
     {
-        [JsonProperty]
+        [JsonProperty("focus")]
         private QuestType? focusedQuest = null; 
 
         [JsonProperty]

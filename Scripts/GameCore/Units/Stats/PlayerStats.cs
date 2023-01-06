@@ -1,4 +1,6 @@
-﻿using TextGameRPG.Scripts.GameCore.Buildings;
+﻿using System;
+using System.Linq;
+using TextGameRPG.Scripts.GameCore.Buildings;
 using TextGameRPG.Scripts.GameCore.Buildings.General;
 using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.GameCore.Items.ItemProperties;
@@ -8,6 +10,7 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
     public class PlayerStats : UnitStats
     {
         public byte rageAbilityCounter;
+        public byte availablePotions;
 
         private Player _player;
 
@@ -28,6 +31,7 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
         {
             base.OnStartBattle();
             SetupArrowsAmount();
+            SetupPotionsAmount();
             rageAbilityCounter = 0;
         }
 
@@ -36,6 +40,15 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
             var buildingsData = _player.session.profile.buildingsData;
             var tyrBuilding = (TyrBuilding)BuildingType.Tyr.GetBuilding();
             currentArrows = tyrBuilding.GetArrowsAmount(_player.session, buildingsData);
+        }
+
+        public void SetupPotionsAmount()
+        {
+            var alchemyLab = (AlchemyLabBuilding)BuildingType.AlchemyLab.GetBuilding();
+            var maxPotionsInBattle = alchemyLab.GetCurrentPotionsInBattle(_player.session.profile.buildingsData);
+            var dtNow = DateTime.UtcNow.Ticks;
+            var totalPotions = _player.potions.Where(x => x.preparationTime < dtNow).Count();
+            availablePotions = (byte)Math.Min(maxPotionsInBattle, totalPotions);
         }
 
         public override void OnStartMineTurn()

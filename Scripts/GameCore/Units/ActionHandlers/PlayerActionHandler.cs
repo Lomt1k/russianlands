@@ -30,6 +30,7 @@ namespace TextGameRPG.Scripts.GameCore.Units.ActionHandlers
                 var generalAttackAction = new PlayerAttackAction(player, item);
                 result.Add(generalAttackAction);
                 ItemKeywordActionsHandler.HandleKeywords(battleTurn, item, ref generalAttackAction, ref result);
+                generalAttackAction.damageInfo += player.unitStats.statEffects.GetExtraDamageAndRemoveEffects();
                 isActionsReady = true;
             })
             .Start().ConfigureAwait(false);

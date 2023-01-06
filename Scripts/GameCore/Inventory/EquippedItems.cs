@@ -21,7 +21,6 @@ namespace TextGameRPG.Scripts.GameCore.Inventory
         private Dictionary<ItemType, InventoryItem?[]> _multiEquipped = new Dictionary<ItemType, InventoryItem?[]>
         {
             { ItemType.Ring, new InventoryItem?[ItemType.Ring.GetSlotsCount()] },
-            { ItemType.Poison, new InventoryItem?[ItemType.Poison.GetSlotsCount()] },
             { ItemType.Scroll, new InventoryItem?[ItemType.Scroll.GetSlotsCount()] },
         };
 
@@ -37,7 +36,7 @@ namespace TextGameRPG.Scripts.GameCore.Inventory
 
         public EquippedItems(PlayerInventory inventory)
         {
-            var allEquipped = inventory.GetAllItems().Where(x => x.isEquipped).OrderBy(x => x.data.itemType);
+            var allEquipped = inventory.items.Where(x => x.isEquipped).OrderBy(x => x.data.itemType);
             foreach (var item in allEquipped)
             {
                 TrySetupAsEquipped(item);

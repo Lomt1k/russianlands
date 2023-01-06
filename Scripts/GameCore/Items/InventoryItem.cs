@@ -15,7 +15,9 @@ namespace TextGameRPG.Scripts.GameCore.Items
     {
         public static byte requiredStickCharge = 3;
 
+        [JsonProperty]
         public string id;
+        [JsonProperty("s")]
         public ItemState state;
 
         [JsonIgnore]

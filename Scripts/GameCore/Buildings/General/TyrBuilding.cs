@@ -23,12 +23,12 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.General
 
         protected override long GetStartConstructionTime(ProfileBuildingsData data)
         {
-            return data.tyrConstructionTime;
+            return data.tyrStartConstructionTime;
         }
 
         protected override void SetStartConstructionTime(ProfileBuildingsData data, long startConstructionTime)
         {
-            data.tyrConstructionTime = startConstructionTime;
+            data.tyrStartConstructionTime = startConstructionTime;
         }
 
         public override string GetCurrentLevelInfo(GameSession session, ProfileBuildingsData data)
