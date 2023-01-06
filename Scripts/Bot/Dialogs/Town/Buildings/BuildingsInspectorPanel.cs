@@ -45,12 +45,19 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
                 sb.AppendLine();
             }
 
+            AppendGeneralResources(sb);
             AppendProductionInfo(sb);
             RegisterButton(Localization.Get(session, "dialog_buildings_get_resources"), () => new TryCollectResourcesDialog(session).Start());
 
             TryAppendTooltip(sb);
             await SendPanelMessage(sb, GetMultilineKeyboard(), asNewMessage: true)
                 .ConfigureAwait(false);
+        }
+
+        private void AppendGeneralResources(StringBuilder sb)
+        {
+            string resources = session.player.resources.GetGeneralResourcesView();
+            sb.AppendLine(resources);
         }
 
         private void AppendProductionInfo(StringBuilder sb)
@@ -73,6 +80,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
                 }
             }
 
+            sb.AppendLine();
             sb.AppendLine(Localization.Get(session, "resource_header_producted"));
             sb.AppendLine(ResourceHelper.GetCompactResourcesView(resourcesToShow));
 

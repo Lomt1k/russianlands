@@ -20,8 +20,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
 
         public override async Task Start()
         {
-            var limitedStorages = new HashSet<ResourceType>();
             var collectedResources = new Dictionary<ResourceType, int>();
+            var notCollectedResources = new Dictionary<ResourceType, int>();
 
             var playerResources = session.player.resources;
             var productionBuildings = session.player.buildings.GetBuildingsByCategory(BuildingCategory.Production);
@@ -34,10 +34,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
                 var reallyAdded = playerResources.Add(building.resourceType, farmedAmout);
                 if (reallyAdded > 0)
                 {
-                    if (collectedResources.ContainsKey(building.resourceType))
-                        collectedResources[building.resourceType] += reallyAdded;
-                    else
-                        collectedResources.Add(building.resourceType, reallyAdded);
+                    collectedResources.TryGetValue(building.resourceType, out var prevValue);
+                    collectedResources[building.resourceType] = prevValue + reallyAdded;
                 }
 
                 if (reallyAdded == farmedAmout)
@@ -52,12 +50,15 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
                     var secondsToRemove = totalFarmSeconds * collectedPart;
                     var newStartFarmDt = startFarmDt.AddSeconds(secondsToRemove);
                     building.SetStartFarmTime(_buildingsData, newStartFarmDt.Ticks);
-                    limitedStorages.Add(building.resourceType);
+
+                    var notCollectedAmount = farmedAmout - reallyAdded;
+                    notCollectedResources.TryGetValue(building.resourceType, out var prevValue);
+                    notCollectedResources[building.resourceType] = prevValue + notCollectedAmount;
                 }
             }
 
             var sb = new StringBuilder();
-            if (collectedResources.Count == 0 && limitedStorages.Count == 0)
+            if (collectedResources.Count == 0 && notCollectedResources.Count == 0)
             {
                 sb.AppendLine(Localization.Get(session, "dialog_buildings_no_resources_in_production"));
             }
@@ -69,19 +70,11 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
                     sb.AppendLine(ResourceHelper.GetCompactResourcesView(collectedResources));
                     sb.AppendLine();
                 }
-                if (limitedStorages.Count > 0)
+                if (notCollectedResources.Count > 0)
                 {
                     sb.AppendLine(Localization.Get(session, "dialog_buildings_resources_not_collected"));
                     sb.AppendLine();
-                    var storages = session.player.buildings.GetBuildingsByCategory(BuildingCategory.Storages);
-                    foreach (var resourceType in limitedStorages)
-                    {
-                        foreach (StorageBuildingBase storage in storages)
-                        {
-                            if (storage.resourceType == resourceType)
-                                sb.AppendLine($"{Emojis.elements[Element.SmallBlack]} {storage.GetLocalizedName(session, _buildingsData)}");
-                        }
-                    }
+                    sb.AppendLine(ResourceHelper.GetCompactResourcesView(notCollectedResources));
                 }
             }
 
