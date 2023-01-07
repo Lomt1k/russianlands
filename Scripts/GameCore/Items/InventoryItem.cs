@@ -6,8 +6,10 @@ using TextGameRPG.Scripts.Bot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Items
 {
+    using System.Collections.Generic;
     using TextGameRPG.Scripts.GameCore.Items.Generators;
     using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
+    using TextGameRPG.Scripts.GameCore.Resources;
 
     public enum ItemState : byte { IsNewAndNotEquipped = 0, IsNotEquipped = 1, IsEquipped = 2 }
 
@@ -134,6 +136,20 @@ namespace TextGameRPG.Scripts.GameCore.Items
 
             var itemType = data.itemType.ToString().ToLower();
             return Localizations.Localization.Get(session, $"item_{itemType}_hall_{data.requiredTownHall}_grade_{data.grade}");
+        }
+
+        public Dictionary<ResourceType,int> CalculateResourcesForBreakApart()
+        {
+            var result = new Dictionary<ResourceType,int>();
+            var resourceType = data.itemRarity switch
+            {
+                Rarity.Common => ResourceType.CraftPiecesCommon,
+                Rarity.Rare => ResourceType.CraftPiecesRare,
+                Rarity.Epic => ResourceType.CraftPiecesEpic,
+                _ => ResourceType.CraftPiecesLegendary
+            };
+            result.Add(resourceType, 1);
+            return result;
         }
 
 

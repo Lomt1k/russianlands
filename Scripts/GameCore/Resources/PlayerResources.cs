@@ -42,19 +42,18 @@ namespace TextGameRPG.Scripts.GameCore.Resources
         public string GetCraftResourcesView()
         {
             var sb = new StringBuilder();
-            sb.AppendLine(Localizations.Localization.Get(_session, "resource_header_ours"));
-            var craftResources = resourceDictionary.GetCraftResourceTypes();
+            sb.Append(Localizations.Localization.Get(_session, "resource_header_ours"));
+            var craftResources = resourceDictionary.GetGeneralResourceTypes();
 
-            var dictionary = new Dictionary<ResourceType, int>();
             foreach (var resourceType in craftResources)
             {
                 if (!IsUnlocked(resourceType))
                     continue;
 
-                dictionary.Add(resourceType, GetValue(resourceType));
+                sb.AppendLine();
+                sb.Append(resourceType.GetLocalizedView(_session, GetValue(resourceType)));
             }
 
-            sb.Append(ResourceHelper.GetCompactResourcesView(dictionary));
             return sb.ToString();
         }
 

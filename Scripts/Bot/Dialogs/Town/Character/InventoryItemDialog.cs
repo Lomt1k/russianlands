@@ -4,6 +4,7 @@ using TextGameRPG.Scripts.GameCore.Inventory;
 using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.Bot.Sessions;
+using TextGameRPG.Scripts.GameCore.Resources;
 
 namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
 {
@@ -24,27 +25,30 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
 
         public override async Task Start()
         {
-            await ShowItemInspector(_item)
+            await ShowItemInspector()
                 .ConfigureAwait(false);
         }
 
-        private async Task ShowItemInspector(InventoryItem item)
+        private async Task ShowItemInspector()
         {
             var sb = new StringBuilder();
-            sb.Append(item.GetView(session));
+            sb.Append(_item.GetView(session));
 
             ClearButtons();
-            if (item.isEquipped)
+            if (_item.isEquipped)
             {
-                RegisterButton(Localization.Get(session, "menu_item_unequip_button"), () => UnequipItem(item));
+                RegisterButton(Localization.Get(session, "menu_item_unequip_button"), () => UnequipItem());
             }
             else
             {
-                RegisterButton(Localization.Get(session, "menu_item_equip_button"), () => StartEquipLogic(item));
+                RegisterButton(Localization.Get(session, "menu_item_equip_button"), () => StartEquipLogic());
             }
 
             RegisterButton(Localization.Get(session, "menu_item_compare_button"),
-                () => StartSelectItemForCompare(item));
+                () => StartSelectItemForCompare());
+
+            RegisterButton($"{Emojis.elements[Element.Bin]} {Localization.Get(session, "menu_item_break_apart_button")}",
+                () => TryBreakApartItem());
 
             var categoryIcon = Emojis.items[_browsedCategory];
             RegisterButton($"{Emojis.elements[Element.Back]} {_browsedCategory.GetCategoryLocalization(session)} {categoryIcon}",
@@ -57,38 +61,36 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
                 .ConfigureAwait(false);
         }
 
-        private async Task StartEquipLogic(InventoryItem item)
+        private async Task StartEquipLogic()
         {
             var profileLevel = session.profile.data.level;
-            var requiredLevel = item.data.requiredLevel;
+            var requiredLevel = _item.data.requiredLevel;
             if (profileLevel < requiredLevel)
             {
-                var messageText = $"<b>{item.GetFullName(session)}</b>\n\n"
+                var messageText = $"<b>{_item.GetFullName(session)}</b>\n\n"
                     + string.Format(Localization.Get(session, "dialog_inventory_required_level"), requiredLevel) + $" {Emojis.smiles[Smile.Sad]}";
-                ClearButtons();
-                RegisterBackButton(() => ShowItemInspector(item));
-                await SendDialogMessage(messageText, GetOneLineKeyboard())
+                await SendMessageWithBackButton(messageText)
                     .ConfigureAwait(false);
                 return;
             }
 
-            if (item.data.itemType.IsMultiSlot())
+            if (_item.data.itemType.IsMultiSlot())
             {
-                await SelectSlotForEquip(item)
+                await SelectSlotForEquip()
                     .ConfigureAwait(false);
                 return;
             }
 
-            await EquipSingleSlot(item)
+            await EquipSingleSlot()
                 .ConfigureAwait(false);
         }
 
-        private async Task SelectSlotForEquip(InventoryItem item)
+        private async Task SelectSlotForEquip()
         {
-            var type = item.data.itemType;
+            var type = _item.data.itemType;
             var slotsCount = type.GetSlotsCount();
             var category = GetCategoryLocalization(type);
-            var text = string.Format(Localization.Get(session, "dialog_inventory_select_slot_for_equip"), category, slotsCount, item.GetFullName(session));
+            var text = string.Format(Localization.Get(session, "dialog_inventory_select_slot_for_equip"), category, slotsCount, _item.GetFullName(session));
 
             ClearButtons();
             for (int i = 0; i < slotsCount; i++)
@@ -98,9 +100,9 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
                 var buttonText = equippedItem != null
                     ? equippedItem.GetFullName(session)
                     : $"{Emojis.items[type]} {Localization.Get(session, "menu_item_empty_slot_button")}";
-                RegisterButton(buttonText, () => EquipMultiSlot(item, slotId));
+                RegisterButton(buttonText, () => EquipMultiSlot(slotId));
             }
-            RegisterBackButton(() => ShowItemInspector(item));
+            RegisterBackButton(() => ShowItemInspector());
 
             await SendDialogMessage(text, GetMultilineKeyboard())
                 .ConfigureAwait(false);
@@ -122,37 +124,90 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
             }
         }
 
-        private async Task EquipSingleSlot(InventoryItem item)
+        private async Task EquipSingleSlot()
         {
-            inventory.EquipSingleSlot(item);
-            await ShowItemInspector(item)
+            inventory.EquipSingleSlot(_item);
+            await ShowItemInspector()
                 .ConfigureAwait(false);
         }
 
-        private async Task EquipMultiSlot(InventoryItem item, int slotId)
+        private async Task EquipMultiSlot(int slotId)
         {
-            inventory.EquipMultiSlot(item, slotId);
-            await ShowItemInspector(item)
+            inventory.EquipMultiSlot(_item, slotId);
+            await ShowItemInspector()
                 .ConfigureAwait(false);
         }
 
-        private async Task UnequipItem(InventoryItem item)
+        private async Task UnequipItem()
         {
-            inventory.Unequip(item);
-            await ShowItemInspector(item)
+            inventory.Unequip(_item);
+            await ShowItemInspector()
                 .ConfigureAwait(false);
         }
 
-        private async Task StartSelectItemForCompare(InventoryItem item)
+        private async Task StartSelectItemForCompare()
         {
             var compareData = new CompareData
             {
-                comparedItem = item,
+                comparedItem = _item,
                 categoryOnStartCompare = _browsedCategory,
                 currentPageOnStartCompare = _browsedPage,
             };
 
             await new InventoryDialog(session).ShowCategory(_browsedCategory, newCompareData: compareData)
+                .ConfigureAwait(false);
+        }
+
+        private async Task TryBreakApartItem()
+        {
+            if (_item.isEquipped)
+            {
+                await SendMessageWithBackButton(Localization.Get(session, "dialog_inventory_break_apart_equipped"))
+                    .ConfigureAwait(false);
+                return;
+            }
+            if (inventory.GetItemsCountByType(_item.data.itemType) < 2)
+            {
+                var message = Localization.Get(session, "dialog_inventory_break_apart_empty_category")
+                    + $"\n{Emojis.items[_browsedCategory]} <b>{_browsedCategory.GetCategoryLocalization(session)}</b>";
+                await SendMessageWithBackButton(message)
+                    .ConfigureAwait(false);
+                return;
+            }
+
+            var sb = new StringBuilder();
+            sb.AppendLine("<b>" + _item.GetFullName(session) + "</b>");
+            sb.AppendLine();
+            sb.AppendLine(Localization.Get(session, "dialog_inventory_break_apart_confirm"));
+            sb.AppendLine();
+            sb.AppendLine(Localization.Get(session, "resource_header_you_will_get"));
+            var rewardResources = _item.CalculateResourcesForBreakApart();
+            sb.Append(ResourceHelper.GetResourcesView(session, rewardResources));
+
+            ClearButtons();
+            RegisterButton($"{Emojis.elements[Element.Bin]} {Localization.Get(session, "menu_item_break_apart_button")}",
+                () => ForceBreakApart());
+            RegisterBackButton(() => ShowItemInspector());
+
+            await SendDialogMessage(sb, GetMultilineKeyboard())
+                .ConfigureAwait(false);
+        }
+
+        private async Task ForceBreakApart()
+        {
+            var rewardResources = _item.CalculateResourcesForBreakApart();
+            session.player.resources.ForceAdd(rewardResources);
+            inventory.RemoveItem(_item);
+
+            await new InventoryDialog(session).ShowCategory(_browsedCategory, _browsedPage)
+                .ConfigureAwait(false);
+        }
+
+        private async Task SendMessageWithBackButton(string text)
+        {
+            ClearButtons();
+            RegisterBackButton(() => ShowItemInspector());
+            await SendDialogMessage(text, GetOneLineKeyboard())
                 .ConfigureAwait(false);
         }
 
