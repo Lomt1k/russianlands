@@ -38,6 +38,26 @@ namespace TextGameRPG.Scripts.GameCore.Resources
             return sb.ToString();
         }
 
+        /// <returns>Информация о ресурсах для крафта в готовом для отображения виде</returns>
+        public string GetCraftResourcesView()
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine(Localizations.Localization.Get(_session, "resource_header_ours"));
+            var craftResources = resourceDictionary.GetCraftResourceTypes();
+
+            var dictionary = new Dictionary<ResourceType, int>();
+            foreach (var resourceType in craftResources)
+            {
+                if (!IsUnlocked(resourceType))
+                    continue;
+
+                dictionary.Add(resourceType, GetValue(resourceType));
+            }
+
+            sb.Append(ResourceHelper.GetCompactResourcesView(dictionary));
+            return sb.ToString();
+        }
+
         /// <returns>Количество имеющихся у игрока ресурсов указанного типа</returns>
         public int GetValue(ResourceType resourceType)
         {

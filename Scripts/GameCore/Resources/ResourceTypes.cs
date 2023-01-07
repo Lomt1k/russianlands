@@ -14,7 +14,11 @@ namespace TextGameRPG.Scripts.GameCore.Resources
         Wood = 4,
 
         //Others
-        InventoryItems = 5,
+        InventoryItems = 5, // регулирует размер инвентаря
+        CraftPiecesCommon = 6,
+        CraftPiecesRare = 7,
+        CraftPiecesEpic = 8,
+        CraftPiecesLegendary = 9,
     }
 
     public static class ResourceTypeExtensions

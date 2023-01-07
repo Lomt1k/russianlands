@@ -130,6 +130,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
                 case BuildingType.WeaponsWorkshop:
                 case BuildingType.ArmorWorkshop:
                 case BuildingType.Jewerly:
+                case BuildingType.ScribesHouse:
                     return new CraftLevelInfo();
 
                 case BuildingType.Hospital:
