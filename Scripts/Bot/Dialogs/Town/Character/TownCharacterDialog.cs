@@ -23,6 +23,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
             RegisterButton(potionsButton, () => TryShowPotionsDialog());
 
             RegisterButton($"{Emojis.menuItems[MenuItem.Skills]} " + Localization.Get(session, "menu_item_skills"), null);
+            RegisterButton($"{Emojis.menuItems[MenuItem.Craft]} " + Localization.Get(session, "menu_item_craft"), null);
             RegisterButton($"{Emojis.menuItems[MenuItem.Avatar]} " + Localization.Get(session, "menu_item_avatar"), null);
             RegisterButton($"{Emojis.menuItems[MenuItem.NameChange]} " + Localization.Get(session, "menu_item_namechange"), null);
             RegisterTownButton(isDoubleBack: false);
@@ -38,7 +39,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
             sb.AppendLine(session.player.unitStats.GetView(session, isFullHealth));
             TryAppendTooltip(sb);
 
-            await SendDialogMessage(sb, GetKeyboardWithRowSizes(1, 2, 2, 1))
+            await SendDialogMessage(sb, GetKeyboardWithRowSizes(1, 2, 3, 1))
                 .ConfigureAwait(false);
 
             if (!isFullHealth)
