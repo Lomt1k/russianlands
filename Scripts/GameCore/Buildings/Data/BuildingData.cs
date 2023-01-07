@@ -62,24 +62,17 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Data
     [JsonObject]
     public class CraftLevelInfo : BuildingLevelInfo
     {
-        public int rareCraft_HerbsCost;
+        public int rareCraft_WoodCost;
         public int rareCraft_MaterialsCost;
         public int rareCraft_Time;
-        public int rareCraft_MinLevel;
-        public int rareCraft_MaxLevel;
 
-        public int epicCraft_HerbsCost;
+        public int epicCraft_WoodCost;
         public int epicCraft_MaterialsCost;
         public int epicCraft_Time;
-        public int epicCraft_MinLevel;
-        public int epicCraft_MaxLevel;
 
-        public bool legendaryCraft_allowed = true;
-        public int legendaryCraft_HerbsCost;
+        public int legendaryCraft_WoodCost;
         public int legendaryCraft_MaterialsCost;
         public int legendaryCraft_Time;
-        public int legendaryCraft_MinLevel;
-        public int legendaryCraft_MaxLevel;
     }
 
     [JsonObject]
