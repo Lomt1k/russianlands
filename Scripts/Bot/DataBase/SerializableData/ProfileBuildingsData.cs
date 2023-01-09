@@ -189,9 +189,9 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
                 new TableColumn("jewerlyStartCraftTime", "INTEGER", "0"),
                 new TableColumn("jewerlyCraftItemType", "INTEGER", "0"),
                 new TableColumn("jewerlyCraftItemRarity", "INTEGER", "0"),
-                new TableColumn("scribesHouseWorkshopLevel", "INTEGER", "0"),
-                new TableColumn("scribesHouseWorkshopStartConstructionTime", "INTEGER", "0"),
-                new TableColumn("scribesHouseWorkshopStartCraftTime", "INTEGER", "0"),
+                new TableColumn("scribesHouseLevel", "INTEGER", "0"),
+                new TableColumn("scribesHouseStartConstructionTime", "INTEGER", "0"),
+                new TableColumn("scribesHouseStartCraftTime", "INTEGER", "0"),
                 new TableColumn("scribesHouseCraftItemRarity", "INTEGER", "0"),
 
                 // --- Хранилища
