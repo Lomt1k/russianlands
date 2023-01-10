@@ -8,6 +8,7 @@ using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Buildings.Data;
 using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.GameCore.Localizations;
+using TextGameRPG.Scripts.GameCore.Resources;
 
 namespace TextGameRPG.Scripts.GameCore.Buildings
 {
@@ -26,6 +27,31 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
         public bool IsCraftStarted(ProfileBuildingsData data)
         {
             return GetStartCraftTime(data) > 0;
+        }
+
+        /// <returns>Время изготовления предмета в зависимости от его редкости</returns>
+        public Dictionary<ResourceType,int> GetCraftPrice(ProfileBuildingsData data, Rarity rarity)
+        {
+            var result = new Dictionary<ResourceType, int>();
+
+            var currentLevel = GetCurrentLevel(data);
+            var levelInfo = (CraftLevelInfo)buildingData.levels[currentLevel - 1];
+            switch (rarity)
+            {
+                case Rarity.Rare:
+                    result.Add(ResourceType.CraftPiecesCommon, levelInfo.rareCraft_MaterialsCost);
+                    result.Add(ResourceType.Wood, levelInfo.rareCraft_WoodCost);
+                    break;
+                case Rarity.Epic:
+                    result.Add(ResourceType.CraftPiecesRare, levelInfo.epicCraft_MaterialsCost);
+                    result.Add(ResourceType.Wood, levelInfo.epicCraft_WoodCost);
+                    break;
+                case Rarity.Legendary:
+                    result.Add(ResourceType.CraftPiecesEpic, levelInfo.legendaryCraft_MaterialsCost);
+                    result.Add(ResourceType.Wood, levelInfo.legendaryCraft_WoodCost);
+                    break;
+            }
+            return result;
         }
 
         /// <returns>Время изготовления предмета в зависимости от его редкости</returns>
@@ -79,8 +105,22 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
 
             if (!IsUnderConstruction(data))
             {
-                result.Add($"{Emojis.menuItems[MenuItem.Craft]} {Localization.Get(session, "menu_item_craft")}",
-                    () => new CraftBuildingDialog(session, this).Start());
+                var buttonText = $"{Emojis.menuItems[MenuItem.Craft]} {Localization.Get(session, "menu_item_craft")}";
+                if (IsCraftStarted(data))
+                {
+                    if (IsCraftCanBeFinished(data))
+                    {
+                        result.Add(buttonText, () => new CraftCanCollectItemDialog(session, this).Start());
+                    }
+                    else
+                    {
+                        result.Add(buttonText, () => new CraftInProgressDialog(session, this).Start());
+                    }
+                }
+                else
+                {
+                    result.Add(buttonText, () => new CraftNewItemDialog(session, this).Start());
+                }
             }
 
             return result;

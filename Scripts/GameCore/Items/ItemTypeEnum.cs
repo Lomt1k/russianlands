@@ -68,5 +68,10 @@ namespace TextGameRPG.Scripts.GameCore.Items
             }
         }
 
+        public static string GetLocalization(this ItemType category, GameSession session)
+        {
+            return Localizations.Localization.Get(session, $"menu_item_{category.ToString().ToLower()}");
+        }
+
     }    
 }

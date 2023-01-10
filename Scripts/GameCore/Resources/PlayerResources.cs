@@ -43,7 +43,7 @@ namespace TextGameRPG.Scripts.GameCore.Resources
         {
             var sb = new StringBuilder();
             sb.Append(Localizations.Localization.Get(_session, "resource_header_ours"));
-            var craftResources = resourceDictionary.GetGeneralResourceTypes();
+            var craftResources = resourceDictionary.GetCraftResourceTypes();
 
             foreach (var resourceType in craftResources)
             {
