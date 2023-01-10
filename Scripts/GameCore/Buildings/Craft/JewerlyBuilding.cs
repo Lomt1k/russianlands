@@ -8,41 +8,40 @@ using TextGameRPG.Scripts.GameCore.Localizations;
 
 namespace TextGameRPG.Scripts.GameCore.Buildings.Craft
 {
-    public class WeaponsWorkshopBuilding : CraftBuildingBase
+    public class JewerlyBuilding : CraftBuildingBase
     {
         public override List<ItemType> craftCategories => new List<ItemType>
         {
-            ItemType.Sword,
-            ItemType.Bow,
-            ItemType.Stick
+            ItemType.Ring,
+            ItemType.Amulet
         };
 
-        public override BuildingType buildingType => BuildingType.WeaponsWorkshop;
+        public override BuildingType buildingType => BuildingType.Jewerly;
 
         public override byte GetCurrentLevel(ProfileBuildingsData data)
         {
-            return data.weaponsWorkshopLevel;
+            return data.jewerlyLevel;
         }
 
         protected override void SetCurrentLevel(ProfileBuildingsData data, byte level)
         {
-            data.weaponsWorkshopLevel = level;
+            data.jewerlyLevel = level;
         }
 
         protected override long GetStartConstructionTime(ProfileBuildingsData data)
         {
-            return data.weaponsWorkshopStartConstructionTime;
+            return data.jewerlyStartConstructionTime;
         }
 
         protected override void SetStartConstructionTime(ProfileBuildingsData data, long startConstructionTime)
         {
-            data.weaponsWorkshopStartConstructionTime = startConstructionTime;
+            data.jewerlyStartConstructionTime = startConstructionTime;
         }
 
         public override string GetCurrentLevelInfo(GameSession session, ProfileBuildingsData data)
         {
             var sb = new StringBuilder();
-            sb.Append(Localization.Get(session, "building_WeaponsWorkshop_description"));
+            sb.Append(Localization.Get(session, "building_Jewerly_description"));
 
             var currentLevel = GetCurrentLevel(data);
             if (currentLevel < 1)
@@ -63,7 +62,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Craft
         public override string GetNextLevelInfo(GameSession session, ProfileBuildingsData data)
         {
             var sb = new StringBuilder();
-            sb.Append(Localization.Get(session, "building_WeaponsWorkshop_description"));
+            sb.Append(Localization.Get(session, "building_Jewerly_description"));
 
             var currentLevel = GetCurrentLevel(data);
             var townhallLevel = buildingData.levels[currentLevel].requiredTownHall;
@@ -80,33 +79,33 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Craft
 
         protected override long GetStartCraftTime(ProfileBuildingsData data)
         {
-            return data.weaponsWorkshopStartCraftTime;
+            return data.jewerlyStartCraftTime;
         }
 
         protected override void SetStartCraftTime(ProfileBuildingsData data, long startCraftTime)
         {
-            data.weaponsWorkshopStartCraftTime = startCraftTime;
+            data.jewerlyStartCraftTime = startCraftTime;
         }
 
         protected override ItemType GetCurrentCraftItemType(ProfileBuildingsData data)
         {
-            return (ItemType)data.weaponsWorkshopCraftItemType;
+            return (ItemType)data.jewerlyCraftItemType;
         }
 
         protected override void SetCurrentCraftItemType(ProfileBuildingsData data, ItemType itemType)
         {
-            data.weaponsWorkshopCraftItemType = (sbyte)itemType;
+            data.jewerlyCraftItemType = (sbyte)itemType;
         }
 
         protected override Rarity GetCurrentCraftItemRarity(ProfileBuildingsData data)
         {
-            return (Rarity)data.weaponsWorkshopCraftItemRarity;
+            return (Rarity)data.jewerlyCraftItemRarity;
         }
 
         protected override void SetCurrentCraftItemRarity(ProfileBuildingsData data, Rarity rarity)
         {
-            data.weaponsWorkshopCraftItemRarity = (byte)rarity;
+            data.jewerlyCraftItemRarity = (byte)rarity;
         }
-        
+
     }
 }

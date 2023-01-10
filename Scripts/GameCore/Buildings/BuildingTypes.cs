@@ -69,6 +69,9 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             { BuildingType.Hospital, new HospitalBuilding() },
             { BuildingType.AlchemyLab, new AlchemyLabBuilding() },
             { BuildingType.WeaponsWorkshop, new WeaponsWorkshopBuilding() },
+            { BuildingType.ArmorWorkshop, new ArmorWorkshopBuilding() },
+            { BuildingType.Jewerly, new JewerlyBuilding() },
+            { BuildingType.ScribesHouse, new ScribesHouseBuilding() },
 
             // --- Хранилища
             { BuildingType.ItemsStorage, new ItemsStorageBuilding() },
