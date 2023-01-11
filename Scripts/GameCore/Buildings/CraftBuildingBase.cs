@@ -7,11 +7,23 @@ using TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog;
 using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Buildings.Data;
 using TextGameRPG.Scripts.GameCore.Items;
+using TextGameRPG.Scripts.GameCore.Items.Generators;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Resources;
 
 namespace TextGameRPG.Scripts.GameCore.Buildings
 {
+    public struct CraftItemLevelsInfo
+    {
+        public int minLevel;
+        public int maxLevel;
+
+        public override string ToString()
+        {
+            return $"{minLevel} - {maxLevel}";
+        }
+    }
+
     public abstract class CraftBuildingBase : BuildingBase
     {
         public abstract List<ItemType> craftCategories { get; }
@@ -124,6 +136,41 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             }
 
             return result;
+        }
+
+        public CraftItemLevelsInfo GetCurrentCraftLevels(ProfileBuildingsData data)
+        {
+            var currentLevel = GetCurrentLevel(data);
+            if (currentLevel < 1)
+            {
+                return new CraftItemLevelsInfo() { minLevel = 0, maxLevel = 0 };
+            }
+
+            var townhallLevel = buildingData.levels[currentLevel - 1].requiredTownHall;            
+            return new CraftItemLevelsInfo()
+            {
+                minLevel = ItemGenerationHelper.CalculateRequiredLevel(townhallLevel, 1),
+                maxLevel = ItemGenerationHelper.CalculateRequiredLevel(townhallLevel, 10)
+            };
+        }
+
+        public CraftItemLevelsInfo GetNextCraftLevels(ProfileBuildingsData data)
+        {
+            var currentLevel = GetCurrentLevel(data);
+            var townhallLevel = buildingData.levels[currentLevel].requiredTownHall;
+
+            return new CraftItemLevelsInfo()
+            {
+                minLevel = ItemGenerationHelper.CalculateRequiredLevel(townhallLevel, 1),
+                maxLevel = ItemGenerationHelper.CalculateRequiredLevel(townhallLevel, 10)
+            };
+        }
+
+        public void StartCraft(ProfileBuildingsData data, ItemType itemType, Rarity rarity)
+        {
+            SetCurrentCraftItemType(data, itemType);
+            SetCurrentCraftItemRarity(data, rarity);
+            SetStartCraftTime(data, DateTime.UtcNow.Ticks);
         }
 
     }

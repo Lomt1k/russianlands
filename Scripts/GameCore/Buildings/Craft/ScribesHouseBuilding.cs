@@ -46,14 +46,11 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Craft
             if (currentLevel < 1)
                 return sb.ToString();
 
-            var townhallLevel = buildingData.levels[currentLevel - 1].requiredTownHall;
-            var minItemLevel = ItemGenerationHelper.CalculateRequiredLevel(townhallLevel, 1);
-            var maxItemLevel = ItemGenerationHelper.CalculateRequiredLevel(townhallLevel, 10);
-
             sb.AppendLine();
             sb.AppendLine();
             sb.AppendLine(Localization.Get(session, "building_craft_items_level_header"));
-            sb.Append($"{minItemLevel} - {maxItemLevel}");
+            var itemLevels = GetCurrentCraftLevels(data);
+            sb.Append(itemLevels);
 
             return sb.ToString();
         }
@@ -63,15 +60,11 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Craft
             var sb = new StringBuilder();
             sb.Append(Localization.Get(session, "building_ScribesHouse_description"));
 
-            var currentLevel = GetCurrentLevel(data);
-            var townhallLevel = buildingData.levels[currentLevel].requiredTownHall;
-            var minItemLevel = ItemGenerationHelper.CalculateRequiredLevel(townhallLevel, 1);
-            var maxItemLevel = ItemGenerationHelper.CalculateRequiredLevel(townhallLevel, 10);
-
             sb.AppendLine();
             sb.AppendLine();
             sb.AppendLine(Localization.Get(session, "building_craft_items_level_header"));
-            sb.Append($"{minItemLevel} - {maxItemLevel}");
+            var itemLevels = GetNextCraftLevels(data);
+            sb.Append(itemLevels);
 
             return sb.ToString();
         }

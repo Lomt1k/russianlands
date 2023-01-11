@@ -33,5 +33,13 @@ namespace TextGameRPG.Scripts.GameCore.Resources
             var localizationKey = "resource_name_" + resourceType.ToString().ToLower();
             return $"{Emojis.resources[resourceType]} {Localization.Get(session, localizationKey)} {amount.View()}";
         }
+
+        public static bool IsCraftResource(this ResourceType resourceType)
+        {
+            return resourceType == ResourceType.CraftPiecesCommon
+                || resourceType == ResourceType.CraftPiecesRare
+                || resourceType == ResourceType.CraftPiecesEpic
+                || resourceType == ResourceType.CraftPiecesLegendary;
+        }
     }
 }

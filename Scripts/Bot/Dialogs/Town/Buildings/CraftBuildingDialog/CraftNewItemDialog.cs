@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Telegram.Bot.Types.ReplyMarkups;
 using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
+using TextGameRPG.Scripts.Bot.Dialogs.Resources;
 using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Buildings;
 using TextGameRPG.Scripts.GameCore.Items;
@@ -81,7 +83,12 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
         {
             var sb = new StringBuilder();
             sb.AppendLine($"<b>{Emojis.items[itemType]} {itemType.GetLocalization(session)}</b>");
-            sb.AppendLine($"<pre>{rarity.GetView(session)}</pre>"); //TODO: Add level info
+            sb.AppendLine($"<pre>{rarity.GetView(session)}</pre>");
+
+            sb.AppendLine();
+            sb.AppendLine(Localization.Get(session, "item_view_possible_requirments"));
+            var craftItemLevels = _building.GetCurrentCraftLevels(buildingsData);
+            sb.AppendLine(string.Format(Localization.Get(session, "level"), craftItemLevels));
 
             sb.AppendLine();
             var craftPrice = _building.GetCraftPrice(buildingsData, rarity);
@@ -101,10 +108,49 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
             sb.Append(ResourceHelper.GetResourcesView(session, playerResources));
 
             ClearButtons();
-            //TODO: Start craft button
+            RegisterButton($"{Emojis.menuItems[MenuItem.Craft]} {Localization.Get(session, "dialog_craft_start_craft_buton")}",
+                () => StartCraftItem(itemType, rarity));
             RegisterBackButton(() => StartSelectRarity(itemType));
 
             await SendDialogMessage(sb, GetMultilineKeyboard())
+                .ConfigureAwait(false);
+        }
+
+        private async Task StartCraftItem(ItemType itemType, Rarity rarity)
+        {
+            var playerResources = session.player.resources;
+            var requiredResources = _building.GetCraftPrice(buildingsData, rarity);
+            var successfullPurchase = playerResources.TryPurchase(requiredResources, out var notEnoughResources);
+            if (successfullPurchase)
+            {
+                _building.StartCraft(buildingsData, itemType, rarity);
+                await new CraftInProgressDialog(session, _building).Start()
+                    .ConfigureAwait(false);
+                return;
+            }
+
+            var notEnoughMaterials = requiredResources.Where(x => x.Key.IsCraftResource()).ToDictionary(x => x.Key, x => x.Value);
+            if (notEnoughMaterials.Count > 0)
+            {
+                var sb = new StringBuilder();
+                sb.AppendLine(Localization.Get(session, "dialog_craft_not_enough_materials"));
+                sb.AppendLine();
+                sb.Append(ResourceHelper.GetResourcesView(session, notEnoughMaterials));
+                sb.AppendLine();
+                sb.AppendLine(Localization.Get(session, "dialog_craft_how_to_get_materials"));
+
+                ClearButtons();
+                RegisterBackButton(() => ShowCraftPrice(itemType, rarity));
+
+                await SendDialogMessage(sb, GetOneLineKeyboard())
+                    .ConfigureAwait(false);
+                return;
+            }
+
+            var buyResourcesDialog = new BuyResourcesForDiamondsDialog(session, notEnoughResources,
+                onSuccess: async () => await new CraftNewItemDialog(session, _building).StartCraftItem(itemType, rarity).ConfigureAwait(false),
+                onCancel: async () => await new CraftNewItemDialog(session, _building).ShowCraftPrice(itemType, rarity).ConfigureAwait(false));
+            await buyResourcesDialog.Start()
                 .ConfigureAwait(false);
         }
 
