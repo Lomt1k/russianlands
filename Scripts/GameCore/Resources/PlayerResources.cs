@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Text;
+using TextGameRPG.Scripts.Bot;
 using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
 using TextGameRPG.Scripts.Bot.Sessions;
+using TextGameRPG.Scripts.GameCore.Localizations;
 
 namespace TextGameRPG.Scripts.GameCore.Resources
 {
@@ -22,7 +24,7 @@ namespace TextGameRPG.Scripts.GameCore.Resources
         public string GetGeneralResourcesView()
         {
             var sb = new StringBuilder();
-            sb.AppendLine(Localizations.Localization.Get(_session, "resource_header_ours"));
+            sb.AppendLine(Localization.Get(_session, "resource_header_ours"));
             var generalResources = resourceDictionary.GetGeneralResourceTypes();
 
             var dictionary = new Dictionary<ResourceType,int>();
@@ -42,7 +44,7 @@ namespace TextGameRPG.Scripts.GameCore.Resources
         public string GetCraftResourcesView()
         {
             var sb = new StringBuilder();
-            sb.Append(Localizations.Localization.Get(_session, "resource_header_ours"));
+            sb.Append($"{Emojis.resources[ResourceType.CraftPiecesCommon]} {Localization.Get(_session, "resource_header_our_materials")}");
             var craftResources = resourceDictionary.GetCraftResourceTypes();
 
             foreach (var resourceType in craftResources)
@@ -51,7 +53,8 @@ namespace TextGameRPG.Scripts.GameCore.Resources
                     continue;
 
                 sb.AppendLine();
-                sb.Append(resourceType.GetLocalizedView(_session, GetValue(resourceType)));
+                var localization = Localization.Get(_session, "resource_shortname_" + resourceType.ToString().ToLower());
+                sb.Append($"{localization} <b>{GetValue(resourceType)}</b>");
             }
 
             return sb.ToString();
