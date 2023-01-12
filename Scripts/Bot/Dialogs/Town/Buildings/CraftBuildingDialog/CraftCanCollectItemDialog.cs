@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
 using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Buildings;
+using TextGameRPG.Scripts.GameCore.Items;
+using TextGameRPG.Scripts.GameCore.Localizations;
 
 namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
 {
@@ -21,10 +23,25 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
 
         public override async Task Start()
         {
-            //TODO
+            var itemType = _building.GetCurrentCraftItemType(buildingsData);
+            var rarity = _building.GetCurrentCraftItemRarity(buildingsData);
 
+            var sb = new StringBuilder();
+            sb.AppendLine($"<b>{Emojis.items[itemType]} {itemType.GetLocalization(session)}</b>");
+            sb.AppendLine($"<pre>{rarity.GetView(session)}</pre>");
+
+            sb.AppendLine();
+            sb.AppendLine(Localization.Get(session, "item_view_possible_requirments"));
+            var craftItemLevels = _building.GetCurrentCraftLevels(buildingsData);
+            sb.AppendLine(string.Format(Localization.Get(session, "level"), craftItemLevels));
+
+            sb.AppendLine();
+            sb.AppendLine($"{Emojis.menuItems[MenuItem.Craft]} {Localization.Get(session, "dialog_craft_completed")}");
+
+            //TODO: Collect item button
             RegisterBackButton(() => new BuildingInfoDialog(session, _building).Start());
-            await SendDialogMessage("Can Collect Item!", GetMultilineKeyboard())
+
+            await SendDialogMessage(sb, GetMultilineKeyboard())
                 .ConfigureAwait(false);
         }
     }

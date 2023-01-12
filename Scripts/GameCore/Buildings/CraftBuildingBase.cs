@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.Bot;
 using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
@@ -106,7 +107,24 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
         {
             var updates = new List<string>();
 
-            // TODO
+            if (IsCraftStarted(data))
+            {
+                if (IsCraftCanBeFinished(data))
+                {
+                    updates.Add(Localization.Get(session, "dialog_craft_completed"));
+                }
+                else if (!onlyImportant)
+                {
+                    var sb = new StringBuilder();
+                    var timeSpan = GetEndCraftTime(data) - DateTime.UtcNow;
+                    var productionView = string.Format(Localization.Get(session, "dialog_craft_progress"), timeSpan.GetView(session));
+                    sb.AppendLine(productionView);
+
+                    var itemType = GetCurrentCraftItemType(data);
+                    sb.Append($"<b>{Emojis.items[itemType]} {itemType.GetLocalization(session)}</b>");
+                    updates.Add(sb.ToString());
+                }
+            }
 
             return updates;
         }
