@@ -72,7 +72,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Craft
             return sb.ToString();
         }
 
-        protected override long GetStartCraftTime(ProfileBuildingsData data)
+        public override long GetStartCraftTime(ProfileBuildingsData data)
         {
             return data.armorWorkshopStartCraftTime;
         }
@@ -82,7 +82,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Craft
             data.armorWorkshopStartCraftTime = startCraftTime;
         }
 
-        protected override ItemType GetCurrentCraftItemType(ProfileBuildingsData data)
+        public override ItemType GetCurrentCraftItemType(ProfileBuildingsData data)
         {
             return (ItemType)data.armorWorkshopCraftItemType;
         }
@@ -92,7 +92,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Craft
             data.armorWorkshopCraftItemType = (sbyte)itemType;
         }
 
-        protected override Rarity GetCurrentCraftItemRarity(ProfileBuildingsData data)
+        public override Rarity GetCurrentCraftItemRarity(ProfileBuildingsData data)
         {
             return (Rarity)data.armorWorkshopCraftItemRarity;
         }

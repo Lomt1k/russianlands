@@ -69,7 +69,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Craft
             return sb.ToString();
         }
 
-        protected override long GetStartCraftTime(ProfileBuildingsData data)
+        public override long GetStartCraftTime(ProfileBuildingsData data)
         {
             return data.scribesHouseStartCraftTime;
         }
@@ -79,7 +79,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Craft
             data.scribesHouseStartCraftTime = startCraftTime;
         }
 
-        protected override ItemType GetCurrentCraftItemType(ProfileBuildingsData data)
+        public override ItemType GetCurrentCraftItemType(ProfileBuildingsData data)
         {
             return ItemType.Scroll;
         }
@@ -89,7 +89,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Craft
             //ingrored
         }
 
-        protected override Rarity GetCurrentCraftItemRarity(ProfileBuildingsData data)
+        public override Rarity GetCurrentCraftItemRarity(ProfileBuildingsData data)
         {
             return (Rarity)data.scribesHouseCraftItemRarity;
         }

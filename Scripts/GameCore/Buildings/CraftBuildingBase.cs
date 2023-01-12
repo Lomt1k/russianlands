@@ -28,11 +28,11 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
     {
         public abstract List<ItemType> craftCategories { get; }
 
-        protected abstract long GetStartCraftTime(ProfileBuildingsData data);
+        public abstract long GetStartCraftTime(ProfileBuildingsData data);
         protected abstract void SetStartCraftTime(ProfileBuildingsData data, long startCraftTime);
-        protected abstract ItemType GetCurrentCraftItemType(ProfileBuildingsData data);
+        public abstract ItemType GetCurrentCraftItemType(ProfileBuildingsData data);
         protected abstract void SetCurrentCraftItemType(ProfileBuildingsData data, ItemType itemType);
-        protected abstract Rarity GetCurrentCraftItemRarity(ProfileBuildingsData data);
+        public abstract Rarity GetCurrentCraftItemRarity(ProfileBuildingsData data);
         protected abstract void SetCurrentCraftItemRarity(ProfileBuildingsData data, Rarity rarity);
 
         /// <returns>Ведётся ли сейчас изготовление предмета</returns>
@@ -171,6 +171,11 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             SetCurrentCraftItemType(data, itemType);
             SetCurrentCraftItemRarity(data, rarity);
             SetStartCraftTime(data, DateTime.UtcNow.Ticks);
+        }
+
+        public void ForceEndCraft(ProfileBuildingsData data)
+        {
+            SetStartCraftTime(data, 1);
         }
 
     }

@@ -129,7 +129,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
                 return;
             }
 
-            var notEnoughMaterials = requiredResources.Where(x => x.Key.IsCraftResource()).ToDictionary(x => x.Key, x => x.Value);
+            var notEnoughMaterials = notEnoughResources.Where(x => x.Key.IsCraftResource()).ToDictionary(x => x.Key, x => x.Value);
             if (notEnoughMaterials.Count > 0)
             {
                 var sb = new StringBuilder();

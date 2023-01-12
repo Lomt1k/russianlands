@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Text;
+using TextGameRPG.Scripts.Bot;
 using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Resources;
@@ -79,9 +80,9 @@ namespace TextGameRPG.Scripts.GameCore.Potions
             if (!IsReady())
             {
                 sb.AppendLine();
-                sb.AppendLine(Localization.Get(session, "dialog_potions_in_production_header"));
                 var timeSpan = new DateTime(_preparationTime) - DateTime.UtcNow;
-                sb.Append(timeSpan.GetView(session));
+                var productionView = string.Format(Localization.Get(session, "dialog_potions_production_progress"), timeSpan.GetView(session));
+                sb.Append($"{Emojis.elements[Element.SmallBlack]} {productionView}");
             }
             return sb.ToString();
         }

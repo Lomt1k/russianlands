@@ -70,7 +70,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Craft
             return sb.ToString();
         }
 
-        protected override long GetStartCraftTime(ProfileBuildingsData data)
+        public override long GetStartCraftTime(ProfileBuildingsData data)
         {
             return data.jewerlyStartCraftTime;
         }
@@ -80,7 +80,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Craft
             data.jewerlyStartCraftTime = startCraftTime;
         }
 
-        protected override ItemType GetCurrentCraftItemType(ProfileBuildingsData data)
+        public override ItemType GetCurrentCraftItemType(ProfileBuildingsData data)
         {
             return (ItemType)data.jewerlyCraftItemType;
         }
@@ -90,7 +90,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Craft
             data.jewerlyCraftItemType = (sbyte)itemType;
         }
 
-        protected override Rarity GetCurrentCraftItemRarity(ProfileBuildingsData data)
+        public override Rarity GetCurrentCraftItemRarity(ProfileBuildingsData data)
         {
             return (Rarity)data.jewerlyCraftItemRarity;
         }
