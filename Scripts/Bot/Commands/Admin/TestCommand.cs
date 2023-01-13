@@ -17,11 +17,8 @@ namespace TextGameRPG.Scripts.Bot.Commands.Admin
             if (!args[0].TryParse(out Rarity rarity))
                 return;
 
-            var settings = new ItemGenerationSettings()
-            {
-                townHallLevel = 2,
-            };
-            var item = ItemGenerationManager.GenerateItem(settings, rarity);
+            var townHallLevel = 2;
+            var item = ItemGenerationManager.GenerateItem(townHallLevel, rarity);
 
             var text = ItemViewBuilder.Build(session, item);
             await messageSender.SendTextMessage(session.chatId, text);

@@ -191,9 +191,29 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             SetStartCraftTime(data, DateTime.UtcNow.Ticks);
         }
 
-        public void ForceEndCraft(ProfileBuildingsData data)
+        public void BoostCraft(ProfileBuildingsData data)
         {
             SetStartCraftTime(data, 1);
+        }
+
+        public InventoryItem GetCraftItemAndResetCraft(ProfileBuildingsData data)
+        {
+            SetStartCraftTime(data, 0);
+            var itemType = GetCurrentCraftItemType(data);
+            var rarity = GetCurrentCraftItemRarity(data);
+            var townhallLevel = GetCurrentTownhallLevelForCraftItem(data);
+            var item = ItemGenerationManager.GenerateItem(townhallLevel, itemType, rarity);
+            return item;
+        }
+
+        public int GetCurrentTownhallLevelForCraftItem(ProfileBuildingsData data)
+        {
+            var currentLevel = GetCurrentLevel(data);
+            if (currentLevel < 1)
+            {
+                return 1;
+            }
+            return buildingData.levels[currentLevel - 1].requiredTownHall;
         }
 
     }

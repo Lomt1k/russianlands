@@ -85,6 +85,13 @@ namespace TextGameRPG.Scripts.GameCore.Inventory
             return true;
         }
 
+        public bool ForceAddItem(InventoryItem item)
+        {
+            items.Add(item);
+            _itemsByType[item.data.itemType].Add(item);
+            return true;
+        }
+
         public void RemoveItem(InventoryItem item)
         {
             if (item.isEquipped)

@@ -69,7 +69,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
             var successsPurchase = playerResources.TryPurchase(ResourceType.Diamond, requiredDiamonds, out var notEnoughDiamonds);
             if (successsPurchase)
             {
-                _building.ForceEndCraft(buildingsData);
+                _building.BoostCraft(buildingsData);
 
                 var sb = new StringBuilder();
                 sb.AppendLine($"{Emojis.menuItems[MenuItem.Craft]} {Localization.Get(session, "dialog_craft_boosted")}");
@@ -82,7 +82,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
 
                 ClearButtons();
                 RegisterButton(Localization.Get(session, "menu_item_continue_button"),
-                    () => new CraftCanCollectItemDialog(session, _building).Start());
+                    () => new CraftCanCollectItemDialog(session, _building).TryToGetItem());
 
                 await SendDialogMessage(sb, GetOneLineKeyboard())
                     .ConfigureAwait(false);
