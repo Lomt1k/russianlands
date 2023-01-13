@@ -93,7 +93,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
         {
             _browsedCategory = category;
             RefreshBrowsedItems();
-            _currentPage = itemsPage;
+            _currentPage = itemsPage < _pagesCount ? itemsPage : _pagesCount - 1;
             await ShowItemsPage(asNewMessage: true)
                 .ConfigureAwait(false);
         }

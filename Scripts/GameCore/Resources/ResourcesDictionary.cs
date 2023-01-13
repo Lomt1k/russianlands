@@ -22,6 +22,10 @@ namespace TextGameRPG.Scripts.GameCore.Resources
 
                 //additional
                 { ResourceType.InventoryItems, new ResourceInventoryItems() }, // регулирует размер инвентаря
+                { ResourceType.CraftPiecesCommon, new ResourceCraftPiecesCommon() },
+                { ResourceType.CraftPiecesRare, new ResourceCraftPiecesRare() },
+                { ResourceType.CraftPiecesEpic, new ResourceCraftPiecesEpic() },
+                { ResourceType.CraftPiecesLegendary, new ResourceCraftPiecesLegendary() },
                 //-TODO
             };
         }
@@ -33,6 +37,14 @@ namespace TextGameRPG.Scripts.GameCore.Resources
             yield return ResourceType.Diamond;
             yield return ResourceType.Herbs;
             yield return ResourceType.Wood;
+        }
+
+        public IEnumerable<ResourceType> GetCraftResourceTypes()
+        {
+            yield return ResourceType.CraftPiecesCommon;
+            yield return ResourceType.CraftPiecesRare;
+            yield return ResourceType.CraftPiecesEpic;
+            yield return ResourceType.CraftPiecesLegendary;
         }
 
     }

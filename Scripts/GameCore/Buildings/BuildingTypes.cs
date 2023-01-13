@@ -5,6 +5,7 @@ using TextGameRPG.Scripts.GameCore.Buildings.Production;
 using TextGameRPG.Scripts.GameCore.Buildings.Storages;
 using TextGameRPG.Scripts.GameCore.Buildings.Training;
 using TextGameRPG.Scripts.Bot.Sessions;
+using TextGameRPG.Scripts.GameCore.Buildings.Craft;
 
 namespace TextGameRPG.Scripts.GameCore.Buildings
 {
@@ -67,6 +68,10 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             { BuildingType.Tyr, new TyrBuilding() },
             { BuildingType.Hospital, new HospitalBuilding() },
             { BuildingType.AlchemyLab, new AlchemyLabBuilding() },
+            { BuildingType.WeaponsWorkshop, new WeaponsWorkshopBuilding() },
+            { BuildingType.ArmorWorkshop, new ArmorWorkshopBuilding() },
+            { BuildingType.Jewerly, new JewerlyBuilding() },
+            { BuildingType.ScribesHouse, new ScribesHouseBuilding() },
 
             // --- Хранилища
             { BuildingType.ItemsStorage, new ItemsStorageBuilding() },
@@ -130,6 +135,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
                 case BuildingType.WeaponsWorkshop:
                 case BuildingType.ArmorWorkshop:
                 case BuildingType.Jewerly:
+                case BuildingType.ScribesHouse:
                     return new CraftLevelInfo();
 
                 case BuildingType.Hospital:

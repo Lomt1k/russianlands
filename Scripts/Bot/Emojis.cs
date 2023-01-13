@@ -20,6 +20,7 @@ namespace TextGameRPG.Scripts.Bot
         Shop,
         Potions,
         Skills,
+        Craft,
         Avatar,
         NameChange,
         Inventory,
@@ -118,6 +119,7 @@ namespace TextGameRPG.Scripts.Bot
         Clock,
         Training,
         Cancel,
+        Bin,
     }
 
     public enum Smile
@@ -147,6 +149,7 @@ namespace TextGameRPG.Scripts.Bot
             { MenuItem.Shop, "\ud83d\uded2" },
             { MenuItem.Potions, "\ud83e\uddea" },
             { MenuItem.Skills, "\ud83d\udcaa" },
+            { MenuItem.Craft, "\ud83d\udd28" },
             { MenuItem.Avatar, "\ud83d\udc40" },
             { MenuItem.NameChange, "\ud83c\udff7" },
             { MenuItem.Inventory, "\ud83c\udf92" },
@@ -203,6 +206,10 @@ namespace TextGameRPG.Scripts.Bot
             { ResourceType.Wood, "\ud83e\udeb5" },
 
             { ResourceType.InventoryItems, "\ud83c\udf92" },
+            { ResourceType.CraftPiecesCommon, "\ud83d\udce6" },
+            { ResourceType.CraftPiecesRare, "\ud83d\udce6" },
+            { ResourceType.CraftPiecesEpic, "\ud83d\udce6" },
+            { ResourceType.CraftPiecesLegendary, "\ud83d\udce6" },
         };
 
         public static readonly Dictionary<MapLocation, string> locations = new Dictionary<MapLocation, string>
@@ -274,6 +281,7 @@ namespace TextGameRPG.Scripts.Bot
             { Element.Clock, "\ud83d\udd53" },
             { Element.Training, "\ud83c\udf93" },
             { Element.Cancel, "\ud83d\udeab" },
+            { Element.Bin, "\ud83d\uddd1" },
         };
 
         public static readonly Dictionary<Smile, string> smiles = new Dictionary<Smile, string>

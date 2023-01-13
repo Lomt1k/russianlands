@@ -27,6 +27,12 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
         public int resourceHerbs;
         public int resourceWood;
 
+        // craft resources
+        public int resourceCraftPiecesCommon;
+        public int resourceCraftPiecesRare;
+        public int resourceCraftPiecesEpic;
+        public int resourceCraftPiecesLegendary;
+
         public static TableColumn[] GetTableColumns()
         {
             return new TableColumn[]
@@ -39,11 +45,17 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
                 new TableColumn("nickname", "TEXT", "na"),
                 new TableColumn("adminStatus", "INTEGER", "0"),
                 new TableColumn("level", "INTEGER", "1"),
+
                 new TableColumn("resourceGold", "INTEGER", "3500"),
                 new TableColumn("resourceFood", "INTEGER", "1000"),
                 new TableColumn("resourceDiamond", "INTEGER", "150"),
                 new TableColumn("resourceHerbs", "INTEGER", "0"),
                 new TableColumn("resourceWood", "INTEGER", "0"),
+
+                new TableColumn("resourceCraftPiecesCommon", "INTEGER", "0"),
+                new TableColumn("resourceCraftPiecesRare", "INTEGER", "0"),
+                new TableColumn("resourceCraftPiecesEpic", "INTEGER", "0"),
+                new TableColumn("resourceCraftPiecesLegendary", "INTEGER", "0"),
             };
         }
 

@@ -109,9 +109,10 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
         {
             if (!building.IsUnderConstruction(_buildingsData) || building.IsConstructionCanBeFinished(_buildingsData))
             {
-                var message = $"{Emojis.elements[Element.Construction]} {Localization.Get(session, "dialog_buildings_construction_boost_expired")}";
-                await messageSender.SendTextMessage(session.chatId, message).ConfigureAwait(false);
-                await ShowBuildingCurrentLevelInfo()
+                var message = $"{Emojis.elements[Element.Clock]} {Localization.Get(session, "dialog_buildings_construction_boost_expired")}";
+                ClearButtons();
+                RegisterButton(Localization.Get(session, "menu_item_continue_button"), () => ShowBuildingCurrentLevelInfo());
+                await SendDialogMessage(message, GetOneLineKeyboard())
                     .ConfigureAwait(false);
                 return;
             }
@@ -138,9 +139,10 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
                     sb.AppendLine(ResourceType.Diamond.GetLocalizedView(session, requiredDiamonds));
                 }
 
-                await messageSender.SendTextMessage(session.chatId, sb.ToString())
-                    .ConfigureAwait(false);
-                await ShowBuildingCurrentLevelInfo()
+                ClearButtons();
+                RegisterButton(Localization.Get(session, "menu_item_continue_button"), () => ShowBuildingCurrentLevelInfo());
+
+                await SendDialogMessage(sb, GetOneLineKeyboard())
                     .ConfigureAwait(false);
                 return;
             }

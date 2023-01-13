@@ -22,6 +22,26 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
         public byte potionWorkshopLevel;
         public long potionWorkshopStartConstructionTime;
 
+        public byte weaponsWorkshopLevel;
+        public long weaponsWorkshopStartConstructionTime;
+        public long weaponsWorkshopStartCraftTime;
+        public sbyte weaponsWorkshopCraftItemType;
+        public byte weaponsWorkshopCraftItemRarity;
+        public byte armorWorkshopLevel;
+        public long armorWorkshopStartConstructionTime;
+        public long armorWorkshopStartCraftTime;
+        public sbyte armorWorkshopCraftItemType;
+        public byte armorWorkshopCraftItemRarity;
+        public byte jewerlyLevel;
+        public long jewerlyStartConstructionTime;
+        public long jewerlyStartCraftTime;
+        public sbyte jewerlyCraftItemType;
+        public byte jewerlyCraftItemRarity;
+        public byte scribesHouseLevel;
+        public long scribesHouseStartConstructionTime;
+        public long scribesHouseStartCraftTime;
+        public byte scribesHouseCraftItemRarity;
+
         // --- Хранилища
         public byte goldStorageLevel = 1;
         public long goldStorageStartConstructionTime;
@@ -138,8 +158,6 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
         public long woodTrainingFirstUnitStartTime;
         public long woodTrainingSecondUnitStartTime;
 
-
-
         public static TableColumn[] GetTableColumns()
         {
             return new TableColumn[]
@@ -155,6 +173,26 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
                 new TableColumn("hospitalLastHealthRestoreTime", "INTEGER", "0"),
                 new TableColumn("potionWorkshopLevel", "INTEGER", "0"),
                 new TableColumn("potionWorkshopStartConstructionTime", "INTEGER", "0"),
+
+                new TableColumn("weaponsWorkshopLevel", "INTEGER", "0"),
+                new TableColumn("weaponsWorkshopStartConstructionTime", "INTEGER", "0"),
+                new TableColumn("weaponsWorkshopStartCraftTime", "INTEGER", "0"),
+                new TableColumn("weaponsWorkshopCraftItemType", "INTEGER", "0"),
+                new TableColumn("weaponsWorkshopCraftItemRarity", "INTEGER", "0"),
+                new TableColumn("armorWorkshopLevel", "INTEGER", "0"),
+                new TableColumn("armorWorkshopStartConstructionTime", "INTEGER", "0"),
+                new TableColumn("armorWorkshopStartCraftTime", "INTEGER", "0"),
+                new TableColumn("armorWorkshopCraftItemType", "INTEGER", "0"),
+                new TableColumn("armorWorkshopCraftItemRarity", "INTEGER", "0"),
+                new TableColumn("jewerlyLevel", "INTEGER", "0"),
+                new TableColumn("jewerlyStartConstructionTime", "INTEGER", "0"),
+                new TableColumn("jewerlyStartCraftTime", "INTEGER", "0"),
+                new TableColumn("jewerlyCraftItemType", "INTEGER", "0"),
+                new TableColumn("jewerlyCraftItemRarity", "INTEGER", "0"),
+                new TableColumn("scribesHouseLevel", "INTEGER", "0"),
+                new TableColumn("scribesHouseStartConstructionTime", "INTEGER", "0"),
+                new TableColumn("scribesHouseStartCraftTime", "INTEGER", "0"),
+                new TableColumn("scribesHouseCraftItemRarity", "INTEGER", "0"),
 
                 // --- Хранилища
                 new TableColumn("goldStorageLevel", "INTEGER", "1"),

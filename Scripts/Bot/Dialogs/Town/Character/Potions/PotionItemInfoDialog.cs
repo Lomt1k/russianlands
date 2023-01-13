@@ -48,7 +48,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
             {
                 var message = Localization.Get(session, "dialog_potions_craft_boost_expired");
                 ClearButtons();
-                RegisterBackButton(() => new PotionsDialog(session).Start());
+                RegisterButton(Localization.Get(session, "menu_item_continue_button"),
+                    () => new PotionsDialog(session).Start());
                 await SendDialogMessage(message, GetOneLineKeyboard())
                     .ConfigureAwait(false);
             }
