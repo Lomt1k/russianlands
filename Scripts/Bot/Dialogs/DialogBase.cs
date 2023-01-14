@@ -39,7 +39,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
 
         protected void RegisterBackButton(Func<Task> callback)
         {
-            RegisterButton(Emojis.ElementSmallBlack + Localization.Get(session, "menu_item_back_button"), callback);
+            RegisterButton(Emojis.ElementBack + Localization.Get(session, "menu_item_back_button"), callback);
         }
 
         protected void RegisterBackButton(string text, Func<Task> callback)
