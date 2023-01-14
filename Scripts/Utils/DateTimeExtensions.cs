@@ -45,7 +45,7 @@ public static class DateTimeExtensions
         }
 
         return withCaption
-            ? Emojis.ElementClock + Localization.Get(session, "resource_name_time") + sb.ToString()
+            ? Emojis.ElementClock + Localization.Get(session, "resource_name_time") + ' ' + sb.ToString()
             : Emojis.ElementClock + sb.ToString();
 
         void AddSpaceIfRequired(StringBuilder sb)

@@ -18,7 +18,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
 
             var playerPotions = session.player.potions;
             var freeSlots = playerPotions.GetFreeSlotsCount(session);
-            RegisterButton(Emojis.ElementPlus + Localization.Get(session, "dialog_potions_produce_button") + $"({freeSlots})",
+            RegisterButton(Emojis.ElementPlus + Localization.Get(session, "dialog_potions_produce_button") + $" ({freeSlots})",
                 () => TryOpenProductionDialog());
 
             if (playerPotions.HasPotionsInProduction())

@@ -65,7 +65,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.General
             var nextLevelInfo = (HospitalLevelInfo)buildingData.levels[currentLevel];
             var nextHealthAmount = nextLevelInfo.restoreHealthPerMinute;
             var delta = nextHealthAmount - currentHealthAmount;
-            sb.Append(Emojis.StatHealth + nextHealthAmount.ToString() + $"(<i>+{delta}</i>)");
+            sb.Append(Emojis.StatHealth + nextHealthAmount.ToString() + $" (<i>+{delta}</i>)");
 
             return sb.ToString();
         }
