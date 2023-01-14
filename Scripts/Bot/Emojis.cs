@@ -1,9 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Text;
-using TextGameRPG.Scripts.GameCore.Items;
-using TextGameRPG.Scripts.GameCore.Resources;
-
-namespace TextGameRPG.Scripts.Bot
+﻿namespace TextGameRPG.Scripts.Bot
 {
     public class Emoji
     {
@@ -20,18 +15,17 @@ namespace TextGameRPG.Scripts.Bot
 
         public static string operator +(Emoji a, string b)
         {
-            return a.code + ' ' + b;
+            return a.ToString() + ' ' + b;
         }
 
         public static string operator +(string a, Emoji b)
         {
-            return a + ' ' + b.code;
+            return a + ' ' + b.ToString();
         }
     }
 
     public static class Emojis
     {
-        public const char space = ' ';
         public const string middleSpace = "   ";
         public const string bigSpace = "     ";
 
