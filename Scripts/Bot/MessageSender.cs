@@ -109,7 +109,7 @@ namespace TextGameRPG.Scripts.Bot
         {
             try
             {
-                return await _botClient.SendTextMessageAsync(id, $"{Emojis.elements[Element.Warning]} <b>Program Error</b>\n\n" + text, ParseMode.Html)
+                return await _botClient.SendTextMessageAsync(id, Emojis.ElementWarning + "<b>Program Error</b>\n\n" + text, ParseMode.Html)
                     .ConfigureAwait(false);
             }
             catch (RequestException ex)

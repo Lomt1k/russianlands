@@ -36,7 +36,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.TrainingBuildingDialog
         {
             ClearButtons();
             var sb = new StringBuilder();
-            sb.AppendLine($"{Emojis.elements[Element.Training]} " + Localization.Get(session, "dialog_training_header_" + _building.buildingType));
+            sb.AppendLine(Emojis.ElementTraining + Localization.Get(session, "dialog_training_header_" + _building.buildingType));
             sb.AppendLine();
 
             var updates = _building.GetUpdates(session, _data, onlyImportant: false);
@@ -44,7 +44,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.TrainingBuildingDialog
             {
                 foreach (var update in updates)
                 {
-                    sb.AppendLine($"{Emojis.elements[Element.SmallBlack]} {update}");
+                    sb.AppendLine(Emojis.ElementSmallBlack + update);
                 }
                 sb.AppendLine();
             }
@@ -103,7 +103,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.TrainingBuildingDialog
                 sb.AppendLine(_building.GetInfoAboutUnitTraining(session, _data, unitIndex));
 
                 var diamondsForBoost = ResourceHelper.CalculateTrainingBoostPriceInDiamonds((int)timeSpan.TotalSeconds);
-                var priceView = Emojis.resources[ResourceType.Diamond] + diamondsForBoost;
+                var priceView = ResourceType.Diamond.GetEmoji().code + diamondsForBoost;
                 var boostButton = Localization.Get(session, "menu_item_boost_button", priceView);
                 RegisterButton(boostButton, () => TryBoostTraining(unitIndex));
                 RegisterButton(Localization.Get(session, "dialog_training_cancel_training_button"), () => CancelTraining(unitIndex));
@@ -191,7 +191,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.TrainingBuildingDialog
                 else
                     _building.LevelUpSecond(session, _data);
 
-                var message = $"{Emojis.elements[Element.Training]} {Localization.Get(session, "dialog_training_boost_expired")}";
+                var message = Emojis.ElementTraining + Localization.Get(session, "dialog_training_boost_expired");
                 ClearButtons();
                 RegisterButton(Localization.Get(session, "menu_item_continue_button"), () => ShowCurrentUnit(unitIndex));
 
@@ -214,7 +214,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.TrainingBuildingDialog
                     _building.LevelUpSecond(session, _data);
 
                 var sb = new StringBuilder();
-                sb.AppendLine($"{Emojis.elements[Element.Training]} {Localization.Get(session, "dialog_training_boosted")}");
+                sb.AppendLine(Emojis.ElementTraining + Localization.Get(session, "dialog_training_boosted"));
                 sb.AppendLine();
                 sb.AppendLine(Localization.Get(session, "resource_header_spent"));
                 sb.AppendLine(ResourceType.Diamond.GetLocalizedView(session, requiredDiamonds));
@@ -228,8 +228,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.TrainingBuildingDialog
             }
 
             ClearButtons();
-            var text = Localization.Get(session, "resource_not_enough_diamonds", Emojis.smiles[Smile.Sad]);
-            RegisterButton($"{Emojis.menuItems[MenuItem.Shop]} {Localization.Get(session, "menu_item_shop")}", () => new ShopDialog(session).Start());
+            var text = Localization.Get(session, "resource_not_enough_diamonds", Emojis.SmileSad);
+            RegisterButton(Emojis.ButtonShop + Localization.Get(session, "menu_item_shop"), () => new ShopDialog(session).Start());
             RegisterBackButton(() => ShowCurrentUnit(unitIndex));
             await SendDialogMessage(text, GetMultilineKeyboard())
                 .ConfigureAwait(false);

@@ -23,7 +23,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities.Keywords
 
         public override string GetView(GameSession session)
         {
-            return Emojis.stats[Stat.KeywordAdditionalDamage] + ' ' +
+            return Emojis.StatKeywordAdditionalDamage +
                 Localization.Get(session, "ability_extra_fire_damage_percentage", chanceToSuccessPercentage, damageAmount);
         }
 

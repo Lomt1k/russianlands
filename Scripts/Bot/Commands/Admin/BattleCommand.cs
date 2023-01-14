@@ -66,7 +66,7 @@ namespace TextGameRPG.Scripts.Bot.Commands.Admin
             {
                 var fistsAttack = new MobAttack()
                 {
-                    localizationKey = $"{Emojis.stats[Stat.PhysicalDamage]} {Localization.Get(player.session, "battle_attack_fists")}",
+                    localizationKey = Emojis.StatPhysicalDamage + Localization.Get(player.session, "battle_attack_fists"),
                     minPhysicalDamage = 10,
                     maxPhysicalDamage = 10,
                 };
@@ -110,7 +110,7 @@ namespace TextGameRPG.Scripts.Bot.Commands.Admin
 
             var attack = new MobAttack()
             {
-                localizationKey = $"<b>{item.GetFullName(player.session)}</b>",
+                localizationKey = item.GetFullName(player.session).Bold(),
                 minPhysicalDamage = dealDamage.minPhysicalDamage,
                 maxPhysicalDamage = dealDamage.maxPhysicalDamage,
                 minFireDamage = dealDamage.minFireDamage,

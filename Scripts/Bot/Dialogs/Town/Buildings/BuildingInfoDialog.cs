@@ -10,6 +10,7 @@ using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
 using TextGameRPG.Scripts.Bot.Dialogs.Resources;
 using TextGameRPG.Scripts.Bot.Dialogs.Town.Shop;
 using TextGameRPG.Scripts.Bot.Sessions;
+using TextGameRPG.Scripts.GameCore.Units;
 
 namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
 {
@@ -42,7 +43,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
         {
             ClearButtons();
             var sb = new StringBuilder();
-            sb.AppendLine($"<b>{building.GetLocalizedName(session, _buildingsData)}</b>");
+            sb.AppendLine(building.GetLocalizedName(session, _buildingsData).Bold());
             sb.AppendLine();
             if (building.GetCurrentLevel(_buildingsData) > 0)
             {
@@ -59,7 +60,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
                 sb.AppendLine();
                 foreach (var update in updates)
                 {
-                    sb.AppendLine($"{Emojis.elements[Element.SmallBlack]} {update}");
+                    sb.AppendLine(Emojis.ElementSmallBlack + update);
                 }
             }
 
@@ -73,7 +74,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
                     var time = building.GetEndConstructionTime(_buildingsData);
                     var secondsToEnd = (int)(time - DateTime.UtcNow).TotalSeconds;
                     var diamondsForBoost = ResourceHelper.CalculateConstructionBoostPriceInDiamonds(secondsToEnd);
-                    var priceView = Emojis.resources[ResourceType.Diamond] + diamondsForBoost;
+                    var priceView = ResourceType.Diamond.GetEmoji().code + diamondsForBoost;
                     var buttonText = nextLevel.isBoostAvailable
                         ? Localization.Get(session, "menu_item_boost_free_button")
                         : Localization.Get(session, "menu_item_boost_button", priceView);
@@ -83,9 +84,9 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
                 {
                     var playerTownHall = BuildingType.TownHall.GetBuilding().GetCurrentLevel(_buildingsData);
                     var nextLevelIcon = playerTownHall < nextLevel.requiredTownHall
-                        ? Emojis.elements[Element.Locked]
-                        : Emojis.elements[Element.LevelUp];
-                    RegisterButton($"{nextLevelIcon} {Localization.Get(session, "dialog_buildings_construction_button")}",
+                        ? Emojis.ElementLocked
+                        : Emojis.ElementLevelUp;
+                    RegisterButton(nextLevelIcon + Localization.Get(session, "dialog_buildings_construction_button"),
                         () => ShowConstructionAvailableInfo());
                 }
             }
@@ -95,9 +96,9 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
                 RegisterButton(button.Key, () => button.Value());
             }
             var category = building.buildingType.GetCategory();
-            RegisterButton($"{Emojis.elements[Element.Back]} {category.GetLocalization(session)}",
+            RegisterBackButton(category.GetLocalization(session),
                 () => new BuildingsDialog(session).ShowBuildingsCategory(category));
-            RegisterDoubleBackButton($"{Localization.Get(session, "menu_item_buildings")} {Emojis.menuItems[MenuItem.Buildings]}",
+            RegisterDoubleBackButton(Localization.Get(session, "menu_item_buildings") + Emojis.ButtonBuildings,
                 () => new BuildingsDialog(session).Start());
 
             TryAppendTooltip(sb);
@@ -109,7 +110,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
         {
             if (!building.IsUnderConstruction(_buildingsData) || building.IsConstructionCanBeFinished(_buildingsData))
             {
-                var message = $"{Emojis.elements[Element.Clock]} {Localization.Get(session, "dialog_buildings_construction_boost_expired")}";
+                var message = Emojis.ElementClock + Localization.Get(session, "dialog_buildings_construction_boost_expired");
                 ClearButtons();
                 RegisterButton(Localization.Get(session, "menu_item_continue_button"), () => ShowBuildingCurrentLevelInfo());
                 await SendDialogMessage(message, GetOneLineKeyboard())
@@ -131,7 +132,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
                 building.LevelUp(_buildingsData);
 
                 var sb = new StringBuilder();
-                sb.AppendLine($"{Emojis.elements[Element.Construction]} {Localization.Get(session, "dialog_buildings_construction_boosted")}");
+                sb.AppendLine(Emojis.ElementConstruction + Localization.Get(session, "dialog_buildings_construction_boosted"));
                 if (requiredDiamonds > 0)
                 {
                     sb.AppendLine();
@@ -148,8 +149,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
             }
 
             ClearButtons();
-            var text = Localization.Get(session, "resource_not_enough_diamonds", Emojis.smiles[Smile.Sad]);
-            RegisterButton($"{Emojis.menuItems[MenuItem.Shop]} {Localization.Get(session, "menu_item_shop")}",
+            var text = Localization.Get(session, "resource_not_enough_diamonds", Emojis.SmileSad);
+            RegisterButton(Emojis.ButtonShop + Localization.Get(session, "menu_item_shop"),
                 () => new ShopDialog(session).Start());
             RegisterBackButton(() => ShowBuildingCurrentLevelInfo());
 
@@ -166,7 +167,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
             }
 
             var sb = new StringBuilder();
-            sb.AppendLine($"<b>{building.GetNextLevelLocalizedName(session, _buildingsData)}</b>");
+            sb.AppendLine(building.GetNextLevelLocalizedName(session, _buildingsData).Bold());
             sb.AppendLine();
             sb.AppendLine(building.GetNextLevelInfo(session, _buildingsData));
 
@@ -185,7 +186,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
             {
                 sb.AppendLine();
                 var localization = Localization.Get(session, "dialog_buildings_required_town_hall", levelData.requiredTownHall);
-                sb.AppendLine(Emojis.elements[Element.WarningGrey] + localization);
+                sb.AppendLine(Emojis.ElementWarningGrey.code + localization);
             }
             else
             {
@@ -197,7 +198,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
             ClearButtons();
             if (playerTownHall >= levelData.requiredTownHall)
             {
-                RegisterButton($"{Emojis.elements[Element.Construction]} {Localization.Get(session, "dialog_buildings_start_construction_button")}",
+                RegisterButton(Emojis.ElementConstruction + Localization.Get(session, "dialog_buildings_start_construction_button"),
                     () => TryStartConstruction());
             }
 
@@ -208,10 +209,9 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
             else
             {
                 var category = building.buildingType.GetCategory();
-                RegisterButton($"{Emojis.elements[Element.Back]} {category.GetLocalization(session)}",
-                    () => new BuildingsDialog(session).ShowBuildingsCategory(category));
+                RegisterBackButton(category.GetLocalization(session), () => new BuildingsDialog(session).ShowBuildingsCategory(category));
             }
-            RegisterDoubleBackButton($"{Localization.Get(session, "menu_item_buildings")} {Emojis.menuItems[MenuItem.Buildings]}",
+            RegisterDoubleBackButton(Localization.Get(session, "menu_item_buildings") + Emojis.ButtonBuildings,
                 () => new BuildingsDialog(session).Start());
 
             TryAppendTooltip(sb);
@@ -244,7 +244,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
                 if (hasActiveTraining)
                 {
                     sb.AppendLine();
-                    sb.AppendLine(Emojis.elements[Element.WarningRed] + Localization.Get(session, "building_training_break_warning"));
+                    sb.AppendLine(Emojis.ElementWarningRed.code + Localization.Get(session, "building_training_break_warning"));
                 }
             }
         }
@@ -312,8 +312,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
 
             for (int i = 0; i < constructions.Length; i++)
             {
-                var charIcon = i % 2 == 0 ? CharIcon.BuilderA : CharIcon.BuilderB;
-                sb.Append($"{Emojis.characters[charIcon]} <b>{Localization.Get(session, $"dialog_buildings_worker_{i}_name")}:</b> ");
+                var charIcon = i % 2 == 0 ? Avatar.BuilderA : Avatar.BuilderB;
+                sb.Append(charIcon.GetEmoji() + Localization.Get(session, $"dialog_buildings_worker_{i}_name").Bold());
 
                 var buildingName = constructions[i].GetLocalizedName(session, data);
                 var time = (constructions[i].GetEndConstructionTime(data) - DateTime.UtcNow).GetShortView(session);
@@ -323,9 +323,9 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
             if (!session.profile.data.IsPremiumActive())
             {
                 sb.AppendLine();
-                sb.AppendLine($"{Emojis.menuItems[MenuItem.Premium]} <b>{Localization.Get(session, "menu_item_premium")}</b>");
+                sb.AppendLine(Emojis.StatPremium + Localization.Get(session, "menu_item_premium").Bold());
                 sb.AppendLine(Localization.Get(session, "dialog_buildings_construction_limit_can_buy_premium", maxConstructionsPremium));
-                RegisterButton($"{Emojis.menuItems[MenuItem.Shop]} {Localization.Get(session, "menu_item_shop")}", () => new ShopDialog(session).Start());
+                RegisterButton(Emojis.ButtonShop + Localization.Get(session, "menu_item_shop"), () => new ShopDialog(session).Start());
             }
             RegisterBackButton(() => ShowBuildingCurrentLevelInfo());
 
@@ -385,7 +385,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
             var sb = new StringBuilder();
 
             sb.AppendLine(Localization.Get(session, "dialog_buildings_storage_upgrade_required"));
-            sb.AppendLine($"{Emojis.elements[Element.SmallBlack]} {storageToUpgrade.GetLocalizedName(session, _buildingsData)}");
+            sb.AppendLine(Emojis.ElementSmallBlack + storageToUpgrade.GetLocalizedName(session, _buildingsData));
 
             RegisterButton(Localization.Get(session, "dialog_buildings_go_to_storage_button"), () => new BuildingInfoDialog(session, storageToUpgrade).Start());
             RegisterBackButton(() => ShowConstructionAvailableInfo());

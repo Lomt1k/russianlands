@@ -44,7 +44,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.General
             sb.AppendLine(Localization.Get(session, "building_tyr_arrows_header"));
             var levelInfo = (TyrLevelInfo)buildingData.levels[currentLevel - 1];
             var arrowsAmount = levelInfo.arrowsAmount;
-            sb.Append($"{Emojis.stats[Stat.Arrows]} {arrowsAmount}");
+            sb.Append(Emojis.StatArrows + arrowsAmount.ToString());
 
             return sb.ToString();
         }
@@ -65,7 +65,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.General
             var nextLevelInfo = (TyrLevelInfo)buildingData.levels[currentLevel];
             var nextArrowsAmount = nextLevelInfo.arrowsAmount;
             var delta = nextArrowsAmount - currentArrowsAmount;
-            sb.Append($"{Emojis.stats[Stat.Arrows]} {nextArrowsAmount} (<i>+{delta}</i>)");
+            sb.Append(Emojis.StatArrows + nextArrowsAmount.ToString() + $" (<i>+{delta}</i>)");
 
             return sb.ToString();
         }

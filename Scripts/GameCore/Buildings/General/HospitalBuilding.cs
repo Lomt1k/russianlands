@@ -44,7 +44,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.General
             sb.AppendLine(Localization.Get(session, "building_hospital_health_per_second_header"));
             var levelInfo = (HospitalLevelInfo)buildingData.levels[currentLevel - 1];
             var healthAmount = levelInfo.restoreHealthPerMinute;
-            sb.Append($"{Emojis.stats[Stat.Health]} {healthAmount}");
+            sb.Append(Emojis.StatHealth + healthAmount.ToString());
 
             return sb.ToString();
         }
@@ -65,7 +65,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.General
             var nextLevelInfo = (HospitalLevelInfo)buildingData.levels[currentLevel];
             var nextHealthAmount = nextLevelInfo.restoreHealthPerMinute;
             var delta = nextHealthAmount - currentHealthAmount;
-            sb.Append($"{Emojis.stats[Stat.Health]} {nextHealthAmount} (<i>+{delta}</i>)");
+            sb.Append(Emojis.StatHealth + nextHealthAmount.ToString() + $"(<i>+{delta}</i>)");
 
             return sb.ToString();
         }

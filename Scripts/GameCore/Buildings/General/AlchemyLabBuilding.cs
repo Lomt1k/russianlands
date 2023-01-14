@@ -56,12 +56,12 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.General
             sb.AppendLine();
             sb.AppendLine(Localization.Get(session, "building_types_of_potions_header"));            
             var potionTypesAmount = GetPotionsForCurrentLevel(data).Count;
-            sb.Append($"{Emojis.menuItems[MenuItem.Potions]} {potionTypesAmount}");
+            sb.Append(Emojis.ButtonPotions + potionTypesAmount.ToString());
 
             sb.AppendLine();
             sb.AppendLine(Localization.Get(session, "building_potions_in_battle_header"));
             var potionsInBattle = levelInfo.potionsInBattle;
-            sb.Append($"{Emojis.menuItems[MenuItem.Potions]} {potionsInBattle}");
+            sb.Append(Emojis.ButtonPotions + potionsInBattle.ToString());
 
             return sb.ToString();
         }
@@ -84,14 +84,14 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.General
             var currentLevelAmount = GetPotionsForCurrentLevel(data).Count;
             var nextLevelAmount = GetPotionsForNextLevel(data).Count;
             var delta = nextLevelAmount - currentLevelAmount;
-            sb.Append($"{Emojis.menuItems[MenuItem.Potions]} {nextLevelAmount}" + (delta > 0 ? $" (<i>+{delta}</i>)" : string.Empty) );
+            sb.Append(Emojis.ButtonPotions + nextLevelAmount.ToString() + (delta > 0 ? $" (<i>+{delta}</i>)" : string.Empty) );
 
             sb.AppendLine();
             sb.AppendLine(Localization.Get(session, "building_potions_in_battle_header"));
             currentLevelAmount = currentLevelInfo.potionsInBattle;
             nextLevelAmount = nextLevelInfo.potionsInBattle;
             delta = nextLevelAmount - currentLevelAmount;
-            sb.Append($"{Emojis.menuItems[MenuItem.Potions]} {nextLevelAmount}" + (delta > 0 ? $" (<i>+{delta}</i>)" : string.Empty) );
+            sb.Append(Emojis.ButtonPotions + nextLevelAmount.ToString() + (delta > 0 ? $" (<i>+{delta}</i>)" : string.Empty) );
 
             return sb.ToString();
         }
@@ -134,8 +134,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.General
 
             if (!IsUnderConstruction(data))
             {
-                result.Add($"{Emojis.menuItems[MenuItem.Potions]} {Localization.Get(session, "menu_item_potions")}" +
-                    $" ({session.player.potions.Count})",
+                result.Add(Emojis.ButtonPotions + Localization.Get(session, "menu_item_potions") + $" ({session.player.potions.Count})",
                     () => new PotionsDialog(session).Start());
             }
 

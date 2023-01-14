@@ -27,7 +27,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Quests
             var sb = new StringBuilder();
             if (_replica.characterType != CharacterType.None)
             {
-                var characterName = _replica.characterType.GetNameBold(session);
+                var characterName = _replica.characterType.GetName(session).Bold();
                 sb.AppendLine(characterName + ':');
                 sb.AppendLine();
             }

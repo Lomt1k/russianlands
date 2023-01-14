@@ -36,11 +36,10 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
         public override async Task Start()
         {
             var sb = new StringBuilder();
-            sb.Append($"{Emojis.menuItems[MenuItem.Battle]} ");
-            sb.Append(_data.mob.GetFullUnitInfoView(session));
+            sb.Append(Emojis.ButtonBattle + _data.mob.GetFullUnitInfoView(session));
 
             ClearButtons();
-            var priceView = _data.foodPrice > 0 ? $"{Emojis.resources[ResourceType.Food]} {_data.foodPrice.View()}" : string.Empty;
+            var priceView = _data.foodPrice > 0 ? ResourceType.Food.GetEmoji() + _data.foodPrice.View() : string.Empty;
             var startBattleButton = Localization.Get(session, "dialog_mob_battle_point_start_battle", priceView);
             RegisterButton(startBattleButton, () => TryStartBattle());
             if (_data.onBackButtonFunc != null)

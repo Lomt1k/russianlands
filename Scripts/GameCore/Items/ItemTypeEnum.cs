@@ -1,4 +1,4 @@
-﻿
+﻿using TextGameRPG.Scripts.Bot;
 using TextGameRPG.Scripts.Bot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Items
@@ -71,6 +71,25 @@ namespace TextGameRPG.Scripts.GameCore.Items
         public static string GetLocalization(this ItemType category, GameSession session)
         {
             return Localizations.Localization.Get(session, $"menu_item_{category.ToString().ToLower()}");
+        }
+
+        public static Emoji GetEmoji(this ItemType itemType)
+        {
+            return itemType switch
+            {
+                ItemType.Sword => Emojis.ItemSword,
+                ItemType.Bow => Emojis.ItemBow,
+                ItemType.Stick => Emojis.ItemStick,
+                ItemType.Helmet => Emojis.ItemHelmet,
+                ItemType.Armor => Emojis.ItemArmor,
+                ItemType.Boots => Emojis.ItemBoots,
+                ItemType.Shield => Emojis.ItemShield,
+                ItemType.Ring => Emojis.ItemRing,
+                ItemType.Amulet => Emojis.ItemAmulet,
+                ItemType.Scroll => Emojis.ItemScroll,
+                ItemType.Equipped => Emojis.ItemEquipped,
+                _ => Emojis.Empty
+            };
         }
 
     }    

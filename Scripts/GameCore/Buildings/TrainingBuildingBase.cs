@@ -65,7 +65,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
 
             if (!IsUnderConstruction(data))
             {
-                result.Add($"{Emojis.elements[Element.Training]} {Localization.Get(session, "building_training_open_dialog_button")}",
+                result.Add(Emojis.ElementTraining + Localization.Get(session, "building_training_open_dialog_button"),
                     () => new TrainingBuildingDialog(session, this, data).Start());
             }
 
@@ -80,7 +80,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
 
             var maxUnitLevel = GetCurrentMaxUnitLevel(data);
             var formatted = Localization.Get(session, "building_training_level_limit", maxUnitLevel);
-            sb.Append($"{Emojis.elements[Element.Training]} {formatted}");
+            sb.Append(Emojis.ElementTraining + formatted);
             return sb.ToString();
         }
 
@@ -96,7 +96,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             bool hideDelta = !IsBuilt(data);
             var dynamicData = nextValue + (hideDelta ? string.Empty : $" (<i>+{delta}</i>)");
             var formatted = Localization.Get(session, "building_training_level_limit", dynamicData);
-            sb.Append($"{Emojis.elements[Element.Training]} {formatted}");
+            sb.Append(Emojis.ElementTraining + formatted);
             return sb.ToString();
         }
 

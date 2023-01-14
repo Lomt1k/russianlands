@@ -3,7 +3,6 @@
     using ItemAbilities;
     using System;
     using System.Collections.Generic;
-    using TextGameRPG.Scripts.Bot;
 
     public abstract partial class ItemDataGeneratorBase
     {
@@ -25,7 +24,7 @@
                     temp += chancePercentage;
                     _stackOfChances[abilityType]++;
                     dealDamage.chanceToSuccessPercentage = (byte)Math.Round(temp / _stackOfChances[abilityType]);
-                    _statIcons.Add(Stat.PhysicalDamage);
+                    _statIcons.Add(ItemStatIcon.PhysicalDamage);
                 }
                 return;
             }
@@ -52,7 +51,7 @@
                     temp += chancePercentage;
                     _stackOfChances[abilityType]++;
                     dealDamage.chanceToSuccessPercentage = (byte)Math.Round(temp / _stackOfChances[abilityType]);
-                    _statIcons.Add(Stat.PhysicalDamage);
+                    _statIcons.Add(ItemStatIcon.PhysicalDamage);
                 }
                 return;
             }
@@ -67,7 +66,7 @@
 
         protected void AddDealFireDamage(int value, byte chancePercentage = 100)
         {
-            _statIcons.Add(Stat.FireDamage);
+            _statIcons.Add(ItemStatIcon.FireDamage);
             var abilityType = AbilityType.DealDamage;
             if (_abilities.TryGetValue(abilityType, out var ability))
             {
@@ -94,7 +93,7 @@
 
         protected void AddDealFireDamage(int minDamage, int maxDamage, byte chancePercentage = 100)
         {
-            _statIcons.Add(Stat.FireDamage);
+            _statIcons.Add(ItemStatIcon.FireDamage);
             var abilityType = AbilityType.DealDamage;
             if (_abilities.TryGetValue(abilityType, out var ability))
             {
@@ -121,7 +120,7 @@
 
         protected void AddDealColdDamage(int value, byte chancePercentage = 100)
         {
-            _statIcons.Add(Stat.ColdDamage);
+            _statIcons.Add(ItemStatIcon.ColdDamage);
             var abilityType = AbilityType.DealDamage;
             if (_abilities.TryGetValue(abilityType, out var ability))
             {
@@ -148,7 +147,7 @@
 
         protected void AddDealColdDamage(int minDamage, int maxDamage, byte chancePercentage = 100)
         {
-            _statIcons.Add(Stat.ColdDamage);
+            _statIcons.Add(ItemStatIcon.ColdDamage);
             var abilityType = AbilityType.DealDamage;
             if (_abilities.TryGetValue(abilityType, out var ability))
             {
@@ -175,7 +174,7 @@
 
         protected void AddDealLightningDamage(int value, byte chancePercentage = 100)
         {
-            _statIcons.Add(Stat.LightningDamage);
+            _statIcons.Add(ItemStatIcon.LightningDamage);
             var abilityType = AbilityType.DealDamage;
             if (_abilities.TryGetValue(abilityType, out var ability))
             {
@@ -202,7 +201,7 @@
 
         protected void AddDealLightningDamage(int minDamage, int maxDamage, byte chancePercentage = 100)
         {
-            _statIcons.Add(Stat.LightningDamage);
+            _statIcons.Add(ItemStatIcon.LightningDamage);
             var abilityType = AbilityType.DealDamage;
             if (_abilities.TryGetValue(abilityType, out var ability))
             {
@@ -242,7 +241,7 @@
                     temp += chancePercentage;
                     _stackOfChances[abilityType]++;
                     blockDamage.chanceToSuccessPercentage = (byte)Math.Round(temp / _stackOfChances[abilityType]);
-                    _statIcons.Add(Stat.PhysicalDamage);
+                    _statIcons.Add(ItemStatIcon.PhysicalDamage);
                 }
                 return;
             }
@@ -256,7 +255,7 @@
 
         protected void AddBlockIncomingFireDamage(int value, byte chancePercentage = 30)
         {
-            _statIcons.Add(Stat.FireDamage);
+            _statIcons.Add(ItemStatIcon.FireDamage);
             var abilityType = AbilityType.BlockIncomingDamageEveryTurn;
             if (_abilities.TryGetValue(abilityType, out var ability))
             {
@@ -280,7 +279,7 @@
 
         protected void AddBlockIncomingColdDamage(int value, byte chancePercentage = 30)
         {
-            _statIcons.Add(Stat.ColdDamage);
+            _statIcons.Add(ItemStatIcon.ColdDamage);
             var abilityType = AbilityType.BlockIncomingDamageEveryTurn;
             if (_abilities.TryGetValue(abilityType, out var ability))
             {
@@ -304,7 +303,7 @@
 
         protected void AddBlockIncomingLightningDamage(int value, byte chancePercentage = 30)
         {
-            _statIcons.Add(Stat.LightningDamage);
+            _statIcons.Add(ItemStatIcon.LightningDamage);
             var abilityType = AbilityType.BlockIncomingDamageEveryTurn;
             if (_abilities.TryGetValue(abilityType, out var ability))
             {
@@ -330,7 +329,7 @@
 
         protected void AddRestoreHealthEveryTurn(int value, byte chancePercentage = 100)
         {
-            _statIcons.Add(Stat.RestoreHealth);
+            _statIcons.Add(ItemStatIcon.RestoreHealth);
             var abilityType = AbilityType.RestoreHealthEveryTurn;
             if (_abilities.TryGetValue(abilityType, out var ability))
             {
@@ -355,7 +354,7 @@
 
         protected void AddManaEveryTurn(sbyte manaAmount, byte chancePercentage = 100)
         {
-            _statIcons.Add(Stat.Mana);
+            _statIcons.Add(ItemStatIcon.Mana);
             var abilityType = AbilityType.AddManaEveryTurn;
             if (_abilities.TryGetValue(abilityType, out var ability))
             {

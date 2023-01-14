@@ -16,7 +16,7 @@ namespace TextGameRPG.Scripts.Bot.Commands.Admin
             var sb = new StringBuilder();
 
             var pm = GlobalManagers.performanceManager;
-            sb.AppendLine($"Status: <b>{pm.currentState}</b>");
+            sb.AppendLine($"Status: {pm.currentState.ToString().Bold()}");
             sb.AppendLine($"CPU: {PerformanceMonitor.cpuUsage:F1}%"
                 + (pm.currentCpuState == PerformanceState.Normal ? string.Empty : $" ({pm.currentCpuState}") );
             sb.AppendLine($"RAM: {PerformanceMonitor.memoryUsage:F0} MB"
@@ -36,7 +36,7 @@ namespace TextGameRPG.Scripts.Bot.Commands.Admin
             if (orderedByActivity.Length > 1)
             {
                 sb.AppendLine();
-                sb.AppendLine("<b>Last activity:</b>");
+                sb.AppendLine("Last activity:".Bold());
                 int i = 0;
                 foreach (var activeSession in orderedByActivity)
                 {

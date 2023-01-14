@@ -41,25 +41,25 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
             var keyboard = new ReplyKeyboardMarkup(keyboardRows);
 
             var sb = new StringBuilder();
-            sb.Append($"{Emojis.menuItems[MenuItem.Battle]} {Localization.Get(session, "battle_mine_turn_start")}");
+            sb.Append(Emojis.ButtonBattle + Localization.Get(session, "battle_mine_turn_start"));
             if (equipped.HasItem(ItemType.Bow) && playerStats.currentArrows > 0)
             {
-                sb.Append($" {Emojis.stats[Stat.Arrows]} {playerStats.currentArrows}");
+                sb.Append(Emojis.StatArrows + playerStats.currentArrows.ToString());
             }
             if (playerStats.availablePotions > 0)
             {
-                sb.Append($" {Emojis.menuItems[MenuItem.Potions]} {playerStats.availablePotions}");
+                sb.Append(Emojis.ButtonPotions + playerStats.availablePotions.ToString());
             }
             if (equipped.HasItem(ItemType.Scroll))
             {
-                sb.Append($" {Emojis.stats[Stat.Mana]} {playerStats.currentMana}");
+                sb.Append(Emojis.StatMana + playerStats.currentMana.ToString());
             }
             sb.AppendLine();
 
             if (_battleTurn.isLastChance)
             {
                 sb.AppendLine();
-                sb.AppendLine($"{Emojis.elements[Element.BrokenHeart]} {Localization.Get(session, "battle_mine_turn_start_last_chance")}");
+                sb.AppendLine(Emojis.ElementBrokenHeart + Localization.Get(session, "battle_mine_turn_start_last_chance"));
             }
 
             bool additionalLineUsed = false;
@@ -72,15 +72,15 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
                 {
                     TryAppendAdditionalLine();
                     var localization = Localization.Get(session, "battle_mine_turn_stick_charge", currentCharge, requiredCharge);
-                    sb.AppendLine(Emojis.items[ItemType.Stick] + ' ' + localization);
+                    sb.AppendLine(Emojis.ItemStick + localization);
                 }
             }
 
             if (playerStats.rageAbilityCounter > 0)
             {
                 TryAppendAdditionalLine();
-                sb.AppendLine($"{Emojis.stats[Stat.KeywordRage]} {Localization.Get(session, "battle_action_rage_header")}: " +
-                    $"{playerStats.rageAbilityCounter} / 3");
+                sb.AppendLine(Emojis.StatKeywordRage + Localization.Get(session, "battle_action_rage_header") +
+                    $" {playerStats.rageAbilityCounter} / 3");
             }
 
             sb.AppendLine();
@@ -102,8 +102,9 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
         public void AppendSingleSlotItems(ref List<List<KeyboardButton>> keyboardRows)
         {
             var swordItem = equipped[ItemType.Sword];
-            var swordAttackText = swordItem != null ? swordItem.GetFullName(session) 
-                : $"{Emojis.stats[Stat.PhysicalDamage]} {Localization.Get(session, "battle_attack_fists")}";
+            var swordAttackText = swordItem != null
+                ? swordItem.GetFullName(session) 
+                : Emojis.StatPhysicalDamage + Localization.Get(session, "battle_attack_fists");
             RegisterButton(swordAttackText, () => OnCategorySelected(ItemType.Sword));
             keyboardRows.Add(new List<KeyboardButton> { swordAttackText });
 
@@ -129,13 +130,13 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
             var multiRow = new List<KeyboardButton>();
             if (playerStats.availablePotions > 0)
             {
-                var potionsButtonText = $"{Emojis.menuItems[MenuItem.Potions]} {Localization.Get(session, "menu_item_potions")}";
+                var potionsButtonText = Emojis.ButtonPotions + Localization.Get(session, "menu_item_potions");
                 RegisterButton(potionsButtonText, () => ShowPotionsSelection());
                 multiRow.Add(potionsButtonText);
             }
             if (equipped.HasItem(ItemType.Scroll))
             {
-                var scrollsButtonText = $"{Emojis.items[ItemType.Scroll]} {Localization.Get(session, "menu_item_scrolls")}";
+                var scrollsButtonText = Emojis.ItemScroll + Localization.Get(session, "menu_item_scrolls");
                 RegisterButton(scrollsButtonText, () => OnCategorySelected(ItemType.Scroll));
                 multiRow.Add(scrollsButtonText);
             }
@@ -171,8 +172,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
         {
             ClearButtons();
             var sb = new StringBuilder();
-            sb.Append($"{Emojis.items[ItemType.Scroll]} <b>{Localization.Get(session, "menu_item_scrolls")}</b>");
-            sb.AppendLine($" {Emojis.stats[Stat.Mana]} {playerStats.currentMana}");
+            sb.Append(Emojis.ItemScroll + Localization.Get(session, "menu_item_scrolls").Bold());
+            sb.AppendLine(Emojis.StatMana + playerStats.currentMana.ToString());
             sb.AppendLine();
 
             foreach (var scrollItem in GetAllEquippedScrolls())
@@ -180,8 +181,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
                 if (scrollItem == null)
                     continue;
 
-                sb.AppendLine($"<b>{scrollItem.GetFullName(session)}</b>");
-                var manaCost = Emojis.stats[Stat.Mana] + ' ' + scrollItem.manaCost;
+                sb.AppendLine(scrollItem.GetFullName(session).Bold());
+                var manaCost = Emojis.StatMana + scrollItem.manaCost.ToString();
                 sb.AppendLine(Localization.Get(session, "item_view_cost_of_use", manaCost).RemoveHtmlTags());
                 if (scrollItem.data.ablitityByType.TryGetValue(AbilityType.DealDamage, out var dealDamage))
                 {
@@ -198,7 +199,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
 
             if (buttonsCount == 0)
             {
-                sb.AppendLine($"{Emojis.elements[Element.WarningGrey]} {Localization.Get(session, "battle_not_enough_mana")}");
+                sb.AppendLine(Emojis.ElementWarningGrey + Localization.Get(session, "battle_not_enough_mana"));
             }
 
             RegisterBackButton(() => Start());
@@ -248,7 +249,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
             }
 
             var sb = new StringBuilder();
-            sb.AppendLine($"{Emojis.menuItems[MenuItem.Potions]} <b>{Localization.Get(session, "menu_item_potions")}</b>");
+            sb.AppendLine(Emojis.ButtonPotions + Localization.Get(session, "menu_item_potions").Bold());
             sb.AppendLine();
             sb.AppendLine(Localization.Get(session, "battle_potion_selection"));
 
@@ -289,7 +290,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
         {
             var sb = new StringBuilder();
             sb.AppendLine(Localization.Get(session, "battle_potion_mine_usage"));
-            sb.AppendLine($"<b>{potionData.GetName(session)}</b>");
+            sb.AppendLine(potionData.GetName(session).Bold());
             sb.AppendLine();
             sb.AppendLine(potionData.GetDescription(session, session));
 
@@ -308,7 +309,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
             var enemySession = enemy.session;
             var sb = new StringBuilder();
             sb.AppendLine(Localization.Get(enemySession, "battle_potion_enemy_usage", session.player.nickname));
-            sb.AppendLine($"<b>{potionData.GetName(enemySession)}</b>");
+            sb.AppendLine(potionData.GetName(enemySession).Bold());
             sb.AppendLine();
             sb.AppendLine(potionData.GetDescription(session, enemySession));
 

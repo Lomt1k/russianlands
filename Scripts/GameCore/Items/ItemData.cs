@@ -8,7 +8,6 @@ namespace TextGameRPG.Scripts.GameCore.Items
     using System.Linq;
     using TextGameRPG.Scripts.GameCore.Items.Generators;
     using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
-    using TextGameRPG.Scripts.Bot;
 
     public class ItemData : IDataWithIntegerID
     {
@@ -19,7 +18,7 @@ namespace TextGameRPG.Scripts.GameCore.Items
         public byte requiredLevel { get; set; }
         public List<ItemAbilityBase> abilities { get; private set; } = new List<ItemAbilityBase>();
         public List<ItemPropertyBase> properties { get; private set; } = new List<ItemPropertyBase>();
-        public List<Stat> statIcons { get; private set; } = new List<Stat>();
+        public List<ItemStatIcon> statIcons { get; private set; } = new List<ItemStatIcon>();
 
         [JsonIgnore]
         public byte requiredTownHall { get; }
@@ -33,7 +32,7 @@ namespace TextGameRPG.Scripts.GameCore.Items
         [JsonIgnore]
         public Dictionary<PropertyType, ItemPropertyBase> propertyByType;
 
-        public static ItemData brokenItem = new ItemData(new ItemDataSeed(), new List<ItemAbilityBase>(), new List<ItemPropertyBase>(), new List<Stat>()) 
+        public static ItemData brokenItem = new ItemData(new ItemDataSeed(), new List<ItemAbilityBase>(), new List<ItemPropertyBase>(), new List<ItemStatIcon>()) 
         { debugName = "Broken Item" };
 
         [JsonConstructor]
@@ -45,7 +44,7 @@ namespace TextGameRPG.Scripts.GameCore.Items
         }
 
         // from item generator
-        public ItemData(ItemDataSeed _seed, List<ItemAbilityBase> _abilities, List<ItemPropertyBase> _properties, List<Stat> _statIcons)
+        public ItemData(ItemDataSeed _seed, List<ItemAbilityBase> _abilities, List<ItemPropertyBase> _properties, List<ItemStatIcon> _statIcons)
         {
             debugName = string.Empty;
             id = -1;

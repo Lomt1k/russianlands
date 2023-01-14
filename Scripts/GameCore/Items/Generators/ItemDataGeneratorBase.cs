@@ -5,7 +5,6 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
     using ItemAbilities;
     using ItemProperties;
     using System.Linq;
-    using TextGameRPG.Scripts.Bot;
 
     public abstract partial class ItemDataGeneratorBase
     {
@@ -15,7 +14,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
 
         protected Dictionary<AbilityType, ItemAbilityBase> _abilities = new Dictionary<AbilityType, ItemAbilityBase>();
         protected Dictionary<PropertyType, ItemPropertyBase> _properties = new Dictionary<PropertyType, ItemPropertyBase>();
-        protected List<Stat> _statIcons = new List<Stat>();
+        protected List<ItemStatIcon> _statIcons = new List<ItemStatIcon>();
 
         public ItemDataGeneratorBase(ItemDataSeed _seed)
         {

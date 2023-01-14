@@ -16,7 +16,7 @@ namespace TextGameRPG.Scripts.Bot
 
     public class TelegramBotUpdateHandler : IUpdateHandler
     {
-        private readonly string serverIsBusyText = $"{Emojis.elements[Element.Warning]} {Localization.GetDefault("server_is_busy_message")}";
+        private readonly string serverIsBusyText = Emojis.ElementWarning + Localization.GetDefault("server_is_busy_message");
         private readonly ReplyKeyboardMarkup serverIsBusyKeyboard = new ReplyKeyboardMarkup(Localization.GetDefault("server_is_busy_restart_button"));
 
         private SessionManager _sessionManager;

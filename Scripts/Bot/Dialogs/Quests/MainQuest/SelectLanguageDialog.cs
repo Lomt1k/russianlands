@@ -21,8 +21,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Quests.MainQuest
                 "-----------------------\n" +
                 "Пожалуйста, выберите ваш язык:";
 
-            RegisterButton($"{Emojis.flags[Flag.GreatBritain]} English", () => OnSelectEnglish());
-            RegisterButton($"{Emojis.flags[Flag.Russia]} Русский", () => OnSelectRussian());
+            RegisterButton(Emojis.FlagBritain + "English", () => OnSelectEnglish());
+            RegisterButton(Emojis.FlagRussia + "Русский", () => OnSelectRussian());
 
             await SendDialogMessage(text, GetMultilineKeyboard())
                 .ConfigureAwait(false);

@@ -18,7 +18,7 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles.Actions
 
         public string GetHeader(GameSession session)
         {
-            return $"{Emojis.stats[Stat.KeywordBowLastShot]} {Localization.Get(session, "battle_action_bow_last_shot_header")}";
+            return Emojis.StatKeywordBowLastShot + Localization.Get(session, "battle_action_bow_last_shot_header");
         }
 
         public string GetDescription(GameSession session)

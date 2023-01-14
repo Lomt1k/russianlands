@@ -27,7 +27,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
             var rarity = _building.GetCurrentCraftItemRarity(buildingsData);
 
             var sb = new StringBuilder();
-            sb.AppendLine($"<b>{Emojis.items[itemType]} {itemType.GetLocalization(session)}</b>");
+            sb.AppendLine(itemType.GetEmoji() + itemType.GetLocalization(session).Bold());
             sb.AppendLine($"<pre>{rarity.GetView(session)}</pre>");
 
             sb.AppendLine();
@@ -38,11 +38,11 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
             sb.AppendLine();
             var timeSpan = _building.GetEndCraftTime(buildingsData) - DateTime.UtcNow;
             var productionView = Localization.Get(session, "dialog_craft_progress", timeSpan.GetView(session));
-            sb.AppendLine($"{Emojis.elements[Element.SmallBlack]} {productionView}");
+            sb.AppendLine(Emojis.ElementSmallBlack + productionView);
 
             ClearButtons();
             var diamondsForBoost = GetBoostPriceInDiamonds();
-            var priceView = Emojis.resources[ResourceType.Diamond] + diamondsForBoost;
+            var priceView = ResourceType.Diamond.GetEmoji().code + diamondsForBoost;
             var buttonText = Localization.Get(session, "menu_item_boost_button", priceView);
             RegisterButton(buttonText, () => TryBoostCraftForDiamonds());
             RegisterBackButton(() => new BuildingInfoDialog(session, _building).Start());
@@ -55,7 +55,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
         {
             if (IsCraftCanBeFinished())
             {
-                var message = $"{Emojis.elements[Element.Clock]} {Localization.Get(session, "dialog_craft_boost_expired")}";
+                var message = Emojis.ElementClock + Localization.Get(session, "dialog_craft_boost_expired");
                 ClearButtons();
                 RegisterButton(Localization.Get(session, "menu_item_continue_button"),
                     () => new CraftCanCollectItemDialog(session, _building).Start());
@@ -72,7 +72,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
                 _building.BoostCraft(buildingsData);
 
                 var sb = new StringBuilder();
-                sb.AppendLine($"{Emojis.menuItems[MenuItem.Craft]} {Localization.Get(session, "dialog_craft_boosted")}");
+                sb.AppendLine(Emojis.ButtonCraft + Localization.Get(session, "dialog_craft_boosted"));
                 if (requiredDiamonds > 0)
                 {
                     sb.AppendLine();
@@ -90,8 +90,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
             }
 
             ClearButtons();
-            var text = Localization.Get(session, "resource_not_enough_diamonds", Emojis.smiles[Smile.Sad]);
-            RegisterButton($"{Emojis.menuItems[MenuItem.Shop]} {Localization.Get(session, "menu_item_shop")}",
+            var text = Localization.Get(session, "resource_not_enough_diamonds", Emojis.SmileSad);
+            RegisterButton(Emojis.ButtonShop + Localization.Get(session, "menu_item_shop"),
                 () => new ShopDialog(session).Start());
             RegisterBackButton(() => new CraftInProgressDialog(session, _building).Start());
 

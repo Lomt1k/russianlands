@@ -24,11 +24,10 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
         public async Task ShowBuildingsCategory(BuildingCategory category)
         {
             ClearButtons();
-            RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_buildings")} {Emojis.menuItems[MenuItem.Buildings]}",
-                () => Start());
+            RegisterBackButton(Localization.Get(session, "menu_item_buildings") + Emojis.ButtonBuildings, () => Start());
             RegisterTownButton(isDoubleBack: true);
 
-            var text = $"{Emojis.menuItems[MenuItem.Buildings]} " + "<b>" + Localization.Get(session, "menu_item_buildings") + "</b>";
+            var text = Emojis.ButtonBuildings + Localization.Get(session, "menu_item_buildings").Bold();
             await SendDialogMessage(text, GetOneLineKeyboard())
                 .ConfigureAwait(false);
             await _inspectorPanel.ShowBuildingsList(category, asNewMessage: true)
@@ -81,7 +80,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
             RegisterTownButton(isDoubleBack: false);
 
             var sb = new StringBuilder();
-            sb.Append($"{Emojis.menuItems[MenuItem.Buildings]} " + "<b>" + Localization.Get(session, "menu_item_buildings") + "</b>");
+            sb.Append(Emojis.ButtonBuildings + Localization.Get(session, "menu_item_buildings").Bold());
             TryAppendTooltip(sb);
             await SendDialogMessage(sb, GetKeyboardWithRowSizes(2, 2, 1))
                 .ConfigureAwait(false);

@@ -45,8 +45,8 @@ public static class DateTimeExtensions
         }
 
         return withCaption
-            ? $"{Emojis.elements[Element.Clock]} {Localization.Get(session, "resource_name_time")} {sb}"
-            : $"{Emojis.elements[Element.Clock]} {sb}";
+            ? Emojis.ElementClock + Localization.Get(session, "resource_name_time") + sb.ToString()
+            : Emojis.ElementClock + sb.ToString();
 
         void AddSpaceIfRequired(StringBuilder sb)
         {
@@ -79,6 +79,6 @@ public static class DateTimeExtensions
             result = seconds + Localization.Get(session, "time_span_seconds");
         }
 
-        return $"{Emojis.elements[Element.Clock]} " + result;
+        return Emojis.ElementClock + result;
     }
 }

@@ -47,10 +47,8 @@ namespace TextGameRPG.Scripts.GameCore.Units
         {
             var sb = new StringBuilder();
             bool isPremium = session.profile.data.IsPremiumActive();
-            sb.AppendLine($"{Emojis.characters[CharIcon.Male]} <b>{nickname}</b>"
-                + (isPremium ? Emojis.space + Emojis.stats[Stat.Premium] : string.Empty));
-            string levelStr = Localization.Get(sessionToSend, "unit_view_level", level);
-            sb.AppendLine(levelStr);
+            sb.AppendLine(Emojis.AvatarMale + nickname.Bold() + (isPremium ? Emojis.StatPremium : Emojis.Empty));
+            sb.AppendLine(Localization.Get(sessionToSend, "unit_view_level", level));
             return sb.ToString();
         }
 
@@ -69,7 +67,7 @@ namespace TextGameRPG.Scripts.GameCore.Units
             unitStats.OnStartBattle();
 
             var sb = new StringBuilder();
-            sb.AppendLine($"{Emojis.menuItems[MenuItem.Battle]} {Localization.Get(session, "battle_start")} ");
+            sb.AppendLine(Emojis.ButtonBattle + Localization.Get(session, "battle_start"));
             sb.AppendLine( Localization.Get(session, "battle_your_turn_" + (this == battle.firstUnit ? "first" : "second")) );
             sb.AppendLine();
             sb.AppendLine(battle.GetStatsView(session));
@@ -89,11 +87,11 @@ namespace TextGameRPG.Scripts.GameCore.Units
             var sb = new StringBuilder();
             if (battleTurn.isLastChance)
             {
-                sb.AppendLine($"{Emojis.elements[Element.BrokenHeart]} {Localization.Get(session, "battle_enemy_turn_start_last_chance")}");
+                sb.AppendLine(Emojis.ElementBrokenHeart + Localization.Get(session, "battle_enemy_turn_start_last_chance"));
                 sb.AppendLine();
             }
 
-            var waitingText = $"{Emojis.elements[Element.Hourgrlass]} {Localization.Get(session, "battle_enemy_turn_start")}";
+            var waitingText = Emojis.ElementHourgrlass + Localization.Get(session, "battle_enemy_turn_start");
             sb.AppendLine(waitingText);
             var keyboard = new ReplyKeyboardMarkup(waitingText);
             await messageSender.SendTextDialog(session.chatId, sb.ToString(), keyboard, silent: true);
@@ -101,13 +99,13 @@ namespace TextGameRPG.Scripts.GameCore.Units
 
         public async void OnMineBattleTurnAlmostEnd()
         {
-            var text = $"{Emojis.elements[Element.WarningGrey]} {Localization.Get(session, "battle_mine_turn_almost_end")}";
+            var text = Emojis.ElementWarningGrey + Localization.Get(session, "battle_mine_turn_almost_end");
             await messageSender.SendTextMessage(session.chatId, text, silent: true);
         }
 
         public async Task OnMineBatteTurnTimeEnd()
         {
-            var text = $"{Localization.Get(session, "battle_mine_turn_time_end")} {Emojis.smiles[Smile.Sad]}";
+            var text = Localization.Get(session, "battle_mine_turn_time_end") + Emojis.SmileSad;
             await messageSender.SendTextMessage(session.chatId, text, silent: true);
         }
 

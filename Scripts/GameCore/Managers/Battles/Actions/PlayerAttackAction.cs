@@ -41,9 +41,9 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles.Actions
         {
             var itemName = _item != null
                 ? _item.GetFullName(session)
-                : $"{Emojis.stats[Stat.PhysicalDamage]} {Localization.Get(session, "battle_attack_fists")}";
+                : Emojis.StatPhysicalDamage + Localization.Get(session, "battle_attack_fists");
 
-            return $"<b>{itemName}</b>";
+            return itemName.Bold();
         }
 
         public string GetDescription(GameSession session)

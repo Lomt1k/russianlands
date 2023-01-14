@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections;
 using System.ComponentModel;
-using System.Text;
 using System.Text.RegularExpressions;
 
 public static class StringExtensions
@@ -116,9 +114,44 @@ public static class StringExtensions
         return new string(result);
     }
 
+    /// <summary>
+    /// Удаляет HTML все теги
+    /// </summary>
     public static string RemoveHtmlTags(this string input)
     {
         return Regex.Replace(input, "<.*?>", string.Empty);
+    }
+
+    /// <summary>
+    /// Оборачивает текст в html тэг <b> (жирный)
+    /// </summary>
+    public static string Bold(this string input)
+    {
+        return "<b>" + input + "</b>";
+    }
+
+    /// <summary>
+    /// Оборачивает текст в html тэг <i> (курсив)
+    /// </summary>
+    public static string Italic(this string input)
+    {
+        return "<i>" + input + "</i>";
+    }
+
+    /// <summary>
+    /// Оборачивает текст в html тэг <u> (подчеркнутый текст)
+    /// </summary>
+    public static string Underline(this string input)
+    {
+        return "<u>" + input + "</u>";
+    }
+
+    /// <summary>
+    /// Оборачивает текст в html тэг <s> (зачеркнутый текст)
+    /// </summary>
+    public static string Strike(this string input)
+    {
+        return "<s>" + input + "</s>";
     }
 
 

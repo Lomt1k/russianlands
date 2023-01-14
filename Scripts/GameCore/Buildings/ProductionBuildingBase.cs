@@ -9,20 +9,21 @@ using TextGameRPG.Scripts.Bot;
 using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
 using TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings;
 using TextGameRPG.Scripts.Bot.Sessions;
+using TextGameRPG.Scripts.GameCore.Units;
 
 namespace TextGameRPG.Scripts.GameCore.Buildings
 {
     public abstract class ProductionBuildingBase : BuildingBase
     {
         public abstract ResourceType resourceType { get; }
-        public abstract CharIcon firstWorkerIcon { get; }
-        public abstract CharIcon secondWorkerIcon { get; }
+        public abstract Avatar firstWorkerIcon { get; }
+        public abstract Avatar secondWorkerIcon { get; }
 
         public string resourcePrefix;
 
         public ProductionBuildingBase()
         {
-            resourcePrefix = Emojis.resources[resourceType];
+            resourcePrefix = resourceType.GetEmoji().code;
         }
 
         public abstract byte GetFirstWorkerLevel(ProfileBuildingsData data);
@@ -145,13 +146,13 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             sb.AppendLine(Localization.Get(session, "building_production_per_hour_header"));
             if (IsUnderConstruction(data))
             {
-                sb.AppendLine($"{Emojis.elements[Element.Construction]} {Localization.Get(session, "building_production_unavailable")}");
+                sb.AppendLine(Emojis.ElementConstruction + Localization.Get(session, "building_production_unavailable"));
             }
             else
             {
-                var firstWorker = $"{Emojis.characters[firstWorkerIcon]} {Localization.Get(session, $"building_{buildingType}_first_worker")}{Emojis.bigSpace}";
+                var firstWorker = firstWorkerIcon.GetEmoji() + Localization.Get(session, $"building_{buildingType}_first_worker") + Emojis.bigSpace;
                 sb.AppendLine(firstWorker + resourcePrefix + $" {GetCurrentLevelFirstWorkerProductionPerHour(data).View()}");
-                var secondWorker = $"{Emojis.characters[secondWorkerIcon]} {Localization.Get(session, $"building_{buildingType}_second_worker")}{Emojis.bigSpace}";
+                var secondWorker = secondWorkerIcon.GetEmoji() + Localization.Get(session, $"building_{buildingType}_second_worker") + Emojis.bigSpace;
                 sb.AppendLine(secondWorker + resourcePrefix + $" {GetCurrentLevelSecondWorkerProductionPerHour(data).View()}");
             }
 
@@ -172,13 +173,13 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             sb.AppendLine(Localization.Get(session, "building_production_per_hour_header"));
 
             bool hideDelta = !IsBuilt(data);
-            var firstWorker = $"{Emojis.characters[firstWorkerIcon]} {Localization.Get(session, $"building_{buildingType}_first_worker")}{Emojis.bigSpace}";
+            var firstWorker = firstWorkerIcon.GetEmoji() + Localization.Get(session, $"building_{buildingType}_first_worker") + Emojis.bigSpace;
             var currentValue = GetCurrentLevelFirstWorkerProductionPerHour(data);
             var nextValue = GetNextLevelFirstWorkerProductionPerHour(data);
             var delta = nextValue - currentValue;
             sb.AppendLine(firstWorker + resourcePrefix + $" {nextValue.View()}" + (hideDelta ? string.Empty : $" (<i>+{delta.View()}</i>)"));
 
-            var secondWorker = $"{Emojis.characters[secondWorkerIcon]} {Localization.Get(session, $"building_{buildingType}_second_worker")}{Emojis.bigSpace}";
+            var secondWorker = secondWorkerIcon.GetEmoji() + Localization.Get(session, $"building_{buildingType}_second_worker") + Emojis.bigSpace;
             currentValue = GetCurrentLevelSecondWorkerProductionPerHour(data);
             nextValue = GetNextLevelSecondWorkerProductionPerHour(data);
             delta = nextValue - currentValue;

@@ -45,7 +45,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Resources
 
             sb.AppendLine();
             sb.AppendLine(Localization.Get(session, "resource_purchase_for_diamonds"));
-            RegisterButton($"{Emojis.resources[ResourceType.Diamond]} {_priceInDiamonds}", () => TryPurchase());
+            RegisterButton(ResourceType.Diamond.GetEmoji() + _priceInDiamonds.ToString(), () => TryPurchase());
             RegisterBackButton(_onCancel);
 
             await SendDialogMessage(sb, GetMultilineKeyboard())
@@ -74,8 +74,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Resources
             }
 
             ClearButtons();
-            var text = Localization.Get(session, "resource_not_enough_diamonds", Emojis.smiles[Smile.Sad]);
-            RegisterButton($"{Emojis.menuItems[MenuItem.Shop]} {Localization.Get(session, "menu_item_shop")}", 
+            var text = Localization.Get(session, "resource_not_enough_diamonds", Emojis.SmileSad);
+            RegisterButton(Emojis.ButtonShop + Localization.Get(session, "menu_item_shop"), 
                 () => new ShopDialog(session).Start());
             RegisterBackButton(_onCancel);
 

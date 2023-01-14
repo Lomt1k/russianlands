@@ -18,7 +18,7 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles.Actions
 
         public string GetHeader(GameSession session)
         {
-            return $"{Emojis.stats[Stat.Mana]} {Localization.Get(session, "battle_action_add_mana_keyword_header")}";
+            return Emojis.StatMana + Localization.Get(session, "battle_action_add_mana_keyword_header");
         }
 
         public string GetDescription(GameSession session)

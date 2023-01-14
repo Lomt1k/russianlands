@@ -30,7 +30,7 @@ namespace TextGameRPG.Scripts.GameCore.Units
         public string GetGeneralUnitInfoView(GameSession sessionToSend)
         {
             var sb = new StringBuilder();
-            sb.AppendLine($"<b>{nickname}</b>");
+            sb.AppendLine(nickname.Bold());
             string levelStr = Localization.Get(sessionToSend, "unit_view_level", mobData.statsSettings.level);
             sb.AppendLine(levelStr);
             return sb.ToString();

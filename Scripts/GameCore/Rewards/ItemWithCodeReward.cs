@@ -20,7 +20,7 @@ namespace TextGameRPG.Scripts.GameCore.Rewards
                 var success = session.player.inventory.TryAddItem(item);
                 if (success)
                 {
-                    return $"<b>{item.GetFullName(session)}</b>";
+                    return item.GetFullName(session).Bold();
                 }
                 return string.Empty;
             }

@@ -13,7 +13,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Shop
 
         public override async Task Start()
         {
-            var text = $"<b>{Emojis.menuItems[MenuItem.Shop]} {Localization.Get(session, "menu_item_shop")}</b>"
+            var text = Emojis.ButtonShop + Localization.Get(session, "menu_item_shop").Bold()
                 + "\n\nВ разработке...";
             await SendDialogMessage(text, GetMultilineKeyboard())
                 .ConfigureAwait(false);

@@ -1,5 +1,4 @@
-﻿using TextGameRPG.Scripts.Bot;
-using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
+﻿using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
 using TextGameRPG.Scripts.GameCore.Items.ItemAbilities.Keywords;
 
 namespace TextGameRPG.Scripts.GameCore.Items.Generators
@@ -12,7 +11,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
     {
         protected void AddSwordBlockKeyword(DamageInfo blockInfo, byte chancePercentage = 100)
         {
-            _statIcons.Add(Stat.KeywordSwordBlock);
+            _statIcons.Add(ItemStatIcon.KeywordSwordBlock);
             var abilityType = AbilityType.SwordBlockEveryTurnKeyword;
             var newAbility = (SwordBlockKeywordAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
 
@@ -27,7 +26,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
 
         protected void AddBowLastShotKeyword()
         {
-            _statIcons.Add(Stat.KeywordBowLastShot);
+            _statIcons.Add(ItemStatIcon.KeywordBowLastShot);
             var abilityType = AbilityType.BowLastShotKeyword;
             var newAbility = (BowLastShotKeywordAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
             _abilities.Add(abilityType, newAbility);
@@ -35,7 +34,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
 
         protected void AddAddArrowKeyword(byte chancePercentage)
         {
-            _statIcons.Add(Stat.KeywordAddArrow);
+            _statIcons.Add(ItemStatIcon.KeywordAddArrow);
             var abilityType = AbilityType.AddArrowKeyword;
             var newAbility = (AddArrowKeywordAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
 
@@ -46,7 +45,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
 
         protected void AddStealManaKeyword(byte chancePercentage)
         {
-            _statIcons.Add(Stat.KeywordStealMana);
+            _statIcons.Add(ItemStatIcon.KeywordStealMana);
             var abilityType = AbilityType.StealManaKeyword;
             var newAbility = (StealManaKeywordAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
 
@@ -57,7 +56,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
 
         protected void AddAdditionalFireDamageKeyword(int damage, byte chancePercentage)
         {
-            _statIcons.Add(Stat.KeywordAdditionalDamage);
+            _statIcons.Add(ItemStatIcon.KeywordAdditionalDamage);
             var abilityType = AbilityType.AdditionalFireDamageKeyword;
             var newAbility = (AdditionalFireDamageKeywordAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
 
@@ -69,7 +68,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
 
         protected void AddAdditionalColdDamageKeyword(int damage, byte chancePercentage)
         {
-            _statIcons.Add(Stat.KeywordAdditionalDamage);
+            _statIcons.Add(ItemStatIcon.KeywordAdditionalDamage);
             var abilityType = AbilityType.AdditionalColdDamageKeyword;
             var newAbility = (AdditionalColdDamageKeywordAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
 
@@ -81,7 +80,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
 
         protected void AddAdditionalLightningDamageKeyword(int damage, byte chancePercentage)
         {
-            _statIcons.Add(Stat.KeywordAdditionalDamage);
+            _statIcons.Add(ItemStatIcon.KeywordAdditionalDamage);
             var abilityType = AbilityType.AdditionalLightningDamageKeyword;
             var newAbility = (AdditionalLightningDamageKeywordAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
 
@@ -93,7 +92,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
 
         protected void AddRageKeyword()
         {
-            _statIcons.Add(Stat.KeywordRage);
+            _statIcons.Add(ItemStatIcon.KeywordRage);
             var abilityType = AbilityType.RageKeyword;
             var newAbility = (RageKeywordAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
             _abilities.Add(abilityType, newAbility);
@@ -101,7 +100,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
 
         protected void AddFinishingKeyword(byte bonusDamagePercentage)
         {
-            _statIcons.Add(Stat.KeywordFinishing);
+            _statIcons.Add(ItemStatIcon.KeywordFinishing);
             var abilityType = AbilityType.FinishingKeyword;
             var newAbility = (FinishingKeywordAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
 
@@ -112,7 +111,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
 
         protected void AddAbsorptionKeyword(byte chancePercentage)
         {
-            _statIcons.Add(Stat.KeywordAbsorption);
+            _statIcons.Add(ItemStatIcon.KeywordAbsorption);
             var abilityType = AbilityType.AbsorptionKeyword;
             var newAbility = (AbsorptionKeywordAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
 
@@ -123,7 +122,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
 
         protected void AddAddManaKeyword(byte chancePercentage)
         {
-            _statIcons.Add(Stat.Mana);
+            _statIcons.Add(ItemStatIcon.Mana);
             var abilityType = AbilityType.AddManaKeyword;
             var newAbility = (AddManaKeywordAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
 
@@ -134,7 +133,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
 
         protected void AddStunKeyword(byte chancePercentage)
         {
-            _statIcons.Add(Stat.KeywordStun);
+            _statIcons.Add(ItemStatIcon.KeywordStun);
             var abilityType = AbilityType.StunKeyword;
             var newAbility = (StunKeywordAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
 
@@ -145,7 +144,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
 
         protected void AddSanctionsKeyword(byte chancePercentage)
         {
-            _statIcons.Add(Stat.KeywordSanctions);
+            _statIcons.Add(ItemStatIcon.KeywordSanctions);
             var abilityType = AbilityType.SanctionsKeyword;
             var newAbility = (SanctionsKeywordAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
 

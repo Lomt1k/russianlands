@@ -1,130 +1,32 @@
 ﻿using System.Collections.Generic;
+using System.Text;
 using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.GameCore.Resources;
 
 namespace TextGameRPG.Scripts.Bot
 {
-    public enum Flag
+    public class Emoji
     {
-        GreatBritain,
-        Russia,
-    }
+        public string code { get; }
+        public Emoji(string _code)
+        {
+            code = _code;
+        }
 
-    public enum MenuItem
-    {
-        Town,
-        Map,
-        Buildings,
-        Quests,
-        Mail,
-        Shop,
-        Potions,
-        Skills,
-        Craft,
-        Avatar,
-        NameChange,
-        Inventory,
-        Battle,
-        Premium,
-    }
+        public override string ToString()
+        {
+            return code;
+        }
 
-    public enum Stat
-    {
-        Health,
-        Arrows,
-        PhysicalDamage,
-        FireDamage,
-        ColdDamage,
-        LightningDamage,
-        RestoreHealth,
-        Mana,
-        IncreaseHealth,
-        Premium,
-        KeywordSwordBlock,
-        KeywordBowLastShot,
-        KeywordAddArrow,
-        KeywordStealMana,
-        KeywordAdditionalDamage,
-        KeywordRage,
-        KeywordFinishing,
-        KeywordAbsorption,
-        KeywordStun,
-        KeywordSanctions,
-    }
+        public static string operator +(Emoji a, string b)
+        {
+            return a.code + ' ' + b;
+        }
 
-    public enum MapLocation
-    {
-        Arena,
-        StoryMode,
-    }
-
-    public enum CharIcon
-    {
-        Male,
-        MaleB,
-        MaleC,
-        MaleD,
-        MaleE,
-        MaleF,
-        MaleG,
-        MaleH,
-        MaleI,
-        Female,
-        FemaleB,
-        FemaleC,
-        FemaleD,
-        FemaleE,
-        FemaleF,
-        FemaleG,
-        FemaleH,
-        FemaleI,
-        BuilderA,
-        BuilderB,
-        Abstract,
-    }
-
-    public enum Element
-    {
-        SmallBlack,
-        SmallWhite,
-        MediumBlack,
-        MediumWhite,
-        BigBlack,
-        BigWhite,
-        LargeBlack,
-        LargeWhite,
-        TriangleUp,
-        TriangleDown,
-        CheckmarkGreen,
-        CheckmarkBlack,
-        CrossGreen,
-        CrossBlack,
-        CrossRed,
-        Plus,
-        Minus,
-        Infinity,
-        Warning,
-        WarningRed,
-        WarningGrey,
-        QuestionRed,
-        QuestionGrey,
-        Back,
-        DoubleBack,
-        Info,
-        Locked,
-        Hourgrlass,
-        BrokenHeart,
-        Construction,
-        LevelUp,
-        Clock,
-        Training,
-        Cancel,
-        Bin,
-    }
-
-    public enum Smile
-    {
-        Sad
+        public static string operator +(string a, Emoji b)
+        {
+            return a + ' ' + b.code;
+        }
     }
 
     public static class Emojis
@@ -133,161 +35,141 @@ namespace TextGameRPG.Scripts.Bot
         public const string middleSpace = "   ";
         public const string bigSpace = "     ";
 
-        public static readonly Dictionary<Flag, string> flags = new Dictionary<Flag, string>
-        {
-            { Flag.GreatBritain, "\ud83c\uddec\ud83c\udde7" },
-            { Flag.Russia, "\ud83c\uddf7\ud83c\uddfa" },
-        };
+        public static readonly Emoji Empty = new Emoji(string.Empty);
 
-        public static readonly Dictionary<MenuItem, string> menuItems = new Dictionary<MenuItem, string>
-        {
-            { MenuItem.Town, "\ud83c\udfd8" },
-            { MenuItem.Map, "\ud83d\uddfa" },
-            { MenuItem.Buildings, "\ud83d\uded6" },
-            { MenuItem.Quests, "\ud83d\udccc" },
-            { MenuItem.Mail, "\ud83d\udceb" },
-            { MenuItem.Shop, "\ud83d\uded2" },
-            { MenuItem.Potions, "\ud83e\uddea" },
-            { MenuItem.Skills, "\ud83d\udcaa" },
-            { MenuItem.Craft, "\ud83d\udd28" },
-            { MenuItem.Avatar, "\ud83d\udc40" },
-            { MenuItem.NameChange, "\ud83c\udff7" },
-            { MenuItem.Inventory, "\ud83c\udf92" },
-            { MenuItem.Battle, "\u2694\ufe0f" },
-            { MenuItem.Premium, "\ud83d\udc51" },
-        };
+        // --- Flags
+        public static readonly Emoji FlagBritain = new Emoji("\ud83c\uddec\ud83c\udde7");
+        public static readonly Emoji FlagRussia = new Emoji("\ud83c\uddf7\ud83c\uddfa");
 
-        public static readonly Dictionary<Stat, string> stats = new Dictionary<Stat, string>
-        {
-            { Stat.Health, "\u2764\ufe0f" },
-            { Stat.Mana, "\ud83d\udd2e" },
-            { Stat.Arrows, "\ud83c\udfaf" },
-            { Stat.PhysicalDamage, "\ud83d\udc4a" },
-            { Stat.FireDamage, "\ud83d\udd25" },
-            { Stat.ColdDamage, "\ud83e\uddca" },
-            { Stat.LightningDamage, "\u26a1\ufe0f" },
-            { Stat.RestoreHealth, "\ud83d\udc96" },
-            { Stat.IncreaseHealth, "\ud83d\udc97" },
-            { Stat.Premium, "\ud83d\udc51" },
-            { Stat.KeywordSwordBlock, "\ud83d\udee1" },
-            { Stat.KeywordBowLastShot, "\ud83c\udf40" },
-            { Stat.KeywordAddArrow, "\ud83c\udfaf" },
-            { Stat.KeywordStealMana, "\ud83e\udeac" },
-            { Stat.KeywordAdditionalDamage, "\ud83d\udca5" },
-            { Stat.KeywordRage, "\u270a" },
-            { Stat.KeywordFinishing, "\u2620\ufe0f" },
-            { Stat.KeywordAbsorption, "\ud83d\udc9e" },
-            { Stat.KeywordStun, "\ud83c\udf00" },
-            { Stat.KeywordSanctions, "\u265f" },
-        };
+        // --- Buttons
+        public static readonly Emoji ButtonTown = new Emoji("\ud83c\udfd8");
+        public static readonly Emoji ButtonMap = new Emoji("\ud83d\uddfa");
+        public static readonly Emoji ButtonBuildings = new Emoji("\ud83d\uded6");
+        public static readonly Emoji ButtonQuests = new Emoji("\ud83d\udccc");
+        public static readonly Emoji ButtonMail = new Emoji("\ud83d\udceb");
+        public static readonly Emoji ButtonShop = new Emoji("\ud83d\uded2");
+        public static readonly Emoji ButtonPotions = new Emoji("\ud83e\uddea");
+        public static readonly Emoji ButtonSkills = new Emoji("\ud83d\udcaa");
+        public static readonly Emoji ButtonCraft = new Emoji("\ud83d\udd28");
+        public static readonly Emoji ButtonAvatar = new Emoji("\ud83d\udc40");
+        public static readonly Emoji ButtonNameChange = new Emoji("\ud83c\udff7");
+        public static readonly Emoji ButtonInventory = new Emoji("\ud83c\udf92");
+        public static readonly Emoji ButtonBattle = new Emoji("\u2694\ufe0f");
+        public static readonly Emoji ButtonArena = new Emoji("\ud83c\udfdf");
+        public static readonly Emoji ButtonStoryMode = new Emoji("\ud83d\udea9");
 
-        public static readonly Dictionary<ItemType, string> items = new Dictionary<ItemType, string>
-        {
-            { ItemType.Sword, "\ud83d\udde1" },
-            { ItemType.Bow, "\ud83c\udff9" },
-            { ItemType.Stick, "\ud83e\ude84" },
-            { ItemType.Helmet, "\ud83e\ude96" },
-            { ItemType.Armor, "\ud83e\udd4b" },
-            { ItemType.Boots, "\ud83e\udd7e" },
-            { ItemType.Shield, "\ud83d\udee1" },
-            { ItemType.Amulet, "\ud83d\udcff" },
-            { ItemType.Ring, "\ud83d\udc8d" },
-            { ItemType.Scroll, "\ud83d\udcdc" },
-            { ItemType.Any, ""},
-            { ItemType.Equipped, "\ud83d\udc4b" },
-        };
+        // --- Stats
+        public static readonly Emoji StatHealth = new Emoji("\u2764\ufe0f");
+        public static readonly Emoji StatMana = new Emoji("\ud83d\udd2e");
+        public static readonly Emoji StatArrows = new Emoji("\ud83c\udfaf");
+        public static readonly Emoji StatPhysicalDamage = new Emoji("\ud83d\udc4a");
+        public static readonly Emoji StatFireDamage = new Emoji("\ud83d\udd25");
+        public static readonly Emoji StatColdDamage = new Emoji("\ud83e\uddca");
+        public static readonly Emoji StatLightningDamage = new Emoji("\u26a1\ufe0f");
+        public static readonly Emoji StatRestoreHealth = new Emoji("\ud83d\udc96");
+        public static readonly Emoji StatIncreaseHealth = new Emoji("\ud83d\udc97");
+        public static readonly Emoji StatPremium = new Emoji("\ud83d\udc51");
+        public static readonly Emoji StatKeywordSwordBlock = new Emoji("\ud83d\udee1");
+        public static readonly Emoji StatKeywordBowLastShot = new Emoji("\ud83c\udf40");
+        public static readonly Emoji StatKeywordAddArrow = new Emoji("\ud83c\udfaf");
+        public static readonly Emoji StatKeywordStealMana = new Emoji("\ud83e\udeac");
+        public static readonly Emoji StatKeywordAdditionalDamage = new Emoji("\ud83d\udca5");
+        public static readonly Emoji StatKeywordRage = new Emoji("\u270a");
+        public static readonly Emoji StatKeywordFinishing = new Emoji("\u2620\ufe0f");
+        public static readonly Emoji StatKeywordAbsorption = new Emoji("\ud83d\udc9e");
+        public static readonly Emoji StatKeywordStun = new Emoji("\ud83c\udf00");
+        public static readonly Emoji StatKeywordSanctions = new Emoji("\u265f");
 
-        public static readonly Dictionary<ResourceType, string> resources = new Dictionary<ResourceType, string>
-        {
-            { ResourceType.Gold, "\ud83d\udcb0" },
-            { ResourceType.Diamond, "\ud83d\udc8e" },
-            { ResourceType.Food, "\ud83c\udf56" },
-            { ResourceType.Herbs, "\ud83c\udf3f" },
-            { ResourceType.Wood, "\ud83e\udeb5" },
+        // --- Items
+        public static readonly Emoji ItemSword = new Emoji("\ud83d\udde1");
+        public static readonly Emoji ItemBow = new Emoji("\ud83c\udff9");
+        public static readonly Emoji ItemStick = new Emoji("\ud83e\ude84");
+        public static readonly Emoji ItemHelmet = new Emoji("\ud83e\ude96");
+        public static readonly Emoji ItemArmor = new Emoji("\ud83e\udd4b");
+        public static readonly Emoji ItemBoots = new Emoji("\ud83e\udd7e");
+        public static readonly Emoji ItemShield = new Emoji("\ud83d\udee1");
+        public static readonly Emoji ItemAmulet = new Emoji("\ud83d\udcff");
+        public static readonly Emoji ItemRing = new Emoji("\ud83d\udc8d");
+        public static readonly Emoji ItemScroll = new Emoji("\ud83d\udcdc");
+        public static readonly Emoji ItemEquipped = new Emoji("\ud83d\udc4b");
 
-            { ResourceType.InventoryItems, "\ud83c\udf92" },
-            { ResourceType.CraftPiecesCommon, "\ud83d\udce6" },
-            { ResourceType.CraftPiecesRare, "\ud83d\udce6" },
-            { ResourceType.CraftPiecesEpic, "\ud83d\udce6" },
-            { ResourceType.CraftPiecesLegendary, "\ud83d\udce6" },
-        };
+        // --- Resources
+        public static readonly Emoji ResourceGold = new Emoji("\ud83d\udcb0");
+        public static readonly Emoji ResourceDiamond = new Emoji("\ud83d\udc8e");
+        public static readonly Emoji ResourceFood = new Emoji("\ud83c\udf56");
+        public static readonly Emoji ResourceHerbs = new Emoji("\ud83c\udf3f");
+        public static readonly Emoji ResourceWood = new Emoji("\ud83e\udeb5");
+        
+        public static readonly Emoji ResourceInventoryItems = new Emoji("\ud83c\udf92");
+        public static readonly Emoji ResourceCraftPiecesCommon = new Emoji("\ud83d\udce6");
+        public static readonly Emoji ResourceCraftPiecesRare = new Emoji("\ud83d\udce6");
+        public static readonly Emoji ResourceCraftPiecesEpic = new Emoji("\ud83d\udce6");
+        public static readonly Emoji ResourceCraftPiecesLegendary = new Emoji("\ud83d\udce6");
 
-        public static readonly Dictionary<MapLocation, string> locations = new Dictionary<MapLocation, string>
-        {
-            { MapLocation.Arena, "\ud83c\udfdf" },
-            { MapLocation.StoryMode, "\ud83d\udea9" },
-        };
+        // --- Characters
+        public static readonly Emoji AvatarMale = new Emoji("\ud83e\uddd1\ud83c\udffb\u200d\ud83e\uddb1");
+        public static readonly Emoji AvatarMaleB = new Emoji("\ud83e\uddd1\ud83c\udffc\u200d\ud83e\uddb1");
+        public static readonly Emoji AvatarMaleC = new Emoji("\ud83e\uddd1\ud83c\udffd");
+        public static readonly Emoji AvatarMaleD = new Emoji("\ud83e\uddd1\ud83c\udffb\u200d\ud83e\uddb0");
+        public static readonly Emoji AvatarMaleE = new Emoji("\ud83d\udc71\ud83c\udffb");
+        public static readonly Emoji AvatarMaleF = new Emoji("\ud83e\uddd1\ud83c\udffb");
+        public static readonly Emoji AvatarMaleG = new Emoji("\ud83d\udc68\ud83c\udffb");
+        public static readonly Emoji AvatarMaleH = new Emoji("\ud83d\udc68\ud83c\udffb\u200d\ud83e\uddb3");
+        public static readonly Emoji AvatarMaleI = new Emoji("\ud83d\udc74\ud83c\udffc");
 
-        public static readonly Dictionary<CharIcon, string> characters = new Dictionary<CharIcon, string>
-        {
-            { CharIcon.Male, "\ud83e\uddd1\ud83c\udffb\u200d\ud83e\uddb1" },
-            { CharIcon.MaleB, "\ud83e\uddd1\ud83c\udffc\u200d\ud83e\uddb1" },
-            { CharIcon.MaleC, "\ud83e\uddd1\ud83c\udffd" },
-            { CharIcon.MaleD, "\ud83e\uddd1\ud83c\udffb\u200d\ud83e\uddb0" },
-            { CharIcon.MaleE, "\ud83d\udc71\ud83c\udffb" },
-            { CharIcon.MaleF, "\ud83e\uddd1\ud83c\udffb" },
-            { CharIcon.MaleG, "\ud83d\udc68\ud83c\udffb" },
-            { CharIcon.MaleH, "\ud83d\udc68\ud83c\udffb\u200d\ud83e\uddb3" },
-            { CharIcon.MaleI, "\ud83d\udc74\ud83c\udffc" },
+        public static readonly Emoji AvatarFemale = new Emoji("\ud83d\udc69\ud83c\udffb\u200d\ud83e\uddb0");
+        public static readonly Emoji AvatarFemaleB = new Emoji("\ud83d\udc69\ud83c\udffc\u200d\ud83e\uddb1");
+        public static readonly Emoji AvatarFemaleC = new Emoji("\ud83d\udc69\ud83c\udffb\u200d\ud83e\uddb3");
+        public static readonly Emoji AvatarFemaleD = new Emoji("\ud83d\udc69\ud83c\udffb\u200d\ud83e\uddb1");
+        public static readonly Emoji AvatarFemaleE = new Emoji("\ud83d\udc71\ud83c\udffb\u200d\u2640\ufe0f");
+        public static readonly Emoji AvatarFemaleF = new Emoji("\ud83d\udc69\ud83c\udffb");
+        public static readonly Emoji AvatarFemaleG = new Emoji("\ud83d\udc69\ud83c\udffc");
+        public static readonly Emoji AvatarFemaleH = new Emoji("\ud83e\uddd1\ud83c\udffb\u200d\ud83e\uddb3");
+        public static readonly Emoji AvatarFemaleI = new Emoji("\ud83d\udc75\ud83c\udffb");
 
-            { CharIcon.Female, "\ud83d\udc69\ud83c\udffb\u200d\ud83e\uddb0" },
-            { CharIcon.FemaleB, "\ud83d\udc69\ud83c\udffc\u200d\ud83e\uddb1" },
-            { CharIcon.FemaleC, "\ud83d\udc69\ud83c\udffb\u200d\ud83e\uddb3" },
-            { CharIcon.FemaleD, "\ud83d\udc69\ud83c\udffb\u200d\ud83e\uddb1" },
-            { CharIcon.FemaleE, "\ud83d\udc71\ud83c\udffb\u200d\u2640\ufe0f" },
-            { CharIcon.FemaleF, "\ud83d\udc69\ud83c\udffb" },
-            { CharIcon.FemaleG, "\ud83d\udc69\ud83c\udffc" },
-            { CharIcon.FemaleH, "\ud83e\uddd1\ud83c\udffb\u200d\ud83e\uddb3" },
-            { CharIcon.FemaleI, "\ud83d\udc75\ud83c\udffb" },
+        public static readonly Emoji AvatarBuilderA = new Emoji("\ud83d\udc77\ud83c\udffc\u200d\u2642\ufe0f");
+        public static readonly Emoji AvatarBuilderB = new Emoji("\ud83d\udc77\ud83c\udffd");
+        public static readonly Emoji AvatarAbstract = new Emoji("\ud83d\ude4e\u200d\u2642\ufe0f");
 
-            { CharIcon.BuilderA, "\ud83d\udc77\ud83c\udffc\u200d\u2642\ufe0f" },
-            { CharIcon.BuilderB, "\ud83d\udc77\ud83c\udffd" },
-            { CharIcon.Abstract, "\ud83d\ude4e\u200d\u2642\ufe0f" },
-        };
+        // --- Smiles
+        public static readonly Emoji SmileSad = new Emoji("\ud83d\ude15");
 
-        public static readonly Dictionary<Element, string> elements = new Dictionary<Element, string>
-        {
-            { Element.SmallBlack, "\u25aa\ufe0f" },
-            { Element.SmallWhite, "\u25ab\ufe0f" },
-            { Element.MediumBlack, "\u25fe\ufe0f" },
-            { Element.MediumWhite, "\u25fd\ufe0f" },
-            { Element.BigBlack, "\u25fc\ufe0f" },
-            { Element.BigWhite, "\u25fb\ufe0f" },
-            { Element.LargeBlack, "\u2b1b\ufe0f" },
-            { Element.LargeWhite, "\u2b1c\ufe0f" },
-            { Element.TriangleUp, "\ud83d\udd3a" },
-            { Element.TriangleDown, "\ud83d\udd3b" },
-            { Element.CheckmarkGreen, "\u2705" },
-            { Element.CheckmarkBlack, "\u2611\ufe0f" },
-            { Element.CrossGreen, "\u274e" },
-            { Element.CrossBlack, "\u2716\ufe0f" },
-            { Element.CrossRed, "\u274c" },
-            { Element.Plus, "\u2795" },
-            { Element.Minus, "\u2796" },
-            { Element.Infinity, "\u267e" },
-            { Element.Warning, "\u26a0\ufe0f" },
-            { Element.WarningRed, "\u2757\ufe0f" },
-            { Element.WarningGrey, "\u2755" },
-            { Element.QuestionRed, "\u2753" },
-            { Element.QuestionGrey, "\u2754" },
-            { Element.Back, "\u25c0\ufe0f" },
-            { Element.DoubleBack, "\u23ea" },
-            { Element.Info, "\u2139\ufe0f" },
-            { Element.Locked, "\ud83d\udd12" },
-            { Element.Hourgrlass, "\u23f3" },
-            { Element.BrokenHeart, "\ud83d\udc94" },
-            { Element.Construction, "\u2692" },
-            { Element.LevelUp, "\u23eb" },
-            { Element.Clock, "\ud83d\udd53" },
-            { Element.Training, "\ud83c\udf93" },
-            { Element.Cancel, "\ud83d\udeab" },
-            { Element.Bin, "\ud83d\uddd1" },
-        };
-
-        public static readonly Dictionary<Smile, string> smiles = new Dictionary<Smile, string>
-        {
-            { Smile.Sad, "\ud83d\ude15" },
-        };
+        // --- Other elements
+        public static readonly Emoji ElementSmallBlack = new Emoji("\u25aa\ufe0f");
+        public static readonly Emoji ElementSmallWhite = new Emoji("\u25ab\ufe0f");
+        public static readonly Emoji ElementMediumBlack = new Emoji("\u25fe\ufe0f");
+        public static readonly Emoji ElementMediumWhite = new Emoji("\u25fd\ufe0f");
+        public static readonly Emoji ElementBigBlack = new Emoji("\u25fc\ufe0f");
+        public static readonly Emoji ElementBigWhite = new Emoji("\u25fb\ufe0f");
+        public static readonly Emoji ElementLargeBlack = new Emoji("\u2b1b\ufe0f");
+        public static readonly Emoji ElementLargeWhite = new Emoji("\u2b1c\ufe0f");
+        public static readonly Emoji ElementTriangleUp = new Emoji("\ud83d\udd3a");
+        public static readonly Emoji ElementTriangleDown = new Emoji("\ud83d\udd3b");
+        public static readonly Emoji ElementCheckmarkGreen = new Emoji("\u2705");
+        public static readonly Emoji ElementCheckmarkBlack = new Emoji("\u2611\ufe0f");
+        public static readonly Emoji ElementCrossGreen = new Emoji("\u274e");
+        public static readonly Emoji ElementCrossBlack = new Emoji("\u2716\ufe0f");
+        public static readonly Emoji ElementCrossRed = new Emoji("\u274c");
+        public static readonly Emoji ElementPlus = new Emoji("\u2795");
+        public static readonly Emoji ElementMinus = new Emoji("\u2796");
+        public static readonly Emoji ElementInfinity = new Emoji("\u267e");
+        public static readonly Emoji ElementWarning = new Emoji("\u26a0\ufe0f");
+        public static readonly Emoji ElementWarningRed = new Emoji("\u2757\ufe0f");
+        public static readonly Emoji ElementWarningGrey = new Emoji("\u2755");
+        public static readonly Emoji ElementQuestionRed = new Emoji("\u2753");
+        public static readonly Emoji ElementQuestionGrey = new Emoji("\u2754");
+        public static readonly Emoji ElementBack = new Emoji("\u25c0\ufe0f");
+        public static readonly Emoji ElementDoubleBack = new Emoji("\u23ea");
+        public static readonly Emoji ElementInfo = new Emoji("\u2139\ufe0f");
+        public static readonly Emoji ElementLocked = new Emoji("\ud83d\udd12");
+        public static readonly Emoji ElementHourgrlass = new Emoji("\u23f3");
+        public static readonly Emoji ElementBrokenHeart = new Emoji("\ud83d\udc94");
+        public static readonly Emoji ElementConstruction = new Emoji("\u2692");
+        public static readonly Emoji ElementLevelUp = new Emoji("\u23eb");
+        public static readonly Emoji ElementClock = new Emoji("\ud83d\udd53");
+        public static readonly Emoji ElementTraining = new Emoji("\ud83c\udf93");
+        public static readonly Emoji ElementCancel = new Emoji("\ud83d\udeab");
+        public static readonly Emoji ElementBin = new Emoji("\ud83d\uddd1");
 
     }
 }

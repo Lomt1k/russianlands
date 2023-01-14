@@ -40,7 +40,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
 
                 foreach (var update in updates)
                 {
-                    sb.AppendLine($"{Emojis.elements[Element.SmallBlack]} {update}");
+                    sb.AppendLine(Emojis.ElementSmallBlack + update);
                 }
                 sb.AppendLine();
             }
@@ -87,7 +87,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
             if (isLimitReached)
             {
                 sb.AppendLine();
-                sb.AppendLine(Emojis.elements[Element.WarningRed] + Localization.Get(session, "building_production_is_full"));
+                sb.AppendLine(Emojis.ElementWarningRed.code + Localization.Get(session, "building_production_is_full"));
             }
 
             void AddToShow(ResourceType resourceType, int value)
@@ -103,7 +103,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
         {
             await RemoveKeyboardFromLastMessage().ConfigureAwait(false);
             var sb = new StringBuilder();
-            sb.Append($"<b>{category.GetLocalization(session)}</b>");
+            sb.Append(category.GetLocalization(session).Bold());
             var buildings = session.player.buildings.GetBuildingsByCategory(category);
             var sortedBuildings = buildings.OrderByDescending(x => x.IsBuilt(_buildingsData)).ThenBy(x => x.buildingData.levels[0].requiredTownHall);
 
@@ -118,17 +118,17 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
                 .ConfigureAwait(false);
         }
 
-        private string GetPrefix(BuildingBase building, ProfileBuildingsData data)
+        private Emoji GetPrefix(BuildingBase building, ProfileBuildingsData data)
         {
             if (building.IsUnderConstruction(data))
-                return Emojis.elements[Element.Construction] + Emojis.space;
+                return Emojis.ElementConstruction;
 
             if (building.IsBuilt(data))
-                return string.Empty;
+                return Emojis.Empty;
 
             return building.IsNextLevelUnlocked(data)
-                ? Emojis.elements[Element.Plus] + Emojis.space
-                : Emojis.elements[Element.Locked] + Emojis.space;
+                ? Emojis.ElementPlus
+                : Emojis.ElementLocked;
         }
 
         private InlineKeyboardMarkup GetListKeyboard(BuildingCategory category)

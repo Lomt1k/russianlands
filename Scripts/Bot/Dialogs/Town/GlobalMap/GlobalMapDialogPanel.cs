@@ -31,7 +31,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
                 string locationName = locationType.GetLocalization(session);
                 if (locationType.IsLocked(session))
                 {
-                    locationName = Emojis.elements[Element.Locked] + Emojis.space + locationName;
+                    locationName = Emojis.ElementLocked + locationName;
                     RegisterButton(locationName, () => ShowLockedLocationInfo(locationType));
                     continue;
                 }
@@ -39,9 +39,9 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
                 var questType = locationType.GetQuest();
                 var quest = questType.HasValue ? QuestsHolder.GetQuest(questType.Value) : null;
                 var hasStory = quest != null && quest.IsStarted(session) && !quest.IsCompleted(session);
-                var prefix = hasStory ? Emojis.locations[MapLocation.StoryMode] : string.Empty;
+                var prefix = hasStory ? Emojis.ButtonStoryMode : Emojis.Empty;
 
-                RegisterButton(prefix + Emojis.space + locationName, () => ShowLocation(locationType));
+                RegisterButton(prefix + locationName, () => ShowLocation(locationType));
             }
 
             var sb = new StringBuilder();
@@ -55,7 +55,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
         {
             var sb = new StringBuilder();
             var locationName = locationType.GetLocalization(session);
-            sb.AppendLine($"{Emojis.elements[Element.Locked]} <b>{locationName}</b>");
+            sb.AppendLine(Emojis.ElementLocked + locationName.Bold());
 
             sb.AppendLine();
             var previousLocation = (locationType - 1).GetLocalization(session);

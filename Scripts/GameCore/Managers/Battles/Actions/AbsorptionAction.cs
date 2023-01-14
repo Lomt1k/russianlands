@@ -25,13 +25,13 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles.Actions
 
         public string GetHeader(GameSession session)
         {
-            return $"{Emojis.stats[Stat.KeywordAbsorption]} {Localization.Get(session, "battle_action_absorption_header")}";
+            return Emojis.StatKeywordAbsorption + Localization.Get(session, "battle_action_absorption_header");
         }
 
         public string GetDescription(GameSession session)
         {
             return Localization.Get(session, "battle_action_absorption_description")
-                + $"\n{Emojis.stats[Stat.Health]} {_healthToRestore}";
+                + $"\n{Emojis.StatHealth} {_healthToRestore}";
         }
         
     }

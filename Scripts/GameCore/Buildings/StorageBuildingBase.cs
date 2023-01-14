@@ -2,7 +2,6 @@
 using TextGameRPG.Scripts.GameCore.Buildings.Data;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Resources;
-using TextGameRPG.Scripts.Bot;
 using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
 using TextGameRPG.Scripts.Bot.Sessions;
 
@@ -17,7 +16,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
 
         public StorageBuildingBase()
         {
-            resourcePrefix = Emojis.resources[resourceType];
+            resourcePrefix = resourceType.GetEmoji().ToString();
         }
 
         public int GetCurrentLevelResourceLimit(ProfileBuildingsData data)

@@ -119,10 +119,10 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles
             var sb = new StringBuilder();
 
             sb.AppendLine(Localization.Get(session, "battle_header_your_health"));
-            sb.AppendLine($"{Emojis.stats[Stat.Health]} {mineUnit.unitStats.currentHP} / {mineUnit.unitStats.maxHP}");
+            sb.AppendLine(Emojis.StatHealth + $"{mineUnit.unitStats.currentHP} / {mineUnit.unitStats.maxHP}");
 
             sb.AppendLine(Localization.Get(session, "battle_header_enemy_health"));
-            sb.AppendLine($"{Emojis.stats[Stat.Health]} {enemyUnit.unitStats.currentHP} / {enemyUnit.unitStats.maxHP}");
+            sb.AppendLine(Emojis.StatHealth + $"{enemyUnit.unitStats.currentHP} / {enemyUnit.unitStats.maxHP}");
 
             return sb.ToString();
         }

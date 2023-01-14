@@ -20,7 +20,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
             var sb = new StringBuilder();
             var headerLocalization = "battle_result_" + _data.battleResult.ToString().ToLower();
             var descriptionLocalization = "battle_result_description_" + _data.battleResult.ToString().ToLower();
-            sb.AppendLine($"{Emojis.menuItems[MenuItem.Battle]} {Localization.Get(session, headerLocalization)}");
+            sb.AppendLine(Emojis.ButtonBattle + Localization.Get(session, headerLocalization));
             sb.AppendLine();
             sb.AppendLine(Localization.Get(session, descriptionLocalization));
 
@@ -47,7 +47,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
 
             if (_data.isReturnToTownAvailable)
             {
-                var returnToTownText = $"{Emojis.menuItems[MenuItem.Town]} {Localization.Get(session, "menu_item_town")}";
+                var returnToTownText = Emojis.ButtonTown + Localization.Get(session, "menu_item_town");
                 RegisterButton(returnToTownText, ReturnToTown);
             }
 

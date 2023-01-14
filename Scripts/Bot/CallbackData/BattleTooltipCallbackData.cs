@@ -31,7 +31,7 @@ namespace TextGameRPG.Scripts.Bot.CallbackData
         public static InlineKeyboardButton CreateTooltipButton(GameSession session, BattleTooltipType type, string localizationKey)
         {
             var callbackData = new BattleTooltipCallbackData() { tooltip = type };
-            var text = $"{Emojis.elements[Element.Info]} {Localization.Get(session, localizationKey)}";
+            var text = Emojis.ElementInfo + Localization.Get(session, localizationKey);
             return InlineKeyboardButton.WithCallbackData(text, JsonConvert.SerializeObject(callbackData));
         }
 

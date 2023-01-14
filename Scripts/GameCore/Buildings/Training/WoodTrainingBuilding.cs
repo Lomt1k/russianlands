@@ -4,9 +4,9 @@ using System.Text;
 using TextGameRPG.Scripts.GameCore.Buildings.Data;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Resources;
-using TextGameRPG.Scripts.Bot;
 using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
 using TextGameRPG.Scripts.Bot.Sessions;
+using TextGameRPG.Scripts.GameCore.Units;
 
 namespace TextGameRPG.Scripts.GameCore.Buildings.Training
 {
@@ -72,8 +72,8 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Training
                 return string.Empty;
 
             bool isFirstWorker = unitIndex % 2 == 0;
-            var charIcon = isFirstWorker ? building.firstWorkerIcon : building.secondWorkerIcon;
-            return Emojis.characters[charIcon];
+            var avatar = isFirstWorker ? building.firstWorkerIcon : building.secondWorkerIcon;
+            return avatar.GetEmoji().ToString();
         }
 
         public override byte GetUnitLevel(ProfileBuildingsData data, sbyte unitIndex)

@@ -30,7 +30,7 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles.Actions
 
         public string GetHeader(GameSession session)
         {
-            return $"{Emojis.stats[Stat.KeywordSwordBlock]} {Localization.Get(session, "battle_action_sword_block_header")}";
+            return Emojis.StatKeywordSwordBlock + Localization.Get(session, "battle_action_sword_block_header");
         }
 
         public string GetDescription(GameSession session)

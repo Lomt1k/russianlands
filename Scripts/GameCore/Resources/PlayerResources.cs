@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Text;
-using TextGameRPG.Scripts.Bot;
 using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
 using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Localizations;
@@ -44,7 +43,7 @@ namespace TextGameRPG.Scripts.GameCore.Resources
         public string GetCraftResourcesView()
         {
             var sb = new StringBuilder();
-            sb.Append($"{Emojis.resources[ResourceType.CraftPiecesCommon]} {Localization.Get(_session, "resource_header_our_materials")}");
+            sb.Append(ResourceType.CraftPiecesCommon.GetEmoji() + Localization.Get(_session, "resource_header_our_materials"));
             var craftResources = resourceDictionary.GetCraftResourceTypes();
 
             foreach (var resourceType in craftResources)
@@ -54,7 +53,7 @@ namespace TextGameRPG.Scripts.GameCore.Resources
 
                 sb.AppendLine();
                 var localization = Localization.Get(_session, "resource_shortname_" + resourceType.ToString().ToLower());
-                sb.Append($"{localization} <b>{GetValue(resourceType)}</b>");
+                sb.Append($"{localization} " + GetValue(resourceType).ToString().Bold());
             }
 
             return sb.ToString();

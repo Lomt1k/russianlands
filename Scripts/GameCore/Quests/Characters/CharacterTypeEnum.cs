@@ -35,11 +35,6 @@ namespace TextGameRPG.Scripts.GameCore.Quests.Characters
             return Localizations.Localization.Get(session, $"character_{characterType.ToString().ToLower()}_name");
         }
 
-        public static string GetNameBold(this CharacterType characterType, GameSession session)
-        {
-            return "<b>" + characterType.GetName(session) + "</b>";
-        }
-
         public static string? GetSticker(this CharacterType characterType)
         {
             return CharacterStickersHolder.GetSticker(characterType);

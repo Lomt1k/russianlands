@@ -82,7 +82,7 @@ namespace TextGameRPG.Scripts.GameCore.Potions
                 sb.AppendLine();
                 var timeSpan = new DateTime(_preparationTime) - DateTime.UtcNow;
                 var productionView = Localization.Get(session, "dialog_potions_production_progress", timeSpan.GetView(session));
-                sb.Append($"{Emojis.elements[Element.SmallBlack]} {productionView}");
+                sb.Append(Emojis.ElementSmallBlack + productionView);
             }
             return sb.ToString();
         }

@@ -39,23 +39,23 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
 
         protected void RegisterBackButton(Func<Task> callback)
         {
-            RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_back_button")}", callback);
+            RegisterButton(Emojis.ElementSmallBlack + Localization.Get(session, "menu_item_back_button"), callback);
         }
 
         protected void RegisterBackButton(string text, Func<Task> callback)
         {
-            RegisterButton($"{Emojis.elements[Element.Back]} {text}", callback);
+            RegisterButton(Emojis.ElementBack + text, callback);
         }
 
         protected void RegisterDoubleBackButton(string text, Func<Task> callback)
         {
-            RegisterButton($"{Emojis.elements[Element.DoubleBack]} {text}", callback);
+            RegisterButton(Emojis.ElementBack + text, callback);
         }
 
         protected void RegisterTownButton(bool isDoubleBack)
         {
-            var element = isDoubleBack ? Element.DoubleBack : Element.Back;
-            RegisterButton($"{Emojis.elements[element]} {Localization.Get(session, "menu_item_town")} {Emojis.menuItems[MenuItem.Town]}", 
+            var emojiBack = isDoubleBack ? Emojis.ElementDoubleBack : Emojis.ElementBack;
+            RegisterButton(emojiBack + Localization.Get(session, "menu_item_town") + Emojis.ButtonTown, 
                 () => new Town.TownDialog(session, Town.TownEntryReason.BackFromInnerDialog).Start());
         }        
 
@@ -248,7 +248,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
                 BlockButtons(buttonsToBlock);
 
                 // Модифицируем логику клика по нужной кнопке (если еще не модифицировали)
-                if (!selectedButton.Text.Contains(Emojis.elements[Element.Warning]))
+                if (!selectedButton.Text.Contains(Emojis.ElementWarning.code))
                 {
                     var oldSelectedAction = registeredButtons[selectedButton];
                     var newStage = tooltip.stageAfterButtonClick;
@@ -279,13 +279,13 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
 
             sb.AppendLine();
             sb.AppendLine();
-            sb.AppendLine($"{Emojis.elements[Element.Warning]} {Localization.Get(session, "dialog_tooltip_header")}");
+            sb.AppendLine(Emojis.ElementWarning + Localization.Get(session, "dialog_tooltip_header"));
             var hint = Localization.Get(session, tooltip.localizationKey, selectedButton?.Text ?? string.Empty);
             sb.AppendLine(hint);
 
-            if (selectedButton != null && !selectedButton.Text.Contains(Emojis.elements[Element.Warning]))
+            if (selectedButton != null && !selectedButton.Text.Contains(Emojis.ElementWarning.code))
             {
-                selectedButton.Text += ' ' + Emojis.elements[Element.Warning];
+                selectedButton.Text += Emojis.ElementWarning;
             }            
 
             return true;

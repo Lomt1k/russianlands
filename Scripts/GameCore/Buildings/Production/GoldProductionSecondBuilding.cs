@@ -1,6 +1,6 @@
 ﻿using TextGameRPG.Scripts.GameCore.Resources;
-using TextGameRPG.Scripts.Bot;
 using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
+using TextGameRPG.Scripts.GameCore.Units;
 
 namespace TextGameRPG.Scripts.GameCore.Buildings.Production
 {
@@ -8,8 +8,8 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Production
     {
         public override ResourceType resourceType => ResourceType.Gold;
         public override BuildingType buildingType => BuildingType.GoldProductionSecond;
-        public override CharIcon firstWorkerIcon => CharIcon.Male;
-        public override CharIcon secondWorkerIcon => CharIcon.MaleD;
+        public override Avatar firstWorkerIcon => Avatar.Male;
+        public override Avatar secondWorkerIcon => Avatar.MaleD;
 
         public override byte GetCurrentLevel(ProfileBuildingsData data)
         {

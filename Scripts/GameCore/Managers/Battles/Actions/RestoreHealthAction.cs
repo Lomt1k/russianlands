@@ -32,7 +32,7 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles.Actions
             return fromItems.Count switch
             {
                 0 => Localization.Get(session, "battle_action_restore_health_header"),
-                1 => "<b>" + fromItems.First().GetFullName(session) + "</b>",
+                1 => fromItems.First().GetFullName(session).Bold(),
                 _ => Localization.Get(session, "battle_action_multi_items_header", fromItems.Count)
             };
         }

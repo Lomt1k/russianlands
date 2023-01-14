@@ -35,7 +35,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
             ClearButtons();
             foreach (var itemType in _building.craftCategories)
             {
-                RegisterButton($"{Emojis.items[itemType]} {itemType.GetLocalization(session)}", () => StartSelectRarity(itemType));
+                RegisterButton(itemType.GetEmoji() + itemType.GetLocalization(session), () => StartSelectRarity(itemType));
             }
             RegisterBackButton(() => new BuildingInfoDialog(session, _building).Start());
 
@@ -60,7 +60,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
         private async Task StartSelectRarity(ItemType itemType)
         {
             var sb = new StringBuilder();
-            sb.AppendLine($"<b>{Emojis.items[itemType]} {itemType.GetLocalization(session)}</b>");
+            sb.AppendLine(itemType.GetEmoji() + itemType.GetLocalization(session).Bold());
             sb.AppendLine();
             sb.AppendLine(Localization.Get(session, "dialog_craft_select_item_rarity"));
 
@@ -82,7 +82,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
         private async Task ShowCraftPrice(ItemType itemType, Rarity rarity)
         {
             var sb = new StringBuilder();
-            sb.AppendLine($"<b>{Emojis.items[itemType]} {itemType.GetLocalization(session)}</b>");
+            sb.AppendLine(itemType.GetEmoji() + itemType.GetLocalization(session).Bold());
             sb.AppendLine($"<pre>{rarity.GetView(session)}</pre>");
 
             sb.AppendLine();
@@ -108,7 +108,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
             sb.Append(ResourceHelper.GetResourcesView(session, playerResources));
 
             ClearButtons();
-            RegisterButton($"{Emojis.menuItems[MenuItem.Craft]} {Localization.Get(session, "dialog_craft_start_craft_buton")}",
+            RegisterButton(Emojis.ButtonCraft + Localization.Get(session, "dialog_craft_start_craft_button"),
                 () => StartCraftItem(itemType, rarity));
             RegisterBackButton(() => StartSelectRarity(itemType));
 

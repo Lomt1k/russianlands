@@ -65,22 +65,22 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
             if (minPhysicalDamage > 0)
             {
                 sb.AppendLine();
-                sb.Append($"{Emojis.stats[Stat.PhysicalDamage]} {GetStringValue(DamageType.Physical)}");
+                sb.Append(Emojis.StatPhysicalDamage + GetStringValue(DamageType.Physical));
             }
             if (minFireDamage > 0)
             {
                 sb.AppendLine();
-                sb.Append($"{Emojis.stats[Stat.FireDamage]} {GetStringValue(DamageType.Fire)}");
+                sb.Append(Emojis.StatFireDamage + GetStringValue(DamageType.Fire));
             }
             if (minColdDamage > 0)
             {
                 sb.AppendLine();
-                sb.Append($"{Emojis.stats[Stat.ColdDamage]} {GetStringValue(DamageType.Cold)}");
+                sb.Append(Emojis.StatColdDamage + GetStringValue(DamageType.Cold));
             }
             if (minLightningDamage > 0)
             {
                 sb.AppendLine();
-                sb.Append($"{Emojis.stats[Stat.LightningDamage]} {GetStringValue(DamageType.Lightning)}");
+                sb.Append(Emojis.StatLightningDamage + GetStringValue(DamageType.Lightning));
             }
 
             return sb.ToString();
@@ -95,19 +95,19 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
             sb.Append(Localizations.Localization.Get(session, "ability_deals_damage") + ' ');
             if (minPhysicalDamage > 0)
             {
-                sb.Append($"{Emojis.stats[Stat.PhysicalDamage]} {GetStringValue(DamageType.Physical)}");
+                sb.Append(Emojis.StatPhysicalDamage + GetStringValue(DamageType.Physical));
             }
             if (minFireDamage > 0)
             {
-                sb.Append($"{Emojis.stats[Stat.FireDamage]} {GetStringValue(DamageType.Fire)}");
+                sb.Append(Emojis.StatFireDamage + GetStringValue(DamageType.Fire));
             }
             if (minColdDamage > 0)
             {
-                sb.Append($"{Emojis.stats[Stat.ColdDamage]} {GetStringValue(DamageType.Cold)}");
+                sb.Append(Emojis.StatColdDamage + GetStringValue(DamageType.Cold));
             }
             if (minLightningDamage > 0)
             {
-                sb.Append($"{Emojis.stats[Stat.LightningDamage]} {GetStringValue(DamageType.Lightning)}");
+                sb.Append(Emojis.StatLightningDamage + GetStringValue(DamageType.Lightning));
             }
 
             return sb.ToString();

@@ -25,32 +25,32 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
         private async Task ShowCategories(CompareData? compareData = null)
         {
             ClearButtons();
-            RegisterButton($"{Emojis.items[ItemType.Sword]} " + Localization.Get(session, "menu_item_swords"),
+            RegisterButton(ItemType.Sword.GetEmoji() + Localization.Get(session, "menu_item_swords"),
                 () => ShowCategory(ItemType.Sword));
-            RegisterButton($"{Emojis.items[ItemType.Bow]} " + Localization.Get(session, "menu_item_bows"),
+            RegisterButton(ItemType.Bow.GetEmoji() + Localization.Get(session, "menu_item_bows"),
                 () => ShowCategory(ItemType.Bow));
-            RegisterButton($"{Emojis.items[ItemType.Stick]} " + Localization.Get(session, "menu_item_sticks"),
+            RegisterButton(ItemType.Stick.GetEmoji() + Localization.Get(session, "menu_item_sticks"),
                 () => ShowCategory(ItemType.Stick));
-            RegisterButton($"{Emojis.items[ItemType.Helmet]} " + Localization.Get(session, "menu_item_helmets"),
+            RegisterButton(ItemType.Helmet.GetEmoji() + Localization.Get(session, "menu_item_helmets"),
                 () => ShowCategory(ItemType.Helmet));
-            RegisterButton($"{Emojis.items[ItemType.Armor]} " + Localization.Get(session, "menu_item_armors"),
+            RegisterButton(ItemType.Armor.GetEmoji() + Localization.Get(session, "menu_item_armors"),
                 () => ShowCategory(ItemType.Armor));
-            RegisterButton($"{Emojis.items[ItemType.Boots]} " + Localization.Get(session, "menu_item_boots"),
+            RegisterButton(ItemType.Boots.GetEmoji() + Localization.Get(session, "menu_item_boots"),
                 () => ShowCategory(ItemType.Boots));
-            RegisterButton($"{Emojis.items[ItemType.Shield]} " + Localization.Get(session, "menu_item_shields"),
+            RegisterButton(ItemType.Shield.GetEmoji() + Localization.Get(session, "menu_item_shields"),
                 () => ShowCategory(ItemType.Shield));
-            RegisterButton($"{Emojis.items[ItemType.Amulet]} " + Localization.Get(session, "menu_item_amulets"),
+            RegisterButton(ItemType.Amulet.GetEmoji() + Localization.Get(session, "menu_item_amulets"),
                 () => ShowCategory(ItemType.Amulet));
-            RegisterButton($"{Emojis.items[ItemType.Ring]} " + Localization.Get(session, "menu_item_rings"),
+            RegisterButton(ItemType.Ring.GetEmoji() + Localization.Get(session, "menu_item_rings"),
                 () => ShowCategory(ItemType.Ring));
-            RegisterButton($"{Emojis.items[ItemType.Scroll]} " + Localization.Get(session, "menu_item_scrolls"),
+            RegisterButton(ItemType.Scroll.GetEmoji() + Localization.Get(session, "menu_item_scrolls"),
                 () => ShowCategory(ItemType.Scroll));
 
             RegisterBackButton(() => new TownCharacterDialog(session).Start());
             RegisterTownButton(isDoubleBack: true);
 
             var sb = new StringBuilder();
-            sb.AppendLine($"{Emojis.menuItems[MenuItem.Inventory]} <b>{Localization.Get(session, "menu_item_inventory")}</b>");
+            sb.AppendLine(Emojis.ButtonInventory + Localization.Get(session, "menu_item_inventory").Bold());
             bool hasTooltip = TryAppendTooltip(sb);
 
             await SendDialogMessage(sb, GetKeyboardWithRowSizes(3, 3, 3, 3))
@@ -72,13 +72,13 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
             }
 
             ClearButtons();
-            RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_inventory")} {Emojis.menuItems[MenuItem.Inventory]}",
+            RegisterBackButton(Localization.Get(session, "menu_item_inventory") + Emojis.ButtonInventory,
                 () => ShowCategories(_inspectorPanel.compareData));
-            RegisterBackButton($"{Localization.Get(session, "menu_item_character")} {Emojis.characters[CharIcon.Male]}",
+            RegisterDoubleBackButton(Localization.Get(session, "menu_item_character") + Emojis.AvatarMale,
                 () => new TownCharacterDialog(session).Start());
 
             var sb = new StringBuilder();
-            sb.AppendLine($"{Emojis.menuItems[MenuItem.Inventory]} <b>{Localization.Get(session, "menu_item_inventory")}</b>");
+            sb.AppendLine(Emojis.ButtonInventory + Localization.Get(session, "menu_item_inventory").Bold());
             if (_inspectorPanel.compareData.HasValue)
             {
                 sb.AppendLine();

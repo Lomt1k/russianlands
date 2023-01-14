@@ -38,31 +38,29 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
             sb.AppendLine(Localization.Get(session, "dialog_inventory_header_total_items", _inventory.itemsCount, _inventory.inventorySize));
 
             sb.AppendLine();
-            sb.Append($"{Emojis.items[ItemType.Sword]} {_inventory.GetItemsCountByType(ItemType.Sword)}");
+            sb.Append(ItemType.Sword.GetEmoji() + _inventory.GetItemsCountByType(ItemType.Sword).ToString());
             sb.Append(Emojis.bigSpace);
-            sb.Append($"{Emojis.items[ItemType.Bow]} {_inventory.GetItemsCountByType(ItemType.Bow)}");
+            sb.Append(ItemType.Bow.GetEmoji() + _inventory.GetItemsCountByType(ItemType.Bow).ToString());
             sb.Append(Emojis.bigSpace);
-            sb.Append($"{Emojis.items[ItemType.Stick]} {_inventory.GetItemsCountByType(ItemType.Stick)}");
+            sb.Append(ItemType.Stick.GetEmoji() + _inventory.GetItemsCountByType(ItemType.Stick).ToString());
 
 
             sb.AppendLine();
-            sb.Append($"{Emojis.items[ItemType.Helmet]} {_inventory.GetItemsCountByType(ItemType.Helmet)}");
+            sb.Append(ItemType.Helmet.GetEmoji() + _inventory.GetItemsCountByType(ItemType.Helmet).ToString());
             sb.Append(Emojis.bigSpace);
-            sb.Append($"{Emojis.items[ItemType.Armor]} {_inventory.GetItemsCountByType(ItemType.Armor)}");
+            sb.Append(ItemType.Armor.GetEmoji() + _inventory.GetItemsCountByType(ItemType.Armor).ToString());
             sb.Append(Emojis.bigSpace);
-            sb.Append($"{Emojis.items[ItemType.Boots]} {_inventory.GetItemsCountByType(ItemType.Boots)}");
+            sb.Append(ItemType.Armor.GetEmoji() + _inventory.GetItemsCountByType(ItemType.Armor).ToString());
 
             sb.AppendLine();
-            sb.Append($"{Emojis.items[ItemType.Shield]} {_inventory.GetItemsCountByType(ItemType.Shield)}");
+            sb.Append(ItemType.Shield.GetEmoji() + _inventory.GetItemsCountByType(ItemType.Shield).ToString());
             sb.Append(Emojis.bigSpace);
-            sb.Append($"{Emojis.items[ItemType.Amulet]} {_inventory.GetItemsCountByType(ItemType.Amulet)}");
+            sb.Append(ItemType.Ring.GetEmoji() + _inventory.GetItemsCountByType(ItemType.Ring).ToString());
             sb.Append(Emojis.bigSpace);
-            sb.Append($"{Emojis.items[ItemType.Ring]} {_inventory.GetItemsCountByType(ItemType.Ring)}");
+            sb.Append(ItemType.Amulet.GetEmoji() + _inventory.GetItemsCountByType(ItemType.Amulet).ToString());
 
             sb.AppendLine();
-            sb.Append($"{Emojis.items[ItemType.Scroll]} {_inventory.GetItemsCountByType(ItemType.Scroll)}");
-            //sb.Append(Emojis.bigSpace);
-            //sb.AppendLine($"{Emojis.items[ItemType.Poison]} {_inventory.GetItemsCountByType(ItemType.Poison)}");
+            sb.Append(ItemType.Scroll.GetEmoji() + _inventory.GetItemsCountByType(ItemType.Scroll).ToString());
 
             return sb.ToString();
         }
@@ -78,7 +76,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
             await RemoveKeyboardFromLastMessage()
                 .ConfigureAwait(false);
 
-            RegisterButton($"{Emojis.items[ItemType.Equipped]} {Localization.Get(session, "menu_item_equipped")}",
+            RegisterButton(Emojis.ItemEquipped + Localization.Get(session, "menu_item_equipped"),
                 () => ((InventoryDialog)dialog).ShowCategory(ItemType.Equipped));
 
             var sb = new StringBuilder();
@@ -126,7 +124,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
             ClearButtons();
             var categoryLocalization = GetCategoryLocalization(_browsedCategory);
             var text = new StringBuilder();
-            text.Append($"<b>{categoryLocalization}:</b> ");
+            text.Append(categoryLocalization.Bold());
 
             if (_pagesCount == 0)
             {
@@ -139,7 +137,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
                 for (int i = startIndex; i < startIndex + browsedItemsOnPage && i < _browsedItems.Length; i++)
                 {
                     var item = _browsedItems[i];
-                    var prefix = item.isEquipped ? Emojis.items[ItemType.Equipped] : string.Empty;
+                    var prefix = item.isEquipped ? Emojis.ItemEquipped : Emojis.Empty;
                     RegisterButton(prefix + item.GetFullName(session), () => OnItemClick(item));
                 }
             }

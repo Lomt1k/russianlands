@@ -121,7 +121,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
                     sb.AppendLine(productionView);
 
                     var itemType = GetCurrentCraftItemType(data);
-                    sb.Append($"<b>{Emojis.items[itemType]} {itemType.GetLocalization(session)}</b>");
+                    sb.Append(itemType.GetEmoji() + itemType.GetLocalization(session).Bold());
                     updates.Add(sb.ToString());
                 }
             }
@@ -135,7 +135,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
 
             if (!IsUnderConstruction(data))
             {
-                var buttonText = $"{Emojis.menuItems[MenuItem.Craft]} {Localization.Get(session, "menu_item_craft")}";
+                var buttonText = Emojis.ButtonCraft + Localization.Get(session, "menu_item_craft");
                 if (IsCraftStarted(data))
                 {
                     if (IsCraftCanBeFinished(data))

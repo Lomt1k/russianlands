@@ -23,20 +23,20 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town
         {
             _reason = reason;
 
-            RegisterButton($"{Emojis.menuItems[MenuItem.Map]} " + Localization.Get(session, "menu_item_map"),
+            RegisterButton(Emojis.ButtonMap + Localization.Get(session, "menu_item_map"),
                 () => new GlobalMap.GlobalMapDialog(session).Start());
 
-            var buildingsLocalization = $"{Emojis.menuItems[MenuItem.Buildings]} " + Localization.Get(session, "menu_item_buildings")
-                + (session.player.buildings.HasImportantUpdates() ? $"{Emojis.elements[Element.WarningRed]}" : string.Empty);
+            var buildingsLocalization = Emojis.ButtonBuildings + Localization.Get(session, "menu_item_buildings")
+                + (session.player.buildings.HasImportantUpdates() ? Emojis.ElementWarningRed.code : string.Empty);
             RegisterButton(buildingsLocalization, () => new Buildings.BuildingsDialog(session).Start());
 
-            RegisterButton($"{Emojis.characters[CharIcon.Male]} " + Localization.Get(session, "menu_item_character"),
+            RegisterButton(Emojis.AvatarMale + Localization.Get(session, "menu_item_character"),
                 () => new Character.TownCharacterDialog(session).Start());
-            RegisterButton($"{Emojis.menuItems[MenuItem.Quests]} " + Localization.Get(session, "menu_item_quests"),
+            RegisterButton(Emojis.ButtonQuests + Localization.Get(session, "menu_item_quests"),
                 () => messageSender.SendTextMessage(session.chatId, "Задания недоступны в текущей версии игры")); //заглушка
-            RegisterButton($"{Emojis.menuItems[MenuItem.Mail]} " + Localization.Get(session, "menu_item_mail"),
+            RegisterButton(Emojis.ButtonMail + Localization.Get(session, "menu_item_mail"),
                 () => messageSender.SendTextMessage(session.chatId, "Почта недоступна в текущей версии игры")); //заглушка
-            RegisterButton($"{Emojis.menuItems[MenuItem.Shop]} " + Localization.Get(session, "menu_item_shop"),
+            RegisterButton(Emojis.ButtonShop + Localization.Get(session, "menu_item_shop"),
                 () => new Shop.ShopDialog(session).Start());
 
             _keyboard = GetKeyboardWithRowSizes(1, 2, 3);
@@ -45,7 +45,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town
         public override async Task Start()
         {
             var sb = new StringBuilder();
-            sb.AppendLine($"{Emojis.menuItems[MenuItem.Town]} <b>" + Localization.Get(session, "menu_item_town") + "</b>");
+            sb.AppendLine(Emojis.ButtonTown + Localization.Get(session, "menu_item_town").Bold());
             sb.AppendLine();
 
             if (_reason == TownEntryReason.StartNewSession)
@@ -92,7 +92,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town
                 var sb = new StringBuilder();
                 sb.AppendLine();
                 sb.AppendLine(Localization.Get(session, "unit_view_health_regen"));
-                sb.AppendLine($"{Emojis.stats[Stat.Health]} {stats.currentHP} / {stats.maxHP}");
+                sb.AppendLine(Emojis.StatHealth + $"{stats.currentHP} / {stats.maxHP}");
 
                 var message = _regenHealthMessageId == null
                     ? await messageSender.SendTextMessage(session.chatId, sb.ToString(), silent: true).ConfigureAwait(false)

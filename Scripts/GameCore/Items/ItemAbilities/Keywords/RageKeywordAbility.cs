@@ -10,7 +10,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities.Keywords
 
         public override string GetView(GameSession session)
         {
-            return $"{Emojis.stats[Stat.KeywordRage]} {Localizations.Localization.Get(session, "ability_rage")}";
+            return Emojis.StatKeywordRage + Localizations.Localization.Get(session, "ability_rage");
         }
     }
 }

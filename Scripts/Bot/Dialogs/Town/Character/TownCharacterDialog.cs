@@ -13,18 +13,18 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
 
         public TownCharacterDialog(GameSession _session) : base(_session)
         {
-            RegisterButton($"{Emojis.menuItems[MenuItem.Inventory]} " + Localization.Get(session, "menu_item_inventory"),
+            RegisterButton(Emojis.ButtonInventory + Localization.Get(session, "menu_item_inventory"),
                 () => new InventoryDialog(session).Start());
 
             var potionsText = Localization.Get(session, "menu_item_potions");
             var potionsButton = IsPotionsDialogAvailable()
-                ? $"{Emojis.menuItems[MenuItem.Potions]} {potionsText} ({session.player.potions.Count})"
-                : $"{Emojis.elements[Element.Locked]} {potionsText}";
+                ? Emojis.ButtonPotions + potionsText + $"({session.player.potions.Count})"
+                : Emojis.ElementLocked + potionsText;
             RegisterButton(potionsButton, () => TryShowPotionsDialog());
 
-            RegisterButton($"{Emojis.menuItems[MenuItem.Skills]} " + Localization.Get(session, "menu_item_skills"), null);
-            RegisterButton($"{Emojis.menuItems[MenuItem.Avatar]} " + Localization.Get(session, "menu_item_avatar"), null);
-            RegisterButton($"{Emojis.menuItems[MenuItem.NameChange]} " + Localization.Get(session, "menu_item_namechange"), null);
+            RegisterButton(Emojis.ButtonSkills + Localization.Get(session, "menu_item_skills"), null);
+            RegisterButton(Emojis.AvatarMale + Localization.Get(session, "menu_item_avatar"), null);
+            RegisterButton(Emojis.ButtonNameChange + Localization.Get(session, "menu_item_namechange"), null);
             RegisterTownButton(isDoubleBack: false);
         }
 
@@ -84,7 +84,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
                     else if (stats.currentHP >= stats.maxHP)
                     {
                         sb.AppendLine(Localization.Get(session, "unit_view_health"));
-                        sb.AppendLine($"{Emojis.stats[Stat.Health]} {stats.currentHP} / {stats.maxHP}");
+                        sb.AppendLine(Emojis.StatHealth + $"{stats.currentHP} / {stats.maxHP}");
                         await messageSender.EditTextMessage(session.chatId, _regenHealthMessageId.Value, sb.ToString())
                             .ConfigureAwait(false);
                         return;
@@ -93,7 +93,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
 
                 sb.AppendLine();
                 sb.AppendLine(Localization.Get(session, "unit_view_health_regen"));
-                sb.AppendLine($"{Emojis.stats[Stat.Health]} {stats.currentHP} / {stats.maxHP}");
+                sb.AppendLine(Emojis.StatHealth + $"{stats.currentHP} / {stats.maxHP}");
 
                 var message = _regenHealthMessageId == null
                     ? await messageSender.SendTextMessage(session.chatId, sb.ToString(), silent: true).ConfigureAwait(false)

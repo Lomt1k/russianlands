@@ -11,7 +11,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities.Keywords
 
         public override string GetView(GameSession session)
         {
-            return $"{Emojis.stats[Stat.KeywordSanctions]} {Localization.Get(session, "ability_sanctions_percentage", chanceToSuccessPercentage)}";
+            return Emojis.StatKeywordSanctions + Localization.Get(session, "ability_sanctions_percentage", chanceToSuccessPercentage);
         }
     }
 }

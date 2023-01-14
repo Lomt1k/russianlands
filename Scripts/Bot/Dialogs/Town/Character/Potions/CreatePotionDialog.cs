@@ -33,7 +33,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
         public override async Task Start()
         {
             var sb = new StringBuilder();
-            sb.AppendLine("<b>" + _data.GetName(session) + "</b>");
+            sb.AppendLine(_data.GetName(session).Bold());
 
             sb.AppendLine();
             sb.AppendLine(_data.GetDescription(session, session));

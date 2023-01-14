@@ -47,13 +47,12 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
             RegisterButton(Localization.Get(session, "menu_item_compare_button"),
                 () => StartSelectItemForCompare());
 
-            RegisterButton($"{Emojis.elements[Element.Bin]} {Localization.Get(session, "menu_item_break_apart_button")}",
+            RegisterButton(Emojis.ElementBin + Localization.Get(session, "menu_item_break_apart_button"),
                 () => TryBreakApartItem());
 
-            var categoryIcon = Emojis.items[_browsedCategory];
-            RegisterButton($"{Emojis.elements[Element.Back]} {_browsedCategory.GetCategoryLocalization(session)} {categoryIcon}",
+            RegisterBackButton(_browsedCategory.GetCategoryLocalization(session) + _browsedCategory.GetEmoji(),
                 () => new InventoryDialog(session).ShowCategory(_browsedCategory, _browsedPage));
-            RegisterDoubleBackButton($"{Localization.Get(session, "menu_item_inventory")} {Emojis.menuItems[MenuItem.Inventory]}",
+            RegisterDoubleBackButton(Localization.Get(session, "menu_item_inventory") + Emojis.ButtonInventory,
                 () => new InventoryDialog(session).Start());
 
             TryAppendTooltip(sb);
@@ -67,8 +66,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
             var requiredLevel = _item.data.requiredLevel;
             if (profileLevel < requiredLevel)
             {
-                var messageText = $"<b>{_item.GetFullName(session)}</b>\n\n"
-                    + Localization.Get(session, "dialog_inventory_required_level", requiredLevel, Emojis.smiles[Smile.Sad]);
+                var messageText = _item.GetFullName(session).Bold() + "\n\n"
+                    + Localization.Get(session, "dialog_inventory_required_level", requiredLevel, Emojis.SmileSad);
                 await SendMessageWithBackButton(messageText)
                     .ConfigureAwait(false);
                 return;
@@ -99,7 +98,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
                 var equippedItem = inventory.equipped[type, slotId];
                 var buttonText = equippedItem != null
                     ? equippedItem.GetFullName(session)
-                    : $"{Emojis.items[type]} {Localization.Get(session, "menu_item_empty_slot_button")}";
+                    : type.GetEmoji() + Localization.Get(session, "menu_item_empty_slot_button");
                 RegisterButton(buttonText, () => EquipMultiSlot(slotId));
             }
             RegisterBackButton(() => ShowItemInspector());
@@ -169,14 +168,14 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
             if (inventory.GetItemsCountByType(_item.data.itemType) < 2)
             {
                 var message = Localization.Get(session, "dialog_inventory_break_apart_empty_category")
-                    + $"\n{Emojis.items[_browsedCategory]} <b>{_browsedCategory.GetCategoryLocalization(session)}</b>";
+                    + _browsedCategory.GetEmoji() + _browsedCategory.GetCategoryLocalization(session).Bold();
                 await SendMessageWithBackButton(message)
                     .ConfigureAwait(false);
                 return;
             }
 
             var sb = new StringBuilder();
-            sb.AppendLine("<b>" + _item.GetFullName(session) + "</b>");
+            sb.AppendLine(_item.GetFullName(session).Bold());
             sb.AppendLine();
             sb.AppendLine(Localization.Get(session, "dialog_inventory_break_apart_confirm"));
             sb.AppendLine();
@@ -185,7 +184,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
             sb.Append(ResourceHelper.GetResourcesView(session, rewardResources));
 
             ClearButtons();
-            RegisterButton($"{Emojis.elements[Element.Bin]} {Localization.Get(session, "menu_item_break_apart_button")}",
+            RegisterButton(Emojis.ElementBin + Localization.Get(session, "menu_item_break_apart_button"),
                 () => ForceBreakApart());
             RegisterBackButton(() => ShowItemInspector());
 

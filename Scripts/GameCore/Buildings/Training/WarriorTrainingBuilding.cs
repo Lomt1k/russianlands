@@ -45,7 +45,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Training
 
         public override string GetUnitIcon(ProfileBuildingsData data, sbyte unitIndex)
         {
-            return Emojis.characters[CharIcon.Male];
+            return Emojis.AvatarMale.ToString();
         }
 
         public override byte GetUnitLevel(ProfileBuildingsData data, sbyte unitIndex)
@@ -123,7 +123,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Training
             if (currentUnitLevel >= maxUnitLevel)
             {
                 sb.AppendLine(Localization.Get(session, "building_training_max_health_header"));
-                sb.Append(Emojis.stats[Stat.Health] + $" {currentHealth.View()}");
+                sb.Append(Emojis.StatHealth + currentHealth.View());
                 return sb.ToString();
             }
 
@@ -131,7 +131,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Training
             var nextHealth = currentHealth + bonusPerLevel;
 
             sb.AppendLine(Localization.Get(session, "building_training_max_health_header"));
-            sb.Append(Emojis.stats[Stat.Health] + $" {nextHealth.View()} (<i>+{bonusPerLevel.View()}</i>)");
+            sb.Append(Emojis.StatHealth + nextHealth.View() + $" (<i>+{bonusPerLevel.View()}</i>)");
             return sb.ToString();
         }
 

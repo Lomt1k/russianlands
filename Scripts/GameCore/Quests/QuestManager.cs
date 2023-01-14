@@ -4,9 +4,9 @@ using Telegram.Bot.Types;
 using TextGameRPG.Scripts.GameCore.Quests.NextStageTriggers;
 using TextGameRPG.Scripts.GameCore.Quests.QuestStages;
 using TextGameRPG.Scripts.GameCore.Quests.StageActions;
-using TextGameRPG.Scripts.Bot;
 using TextGameRPG.Scripts.Bot.Dialogs.Town;
 using TextGameRPG.Scripts.Bot.Sessions;
+using TextGameRPG.Scripts.GameCore.Resources;
 
 namespace TextGameRPG.Scripts.GameCore.Quests
 {
@@ -53,7 +53,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests
 
                     // Если игрок закончил игру на PvE точке и в начале новой сессии нажал "в бой" - запускаем бой
                     case QuestStageWithBattlePoint stageWithBattlePoint:
-                        bool isStartBattlePressed = replyMessage.Contains(Emojis.resources[Resources.ResourceType.Food]);
+                        bool isStartBattlePressed = replyMessage.Contains(ResourceType.Food.GetEmoji().code);
                         if (isStartBattlePressed)
                         {
                             await stageWithBattlePoint.InvokeStageWithStartBattleImmediate(session)

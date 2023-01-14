@@ -23,15 +23,35 @@ namespace TextGameRPG.Scripts.GameCore.Resources
 
     public static class ResourceTypeExtensions
     {
+        public static Emoji GetEmoji(this ResourceType resourceType)
+        {
+            return resourceType switch
+            {
+                ResourceType.Gold => Emojis.ResourceGold,
+                ResourceType.Food => Emojis.ResourceFood,
+                ResourceType.Diamond => Emojis.ResourceDiamond,
+                ResourceType.Herbs => Emojis.ResourceHerbs,
+                ResourceType.Wood => Emojis.ResourceWood,
+
+                ResourceType.InventoryItems => Emojis.ResourceInventoryItems,
+                ResourceType.CraftPiecesCommon => Emojis.ResourceCraftPiecesCommon,
+                ResourceType.CraftPiecesRare => Emojis.ResourceCraftPiecesRare,
+                ResourceType.CraftPiecesEpic => Emojis.ResourceCraftPiecesEpic,
+                ResourceType.CraftPiecesLegendary => Emojis.ResourceCraftPiecesLegendary,
+
+                _ => Emojis.Empty
+            };
+        }
+
         public static string GetShortView(this ResourceType resourceType, int amount)
         {
-            return $"{Emojis.resources[resourceType]} {amount.ShortView()}";
+            return GetEmoji(resourceType) + amount.ShortView();
         }
 
         public static string GetLocalizedView(this ResourceType resourceType, GameSession session, int amount)
         {
             var localizationKey = "resource_name_" + resourceType.ToString().ToLower();
-            return $"{Emojis.resources[resourceType]} {Localization.Get(session, localizationKey)} {amount.View()}";
+            return GetEmoji(resourceType) + Localization.Get(session, localizationKey) + $" {amount.View()}";
         }
 
         public static bool IsCraftResource(this ResourceType resourceType)

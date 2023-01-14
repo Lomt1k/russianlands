@@ -22,7 +22,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
         {
             ClearButtons();
             var sb = new StringBuilder();
-            sb.AppendLine($"<b>{_locationType.GetLocalization(session)}</b>");
+            sb.AppendLine(_locationType.GetLocalization(session).Bold());
 
             var questType = _locationType.GetQuest();
             if (questType.HasValue)
@@ -34,13 +34,13 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
                     var currentProgress = quest.GetCompletedBattlePoints(session);
                     var totalProgress = quest.battlePointsCount;
                     var progressText = Localization.Get(session, "dialog_map_location_progress", currentProgress, totalProgress);
-                    sb.AppendLine($"{Emojis.locations[MapLocation.StoryMode]} " + progressText);
+                    sb.AppendLine(Emojis.ButtonStoryMode + progressText);
 
-                    RegisterButton($"{Emojis.locations[MapLocation.StoryMode]} {Localization.Get(session, "dialog_map_continue_story_mode")}",
+                    RegisterButton(Emojis.ButtonStoryMode + Localization.Get(session, "dialog_map_continue_story_mode"),
                         () => ContinueStoryMode());
                 }
             }
-            RegisterButton($"{Emojis.elements[Element.Back]} {Localization.Get(session, "menu_item_map")} {Emojis.menuItems[MenuItem.Map]}",
+            RegisterBackButton(Localization.Get(session, "menu_item_map") + Emojis.ButtonMap,
                 () => new GlobalMapDialog(session).Start());
             RegisterTownButton(isDoubleBack: true);
 

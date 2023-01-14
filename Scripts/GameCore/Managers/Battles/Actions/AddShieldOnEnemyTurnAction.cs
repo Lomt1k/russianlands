@@ -4,7 +4,6 @@ using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Units;
 using TextGameRPG.Scripts.GameCore.Units.Stats;
 using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.Bot;
 
 namespace TextGameRPG.Scripts.GameCore.Managers.Battles.Actions
 {
@@ -40,10 +39,10 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles.Actions
                     if (shield == null)
                         break;
 
-                    header = $"<b>{shield.GetFullName(session)}</b>";
+                    header = shield.GetFullName(session).Bold();
                     break;
                 default:
-                    header = $"<b>{Emojis.items[ItemType.Shield]} {Localization.Get(session, "battle_shield_default_header")}</b>";
+                    header = ItemType.Shield.GetEmoji() + Localization.Get(session, "battle_shield_default_header").Bold();
                     break;
             }
 

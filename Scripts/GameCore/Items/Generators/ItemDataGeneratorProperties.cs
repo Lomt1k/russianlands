@@ -2,7 +2,6 @@
 namespace TextGameRPG.Scripts.GameCore.Items.Generators
 {
     using ItemProperties;
-    using TextGameRPG.Scripts.Bot;
 
     public abstract partial class ItemDataGeneratorBase
     {
@@ -11,7 +10,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             if (_properties.TryGetValue(PropertyType.DamageResist, out var damageResist))
             {
                 ((DamageResistProperty)damageResist).physicalDamage += value;
-                _statIcons.Add(Stat.PhysicalDamage);
+                _statIcons.Add(ItemStatIcon.PhysicalDamage);
                 return;
             }
 
@@ -22,13 +21,13 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
             // у колец и амулетов защита от физ. урона как бонусное свойство (должно быть с иконкой)
             if (seed.itemType == ItemType.Amulet || seed.itemType == ItemType.Ring)
             {
-                _statIcons.Add(Stat.PhysicalDamage);
+                _statIcons.Add(ItemStatIcon.PhysicalDamage);
             }
         }
 
         protected void AddFireDamageResist(int value)
         {
-            _statIcons.Add(Stat.FireDamage);
+            _statIcons.Add(ItemStatIcon.FireDamage);
             if (_properties.TryGetValue(PropertyType.DamageResist, out var damageResist))
             {
                 ((DamageResistProperty)damageResist).fireDamage += value;
@@ -42,7 +41,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
 
         protected void AddColdDamageResist(int value)
         {
-            _statIcons.Add(Stat.ColdDamage);
+            _statIcons.Add(ItemStatIcon.ColdDamage);
             if (_properties.TryGetValue(PropertyType.DamageResist, out var damageResist))
             {
                 ((DamageResistProperty)damageResist).coldDamage += value;
@@ -56,7 +55,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
 
         protected void AddLightningDamageResist(int value)
         {
-            _statIcons.Add(Stat.LightningDamage);
+            _statIcons.Add(ItemStatIcon.LightningDamage);
             if (_properties.TryGetValue(PropertyType.DamageResist, out var damageResist))
             {
                 ((DamageResistProperty)damageResist).lightningDamage += value;
@@ -70,7 +69,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
 
         protected void AddIncreaseMaxHealth(int value)
         {
-            _statIcons.Add(Stat.IncreaseHealth);
+            _statIcons.Add(ItemStatIcon.IncreaseHealth);
             if (_properties.TryGetValue(PropertyType.IncreaseMaxHealth, out var property))
             {
                 ((IncreaseMaxHealthProperty)property).value += value;

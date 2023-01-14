@@ -147,7 +147,7 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
             if (withHealth)
             {
                 sb.AppendLine(Localization.Get(sessionToSend, "unit_view_health"));
-                sb.AppendLine($"{Emojis.stats[Stat.Health]} {currentHP} / {maxHP}");
+                sb.AppendLine(Emojis.StatHealth + $"{currentHP} / {maxHP}");
                 sb.AppendLine();
             }
             AppendResistsCompactView(sb, sessionToSend);
@@ -161,17 +161,17 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
 
             if (totalResistance.HasBigValues())
             {
-                sb.Append($"{Emojis.stats[Stat.PhysicalDamage]} " + totalResistance[DamageType.Physical]);
-                sb.AppendLine(Emojis.bigSpace + $"{Emojis.stats[Stat.FireDamage]} " + totalResistance[DamageType.Fire]);
-                sb.Append($"{Emojis.stats[Stat.ColdDamage]} " + totalResistance[DamageType.Cold]);
-                sb.AppendLine(Emojis.bigSpace + $"{Emojis.stats[Stat.LightningDamage]} " + totalResistance[DamageType.Lightning]);
+                sb.Append(Emojis.StatPhysicalDamage + totalResistance[DamageType.Physical].ToString() + Emojis.bigSpace);
+                sb.AppendLine(Emojis.StatFireDamage + totalResistance[DamageType.Fire].ToString());
+                sb.Append(Emojis.StatColdDamage + totalResistance[DamageType.Cold].ToString() + Emojis.bigSpace);
+                sb.AppendLine(Emojis.StatLightningDamage + totalResistance[DamageType.Lightning].ToString());
             }
             else
             {
-                sb.Append($"{Emojis.stats[Stat.PhysicalDamage]} " + totalResistance[DamageType.Physical]);
-                sb.Append(Emojis.middleSpace + $"{Emojis.stats[Stat.FireDamage]} " + totalResistance[DamageType.Fire]);
-                sb.Append(Emojis.middleSpace + $"{Emojis.stats[Stat.ColdDamage]} " + totalResistance[DamageType.Cold]);
-                sb.Append(Emojis.middleSpace + $"{Emojis.stats[Stat.LightningDamage]} " + totalResistance[DamageType.Lightning]);
+                sb.Append(Emojis.StatPhysicalDamage + totalResistance[DamageType.Physical].ToString() + Emojis.middleSpace);
+                sb.Append(Emojis.StatFireDamage + totalResistance[DamageType.Fire].ToString() + Emojis.middleSpace);
+                sb.Append(Emojis.StatColdDamage + totalResistance[DamageType.Cold].ToString() + Emojis.middleSpace);
+                sb.Append(Emojis.StatLightningDamage + totalResistance[DamageType.Lightning].ToString());
             }
         }
 

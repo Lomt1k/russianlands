@@ -26,7 +26,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
             var rarity = _building.GetCurrentCraftItemRarity(buildingsData);
 
             var sb = new StringBuilder();
-            sb.AppendLine($"<b>{Emojis.items[itemType]} {itemType.GetLocalization(session)}</b>");
+            sb.AppendLine(itemType.GetEmoji() + itemType.GetLocalization(session).Bold());
             sb.AppendLine($"<pre>{rarity.GetView(session)}</pre>");
 
             sb.AppendLine();
@@ -35,10 +35,10 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
             sb.AppendLine(Localization.Get(session, "level", craftItemLevels));
 
             sb.AppendLine();
-            sb.AppendLine($"{Emojis.menuItems[MenuItem.Craft]} {Localization.Get(session, "dialog_craft_completed")}");
+            sb.AppendLine(Emojis.ButtonCraft + Localization.Get(session, "dialog_craft_completed"));
 
             ClearButtons();
-            var getButton = $"{Localization.Get(session, "menu_item_get_button")} {Emojis.items[itemType]}";
+            var getButton = Localization.Get(session, "menu_item_get_button") + itemType.GetEmoji();
             RegisterButton(getButton, () => TryToGetItem());
             RegisterBackButton(() => new BuildingInfoDialog(session, _building).Start());
 
@@ -55,7 +55,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
                 var text = Localization.Get(session, "dialog_inventory_is_full", totalItems);
 
                 ClearButtons();
-                RegisterButton($"{Emojis.menuItems[MenuItem.Inventory]} {Localization.Get(session, "menu_item_inventory")}",
+                RegisterButton(Emojis.ButtonInventory + Localization.Get(session, "menu_item_inventory"),
                     () => new InventoryDialog(session).Start());
                 RegisterBackButton(() => Start());
 

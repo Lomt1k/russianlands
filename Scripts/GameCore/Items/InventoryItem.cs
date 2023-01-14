@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
-using TextGameRPG.Scripts.Bot;
 using TextGameRPG.Scripts.Bot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Items
@@ -95,7 +94,7 @@ namespace TextGameRPG.Scripts.GameCore.Items
         public string GetFullName(GameSession session)
         {
             var sb = new StringBuilder();
-            sb.Append($"{Emojis.items[data.itemType]} {GetLocalizationName(session)}");
+            sb.Append(data.itemType.GetEmoji() + GetLocalizationName(session));
 
             var statIcons = data.statIcons;
             if (statIcons.Count > 0)
@@ -103,7 +102,7 @@ namespace TextGameRPG.Scripts.GameCore.Items
                 sb.Append(' ');
                 foreach (var stat in statIcons)
                 {
-                    sb.Append(Emojis.stats[stat]);
+                    sb.Append(stat.GetEmoji());
                 }
             }
 

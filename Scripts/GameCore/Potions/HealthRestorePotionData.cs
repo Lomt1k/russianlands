@@ -21,7 +21,7 @@ namespace TextGameRPG.Scripts.GameCore.Potions
             sb.AppendLine(Localization.Get(sessionForView, "potion_health_description"));
             sb.AppendLine();
             sb.AppendLine(Localization.Get(sessionForView, "unit_view_health"));
-            sb.Append($"{Emojis.stats[Stat.Health]} {healthAmount}");
+            sb.Append(Emojis.StatHealth + healthAmount.ToString());
             return sb.ToString();
         }
 

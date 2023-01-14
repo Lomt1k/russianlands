@@ -21,7 +21,7 @@ namespace TextGameRPG.Scripts.GameCore.Items
         public static string Build(GameSession session, InventoryItem item)
         {
             var sb = new StringBuilder();
-            sb.AppendLine("<b>" + item.GetFullName(session) + "</b>");
+            sb.AppendLine(item.GetFullName(session).Bold());
 
             AppendGeneralItemInfo(sb, session, item);
             AppendPassiveBonuses(sb, session, item);
@@ -102,7 +102,7 @@ namespace TextGameRPG.Scripts.GameCore.Items
                     if (ability.abilityType.GetPriority() == ViewPriority.Passive)
                     {
                         sb.AppendLine();
-                        sb.Append($"{Emojis.elements[Element.SmallBlack]} " + ability.GetView(session));
+                        sb.Append(Emojis.ElementSmallBlack + ability.GetView(session));
                     }
                 }
             }
@@ -113,7 +113,7 @@ namespace TextGameRPG.Scripts.GameCore.Items
                     if (property.propertyType.GetPriority() == ViewPriority.Passive)
                     {
                         sb.AppendLine();
-                        sb.Append($"{Emojis.elements[Element.SmallBlack]} " + property.GetView(session));
+                        sb.Append(Emojis.ElementSmallBlack + property.GetView(session));
                     }
                 }
             }
@@ -125,7 +125,7 @@ namespace TextGameRPG.Scripts.GameCore.Items
             {
                 sb.AppendLine();
                 sb.AppendLine();
-                sb.Append(Localization.Get(session, "item_view_cost_of_use", item.manaCost) + $" {Emojis.stats[Stat.Mana]}");
+                sb.Append(Localization.Get(session, "item_view_cost_of_use", item.manaCost) + Emojis.StatMana);
             }
             if (item.data.itemType == ItemType.Stick)
             {

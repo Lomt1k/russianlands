@@ -86,13 +86,13 @@ namespace TextGameRPG.Scripts.GameCore.Items
             var sb = new StringBuilder();
             if (HasDamageType(DamageType.Physical))
             {
-                sb.Append($"{Emojis.stats[Stat.PhysicalDamage]} {_damage[DamageType.Physical]}");
+                sb.Append(Emojis.StatPhysicalDamage + _damage[DamageType.Physical].ToString());
                 if (damageTypesCount > 1)
                     sb.Append(Emojis.middleSpace);
             }
             if (HasDamageType(DamageType.Fire))
             {
-                sb.Append($"{Emojis.stats[Stat.FireDamage]} {_damage[DamageType.Fire]}");
+                sb.Append(Emojis.StatFireDamage + _damage[DamageType.Fire].ToString());
                 if (HasAllDamageTypes() && HasBigValues())
                 {
                     sb.AppendLine();
@@ -104,13 +104,13 @@ namespace TextGameRPG.Scripts.GameCore.Items
             }
             if (HasDamageType(DamageType.Cold))
             {
-                sb.Append($"{Emojis.stats[Stat.ColdDamage]} {_damage[DamageType.Cold]}");
+                sb.Append(Emojis.StatColdDamage + _damage[DamageType.Cold].ToString());
                 if (damageTypesCount > 3)
                     sb.Append(Emojis.middleSpace);
             }
             if (HasDamageType(DamageType.Lightning))
             {
-                sb.Append($"{Emojis.stats[Stat.LightningDamage]} {_damage[DamageType.Lightning]}");
+                sb.Append(Emojis.StatLightningDamage + _damage[DamageType.Lightning].ToString());
             }
 
             return sb.ToString();

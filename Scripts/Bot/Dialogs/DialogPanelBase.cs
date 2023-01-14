@@ -40,7 +40,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
 
         protected void RegisterBackButton(Func<Task> callback, Func<string?>? queryAnswer = null)
         {
-            RegisterButton($"{Emojis.elements[Element.Back]} {GameCore.Localizations.Localization.Get(session, "menu_item_back_button")}", callback, queryAnswer);
+            RegisterButton(Emojis.ElementBack + Localization.Get(session, "menu_item_back_button"), callback, queryAnswer);
         }
 
         protected void RegisterButton(string text, Func<Task>? callback, Func<string?>? queryAnswer = null)
@@ -242,7 +242,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
 
             sb.AppendLine();
             sb.AppendLine();
-            sb.AppendLine($"{Emojis.elements[Element.Warning]} {Localization.Get(session, "dialog_tooltip_header")}");
+            sb.AppendLine(Emojis.ElementWarning + Localization.Get(session, "dialog_tooltip_header"));
             var hint = Localization.Get(session, tooltip.localizationKey, 
                 selectedButton.HasValue ? _registeredButtons[selectedButton.Value].Text : string.Empty);
             sb.AppendLine(hint);
@@ -250,9 +250,9 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
             if (selectedButton.HasValue)
             {
                 var button = _registeredButtons[selectedButton.Value];
-                if (!button.Text.Contains(Emojis.elements[Element.Warning]))
+                if (!button.Text.Contains(Emojis.ElementWarning.code))
                 {
-                    button.Text += ' ' + Emojis.elements[Element.Warning];
+                    button.Text += Emojis.ElementWarning;
                 }
             }
 
