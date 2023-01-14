@@ -2,16 +2,16 @@
 {
     public class Emoji
     {
-        private string code { get; }
+        private string _code { get; }
 
-        public Emoji(string _code)
+        public Emoji(string code)
         {
-            code = _code;
+            _code = code;
         }
 
         public override string ToString()
         {
-            return code;
+            return _code;
         }
 
         public static string operator +(Emoji a, string b)
