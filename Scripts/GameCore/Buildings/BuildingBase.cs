@@ -185,5 +185,12 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
         // Тут можно определить дополнительную логику, которая будет вызываться при завершении строительства (улучшения)
         protected virtual void OnConstructionEnd(ProfileBuildingsData data, DateTime startConstructionTime, DateTime endConstructionTime) { }
 
+        /// <returns>Заблокирована ли сейчас возможность начать улучшение здания</returns>
+        public virtual bool IsStartConstructionBlocked(ProfileBuildingsData data, out string blockReasonMessage)
+        {
+            blockReasonMessage = string.Empty;
+            return false;
+        }
+
     }
 }

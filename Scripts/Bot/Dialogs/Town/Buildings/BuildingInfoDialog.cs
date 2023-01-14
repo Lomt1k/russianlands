@@ -165,7 +165,6 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
                 return;
             }
 
-            ClearButtons();
             var sb = new StringBuilder();
             sb.AppendLine($"<b>{building.GetNextLevelLocalizedName(session, _buildingsData)}</b>");
             sb.AppendLine();
@@ -195,7 +194,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
             }
 
 
-            // buttons
+            ClearButtons();
             if (playerTownHall >= levelData.requiredTownHall)
             {
                 RegisterButton($"{Emojis.elements[Element.Construction]} {Localization.Get(session, "dialog_buildings_start_construction_button")}",
@@ -255,6 +254,14 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
             if (building.IsMaxLevel(_buildingsData))
             {
                 await ShowBuildingCurrentLevelInfo()
+                    .ConfigureAwait(false);
+                return;
+            }
+            if (building.IsStartConstructionBlocked(_buildingsData, out var blockReasonMessage))
+            {
+                ClearButtons();
+                RegisterBackButton(() => ShowConstructionAvailableInfo());
+                await SendDialogMessage(blockReasonMessage, GetOneLineKeyboard())
                     .ConfigureAwait(false);
                 return;
             }

@@ -33,17 +33,17 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
             sb.AppendLine();
             sb.AppendLine(Localization.Get(session, "item_view_possible_requirments"));
             var craftItemLevels = _building.GetCurrentCraftLevels(buildingsData);
-            sb.AppendLine(string.Format(Localization.Get(session, "level"), craftItemLevels));
+            sb.AppendLine(Localization.Get(session, "level", craftItemLevels));
 
             sb.AppendLine();
             var timeSpan = _building.GetEndCraftTime(buildingsData) - DateTime.UtcNow;
-            var productionView = string.Format(Localization.Get(session, "dialog_craft_progress"), timeSpan.GetView(session));
+            var productionView = Localization.Get(session, "dialog_craft_progress", timeSpan.GetView(session));
             sb.AppendLine($"{Emojis.elements[Element.SmallBlack]} {productionView}");
 
             ClearButtons();
             var diamondsForBoost = GetBoostPriceInDiamonds();
             var priceView = Emojis.resources[ResourceType.Diamond] + diamondsForBoost;
-            var buttonText = string.Format(Localization.Get(session, "menu_item_boost_button"), priceView);
+            var buttonText = Localization.Get(session, "menu_item_boost_button", priceView);
             RegisterButton(buttonText, () => TryBoostCraftForDiamonds());
             RegisterBackButton(() => new BuildingInfoDialog(session, _building).Start());
 
@@ -90,7 +90,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
             }
 
             ClearButtons();
-            var text = string.Format(Localization.Get(session, "resource_not_enough_diamonds"), Emojis.smiles[Smile.Sad]);
+            var text = Localization.Get(session, "resource_not_enough_diamonds", Emojis.smiles[Smile.Sad]);
             RegisterButton($"{Emojis.menuItems[MenuItem.Shop]} {Localization.Get(session, "menu_item_shop")}",
                 () => new ShopDialog(session).Start());
             RegisterBackButton(() => new CraftInProgressDialog(session, _building).Start());

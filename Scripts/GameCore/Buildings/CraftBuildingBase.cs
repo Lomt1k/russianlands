@@ -117,7 +117,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
                 {
                     var sb = new StringBuilder();
                     var timeSpan = GetEndCraftTime(data) - DateTime.UtcNow;
-                    var productionView = string.Format(Localization.Get(session, "dialog_craft_progress"), timeSpan.GetView(session));
+                    var productionView = Localization.Get(session, "dialog_craft_progress", timeSpan.GetView(session));
                     sb.AppendLine(productionView);
 
                     var itemType = GetCurrentCraftItemType(data);
@@ -214,6 +214,15 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
                 return 1;
             }
             return buildingData.levels[currentLevel - 1].requiredTownHall;
+        }
+
+        public override bool IsStartConstructionBlocked(ProfileBuildingsData data, out string blockReasonMessage)
+        {
+            bool isBlocked = IsCraftStarted(data);
+            blockReasonMessage = isBlocked
+                ? Localization.Get(data.session, "dialog_buildings_construction_blocked_because_craft")
+                : string.Empty;
+            return isBlocked;
         }
 
     }

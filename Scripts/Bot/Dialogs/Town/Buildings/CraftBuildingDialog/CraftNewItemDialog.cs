@@ -88,7 +88,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
             sb.AppendLine();
             sb.AppendLine(Localization.Get(session, "item_view_possible_requirments"));
             var craftItemLevels = _building.GetCurrentCraftLevels(buildingsData);
-            sb.AppendLine(string.Format(Localization.Get(session, "level"), craftItemLevels));
+            sb.AppendLine(Localization.Get(session, "level", craftItemLevels));
 
             sb.AppendLine();
             var craftPrice = _building.GetCraftPrice(buildingsData, rarity);

@@ -32,7 +32,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
             sb.AppendLine();
             sb.AppendLine(Localization.Get(session, "item_view_possible_requirments"));
             var craftItemLevels = _building.GetCurrentCraftLevels(buildingsData);
-            sb.AppendLine(string.Format(Localization.Get(session, "level"), craftItemLevels));
+            sb.AppendLine(Localization.Get(session, "level", craftItemLevels));
 
             sb.AppendLine();
             sb.AppendLine($"{Emojis.menuItems[MenuItem.Craft]} {Localization.Get(session, "dialog_craft_completed")}");
@@ -51,8 +51,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
             var inventory = session.player.inventory;
             if (inventory.isFull)
             {
-                var totalItems = string.Format(Localization.Get(session, "dialog_inventory_header_total_items"), inventory.itemsCount, inventory.inventorySize);
-                var text = string.Format(Localization.Get(session, "dialog_inventory_is_full"), totalItems);
+                var totalItems = Localization.Get(session, "dialog_inventory_header_total_items", inventory.itemsCount, inventory.inventorySize);
+                var text = Localization.Get(session, "dialog_inventory_is_full", totalItems);
 
                 ClearButtons();
                 RegisterButton($"{Emojis.menuItems[MenuItem.Inventory]} {Localization.Get(session, "menu_item_inventory")}",
