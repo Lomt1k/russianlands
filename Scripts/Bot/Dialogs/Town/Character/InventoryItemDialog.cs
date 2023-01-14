@@ -21,6 +21,16 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
             _item = item;
             _browsedCategory = browsedCategory;
             _browsedPage = browsedPage;
+            MarkItemAsViewed();
+        }
+
+        private void MarkItemAsViewed()
+        {
+            if (_item.state == ItemState.IsNewAndNotEquipped)
+            {
+                _item.state = ItemState.IsNotEquipped;
+                session.player.inventory.UpdateHasNewItemsState();
+            }
         }
 
         public override async Task Start()

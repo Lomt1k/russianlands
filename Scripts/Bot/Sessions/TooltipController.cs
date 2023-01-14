@@ -26,20 +26,20 @@ namespace TextGameRPG.Scripts.Bot.Sessions
             _nextIndex--;
         }
 
-        public bool HasTooltipToAppend(DialogBase dialogType)
+        public bool HasTooltipToAppend(DialogBase dialog)
         {
             if (!hasTooltips)
                 return false;
 
-            return HasTooltipToAppend(dialogType.GetType().Name);
+            return HasTooltipToAppend(dialog.GetType().Name);
         }
 
-        public bool HasTooltipToAppend(DialogPanelBase dialogPanelType)
+        public bool HasTooltipToAppend(DialogPanelBase dialogPanel)
         {
             if (!hasTooltips)
                 return false;
 
-            return HasTooltipToAppend(dialogPanelType.GetType().Name);
+            return HasTooltipToAppend(dialogPanel.GetType().Name);
         }
 
         private bool HasTooltipToAppend(string dialogType)
@@ -48,10 +48,7 @@ namespace TextGameRPG.Scripts.Bot.Sessions
             if (tooltip == null)
                 return false;
 
-            if (!dialogType.Equals(tooltip.dialogType))
-                return false;
-
-            return true;
+            return dialogType.Equals(tooltip.dialogType);
         }
 
         public Tooltip? TryGetTooltip(DialogBase dialogType)

@@ -13,8 +13,12 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
 
         public TownCharacterDialog(GameSession _session) : base(_session)
         {
-            RegisterButton(Emojis.ButtonInventory + Localization.Get(session, "menu_item_inventory"),
-                () => new InventoryDialog(session).Start());
+            var player = session.player;
+            var hasTooltip = session.tooltipController.HasTooltipToAppend(this);
+
+            var inventoryButton = Emojis.ButtonInventory + Localization.Get(session, "menu_item_inventory")
+                + (player.inventory.hasAnyNewItem && !hasTooltip ? Emojis.ElementWarningRed.ToString() : string.Empty);
+            RegisterButton(inventoryButton, () => new InventoryDialog(session).Start());
 
             var potionsText = Localization.Get(session, "menu_item_potions");
             var potionsButton = IsPotionsDialogAvailable()

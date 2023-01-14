@@ -22,16 +22,20 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town
         public TownDialog(GameSession _session, TownEntryReason reason) : base(_session)
         {
             _reason = reason;
+            var player = session.player;
+            var hasTooltip = session.tooltipController.HasTooltipToAppend(this);
 
             RegisterButton(Emojis.ButtonMap + Localization.Get(session, "menu_item_map"),
                 () => new GlobalMap.GlobalMapDialog(session).Start());
 
             var buildingsLocalization = Emojis.ButtonBuildings + Localization.Get(session, "menu_item_buildings")
-                + (session.player.buildings.HasImportantUpdates() ? Emojis.ElementWarningRed.ToString() : string.Empty);
+                + (player.buildings.HasImportantUpdates() && !hasTooltip ? Emojis.ElementWarningRed.ToString() : string.Empty);
             RegisterButton(buildingsLocalization, () => new Buildings.BuildingsDialog(session).Start());
 
-            RegisterButton(Emojis.AvatarMale + Localization.Get(session, "menu_item_character"),
-                () => new Character.TownCharacterDialog(session).Start());
+            var characterButton = Emojis.AvatarMale + Localization.Get(session, "menu_item_character")
+                + (player.inventory.hasAnyNewItem && !hasTooltip ? Emojis.ElementWarningRed.ToString() : string.Empty);
+            RegisterButton(characterButton, () => new Character.TownCharacterDialog(session).Start());
+
             RegisterButton(Emojis.ButtonQuests + Localization.Get(session, "menu_item_quests"),
                 () => messageSender.SendTextMessage(session.chatId, "Задания недоступны в текущей версии игры")); //заглушка
             RegisterButton(Emojis.ButtonMail + Localization.Get(session, "menu_item_mail"),

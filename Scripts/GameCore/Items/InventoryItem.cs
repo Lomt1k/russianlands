@@ -34,6 +34,8 @@ namespace TextGameRPG.Scripts.GameCore.Items
             get => state == ItemState.IsEquipped;
             set => state = value ? ItemState.IsEquipped : ItemState.IsNotEquipped;
         }
+        [JsonIgnore]
+        public bool isNew => state == ItemState.IsNewAndNotEquipped;
 
         [JsonConstructor]
         private InventoryItem()

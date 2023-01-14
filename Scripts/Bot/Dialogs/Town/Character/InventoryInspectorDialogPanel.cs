@@ -123,6 +123,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
         {
             ClearButtons();
             var categoryLocalization = GetCategoryLocalization(_browsedCategory) + ": ";
+            var hasTooltip = session.tooltipController.HasTooltipToAppend(this);
             var text = new StringBuilder();
             text.Append(categoryLocalization.Bold());
 
@@ -138,7 +139,9 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
                 {
                     var item = _browsedItems[i];
                     var prefix = item.isEquipped ? Emojis.ItemEquipped : Emojis.Empty;
-                    RegisterButton(prefix + item.GetFullName(session).RemoveHtmlTags(), () => OnItemClick(item));
+                    var itemButton = prefix + item.GetFullName(session).RemoveHtmlTags()
+                        + (item.isNew && !hasTooltip ? Emojis.ElementWarningRed.ToString() : string.Empty);
+                    RegisterButton(itemButton, () => OnItemClick(item));
                 }
             }
 

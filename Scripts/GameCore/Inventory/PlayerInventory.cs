@@ -3,17 +3,23 @@ using TextGameRPG.Scripts.GameCore.Items;
 using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using TextGameRPG.Scripts.Bot.Sessions;
+using System;
+using System.Linq;
 
 namespace TextGameRPG.Scripts.GameCore.Inventory
 {
     [JsonObject]
     public class PlayerInventory
     {
-        [JsonIgnore]
-        private readonly Dictionary<ItemType, List<InventoryItem>> _itemsByType = new Dictionary<ItemType, List<InventoryItem>>();
-
         [JsonProperty]
         public List<InventoryItem> items { get; private set; } = new List<InventoryItem>();
+
+        [JsonIgnore]
+        private readonly Dictionary<ItemType, List<InventoryItem>> _itemsByType = new Dictionary<ItemType, List<InventoryItem>>();
+        [JsonIgnore]
+        private readonly Dictionary<ItemType, bool> _hasNewItemsInCategory = new Dictionary<ItemType, bool>();
+        [JsonIgnore]
+        private bool _hasAnyNewItem; 
       
         [JsonIgnore]
         public EquippedItems equipped { get; private set; }
@@ -25,6 +31,8 @@ namespace TextGameRPG.Scripts.GameCore.Inventory
         public int itemsCount => items.Count;
         [JsonIgnore]
         public int inventorySize => session.player.resources.GetResourceLimit(Resources.ResourceType.InventoryItems);
+        [JsonIgnore]
+        public bool hasAnyNewItem => _hasAnyNewItem;
 
         public void SetupSession(GameSession _session)
         {
@@ -36,11 +44,12 @@ namespace TextGameRPG.Scripts.GameCore.Inventory
         {
             equipped = new EquippedItems(this);
             SortItemsByType();
+            UpdateHasNewItemsState();
         }
 
         private void SortItemsByType()
         {
-            var itemTypes = System.Enum.GetValues(typeof(ItemType));
+            var itemTypes = Enum.GetValues(typeof(ItemType));
             foreach (var element in itemTypes)
             {
                 var itemType = (ItemType)element;
@@ -82,6 +91,11 @@ namespace TextGameRPG.Scripts.GameCore.Inventory
 
             items.Add(item);
             _itemsByType[item.data.itemType].Add(item);
+            if (item.isNew)
+            {
+                _hasNewItemsInCategory[item.data.itemType] = true;
+                _hasAnyNewItem = true;
+            }
             return true;
         }
 
@@ -89,6 +103,11 @@ namespace TextGameRPG.Scripts.GameCore.Inventory
         {
             items.Add(item);
             _itemsByType[item.data.itemType].Add(item);
+            if (item.isNew)
+            {
+                _hasNewItemsInCategory[item.data.itemType] = true;
+                _hasAnyNewItem = true;
+            }
             return true;
         }
 
@@ -142,6 +161,23 @@ namespace TextGameRPG.Scripts.GameCore.Inventory
                 }
             }
             _itemsByType[itemType].Insert(index, item);
+        }
+
+        public bool HasNewInCategory(ItemType category)
+        {
+            return _hasNewItemsInCategory[category];
+        }
+
+        public void UpdateHasNewItemsState()
+        {
+            foreach (ItemType itemType in Enum.GetValues(typeof(ItemType)))
+            {
+                if (itemType < 0)
+                    continue;
+
+                _hasNewItemsInCategory[itemType] = _itemsByType[itemType].Any(x => x.isNew);
+            }
+            _hasAnyNewItem = _hasNewItemsInCategory.Any(x => x.Value == true);
         }
 
     }

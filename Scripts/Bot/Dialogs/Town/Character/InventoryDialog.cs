@@ -25,33 +25,22 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
         private async Task ShowCategories(CompareData? compareData = null)
         {
             ClearButtons();
-            RegisterButton(ItemType.Sword.GetEmoji() + Localization.Get(session, "menu_item_swords"),
-                () => ShowCategory(ItemType.Sword));
-            RegisterButton(ItemType.Bow.GetEmoji() + Localization.Get(session, "menu_item_bows"),
-                () => ShowCategory(ItemType.Bow));
-            RegisterButton(ItemType.Stick.GetEmoji() + Localization.Get(session, "menu_item_sticks"),
-                () => ShowCategory(ItemType.Stick));
-            RegisterButton(ItemType.Helmet.GetEmoji() + Localization.Get(session, "menu_item_helmets"),
-                () => ShowCategory(ItemType.Helmet));
-            RegisterButton(ItemType.Armor.GetEmoji() + Localization.Get(session, "menu_item_armors"),
-                () => ShowCategory(ItemType.Armor));
-            RegisterButton(ItemType.Boots.GetEmoji() + Localization.Get(session, "menu_item_boots"),
-                () => ShowCategory(ItemType.Boots));
-            RegisterButton(ItemType.Shield.GetEmoji() + Localization.Get(session, "menu_item_shields"),
-                () => ShowCategory(ItemType.Shield));
-            RegisterButton(ItemType.Amulet.GetEmoji() + Localization.Get(session, "menu_item_amulets"),
-                () => ShowCategory(ItemType.Amulet));
-            RegisterButton(ItemType.Ring.GetEmoji() + Localization.Get(session, "menu_item_rings"),
-                () => ShowCategory(ItemType.Ring));
-            RegisterButton(ItemType.Scroll.GetEmoji() + Localization.Get(session, "menu_item_scrolls"),
-                () => ShowCategory(ItemType.Scroll));
-
+            RegisterCategoryButton(ItemType.Sword);
+            RegisterCategoryButton(ItemType.Bow);
+            RegisterCategoryButton(ItemType.Stick);
+            RegisterCategoryButton(ItemType.Helmet);
+            RegisterCategoryButton(ItemType.Armor);
+            RegisterCategoryButton(ItemType.Boots);
+            RegisterCategoryButton(ItemType.Shield);
+            RegisterCategoryButton(ItemType.Ring);
+            RegisterCategoryButton(ItemType.Amulet);
+            RegisterCategoryButton(ItemType.Scroll);
             RegisterBackButton(() => new TownCharacterDialog(session).Start());
             RegisterTownButton(isDoubleBack: true);
 
             var sb = new StringBuilder();
             sb.AppendLine(Emojis.ButtonInventory + Localization.Get(session, "menu_item_inventory").Bold());
-            bool hasTooltip = TryAppendTooltip(sb);
+            var hasTooltip = TryAppendTooltip(sb);
 
             await SendDialogMessage(sb, GetKeyboardWithRowSizes(3, 3, 3, 3))
                 .ConfigureAwait(false);
@@ -61,6 +50,18 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
                 await _inspectorPanel.ShowMainInfo()
                     .ConfigureAwait(false);
             }
+        }
+
+        private void RegisterCategoryButton(ItemType itemType)
+        {
+            var inventory = session.player.inventory;
+            var hasTooltip = session.tooltipController.HasTooltipToAppend(this);
+
+            var prefix = inventory.HasNewInCategory(itemType) && !hasTooltip
+                ? Emojis.ElementWarningRed.ToString()
+                : itemType.GetEmoji().ToString() + ' ';
+            var text = prefix + itemType.GetCategoryLocalization(session);
+            RegisterButton(text, () => ShowCategory(itemType));
         }
 
         public async Task ShowCategory(ItemType category, int page = 0, CompareData? newCompareData = null)
