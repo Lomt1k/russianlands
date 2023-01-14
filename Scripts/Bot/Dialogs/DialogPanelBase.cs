@@ -191,7 +191,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
                 selectedButton = buttonsList[tooltip.buttonId];
 
                 var selectedButtonText = _registeredButtons[selectedButton.Value].Text;
-                var hintBlock = string.Format(Localization.Get(session, tooltip.localizationKey), selectedButtonText).RemoveHtmlTags();
+                var hintBlock = Localization.Get(session, tooltip.localizationKey, selectedButtonText).RemoveHtmlTags();
 
                 var buttonsToBlock = new List<int>();
                 foreach (var button in _registeredButtons)
@@ -243,8 +243,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
             sb.AppendLine();
             sb.AppendLine();
             sb.AppendLine($"{Emojis.elements[Element.Warning]} {Localization.Get(session, "dialog_tooltip_header")}");
-            var hint = string.Format(
-                Localization.Get(session, tooltip.localizationKey), selectedButton.HasValue ? _registeredButtons[selectedButton.Value].Text : string.Empty);
+            var hint = Localization.Get(session, tooltip.localizationKey, 
+                selectedButton.HasValue ? _registeredButtons[selectedButton.Value].Text : string.Empty);
             sb.AppendLine(hint);
 
             if (selectedButton.HasValue)

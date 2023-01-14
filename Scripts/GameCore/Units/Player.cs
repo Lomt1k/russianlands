@@ -49,7 +49,7 @@ namespace TextGameRPG.Scripts.GameCore.Units
             bool isPremium = session.profile.data.IsPremiumActive();
             sb.AppendLine($"{Emojis.characters[CharIcon.Male]} <b>{nickname}</b>"
                 + (isPremium ? Emojis.space + Emojis.stats[Stat.Premium] : string.Empty));
-            string levelStr = string.Format(Localization.Get(sessionToSend, "unit_view_level"), level);
+            string levelStr = Localization.Get(sessionToSend, "unit_view_level", level);
             sb.AppendLine(levelStr);
             return sb.ToString();
         }

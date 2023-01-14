@@ -16,7 +16,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties
 
         public override string GetView(GameSession session)
         {
-            return string.Format(Localizations.Localization.Get(session, "property_view_increase_max_health"), value);
+            return Localizations.Localization.Get(session, "property_view_increase_max_health", value);
         }
 
     }

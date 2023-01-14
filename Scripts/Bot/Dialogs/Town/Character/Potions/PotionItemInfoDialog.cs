@@ -22,7 +22,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
             {
                 var diamondsForBoost = _item.GetBoostPriceInDiamonds();
                 var priceView = Emojis.resources[ResourceType.Diamond] + diamondsForBoost;
-                var boostButtonText = string.Format(Localization.Get(session, "menu_item_boost_button"), priceView);
+                var boostButtonText = Localization.Get(session, "menu_item_boost_button", priceView);
                 RegisterButton(boostButtonText, () => TryBoostCraft());
 
                 RegisterButton($"{Emojis.elements[Element.Cancel]} {Localization.Get(session, "dialog_potions_cancel_craft_button")}",
@@ -81,7 +81,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
             }
 
             ClearButtons();
-            var text = string.Format(Localization.Get(session, "resource_not_enough_diamonds"), Emojis.smiles[Smile.Sad]);
+            var text = Localization.Get(session, "resource_not_enough_diamonds", Emojis.smiles[Smile.Sad]);
             RegisterButton($"{Emojis.menuItems[MenuItem.Shop]} {Localization.Get(session, "menu_item_shop")}",
                 () => new ShopDialog(session).Start());
             RegisterBackButton(() => new PotionItemInfoDialog(session, _item).Start());

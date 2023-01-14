@@ -71,8 +71,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
                 if (currentCharge < requiredCharge)
                 {
                     TryAppendAdditionalLine();
-                    var localization = $"{Emojis.items[ItemType.Stick]} {Localization.Get(session, "battle_mine_turn_stick_charge")}";
-                    sb.AppendLine(string.Format(localization, currentCharge, requiredCharge));
+                    var localization = Localization.Get(session, "battle_mine_turn_stick_charge", currentCharge, requiredCharge);
+                    sb.AppendLine(Emojis.items[ItemType.Stick] + ' ' + localization);
                 }
             }
 
@@ -182,7 +182,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
 
                 sb.AppendLine($"<b>{scrollItem.GetFullName(session)}</b>");
                 var manaCost = Emojis.stats[Stat.Mana] + ' ' + scrollItem.manaCost;
-                sb.AppendLine(string.Format(Localization.Get(session, "item_view_cost_of_use").RemoveHtmlTags(), manaCost));
+                sb.AppendLine(Localization.Get(session, "item_view_cost_of_use", manaCost).RemoveHtmlTags());
                 if (scrollItem.data.ablitityByType.TryGetValue(AbilityType.DealDamage, out var dealDamage))
                 {
                     var simpleDamageView = ((DealDamageAbility)dealDamage).GetSimpleView(session);
@@ -307,7 +307,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
 
             var enemySession = enemy.session;
             var sb = new StringBuilder();
-            sb.AppendLine(string.Format(Localization.Get(enemySession, "battle_potion_enemy_usage"), session.player.nickname));
+            sb.AppendLine(Localization.Get(enemySession, "battle_potion_enemy_usage", session.player.nickname));
             sb.AppendLine($"<b>{potionData.GetName(enemySession)}</b>");
             sb.AppendLine();
             sb.AppendLine(potionData.GetDescription(session, enemySession));

@@ -33,13 +33,13 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles.Actions
             {
                 0 => Localization.Get(session, "battle_action_restore_health_header"),
                 1 => "<b>" + fromItems.First().GetFullName(session) + "</b>",
-                _ => string.Format(Localization.Get(session, "battle_action_multi_items_header"), fromItems.Count)
+                _ => Localization.Get(session, "battle_action_multi_items_header", fromItems.Count)
             };
         }
 
         public string GetDescription(GameSession session)
         {
-            return string.Format(Localization.Get(session, "battle_action_restore_health_description"), healthAmount);
+            return Localization.Get(session, "battle_action_restore_health_description", healthAmount);
         }
 
     }

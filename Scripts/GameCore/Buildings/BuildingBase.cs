@@ -55,7 +55,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
                     LevelUp(data);
                     var currentLevel = GetCurrentLevel(data);
                     var update = currentLevel > 1
-                        ? string.Format(Localization.Get(session, "building_construction_end"), currentLevel)
+                        ? Localization.Get(session, "building_construction_end", currentLevel)
                         : Localization.Get(session, "building_build_end");
                     updates.Add(update);
                 }
@@ -64,7 +64,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
                     var endTime = GetEndConstructionTime(data);
                     var timeToEnd = endTime - DateTime.UtcNow;
                     string key = IsBuilt(data) ? "construction" : "build";
-                    var update = string.Format(Localization.Get(session, $"building_{key}_progress"), timeToEnd.GetView(session));
+                    var update = Localization.Get(session, $"building_{key}_progress", timeToEnd.GetView(session));
                     updates.Add(update);
                 }
             }
@@ -86,7 +86,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
         {
             var currentLevel = GetCurrentLevel(data);
             return Localization.Get(session, "building_name_" + buildingType.ToString())
-                + (currentLevel > 0 ? string.Format(Localization.Get(session, "level_suffix"), currentLevel) : string.Empty );
+                + (currentLevel > 0 ? Localization.Get(session, "level_suffix", currentLevel) : string.Empty );
         }
 
         public string GetNextLevelLocalizedName(GameSession session, ProfileBuildingsData data)
@@ -96,7 +96,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
 
             var nextLevel = GetCurrentLevel(data) + 1;
             return Localization.Get(session, "building_name_" + buildingType.ToString())
-                + (nextLevel > 0 ? string.Format(Localization.Get(session, "level_suffix"), nextLevel) : string.Empty);
+                + (nextLevel > 0 ? Localization.Get(session, "level_suffix", nextLevel) : string.Empty);
         }
 
 

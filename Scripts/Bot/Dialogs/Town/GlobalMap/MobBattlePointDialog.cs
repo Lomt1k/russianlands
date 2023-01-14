@@ -41,7 +41,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
 
             ClearButtons();
             var priceView = _data.foodPrice > 0 ? $"{Emojis.resources[ResourceType.Food]} {_data.foodPrice.View()}" : string.Empty;
-            var startBattleButton = string.Format(Localization.Get(session, "dialog_mob_battle_point_start_battle"), priceView);
+            var startBattleButton = Localization.Get(session, "dialog_mob_battle_point_start_battle", priceView);
             RegisterButton(startBattleButton, () => TryStartBattle());
             if (_data.onBackButtonFunc != null)
             {

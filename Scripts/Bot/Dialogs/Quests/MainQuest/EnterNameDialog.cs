@@ -55,7 +55,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Quests.MainQuest
             var sb = new StringBuilder();
             sb.AppendLine(Localization.Get(session, "dialog_entry_name_description"));
             sb.AppendLine(Localization.Get(session, "dialog_entry_name_requirments_1"));
-            sb.AppendLine(string.Format(Localization.Get(session, "dialog_entry_name_requirments_2"), minLength, maxLength));
+            sb.AppendLine(Localization.Get(session, "dialog_entry_name_requirments_2", minLength, maxLength));
             sb.AppendLine();
             sb.AppendLine(Localization.Get(session, "dialog_entry_name_header"));
 

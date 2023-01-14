@@ -22,10 +22,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
             var inProductionCount = playerPotions.Count - readyPotionsCount;
 
             var sb = new StringBuilder();
-            sb.AppendLine(string.Format(Localization.Get(session, "dialog_potions_ready_amount"),
-                readyPotionsCount));
-            sb.AppendLine(string.Format(Localization.Get(session, "dialog_potions_in_production_amount"),
-                inProductionCount));
+            sb.AppendLine(Localization.Get(session, "dialog_potions_ready_amount", readyPotionsCount));
+            sb.AppendLine(Localization.Get(session, "dialog_potions_in_production_amount", inProductionCount));
 
             await SendPanelMessage(sb, GetMultilineKeyboard())
                 .ConfigureAwait(false);

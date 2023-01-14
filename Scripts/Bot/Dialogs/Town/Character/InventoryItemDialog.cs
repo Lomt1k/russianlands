@@ -68,7 +68,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
             if (profileLevel < requiredLevel)
             {
                 var messageText = $"<b>{_item.GetFullName(session)}</b>\n\n"
-                    + string.Format(Localization.Get(session, "dialog_inventory_required_level"), requiredLevel) + $" {Emojis.smiles[Smile.Sad]}";
+                    + Localization.Get(session, "dialog_inventory_required_level", requiredLevel, Emojis.smiles[Smile.Sad]);
                 await SendMessageWithBackButton(messageText)
                     .ConfigureAwait(false);
                 return;
@@ -90,7 +90,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
             var type = _item.data.itemType;
             var slotsCount = type.GetSlotsCount();
             var category = GetCategoryLocalization(type);
-            var text = string.Format(Localization.Get(session, "dialog_inventory_select_slot_for_equip"), category, slotsCount, _item.GetFullName(session));
+            var text = Localization.Get(session, "dialog_inventory_select_slot_for_equip", category, slotsCount, _item.GetFullName(session));
 
             ClearButtons();
             for (int i = 0; i < slotsCount; i++)

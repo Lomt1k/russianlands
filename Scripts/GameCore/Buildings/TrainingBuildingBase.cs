@@ -79,7 +79,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             sb.AppendLine();
 
             var maxUnitLevel = GetCurrentMaxUnitLevel(data);
-            var formatted = string.Format(Localization.Get(session, "building_training_level_limit"), maxUnitLevel);
+            var formatted = Localization.Get(session, "building_training_level_limit", maxUnitLevel);
             sb.Append($"{Emojis.elements[Element.Training]} {formatted}");
             return sb.ToString();
         }
@@ -95,7 +95,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             var delta = nextValue - currentValue;
             bool hideDelta = !IsBuilt(data);
             var dynamicData = nextValue + (hideDelta ? string.Empty : $" (<i>+{delta}</i>)");
-            var formatted = string.Format(Localization.Get(session, "building_training_level_limit"), dynamicData);
+            var formatted = Localization.Get(session, "building_training_level_limit", dynamicData);
             sb.Append($"{Emojis.elements[Element.Training]} {formatted}");
             return sb.ToString();
         }
@@ -140,14 +140,14 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
                 {
                     LevelUpFirst(session, data);
                     var currentLevel = GetUnitLevel(data, unitIndex);                    
-                    var update = string.Format(Localization.Get(session, "building_training_end"), unitName, currentLevel);
+                    var update = Localization.Get(session, "building_training_end", unitName, currentLevel);
                     updates.Add(update);
                 }
                 else if (!onlyImportant)
                 {
                     var endTime = GetFirstTrainingUnitEndTime(data);
                     var timeToEnd = endTime - DateTime.UtcNow;
-                    var update = string.Format(Localization.Get(session, $"building_training_progress"), unitName, timeToEnd.GetView(session));
+                    var update = Localization.Get(session, $"building_training_progress", unitName, timeToEnd.GetView(session));
                     updates.Add(update);
                 }
             }
@@ -160,14 +160,14 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
                 {
                     LevelUpSecond(session, data);
                     var currentLevel = GetUnitLevel(data, unitIndex);
-                    var update = string.Format(Localization.Get(session, "building_training_end"), unitName, currentLevel);
+                    var update = Localization.Get(session, "building_training_end", unitName, currentLevel);
                     updates.Add(update);
                 }
                 else if (!onlyImportant)
                 {
                     var endTime = GetSecondTrainingUnitEndTime(data);
                     var timeToEnd = endTime - DateTime.UtcNow;
-                    var update = string.Format(Localization.Get(session, $"building_training_progress"), unitName, timeToEnd.GetView(session));
+                    var update = Localization.Get(session, $"building_training_progress", unitName, timeToEnd.GetView(session));
                     updates.Add(update);
                 }
             }

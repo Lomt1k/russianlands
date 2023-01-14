@@ -35,7 +35,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
         private string BuildMainItemsInfo()
         {
             var sb = new StringBuilder();
-            sb.AppendLine(string.Format(Localization.Get(session, "dialog_inventory_header_total_items"), _inventory.itemsCount, _inventory.inventorySize));
+            sb.AppendLine(Localization.Get(session, "dialog_inventory_header_total_items", _inventory.itemsCount, _inventory.inventorySize));
 
             sb.AppendLine();
             sb.Append($"{Emojis.items[ItemType.Sword]} {_inventory.GetItemsCountByType(ItemType.Sword)}");
@@ -146,7 +146,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
 
             if (_pagesCount > 1)
             {
-                text.AppendLine(string.Format(Localization.Get(session, "dialog_inventory_current_page"), _currentPage + 1, _pagesCount));
+                text.AppendLine(Localization.Get(session, "dialog_inventory_current_page", _currentPage + 1, _pagesCount));
                 if (_currentPage > 0)
                     RegisterButton("<<", () => OnClickPreviousPage());
                 if (_currentPage < _pagesCount - 1)

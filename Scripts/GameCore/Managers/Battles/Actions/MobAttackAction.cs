@@ -38,7 +38,7 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles.Actions
         {
             var sb = new StringBuilder();
             var totalDamage = _resultDamage.GetTotalValue();
-            sb.Append(string.Format(Localization.Get(session, "battle_action_attack_description"), totalDamage));
+            sb.Append(Localization.Get(session, "battle_action_attack_description", totalDamage));
 
             var resultDamageView = _resultDamage.GetCompactView();
             if (resultDamageView != null)

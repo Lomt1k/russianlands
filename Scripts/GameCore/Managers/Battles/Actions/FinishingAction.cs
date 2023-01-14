@@ -30,7 +30,7 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles.Actions
 
         public string GetDescription(GameSession session)
         {
-            return string.Format(Localization.Get(session, "battle_action_finishing_description"), _damageBonusPercentage);
+            return Localization.Get(session, "battle_action_finishing_description", _damageBonusPercentage);
         }
 
     }

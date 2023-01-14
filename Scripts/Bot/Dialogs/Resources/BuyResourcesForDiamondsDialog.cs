@@ -74,7 +74,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Resources
             }
 
             ClearButtons();
-            var text = string.Format(Localization.Get(session, "resource_not_enough_diamonds"), Emojis.smiles[Smile.Sad]);
+            var text = Localization.Get(session, "resource_not_enough_diamonds", Emojis.smiles[Smile.Sad]);
             RegisterButton($"{Emojis.menuItems[MenuItem.Shop]} {Localization.Get(session, "menu_item_shop")}", 
                 () => new ShopDialog(session).Start());
             RegisterBackButton(_onCancel);

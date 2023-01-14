@@ -32,7 +32,7 @@ namespace TextGameRPG.Scripts.GameCore.Items
         private static void AppendGeneralItemInfo(StringBuilder sb, GameSession session, InventoryItem item)
         {
             var data = item.data;
-            sb.Append(string.Format(Localization.Get(session, "item_view_general_info"), data.itemRarity.GetView(session), data.requiredLevel));
+            sb.Append(Localization.Get(session, "item_view_general_info", data.itemRarity.GetView(session), data.requiredLevel));
 
             // general info
             foreach (var ability in item.data.abilities)
@@ -125,13 +125,13 @@ namespace TextGameRPG.Scripts.GameCore.Items
             {
                 sb.AppendLine();
                 sb.AppendLine();
-                sb.Append(string.Format(Localization.Get(session, "item_view_cost_of_use"), item.manaCost) + $" {Emojis.stats[Stat.Mana]}");
+                sb.Append(Localization.Get(session, "item_view_cost_of_use", item.manaCost) + $" {Emojis.stats[Stat.Mana]}");
             }
             if (item.data.itemType == ItemType.Stick)
             {
                 sb.AppendLine();
                 sb.AppendLine();
-                sb.Append(string.Format(Localization.Get(session, "item_view_current_charge"), InventoryItem.requiredStickCharge));
+                sb.Append(Localization.Get(session, "item_view_current_charge", InventoryItem.requiredStickCharge));
             }
             if (item.isEquipped)
             {

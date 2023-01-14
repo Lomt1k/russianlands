@@ -18,7 +18,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities.Keywords
 
         public override string GetView(GameSession session)
         {
-            return $"{Emojis.stats[Stat.KeywordFinishing]} {string.Format(Localization.Get(session, "ability_finishing"), damageBonusPercentage)}";
+            return $"{Emojis.stats[Stat.KeywordFinishing]} {Localization.Get(session, "ability_finishing", damageBonusPercentage)}";
         }
     }
 }

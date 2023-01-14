@@ -33,7 +33,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
                     sb.AppendLine();
                     var currentProgress = quest.GetCompletedBattlePoints(session);
                     var totalProgress = quest.battlePointsCount;
-                    var progressText = string.Format(Localization.Get(session, "dialog_map_location_progress"), currentProgress, totalProgress);
+                    var progressText = Localization.Get(session, "dialog_map_location_progress", currentProgress, totalProgress);
                     sb.AppendLine($"{Emojis.locations[MapLocation.StoryMode]} " + progressText);
 
                     RegisterButton($"{Emojis.locations[MapLocation.StoryMode]} {Localization.Get(session, "dialog_map_continue_story_mode")}",

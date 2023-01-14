@@ -124,7 +124,7 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles
             var enemyStringBuilder = enemy is Player ? new StringBuilder() : null;
 
             mineStringBuilder?.AppendLine(Localization.Get(unit.session, "battle_mine_turn_maded"));
-            enemyStringBuilder?.AppendLine(string.Format(Localization.Get(enemy.session, "battle_enemy_turn_maded"), unit.nickname));
+            enemyStringBuilder?.AppendLine(Localization.Get(enemy.session, "battle_enemy_turn_maded", unit.nickname));
 
             foreach (var action in _battleActions)
             {

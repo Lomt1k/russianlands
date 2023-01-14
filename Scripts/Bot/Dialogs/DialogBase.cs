@@ -280,7 +280,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
             sb.AppendLine();
             sb.AppendLine();
             sb.AppendLine($"{Emojis.elements[Element.Warning]} {Localization.Get(session, "dialog_tooltip_header")}");
-            var hint = string.Format(Localization.Get(session, tooltip.localizationKey), selectedButton != null ? selectedButton.Text : string.Empty);
+            var hint = Localization.Get(session, tooltip.localizationKey, selectedButton?.Text ?? string.Empty);
             sb.AppendLine(hint);
 
             if (selectedButton != null && !selectedButton.Text.Contains(Emojis.elements[Element.Warning]))

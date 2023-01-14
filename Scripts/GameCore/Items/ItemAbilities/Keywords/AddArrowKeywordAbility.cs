@@ -12,7 +12,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities.Keywords
         public override string GetView(GameSession session)
         {
             return Emojis.stats[Stat.KeywordAddArrow] + ' ' +
-                string.Format(Localizations.Localization.Get(session, "ability_add_arrow_percentage"), chanceToSuccessPercentage);
+                Localizations.Localization.Get(session, "ability_add_arrow_percentage", chanceToSuccessPercentage);
         }
 
     }

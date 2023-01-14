@@ -29,7 +29,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
                     diamondsForBoost += potion.GetBoostPriceInDiamonds();
                 }
                 var priceView = Emojis.resources[ResourceType.Diamond] + diamondsForBoost;
-                var boostButtonText = string.Format(Localization.Get(session, "menu_item_boost_all_button"), priceView);
+                var boostButtonText = Localization.Get(session, "menu_item_boost_all_button", priceView);
                 RegisterButton(boostButtonText, () => TryBoostAllCraft());
             }
 
@@ -120,7 +120,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
             }
 
             ClearButtons();
-            var text = string.Format(Localization.Get(session, "resource_not_enough_diamonds"), Emojis.smiles[Smile.Sad]);
+            var text = Localization.Get(session, "resource_not_enough_diamonds", Emojis.smiles[Smile.Sad]);
             RegisterButton($"{Emojis.menuItems[MenuItem.Shop]} {Localization.Get(session, "menu_item_shop")}",
                 () => new ShopDialog(session).Start());
             RegisterBackButton(() => new PotionsDialog(session).Start());

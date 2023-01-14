@@ -59,7 +59,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
 
             sb.AppendLine();
             var previousLocation = (locationType - 1).GetLocalization(session);
-            sb.AppendLine(string.Format(Localization.Get(session, "dialog_map_location_locked"), previousLocation));
+            sb.AppendLine(Localization.Get(session, "dialog_map_location_locked", previousLocation));
 
             ClearButtons();
             RegisterBackButton(() => ShowGeneralMap());

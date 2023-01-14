@@ -29,7 +29,7 @@ namespace TextGameRPG.Scripts.GameCore.Potions
         public override string GetDescription(GameSession sessionForValues, GameSession sessionForView)
         {
             var sb = new StringBuilder();
-            sb.AppendLine(string.Format(Localization.Get(sessionForView, "potion_resistance_description"), turnsCount));
+            sb.AppendLine(Localization.Get(sessionForView, "potion_resistance_description", turnsCount));
             sb.AppendLine();
             sb.AppendLine(Localization.Get(sessionForView, "potion_description_protection_header"));
             sb.Append(GetValues(sessionForValues).GetCompactView());

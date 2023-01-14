@@ -51,7 +51,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities.Keywords
         public override string GetView(GameSession session)
         {
             var sb = new StringBuilder();
-            sb.AppendLine(string.Format(Localizations.Localization.Get(session, "ability_sword_block_percentage"), chanceToSuccessPercentage));
+            sb.AppendLine(Localizations.Localization.Get(session, "ability_sword_block_percentage", chanceToSuccessPercentage));
             var damage = new DamageInfo(physicalDamage, fireDamage, coldDamage, lightningDamage);
             sb.Append(damage.GetCompactView());
 

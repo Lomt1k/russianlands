@@ -76,7 +76,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
                     var priceView = Emojis.resources[ResourceType.Diamond] + diamondsForBoost;
                     var buttonText = nextLevel.isBoostAvailable
                         ? Localization.Get(session, "menu_item_boost_free_button")
-                        : string.Format(Localization.Get(session, "menu_item_boost_button"), priceView);
+                        : Localization.Get(session, "menu_item_boost_button", priceView);
                     RegisterButton(buttonText, () => TryBoostConstructionForDiamonds());
                 }
                 else
@@ -148,7 +148,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
             }
 
             ClearButtons();
-            var text = string.Format(Localization.Get(session, "resource_not_enough_diamonds"), Emojis.smiles[Smile.Sad]);
+            var text = Localization.Get(session, "resource_not_enough_diamonds", Emojis.smiles[Smile.Sad]);
             RegisterButton($"{Emojis.menuItems[MenuItem.Shop]} {Localization.Get(session, "menu_item_shop")}",
                 () => new ShopDialog(session).Start());
             RegisterBackButton(() => ShowBuildingCurrentLevelInfo());
@@ -184,7 +184,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
             if (playerTownHall < levelData.requiredTownHall)
             {
                 sb.AppendLine();
-                var localization = string.Format(Localization.Get(session, "dialog_buildings_required_town_hall"), levelData.requiredTownHall);
+                var localization = Localization.Get(session, "dialog_buildings_required_town_hall", levelData.requiredTownHall);
                 sb.AppendLine(Emojis.elements[Element.WarningGrey] + localization);
             }
             else
@@ -324,7 +324,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
             {
                 sb.AppendLine();
                 sb.AppendLine($"{Emojis.menuItems[MenuItem.Premium]} <b>{Localization.Get(session, "menu_item_premium")}</b>");
-                sb.AppendLine(string.Format(Localization.Get(session, "dialog_buildings_construction_limit_can_buy_premium"), maxConstructionsPremium));
+                sb.AppendLine(Localization.Get(session, "dialog_buildings_construction_limit_can_buy_premium", maxConstructionsPremium));
                 RegisterButton($"{Emojis.menuItems[MenuItem.Shop]} {Localization.Get(session, "menu_item_shop")}", () => new ShopDialog(session).Start());
             }
             RegisterBackButton(() => ShowBuildingCurrentLevelInfo());

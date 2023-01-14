@@ -10,7 +10,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities.Keywords
 
         public override string GetView(GameSession session)
         {
-            return string.Format(Localization.Get(session, "ability_absorption"), chanceToSuccessPercentage);
+            return Localization.Get(session, "ability_absorption", chanceToSuccessPercentage);
         }
     }
 }
