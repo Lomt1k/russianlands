@@ -121,12 +121,6 @@ namespace TextGameRPG.Scripts.GameCore.Items
 
         private static void AppendBottomInfo(StringBuilder sb, GameSession session, InventoryItem item)
         {
-            if (item.manaCost > 0)
-            {
-                sb.AppendLine();
-                sb.AppendLine();
-                sb.Append(Localization.Get(session, "item_view_cost_of_use", item.manaCost) + Emojis.StatMana);
-            }
             if (item.data.itemType == ItemType.Stick)
             {
                 sb.AppendLine();

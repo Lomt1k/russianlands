@@ -6,6 +6,7 @@ using TextGameRPG.Scripts.Bot.Sessions;
 namespace TextGameRPG.Scripts.GameCore.Items
 {
     using System.Collections.Generic;
+    using TextGameRPG.Scripts.Bot;
     using TextGameRPG.Scripts.GameCore.Items.Generators;
     using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
     using TextGameRPG.Scripts.GameCore.Resources;
@@ -94,7 +95,7 @@ namespace TextGameRPG.Scripts.GameCore.Items
         public string GetFullName(GameSession session)
         {
             var sb = new StringBuilder();
-            sb.Append(data.itemType.GetEmoji() + GetLocalizationName(session));
+            sb.Append(data.itemType.GetEmoji() + GetLocalizedName(session));
 
             var statIcons = data.statIcons;
             if (statIcons.Count > 0)
@@ -105,11 +106,15 @@ namespace TextGameRPG.Scripts.GameCore.Items
                     sb.Append(stat.GetEmoji());
                 }
             }
+            if (data.itemType == ItemType.Scroll)
+            {
+                sb.Append(Emojis.StatMana.ToString() + manaCost.ToString().CodeBlock());
+            }
 
             return sb.ToString();
         }
 
-        private string GetLocalizationName(GameSession session)
+        private string GetLocalizedName(GameSession session)
         {
             if (!data.isGeneratedItem)
             {
@@ -128,7 +133,8 @@ namespace TextGameRPG.Scripts.GameCore.Items
                 {
                     var dealDamage = (DealDamageAbility)ability;
                     var damageType = dealDamage.GetDamageTypeForScroll().ToString().ToLower();
-                    suffix = Localizations.Localization.Get(session, $"item_scroll_name_suffix_{damageType}_mana_{manaCost}");
+                    var rarity = data.itemRarity.ToString().ToLower();
+                    suffix = Localizations.Localization.Get(session, $"item_scroll_name_suffix_{damageType}_rarity_{rarity}");
                 }
                 return prefix + ' ' + scroll + ' ' + suffix;
             }

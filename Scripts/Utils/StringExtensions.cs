@@ -154,5 +154,13 @@ public static class StringExtensions
         return "<s>" + input + "</s>";
     }
 
+    /// <summary>
+    /// Оборачивает текст в html тэг <code> (код)
+    /// </summary>
+    public static string CodeBlock(this string input)
+    {
+        return "<code>" + input + "</code>";
+    }
+
 
 }

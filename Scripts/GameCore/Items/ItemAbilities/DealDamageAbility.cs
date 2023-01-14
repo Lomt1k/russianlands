@@ -92,7 +92,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
         public string GetSimpleView(GameSession session)
         {
             var sb = new StringBuilder();
-            sb.Append(Localizations.Localization.Get(session, "ability_deals_damage") + ' ');
+            sb.Append(Localizations.Localization.Get(session, "ability_deals_damage") + ": ");
             if (minPhysicalDamage > 0)
             {
                 sb.Append(Emojis.StatPhysicalDamage + GetStringValue(DamageType.Physical));

@@ -1,5 +1,9 @@
 ﻿namespace TextGameRPG.Scripts.Bot
 {
+    /* Важно:
+     * text + emoji => "text [emoji]"
+     * text + emoji.ToString() => "text[emoji]" (without space)
+     */
     public class Emoji
     {
         private string _code { get; }

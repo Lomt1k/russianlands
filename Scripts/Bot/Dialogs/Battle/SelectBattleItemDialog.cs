@@ -44,15 +44,15 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
             sb.Append(Emojis.ButtonBattle + Localization.Get(session, "battle_mine_turn_start"));
             if (equipped.HasItem(ItemType.Bow) && playerStats.currentArrows > 0)
             {
-                sb.Append(Emojis.StatArrows + playerStats.currentArrows.ToString());
+                sb.Append(' ' + Emojis.StatArrows.ToString() + playerStats.currentArrows.ToString());
             }
             if (playerStats.availablePotions > 0)
             {
-                sb.Append(Emojis.ButtonPotions + playerStats.availablePotions.ToString());
+                sb.Append(' ' + Emojis.ButtonPotions.ToString() + playerStats.availablePotions.ToString());
             }
             if (equipped.HasItem(ItemType.Scroll))
             {
-                sb.Append(Emojis.StatMana + playerStats.currentMana.ToString());
+                sb.Append(' ' + Emojis.StatMana.ToString() + playerStats.currentMana.ToString());
             }
             sb.AppendLine();
 
@@ -173,7 +173,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
             ClearButtons();
             var sb = new StringBuilder();
             sb.Append(Emojis.ItemScroll + Localization.Get(session, "menu_item_scrolls").Bold());
-            sb.AppendLine(Emojis.StatMana + playerStats.currentMana.ToString());
+            sb.AppendLine(' ' + Emojis.StatMana.ToString() + playerStats.currentMana.ToString());
             sb.AppendLine();
 
             foreach (var scrollItem in GetAllEquippedScrolls())
@@ -182,8 +182,6 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
                     continue;
 
                 sb.AppendLine(scrollItem.GetFullName(session).Bold());
-                var manaCost = Emojis.StatMana + scrollItem.manaCost.ToString();
-                sb.AppendLine(Localization.Get(session, "item_view_cost_of_use", manaCost).RemoveHtmlTags());
                 if (scrollItem.data.ablitityByType.TryGetValue(AbilityType.DealDamage, out var dealDamage))
                 {
                     var simpleDamageView = ((DealDamageAbility)dealDamage).GetSimpleView(session);
@@ -193,7 +191,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
 
                 if (playerStats.currentMana >= scrollItem.manaCost)
                 {
-                    RegisterButton(scrollItem.GetFullName(session), () => SelectScrollItem(scrollItem));
+                    RegisterButton(scrollItem.GetFullName(session).RemoveHtmlTags(),
+                        () => SelectScrollItem(scrollItem));
                 }
             }
 

@@ -122,7 +122,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
         private async Task ShowItemsPage(bool asNewMessage)
         {
             ClearButtons();
-            var categoryLocalization = GetCategoryLocalization(_browsedCategory);
+            var categoryLocalization = GetCategoryLocalization(_browsedCategory) + ": ";
             var text = new StringBuilder();
             text.Append(categoryLocalization.Bold());
 
@@ -138,7 +138,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
                 {
                     var item = _browsedItems[i];
                     var prefix = item.isEquipped ? Emojis.ItemEquipped : Emojis.Empty;
-                    RegisterButton(prefix + item.GetFullName(session), () => OnItemClick(item));
+                    RegisterButton(prefix + item.GetFullName(session).RemoveHtmlTags(), () => OnItemClick(item));
                 }
             }
 
