@@ -41,7 +41,7 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
                 new TableColumn("telegram_id", "INTEGER", "0"),
                 new TableColumn("endPremiumTime", "INTEGER", "0"),
                 new TableColumn("username", "TEXT", "na"),
-                new TableColumn("language", "TEXT", "ru"),
+                new TableColumn("language", "TEXT", "RU"),
                 new TableColumn("nickname", "TEXT", "na"),
                 new TableColumn("adminStatus", "INTEGER", "0"),
                 new TableColumn("level", "INTEGER", "1"),
