@@ -21,7 +21,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
             if (!_item.IsReady())
             {
                 var diamondsForBoost = _item.GetBoostPriceInDiamonds();
-                var priceView = ResourceType.Diamond.GetEmoji().code + diamondsForBoost;
+                var priceView = ResourceType.Diamond.GetEmoji().ToString() + diamondsForBoost;
                 var boostButtonText = Localization.Get(session, "menu_item_boost_button", priceView);
                 RegisterButton(boostButtonText, () => TryBoostCraft());
 

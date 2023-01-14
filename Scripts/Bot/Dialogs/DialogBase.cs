@@ -248,7 +248,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
                 BlockButtons(buttonsToBlock);
 
                 // Модифицируем логику клика по нужной кнопке (если еще не модифицировали)
-                if (!selectedButton.Text.Contains(Emojis.ElementWarning.code))
+                if (!selectedButton.Text.Contains(Emojis.ElementWarning.ToString()))
                 {
                     var oldSelectedAction = registeredButtons[selectedButton];
                     var newStage = tooltip.stageAfterButtonClick;
@@ -283,7 +283,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
             var hint = Localization.Get(session, tooltip.localizationKey, selectedButton?.Text ?? string.Empty);
             sb.AppendLine(hint);
 
-            if (selectedButton != null && !selectedButton.Text.Contains(Emojis.ElementWarning.code))
+            if (selectedButton != null && !selectedButton.Text.Contains(Emojis.ElementWarning.ToString()))
             {
                 selectedButton.Text += Emojis.ElementWarning;
             }            

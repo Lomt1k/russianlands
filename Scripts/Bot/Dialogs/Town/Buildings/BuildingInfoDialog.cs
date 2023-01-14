@@ -74,7 +74,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
                     var time = building.GetEndConstructionTime(_buildingsData);
                     var secondsToEnd = (int)(time - DateTime.UtcNow).TotalSeconds;
                     var diamondsForBoost = ResourceHelper.CalculateConstructionBoostPriceInDiamonds(secondsToEnd);
-                    var priceView = ResourceType.Diamond.GetEmoji().code + diamondsForBoost;
+                    var priceView = ResourceType.Diamond.GetEmoji().ToString() + diamondsForBoost;
                     var buttonText = nextLevel.isBoostAvailable
                         ? Localization.Get(session, "menu_item_boost_free_button")
                         : Localization.Get(session, "menu_item_boost_button", priceView);
@@ -186,7 +186,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
             {
                 sb.AppendLine();
                 var localization = Localization.Get(session, "dialog_buildings_required_town_hall", levelData.requiredTownHall);
-                sb.AppendLine(Emojis.ElementWarningGrey.code + localization);
+                sb.AppendLine(Emojis.ElementWarningGrey.ToString() + localization);
             }
             else
             {
@@ -244,7 +244,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
                 if (hasActiveTraining)
                 {
                     sb.AppendLine();
-                    sb.AppendLine(Emojis.ElementWarningRed.code + Localization.Get(session, "building_training_break_warning"));
+                    sb.AppendLine(Emojis.ElementWarningRed.ToString() + Localization.Get(session, "building_training_break_warning"));
                 }
             }
         }

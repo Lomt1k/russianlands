@@ -23,7 +23,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
 
         public ProductionBuildingBase()
         {
-            resourcePrefix = resourceType.GetEmoji().code;
+            resourcePrefix = resourceType.GetEmoji().ToString();
         }
 
         public abstract byte GetFirstWorkerLevel(ProfileBuildingsData data);

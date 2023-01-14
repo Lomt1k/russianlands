@@ -27,7 +27,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town
                 () => new GlobalMap.GlobalMapDialog(session).Start());
 
             var buildingsLocalization = Emojis.ButtonBuildings + Localization.Get(session, "menu_item_buildings")
-                + (session.player.buildings.HasImportantUpdates() ? Emojis.ElementWarningRed.code : string.Empty);
+                + (session.player.buildings.HasImportantUpdates() ? Emojis.ElementWarningRed.ToString() : string.Empty);
             RegisterButton(buildingsLocalization, () => new Buildings.BuildingsDialog(session).Start());
 
             RegisterButton(Emojis.AvatarMale + Localization.Get(session, "menu_item_character"),

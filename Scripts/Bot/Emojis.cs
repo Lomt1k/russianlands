@@ -2,7 +2,8 @@
 {
     public class Emoji
     {
-        public string code { get; }
+        private string code { get; }
+
         public Emoji(string _code)
         {
             code = _code;

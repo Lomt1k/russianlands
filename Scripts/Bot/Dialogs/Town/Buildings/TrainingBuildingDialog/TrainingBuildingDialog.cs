@@ -103,7 +103,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.TrainingBuildingDialog
                 sb.AppendLine(_building.GetInfoAboutUnitTraining(session, _data, unitIndex));
 
                 var diamondsForBoost = ResourceHelper.CalculateTrainingBoostPriceInDiamonds((int)timeSpan.TotalSeconds);
-                var priceView = ResourceType.Diamond.GetEmoji().code + diamondsForBoost;
+                var priceView = ResourceType.Diamond.GetEmoji().ToString() + diamondsForBoost;
                 var boostButton = Localization.Get(session, "menu_item_boost_button", priceView);
                 RegisterButton(boostButton, () => TryBoostTraining(unitIndex));
                 RegisterButton(Localization.Get(session, "dialog_training_cancel_training_button"), () => CancelTraining(unitIndex));

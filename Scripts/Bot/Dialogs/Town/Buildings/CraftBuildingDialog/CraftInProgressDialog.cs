@@ -42,7 +42,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
 
             ClearButtons();
             var diamondsForBoost = GetBoostPriceInDiamonds();
-            var priceView = ResourceType.Diamond.GetEmoji().code + diamondsForBoost;
+            var priceView = ResourceType.Diamond.GetEmoji().ToString() + diamondsForBoost;
             var buttonText = Localization.Get(session, "menu_item_boost_button", priceView);
             RegisterButton(buttonText, () => TryBoostCraftForDiamonds());
             RegisterBackButton(() => new BuildingInfoDialog(session, _building).Start());

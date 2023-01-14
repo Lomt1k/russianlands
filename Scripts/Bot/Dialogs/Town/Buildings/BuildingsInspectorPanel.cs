@@ -87,7 +87,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
             if (isLimitReached)
             {
                 sb.AppendLine();
-                sb.AppendLine(Emojis.ElementWarningRed.code + Localization.Get(session, "building_production_is_full"));
+                sb.AppendLine(Emojis.ElementWarningRed.ToString() + Localization.Get(session, "building_production_is_full"));
             }
 
             void AddToShow(ResourceType resourceType, int value)

@@ -250,7 +250,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
             if (selectedButton.HasValue)
             {
                 var button = _registeredButtons[selectedButton.Value];
-                if (!button.Text.Contains(Emojis.ElementWarning.code))
+                if (!button.Text.Contains(Emojis.ElementWarning.ToString()))
                 {
                     button.Text += Emojis.ElementWarning;
                 }
