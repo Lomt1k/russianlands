@@ -171,7 +171,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
                 .ConfigureAwait(false);
         }
 
-        protected bool TryAppendTooltip(StringBuilder sb)
+        protected bool TryAppendTooltip(StringBuilder sb, Tooltip? _tooltip = null)
         {
             if (dialog.tooltip != null)
             {
@@ -179,7 +179,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
                 return false;
             }
 
-            tooltip = session.tooltipController.TryGetTooltip(this);
+            tooltip = _tooltip ?? session.tooltipController.TryGetTooltip(this);
             if (tooltip == null)
                 return false;
 

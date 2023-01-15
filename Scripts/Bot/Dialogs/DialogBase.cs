@@ -225,9 +225,9 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
             }
         }
 
-        protected bool TryAppendTooltip(StringBuilder sb)
+        protected bool TryAppendTooltip(StringBuilder sb, Tooltip? _tooltip = null)
         {
-            tooltip = session.tooltipController.TryGetTooltip(this);
+            tooltip = _tooltip ?? session.tooltipController.TryGetTooltip(this);
             if (tooltip == null)
                 return false;
 

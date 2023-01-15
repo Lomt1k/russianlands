@@ -3,6 +3,7 @@ using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.Bot.Sessions;
 using System.Threading.Tasks;
 using System.Text;
+using TextGameRPG.Scripts.GameCore.Quests.QuestStages;
 
 namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
 {
@@ -24,27 +25,29 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
 
         private async Task ShowCategories(CompareData? compareData = null)
         {
+            var tooltip = session.tooltipController.TryGetTooltip(this);
+
             ClearButtons();
-            RegisterCategoryButton(ItemType.Sword);
-            RegisterCategoryButton(ItemType.Bow);
-            RegisterCategoryButton(ItemType.Stick);
-            RegisterCategoryButton(ItemType.Helmet);
-            RegisterCategoryButton(ItemType.Armor);
-            RegisterCategoryButton(ItemType.Boots);
-            RegisterCategoryButton(ItemType.Shield);
-            RegisterCategoryButton(ItemType.Ring);
-            RegisterCategoryButton(ItemType.Amulet);
-            RegisterCategoryButton(ItemType.Scroll);
+            RegisterCategoryButton(ItemType.Sword, tooltip, 0);
+            RegisterCategoryButton(ItemType.Bow, tooltip, 1);
+            RegisterCategoryButton(ItemType.Stick, tooltip, 2);
+            RegisterCategoryButton(ItemType.Helmet, tooltip, 3);
+            RegisterCategoryButton(ItemType.Armor, tooltip, 4);
+            RegisterCategoryButton(ItemType.Boots, tooltip, 5);
+            RegisterCategoryButton(ItemType.Shield, tooltip, 6);
+            RegisterCategoryButton(ItemType.Ring, tooltip, 7);
+            RegisterCategoryButton(ItemType.Amulet, tooltip, 8);
+            RegisterCategoryButton(ItemType.Scroll, tooltip, 9);
             RegisterBackButton(() => new TownCharacterDialog(session).Start());
             RegisterTownButton(isDoubleBack: true);
 
             var sb = new StringBuilder();
             sb.AppendLine(Emojis.ButtonInventory + Localization.Get(session, "menu_item_inventory").Bold());
-            var hasTooltip = TryAppendTooltip(sb);
+            var dialogHasTooltip = TryAppendTooltip(sb, tooltip);
 
             await SendDialogMessage(sb, GetKeyboardWithRowSizes(3, 3, 3, 3))
                 .ConfigureAwait(false);
-            if (!hasTooltip)
+            if (!dialogHasTooltip)
             {
                 _inspectorPanel.compareData = compareData;
                 await _inspectorPanel.ShowMainInfo()
@@ -52,13 +55,14 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
             }
         }
 
-        private void RegisterCategoryButton(ItemType itemType)
+        private void RegisterCategoryButton(ItemType itemType, Tooltip? tooltip, int buttonId)
         {
             var inventory = session.player.inventory;
-            var hasTooltip = session.tooltipController.HasTooltipToAppend(this);
+            var dialogHasTooltip = tooltip != null;
+            var isTooltipButton = dialogHasTooltip && tooltip?.buttonId == buttonId;
 
-            var prefix = inventory.HasNewInCategory(itemType) && !hasTooltip
-                ? Emojis.ElementWarningRed.ToString()
+            var prefix = inventory.HasNewInCategory(itemType) && !dialogHasTooltip ? Emojis.ElementWarningRed.ToString()
+                : isTooltipButton ? string.Empty
                 : itemType.GetEmoji().ToString() + ' ';
             var text = prefix + itemType.GetCategoryLocalization(session);
             RegisterButton(text, () => ShowCategory(itemType));

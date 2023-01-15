@@ -21,11 +21,6 @@ namespace TextGameRPG.Scripts.Bot.Sessions
             _nextIndex = 0;
         }
 
-        public void SwitchToPrevious()
-        {
-            _nextIndex--;
-        }
-
         public bool HasTooltipToAppend(DialogBase dialog)
         {
             if (!hasTooltips)
