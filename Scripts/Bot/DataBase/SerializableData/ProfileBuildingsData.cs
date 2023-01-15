@@ -21,6 +21,8 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
         public long hospitalLastHealthRestoreTime;
         public byte potionWorkshopLevel;
         public long potionWorkshopStartConstructionTime;
+        public byte elixirWorkshopLevel;
+        public long elixirWorkshopStartConstructionTime;
 
         public byte weaponsWorkshopLevel;
         public long weaponsWorkshopStartConstructionTime;
@@ -173,6 +175,8 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
                 new TableColumn("hospitalLastHealthRestoreTime", "INTEGER", "0"),
                 new TableColumn("potionWorkshopLevel", "INTEGER", "0"),
                 new TableColumn("potionWorkshopStartConstructionTime", "INTEGER", "0"),
+                new TableColumn("elixirWorkshopLevel", "INTEGER", "0"),
+                new TableColumn("elixirWorkshopStartConstructionTime", "INTEGER", "0"),
 
                 new TableColumn("weaponsWorkshopLevel", "INTEGER", "0"),
                 new TableColumn("weaponsWorkshopStartConstructionTime", "INTEGER", "0"),

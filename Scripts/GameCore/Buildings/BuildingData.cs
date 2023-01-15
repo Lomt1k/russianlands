@@ -95,5 +95,11 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Data
         public int craftTime;
     }
 
+    [JsonObject]
+    public class ElixirWorkshopLevelInfo : BuildingLevelInfo
+    {
+        public int skillLevelLimit;
+    }
+
 
 }

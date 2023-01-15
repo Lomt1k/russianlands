@@ -68,6 +68,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             { BuildingType.Tyr, new TyrBuilding() },
             { BuildingType.Hospital, new HospitalBuilding() },
             { BuildingType.AlchemyLab, new AlchemyLabBuilding() },
+            { BuildingType.ElixirWorkshop, new ElixirWorkshopBuilding() },
             { BuildingType.WeaponsWorkshop, new WeaponsWorkshopBuilding() },
             { BuildingType.ArmorWorkshop, new ArmorWorkshopBuilding() },
             { BuildingType.Jewerly, new JewerlyBuilding() },
@@ -146,6 +147,9 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
 
                 case BuildingType.AlchemyLab:
                     return new AlchemyLabLevelInfo();
+
+                case BuildingType.ElixirWorkshop:
+                    return new ElixirWorkshopLevelInfo();
 
                 default:
                     return new BuildingLevelInfo();
