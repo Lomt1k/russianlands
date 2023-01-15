@@ -192,5 +192,12 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             return false;
         }
 
+        // Этот метод используется только для чита!
+        public void Cheat_SetCurrentLevel(ProfileBuildingsData data, byte level)
+        {
+            SetCurrentLevel(data, level);
+            SetStartConstructionTime(data, 0);
+        }
+
     }
 }

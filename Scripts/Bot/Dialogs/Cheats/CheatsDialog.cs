@@ -3,6 +3,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.Bot.Commands;
 using TextGameRPG.Scripts.Bot.Sessions;
+using TextGameRPG.Scripts.GameCore.Buildings;
 using TextGameRPG.Scripts.GameCore.Quests;
 using TextGameRPG.Scripts.GameCore.Resources;
 
@@ -18,15 +19,16 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
         {
             ClearButtons();
             RegisterButton("Resources", () => ShowResourcesGroup());
+            RegisterButton("Buildings", () => ShowBuildingsGroup());
             RegisterButton("Quest Progress", () => ShowQuestProgressGroup());
             RegisterTownButton(isDoubleBack: false);
 
             var header = "Cheats".Bold();
-            await SendDialogMessage(header, GetKeyboardWithRowSizes(1, 1, 1))
+            await SendDialogMessage(header, GetKeyboardWithRowSizes(2, 1, 1))
                 .ConfigureAwait(false);
         }
 
-        #region Resources
+        #region Resources Group
 
         public async Task ShowResourcesGroup()
         {
@@ -72,7 +74,108 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
 
         #endregion
 
-        #region Quest Progress
+        #region Buildings Group
+
+        private async Task ShowBuildingsGroup()
+        {
+            ClearButtons();
+
+            RegisterButton("Townhall + Storages", () => SelectLevelForTownhallAndStorages());
+            foreach (BuildingType buildingType in Enum.GetValues(typeof(BuildingType)))
+            {
+                RegisterButton(buildingType.ToString(), () => SelectLevelForBuilding(buildingType));
+            }
+            RegisterBackButton("Cheats", () => Start());
+            RegisterTownButton(isDoubleBack: true);
+
+            await SendDialogMessage("Buildings".Bold(), GetMultilineKeyboardWithDoubleBack())
+                .ConfigureAwait(false);
+        }
+
+        private async Task SelectLevelForTownhallAndStorages()
+        {
+            ClearButtons();
+            var building = BuildingType.TownHall.GetBuilding();
+            var maxLevel = building.buildingData.levels.Count;
+            for (byte i = 0; i <= maxLevel; i++)
+            {
+                var levelForDelegate = i; // important!
+                RegisterButton($"TownHall: Lvl {i}", () => SetLevelForTownhallAndStorages(levelForDelegate));
+            }
+            RegisterBackButton("Buildings", () => ShowBuildingsGroup());
+            RegisterDoubleBackButton("Cheats", () => Start());
+
+            var text = $"Townhall + Storages | Change level:";
+            await SendDialogMessage(text, GetMultilineKeyboardWithDoubleBack())
+                .ConfigureAwait(false);
+        }
+
+        private async Task SelectLevelForBuilding(BuildingType buildingType)
+        {
+            ClearButtons();
+            var building = buildingType.GetBuilding();
+            var maxLevel = building.buildingData.levels.Count;
+            for (byte i = 0; i <= maxLevel; i++)
+            {
+                var levelForDelegate = i; // important!
+                RegisterButton(i.ToString(), () => SetBuildingLevel(buildingType, levelForDelegate));
+            }
+            RegisterBackButton("Buildings", () => ShowBuildingsGroup());
+            RegisterDoubleBackButton("Cheats", () => Start());
+
+            var text = $"{buildingType} | Change level:";
+            await SendDialogMessage(text, GetMultilineKeyboardWithDoubleBack())
+                .ConfigureAwait(false);
+        }
+
+        private async Task SetLevelForTownhallAndStorages(byte townhallLevel)
+        {
+            var sb = new StringBuilder();
+            var buildingsData = session.profile.buildingsData;
+            BuildingType.TownHall.GetBuilding().Cheat_SetCurrentLevel(buildingsData, townhallLevel);
+            var text = $"{BuildingType.TownHall}:".Bold() + $" setuped level {townhallLevel}";
+            sb.AppendLine(text);
+
+            foreach (var building in session.player.buildings.GetBuildingsByCategory(BuildingCategory.Storages))
+            {
+                byte maxAvailableLevel = 0;
+                var buildingLevels = building.buildingData.levels;
+                for (byte i = 0; i < buildingLevels.Count; i++)
+                {
+                    var level = buildingLevels[i];
+                    if (level.requiredTownHall <= townhallLevel)
+                    {
+                        maxAvailableLevel = (byte)(i + 1);
+                    }
+                }
+                building.Cheat_SetCurrentLevel(buildingsData, maxAvailableLevel);
+                text = $"{building.buildingType}:".Bold() + $" setuped level {maxAvailableLevel}";
+                sb.AppendLine(text);
+            }
+
+            await messageSender.SendTextMessage(session.chatId, sb.ToString())
+                .ConfigureAwait(false);
+
+            await Start()
+                .ConfigureAwait(false);
+        }
+
+        private async Task SetBuildingLevel(BuildingType buildingType, byte level)
+        {
+            var building = buildingType.GetBuilding();
+            building.Cheat_SetCurrentLevel(session.profile.buildingsData, level);
+
+            var text = $"{buildingType}:".Bold() + $" setuped level {level}";
+            await messageSender.SendTextMessage(session.chatId, text)
+                .ConfigureAwait(false);
+
+            await Start()
+                .ConfigureAwait(false);
+        }
+
+        #endregion
+
+        #region Quest Progress Group
 
         private async Task ShowQuestProgressGroup()
         {
