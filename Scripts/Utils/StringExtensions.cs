@@ -162,5 +162,13 @@ public static class StringExtensions
         return "<code>" + input + "</code>";
     }
 
+    /// <summary>
+    /// Оборачивает текст в html тэг <pre> (форматированный текст)
+    /// </summary>
+    public static string Preformatted(this string input)
+    {
+        return "<pre>" + input + "</pre>";
+    }
+
 
 }

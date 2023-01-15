@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TextGameRPG.Scripts.Bot.Commands.Admin;
 using TextGameRPG.Scripts.Bot.Sessions;
 
 namespace TextGameRPG.Scripts.Bot.Commands
@@ -15,17 +14,22 @@ namespace TextGameRPG.Scripts.Bot.Commands
         {
             _commandsDictionary = new Dictionary<string, CommandBase>
             {
+                // commands for all
                 { "/start", new StartCommand() },
-                { "/language", new LanguageCommand() },
 
-                //admin commands
-                { "/status", new StatusCommand() },
-                { "/additem", new AddItemCommand() },
-                { "/test", new TestCommand() },
-                { "/battle", new BattleCommand() },
-                { "/win", new WinCommand() },
-                { "/lose", new LoseCommand() },
-                { "/draw", new DrawCommand() },
+                // cheats
+                { "/cheats", new Cheats.CheatsCommand() },
+                { "/language", new Cheats.LanguageCommand() },
+                { "/addresource", new Cheats.AddResourceCommand() },
+                { "/additem", new Cheats.AddItemCommand() },
+                { "/test", new Cheats.TestCommand() },
+                { "/battle", new Cheats.BattleCommand() },
+                { "/win", new Cheats.WinCommand() },
+                { "/lose", new Cheats.LoseCommand() },
+                { "/draw", new Cheats.DrawCommand() },
+
+                // admin commands
+                { "/status", new Admin.StatusCommand() },
             };
         }
 
@@ -38,8 +42,16 @@ namespace TextGameRPG.Scripts.Bot.Commands
             if (!_commandsDictionary.TryGetValue(commandStr, out var command))
                 return;
 
-            if (command.isAdminCommand && !session.isAdmin)
+            bool access = command.commandGroup switch
+            {
+                CommandGroup.ForAll => true,
+                CommandGroup.Admin => session.isAdmin,
+                CommandGroup.Cheat => session.isAdmin || TelegramBot.instance.config.cheatsForAll,
+                _ => false
+            };
+            if (!access)
                 return;
+
 
             if (elements.Length > 1)
             {

@@ -9,6 +9,7 @@ namespace TextGameRPG.Scripts.Bot
     {
         public string token = "ENTER_TOKEN_HERE";
         public string defaultLanguage = "RU";
+        public bool cheatsForAll = true;
         public int sessionTimeoutInMinutes = 180;
         public int periodicSaveDatabaseInMinutes = 15;
 

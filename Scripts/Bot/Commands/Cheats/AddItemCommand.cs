@@ -3,11 +3,11 @@ using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.Bot.Sessions;
 using System;
 
-namespace TextGameRPG.Scripts.Bot.Commands.Admin
+namespace TextGameRPG.Scripts.Bot.Commands.Cheats
 {
     public class AddItemCommand : CommandBase
     {
-        public override bool isAdminCommand => true;
+        public override CommandGroup commandGroup => CommandGroup.Cheat;
 
         public override async Task Execute(GameSession session, string[] args)
         {

@@ -10,11 +10,11 @@ using TextGameRPG.Scripts.GameCore.Managers;
 using TextGameRPG.Scripts.GameCore.Units;
 using TextGameRPG.Scripts.GameCore.Units.Mobs;
 
-namespace TextGameRPG.Scripts.Bot.Commands.Admin
+namespace TextGameRPG.Scripts.Bot.Commands.Cheats
 {
     public class BattleCommand : CommandBase
     {
-        public override bool isAdminCommand => true;
+        public override CommandGroup commandGroup => CommandGroup.Cheat;
 
         public override async Task Execute(GameSession session, string[] args)
         {

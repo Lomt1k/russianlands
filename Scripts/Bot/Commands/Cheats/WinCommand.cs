@@ -2,11 +2,11 @@
 using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Managers;
 
-namespace TextGameRPG.Scripts.Bot.Commands.Admin
+namespace TextGameRPG.Scripts.Bot.Commands.Cheats
 {
     public class WinCommand : CommandBase
     {
-        public override bool isAdminCommand => true;
+        public override CommandGroup commandGroup => CommandGroup.Cheat;
 
         public override async Task Execute(GameSession session, string[] args)
         {

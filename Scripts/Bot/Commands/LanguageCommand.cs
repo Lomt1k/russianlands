@@ -3,11 +3,11 @@ using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.Bot.Sessions;
 
-namespace TextGameRPG.Scripts.Bot.Commands
+namespace TextGameRPG.Scripts.Bot.Commands.Cheats
 {
     public class LanguageCommand : CommandBase
     {
-        public override bool isAdminCommand => false; 
+        public override CommandGroup commandGroup => CommandGroup.Cheat;
 
         public override async Task Execute(GameSession session, string[] args)
         {

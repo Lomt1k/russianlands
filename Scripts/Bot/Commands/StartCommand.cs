@@ -6,7 +6,7 @@ namespace TextGameRPG.Scripts.Bot.Commands
     // ввод команды /start при запущенной(!) сессии
     public class StartCommand : CommandBase
     {
-        public override bool isAdminCommand => false;
+        public override CommandGroup commandGroup => CommandGroup.ForAll;
 
         public override async Task Execute(GameSession session, string[] args)
         {

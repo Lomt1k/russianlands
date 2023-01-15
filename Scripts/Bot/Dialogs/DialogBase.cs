@@ -126,13 +126,24 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
 
         protected ReplyKeyboardMarkup GetMultilineKeyboardWithDoubleBack()
         {
-            switch (buttonsCount)
+            var buttons = registeredButtons.Keys.ToArray();
+            var rowsCount = buttons.Length - 1;
+            var rows = new List<List<KeyboardButton>>(rowsCount);
+            
+            var lastRow = new List<KeyboardButton>
             {
-                case 3: return GetKeyboardWithRowSizes(1, 2);
-                case 4: return GetKeyboardWithRowSizes(1, 1, 2);
-                case 5: return GetKeyboardWithRowSizes(1, 1, 1, 2);
-                default: return GetKeyboardWithRowSizes(2);
+                buttons[buttonsCount - 2],
+                buttons[buttonsCount - 1]
+            };
+
+            for (int i = 0; i < buttonsCount - 2; i++)
+            {
+                var row = new List<KeyboardButton> { buttons[i] };
+                rows.Add(row);
             }
+            rows.Add(lastRow);
+            
+            return new ReplyKeyboardMarkup(rows);
         }
 
         protected async Task SendPanelsAsync()

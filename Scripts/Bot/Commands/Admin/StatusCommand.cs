@@ -9,7 +9,7 @@ namespace TextGameRPG.Scripts.Bot.Commands.Admin
 {
     public class StatusCommand : CommandBase
     {
-        public override bool isAdminCommand => true;
+        public override CommandGroup commandGroup => CommandGroup.Admin;
 
         public override async Task Execute(GameSession session, string[] args)
         {
