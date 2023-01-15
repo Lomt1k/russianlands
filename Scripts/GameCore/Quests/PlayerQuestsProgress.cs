@@ -45,5 +45,20 @@ namespace TextGameRPG.Scripts.GameCore.Quests
             return focusedQuest;
         }
 
+        public void Cheat_SetCurrentQuest(QuestType questType, int stageId)
+        {
+            stages.Clear();
+            var currentQuest = (ushort)questType;
+
+            //setup completed quests
+            for (ushort i = (ushort)QuestType.MainQuest; i < currentQuest; i++)
+            {
+                stages.Add(i, -1);
+            }
+
+            stages[currentQuest] = stageId;
+            focusedQuest = questType;
+        }
+
     }
 }
