@@ -28,16 +28,16 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
             var tooltip = session.tooltipController.TryGetTooltip(this);
 
             ClearButtons();
-            RegisterCategoryButton(ItemType.Sword, 0);
-            RegisterCategoryButton(ItemType.Bow, 1);
-            RegisterCategoryButton(ItemType.Stick, 2);
-            RegisterCategoryButton(ItemType.Helmet, 3);
-            RegisterCategoryButton(ItemType.Armor, 4);
-            RegisterCategoryButton(ItemType.Boots, 5);
-            RegisterCategoryButton(ItemType.Shield, 6);
-            RegisterCategoryButton(ItemType.Ring, 7);
-            RegisterCategoryButton(ItemType.Amulet, 8);
-            RegisterCategoryButton(ItemType.Scroll, 9);
+            RegisterCategoryButton(ItemType.Sword, tooltip, 0);
+            RegisterCategoryButton(ItemType.Bow, tooltip, 1);
+            RegisterCategoryButton(ItemType.Stick, tooltip, 2);
+            RegisterCategoryButton(ItemType.Helmet, tooltip, 3);
+            RegisterCategoryButton(ItemType.Armor, tooltip, 4);
+            RegisterCategoryButton(ItemType.Boots, tooltip, 5);
+            RegisterCategoryButton(ItemType.Shield, tooltip, 6);
+            RegisterCategoryButton(ItemType.Ring, tooltip, 7);
+            RegisterCategoryButton(ItemType.Amulet, tooltip, 8);
+            RegisterCategoryButton(ItemType.Scroll, tooltip, 9);
             RegisterBackButton(() => new TownCharacterDialog(session).Start());
             RegisterTownButton(isDoubleBack: true);
 
@@ -55,7 +55,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
             }
         }
 
-        private void RegisterCategoryButton(ItemType itemType, int buttonId)
+        private void RegisterCategoryButton(ItemType itemType, Tooltip? tooltip, int buttonId)
         {
             var inventory = session.player.inventory;
             var dialogHasTooltip = tooltip != null;
