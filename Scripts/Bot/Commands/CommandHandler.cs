@@ -18,6 +18,7 @@ namespace TextGameRPG.Scripts.Bot.Commands
                 { "/start", new StartCommand() },
 
                 // cheats
+                { "//", new Cheats.CheatsCommand() },
                 { "/cheats", new Cheats.CheatsCommand() },
                 { "/language", new Cheats.LanguageCommand() },
                 { "/addresource", new Cheats.AddResourceCommand() },

@@ -20,6 +20,13 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
 
         public override async Task Start()
         {
+            var sb = new StringBuilder();
+            sb.AppendLine("Cheats".Bold());
+            sb.AppendLine();
+            sb.AppendLine($"Nick: ".Bold() + session.player.nickname);
+            sb.AppendLine($"Database Id: ".Bold() + session.profile.data.dbid);
+            sb.AppendLine($"Telegram Id: ".Bold() + session.profile.data.telegram_id);
+
             ClearButtons();
             RegisterButton("Resources", () => ShowResourcesGroup());
             RegisterButton("Items", () => ShowItemsGroup());
@@ -27,13 +34,6 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
             RegisterButton("Quest Progress", () => ShowQuestProgressGroup());
             RegisterButton("Language", () => ShowLanguageGroup());
             RegisterTownButton(isDoubleBack: false);
-
-            var sb = new StringBuilder();
-            sb.AppendLine("Cheats".Bold());
-            sb.AppendLine();
-            sb.AppendLine($"Nick: ".Bold() + session.player.nickname);
-            sb.AppendLine($"Database Id: ".Bold() + session.profile.data.dbid);
-            sb.AppendLine($"Telegram Id: ".Bold() + session.profile.data.telegram_id);
 
             await SendDialogMessage(sb, GetKeyboardWithRowSizes(3, 2, 1))
                 .ConfigureAwait(false);
