@@ -2,6 +2,8 @@
 using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.Bot.Sessions;
 using System;
+using System.Text;
+using TextGameRPG.Scripts.GameCore.Localizations;
 
 namespace TextGameRPG.Scripts.Bot.Commands.Cheats
 {
@@ -12,7 +14,11 @@ namespace TextGameRPG.Scripts.Bot.Commands.Cheats
         public override async Task Execute(GameSession session, string[] args)
         {
             if (args.Length < 1)
+            {
+                await SendManualMessage(session)
+                    .ConfigureAwait(false);
                 return;
+            }
 
             InventoryItem? item = null;
             try
@@ -25,13 +31,24 @@ namespace TextGameRPG.Scripts.Bot.Commands.Cheats
             {
                 await messageSender.SendTextMessage(session.chatId, $"Incorrect item ID\n\n{ex.Message}");
                 return;
-            }            
+            }
 
-            bool success = session.player.inventory.TryAddItem(item);
-            string message = success
-                ? $"Added item with ID {item.id}:\n{item.GetFullName(session)}"
-                : "Can`t add item: Inventory is full";
-            await messageSender.SendTextMessage(session.chatId, message).ConfigureAwait(false);
+            session.player.inventory.ForceAddItem(item);
+            string message = $"{item.GetView(session)}\n\n{Localization.Get(session, "dialog_inventory_item_added_state")}";
+            await messageSender.SendTextMessage(session.chatId, message)
+                .ConfigureAwait(false);
+        }
+
+        public async Task SendManualMessage(GameSession session)
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine("Usage:".Bold());
+            sb.AppendLine();
+            sb.AppendLine($"/additem [itemId]");
+            sb.AppendLine($"/additem [itemCode]");
+
+            await messageSender.SendTextMessage(session.chatId, sb.ToString())
+                    .ConfigureAwait(false);
         }
 
     }

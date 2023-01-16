@@ -2,6 +2,7 @@
 using System.Text;
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.Bot.Sessions;
+using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Resources;
 
 namespace TextGameRPG.Scripts.Bot.Commands.Cheats
@@ -23,7 +24,7 @@ namespace TextGameRPG.Scripts.Bot.Commands.Cheats
             session.player.resources.ForceAdd(resourceType, amount);
 
             var sb = new StringBuilder();
-            sb.AppendLine("Resources added:".Preformatted());
+            sb.AppendLine(Localization.Get(session, "battle_result_header_rewards"));
             sb.AppendLine(resourceType.GetLocalizedView(session, amount));
 
             await messageSender.SendTextMessage(session.chatId, sb.ToString())

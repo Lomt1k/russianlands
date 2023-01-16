@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using TextGameRPG.Scripts.Bot.Commands;
 using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Buildings;
+using TextGameRPG.Scripts.GameCore.Items;
+using TextGameRPG.Scripts.GameCore.Items.Generators;
 using TextGameRPG.Scripts.GameCore.Quests;
 using TextGameRPG.Scripts.GameCore.Resources;
 
@@ -19,12 +21,13 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
         {
             ClearButtons();
             RegisterButton("Resources", () => ShowResourcesGroup());
+            RegisterButton("Items", () => ShowItemsGroup());
             RegisterButton("Buildings", () => ShowBuildingsGroup());
             RegisterButton("Quest Progress", () => ShowQuestProgressGroup());
             RegisterTownButton(isDoubleBack: false);
 
             var header = "Cheats".Bold();
-            await SendDialogMessage(header, GetKeyboardWithRowSizes(2, 1, 1))
+            await SendDialogMessage(header, GetKeyboardWithRowSizes(3, 1, 1))
                 .ConfigureAwait(false);
         }
 
@@ -35,12 +38,18 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
             ClearButtons();
             foreach (ResourceType resourceType in Enum.GetValues(typeof(ResourceType)))
             {
-                RegisterButton(resourceType.ToString(), () => SelectAmountForAddResource(resourceType));
+                if (resourceType == ResourceType.InventoryItems)
+                    continue;
+
+                var shortName = resourceType.IsCraftResource()
+                    ? resourceType.ToString().Replace("Pieces", string.Empty)
+                    : resourceType.ToString();
+                RegisterButton(shortName, () => SelectAmountForAddResource(resourceType));
             }
             RegisterBackButton("Cheats", () => Start());
             RegisterTownButton(isDoubleBack: true);
 
-            await SendDialogMessage("Resources".Bold(), GetMultilineKeyboardWithDoubleBack())
+            await SendDialogMessage("Resources".Bold(), GetKeyboardWithFixedRowSize(3))
                 .ConfigureAwait(false);
         }
 
@@ -66,11 +75,84 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
 
         public async Task InvokeAddResourceCommand(ResourceType resourceType, int amount)
         {
-            await CommandHandler.HandleCommand(session, $"/addresource {resourceType} {amount}")
+            var command = $"/addresource {resourceType} {amount}";
+            await messageSender.SendTextMessage(session.chatId, command)
+                .ConfigureAwait(false);
+            await CommandHandler.HandleCommand(session, command)
                 .ConfigureAwait(false);
             await Start()
                 .ConfigureAwait(false);
         }
+
+        #endregion
+
+        #region Items Group
+
+        public async Task ShowItemsGroup()
+        {
+            ClearButtons();
+            foreach (ItemType itemType in Enum.GetValues(typeof(ItemType)))
+            {
+                if (itemType == ItemType.Equipped)
+                    continue;
+
+                RegisterButton(itemType.ToString(), () => SelectRarityForItem(itemType));
+            }
+            RegisterBackButton("Cheats", () => Start());
+
+            await SendDialogMessage("Items".Bold(), GetKeyboardWithFixedRowSize(3))
+                .ConfigureAwait(false);
+        }
+
+        public async Task SelectRarityForItem(ItemType itemType)
+        {
+            ClearButtons();
+            foreach (Rarity rarity in Enum.GetValues(typeof(Rarity)))
+            {
+                RegisterButton(rarity.ToString(), () => SelectTownhallLevelForItem(itemType, rarity));
+            }
+            RegisterBackButton("ItemType", () => ShowItemsGroup());
+            RegisterDoubleBackButton("Cheats", () => Start());
+
+            var text = $"{itemType} | Select rarity:";
+            await SendDialogMessage(text, GetKeyboardWithFixedRowSize(2))
+                .ConfigureAwait(false);
+        }
+
+        public async Task SelectTownhallLevelForItem(ItemType itemType, Rarity rarity)
+        {
+            ClearButtons();
+            for (int i = 1; i <= 8; i++)
+            {
+                var levelForDelegate = i;
+                RegisterButton(levelForDelegate.ToString(), () => InvokeAddItemCommand(itemType, rarity, levelForDelegate));
+            }
+            RegisterBackButton("Rarity", () => SelectRarityForItem(itemType));
+            RegisterDoubleBackButton("Items", () => ShowItemsGroup());
+
+            var text = $"{itemType}, {rarity} | Select Townhall:";
+            await SendDialogMessage(text, GetKeyboardWithFixedRowSize(4))
+                .ConfigureAwait(false);
+        }
+
+        public async Task InvokeAddItemCommand(ItemType itemType, Rarity rarity, int townhallLevel)
+        {
+            var item = itemType == ItemType.Any
+                ? ItemGenerationManager.GenerateItem(townhallLevel, rarity)
+                : ItemGenerationManager.GenerateItem(townhallLevel, itemType, rarity);
+            var command = $"/additem {item.id}";
+
+            ClearButtons();
+            RegisterButton(Emojis.ElementPlus + "Generate", () => InvokeAddItemCommand(itemType, rarity, townhallLevel));
+            RegisterBackButton("Items", () => ShowItemsGroup());
+            RegisterDoubleBackButton("Cheats", () => Start());
+
+            await SendDialogMessage(command, GetMultilineKeyboardWithDoubleBack())
+                .ConfigureAwait(false);
+            await CommandHandler.HandleCommand(session, command)
+                .ConfigureAwait(false);
+        }
+
 
         #endregion
 

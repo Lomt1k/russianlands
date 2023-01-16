@@ -99,7 +99,7 @@ namespace TextGameRPG.Scripts.GameCore.Inventory
             return true;
         }
 
-        public bool ForceAddItem(InventoryItem item)
+        public void ForceAddItem(InventoryItem item)
         {
             items.Add(item);
             _itemsByType[item.data.itemType].Add(item);
@@ -108,7 +108,6 @@ namespace TextGameRPG.Scripts.GameCore.Inventory
                 _hasNewItemsInCategory[item.data.itemType] = true;
                 _hasAnyNewItem = true;
             }
-            return true;
         }
 
         public void RemoveItem(InventoryItem item)
