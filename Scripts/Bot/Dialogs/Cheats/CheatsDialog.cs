@@ -6,6 +6,7 @@ using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Buildings;
 using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.GameCore.Items.Generators;
+using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Quests;
 using TextGameRPG.Scripts.GameCore.Resources;
 
@@ -24,10 +25,17 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
             RegisterButton("Items", () => ShowItemsGroup());
             RegisterButton("Buildings", () => ShowBuildingsGroup());
             RegisterButton("Quest Progress", () => ShowQuestProgressGroup());
+            RegisterButton("Language", () => ShowLanguageGroup());
             RegisterTownButton(isDoubleBack: false);
 
-            var header = "Cheats".Bold();
-            await SendDialogMessage(header, GetKeyboardWithRowSizes(3, 1, 1))
+            var sb = new StringBuilder();
+            sb.AppendLine("Cheats".Bold());
+            sb.AppendLine();
+            sb.AppendLine($"Nick: ".Bold() + session.player.nickname);
+            sb.AppendLine($"Database Id: ".Bold() + session.profile.data.dbid);
+            sb.AppendLine($"Telegram Id: ".Bold() + session.profile.data.telegram_id);
+
+            await SendDialogMessage(sb, GetKeyboardWithRowSizes(3, 2, 1))
                 .ConfigureAwait(false);
         }
 
@@ -326,6 +334,36 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
             var playerQuestsProgress = session.profile.dynamicData.quests;
             playerQuestsProgress.Cheat_SetCurrentQuest(questType, stageId);
             await quest.SetStage(session, stageId)
+                .ConfigureAwait(false);
+        }
+
+        #endregion
+
+        #region Language Group
+
+        public async Task ShowLanguageGroup()
+        {
+            ClearButtons();
+            foreach (LanguageCode code in Enum.GetValues(typeof(LanguageCode)))
+            {
+                RegisterButton(code.ToString(), () => InvokeLanguageCommand(code));
+            }
+            RegisterBackButton("Cheats", () => Start());
+            RegisterTownButton(isDoubleBack: true);
+
+            var text = "Switch language".Bold() + $"\n\nCurrent language: {session.language}";
+            await SendDialogMessage(text, GetMultilineKeyboardWithDoubleBack())
+                .ConfigureAwait(false);
+        }
+
+        public async Task InvokeLanguageCommand(LanguageCode code)
+        {
+            var command = $"/language {code}";
+            await messageSender.SendTextMessage(session.chatId, command)
+                .ConfigureAwait(false);
+            await CommandHandler.HandleCommand(session, command)
+                .ConfigureAwait(false);
+            await Start()
                 .ConfigureAwait(false);
         }
 

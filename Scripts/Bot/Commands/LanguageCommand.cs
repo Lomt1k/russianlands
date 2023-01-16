@@ -14,7 +14,7 @@ namespace TextGameRPG.Scripts.Bot.Commands.Cheats
             if (args.Length != 1)
                 return;
 
-            if (!Enum.TryParse(args[0], out LanguageCode code))
+            if (!Enum.TryParse(args[0], ignoreCase: true, out LanguageCode code))
                 return;
 
             session.SetupLanguage(code);
