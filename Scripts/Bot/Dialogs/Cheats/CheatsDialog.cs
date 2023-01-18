@@ -392,8 +392,13 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
             RegisterBackButton("Account", () => ShowQuestProgressGroup());
             RegisterDoubleBackButton("Cheats", () => Start());
 
-            var confirmMessage = "Are you sure you want to reset your progress?";
-            await SendDialogMessage(confirmMessage, GetMultilineKeyboardWithDoubleBack())
+            var sb = new StringBuilder();
+            sb.AppendLine("Are you sure you want to reset your progress?");
+            sb.AppendLine();
+            sb.AppendLine($"Nick: ".Bold() + session.player.nickname);
+            sb.AppendLine("Database Id: ".Bold() + session.profile.data.dbid);
+            sb.AppendLine("Telegram Id: ".Bold() + session.profile.data.telegram_id);
+            await SendDialogMessage(sb, GetMultilineKeyboardWithDoubleBack())
                 .ConfigureAwait(false);
         }
 

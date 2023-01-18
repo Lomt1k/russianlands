@@ -85,7 +85,8 @@ namespace TextGameRPG.Scripts.Bot.DataBase.TablesStructure
                 if (column.name.Equals("dbid"))
                     continue;
 
-                sb.Append($"{column.name} = '{column.defaultValue}'");
+                var defaultValue = column.defaultValue.Replace("'", string.Empty);
+                sb.Append($"{column.name} = '{defaultValue}'");
                 sb.Append(i < columns.Length - 1 ? ", " : " ");
             }
             sb.Append($"WHERE dbid='{dbid}' LIMIT 1");
