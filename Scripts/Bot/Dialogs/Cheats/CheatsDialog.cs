@@ -2,6 +2,7 @@
 using System.Text;
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.Bot.Commands;
+using TextGameRPG.Scripts.Bot.DataBase.TablesStructure;
 using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Buildings;
 using TextGameRPG.Scripts.GameCore.Items;
@@ -33,9 +34,10 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
             RegisterButton("Buildings", () => ShowBuildingsGroup());
             RegisterButton("Quest Progress", () => ShowQuestProgressGroup());
             RegisterButton("Language", () => ShowLanguageGroup());
+            RegisterButton("Account", () => ShowAccountGroup());
             RegisterTownButton(isDoubleBack: false);
 
-            await SendDialogMessage(sb, GetKeyboardWithRowSizes(3, 2, 1))
+            await SendDialogMessage(sb, GetKeyboardWithRowSizes(3, 2, 1, 1))
                 .ConfigureAwait(false);
         }
 
@@ -341,7 +343,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
 
         #region Language Group
 
-        public async Task ShowLanguageGroup()
+        private async Task ShowLanguageGroup()
         {
             ClearButtons();
             foreach (LanguageCode code in Enum.GetValues(typeof(LanguageCode)))
@@ -368,6 +370,66 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
         }
 
         #endregion
+
+        #region Account Group
+
+        private async Task ShowAccountGroup()
+        {
+            ClearButtons();
+            RegisterButton("Reset", () => ResetAccountConfirmation());
+            RegisterBackButton("Cheats", () => Start());
+            RegisterTownButton(isDoubleBack: true);
+
+            var text = "Account".Bold();
+            await SendDialogMessage(text, GetMultilineKeyboardWithDoubleBack())
+                .ConfigureAwait(false);
+        }
+
+        private async Task ResetAccountConfirmation()
+        {
+            ClearButtons();
+            RegisterButton(Emojis.ElementWarning + "Yes, reset!", () => ResetAccount());
+            RegisterBackButton("Account", () => ShowQuestProgressGroup());
+            RegisterDoubleBackButton("Cheats", () => Start());
+
+            var confirmMessage = "Are you sure you want to reset your progress?";
+            await SendDialogMessage(confirmMessage, GetMultilineKeyboardWithDoubleBack())
+                .ConfigureAwait(false);
+        }
+
+        private async Task ResetAccount()
+        {
+            var telegramId = session.actualUser.Id;
+            await InvokeAccountReset()
+                .ConfigureAwait(false);
+            await messageSender.SendTextDialog(telegramId, "Account has been reseted", "Restart")
+                .ConfigureAwait(false);
+        }
+
+        private async Task InvokeAccountReset()
+        {
+            var telegramId = session.profile.data.telegram_id;
+            var dbId = session.profile.data.dbid;
+
+            var sessionManager = TelegramBot.instance.sessionManager;
+            await sessionManager.CloseSession(telegramId)
+                .ConfigureAwait(false);
+
+            var profilesTable = TelegramBot.instance.dataBase[Table.Profiles] as ProfilesDataTable;
+            await profilesTable.ResetToDefaultValues(dbId)
+                .ConfigureAwait(false);
+
+            var profilesDynamicTable = TelegramBot.instance.dataBase[Table.ProfilesDynamic] as ProfilesDynamicDataTable;
+            await profilesDynamicTable.ResetToDefaultValues(dbId)
+                .ConfigureAwait(false);
+
+            var profileBuildingsTable = TelegramBot.instance.dataBase[Table.ProfileBuildings] as ProfileBuildingsDataTable;
+            await profileBuildingsTable.ResetToDefaultValues(dbId)
+                .ConfigureAwait(false);
+        }
+
+        #endregion
+
 
     }
 }

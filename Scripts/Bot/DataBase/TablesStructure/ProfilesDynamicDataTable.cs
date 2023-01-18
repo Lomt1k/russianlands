@@ -74,6 +74,26 @@ namespace TextGameRPG.Scripts.Bot.DataBase.TablesStructure
             return command != null;
         }
 
+        // for cheat
+        public async Task<bool> ResetToDefaultValues(long dbid)
+        {
+            var sb = new StringBuilder();
+            sb.Append($"UPDATE {tableName} SET ");
+            for (int i = 0; i < columns.Length; i++)
+            {
+                var column = columns[i];
+                if (column.name.Equals("dbid"))
+                    continue;
+
+                var defaultValue = column.defaultValue.Replace("'", string.Empty);
+                sb.Append($"{column.name} = '{defaultValue}'");
+                sb.Append(i < columns.Length - 1 ? ", " : " ");
+            }
+            sb.Append($"WHERE dbid='{dbid}' LIMIT 1");
+            string query = sb.ToString();
+            var command = await database.ExecuteQueryAsync(query);
+            return command != null;
+        }
 
     }
 }
