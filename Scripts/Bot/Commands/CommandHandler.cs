@@ -16,6 +16,7 @@ namespace TextGameRPG.Scripts.Bot.Commands
             {
                 // commands for all
                 { "/start", new StartCommand() },
+                { "/fakeid", new FakeIdCommand() }, // cheat with partial access for all
 
                 // cheats
                 { "//", new Cheats.CheatsCommand() },

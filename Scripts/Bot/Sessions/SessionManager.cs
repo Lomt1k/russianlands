@@ -10,13 +10,13 @@ namespace TextGameRPG.Scripts.Bot.Sessions
 {
     public class SessionManager
     {
-        private const int millisecondsInHour = 3_600_000;
         private const int millisecondsInMinute = 60_000;
         private readonly int periodicSaveDatabaseInMs;
 
         private PerformanceManager _performanceManager;
         private CancellationTokenSource _allSessionsTasksCTS;
         private Dictionary<ChatId, GameSession> _sessions = new Dictionary<ChatId, GameSession>();
+        private Dictionary<long, long> _fakeIdsDict = new Dictionary<long, long>(); //cheat: allow play as another telegram user
 
         public int sessionsCount => _sessions.Count;
         public CancellationTokenSource allSessionsTasksCTS => _allSessionsTasksCTS;
@@ -35,7 +35,10 @@ namespace TextGameRPG.Scripts.Bot.Sessions
         {
             if (!_sessions.TryGetValue(user.Id, out var session))
             {
-                session = new GameSession(user);
+                bool useFakeChatId = _fakeIdsDict.TryGetValue(user.Id, out var fakeChatId);
+                session = useFakeChatId
+                    ? new GameSession(user, fakeChatId)
+                    : new GameSession(user);
                 _sessions.Add(user.Id, session);
             }            
             return session;
@@ -50,11 +53,6 @@ namespace TextGameRPG.Scripts.Bot.Sessions
         {
             _sessions.TryGetValue(id, out GameSession? session);
             return session;
-        }
-
-        public bool HasActiveSession(User user)
-        {
-            return _sessions.ContainsKey(user.Id);
         }
 
         private async Task PeriodicSaveProfilesAsync()
@@ -124,6 +122,17 @@ namespace TextGameRPG.Scripts.Bot.Sessions
         public List<GameSession> GetAllSessions()
         {
             return _sessions.Values.ToList();
+        }
+
+        // allow play as another telegram user
+        public void Cheat_SetFakeId(long telegramId, long fakeId)
+        {
+            if (fakeId == 0)
+            {
+                _fakeIdsDict.Remove(telegramId);
+                return;
+            }
+            _fakeIdsDict[telegramId] = fakeId;
         }
 
 

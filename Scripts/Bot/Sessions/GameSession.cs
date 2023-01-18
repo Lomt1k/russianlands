@@ -22,6 +22,7 @@ namespace TextGameRPG.Scripts.Bot.Sessions
         private CancellationTokenSource _sessionTasksCTS = new CancellationTokenSource();
 
         public ChatId chatId { get; }
+        public ChatId? fakeChatId { get; }
         public DateTime startTime { get; }
         public DateTime lastActivityTime { get; private set; }
         public User actualUser { get; private set; }
@@ -32,9 +33,10 @@ namespace TextGameRPG.Scripts.Bot.Sessions
         public TooltipController tooltipController { get; } = new TooltipController();
         public bool isAdmin => profile.data.adminStatus > 0;
 
-        public GameSession(User user)
+        public GameSession(User user, ChatId? _fakeChatId = null)
         {
             chatId = user.Id;
+            fakeChatId = _fakeChatId;
             startTime = DateTime.UtcNow;
             lastActivityTime = DateTime.UtcNow;
 
@@ -142,7 +144,7 @@ namespace TextGameRPG.Scripts.Bot.Sessions
         private async Task OnStartNewSession(User actualUser, Update update)
         {
             var profilesTable = TelegramBot.instance.dataBase[Table.Profiles] as ProfilesDataTable;
-            var profileData = await profilesTable.GetOrCreateProfileData(actualUser).ConfigureAwait(false);
+            var profileData = await profilesTable.GetOrCreateProfileData(actualUser, fakeChatId).ConfigureAwait(false);
             if (profileData == null)
             {
                 Program.logger.Error($"Can`t get or create profile data after start new session (telegram_id: {actualUser.Id})");

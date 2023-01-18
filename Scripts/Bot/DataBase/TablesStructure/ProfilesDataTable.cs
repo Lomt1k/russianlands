@@ -17,11 +17,12 @@ namespace TextGameRPG.Scripts.Bot.DataBase.TablesStructure
         {
         }
 
-        public async Task<ProfileData?> GetOrCreateProfileData(User user)
+        public async Task<ProfileData?> GetOrCreateProfileData(User user, ChatId? fakeChatId)
         {
             try
             {
-                var sqlQuery = $"SELECT * FROM {tableName} WHERE telegram_id='{user.Id}' LIMIT 1";
+                var chatId = fakeChatId ?? user.Id;
+                var sqlQuery = $"SELECT * FROM {tableName} WHERE telegram_id='{chatId}' LIMIT 1";
                 var command = await database.ExecuteQueryAsync(sqlQuery);
                 var reader = await command.ExecuteReaderAsync();
 
@@ -38,11 +39,11 @@ namespace TextGameRPG.Scripts.Bot.DataBase.TablesStructure
                     var insertQuery = $"INSERT INTO {tableName} " +
                         $"(telegram_id, username) " +
                         $"VALUES " +
-                        $"('{user.Id}', '{user.Username}')";
+                        $"('{chatId}', '{user.Username}')";
                     var insertCommand = await database.ExecuteQueryAsync(insertQuery);
                     if (insertCommand != null)
                     {
-                        var createdProfile = await GetOrCreateProfileData(user);
+                        var createdProfile = await GetOrCreateProfileData(user, fakeChatId);
                         return createdProfile;
                     }
                     return null;
