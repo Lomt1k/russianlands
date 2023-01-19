@@ -6,22 +6,15 @@ namespace TextGameRPG.Scripts.Bot.Commands
 {
     internal class FakeIdCommand : CommandBase
     {
-        public override CommandGroup commandGroup => CommandGroup.ForAll;
+        public override CommandGroup commandGroup => CommandGroup.Cheat;
 
         public override async Task Execute(GameSession session, string[] args)
         {
-            var isCheatsForAll = TelegramBot.instance.config.cheatsForAll;
             if (args.Length != 1 || !long.TryParse(args[0], out long fakeId))
             {
-                if (isCheatsForAll || session.isAdmin)
-                {
-                    await SendManualMessage(session);
-                }
+                await SendManualMessage(session);
                 return;
             }
-
-            if (!isCheatsForAll && !session.isAdmin && fakeId != 0)
-                return;
 
             var sessionManager = TelegramBot.instance.sessionManager;
             var realId = session.actualUser.Id;

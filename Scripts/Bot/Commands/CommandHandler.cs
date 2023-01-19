@@ -16,11 +16,11 @@ namespace TextGameRPG.Scripts.Bot.Commands
             {
                 // commands for all
                 { "/start", new StartCommand() },
-                { "/fakeid", new FakeIdCommand() }, // cheat with partial access for all
 
                 // cheats
                 { "//", new Cheats.CheatsCommand() },
                 { "/cheats", new Cheats.CheatsCommand() },
+                { "/fakeid", new FakeIdCommand() },
                 { "/language", new Cheats.LanguageCommand() },
                 { "/addresource", new Cheats.AddResourceCommand() },
                 { "/additem", new Cheats.AddItemCommand() },
@@ -48,7 +48,7 @@ namespace TextGameRPG.Scripts.Bot.Commands
             {
                 CommandGroup.ForAll => true,
                 CommandGroup.Admin => session.isAdmin,
-                CommandGroup.Cheat => session.isAdmin || TelegramBot.instance.config.cheatsForAll,
+                CommandGroup.Cheat => session.isAdmin || TelegramBot.instance.config.cheatsForAll || session.fakeChatId?.Identifier != null,
                 _ => false
             };
             if (!access)
