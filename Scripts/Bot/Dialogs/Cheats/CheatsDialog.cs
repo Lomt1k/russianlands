@@ -405,13 +405,13 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
         private async Task ResetAccount()
         {
             var telegramId = session.actualUser.Id;
-            await InvokeAccountReset()
+            await ResetAccountInDatabase()
                 .ConfigureAwait(false);
             await messageSender.SendTextDialog(telegramId, "Account has been reseted", "Restart")
                 .ConfigureAwait(false);
         }
 
-        private async Task InvokeAccountReset()
+        private async Task ResetAccountInDatabase()
         {
             var telegramId = session.profile.data.telegram_id;
             var dbId = session.profile.data.dbid;
