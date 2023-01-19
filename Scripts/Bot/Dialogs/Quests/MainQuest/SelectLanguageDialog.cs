@@ -43,8 +43,6 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Quests.MainQuest
         private async Task SetupLanguage(LanguageCode language)
         {
             session.SetupLanguage(language);
-            await session.profile.SetupProfileOnFirstLaunch(session.actualUser, language)
-                .ConfigureAwait(false);
             await QuestManager.TryInvokeTrigger(session, TriggerType.InvokeFromCode)
                 .ConfigureAwait(false);
         }

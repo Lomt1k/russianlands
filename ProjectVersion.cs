@@ -1,0 +1,49 @@
+﻿namespace TextGameRPG
+{
+    /*
+     * Version format can be "x.y" or "x.y.z" where:
+     * x - global version
+     * y - update number
+     * z - patch number (optional)
+     */
+
+    internal struct ProjectVersion
+    {
+        public static readonly ProjectVersion Current = new ProjectVersion("0.1");
+
+        public byte globalNumber { get; }
+        public byte update { get; }
+        public byte patch { get; }
+
+        public ProjectVersion(byte _globalNumber, byte _update, byte _patch = 0)
+        {
+            globalNumber = _globalNumber;
+            update = _update;
+            patch = _patch;
+        }
+
+        public ProjectVersion(string version)
+        {
+            try
+            {
+                var array = version.Split('.');
+                globalNumber = byte.Parse(array[0]);
+                update = byte.Parse(array[1]);
+                patch = array.Length > 2 ? byte.Parse(array[2]) : (byte)0;
+            }
+            catch (System.Exception ex)
+            {
+                throw new System.Exception("Incorrect version string", ex);
+            }
+            
+        }
+
+        public override string ToString()
+        {
+            return patch == 0
+                ? $"{globalNumber}.{update}"
+                : $"{globalNumber}.{update}.{patch}";
+        }
+
+    }
+}

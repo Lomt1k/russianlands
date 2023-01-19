@@ -13,12 +13,15 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
 
         public long dbid;
         public long telegram_id;
-        public long endPremiumTime;
         public string username;
         public string language;
         public string nickname;
+        public string regDate;
+        public string regVersion;
+
         public int adminStatus;
         public byte level;
+        public long endPremiumTime;
 
         // resources
         public int resourceGold;
@@ -39,12 +42,15 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
             {
                 new TableColumn("dbid", "INTEGER PRIMARY KEY AUTOINCREMENT", "0"),
                 new TableColumn("telegram_id", "INTEGER", "0"),
-                new TableColumn("endPremiumTime", "INTEGER", "0"),
                 new TableColumn("username", "TEXT", "na"),
                 new TableColumn("language", "TEXT", "RU"),
                 new TableColumn("nickname", "TEXT", "na"),
+                new TableColumn("regDate", "TEXT", "na"),
+                new TableColumn("regVersion", "TEXT", "na"),
+
                 new TableColumn("adminStatus", "INTEGER", "0"),
                 new TableColumn("level", "INTEGER", "1"),
+                new TableColumn("endPremiumTime", "INTEGER", "0"),
 
                 new TableColumn("resourceGold", "INTEGER", "3500"),
                 new TableColumn("resourceFood", "INTEGER", "1000"),

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Telegram.Bot.Types;
-using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
 using TextGameRPG.Scripts.Bot.Sessions;
 
@@ -25,16 +23,6 @@ namespace TextGameRPG.Scripts.GameCore.Profiles
             data = _data;
             dynamicData = _dynamicData;
             buildingsData = _buildingsData;
-        }
-
-        /// <summary>
-        /// Первичная настройка профиля после выбора языка
-        /// </summary>
-        public async Task SetupProfileOnFirstLaunch(User actualUser, LanguageCode language)
-        {
-            data.language = language.ToString();
-            data.nickname = actualUser.FirstName.IsCorrectNickname() ? actualUser.FirstName : "Player_" + (1_000 + new Random().Next(9_000));
-            await SaveProfile().ConfigureAwait(false);
         }
 
         public async Task SaveProfileIfNeed(DateTime lastActivityTime)

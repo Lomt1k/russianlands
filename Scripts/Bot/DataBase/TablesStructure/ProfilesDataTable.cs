@@ -36,10 +36,16 @@ namespace TextGameRPG.Scripts.Bot.DataBase.TablesStructure
                 }
                 else
                 {
+                    // First profile setup
+                    var language = TelegramBot.instance.config.defaultLanguage;
+                    var nickname = user.FirstName.IsCorrectNickname() ? user.FirstName : "Player_" + (1_000 + new Random().Next(9_000));
+                    var regDate = DateTime.UtcNow.ToShortDateString();
+                    var regVersion = ProjectVersion.Current.ToString();
+
                     var insertQuery = $"INSERT INTO {tableName} " +
-                        $"(telegram_id, username) " +
+                        $"(telegram_id, username, language, nickname, regDate, regVersion) " +
                         $"VALUES " +
-                        $"('{chatId}', '{user.Username}')";
+                        $"('{chatId}', '{user.Username}', '{language}', '{nickname}', '{regDate}', '{regVersion}')";
                     var insertCommand = await database.ExecuteQueryAsync(insertQuery);
                     if (insertCommand != null)
                     {
