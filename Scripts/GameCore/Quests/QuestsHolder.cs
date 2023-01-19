@@ -30,12 +30,12 @@ namespace TextGameRPG.Scripts.GameCore.Quests
 
                 LoadQuest(questType, loaderVM);
             }
+            loaderVM?.AddInfoToCurrentState(quests.Count.ToString());
         }
 
         public static void LoadQuest(QuestType questType, IGameDataLoader? loaderVM = null)
         {
             var fileName = $"{questType}.json";
-            loaderVM?.AddInfoToCurrentState($"\n* {fileName}");
             var filePath = Path.Combine(questFolderPath, fileName);
 
             if (!File.Exists(filePath))
