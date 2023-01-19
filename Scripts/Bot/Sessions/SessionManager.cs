@@ -40,7 +40,7 @@ namespace TextGameRPG.Scripts.Bot.Sessions
                     ? new GameSession(user, fakeChatId)
                     : new GameSession(user);
                 _sessions.Add(user.Id, session);
-            }            
+            }
             return session;
         }
 
@@ -53,6 +53,18 @@ namespace TextGameRPG.Scripts.Bot.Sessions
         {
             _sessions.TryGetValue(id, out GameSession? session);
             return session;
+        }
+
+        public bool IsAccountUsedByFakeId(User user)
+        {
+            foreach (var fakeId in _fakeIdsDict.Values)
+            {
+                if (fakeId == user.Id)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         private async Task PeriodicSaveProfilesAsync()
@@ -127,7 +139,7 @@ namespace TextGameRPG.Scripts.Bot.Sessions
         // allow play as another telegram user
         public void Cheat_SetFakeId(long telegramId, long fakeId)
         {
-            if (fakeId == 0)
+            if (fakeId == 0 || fakeId == telegramId)
             {
                 _fakeIdsDict.Remove(telegramId);
                 return;

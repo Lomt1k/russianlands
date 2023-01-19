@@ -41,7 +41,8 @@ namespace TextGameRPG.Scripts.Bot.Sessions
             lastActivityTime = DateTime.UtcNow;
 
             _performanceManager = GlobalManagers.performanceManager;
-            Program.logger.Info($"Started a new session for {user}");
+            Program.logger.Info($"Started a new session for {user}"
+                + (fakeChatId?.Identifier != null ? $" with fakeId: {fakeChatId}" : string.Empty));
             Program.logger.Debug($"Sessions Count: {TelegramBot.instance.sessionManager.sessionsCount + 1}"); //for debug
         }
 

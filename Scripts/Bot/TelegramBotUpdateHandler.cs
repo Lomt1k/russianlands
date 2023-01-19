@@ -17,6 +17,7 @@ namespace TextGameRPG.Scripts.Bot
     public class TelegramBotUpdateHandler : IUpdateHandler
     {
         private readonly string serverIsBusyText = Emojis.ElementWarning + Localization.GetDefault("server_is_busy_message");
+        private readonly string accountIsBusyText = Emojis.ElementWarning + Localization.GetDefault("account_is_busy_message");
         private readonly ReplyKeyboardMarkup serverIsBusyKeyboard = new ReplyKeyboardMarkup(Localization.GetDefault("server_is_busy_restart_button"));
 
         private SessionManager _sessionManager;
@@ -58,6 +59,11 @@ namespace TextGameRPG.Scripts.Bot
                     SendServerIsBusyMessage(fromUser.Id);
                     return;
                 }
+                if (_sessionManager.IsAccountUsedByFakeId(fromUser))
+                {
+                    SendAccountIsBusyMessage(fromUser.Id);
+                    return;
+                }
 
                 var gameSession = _sessionManager.GetOrCreateSession(fromUser);
                 gameSession.HandleUpdateAsync(fromUser, update);
@@ -72,6 +78,12 @@ namespace TextGameRPG.Scripts.Bot
         private async void SendServerIsBusyMessage(ChatId id)
         {
             await _messageSender.SendTextDialog(id, serverIsBusyText, serverIsBusyKeyboard, silent: true)
+                .ConfigureAwait(false);
+        }
+
+        private async void SendAccountIsBusyMessage(ChatId id)
+        {
+            await _messageSender.SendTextDialog(id, accountIsBusyText, serverIsBusyKeyboard, silent: true)
                 .ConfigureAwait(false);
         }
 

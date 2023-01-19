@@ -33,8 +33,8 @@ namespace TextGameRPG.Scripts.Bot.Commands
 
             sessionManager.Cheat_SetFakeId(realId, fakeId);
             var message = fakeId == 0
-                ? $"Game will be restarted with your real account\nTelegram Id: {realId}"
-                : $"Game will be restarted with\nTelegram Id: {fakeId}\n\n{Emojis.ElementWarning} To restore your real account use:\n/fakeid 0";
+                ? $"Game will be restarted with your real account\n<b>Telegram Id:</b> {realId}"
+                : $"Game will be restarted with\n<b>Telegram Id:</b> {fakeId}\n\n{Emojis.ElementWarning} To restore your real account use:\n/fakeid 0";
 
             await messageSender.SendTextDialog(realId, message, "Restart")
                 .ConfigureAwait(false);
