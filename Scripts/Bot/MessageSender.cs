@@ -3,6 +3,7 @@ using Telegram.Bot;
 using Telegram.Bot.Exceptions;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
+using Telegram.Bot.Types.InputFiles;
 using Telegram.Bot.Types.ReplyMarkups;
 
 namespace TextGameRPG.Scripts.Bot
@@ -124,6 +125,19 @@ namespace TextGameRPG.Scripts.Bot
             try
             {
                 return await _botClient.SendStickerAsync(id, stickerFileId).ConfigureAwait(false);
+            }
+            catch (RequestException ex)
+            {
+                await _requestExceptionHandler.HandleException(id, ex).ConfigureAwait(false);
+                return null;
+            }
+        }
+
+        public async Task<Message?> SendDocument(ChatId id, InputOnlineFile document, string? caption = null)
+        {
+            try
+            {
+                return await _botClient.SendDocumentAsync(id, document, caption, parseMode: ParseMode.Html).ConfigureAwait(false);
             }
             catch (RequestException ex)
             {

@@ -1,6 +1,9 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using Telegram.Bot.Types.InputFiles;
 using TextGameRPG.Scripts.Bot.Commands;
 using TextGameRPG.Scripts.Bot.DataBase.TablesStructure;
 using TextGameRPG.Scripts.Bot.Sessions;
@@ -376,12 +379,14 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
         private async Task ShowAccountGroup()
         {
             ClearButtons();
-            RegisterButton("Reset", () => ResetAccountConfirmation());
+            RegisterButton(Emojis.ElementWarning + "Reset game", () => ResetAccountConfirmation());
+            RegisterButton("Export", () => ExportAccount());
+            RegisterButton("Import", () => ImportAccount());
             RegisterBackButton("Cheats", () => Start());
             RegisterTownButton(isDoubleBack: true);
 
             var text = "Account".Bold();
-            await SendDialogMessage(text, GetMultilineKeyboardWithDoubleBack())
+            await SendDialogMessage(text, GetKeyboardWithRowSizes(1, 2, 2))
                 .ConfigureAwait(false);
         }
 
@@ -431,6 +436,32 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
             var profileBuildingsTable = TelegramBot.instance.dataBase[Table.ProfileBuildings] as ProfileBuildingsDataTable;
             await profileBuildingsTable.ResetToDefaultValues(dbId)
                 .ConfigureAwait(false);
+        }
+
+        private async Task ExportAccount()
+        {
+            var profileState = ProfileState.Create(session.profile);
+            var encryptedData = ProfileStateConverter.Serialize(profileState);
+            var fileName = $"v{profileState.lastVersion}_{profileState.nickname}_{profileState.telegramId}.dat";
+
+            File.WriteAllText(@"tempFile.dat", encryptedData, Encoding.UTF8);
+
+            // TODO: этот код не работает...
+            using (var stream = new FileStream("tempFile.txt", FileMode.CreateNew)
+            {
+                var streamWriter = new StreamWriter(stream);
+                streamWriter.Write(encryptedData.AsMemory());
+                streamWriter.Close();
+                var inputOnlineFile = new InputOnlineFile(stream, fileName);
+
+                await messageSender.SendDocument(session.chatId, inputOnlineFile)
+                    .ConfigureAwait(false);
+            }
+        }
+
+        private async Task ImportAccount()
+        {
+            // TODO
         }
 
         #endregion
