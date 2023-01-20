@@ -18,6 +18,8 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
         public string nickname;
         public string regDate;
         public string regVersion;
+        public string lastDate;
+        public string lastVersion;
 
         public int adminStatus;
         public byte level;
@@ -47,6 +49,8 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
                 new TableColumn("nickname", "TEXT", "na"),
                 new TableColumn("regDate", "TEXT", "na"),
                 new TableColumn("regVersion", "TEXT", "na"),
+                new TableColumn("lastDate", "TEXT", "na"),
+                new TableColumn("lastVersion", "TEXT", "na"),
 
                 new TableColumn("adminStatus", "INTEGER", "0"),
                 new TableColumn("level", "INTEGER", "1"),

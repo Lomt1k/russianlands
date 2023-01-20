@@ -172,6 +172,9 @@ namespace TextGameRPG.Scripts.Bot.Sessions
             language = Enum.Parse<LanguageCode>(profileData.language);
             player = new Player(this);
 
+            profile.data.lastDate = DateTime.UtcNow.AsString();
+            profile.data.lastVersion = ProjectVersion.Current.ToString();
+
             await QuestManager.HandleNewSession(this, update).ConfigureAwait(false);
         }
 

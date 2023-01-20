@@ -3,6 +3,7 @@ using System.Text;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.Bot;
 using TextGameRPG.Scripts.Bot.Sessions;
+using System.Globalization;
 
 public static class DateTimeExtensions
 {
@@ -81,4 +82,15 @@ public static class DateTimeExtensions
 
         return Emojis.ElementClock + result;
     }
+
+    public static string AsString(this DateTime dt)
+    {
+        return dt.ToString("dd.MM.yyyy H:mm:ss");
+    }
+
+    public static DateTime AsDate(this string str)
+    {
+        return DateTime.ParseExact(str, "dd.MM.yyyy H:mm:ss", CultureInfo.InvariantCulture);
+    }
+
 }

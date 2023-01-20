@@ -45,5 +45,16 @@
                 : $"{globalNumber}.{update}.{patch}";
         }
 
+        public override bool Equals(object? obj)
+        {
+            if (obj != null && obj is ProjectVersion other)
+            {
+                return globalNumber == other.globalNumber
+                    && update == other.update
+                    && patch == other.patch;
+            }
+            return false;
+        }
+
     }
 }
