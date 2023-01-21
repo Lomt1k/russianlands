@@ -1,5 +1,13 @@
-﻿using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
+using TextGameRPG.Scripts.Bot;
+using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
+using TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Skills;
 using TextGameRPG.Scripts.Bot.Sessions;
+using TextGameRPG.Scripts.GameCore.Buildings.Data;
+using TextGameRPG.Scripts.GameCore.Localizations;
 
 namespace TextGameRPG.Scripts.GameCore.Buildings.General
 {
@@ -27,16 +35,67 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.General
             data.elixirWorkshopStartConstructionTime = startConstructionTime;
         }
 
-        public override string GetNextLevelInfo(GameSession session, ProfileBuildingsData data)
+        public override Dictionary<string, Func<Task>> GetSpecialButtons(GameSession session, ProfileBuildingsData data)
         {
-            //TODO: not implemented
-            return "TODO";
+            var result = new Dictionary<string, Func<Task>>();
+
+            if (!IsUnderConstruction(data))
+            {
+                result.Add(Emojis.ButtonSkills + Localization.Get(session, "menu_item_skills"),
+                    () => new SkillsDialog(session).Start());
+            }
+
+            return result;
         }
 
         public override string GetCurrentLevelInfo(GameSession session, ProfileBuildingsData data)
         {
-            //TODO: not implemented
-            return "TODO";
+            var sb = new StringBuilder();
+            sb.AppendLine(Localization.Get(session, $"building_{buildingType}_description"));
+
+            var currentLevel = GetCurrentLevel(data);
+            if (currentLevel < 1)
+                return sb.ToString();
+
+            sb.AppendLine();
+            var maxSkillLevel = GetCurrentMaxSkillLevel(data);
+            var formatted = Localization.Get(session, "building_training_level_limit", maxSkillLevel);
+            sb.Append(Emojis.ButtonSkills + formatted);
+
+            return sb.ToString();
+        }
+
+        public override string GetNextLevelInfo(GameSession session, ProfileBuildingsData data)
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine(Localization.Get(session, $"building_{buildingType}_description"));
+            sb.AppendLine();
+
+            var currentValue = GetCurrentMaxSkillLevel(data);
+            var nextValue = GetNextMaxSkillLevel(data);
+            var delta = nextValue - currentValue;
+            bool hideDelta = !IsBuilt(data);
+            var dynamicData = nextValue + (hideDelta ? string.Empty : $" (<i>+{delta}</i>)");
+            var formatted = Localization.Get(session, "building_skills_limit", dynamicData);
+            sb.Append(Emojis.ButtonSkills + formatted);
+            return sb.ToString();
+        }
+
+        public int GetCurrentMaxSkillLevel(ProfileBuildingsData data)
+        {
+            var currentLevel = GetCurrentLevel(data);
+            if (currentLevel < 1)
+                return 0;
+
+            var levelInfo = (ElixirWorkshopLevelInfo)buildingData.levels[currentLevel - 1];
+            return levelInfo.skillLevelLimit;
+        }
+
+        public int GetNextMaxSkillLevel(ProfileBuildingsData data)
+        {
+            var currentLevel = GetCurrentLevel(data);
+            var levelInfo = (ElixirWorkshopLevelInfo)buildingData.levels[currentLevel];
+            return levelInfo.skillLevelLimit;
         }
 
     }

@@ -4,6 +4,7 @@ using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Buildings;
 using TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions;
+using TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Skills;
 
 namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
 {
@@ -26,7 +27,9 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
                 : Emojis.ElementLocked + potionsText;
             RegisterButton(potionsButton, () => TryShowPotionsDialog());
 
-            RegisterButton(Emojis.ButtonSkills + Localization.Get(session, "menu_item_skills"), null);
+            var skillsEmoji = IsSkillsDialogAvailable() ? Emojis.ButtonSkills : Emojis.ElementLocked;
+            RegisterButton(skillsEmoji + Localization.Get(session, "menu_item_skills"), () => TryShowSkillsDialog());
+
             RegisterButton(Emojis.AvatarMale + Localization.Get(session, "menu_item_avatar"), null);
             RegisterButton(Emojis.ButtonNameChange + Localization.Get(session, "menu_item_namechange"), null);
             RegisterTownButton(isDoubleBack: false);
@@ -69,6 +72,25 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
         {
             var buildingsData = session.profile.buildingsData;
             return BuildingType.AlchemyLab.GetBuilding().GetCurrentLevel(buildingsData) > 0;
+        }
+
+        private async Task TryShowSkillsDialog()
+        {
+            if (!IsSkillsDialogAvailable())
+            {
+                ClearButtons();
+                var text = Localization.Get(session, "building_skills_elixir_workshop_required");
+                RegisterBackButton(() => new TownCharacterDialog(session).Start());
+                await SendDialogMessage(text, GetOneLineKeyboard());
+                return;
+            }
+            await new SkillsDialog(session).Start().ConfigureAwait(false);
+        }
+
+        private bool IsSkillsDialogAvailable()
+        {
+            var buildingsData = session.profile.buildingsData;
+            return BuildingType.ElixirWorkshop.GetBuilding().GetCurrentLevel(buildingsData) > 0;
         }
 
         private async Task SendHealthRegenMessage()
