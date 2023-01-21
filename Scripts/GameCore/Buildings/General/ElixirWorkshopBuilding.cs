@@ -59,7 +59,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.General
 
             sb.AppendLine();
             var maxSkillLevel = GetCurrentMaxSkillLevel(data);
-            var formatted = Localization.Get(session, "building_training_level_limit", maxSkillLevel);
+            var formatted = Localization.Get(session, "building_skills_limit", maxSkillLevel);
             sb.Append(Emojis.ButtonSkills + formatted);
 
             return sb.ToString();
