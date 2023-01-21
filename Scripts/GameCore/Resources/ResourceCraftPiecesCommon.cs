@@ -24,6 +24,7 @@ namespace TextGameRPG.Scripts.GameCore.Resources
 
         public bool IsUnlocked(GameSession session)
         {
+            // ignored
             return true;
         }
 

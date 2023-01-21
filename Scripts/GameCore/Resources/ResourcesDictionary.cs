@@ -26,6 +26,19 @@ namespace TextGameRPG.Scripts.GameCore.Resources
                 { ResourceType.CraftPiecesRare, new ResourceCraftPiecesRare() },
                 { ResourceType.CraftPiecesEpic, new ResourceCraftPiecesEpic() },
                 { ResourceType.CraftPiecesLegendary, new ResourceCraftPiecesLegendary() },
+                { ResourceType.FruitApple, new ResourceFruitApple() },
+                { ResourceType.FruitPear, new ResourceFruitPear() },
+                { ResourceType.FruitMandarin, new ResourceFruitMandarin() },
+                { ResourceType.FruitCoconut, new ResourceFruitCoconut() },
+                { ResourceType.FruitPineapple, new ResourceFruitPineapple() },
+                { ResourceType.FruitBanana, new ResourceFruitBanana() },
+                { ResourceType.FruitWatermelon, new ResourceFruitWatermelon() },
+                { ResourceType.FruitStrawberry, new ResourceFruitStrawberry() },
+                { ResourceType.FruitBlueberry, new ResourceFruitBlueberry() },
+                { ResourceType.FruitKiwi, new ResourceFruitKiwi() },
+                { ResourceType.FruitCherry, new ResourceFruitCherry() },
+                { ResourceType.FruitGrape, new ResourceFruitGrape() },
+
                 //-TODO
             };
         }
@@ -45,6 +58,22 @@ namespace TextGameRPG.Scripts.GameCore.Resources
             yield return ResourceType.CraftPiecesRare;
             yield return ResourceType.CraftPiecesEpic;
             yield return ResourceType.CraftPiecesLegendary;
+        }
+
+        public IEnumerable<ResourceType> GetFruitTypes()
+        {
+            yield return ResourceType.FruitApple;
+            yield return ResourceType.FruitPear;
+            yield return ResourceType.FruitMandarin;
+            yield return ResourceType.FruitCoconut;
+            yield return ResourceType.FruitPineapple;
+            yield return ResourceType.FruitBanana;
+            yield return ResourceType.FruitWatermelon;
+            yield return ResourceType.FruitStrawberry;
+            yield return ResourceType.FruitBlueberry;
+            yield return ResourceType.FruitKiwi;
+            yield return ResourceType.FruitCherry;
+            yield return ResourceType.FruitGrape;
         }
 
     }

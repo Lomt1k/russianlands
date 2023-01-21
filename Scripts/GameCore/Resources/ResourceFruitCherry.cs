@@ -3,23 +3,23 @@ using TextGameRPG.Scripts.Bot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Resources
 {
-    public class ResourceCraftPiecesRare : IResource
+    internal class ResourceFruitCherry : IResource
     {
-        public ResourceType resourceType => ResourceType.CraftPiecesRare;
+        public ResourceType resourceType => ResourceType.FruitCherry;
 
         public int GetValue(ProfileData profileData)
         {
-            return profileData.resourceCraftPiecesRare;
+            return profileData.resourceFruitCherry;
         }
 
         public void SetValue(ProfileData profileData, int value)
         {
-            profileData.resourceCraftPiecesRare = value;
+            profileData.resourceFruitCherry = value;
         }
 
         public void AddValue(ProfileData profileData, int value)
         {
-            profileData.resourceCraftPiecesRare += value;
+            profileData.resourceFruitCherry += value;
         }
 
         public bool IsUnlocked(GameSession session)

@@ -1,6 +1,6 @@
 ﻿namespace TextGameRPG.Scripts.Bot
 {
-    /* Важно:
+    /* Important info:
      * text + emoji => "text [emoji]"
      * text + emoji.ToString() => "text[emoji]" (without space)
      */
@@ -104,6 +104,19 @@
         public static readonly Emoji ResourceCraftPiecesRare = new Emoji("\ud83d\udce6");
         public static readonly Emoji ResourceCraftPiecesEpic = new Emoji("\ud83d\udce6");
         public static readonly Emoji ResourceCraftPiecesLegendary = new Emoji("\ud83d\udce6");
+
+        public static readonly Emoji ResourceFruitApple = new Emoji("\ud83c\udf4e");
+        public static readonly Emoji ResourceFruitPear = new Emoji("\ud83c\udf50");
+        public static readonly Emoji ResourceFruitMandarin = new Emoji("\ud83c\udf4a");
+        public static readonly Emoji ResourceFruitCoconut = new Emoji("\ud83e\udd65");
+        public static readonly Emoji ResourceFruitPineapple = new Emoji("\ud83c\udf4d");
+        public static readonly Emoji ResourceFruitBanana = new Emoji("\ud83c\udf4c");
+        public static readonly Emoji ResourceFruitWatermelon = new Emoji("\ud83c\udf49");
+        public static readonly Emoji ResourceFruitStrawberry = new Emoji("\ud83c\udf53");
+        public static readonly Emoji ResourceFruitBlueberry = new Emoji("\ud83e\uded0");
+        public static readonly Emoji ResourceFruitKiwi = new Emoji("\ud83e\udd5d");
+        public static readonly Emoji ResourceFruitCherry = new Emoji("\ud83c\udf52");
+        public static readonly Emoji ResourceFruitGrape = new Emoji("\ud83c\udf47");
 
         // --- Characters
         public static readonly Emoji AvatarMale = new Emoji("\ud83e\uddd1\ud83c\udffb\u200d\ud83e\uddb1");

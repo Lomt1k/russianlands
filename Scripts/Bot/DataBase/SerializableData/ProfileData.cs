@@ -38,6 +38,20 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
         public int resourceCraftPiecesEpic;
         public int resourceCraftPiecesLegendary;
 
+        // skill resources
+        public int resourceFruitApple;
+        public int resourceFruitPear;
+        public int resourceFruitMandarin;
+        public int resourceFruitCoconut;
+        public int resourceFruitPineapple;
+        public int resourceFruitBanana;
+        public int resourceFruitWatermelon;
+        public int resourceFruitStrawberry;
+        public int resourceFruitBlueberry;
+        public int resourceFruitKiwi;
+        public int resourceFruitCherry;
+        public int resourceFruitGrape;
+
         public static TableColumn[] GetTableColumns()
         {
             return new TableColumn[]
@@ -66,7 +80,20 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
                 new TableColumn("resourceCraftPiecesRare", "INTEGER", "0"),
                 new TableColumn("resourceCraftPiecesEpic", "INTEGER", "0"),
                 new TableColumn("resourceCraftPiecesLegendary", "INTEGER", "0"),
-            };
+
+                new TableColumn("resourceFruitApple", "INTEGER", "0"),
+                new TableColumn("resourceFruitPear", "INTEGER", "0"),
+                new TableColumn("resourceFruitMandarin", "INTEGER", "0"),
+                new TableColumn("resourceFruitCoconut", "INTEGER", "0"),
+                new TableColumn("resourceFruitPineapple", "INTEGER", "0"),
+                new TableColumn("resourceFruitBanana", "INTEGER", "0"),
+                new TableColumn("resourceFruitWatermelon", "INTEGER", "0"),
+                new TableColumn("resourceFruitStrawberry", "INTEGER", "0"),
+                new TableColumn("resourceFruitBlueberry", "INTEGER", "0"),
+                new TableColumn("resourceFruitKiwi", "INTEGER", "0"),
+                new TableColumn("resourceFruitCherry", "INTEGER", "0"),
+                new TableColumn("resourceFruitGrape", "INTEGER", "0"),
+    };
         }
 
         public ProfileData(DataRow data) : base(data) 

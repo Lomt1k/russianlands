@@ -48,9 +48,6 @@ namespace TextGameRPG.Scripts.GameCore.Resources
 
             foreach (var resourceType in craftResources)
             {
-                if (!IsUnlocked(resourceType))
-                    continue;
-
                 sb.AppendLine();
                 var localization = Localization.Get(_session, "resource_shortname_" + resourceType.ToString().ToLower());
                 sb.Append($"{localization} " + GetValue(resourceType).ToString().Bold());

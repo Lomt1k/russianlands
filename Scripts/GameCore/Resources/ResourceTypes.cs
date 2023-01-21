@@ -19,6 +19,18 @@ namespace TextGameRPG.Scripts.GameCore.Resources
         CraftPiecesRare = 7,
         CraftPiecesEpic = 8,
         CraftPiecesLegendary = 9,
+        FruitApple = 10,
+        FruitPear = 11,
+        FruitMandarin = 12,
+        FruitCoconut = 13,
+        FruitPineapple = 14,
+        FruitBanana = 15,
+        FruitWatermelon = 16,
+        FruitStrawberry = 17,
+        FruitBlueberry = 18,
+        FruitKiwi = 19,
+        FruitCherry = 20,
+        FruitGrape = 21,
     }
 
     public static class ResourceTypeExtensions
@@ -38,6 +50,19 @@ namespace TextGameRPG.Scripts.GameCore.Resources
                 ResourceType.CraftPiecesRare => Emojis.ResourceCraftPiecesRare,
                 ResourceType.CraftPiecesEpic => Emojis.ResourceCraftPiecesEpic,
                 ResourceType.CraftPiecesLegendary => Emojis.ResourceCraftPiecesLegendary,
+
+                ResourceType.FruitApple => Emojis.ResourceFruitApple,
+                ResourceType.FruitPear => Emojis.ResourceFruitPear,
+                ResourceType.FruitMandarin => Emojis.ResourceFruitMandarin,
+                ResourceType.FruitCoconut => Emojis.ResourceFruitCoconut,
+                ResourceType.FruitPineapple => Emojis.ResourceFruitPineapple,
+                ResourceType.FruitBanana => Emojis.ResourceFruitBanana,
+                ResourceType.FruitWatermelon => Emojis.ResourceFruitWatermelon,
+                ResourceType.FruitStrawberry => Emojis.ResourceFruitStrawberry,
+                ResourceType.FruitBlueberry => Emojis.ResourceFruitBlueberry,
+                ResourceType.FruitKiwi => Emojis.ResourceFruitKiwi,
+                ResourceType.FruitCherry => Emojis.ResourceFruitCherry,
+                ResourceType.FruitGrape => Emojis.ResourceFruitGrape,
 
                 _ => Emojis.Empty
             };
@@ -61,5 +86,26 @@ namespace TextGameRPG.Scripts.GameCore.Resources
                 || resourceType == ResourceType.CraftPiecesEpic
                 || resourceType == ResourceType.CraftPiecesLegendary;
         }
+
+        public static bool IsFruit(this ResourceType resourceType)
+        {
+            return resourceType switch
+            {
+                ResourceType.FruitApple => true,
+                ResourceType.FruitPear => true,
+                ResourceType.FruitMandarin => true,
+                ResourceType.FruitCoconut => true,
+                ResourceType.FruitPineapple => true,
+                ResourceType.FruitBanana => true,
+                ResourceType.FruitWatermelon => true,
+                ResourceType.FruitStrawberry => true,
+                ResourceType.FruitBlueberry => true,
+                ResourceType.FruitKiwi => true,
+                ResourceType.FruitCherry => true,
+                ResourceType.FruitGrape => true,
+                _ => false
+            };
+        }
+
     }
 }
