@@ -17,6 +17,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
 {
     public class CheatsDialog : DialogBase
     {
+        private Func<string, Task>? _onReceivedFileFromUser;
+
         public CheatsDialog(GameSession _session) : base(_session)
         {
         }
@@ -393,7 +395,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
         {
             ClearButtons();
             RegisterButton(Emojis.ElementWarning + "Yes, reset!", () => ResetAccount());
-            RegisterBackButton("Account", () => ShowQuestProgressGroup());
+            RegisterBackButton("Account", () => ShowAccountGroup());
             RegisterDoubleBackButton("Cheats", () => Start());
 
             var sb = new StringBuilder();
@@ -455,10 +457,85 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
 
         private async Task ImportAccount()
         {
-            // TODO
+            ClearButtons();
+            RegisterBackButton("Account", () => ShowAccountGroup());
+            RegisterDoubleBackButton("Cheats", () => Start());
+
+            _onReceivedFileFromUser = (filePath) => OnAccountStateDownloaded(filePath);
+
+            await SendDialogMessage("Send profile .dat file", GetMultilineKeyboardWithDoubleBack())
+                .ConfigureAwait(false);
+        }
+
+        private async Task OnAccountStateDownloaded(string filePath)
+        {
+            var encryptedData = File.ReadAllText(filePath);
+            var profileState = ProfileStateConverter.Deserialize(encryptedData);
+            
+            if (profileState == null)
+            {
+                await messageSender.SendTextDialog(session.chatId, "Broken profile data")
+                    .ConfigureAwait(false);
+                return;
+            }
+
+            Program.logger.Debug($"profileState: \n{profileState.nickname} | v{profileState.lastVersion}");
+
+            var realTelegramId = session.actualUser.Id;
+            var telegramId = session.profile.data.telegram_id;
+            var dbid = session.profile.data.dbid;
+            await ResetAccountInDatabase()
+                .ConfigureAwait(false);
+            await profileState.ExecuteQuery(dbid)
+                .ConfigureAwait(false);
+
+            var sb = new StringBuilder();
+            sb.AppendLine("Account has been imported");
+            sb.AppendLine();
+            sb.AppendLine("Account data: ".Preformatted());
+            sb.AppendLine("Env: ".Bold() + profileState.environment);
+            sb.AppendLine("Nickname: ".Bold() + profileState.nickname);
+            sb.AppendLine("Database Id: ".Bold() + profileState.databaseId);
+            sb.AppendLine("Telegram Id: ".Bold() + profileState.telegramId);
+            sb.AppendLine("Last Version: ".Bold() + profileState.lastVersion);
+            sb.AppendLine("Last Date: ".Bold() + profileState.lastDate);
+            sb.AppendLine();
+            sb.AppendLine("Applied for: ".Preformatted());
+            sb.AppendLine("Database Id: ".Bold() + dbid);
+            sb.AppendLine("Telegram Id: ".Bold() + telegramId);            
+            _onReceivedFileFromUser = null;
+
+            await messageSender.SendTextDialog(realTelegramId, sb.ToString(), "Restart")
+                .ConfigureAwait(false);
         }
 
         #endregion
+
+        public override async Task HandleMessage(Telegram.Bot.Types.Message message)
+        {
+            if (message.Document != null && _onReceivedFileFromUser != null)
+            {
+                var fileId = message.Document.FileId;
+                var file = await messageSender.GetFileAsync(fileId)
+                    .ConfigureAwait(false);
+                if (file != null && !string.IsNullOrEmpty(file.FilePath))
+                {
+                    var localPath = Path.Combine(Program.cacheDirectory, fileId);
+                    using (var fileStream = new FileStream(localPath, FileMode.Create))
+                    {
+                        await messageSender.DownloadFileAsync(file.FilePath, fileStream)
+                            .ConfigureAwait(false);
+                        fileStream.Close();
+                    }
+                    await _onReceivedFileFromUser.Invoke(localPath)
+                            .ConfigureAwait(false);
+                }
+                return;
+            }            
+
+            await base.HandleMessage(message)
+                .ConfigureAwait(false);
+        }
 
 
     }

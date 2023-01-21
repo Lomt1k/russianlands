@@ -15,8 +15,17 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
 
         public static ProfileState? Deserialize(string encryptedStr)
         {
-            var json = Encryption.DecryptString(encryptedStr, encryptionPass);
-            return JsonConvert.DeserializeObject<ProfileState>(json);
+            try
+            {
+                var json = Encryption.DecryptString(encryptedStr, encryptionPass);
+                return JsonConvert.DeserializeObject<ProfileState>(json);
+            }
+            catch (System.Exception ex)
+            {
+                Program.logger.Error(ex);
+                return null;
+            }
         }
+
     }
 }

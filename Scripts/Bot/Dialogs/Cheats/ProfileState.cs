@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
 using TextGameRPG.Scripts.GameCore.Profiles;
@@ -11,7 +12,9 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
     {
         public const string idPlacement = "[DBID_FOR_RESTORE]";
 
+        public string environment = string.Empty;
         public string nickname = string.Empty;
+        public long databaseId;
         public long telegramId;
         public string lastDate = string.Empty;
         public string lastVersion = string.Empty;
@@ -21,7 +24,9 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
         {
             return new ProfileState
             {
+                environment = TelegramBot.instance.dataPath,
                 nickname = profile.data.nickname,
+                databaseId = profile.data.dbid,
                 telegramId = profile.data.telegram_id,
                 lastDate = profile.data.lastDate,
                 lastVersion = profile.data.lastVersion,
@@ -43,8 +48,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
             {
                 var field = fields[i];
                 var fieldValue = field.GetValue(data);
-                var jsonStr = JsonConvert.SerializeObject(fieldValue);
-                sb.Append($"{field.Name} = '{jsonStr}'");
+                sb.Append($"{field.Name} = '{fieldValue}'");
                 sb.Append(i < fields.Length - 1 ? ", " : " ");
             }
             sb.Append($"WHERE dbid='{idPlacement}' LIMIT 1");
@@ -77,12 +81,20 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
             {
                 var field = fields[i];
                 var fieldValue = field.GetValue(data);
-                var jsonStr = JsonConvert.SerializeObject(fieldValue);
-                sb.Append($"{field.Name} = '{jsonStr}'");
+                sb.Append($"{field.Name} = '{fieldValue}'");
                 sb.Append(i < fields.Length - 1 ? ", " : " ");
             }
             sb.Append($"WHERE dbid='{idPlacement}' LIMIT 1");
             return sb.ToString();
+        }
+
+        public async Task ExecuteQuery(long dbid)
+        {
+            foreach (var query in sqlQuerries)
+            {
+                var preparedQuery = query.Replace(idPlacement, dbid.ToString());
+                await TelegramBot.instance.dataBase.ExecuteQueryAsync(preparedQuery);
+            }
         }
 
     }

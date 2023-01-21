@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using Telegram.Bot;
 using Telegram.Bot.Exceptions;
 using Telegram.Bot.Types;
@@ -143,6 +144,31 @@ namespace TextGameRPG.Scripts.Bot
             {
                 await _requestExceptionHandler.HandleException(id, ex).ConfigureAwait(false);
                 return null;
+            }
+        }
+
+        public async Task<File?> GetFileAsync(string fileId)
+        {
+            try
+            {
+                return await _botClient.GetFileAsync(fileId).ConfigureAwait(false);
+            }
+            catch (RequestException ex)
+            {
+                Program.logger.Error($"ApiRequestException: {ex.Message}");
+                return null;
+            }
+        }
+
+        public async Task DownloadFileAsync(string filePath, System.IO.Stream destination)
+        {
+            try
+            {
+                await _botClient.DownloadFileAsync(filePath, destination).ConfigureAwait(false);
+            }
+            catch (RequestException ex)
+            {
+                Program.logger.Error($"ApiRequestException: {ex.Message}");
             }
         }
 
