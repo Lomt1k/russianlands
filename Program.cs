@@ -14,6 +14,8 @@ namespace TextGameRPG
 
     public class Program
     {
+        public const string cacheDirectory = "cache";
+
         public static bool isUnixPlatform => Environment.OSVersion.Platform == PlatformID.Unix;
         public static AppMode appMode { get; private set; } = AppMode.None;
         public static bool isConsoleMode { get; private set; }
@@ -33,9 +35,19 @@ namespace TextGameRPG
                 Console.OutputEncoding = System.Text.Encoding.Unicode;
             }
 
+            PrepareCacheFolder();
             ConfigureLogger();
             PerformanceMonitor.Start();
             SelectGUIModeAndRun(args);
+        }
+
+        private static void PrepareCacheFolder()
+        {
+            if (Directory.Exists(cacheDirectory))
+            {
+                Directory.Delete(cacheDirectory, true);
+            }
+            Directory.CreateDirectory(cacheDirectory);
         }
 
         private static void SelectGUIModeAndRun(string[] args)

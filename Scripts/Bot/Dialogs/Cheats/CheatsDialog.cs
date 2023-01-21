@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
@@ -442,21 +441,16 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
         {
             var profileState = ProfileState.Create(session.profile);
             var encryptedData = ProfileStateConverter.Serialize(profileState);
-            var fileName = $"v{profileState.lastVersion}_{profileState.nickname}_{profileState.telegramId}.dat";
+            var fileName = $"{profileState.nickname}_{DateTime.UtcNow.ToShortDateString()}_{profileState.telegramId}.dat";
+            var filePath = Path.Combine(Program.cacheDirectory, fileName);
 
-            File.WriteAllText(@"tempFile.dat", encryptedData, Encoding.UTF8);
-
-            // TODO: этот код не работает...
-            using (var stream = new FileStream("tempFile.txt", FileMode.CreateNew)
+            File.WriteAllText(filePath, encryptedData, Encoding.UTF8);
+            using (var stream = File.Open(filePath, FileMode.Open))
             {
-                var streamWriter = new StreamWriter(stream);
-                streamWriter.Write(encryptedData.AsMemory());
-                streamWriter.Close();
                 var inputOnlineFile = new InputOnlineFile(stream, fileName);
-
-                await messageSender.SendDocument(session.chatId, inputOnlineFile)
-                    .ConfigureAwait(false);
+                await messageSender.SendDocument(session.chatId, inputOnlineFile);
             }
+            File.Delete(filePath);
         }
 
         private async Task ImportAccount()
