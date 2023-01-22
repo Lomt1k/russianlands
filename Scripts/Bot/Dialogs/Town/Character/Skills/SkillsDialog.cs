@@ -9,11 +9,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Skills
     {
         public SkillsDialog(GameSession _session) : base(_session)
         {
-            if (!session.player.skills.IsAllSkillsMax())
-            {
-                RegisterButton(Emojis.ElementLevelUp + Localization.Get(session, "dialog_skills_upgrade_skill_button"),
+            RegisterButton(Emojis.ElementLevelUp + Localization.Get(session, "dialog_skills_upgrade_skill_button"),
                     () => new UpgradeSkillsDialog(session).Start());
-            }
             RegisterBackButton(Localization.Get(session, "menu_item_character") + Emojis.AvatarMale,
                 () => new TownCharacterDialog(session).Start());
             RegisterTownButton(isDoubleBack: true);

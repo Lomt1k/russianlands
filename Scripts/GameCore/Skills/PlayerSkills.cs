@@ -8,6 +8,7 @@ using TextGameRPG.Scripts.GameCore.Buildings;
 using TextGameRPG.Scripts.GameCore.Buildings.General;
 using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.GameCore.Localizations;
+using TextGameRPG.Scripts.GameCore.Resources;
 
 namespace TextGameRPG.Scripts.GameCore.Skills
 {
@@ -86,6 +87,12 @@ namespace TextGameRPG.Scripts.GameCore.Skills
             var canBeAdded = byte.MaxValue - currentValue;
             var reallyAdded = value > canBeAdded ? (byte)canBeAdded : value;
             skill.AddValue(_profileData, reallyAdded);
+        }
+
+        /// <returns>Ресурсы, требуемые для прокачки навыка</returns>
+        public ResourceType[] GetRequiredFruits(ItemType itemType)
+        {
+            return skillsDictionary[itemType].requiredFruits;
         }
 
         /// <returns>Максимальный доступный уровень для всех навыков</returns>

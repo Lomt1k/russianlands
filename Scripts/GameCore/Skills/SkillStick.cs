@@ -1,11 +1,18 @@
 ﻿using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
 using TextGameRPG.Scripts.GameCore.Items;
+using TextGameRPG.Scripts.GameCore.Resources;
 
 namespace TextGameRPG.Scripts.GameCore.Skills
 {
     internal class SkillStick : ISkill
     {
         public ItemType itemType => ItemType.Stick;
+        public ResourceType[] requiredFruits => new ResourceType[]
+        {
+            ResourceType.FruitPear,
+            ResourceType.FruitWatermelon,
+            ResourceType.FruitCherry,
+        };
 
         public byte GetValue(ProfileData profileData)
         {

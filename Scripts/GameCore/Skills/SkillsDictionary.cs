@@ -31,9 +31,9 @@ namespace TextGameRPG.Scripts.GameCore.Skills
             yield return ItemType.Stick;
             yield return ItemType.Scroll;
             yield return ItemType.Armor;
+            yield return ItemType.Shield;
             yield return ItemType.Helmet;
             yield return ItemType.Boots;
-            yield return ItemType.Shield;
         }
 
     }

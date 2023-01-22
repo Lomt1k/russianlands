@@ -1,11 +1,13 @@
 ﻿using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
 using TextGameRPG.Scripts.GameCore.Items;
+using TextGameRPG.Scripts.GameCore.Resources;
 
 namespace TextGameRPG.Scripts.GameCore.Skills
 {
     public interface ISkill
     {
         public ItemType itemType { get; }
+        public ResourceType[] requiredFruits { get; }
 
         byte GetValue(ProfileData profileData);
         void SetValue(ProfileData profileData, byte value);

@@ -1,11 +1,18 @@
 ﻿using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
 using TextGameRPG.Scripts.GameCore.Items;
+using TextGameRPG.Scripts.GameCore.Resources;
 
 namespace TextGameRPG.Scripts.GameCore.Skills
 {
     internal class SkillBow : ISkill
     {
         public ItemType itemType => ItemType.Bow;
+        public ResourceType[] requiredFruits => new ResourceType[]
+        {
+            ResourceType.FruitApple,
+            ResourceType.FruitBanana,
+            ResourceType.FruitKiwi,
+        };
 
         public byte GetValue(ProfileData profileData)
         {

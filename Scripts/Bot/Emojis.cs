@@ -145,6 +145,7 @@
 
         // --- Smiles
         public static readonly Emoji SmileSad = new Emoji("\ud83d\ude15");
+        public static readonly Emoji SmileCongratulations = new Emoji("\ud83e\udd73");
 
         // --- Other elements
         public static readonly Emoji ElementSmallBlack = new Emoji("\u25aa\ufe0f");
