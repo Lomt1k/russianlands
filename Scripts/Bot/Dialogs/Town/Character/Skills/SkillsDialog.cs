@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Text;
+using System.Threading.Tasks;
 using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Localizations;
 
@@ -8,6 +9,11 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Skills
     {
         public SkillsDialog(GameSession _session) : base(_session)
         {
+            if (!session.player.skills.IsAllSkillsMax())
+            {
+                RegisterButton(Emojis.ElementLevelUp + Localization.Get(session, "dialog_skills_upgrade_skill_button"),
+                    () => new UpgradeSkillsDialog(session).Start());
+            }
             RegisterBackButton(Localization.Get(session, "menu_item_character") + Emojis.AvatarMale,
                 () => new TownCharacterDialog(session).Start());
             RegisterTownButton(isDoubleBack: true);
@@ -15,7 +21,12 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Skills
 
         public override async Task Start()
         {
-            await SendDialogMessage("In development", GetMultilineKeyboardWithDoubleBack())
+            var sb = new StringBuilder();
+            sb.AppendLine(session.player.skills.GetShortView());
+            sb.AppendLine();
+            sb.AppendLine(Localization.Get(session, "dialog_skills_description"));
+
+            await SendDialogMessage(sb, GetMultilineKeyboardWithDoubleBack())
                 .ConfigureAwait(false);
         }
     }

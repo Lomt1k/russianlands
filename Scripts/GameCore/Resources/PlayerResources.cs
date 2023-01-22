@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
+using TextGameRPG.Scripts.Bot;
 using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
 using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Localizations;
@@ -51,6 +53,27 @@ namespace TextGameRPG.Scripts.GameCore.Resources
                 sb.AppendLine();
                 var localization = Localization.Get(_session, "resource_shortname_" + resourceType.ToString().ToLower());
                 sb.Append($"{localization} " + GetValue(resourceType).ToString().Bold());
+            }
+
+            return sb.ToString();
+        }
+
+        /// <returns>Информация о ресурсах для прокачки навыков для отображения виде</returns>
+        public string GetFruitsView()
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine(Localization.Get(_session, "resource_header_our_fruits"));
+            var fruitTypes = resourceDictionary.GetFruitTypes();
+
+            int i = 0;
+            foreach (var resourceType in fruitTypes)
+            {
+                if (i > 0)
+                {
+                    sb.Append(i % 4 == 0 ? Environment.NewLine : Emojis.middleSpace);
+                }
+                sb.Append(resourceType.GetEmoji() + GetValue(resourceType).ToString());
+                i++;
             }
 
             return sb.ToString();

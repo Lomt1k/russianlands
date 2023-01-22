@@ -1,9 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using TextGameRPG.Scripts.Bot;
 using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
 using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Buildings;
 using TextGameRPG.Scripts.GameCore.Buildings.General;
 using TextGameRPG.Scripts.GameCore.Items;
+using TextGameRPG.Scripts.GameCore.Localizations;
 
 namespace TextGameRPG.Scripts.GameCore.Skills
 {
@@ -18,6 +22,37 @@ namespace TextGameRPG.Scripts.GameCore.Skills
         {
             _session = session;
             _profileData = session.profile.data;
+        }
+
+        /// <returns>Уровень прокачки всех навыков в компактном отображении</returns>
+        public string GetShortView()
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine(Localization.Get(_session, "dialog_skills_your_skills_header"));
+            int i = 0;
+            foreach (var itemType in GetAllSkillTypes())
+            {
+                if (i > 0)
+                {
+                    sb.Append(i % 4 == 0 ? Environment.NewLine : Emojis.middleSpace);
+                }
+                sb.Append(itemType.GetEmoji() + GetValue(itemType).ToString());
+                i++;
+            }
+            return sb.ToString();
+        }
+
+        /// <returns>Достигнут ли максимальный уровнь всех навыков</returns>
+        public bool IsAllSkillsMax()
+        {
+            foreach (var itemType in GetAllSkillTypes())
+            {
+                if (!IsMaxLevel(itemType))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         /// <returns>Достигнут ли максимальный уровнь навыка, доступный на данный момент</returns>
