@@ -92,5 +92,17 @@ namespace TextGameRPG.Scripts.GameCore.Items
             };
         }
 
+        public static bool CanUseSkill(this ItemType itemType)
+        {
+            return itemType == ItemType.Sword
+                || itemType == ItemType.Bow
+                || itemType == ItemType.Stick
+                || itemType == ItemType.Helmet
+                || itemType == ItemType.Armor
+                || itemType == ItemType.Boots
+                || itemType == ItemType.Shield
+                || itemType == ItemType.Scroll;
+        }
+
     }    
 }

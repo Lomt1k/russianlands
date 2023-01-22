@@ -52,6 +52,16 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
         public int resourceFruitCherry;
         public int resourceFruitGrape;
 
+        // skills
+        public byte skillSword;
+        public byte skillBow;
+        public byte skillStick;
+        public byte skillScroll;
+        public byte skillArmor;
+        public byte skillHelmet;
+        public byte skillBoots;
+        public byte skillShield;
+
         public static TableColumn[] GetTableColumns()
         {
             return new TableColumn[]
@@ -93,7 +103,16 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
                 new TableColumn("resourceFruitKiwi", "INTEGER", "0"),
                 new TableColumn("resourceFruitCherry", "INTEGER", "0"),
                 new TableColumn("resourceFruitGrape", "INTEGER", "0"),
-    };
+
+                new TableColumn("skillSword", "INTEGER", "0"),
+                new TableColumn("skillBow", "INTEGER", "0"),
+                new TableColumn("skillStick", "INTEGER", "0"),
+                new TableColumn("skillScroll", "INTEGER", "0"),
+                new TableColumn("skillArmor", "INTEGER", "0"),
+                new TableColumn("skillHelmet", "INTEGER", "0"),
+                new TableColumn("skillBoots", "INTEGER", "0"),
+                new TableColumn("skillShield", "INTEGER", "0"),
+            };
         }
 
         public ProfileData(DataRow data) : base(data) 

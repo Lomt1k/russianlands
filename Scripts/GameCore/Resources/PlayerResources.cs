@@ -183,7 +183,7 @@ namespace TextGameRPG.Scripts.GameCore.Resources
 
             var canBeAdded = int.MaxValue - currentValue;
             var reallyAdded = value > canBeAdded ? canBeAdded : value;
-            resourceDictionary[resourceType].AddValue(_profileData, reallyAdded);
+            resource.AddValue(_profileData, reallyAdded);
         }
 
         /// <summary>
