@@ -49,7 +49,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
             sb.AppendLine(Localization.Get(session, "resource_header_ours"));
             var ourResources = new Dictionary<ResourceType, int>()
             {
-                {ResourceType.Herbs, session.player.resources.GetValue(ResourceType.Herbs)}
+                { ResourceType.Herbs, session.player.resources.GetValue(ResourceType.Herbs) }
             };
             sb.Append(ResourceHelper.GetResourcesView(session, ourResources));
 

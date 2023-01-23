@@ -98,5 +98,15 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.General
             return levelInfo.skillLevelLimit;
         }
 
+        public int GetCurrentElixirPriceInHerbs(ProfileBuildingsData data)
+        {
+            var currentLevel = GetCurrentLevel(data);
+            if (currentLevel < 1)
+                return 0;
+
+            var levelInfo = (ElixirWorkshopLevelInfo)buildingData.levels[currentLevel - 1];
+            return levelInfo.elixirPriceInHerbs;
+        }
+
     }
 }

@@ -99,6 +99,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Data
     public class ElixirWorkshopLevelInfo : BuildingLevelInfo
     {
         public int skillLevelLimit;
+        public int elixirPriceInHerbs;
     }
 
 
