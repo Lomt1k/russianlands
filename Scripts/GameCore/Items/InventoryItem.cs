@@ -10,6 +10,7 @@ namespace TextGameRPG.Scripts.GameCore.Items
     using TextGameRPG.Scripts.GameCore.Items.Generators;
     using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
     using TextGameRPG.Scripts.GameCore.Resources;
+    using TextGameRPG.Scripts.GameCore.Skills;
 
     public enum ItemState : byte { IsNewAndNotEquipped = 0, IsNotEquipped = 1, IsEquipped = 2 }
 
@@ -27,6 +28,9 @@ namespace TextGameRPG.Scripts.GameCore.Items
 
         [JsonIgnore]
         public sbyte manaCost { get; private set; }
+
+        [JsonIgnore]
+        public byte skillLevel { get; private set; }
 
         [JsonIgnore]
         public bool isEquipped
@@ -69,6 +73,29 @@ namespace TextGameRPG.Scripts.GameCore.Items
             };
             clone.RecalculateDynamicData();
             return clone;
+        }
+
+        public void RecalculateDataWithPlayerSkills(PlayerSkills skills)
+        {
+            var value = skills.GetValue(data.itemType);
+            RecalculateDataWithPlayerSkills(value);
+        }
+
+        public void RecalculateDataWithPlayerSkills(byte newSkillLevel)
+        {            
+            if (newSkillLevel == skillLevel)
+                return;
+
+            RecalculateDynamicData();
+            foreach (var property in data.properties)
+            {
+                property.ApplySkillLevel(newSkillLevel);
+            }
+            foreach (var ability in data.abilities)
+            {
+                ability.ApplySkillLevel(newSkillLevel);
+            }
+            skillLevel = newSkillLevel;
         }
 
         private void RecalculateDynamicData()

@@ -23,6 +23,19 @@ namespace TextGameRPG.Scripts.GameCore.Skills
         {
             _session = session;
             _profileData = session.profile.data;
+            ApplySkillsOnInit();
+        }
+
+        private void ApplySkillsOnInit()
+        {
+            foreach (var itemType in GetAllSkillTypes())
+            {
+                var value = GetValue(itemType);
+                if (value > 0)
+                {
+                    _session.player.inventory.ApplyPlayerSkills(itemType, value);
+                }
+            }
         }
 
         /// <returns>Уровень прокачки всех навыков в компактном отображении</returns>
@@ -74,6 +87,7 @@ namespace TextGameRPG.Scripts.GameCore.Skills
         public void SetValue(ItemType itemType, byte value)
         {
             skillsDictionary[itemType].SetValue(_profileData, value);
+            _session.player.inventory.ApplyPlayerSkills(itemType, value);
         }
 
         /// <summary>
@@ -87,6 +101,8 @@ namespace TextGameRPG.Scripts.GameCore.Skills
             var canBeAdded = byte.MaxValue - currentValue;
             var reallyAdded = value > canBeAdded ? (byte)canBeAdded : value;
             skill.AddValue(_profileData, reallyAdded);
+
+            _session.player.inventory.ApplyPlayerSkills(itemType, skill.GetValue(_profileData));
         }
 
         /// <returns>Ресурсы, требуемые для прокачки навыка</returns>

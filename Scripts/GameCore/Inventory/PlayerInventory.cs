@@ -96,6 +96,8 @@ namespace TextGameRPG.Scripts.GameCore.Inventory
                 _hasNewItemsInCategory[item.data.itemType] = true;
                 _hasAnyNewItem = true;
             }
+
+            item.RecalculateDataWithPlayerSkills(session.player.skills);
             return true;
         }
 
@@ -108,6 +110,7 @@ namespace TextGameRPG.Scripts.GameCore.Inventory
                 _hasNewItemsInCategory[item.data.itemType] = true;
                 _hasAnyNewItem = true;
             }
+            item.RecalculateDataWithPlayerSkills(session.player.skills);
         }
 
         public void RemoveItem(InventoryItem item)
@@ -177,6 +180,14 @@ namespace TextGameRPG.Scripts.GameCore.Inventory
                 _hasNewItemsInCategory[itemType] = _itemsByType[itemType].Any(x => x.isNew);
             }
             _hasAnyNewItem = _hasNewItemsInCategory.Any(x => x.Value == true);
+        }
+
+        public void ApplyPlayerSkills(ItemType itemType, byte value)
+        {
+            foreach (var item in GetItemsByType(itemType))
+            {
+                item.RecalculateDataWithPlayerSkills(value);
+            }
         }
 
     }

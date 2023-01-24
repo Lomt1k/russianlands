@@ -2,6 +2,7 @@
 using JsonKnownTypes;
 using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.Utils;
+using System;
 
 namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
 {
@@ -30,6 +31,16 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
         }
 
         public abstract string GetView(GameSession session);
+        public virtual void ApplySkillLevel(byte level) 
+        {
+            // ignored by default
+        }
+
+        protected void IncreaseByPercents(ref int value, byte percents)
+        {
+            value = value * (100 + percents);
+            value = (int)Math.Round(value / 100f);
+        }
 
     }
 }

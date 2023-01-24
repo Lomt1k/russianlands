@@ -58,5 +58,13 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
             return sb.ToString();
         }
 
+        public override void ApplySkillLevel(byte level)
+        {
+            IncreaseByPercents(ref physicalDamage, level);
+            IncreaseByPercents(ref fireDamage, level);
+            IncreaseByPercents(ref coldDamage, level);
+            IncreaseByPercents(ref lightningDamage, level);
+        }
+
     }
 }

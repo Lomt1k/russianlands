@@ -151,5 +151,17 @@ namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities
             return DamageType.Physical;
         }
 
+        public override void ApplySkillLevel(byte level)
+        {
+            IncreaseByPercents(ref minPhysicalDamage, level);
+            IncreaseByPercents(ref maxPhysicalDamage, level);
+            IncreaseByPercents(ref minFireDamage, level);
+            IncreaseByPercents(ref maxFireDamage, level);
+            IncreaseByPercents(ref minColdDamage, level);
+            IncreaseByPercents(ref maxColdDamage, level);
+            IncreaseByPercents(ref minLightningDamage, level);
+            IncreaseByPercents(ref maxLightningDamage, level);
+        }
+
     }
 }
