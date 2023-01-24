@@ -94,12 +94,7 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
             switch (property)
             {
                 case DamageResistProperty resistProperty:
-                    var tempResist = resistance;
-                    tempResist[DamageType.Physical] += resistProperty.physicalDamage;
-                    tempResist[DamageType.Fire] += resistProperty.fireDamage;
-                    tempResist[DamageType.Cold] += resistProperty.coldDamage;
-                    tempResist[DamageType.Lightning] += resistProperty.lightningDamage;
-                    resistance = tempResist;
+                    resistance += resistProperty.GetValues();
                     break;
                 case IncreaseMaxHealthProperty increaseMaxHealth:
                     maxHP += increaseMaxHealth.value;
