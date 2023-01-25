@@ -7,11 +7,14 @@ using TextGameRPG.Scripts.Bot.Commands;
 using TextGameRPG.Scripts.Bot.DataBase.TablesStructure;
 using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Buildings;
+using TextGameRPG.Scripts.GameCore.Buildings.Data;
+using TextGameRPG.Scripts.GameCore.Buildings.General;
 using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.GameCore.Items.Generators;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Quests;
 using TextGameRPG.Scripts.GameCore.Resources;
+using TextGameRPG.Scripts.GameCore.Skills;
 
 namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
 {
@@ -36,12 +39,13 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
             RegisterButton("Resources", () => ShowResourcesGroup());
             RegisterButton("Items", () => ShowItemsGroup());
             RegisterButton("Buildings", () => ShowBuildingsGroup());
+            RegisterButton("Skills", () => ShowSkillsGroup());
             RegisterButton("Quest Progress", () => ShowQuestProgressGroup());
             RegisterButton("Language", () => ShowLanguageGroup());
             RegisterButton("Account", () => ShowAccountGroup());
             RegisterTownButton(isDoubleBack: false);
 
-            await SendDialogMessage(sb, GetKeyboardWithRowSizes(3, 2, 1, 1))
+            await SendDialogMessage(sb, GetKeyboardWithRowSizes(3, 2, 2, 1))
                 .ConfigureAwait(false);
         }
 
@@ -266,6 +270,58 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
                 .ConfigureAwait(false);
 
             await Start()
+                .ConfigureAwait(false);
+        }
+
+        #endregion
+
+        #region Skills Group
+
+        private async Task ShowSkillsGroup()
+        {
+            ClearButtons();
+
+            foreach (ItemType itemType in SkillsDictionary.GetAllSkillTypes())
+            {
+                RegisterButton(itemType.ToString(), () => SelectLevelForSkill(itemType));
+            }
+            RegisterBackButton("Cheats", () => Start());
+            RegisterTownButton(isDoubleBack: true);
+
+            var text = "Skills\n\n".Bold() + session.player.skills.GetShortView();
+
+            await SendDialogMessage(text, GetKeyboardWithRowSizes(3, 3, 2, 2))
+                .ConfigureAwait(false);
+        }
+
+        private async Task SelectLevelForSkill(ItemType itemType)
+        {
+            ClearButtons();
+            var elixirWorkshop = (ElixirWorkshopBuilding)BuildingType.ElixirWorkshop.GetBuilding();
+            var buildingLevels = elixirWorkshop.buildingData.levels;
+            var maxLevel = ((ElixirWorkshopLevelInfo)buildingLevels[buildingLevels.Count - 1]).skillLevelLimit;
+            for (byte i = 0; i <= maxLevel; i += 5)
+            {
+                var levelForDelegate = i; // important!
+                RegisterButton(i.ToString(), () => SetSkillLevel(itemType, levelForDelegate));
+            }
+            RegisterBackButton("Skills", () => ShowSkillsGroup());
+            RegisterDoubleBackButton("Cheats", () => Start());
+
+            var text = itemType.GetEmoji() + itemType.GetCategoryLocalization(session) + " | Change skill level:";
+            await SendDialogMessage(text, GetKeyboardWithFixedRowSize(5))
+                .ConfigureAwait(false);
+        }
+
+        private async Task SetSkillLevel(ItemType itemType, byte level)
+        {
+            session.player.skills.SetValue(itemType, level);
+
+            var text = itemType.GetEmoji() + itemType.GetCategoryLocalization(session) + ": skill level changed to " + level;
+            await messageSender.SendTextMessage(session.chatId, text)
+                .ConfigureAwait(false);
+
+            await ShowSkillsGroup()
                 .ConfigureAwait(false);
         }
 
