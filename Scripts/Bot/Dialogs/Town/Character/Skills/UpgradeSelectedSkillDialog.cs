@@ -27,14 +27,17 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Skills
             _skills = session.player.skills;
             _itemType = itemType;
 
-            var buttonsLimit = _skills.GetSkillLimit() - _skills.GetValue(_itemType);
-            buttonsLimit = Math.Min(buttonsLimit, GetAvailableSkillUpgradesByFruits(_itemType));
-            buttonsLimit = Math.Min(buttonsLimit, 5);
-            for (byte i = 1; i <= buttonsLimit; i++)
+            if (!_skills.IsMaxLevel(itemType))
             {
-                var amountForDelegate = i; //it is important!
-                RegisterButton(i.ToString(), () => TryUpgrade(amountForDelegate));
-            }
+                var buttonsLimit = _skills.GetSkillLimit() - _skills.GetValue(_itemType);
+                buttonsLimit = Math.Min(buttonsLimit, GetAvailableSkillUpgradesByFruits(_itemType));
+                buttonsLimit = Math.Min(buttonsLimit, 5);
+                for (byte i = 1; i <= buttonsLimit; i++)
+                {
+                    var amountForDelegate = i; //it is important!
+                    RegisterButton(i.ToString(), () => TryUpgrade(amountForDelegate));
+                }
+            }            
             RegisterBackButton(() => new UpgradeSkillsDialog(session).Start());
         }
 
@@ -76,7 +79,18 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Skills
             sb.Append(ResourceHelper.GetResourcesView(session, ourResources));
 
             sb.AppendLine();
-            sb.Append(Localization.Get(session, "dialog_skills_upgrade_elixirs_amount"));
+            if (_skills.IsMaxLevel(_itemType))
+            {
+                sb.AppendLine(Localization.Get(session, "dialog_skills_upgrade_skill_has_max_level"));
+            }
+            else if (!_resources.HasEnough(GetRequiredFruits()))
+            {
+                sb.AppendLine(Emojis.ElementWarningGrey.ToString() + Localization.Get(session, "dialog_skills_upgrade_skill_no_upgrades_available"));
+            }
+            else
+            {
+                sb.Append(Localization.Get(session, "dialog_skills_upgrade_elixirs_amount"));
+            }
 
             await SendDialogMessage(sb, GetSpecialKeyboard())
                 .ConfigureAwait(false);
@@ -92,6 +106,18 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Skills
                 { requiredFruits[1], 1 },
                 { requiredFruits[2], 1 },
                 { ResourceType.Herbs, elixirWorkshop.GetCurrentElixirPriceInHerbs(session.profile.buildingsData) },
+            };
+        }
+
+        private Dictionary<ResourceType, int> GetRequiredFruits()
+        {
+            var elixirWorkshop = (ElixirWorkshopBuilding)BuildingType.ElixirWorkshop.GetBuilding();
+            var requiredFruits = _skills.GetRequiredFruits(_itemType);
+            return new Dictionary<ResourceType, int>
+            {
+                { requiredFruits[0], 1 },
+                { requiredFruits[1], 1 },
+                { requiredFruits[2], 1 },
             };
         }
 
