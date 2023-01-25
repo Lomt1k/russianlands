@@ -28,7 +28,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Skills
 
             sb.AppendLine();
             sb.AppendLine(Localization.Get(session, "building_skills_upgrade_recipes"));
-            foreach (var itemType in SkillsDictionary.GetAllSkillTypes())
+            foreach (var itemType in PlayerSkills.GetAllSkillTypes())
             {
                 var requiredFruits = _skills.GetRequiredFruits(itemType);
                 var isFirstFruit = true;
@@ -73,7 +73,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Skills
 
         private void RegisterAvailableUpgradeButtons()
         {
-            foreach (var itemType in SkillsDictionary.GetAllSkillTypes())
+            foreach (var itemType in PlayerSkills.GetAllSkillTypes())
             {
                 var requiredResources = GetRequiredResources(itemType);
                 var isUpgradeAvailable = _resources.HasEnough(requiredResources) && !_skills.IsMaxLevel(itemType);

@@ -125,7 +125,7 @@ namespace TextGameRPG.Scripts.GameCore.Skills
         /// <returns>Все виды навыков</returns>
         public static IEnumerable<ItemType> GetAllSkillTypes()
         {
-            return SkillsDictionary.GetAllSkillTypes();
+            return skillsDictionary.GetAllSkillTypes();
         }
 
         private void RecalculateStatsAfterSkillChange()

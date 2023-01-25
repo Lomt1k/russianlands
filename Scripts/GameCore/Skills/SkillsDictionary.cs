@@ -18,22 +18,18 @@ namespace TextGameRPG.Scripts.GameCore.Skills
                 { ItemType.Stick, new SkillStick() },
                 { ItemType.Scroll, new SkillScroll() },
                 { ItemType.Armor, new SkillArmor() },
+                { ItemType.Shield, new SkillShield() },
                 { ItemType.Helmet, new SkillHelmet() },
                 { ItemType.Boots, new SkillBoots() },
-                { ItemType.Shield, new SkillShield() },
             };
         }
 
-        public static IEnumerable<ItemType> GetAllSkillTypes()
+        public IEnumerable<ItemType> GetAllSkillTypes()
         {
-            yield return ItemType.Sword;
-            yield return ItemType.Bow;
-            yield return ItemType.Stick;
-            yield return ItemType.Scroll;
-            yield return ItemType.Armor;
-            yield return ItemType.Shield;
-            yield return ItemType.Helmet;
-            yield return ItemType.Boots;
+            foreach (var key in _dictionary.Keys)
+            {
+                yield return key;
+            }
         }
 
     }

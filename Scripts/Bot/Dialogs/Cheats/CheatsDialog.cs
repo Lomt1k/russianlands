@@ -281,7 +281,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
         {
             ClearButtons();
 
-            foreach (ItemType itemType in SkillsDictionary.GetAllSkillTypes())
+            foreach (ItemType itemType in PlayerSkills.GetAllSkillTypes())
             {
                 RegisterButton(itemType.ToString(), () => SelectLevelForSkill(itemType));
             }
