@@ -37,11 +37,11 @@ namespace TextGameRPG.Scripts.GameCore.Units
         public Player(GameSession _session)
         {
             session = _session;
+            skills = new PlayerSkills(_session); // before unitStats!
             unitStats = new PlayerStats(this);
             actionHandler = new PlayerActionHandler(this);
             resources = new PlayerResources(_session);
             buildings = new PlayerBuildings(_session);
-            skills = new PlayerSkills(_session);
 
             healhRegenerationController = new HealthRegenerationController(this);
         }

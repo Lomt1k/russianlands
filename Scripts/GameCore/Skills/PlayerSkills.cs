@@ -9,6 +9,7 @@ using TextGameRPG.Scripts.GameCore.Buildings.General;
 using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Resources;
+using TextGameRPG.Scripts.GameCore.Units.Stats;
 
 namespace TextGameRPG.Scripts.GameCore.Skills
 {
@@ -88,6 +89,7 @@ namespace TextGameRPG.Scripts.GameCore.Skills
         {
             skillsDictionary[itemType].SetValue(_profileData, value);
             _session.player.inventory.ApplyPlayerSkills(itemType, value);
+            RecalculateStatsAfterSkillChange();
         }
 
         /// <summary>
@@ -103,6 +105,7 @@ namespace TextGameRPG.Scripts.GameCore.Skills
             skill.AddValue(_profileData, reallyAdded);
 
             _session.player.inventory.ApplyPlayerSkills(itemType, skill.GetValue(_profileData));
+            RecalculateStatsAfterSkillChange();
         }
 
         /// <returns>Ресурсы, требуемые для прокачки навыка</returns>
@@ -123,6 +126,12 @@ namespace TextGameRPG.Scripts.GameCore.Skills
         public static IEnumerable<ItemType> GetAllSkillTypes()
         {
             return SkillsDictionary.GetAllSkillTypes();
+        }
+
+        private void RecalculateStatsAfterSkillChange()
+        {
+            var playerStats = (PlayerStats)_session.player.unitStats;
+            playerStats.Recalculate();
         }
 
     }
