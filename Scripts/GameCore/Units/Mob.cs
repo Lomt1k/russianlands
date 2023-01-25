@@ -35,13 +35,13 @@ namespace TextGameRPG.Scripts.GameCore.Units
             sb.AppendLine(levelStr);
             return sb.ToString();
         }
-        public string GetFullUnitInfoView(GameSession sessionToSend)
+        public string GetFullUnitInfoView(GameSession sessionToSend, bool withHealth = true)
         {
             var sb = new StringBuilder();
             sb.Append(GetGeneralUnitInfoView(sessionToSend));
 
             sb.AppendLine();
-            sb.AppendLine(unitStats.GetView(sessionToSend));
+            sb.AppendLine(unitStats.GetView(sessionToSend, withHealth));
             return sb.ToString();
         }
 

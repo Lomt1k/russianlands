@@ -55,14 +55,26 @@ namespace TextGameRPG.Scripts.GameCore.Units
             return sb.ToString();
         }
 
-        public string GetFullUnitInfoView(GameSession sessionToSend)
+        public string GetFullUnitInfoView(GameSession sessionToSend, bool withHealth = true)
         {
             var sb = new StringBuilder();
             sb.Append(GetGeneralUnitInfoView(sessionToSend));
 
             sb.AppendLine();
-            sb.AppendLine(unitStats.GetView(sessionToSend));
+            sb.AppendLine(unitStats.GetView(sessionToSend, withHealth));
+
+            if (IsSkillsAvailable())
+            {
+                sb.AppendLine();
+                sb.AppendLine(skills.GetShortView());
+            }
+
             return sb.ToString();
+        }
+        
+        public bool IsSkillsAvailable()
+        {
+            return buildings.HasBuilding(BuildingType.ElixirWorkshop);
         }
 
         public async Task OnStartBattle(Battle battle)

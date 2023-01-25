@@ -40,9 +40,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
             session.player.healhRegenerationController.InvokeRegen();
 
             var sb = new StringBuilder();
-            sb.AppendLine(session.player.GetGeneralUnitInfoView(session));
             bool isFullHealth = session.player.unitStats.isFullHealth;
-            sb.AppendLine(session.player.unitStats.GetView(session, isFullHealth));
+            sb.AppendLine(session.player.GetFullUnitInfoView(session, isFullHealth));
             TryAppendTooltip(sb);
 
             await SendDialogMessage(sb, GetKeyboardWithRowSizes(1, 2, 2, 1))
@@ -70,8 +69,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
 
         private bool IsPotionsDialogAvailable()
         {
-            var buildingsData = session.profile.buildingsData;
-            return BuildingType.AlchemyLab.GetBuilding().GetCurrentLevel(buildingsData) > 0;
+            return session.player.buildings.HasBuilding(BuildingType.AlchemyLab);
         }
 
         private async Task TryShowSkillsDialog()
@@ -89,8 +87,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
 
         private bool IsSkillsDialogAvailable()
         {
-            var buildingsData = session.profile.buildingsData;
-            return BuildingType.ElixirWorkshop.GetBuilding().GetCurrentLevel(buildingsData) > 0;
+            return session.player.IsSkillsAvailable();
         }
 
         private async Task SendHealthRegenMessage()

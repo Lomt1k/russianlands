@@ -43,7 +43,7 @@ namespace TextGameRPG.Scripts.GameCore.Skills
         public string GetShortView()
         {
             var sb = new StringBuilder();
-            sb.AppendLine(Localization.Get(_session, "dialog_skills_your_skills_header"));
+            sb.AppendLine(Localization.Get(_session, "unit_view_skills_header"));
             int i = 0;
             foreach (var itemType in GetAllSkillTypes())
             {
