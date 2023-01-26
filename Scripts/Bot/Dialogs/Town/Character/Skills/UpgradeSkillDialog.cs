@@ -15,45 +15,26 @@ using TextGameRPG.Scripts.GameCore.Skills;
 
 namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Skills
 {
-    internal class UpgradeSelectedSkillDialog : DialogBase
+    internal class UpgradeSkillDialog : DialogBase
     {
         private PlayerResources _resources;
         private PlayerSkills _skills;
         private ItemType _itemType;
+        private byte _upgradeButtons;
 
-        public UpgradeSelectedSkillDialog(GameSession _session, ItemType itemType) : base(_session)
+        public UpgradeSkillDialog(GameSession _session, ItemType itemType, byte availableUpgrades) : base(_session)
         {
             _resources = session.player.resources;
             _skills = session.player.skills;
             _itemType = itemType;
+            _upgradeButtons = Math.Min(availableUpgrades, (byte)10);
 
-            if (!_skills.IsMaxLevel(itemType))
+            for (byte i = 1; i <= _upgradeButtons; i++)
             {
-                var buttonsLimit = _skills.GetSkillLimit() - _skills.GetValue(_itemType);
-                buttonsLimit = Math.Min(buttonsLimit, GetAvailableSkillUpgradesByFruits(_itemType));
-                buttonsLimit = Math.Min(buttonsLimit, 5);
-                for (byte i = 1; i <= buttonsLimit; i++)
-                {
-                    var amountForDelegate = i; //it is important!
-                    RegisterButton(i.ToString(), () => TryUpgrade(amountForDelegate));
-                }
-            }            
-            RegisterBackButton(() => new UpgradeSkillsDialog(session).Start());
-        }
-
-        private int GetAvailableSkillUpgradesByFruits(ItemType itemType)
-        {
-            int result = int.MaxValue;
-            var requiredFruits = _skills.GetRequiredFruits(itemType);
-            foreach (var resourceType in requiredFruits)
-            {
-                var resourceAmount = _resources.GetValue(resourceType);
-                if (resourceAmount < result)
-                {
-                    result = resourceAmount;
-                }
+                var amountForDelegate = i; //it is important!
+                RegisterButton(i.ToString(), () => TryUpgrade(amountForDelegate));
             }
-            return result;
+            RegisterBackButton(() => new SkillsDialog(session).Start());
         }
 
         public override async Task Start()
@@ -111,7 +92,6 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Skills
 
         private Dictionary<ResourceType, int> GetRequiredFruits()
         {
-            var elixirWorkshop = (ElixirWorkshopBuilding)BuildingType.ElixirWorkshop.GetBuilding();
             var requiredFruits = _skills.GetRequiredFruits(_itemType);
             return new Dictionary<ResourceType, int>
             {
@@ -123,7 +103,9 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Skills
 
         private ReplyKeyboardMarkup GetSpecialKeyboard()
         {
-            return GetKeyboardWithRowSizes(buttonsCount - 1, 1);
+            return _upgradeButtons > 5
+                ? GetKeyboardWithRowSizes(5, _upgradeButtons - 5, 1)
+                :  GetKeyboardWithRowSizes(_upgradeButtons, 1);
         }
 
         private async Task TryUpgrade(byte amount)
@@ -145,8 +127,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Skills
             }
 
             var buyResourcesDialog = new BuyResourcesForDiamondsDialog(session, notEnoughResources,
-                onSuccess: async () => await new UpgradeSelectedSkillDialog(session, _itemType).TryUpgrade(amount).ConfigureAwait(false),
-                onCancel: async () => await new UpgradeSelectedSkillDialog(session, _itemType).Start().ConfigureAwait(false));
+                onSuccess: async () => await new UpgradeSkillDialog(session, _itemType, _upgradeButtons).TryUpgrade(amount).ConfigureAwait(false),
+                onCancel: async () => await new UpgradeSkillDialog(session, _itemType, _upgradeButtons).Start().ConfigureAwait(false));
             await buyResourcesDialog.Start().ConfigureAwait(false);
         }
 

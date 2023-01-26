@@ -147,6 +147,20 @@
         public static readonly Emoji SmileSad = new Emoji("\ud83d\ude15");
         public static readonly Emoji SmileCongratulations = new Emoji("\ud83e\udd73");
 
+        // --- Numeric
+        public static readonly Emoji Number0 = new Emoji("0\ufe0f\u20e3");
+        public static readonly Emoji Number1 = new Emoji("1\ufe0f\u20e3");
+        public static readonly Emoji Number2 = new Emoji("2\ufe0f\u20e3");
+        public static readonly Emoji Number3 = new Emoji("3\ufe0f\u20e3");
+        public static readonly Emoji Number4 = new Emoji("4\ufe0f\u20e3");
+        public static readonly Emoji Number5 = new Emoji("5\ufe0f\u20e3");
+        public static readonly Emoji Number6 = new Emoji("6\ufe0f\u20e3");
+        public static readonly Emoji Number7 = new Emoji("7\ufe0f\u20e3");
+        public static readonly Emoji Number8 = new Emoji("8\ufe0f\u20e3");
+        public static readonly Emoji Number9 = new Emoji("9\ufe0f\u20e3");
+        public static readonly Emoji Number10 = new Emoji("\ud83d\udd1f");
+        public static readonly Emoji NumberOver10 = new Emoji("*\ufe0f\u20e3");
+
         // --- Other elements
         public static readonly Emoji ElementSmallBlack = new Emoji("\u25aa\ufe0f");
         public static readonly Emoji ElementSmallWhite = new Emoji("\u25ab\ufe0f");
@@ -183,6 +197,25 @@
         public static readonly Emoji ElementTraining = new Emoji("\ud83c\udf93");
         public static readonly Emoji ElementCancel = new Emoji("\ud83d\udeab");
         public static readonly Emoji ElementBin = new Emoji("\ud83d\uddd1");
+
+        public static Emoji GetNumeric(int value)
+        {
+            return value switch
+            {
+                0 => Number0,
+                1 => Number1,
+                2 => Number2,
+                3 => Number3,
+                4 => Number4,
+                5 => Number5,
+                6 => Number6,
+                7 => Number7,
+                8 => Number8,
+                9 => Number9,
+                10 => Number10,
+                _ => NumberOver10
+            };
+        }
 
     }
 }
