@@ -31,7 +31,7 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles.Actions
 
         public string GetHeader(GameSession session)
         {
-            return Localization.Get(session, _mobAttack.localizationKey);
+            return Localization.Get(session, _mobAttack.localizationKey).Bold();
         }
 
         public string GetDescription(GameSession session)

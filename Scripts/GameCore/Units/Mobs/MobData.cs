@@ -1,8 +1,12 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Text;
+using TextGameRPG.Scripts.Bot;
+using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.GameDataBase;
 using TextGameRPG.Scripts.GameCore.Items;
+using TextGameRPG.Scripts.GameCore.Localizations;
 
 namespace TextGameRPG.Scripts.GameCore.Units.Mobs
 {
@@ -64,6 +68,34 @@ namespace TextGameRPG.Scripts.GameCore.Units.Mobs
                 (int)Math.Round(fireDamage * gradeMult),
                 (int)Math.Round(coldDamage * gradeMult),
                 (int)Math.Round(lightningDamage * gradeMult));
+        }
+
+        public string GetView(GameSession session)
+        {
+            var sb = new StringBuilder();
+            var header = Localization.Get(session, localizationKey) + ':';
+            sb.Append(header.Preformatted());
+            if (maxPhysicalDamage > 0)
+            {
+                sb.AppendLine();
+                sb.Append(Emojis.StatPhysicalDamage + $"{minPhysicalDamage} - {maxPhysicalDamage}");
+            }
+            if (maxFireDamage > 0)
+            {
+                sb.AppendLine();
+                sb.Append(Emojis.StatFireDamage + $"{minFireDamage} - {maxFireDamage}");
+            }
+            if (maxColdDamage > 0)
+            {
+                sb.AppendLine();
+                sb.Append(Emojis.StatColdDamage + $"{minColdDamage} - {maxColdDamage}");
+            }
+            if (maxLightningDamage > 0)
+            {
+                sb.AppendLine();
+                sb.Append(Emojis.StatLightningDamage + $"{minLightningDamage} - {maxLightningDamage}");
+            }
+            return sb.ToString();
         }
     }
 

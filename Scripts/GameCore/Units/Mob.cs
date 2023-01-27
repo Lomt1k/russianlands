@@ -41,7 +41,25 @@ namespace TextGameRPG.Scripts.GameCore.Units
             sb.Append(GetGeneralUnitInfoView(sessionToSend));
 
             sb.AppendLine();
+            sb.Append(GetAttacksView());
+
+            sb.AppendLine();
             sb.AppendLine(unitStats.GetView(sessionToSend, withHealth));
+
+            return sb.ToString();
+        }
+
+        private string GetAttacksView()
+        {
+            var sb = new StringBuilder();
+            for (var i = 0; i < mobData.mobAttacks.Count; i++)
+            {
+                if (i > 0)
+                {
+                    sb.AppendLine();
+                }
+                sb.AppendLine(mobData.mobAttacks[i].GetView(session));
+            }
             return sb.ToString();
         }
 
