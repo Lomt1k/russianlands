@@ -36,10 +36,6 @@
         <TextBlock Text="Required Level" Width="120" VerticalAlignment="Center"/>
         <TextBox Text="{Binding editableItem.requiredLevel}"/>
       </StackPanel>
-      <StackPanel Orientation="Horizontal">
-        <TextBlock Text="Required Charge" Width="120" VerticalAlignment="Center"/>
-        <TextBox Text="{Binding editableItem.requiredCharge}"/>
-      </StackPanel>
       
     </StackPanel>
 
