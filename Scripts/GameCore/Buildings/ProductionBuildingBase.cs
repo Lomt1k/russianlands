@@ -200,7 +200,13 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
         {
             var farmedAmount = GetFarmedResourceAmount(data);
             var limit = GetCurrentLevelResourceLimit(data);
-            return farmedAmount >= limit;
+            var isFarmLimitReached = farmedAmount >= limit;
+
+            if (!isFarmLimitReached)
+                return false;
+
+            var isStorageLimitReached = data.session.player.resources.IsResourceLimitReached(resourceType);
+            return !isStorageLimitReached;
         }
 
         protected override void OnConstructionStart(ProfileBuildingsData data)

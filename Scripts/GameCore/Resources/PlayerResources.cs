@@ -258,6 +258,12 @@ namespace TextGameRPG.Scripts.GameCore.Resources
             return resourceDictionary[resourceType].GetResourceLimit(_session);
         }
 
+        /// <returns>Достигнут ли лимит ресурсов в хранилище</returns>
+        public bool IsResourceLimitReached(ResourceType resourceType)
+        {
+            return GetValue(resourceType) >= GetResourceLimit(resourceType);
+        }
+
 
     }
 }

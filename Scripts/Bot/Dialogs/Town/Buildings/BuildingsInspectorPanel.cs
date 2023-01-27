@@ -62,7 +62,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
 
         private void AppendProductionInfo(StringBuilder sb)
         {
-            bool isLimitReached = false;
+            bool neeedToShowLimitWarning = false;
             var resourcesToShow = new Dictionary<ResourceType, int>();
             var productionBuildings = session.player.buildings.GetBuildingsByCategory(BuildingCategory.Production);
             foreach (ProductionBuildingBase building in productionBuildings)
@@ -71,12 +71,18 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
                     continue;
 
                 var farmedAmount = building.GetFarmedResourceAmount(_buildingsData);
-                var limit = building.GetCurrentLevelResourceLimit(_buildingsData);
-
                 AddToShow(building.resourceType, farmedAmount);
-                if (farmedAmount >= limit)
+
+                var limit = building.GetCurrentLevelResourceLimit(_buildingsData);
+                var isFarmedLimitReached = farmedAmount >= limit;
+                
+                if (isFarmedLimitReached)
                 {
-                    isLimitReached = true;
+                    var isStorageLimitReached = session.player.resources.IsResourceLimitReached(building.resourceType);
+                    if (!isStorageLimitReached)
+                    {
+                        neeedToShowLimitWarning = true;
+                    }
                 }
             }
 
@@ -84,7 +90,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
             sb.AppendLine(Localization.Get(session, "resource_header_producted"));
             sb.AppendLine(ResourceHelper.GetCompactResourcesView(resourcesToShow));
 
-            if (isLimitReached)
+            if (neeedToShowLimitWarning)
             {
                 sb.AppendLine();
                 sb.AppendLine(Emojis.ElementWarningRed.ToString() + Localization.Get(session, "building_production_is_full"));
