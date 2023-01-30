@@ -79,7 +79,7 @@ namespace TextGameRPG.Scripts.GameCore.Skills
         /// <returns>Уровень навыка для соответствующего типа предметов</returns>
         public byte GetValue(ItemType itemType)
         {
-            return skillsDictionary[itemType].GetValue(_profileData);
+            return skillsDictionary.ContainsKey(itemType) ? skillsDictionary[itemType].GetValue(_profileData) : (byte)0;
         }
 
         /// <summary>

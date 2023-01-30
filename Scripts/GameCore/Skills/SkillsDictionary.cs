@@ -32,5 +32,10 @@ namespace TextGameRPG.Scripts.GameCore.Skills
             }
         }
 
+        public bool ContainsKey(ItemType itemType)
+        {
+            return _dictionary.ContainsKey(itemType);
+        }
+
     }
 }
