@@ -156,7 +156,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
         public async Task InvokeAddItemCommand(ItemType itemType, Rarity rarity, int townhallLevel)
         {
             var item = itemType == ItemType.Any
-                ? ItemGenerationManager.GenerateItem(townhallLevel, rarity)
+                ? ItemGenerationManager.GenerateItemWithSmartRandom(session, townhallLevel, rarity)
                 : ItemGenerationManager.GenerateItem(townhallLevel, itemType, rarity);
             var command = $"/additem {item.id}";
 

@@ -8,6 +8,7 @@ using TextGameRPG.Scripts.Bot.DataBase.TablesStructure;
 using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Potions;
 using System.Collections.Generic;
+using TextGameRPG.Scripts.GameCore.Items;
 
 namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
 {
@@ -20,6 +21,7 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
         public PlayerInventory inventory;
         public List<PotionItem> potions;
         public PlayerQuestsProgress quests;
+        public List<ItemType> lastGeneratedItemTypes;
 
         public static TableColumn[] GetTableColumns()
         {
@@ -28,7 +30,8 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
                 new TableColumn("dbid", "INTEGER PRIMARY KEY AUTOINCREMENT", "0"),
                 new TableColumn("inventory", "TEXT", "'{}'"),
                 new TableColumn("potions", "TEXT", "'[]'"),
-                new TableColumn("quests", "TEXT", "'{}'")
+                new TableColumn("quests", "TEXT", "'{}'"),
+                new TableColumn("lastGeneratedItemTypes", "TEXT", "'[]'")
             };
         }
 
@@ -39,12 +42,14 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
         protected override void Deserialize(DataRow data)
         {
             dbid = (long)data["dbid"];
-            var inventoryJson = (string)data["inventory"];
-            inventory = JsonConvert.DeserializeObject<PlayerInventory>(inventoryJson);
-            var potionsJson = (string)data["potions"];
-            potions = JsonConvert.DeserializeObject<List<PotionItem>>(potionsJson);
-            var questsJson = (string)data["quests"];
-            quests = JsonConvert.DeserializeObject<PlayerQuestsProgress>(questsJson);
+            var json = (string)data[nameof(inventory)];
+            inventory = JsonConvert.DeserializeObject<PlayerInventory>(json);
+            json = (string)data[nameof(potions)];
+            potions = JsonConvert.DeserializeObject<List<PotionItem>>(json);
+            json = (string)data[nameof(quests)];
+            quests = JsonConvert.DeserializeObject<PlayerQuestsProgress>(json);
+            json = (string)data[nameof(lastGeneratedItemTypes)];
+            lastGeneratedItemTypes = JsonConvert.DeserializeObject<List<ItemType>>(json);
         }
 
         public override async Task<bool> UpdateInDatabase()

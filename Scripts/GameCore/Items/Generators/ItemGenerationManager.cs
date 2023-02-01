@@ -1,4 +1,5 @@
 ﻿using System;
+using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators;
 
 namespace TextGameRPG.Scripts.GameCore.Items.Generators
@@ -20,6 +21,33 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
                 itemType = (ItemType)new Random().Next(_minItemType, _maxItemType);
                 success = _rarity != Rarity.Common || itemType.IsSupportCommonRarity();
             }
+            return GenerateItemInternal(_townhallLevel, itemType, _rarity);
+        }
+
+        /// <summary>
+        /// Умная генерация предметов:
+        /// - последние три выпавших типа предмета не будут повторяться
+        /// </summary>
+        public static InventoryItem GenerateItemWithSmartRandom(GameSession session, int _townhallLevel, Rarity _rarity)
+        {
+            var lastGeneratedItems = session.profile.dynamicData.lastGeneratedItemTypes;
+            bool success = false;
+            var itemType = ItemType.Any;
+            while (!success)
+            {
+                itemType = (ItemType)new Random().Next(_minItemType, _maxItemType);
+                if (lastGeneratedItems.Contains(itemType))
+                    continue;
+
+                success = _rarity != Rarity.Common || itemType.IsSupportCommonRarity();
+            }
+
+            lastGeneratedItems.Add(itemType);
+            if (lastGeneratedItems.Count > 3)
+            {
+                lastGeneratedItems.RemoveAt(0);
+            }            
+
             return GenerateItemInternal(_townhallLevel, itemType, _rarity);
         }
 

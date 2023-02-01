@@ -24,7 +24,6 @@ namespace TextGameRPG.Scripts.Bot.Commands
                 { "/language", new Cheats.LanguageCommand() },
                 { "/addresource", new Cheats.AddResourceCommand() },
                 { "/additem", new Cheats.AddItemCommand() },
-                { "/test", new Cheats.TestCommand() },
                 { "/battle", new Cheats.BattleCommand() },
                 { "/win", new Cheats.WinCommand() },
                 { "/lose", new Cheats.LoseCommand() },
