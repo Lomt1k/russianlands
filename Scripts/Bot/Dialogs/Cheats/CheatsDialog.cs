@@ -285,12 +285,13 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
             {
                 RegisterButton(itemType.ToString(), () => SelectLevelForSkill(itemType));
             }
+            RegisterButton("ALL", () => SelectLevelForSkill(ItemType.Any));
             RegisterBackButton("Cheats", () => Start());
             RegisterTownButton(isDoubleBack: true);
 
             var text = "Skills\n\n".Bold() + session.player.skills.GetShortView();
 
-            await SendDialogMessage(text, GetKeyboardWithRowSizes(3, 3, 2, 2))
+            await SendDialogMessage(text, GetKeyboardWithRowSizes(3, 3, 3, 2))
                 .ConfigureAwait(false);
         }
 
@@ -308,16 +309,30 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
             RegisterBackButton("Skills", () => ShowSkillsGroup());
             RegisterDoubleBackButton("Cheats", () => Start());
 
-            var text = itemType.GetEmoji() + itemType.GetCategoryLocalization(session) + " | Change skill level:";
+            var text = itemType == ItemType.Any
+                ? "ALL SKILLS | Change skill level:"
+                : itemType.GetEmoji() + itemType.GetCategoryLocalization(session) + " | Change skill level:";
             await SendDialogMessage(text, GetKeyboardWithFixedRowSize(5))
                 .ConfigureAwait(false);
         }
 
         private async Task SetSkillLevel(ItemType itemType, byte level)
         {
-            session.player.skills.SetValue(itemType, level);
+            if (itemType == ItemType.Any)
+            {
+                foreach (ItemType skillType in PlayerSkills.GetAllSkillTypes())
+                {
+                    session.player.skills.SetValue(skillType, level);
+                }
+            }
+            else
+            {
+                session.player.skills.SetValue(itemType, level);
+            }
 
-            var text = itemType.GetEmoji() + itemType.GetCategoryLocalization(session) + ": skill level changed to " + level;
+            var text = itemType == ItemType.Any
+                ? "ALL SKILLS | Level changed to " + level
+                : itemType.GetEmoji() + itemType.GetCategoryLocalization(session) + ": skill level changed to " + level;
             await messageSender.SendTextMessage(session.chatId, text)
                 .ConfigureAwait(false);
 
