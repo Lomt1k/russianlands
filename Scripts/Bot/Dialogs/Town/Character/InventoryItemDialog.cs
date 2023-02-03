@@ -107,7 +107,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
                 int slotId = i;
                 var equippedItem = inventory.equipped[type, slotId];
                 var buttonText = equippedItem != null
-                    ? equippedItem.GetFullName(session)
+                    ? equippedItem.GetFullName(session).RemoveHtmlTags()
                     : type.GetEmoji() + Localization.Get(session, "menu_item_empty_slot_button");
                 RegisterButton(buttonText, () => EquipMultiSlot(slotId));
             }
