@@ -64,6 +64,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
 
                 ClearButtons();
                 var sb = new StringBuilder();
+                sb.AppendLine(_item.GetName(session).Bold());
+                sb.AppendLine();
                 sb.AppendLine(Emojis.ElementClock + Localization.Get(session, "dialog_potions_craft_boosted"));
                 if (requiredDiamonds > 0)
                 {

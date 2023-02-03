@@ -132,6 +132,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
                 building.LevelUp(_buildingsData);
 
                 var sb = new StringBuilder();
+                sb.AppendLine(building.GetLocalizedName(session, _buildingsData).Bold());
+                sb.AppendLine();
                 sb.AppendLine(Emojis.ElementConstruction + Localization.Get(session, "dialog_buildings_construction_boosted"));
                 if (requiredDiamonds > 0)
                 {

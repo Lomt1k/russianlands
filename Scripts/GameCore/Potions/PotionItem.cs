@@ -73,7 +73,7 @@ namespace TextGameRPG.Scripts.GameCore.Potions
         {
             var sb = new StringBuilder();
             var data = GetData();
-            sb.AppendLine(data.GetName(session));
+            sb.AppendLine(data.GetName(session).Bold());
             sb.AppendLine();
             sb.AppendLine(data.GetDescription(session, session));
 
