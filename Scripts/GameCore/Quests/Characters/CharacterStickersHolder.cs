@@ -46,6 +46,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests.Characters
                 { CharacterType.Gorinich, new StickerInfo("russlandbot", 12) },
                 { CharacterType.GorinichTwoHeads, new StickerInfo("russlandbot", 13) },
                 { CharacterType.GorinichOneHead, new StickerInfo("russlandbot", 14) },
+                { CharacterType.Buffoon, new StickerInfo("russlandbot", 15) },
             };
         }
 
