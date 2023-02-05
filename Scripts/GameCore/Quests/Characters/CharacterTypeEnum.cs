@@ -26,6 +26,14 @@ namespace TextGameRPG.Scripts.GameCore.Quests.Characters
         Gorinich = 130,
         GorinichTwoHeads = 140,
         GorinichOneHead = 150,
+
+        // LOC_04
+        Buffoon = 160,
+        NifNif = 170,
+        NufNuf = 180,
+        NafNaf = 190,
+        ChocolateKing = 200,
+        OldBandit = 210,
     }
 
     public static class CharacterTypeExtensions

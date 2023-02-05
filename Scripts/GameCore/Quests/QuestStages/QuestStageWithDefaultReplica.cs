@@ -16,6 +16,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
         StartTravelToEnemyLoc01 = 3,
         StartTravelToEnemyLoc02 = 4,
         StartTravelToEnemyLoc03 = 5,
+        StartTravelToEnemyLoc04 = 6,
     }
 
     [JsonObject]
@@ -79,6 +80,8 @@ namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
                     return $"quest_default_replica_start_travel_to_enemy_loc_02";
                 case ReplicaType.StartTravelToEnemyLoc03:
                     return $"quest_default_replica_start_travel_to_enemy_loc_03";
+                case ReplicaType.StartTravelToEnemyLoc04:
+                    return $"quest_default_replica_start_travel_to_enemy_loc_04";
 
                 default:
                     return "Default Replica";
