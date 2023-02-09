@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Text;
 using TextGameRPG.Scripts.Bot;
 using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
-using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Buildings;
 using TextGameRPG.Scripts.GameCore.Buildings.General;
 using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Resources;
+using TextGameRPG.Scripts.GameCore.Units;
 using TextGameRPG.Scripts.GameCore.Units.Stats;
 
 namespace TextGameRPG.Scripts.GameCore.Skills
@@ -17,13 +17,13 @@ namespace TextGameRPG.Scripts.GameCore.Skills
     {
         private static SkillsDictionary skillsDictionary = new SkillsDictionary();
 
-        private GameSession _session;
+        private Player _player;
         private ProfileData _profileData;
 
-        public PlayerSkills(GameSession session)
+        public PlayerSkills(Player player)
         {
-            _session = session;
-            _profileData = session.profile.data;
+            _player = player;
+            _profileData = player.session.profile.data;
             ApplySkillsOnInit();
         }
 
@@ -34,7 +34,7 @@ namespace TextGameRPG.Scripts.GameCore.Skills
                 var value = GetValue(itemType);
                 if (value > 0)
                 {
-                    _session.player.inventory.ApplyPlayerSkills(itemType, value);
+                    _player.inventory.ApplyPlayerSkills(itemType, value);
                 }
             }
         }
@@ -43,7 +43,7 @@ namespace TextGameRPG.Scripts.GameCore.Skills
         public string GetShortView()
         {
             var sb = new StringBuilder();
-            sb.AppendLine(Localization.Get(_session, "unit_view_skills_header"));
+            sb.AppendLine(Localization.Get(_player.session, "unit_view_skills_header"));
             int i = 0;
             foreach (var itemType in GetAllSkillTypes())
             {
@@ -88,7 +88,7 @@ namespace TextGameRPG.Scripts.GameCore.Skills
         public void SetValue(ItemType itemType, byte value)
         {
             skillsDictionary[itemType].SetValue(_profileData, value);
-            _session.player.inventory.ApplyPlayerSkills(itemType, value);
+            _player.inventory.ApplyPlayerSkills(itemType, value);
             RecalculateStatsAfterSkillChange();
         }
 
@@ -104,7 +104,7 @@ namespace TextGameRPG.Scripts.GameCore.Skills
             var reallyAdded = value > canBeAdded ? (byte)canBeAdded : value;
             skill.AddValue(_profileData, reallyAdded);
 
-            _session.player.inventory.ApplyPlayerSkills(itemType, skill.GetValue(_profileData));
+            _player.inventory.ApplyPlayerSkills(itemType, skill.GetValue(_profileData));
             RecalculateStatsAfterSkillChange();
         }
 
@@ -118,7 +118,7 @@ namespace TextGameRPG.Scripts.GameCore.Skills
         public byte GetSkillLimit()
         {
             var elixirWorkshop = (ElixirWorkshopBuilding)BuildingType.ElixirWorkshop.GetBuilding();
-            var maxSkillLevel = elixirWorkshop.GetCurrentMaxSkillLevel(_session.profile.buildingsData);
+            var maxSkillLevel = elixirWorkshop.GetCurrentMaxSkillLevel(_player.session.profile.buildingsData);
             return (byte)maxSkillLevel;
         }
 
@@ -130,7 +130,7 @@ namespace TextGameRPG.Scripts.GameCore.Skills
 
         private void RecalculateStatsAfterSkillChange()
         {
-            var playerStats = (PlayerStats)_session.player.unitStats;
+            var playerStats = (PlayerStats)_player.unitStats;
             playerStats.Recalculate();
         }
 

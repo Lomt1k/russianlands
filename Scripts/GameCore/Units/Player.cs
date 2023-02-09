@@ -37,7 +37,7 @@ namespace TextGameRPG.Scripts.GameCore.Units
         public Player(GameSession _session)
         {
             session = _session;
-            skills = new PlayerSkills(_session); // before unitStats!
+            skills = new PlayerSkills(this); // before unitStats!
             unitStats = new PlayerStats(this);
             actionHandler = new PlayerActionHandler(this);
             resources = new PlayerResources(_session);
