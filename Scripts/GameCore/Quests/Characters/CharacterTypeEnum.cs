@@ -33,7 +33,6 @@ namespace TextGameRPG.Scripts.GameCore.Quests.Characters
         NufNuf = 180,
         NafNaf = 190,
         ChocolateKing = 200,
-        OldBandit = 210,
     }
 
     public static class CharacterTypeExtensions
