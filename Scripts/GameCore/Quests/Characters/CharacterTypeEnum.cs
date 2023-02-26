@@ -33,6 +33,14 @@ namespace TextGameRPG.Scripts.GameCore.Quests.Characters
         NufNuf = 180,
         NafNaf = 190,
         ChocolateKing = 200,
+
+        // LOC_05
+        OrcLeader = 210,
+        OrcGuardian = 220,
+        Troll = 230,
+        GnomeCommander = 240,
+        OrcTraitor = 250,
+        ElvenKing = 260,
     }
 
     public static class CharacterTypeExtensions
