@@ -41,6 +41,10 @@ namespace TextGameRPG.Scripts.GameCore.Quests.Characters
         GnomeCommander = 240,
         OrcTraitor = 250,
         ElvenKing = 260,
+
+        // LOC_06
+        Commissioner = 270,
+        RobinBad = 280,
     }
 
     public static class CharacterTypeExtensions
