@@ -45,6 +45,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests.Characters
         // LOC_06
         Commissioner = 270,
         RobinBad = 280,
+        Ent = 290,
     }
 
     public static class CharacterTypeExtensions
