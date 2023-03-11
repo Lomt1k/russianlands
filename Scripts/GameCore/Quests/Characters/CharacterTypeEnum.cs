@@ -46,6 +46,9 @@ namespace TextGameRPG.Scripts.GameCore.Quests.Characters
         Commissioner = 270,
         RobinBad = 280,
         Ent = 290,
+        Anariel = 300,
+        Tavrilia = 310,
+        Lovelas = 320,
     }
 
     public static class CharacterTypeExtensions
