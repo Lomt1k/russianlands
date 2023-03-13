@@ -49,6 +49,9 @@ namespace TextGameRPG.Scripts.GameCore.Quests.Characters
         Anariel = 300,
         Tavrilia = 310,
         Lovelas = 320,
+
+        // LOC_07
+        Banker = 330,
     }
 
     public static class CharacterTypeExtensions
