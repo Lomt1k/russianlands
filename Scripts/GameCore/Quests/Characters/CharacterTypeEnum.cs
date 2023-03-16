@@ -52,6 +52,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests.Characters
 
         // LOC_07
         Banker = 330,
+        Eagle = 340,
     }
 
     public static class CharacterTypeExtensions
