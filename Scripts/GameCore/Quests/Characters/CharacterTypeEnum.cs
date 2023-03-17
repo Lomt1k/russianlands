@@ -53,6 +53,9 @@ namespace TextGameRPG.Scripts.GameCore.Quests.Characters
         // LOC_07
         Banker = 330,
         Eagle = 340,
+        DemonOfWrath = 350,
+        DemonOfGreed = 360,
+        DemonOfLie = 370,
     }
 
     public static class CharacterTypeExtensions
