@@ -78,7 +78,7 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
             {
                 {"Resource", () => { stage.rewards.Add(new ResourceReward()); RefillRewardsCollection(); } },
                 {"Resource Range", () => { stage.rewards.Add(new ResourceRangeReward()); RefillRewardsCollection(); } },
-                {"Resource AB Range", () => { stage.rewards.Add(new ResourceABRangeReward()); RefillRewardsCollection(); } },
+                {"Resource AB With One Bonus", () => { stage.rewards.Add(new ResourceABWithOneBonusReward()); RefillRewardsCollection(); } },
                 {"Item With Code", () => { stage.rewards.Add(new ItemWithCodeReward()); RefillRewardsCollection(); } },
                 {"Random Item", () => { stage.rewards.Add(new RandomItemReward()); RefillRewardsCollection(); } },
             });
