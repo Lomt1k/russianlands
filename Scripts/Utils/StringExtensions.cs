@@ -48,7 +48,7 @@ public static class StringExtensions
     }
 
     /// <summary>
-    /// Превращает число 1234567 в "1.2КК"
+    /// Превращает число 1234567 в "1.2M"
     /// </summary>
     public static string ShortView(this int input)
     {
@@ -66,13 +66,13 @@ public static class StringExtensions
         {
             var rounded = (float)input / 1_000_000;
             var rest = rounded - (int)rounded;
-            return rest < 0.1f ? $"{rounded:F0}KK" : $"{rounded:F1}KK";
+            return rest < 0.1f ? $"{rounded:F0}M" : $"{rounded:F1}M";
         }
         else
         {
             var rounded = (float)input / 1_000_000_000;
             var rest = rounded - (int)rounded;
-            return rest < 0.1f ? $"{rounded:F0}KKK" : $"{rounded:F1}KKK";
+            return rest < 0.1f ? $"{rounded:F0}B" : $"{rounded:F1}B";
         }
     }
 
