@@ -10,16 +10,14 @@ namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
 {
     public enum ReplicaType : byte
     {
-        None = 0,
-        BattleWin = 1,
-        BattleLose = 2,
-        StartTravelToEnemyLoc01 = 3,
-        StartTravelToEnemyLoc02 = 4,
-        StartTravelToEnemyLoc03 = 5,
-        StartTravelToEnemyLoc04 = 6,
-        StartTravelToEnemyLoc05 = 7,
-        StartTravelToEnemyLoc06 = 8,
-        StartTravelToEnemyLoc07 = 9,
+        BattleLose = 0,
+        StartTravelToEnemyLoc01 = 1,
+        StartTravelToEnemyLoc02 = 2,
+        StartTravelToEnemyLoc03 = 3,
+        StartTravelToEnemyLoc04 = 4,
+        StartTravelToEnemyLoc05 = 5,
+        StartTravelToEnemyLoc06 = 6,
+        StartTravelToEnemyLoc07 = 7,
     }
 
     [JsonObject]
@@ -73,8 +71,6 @@ namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
         {
             switch (replicaType)
             {
-                case ReplicaType.BattleWin:
-                    return "quest_default_replica_battle_win";
                 case ReplicaType.BattleLose:
                     return "quest_default_replica_battle_lose";
                 case ReplicaType.StartTravelToEnemyLoc01:
