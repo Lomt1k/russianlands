@@ -5,6 +5,7 @@ using Telegram.Bot.Types.ReplyMarkups;
 using TextGameRPG.Scripts.GameCore.Inventory;
 using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.GameCore.Localizations;
+using TextGameRPG.Scripts.GameCore.Quests.QuestStages;
 
 namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
 {
@@ -19,7 +20,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
     {
         private const int browsedItemsOnPage = 8;
 
-        public CompareData? compareData;
+        public CompareData? _compareData;
 
         private PlayerInventory _inventory;
         private ItemType _browsedCategory;
@@ -67,32 +68,91 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
 
         public override async Task SendAsync()
         {
-            await ShowMainInfo()
+            await ShowCategories()
                 .ConfigureAwait(false);
         }
 
-        public async Task ShowMainInfo()
+        private async Task ShowCategories(CompareData? compareData = null)
         {
-            await RemoveKeyboardFromLastMessage()
-                .ConfigureAwait(false);
+            var tooltip = session.tooltipController.TryGetTooltip(this);
+
+            ClearButtons();
+            RegisterCategoryButton(ItemType.Sword, tooltip, 0);
+            RegisterCategoryButton(ItemType.Bow, tooltip, 1);
+            RegisterCategoryButton(ItemType.Stick, tooltip, 2);
+            RegisterCategoryButton(ItemType.Helmet, tooltip, 3);
+            RegisterCategoryButton(ItemType.Armor, tooltip, 4);
+            RegisterCategoryButton(ItemType.Boots, tooltip, 5);
+            RegisterCategoryButton(ItemType.Shield, tooltip, 6);
+            RegisterCategoryButton(ItemType.Ring, tooltip, 7);
+            RegisterCategoryButton(ItemType.Amulet, tooltip, 8);
+            RegisterCategoryButton(ItemType.Scroll, tooltip, 9);
 
             RegisterButton(Emojis.ItemEquipped + Localization.Get(session, "menu_item_equipped"),
                 () => ((InventoryDialog)dialog).ShowCategory(ItemType.Equipped));
 
             var sb = new StringBuilder();
             sb.Append(BuildMainItemsInfo());
+            var dialogHasTooltip = TryAppendTooltip(sb, tooltip);
 
-            TryAppendTooltip(sb);
-            await SendPanelMessage(sb, GetMultilineKeyboard(), asNewMessage: true)
+            await SendPanelMessage(sb, GetKeyboardWithFixedRowSize(3), asNewMessage: true)
                 .ConfigureAwait(false);
+
+            if (!dialogHasTooltip)
+            {
+                _compareData = compareData;
+                //await _inspectorPanel.ShowMainInfo()
+                //    .ConfigureAwait(false);
+            }
         }
+
+        private void RegisterCategoryButton(ItemType itemType, Tooltip? tooltip, int buttonId)
+        {
+            var inventory = session.player.inventory;
+            var dialogHasTooltip = tooltip != null;
+            var isTooltipButton = dialogHasTooltip && tooltip?.buttonId == buttonId;
+
+            var prefix = inventory.HasNewInCategory(itemType) && !dialogHasTooltip ? Emojis.ElementWarningRed.ToString()
+                : isTooltipButton ? string.Empty
+                : itemType.GetEmoji().ToString() + ' ';
+            var text = prefix + itemType.GetCategoryLocalization(session);
+            RegisterButton(text, () => ShowCategory(itemType));
+        }
+
+        //public async Task ShowCategory(ItemType category, int page = 0, CompareData? newCompareData = null)
+        //{
+        //    _inspectorPanel.OnDialogClose(); // Чтобы убрать кнопку "Экипированное"
+        //    if (newCompareData.HasValue)
+        //    {
+        //        _inspectorPanel.compareData = newCompareData.Value;
+        //    }
+
+        //    ClearButtons();
+        //    RegisterBackButton(Localization.Get(session, "menu_item_inventory") + Emojis.ButtonInventory,
+        //        () => ShowCategories(_inspectorPanel.compareData));
+        //    RegisterDoubleBackButton(Localization.Get(session, "menu_item_character") + Emojis.AvatarMale,
+        //        () => new TownCharacterDialog(session).Start());
+
+        //    var sb = new StringBuilder();
+        //    sb.AppendLine(Emojis.ButtonInventory + Localization.Get(session, "menu_item_inventory").Bold());
+        //    if (_inspectorPanel.compareData.HasValue)
+        //    {
+        //        sb.AppendLine();
+        //        sb.AppendLine(Localization.Get(session, "menu_item_compare_button_header"));
+        //    }
+
+        //    await SendDialogMessage(sb, GetOneLineKeyboard())
+        //        .ConfigureAwait(false);
+        //    await _inspectorPanel.ShowCategory(category, page)
+        //        .ConfigureAwait(false);
+        //}
 
         public async Task ShowCategory(ItemType category, int itemsPage = 0)
         {
             _browsedCategory = category;
             RefreshBrowsedItems();
             _currentPage = itemsPage < _pagesCount ? itemsPage : _pagesCount - 1;
-            await ShowItemsPage(asNewMessage: true)
+            await ShowItemsPage()
                 .ConfigureAwait(false);
         }
 
@@ -119,7 +179,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
                 : _browsedItems.Length / browsedItemsOnPage;
         }
 
-        private async Task ShowItemsPage(bool asNewMessage)
+        private async Task ShowItemsPage()
         {
             ClearButtons();
             var categoryLocalization = GetCategoryLocalization(_browsedCategory) + ": ";
@@ -155,7 +215,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
             }
 
             TryAppendTooltip(text);
-            await SendPanelMessage(text, GetItemsPageKeyboard(), asNewMessage)
+            await SendPanelMessage(text, GetItemsPageKeyboard())
                 .ConfigureAwait(false);
         }
 
@@ -177,9 +237,9 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
 
         private async Task OnItemClick(InventoryItem item)
         {
-            if (compareData != null)
+            if (_compareData != null)
             {
-                await new InventoryItemComparisonDialog(session, item, compareData.Value).Start()
+                await new InventoryItemComparisonDialog(session, item, _compareData.Value).Start()
                     .ConfigureAwait(false);
                 return;
             }
@@ -190,14 +250,14 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
         private async Task OnClickPreviousPage()
         {
             _currentPage--;
-            await ShowItemsPage(asNewMessage: false)
+            await ShowItemsPage()
                 .ConfigureAwait(false);
         }
 
         private async Task OnClickNextPage()
         {
             _currentPage++;
-            await ShowItemsPage(asNewMessage: false)
+            await ShowItemsPage()
                 .ConfigureAwait(false);
         }
 
