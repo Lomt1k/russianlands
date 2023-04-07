@@ -43,6 +43,16 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
             RegisterButton(Emojis.ElementBack + Localization.Get(session, "menu_item_back_button"), callback, queryAnswer);
         }
 
+        protected void RegisterBackButton(string text, Func<Task> callback)
+        {
+            RegisterButton(Emojis.ElementBack + text, callback);
+        }
+
+        protected void RegisterDoubleBackButton(string text, Func<Task> callback)
+        {
+            RegisterButton(Emojis.ElementBack + text, callback);
+        }
+
         protected void RegisterButton(string text, Func<Task>? callback, Func<string?>? queryAnswer = null)
         {
             var callbackData = new DialogPanelButtonCallbackData()
@@ -81,6 +91,28 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
                 i++;
             }
             return new InlineKeyboardMarkup(linesArray);
+        }
+
+        protected InlineKeyboardMarkup GetMultilineKeyboardWithDoubleBack()
+        {
+            var buttons = _registeredButtons.Values.ToArray();
+            var rowsCount = buttons.Length - 1;
+            var rows = new List<List<InlineKeyboardButton>>(rowsCount);
+
+            var lastRow = new List<InlineKeyboardButton>
+            {
+                buttons[buttonsCount - 2],
+                buttons[buttonsCount - 1]
+            };
+
+            for (int i = 0; i < buttonsCount - 2; i++)
+            {
+                var row = new List<InlineKeyboardButton> { buttons[i] };
+                rows.Add(row);
+            }
+            rows.Add(lastRow);
+
+            return new InlineKeyboardMarkup(rows);
         }
 
         protected InlineKeyboardMarkup GetKeyboardWithRowSizes(params int[] args)

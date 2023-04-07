@@ -16,7 +16,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
         public int currentPageOnStartCompare;
     }
 
-    public class InventoryInspectorDialogPanel : DialogPanelBase
+    public partial class InventoryInspectorDialogPanel : DialogPanelBase
     {
         private const int browsedItemsOnPage = 8;
 
@@ -72,7 +72,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
                 .ConfigureAwait(false);
         }
 
-        private async Task ShowCategories(CompareData? compareData = null)
+        private async Task ShowCategories()
         {
             var tooltip = session.tooltipController.TryGetTooltip(this);
 
@@ -95,15 +95,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
             sb.Append(BuildMainItemsInfo());
             var dialogHasTooltip = TryAppendTooltip(sb, tooltip);
 
-            await SendPanelMessage(sb, GetKeyboardWithFixedRowSize(3), asNewMessage: true)
+            await SendPanelMessage(sb, GetKeyboardWithFixedRowSize(3))
                 .ConfigureAwait(false);
-
-            if (!dialogHasTooltip)
-            {
-                _compareData = compareData;
-                //await _inspectorPanel.ShowMainInfo()
-                //    .ConfigureAwait(false);
-            }
         }
 
         private void RegisterCategoryButton(ItemType itemType, Tooltip? tooltip, int buttonId)
@@ -118,34 +111,6 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
             var text = prefix + itemType.GetCategoryLocalization(session);
             RegisterButton(text, () => ShowCategory(itemType));
         }
-
-        //public async Task ShowCategory(ItemType category, int page = 0, CompareData? newCompareData = null)
-        //{
-        //    _inspectorPanel.OnDialogClose(); // Чтобы убрать кнопку "Экипированное"
-        //    if (newCompareData.HasValue)
-        //    {
-        //        _inspectorPanel.compareData = newCompareData.Value;
-        //    }
-
-        //    ClearButtons();
-        //    RegisterBackButton(Localization.Get(session, "menu_item_inventory") + Emojis.ButtonInventory,
-        //        () => ShowCategories(_inspectorPanel.compareData));
-        //    RegisterDoubleBackButton(Localization.Get(session, "menu_item_character") + Emojis.AvatarMale,
-        //        () => new TownCharacterDialog(session).Start());
-
-        //    var sb = new StringBuilder();
-        //    sb.AppendLine(Emojis.ButtonInventory + Localization.Get(session, "menu_item_inventory").Bold());
-        //    if (_inspectorPanel.compareData.HasValue)
-        //    {
-        //        sb.AppendLine();
-        //        sb.AppendLine(Localization.Get(session, "menu_item_compare_button_header"));
-        //    }
-
-        //    await SendDialogMessage(sb, GetOneLineKeyboard())
-        //        .ConfigureAwait(false);
-        //    await _inspectorPanel.ShowCategory(category, page)
-        //        .ConfigureAwait(false);
-        //}
 
         public async Task ShowCategory(ItemType category, int itemsPage = 0)
         {
@@ -205,6 +170,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
                 }
             }
 
+            RegisterBackButton(() => ShowCategories());
             if (_pagesCount > 1)
             {
                 text.AppendLine(Localization.Get(session, "dialog_inventory_current_page", _currentPage + 1, _pagesCount));
@@ -237,14 +203,26 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
 
         private async Task OnItemClick(InventoryItem item)
         {
-            if (_compareData != null)
-            {
-                await new InventoryItemComparisonDialog(session, item, _compareData.Value).Start()
-                    .ConfigureAwait(false);
-                return;
-            }
-            await new InventoryItemDialog(session, item, _browsedCategory, _currentPage).Start()
+            //if (_compareData != null)
+            //{
+            //    await new InventoryItemComparisonDialog(session, item, _compareData.Value).Start()
+            //        .ConfigureAwait(false);
+            //    return;
+            //}
+
+            _browsedItem = item;
+            MarkItemAsViewed(item);
+            await ShowItemInspector()
                 .ConfigureAwait(false);
+        }
+
+        private void MarkItemAsViewed(InventoryItem item)
+        {
+            if (item.state == ItemState.IsNewAndNotEquipped)
+            {
+                item.state = ItemState.IsNotEquipped;
+                session.player.inventory.UpdateHasNewItemsState();
+            }
         }
 
         private async Task OnClickPreviousPage()
@@ -266,7 +244,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
             if (_pagesCount < 2)
                 return GetMultilineKeyboard();
 
-            int lastRowButtons = _currentPage == _pagesCount - 1 || _currentPage == 0 ? 1 : 2;
+            int lastRowButtons = _currentPage == _pagesCount - 1 || _currentPage == 0 ? 2 : 3;
             var parameters = new int[buttonsCount - lastRowButtons + 1];
             for (int i = 0; i < parameters.Length; i++)
             {
