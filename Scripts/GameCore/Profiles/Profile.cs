@@ -29,15 +29,15 @@ namespace TextGameRPG.Scripts.GameCore.Profiles
         {
             if (lastSaveProfileTime < lastActivityTime)
             {
-                await SaveProfile().ConfigureAwait(false);
+                await SaveProfile().FastAwait();
             }
         }
 
         private async Task SaveProfile()
         {
-            await data.UpdateInDatabase().ConfigureAwait(false);
-            await dynamicData.UpdateInDatabase().ConfigureAwait(false);
-            await buildingsData.UpdateInDatabase().ConfigureAwait(false);
+            await data.UpdateInDatabase().FastAwait();
+            await dynamicData.UpdateInDatabase().FastAwait();
+            await buildingsData.UpdateInDatabase().FastAwait();
             lastSaveProfileTime = DateTime.UtcNow;
         }
 

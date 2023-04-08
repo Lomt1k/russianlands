@@ -18,8 +18,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
 
         public override async Task Start()
         {
-            await ShowGlobalMap()
-                .ConfigureAwait(false);
+            await ShowGlobalMap().FastAwait();
         }
 
         private async Task ShowGlobalMap()
@@ -50,8 +49,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
             var sb = new StringBuilder();
             sb.Append(Localization.Get(session, "dialog_map_select_location"));
             TryAppendTooltip(sb);
-            await SendPanelMessage(sb, GetKeyboardWithFixedRowSize(2))
-                .ConfigureAwait(false);
+            await SendPanelMessage(sb, GetKeyboardWithFixedRowSize(2)).FastAwait();
         }
 
         private async Task ShowLockedLocationInfo(LocationType locationType)
@@ -66,8 +64,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
 
             ClearButtons();
             RegisterBackButton(() => ShowGlobalMap());
-            await SendPanelMessage(sb, GetOneLineKeyboard())
-                .ConfigureAwait(false);
+            await SendPanelMessage(sb, GetOneLineKeyboard()).FastAwait();
         }
 
         public async Task ShowLocation(LocationType locationType)
@@ -95,8 +92,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
             RegisterBackButton(() => ShowGlobalMap());
 
             TryAppendTooltip(sb);
-            await SendPanelMessage(sb, GetMultilineKeyboard())
-                .ConfigureAwait(false);
+            await SendPanelMessage(sb, GetMultilineKeyboard()).FastAwait();
         }
 
         private async Task ContinueStoryMode(LocationType locationType)
@@ -116,8 +112,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
                 return;
             }
 
-            await QuestManager.TryInvokeTrigger(session, TriggerType.ContinueStoryMode)
-                .ConfigureAwait(false);
+            await QuestManager.TryInvokeTrigger(session, TriggerType.ContinueStoryMode).FastAwait();
         }
 
         // simulate Start() from BattlePointDialog
@@ -133,8 +128,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
             RegisterBackButton(() => ShowLocation(locationType));
             RegisterBackButton(Localization.Get(session, "menu_item_map") + Emojis.ButtonMap, () => ShowGlobalMap());
 
-            await SendPanelMessage(text, GetMultilineKeyboardWithDoubleBack())
-                .ConfigureAwait(false);
+            await SendPanelMessage(text, GetMultilineKeyboardWithDoubleBack()).FastAwait();
         }
 
     }

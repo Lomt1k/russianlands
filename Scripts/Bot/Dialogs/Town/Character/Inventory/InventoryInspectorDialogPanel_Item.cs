@@ -41,8 +41,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Inventory
                 () => ShowCategories());
 
             TryAppendTooltip(sb);
-            await SendPanelMessage(sb, GetMultilineKeyboardWithDoubleBack())
-                .ConfigureAwait(false);
+            await SendPanelMessage(sb, GetMultilineKeyboardWithDoubleBack()).FastAwait();
         }
 
         private async Task StartEquipLogic()
@@ -53,20 +52,17 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Inventory
             {
                 var messageText = _browsedItem.GetFullName(session).Bold() + "\n\n"
                     + Localization.Get(session, "dialog_inventory_required_level", requiredLevel, Emojis.SmileSad);
-                await SendMessageWithBackButton(messageText)
-                    .ConfigureAwait(false);
+                await SendMessageWithBackButton(messageText).FastAwait();
                 return;
             }
 
             if (_browsedItem.data.itemType.IsMultiSlot())
             {
-                await SelectSlotForEquip()
-                    .ConfigureAwait(false);
+                await SelectSlotForEquip().FastAwait();
                 return;
             }
 
-            await EquipSingleSlot()
-                .ConfigureAwait(false);
+            await EquipSingleSlot().FastAwait();
         }
 
         private async Task SelectSlotForEquip()
@@ -88,8 +84,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Inventory
             }
             RegisterBackButton(() => ShowItemInspector());
 
-            await SendPanelMessage(text, GetMultilineKeyboard())
-                .ConfigureAwait(false);
+            await SendPanelMessage(text, GetMultilineKeyboard()).FastAwait();
         }
 
         private async Task EquipSingleSlot()
@@ -97,8 +92,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Inventory
             inventory.EquipSingleSlot(_browsedItem);
             RefreshBrowsedItemsIfEquippedCategory();
 
-            await ShowItemInspector()
-                .ConfigureAwait(false);
+            await ShowItemInspector().FastAwait();
         }
 
         private async Task EquipMultiSlot(int slotId)
@@ -106,8 +100,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Inventory
             inventory.EquipMultiSlot(_browsedItem, slotId);
             RefreshBrowsedItemsIfEquippedCategory();
 
-            await ShowItemInspector()
-                .ConfigureAwait(false);
+            await ShowItemInspector().FastAwait();
         }
 
         private async Task UnequipItem()
@@ -115,8 +108,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Inventory
             inventory.Unequip(_browsedItem);
             RefreshBrowsedItemsIfEquippedCategory();
 
-            await ShowItemInspector()
-                .ConfigureAwait(false);
+            await ShowItemInspector().FastAwait();
         }
 
         // Если мы убираем / надеваем предмет, находясь в категории "экипированного" - список экипированных предметов должен обновиться
@@ -138,24 +130,21 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Inventory
                 pagesCountOnStartCompare = _pagesCount,
             };
 
-            await ShowCategory(_browsedCategory)
-                .ConfigureAwait(false);
+            await ShowCategory(_browsedCategory).FastAwait();
         }
 
         private async Task TryBreakApartItem()
         {
             if (_browsedItem.isEquipped)
             {
-                await SendMessageWithBackButton(Localization.Get(session, "dialog_inventory_break_apart_equipped"))
-                    .ConfigureAwait(false);
+                await SendMessageWithBackButton(Localization.Get(session, "dialog_inventory_break_apart_equipped")).FastAwait();
                 return;
             }
             if (inventory.GetItemsCountByType(_browsedItem.data.itemType) < 2)
             {
                 var message = Localization.Get(session, "dialog_inventory_break_apart_empty_category")
                     + _browsedCategory.GetEmoji() + _browsedCategory.GetCategoryLocalization(session).Bold();
-                await SendMessageWithBackButton(message)
-                    .ConfigureAwait(false);
+                await SendMessageWithBackButton(message).FastAwait();
                 return;
             }
 
@@ -173,8 +162,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Inventory
                 () => ForceBreakApart());
             RegisterBackButton(() => ShowItemInspector());
 
-            await SendPanelMessage(sb, GetMultilineKeyboard())
-                .ConfigureAwait(false);
+            await SendPanelMessage(sb, GetMultilineKeyboard()).FastAwait();
         }
 
         private async Task ForceBreakApart()
@@ -184,16 +172,14 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Inventory
             inventory.RemoveItem(_browsedItem);
             _browsedItem = null;
 
-            await ShowCategory(_browsedCategory, _currentPage)
-                .ConfigureAwait(false);
+            await ShowCategory(_browsedCategory, _currentPage).FastAwait();
         }
 
         private async Task SendMessageWithBackButton(string text)
         {
             ClearButtons();
             RegisterBackButton(() => ShowItemInspector());
-            await SendPanelMessage(text, GetOneLineKeyboard())
-                .ConfigureAwait(false);
+            await SendPanelMessage(text, GetOneLineKeyboard()).FastAwait();
         }
 
         #region Comparison
@@ -212,8 +198,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Inventory
             sb.AppendLine();
             sb.AppendLine(_browsedItem.GetView(session));
 
-            await SendPanelMessage(sb, GetMultilineKeyboard())
-                .ConfigureAwait(false);
+            await SendPanelMessage(sb, GetMultilineKeyboard()).FastAwait();
         }
 
         private async Task SelectAnotherItemToCompare()

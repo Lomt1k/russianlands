@@ -27,8 +27,7 @@ namespace TextGameRPG.Scripts.Bot.Commands.Cheats
             sb.AppendLine(Localization.Get(session, "battle_result_header_rewards"));
             sb.AppendLine(resourceType.GetLocalizedView(session, amount));
 
-            await messageSender.SendTextMessage(session.chatId, sb.ToString())
-                .ConfigureAwait(false);
+            await messageSender.SendTextMessage(session.chatId, sb.ToString()).FastAwait();
         }
 
         public async Task SendManualMessage(GameSession session)
@@ -40,8 +39,7 @@ namespace TextGameRPG.Scripts.Bot.Commands.Cheats
             {
                 sb.AppendLine($"/addresource {resourceType} [amount]");
             }
-            await messageSender.SendTextMessage(session.chatId, sb.ToString())
-                    .ConfigureAwait(false);
+            await messageSender.SendTextMessage(session.chatId, sb.ToString()).FastAwait();
         }
     }
 }

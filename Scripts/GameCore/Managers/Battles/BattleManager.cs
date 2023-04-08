@@ -95,8 +95,7 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles
             var battle = GetCurrentBattle(player);
             if (battle != null)
             {
-                await battle.ForceBattleEndWithResult(player, BattleResult.Lose)
-                    .ConfigureAwait(false);
+                await battle.ForceBattleEndWithResult(player, BattleResult.Lose).FastAwait();
             }
         }
 

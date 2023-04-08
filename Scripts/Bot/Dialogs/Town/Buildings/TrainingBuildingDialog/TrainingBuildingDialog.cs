@@ -26,7 +26,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.TrainingBuildingDialog
         {
             if (_building is WarriorTrainingBuilding)
             {
-                await ShowCurrentUnit(0, fromUnitsList: true).ConfigureAwait(false);
+                await ShowCurrentUnit(0, fromUnitsList: true).FastAwait();
                 return;
             }
             await ShowUnitsList();
@@ -58,8 +58,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.TrainingBuildingDialog
             }
 
             RegisterBackButton(() => new BuildingsDialog(session).StartWithShowBuilding(_building));
-            await SendDialogMessage(sb, GetKeyboardWithFixedRowSize(2))
-                .ConfigureAwait(false);
+            await SendDialogMessage(sb, GetKeyboardWithFixedRowSize(2)).FastAwait();
         }
 
         private async Task ShowCurrentUnit(sbyte unitIndex, bool fromUnitsList = false)
@@ -144,8 +143,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.TrainingBuildingDialog
             {
                 RegisterBackButton(() => ShowUnitsList());
             }
-            await SendDialogMessage(sb, GetMultilineKeyboard())
-                .ConfigureAwait(false);
+            await SendDialogMessage(sb, GetMultilineKeyboard()).FastAwait();
         }
 
         private void TrySilentFinishTrainings()
@@ -173,8 +171,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.TrainingBuildingDialog
                 _building.SetSecondTrainingUnitIndex(_data, unitIndex);
                 _building.SetSecondTrainingUnitStartTime(_data, DateTime.UtcNow.Ticks);
             }
-            await ShowCurrentUnit(unitIndex)
-                .ConfigureAwait(false);
+            await ShowCurrentUnit(unitIndex).FastAwait();
         }
 
         private async Task TryBoostTraining(sbyte unitIndex)
@@ -195,8 +192,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.TrainingBuildingDialog
                 ClearButtons();
                 RegisterButton(Localization.Get(session, "menu_item_continue_button"), () => ShowCurrentUnit(unitIndex));
 
-                await SendDialogMessage(message, GetOneLineKeyboard())
-                    .ConfigureAwait(false);
+                await SendDialogMessage(message, GetOneLineKeyboard()).FastAwait();
                 return;
             }
 
@@ -222,8 +218,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.TrainingBuildingDialog
                 ClearButtons();
                 RegisterButton(Localization.Get(session, "menu_item_continue_button"), () => ShowCurrentUnit(unitIndex));
 
-                await SendDialogMessage(sb, GetOneLineKeyboard())
-                    .ConfigureAwait(false);
+                await SendDialogMessage(sb, GetOneLineKeyboard()).FastAwait();
                 return;
             }
 
@@ -231,8 +226,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.TrainingBuildingDialog
             var text = Localization.Get(session, "resource_not_enough_diamonds", Emojis.SmileSad);
             RegisterButton(Emojis.ButtonShop + Localization.Get(session, "menu_item_shop"), () => new ShopDialog(session).Start());
             RegisterBackButton(() => ShowCurrentUnit(unitIndex));
-            await SendDialogMessage(text, GetMultilineKeyboard())
-                .ConfigureAwait(false);
+            await SendDialogMessage(text, GetMultilineKeyboard()).FastAwait();
         }
 
         private async Task CancelTraining(sbyte unitIndex)
@@ -264,8 +258,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.TrainingBuildingDialog
                 }
             }
 
-            await ShowCurrentUnit(unitIndex)
-                .ConfigureAwait(false);
+            await ShowCurrentUnit(unitIndex).FastAwait();
         }
 
     }

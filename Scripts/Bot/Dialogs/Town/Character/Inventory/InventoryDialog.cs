@@ -20,8 +20,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Inventory
         public override async Task Start()
         {
             var header = Emojis.ButtonInventory + Localization.Get(session, "menu_item_inventory").Bold();
-            await SendDialogMessage(header, GetOneLineKeyboard()).ConfigureAwait(false);
-            await _inspectorPanel.Start().ConfigureAwait(false);
+            await SendDialogMessage(header, GetOneLineKeyboard()).FastAwait();
+            await _inspectorPanel.Start().FastAwait();
         }
 
     }

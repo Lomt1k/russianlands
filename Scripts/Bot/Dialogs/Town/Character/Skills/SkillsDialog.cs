@@ -61,8 +61,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Skills
                 sb.AppendLine(Localization.Get(session, "dialog_skills_upgrade_select_skill"));
             }
 
-            await SendDialogMessage(sb, GetKeyboardWithRowSizes(3, 3, 2, 2))
-                .ConfigureAwait(false);
+            await SendDialogMessage(sb, GetKeyboardWithRowSizes(3, 3, 2, 2)).FastAwait();
         }
 
         private void RegisterSkillButtons()

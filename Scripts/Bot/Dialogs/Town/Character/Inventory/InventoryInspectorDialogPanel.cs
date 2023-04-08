@@ -69,8 +69,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Inventory
 
         public override async Task Start()
         {
-            await ShowCategories()
-                .ConfigureAwait(false);
+            await ShowCategories().FastAwait();
         }
 
         private async Task ShowCategories()
@@ -96,8 +95,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Inventory
             sb.Append(BuildMainItemsInfo());
             var dialogHasTooltip = TryAppendTooltip(sb, tooltip);
 
-            await SendPanelMessage(sb, GetKeyboardWithFixedRowSize(3))
-                .ConfigureAwait(false);
+            await SendPanelMessage(sb, GetKeyboardWithFixedRowSize(3)).FastAwait();
         }
 
         private void RegisterCategoryButton(ItemType itemType, Tooltip? tooltip, int buttonId)
@@ -120,8 +118,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Inventory
             _browsedCategory = category;
             RefreshBrowsedItems();
             _currentPage = itemsPage < _pagesCount ? itemsPage : _pagesCount - 1;
-            await ShowItemsPage()
-                .ConfigureAwait(false);
+            await ShowItemsPage().FastAwait();
         }
 
         private void RefreshBrowsedItems()
@@ -197,8 +194,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Inventory
             }
 
             TryAppendTooltip(text);
-            await SendPanelMessage(text, GetItemsPageKeyboard())
-                .ConfigureAwait(false);
+            await SendPanelMessage(text, GetItemsPageKeyboard()).FastAwait();
         }
 
         private string GetCategoryLocalization(ItemType category)
@@ -224,14 +220,12 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Inventory
 
             if (_compareData != null)
             {
-                await ShowItemInspectorWithComparison()
-                    .ConfigureAwait(false);
+                await ShowItemInspectorWithComparison().FastAwait();
                 return;
             }
 
             
-            await ShowItemInspector()
-                .ConfigureAwait(false);
+            await ShowItemInspector().FastAwait();
         }
 
         private void MarkItemAsViewed(InventoryItem item)
@@ -246,15 +240,13 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Inventory
         private async Task OnClickPreviousPage()
         {
             _currentPage--;
-            await ShowItemsPage()
-                .ConfigureAwait(false);
+            await ShowItemsPage().FastAwait();
         }
 
         private async Task OnClickNextPage()
         {
             _currentPage++;
-            await ShowItemsPage()
-                .ConfigureAwait(false);
+            await ShowItemsPage().FastAwait();
         }
 
         private InlineKeyboardMarkup GetItemsPageKeyboard()

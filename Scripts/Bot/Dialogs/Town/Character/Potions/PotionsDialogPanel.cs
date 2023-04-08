@@ -18,8 +18,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
 
         public override async Task Start()
         {
-            await ShowPotionsList()
-                .ConfigureAwait(false);
+            await ShowPotionsList().FastAwait();
         }
 
         private async Task ShowPotionsList()
@@ -53,8 +52,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
             RegisterButton(Emojis.ElementPlus + Localization.Get(session, "dialog_potions_produce_button") + $" ({freeSlots})",
                 () => TryOpenProductionPanel());
 
-            await SendPanelMessage(sb, GetMultilineKeyboard())
-                .ConfigureAwait(false);
+            await SendPanelMessage(sb, GetMultilineKeyboard()).FastAwait();
         }
 
         private async Task TryOpenProductionPanel()
@@ -75,13 +73,11 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
                 }
 
                 RegisterBackButton(() => ShowPotionsList());
-                await SendPanelMessage(sb, GetMultilineKeyboard())
-                    .ConfigureAwait(false);
+                await SendPanelMessage(sb, GetMultilineKeyboard()).FastAwait();
                 return;
             }
 
-            await ShowPotionsToProductionList()
-                .ConfigureAwait(false);
+            await ShowPotionsToProductionList().FastAwait();
         }
 
         private async Task TryBoostAllCraft()
@@ -91,8 +87,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
                 var message = Localization.Get(session, "dialog_potions_craft_boost_expired");
                 ClearButtons();
                 RegisterBackButton(() => ShowPotionsList());
-                await SendPanelMessage(message, GetOneLineKeyboard())
-                    .ConfigureAwait(false);
+                await SendPanelMessage(message, GetOneLineKeyboard()).FastAwait();
                 return;
             }
 
@@ -124,8 +119,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
                 RegisterButton(Localization.Get(session, "menu_item_continue_button"),
                     () => ShowPotionsList());
 
-                await SendPanelMessage(sb, GetOneLineKeyboard())
-                    .ConfigureAwait(false);
+                await SendPanelMessage(sb, GetOneLineKeyboard()).FastAwait();
                 return;
             }
 
@@ -135,8 +129,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
                 () => new ShopDialog(session).Start());
             RegisterBackButton(() => ShowPotionsList());
 
-            await SendPanelMessage(text, GetMultilineKeyboard())
-                .ConfigureAwait(false);
+            await SendPanelMessage(text, GetMultilineKeyboard()).FastAwait();
         }
 
     }

@@ -45,14 +45,12 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
                 RegisterBackButton(_data.onBackButtonFunc);
             }
 
-            await SendDialogMessage(text, GetMultilineKeyboard())
-                .ConfigureAwait(false);
+            await SendDialogMessage(text, GetMultilineKeyboard()).FastAwait();
         }
 
         public async Task SilentStart()
         {
-            await TryStartBattle()
-                .ConfigureAwait(false);
+            await TryStartBattle().FastAwait();
         }
 
         private async Task TryStartBattle()
@@ -64,7 +62,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
                 var buyResourcesDialog = new BuyResourcesForDiamondsDialog(session, ResourceType.Food, _data.foodPrice,
                 onSuccess: async () => await new BattlePointDialog(session, _data).SilentStart(),
                 onCancel: async () => await new BattlePointDialog(session, _data).Start());
-                await buyResourcesDialog.Start();
+                await buyResourcesDialog.Start().FastAwait();
                 return;
             }
 

@@ -33,11 +33,11 @@ namespace TextGameRPG.Scripts.GameCore.Units.ActionHandlers
                 generalAttackAction.damageInfo += player.unitStats.statEffects.GetExtraDamageAndRemoveEffects();
                 isActionsReady = true;
             })
-            .Start().ConfigureAwait(false);
+            .Start().FastAwait();
 
             while (battleTurn.isWaitingForActions && !isActionsReady)
             {
-                await Task.Delay(500).ConfigureAwait(false);
+                await Task.Delay(500).FastAwait();
             }
 
             return result;

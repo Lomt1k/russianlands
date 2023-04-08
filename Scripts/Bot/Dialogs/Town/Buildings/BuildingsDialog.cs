@@ -19,28 +19,22 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
         public override async Task Start()
         {
             var header = Emojis.ButtonBuildings + Localization.Get(session, "menu_item_buildings").Bold();
-            await SendDialogMessage(header, GetOneLineKeyboard())
-                .ConfigureAwait(false);
-            await _inspectorPanel.Start()
-                .ConfigureAwait(false);
+            await SendDialogMessage(header, GetOneLineKeyboard()).FastAwait();
+            await _inspectorPanel.Start().FastAwait();
         }
 
         public async Task StartWithShowBuilding(BuildingBase building)
         {
             var header = Emojis.ButtonBuildings + Localization.Get(session, "menu_item_buildings").Bold();
-            await SendDialogMessage(header, GetOneLineKeyboard())
-                .ConfigureAwait(false);
-            await _inspectorPanel.ShowBuilding(building)
-                .ConfigureAwait(false);
+            await SendDialogMessage(header, GetOneLineKeyboard()).FastAwait();
+            await _inspectorPanel.ShowBuilding(building).FastAwait();
         }
 
         public async Task StartWithTryStartConstruction(BuildingBase building)
         {
             var header = Emojis.ButtonBuildings + Localization.Get(session, "menu_item_buildings").Bold();
-            await SendDialogMessage(header, GetOneLineKeyboard())
-                .ConfigureAwait(false);
-            await _inspectorPanel.TryStartConstruction(building)
-                    .ConfigureAwait(false);
+            await SendDialogMessage(header, GetOneLineKeyboard()).FastAwait();
+            await _inspectorPanel.TryStartConstruction(building).FastAwait();
         }
 
     }

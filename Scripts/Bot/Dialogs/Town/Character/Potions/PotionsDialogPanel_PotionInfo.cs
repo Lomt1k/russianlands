@@ -27,8 +27,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
             RegisterBackButton(() => ShowPotionsList());
 
             var text = item.GetView(session);
-            await SendPanelMessage(text, GetMultilineKeyboard())
-                .ConfigureAwait(false);
+            await SendPanelMessage(text, GetMultilineKeyboard()).FastAwait();
         }
 
         private async Task TryBoostCraft(PotionItem item)
@@ -38,8 +37,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
                 var message = Localization.Get(session, "dialog_potions_craft_boost_expired");
                 ClearButtons();
                 RegisterButton(Localization.Get(session, "menu_item_continue_button"), () => ShowPotionsList());
-                await SendPanelMessage(message, GetOneLineKeyboard())
-                    .ConfigureAwait(false);
+                await SendPanelMessage(message, GetOneLineKeyboard()).FastAwait();
                 return;
             }
 
@@ -65,8 +63,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
 
                 RegisterButton(Localization.Get(session, "menu_item_continue_button"), () => ShowPotionsList());
 
-                await SendPanelMessage(sb, GetOneLineKeyboard())
-                    .ConfigureAwait(false);
+                await SendPanelMessage(sb, GetOneLineKeyboard()).FastAwait();
                 return;
             }
 
@@ -76,7 +73,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
                 () => new ShopDialog(session).Start());
             RegisterBackButton(() => ShowPotionInfo(item));
 
-            await SendPanelMessage(text, GetMultilineKeyboard()).ConfigureAwait(false);
+            await SendPanelMessage(text, GetMultilineKeyboard()).FastAwait();
         }
 
         private async Task CancelCraft(PotionItem item)
@@ -96,8 +93,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
 
             RegisterBackButton(Localization.Get(session, "menu_item_continue_button"), () => ShowPotionsList());
 
-            await SendPanelMessage(sb, GetOneLineKeyboard())
-                .ConfigureAwait(false);
+            await SendPanelMessage(sb, GetOneLineKeyboard()).FastAwait();
         }
 
 

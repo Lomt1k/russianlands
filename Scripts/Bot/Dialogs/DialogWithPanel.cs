@@ -14,13 +14,13 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
 
         public override async Task TryResendDialog()
         {
-            await base.TryResendDialog().ConfigureAwait(false);
-            await DialogPanel.ResendLastMessageAsNew().ConfigureAwait(false);
+            await base.TryResendDialog().FastAwait();
+            await DialogPanel.ResendLastMessageAsNew().FastAwait();
         }
 
         public virtual async Task HandleCallbackQuery(string queryId, DialogPanelButtonCallbackData callback)
         {
-            await DialogPanel.HandleButtonPress(callback.buttonId, queryId).ConfigureAwait(false);
+            await DialogPanel.HandleButtonPress(callback.buttonId, queryId).FastAwait();
         }
 
         public override void OnClose()

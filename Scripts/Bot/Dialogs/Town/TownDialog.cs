@@ -67,14 +67,12 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town
                 sb.AppendLine(Localization.Get(session, "dialog_town_text_backFromInnerDialog"));
             }
 
-            await SendDialogMessage(sb, _keyboard)
-                    .ConfigureAwait(false);
+            await SendDialogMessage(sb, _keyboard).FastAwait();
 
             session.player.healhRegenerationController.InvokeRegen();
             if (!session.player.unitStats.isFullHealth)
             {
-                await SendHealthRegenMessage()
-                    .ConfigureAwait(false);
+                await SendHealthRegenMessage().FastAwait();
             }
         }
 
@@ -87,8 +85,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town
                 {
                     if (_regenHealthMessageId.HasValue)
                     {
-                        await messageSender.DeleteMessage(session.chatId, _regenHealthMessageId.Value)
-                            .ConfigureAwait(false);
+                        await messageSender.DeleteMessage(session.chatId, _regenHealthMessageId.Value).FastAwait();
                     }
                     return;
                 }
@@ -99,8 +96,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town
                 sb.AppendLine(Emojis.StatHealth + $"{stats.currentHP} / {stats.maxHP}");
 
                 var message = _regenHealthMessageId == null
-                    ? await messageSender.SendTextMessage(session.chatId, sb.ToString(), silent: true).ConfigureAwait(false)
-                    : await messageSender.EditTextMessage(session.chatId, _regenHealthMessageId.Value, sb.ToString()).ConfigureAwait(false);
+                    ? await messageSender.SendTextMessage(session.chatId, sb.ToString(), silent: true).FastAwait()
+                    : await messageSender.EditTextMessage(session.chatId, _regenHealthMessageId.Value, sb.ToString()).FastAwait();
                 _regenHealthMessageId = message?.MessageId;
 
                 WaitOneSecondAndInvokeHealthRegen();
@@ -112,12 +109,12 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town
         {
             try
             {
-                await Task.Delay(1_000).ConfigureAwait(false);
+                await Task.Delay(1_000).FastAwait();
                 if (session.IsTasksCancelled())
                     return;
 
                 session.player.healhRegenerationController.InvokeRegen();
-                await SendHealthRegenMessage().ConfigureAwait(false);
+                await SendHealthRegenMessage().FastAwait();
             }
             catch (System.Exception ex) { } //ignored
         }

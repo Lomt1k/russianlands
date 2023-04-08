@@ -21,8 +21,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
 
         public override async Task Start()
         {
-            await ShowCategories()
-                .ConfigureAwait(false);
+            await ShowCategories().FastAwait();
         }
 
         public async Task ShowCategories()
@@ -56,8 +55,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
             RegisterCategoryButton(BuildingCategory.Training);
 
             TryAppendTooltip(sb);
-            await SendPanelMessage(sb, GetKeyboardWithRowSizes(1, 2, 2))
-                .ConfigureAwait(false);
+            await SendPanelMessage(sb, GetKeyboardWithRowSizes(1, 2, 2)).FastAwait();
         }
 
         private void RegisterCategoryButton(BuildingCategory category)
@@ -132,8 +130,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
             RegisterBackButton(() => ShowCategories());
 
             TryAppendTooltip(sb);
-            await SendPanelMessage(sb, GetListKeyboard(category))
-                .ConfigureAwait(false);
+            await SendPanelMessage(sb, GetListKeyboard(category)).FastAwait();
         }
 
         private Emoji GetPrefix(BuildingBase building, ProfileBuildingsData data)
@@ -222,8 +219,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
             ClearButtons();
             RegisterButton(Localization.Get(session, "menu_item_continue_button"), () => ShowCategories());
 
-            await SendPanelMessage(sb, GetOneLineKeyboard())
-                .ConfigureAwait(false);
+            await SendPanelMessage(sb, GetOneLineKeyboard()).FastAwait();
         }
 
         

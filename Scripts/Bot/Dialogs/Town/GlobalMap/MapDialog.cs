@@ -27,19 +27,15 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
         public override async Task Start()
         {
             var header = Emojis.ButtonMap + Localization.Get(session, "menu_item_map").Bold();
-            await SendDialogMessage(header, GetKeyboardWithRowSizes(2, 1))
-                .ConfigureAwait(false);
-            await _mapPanel.Start()
-                .ConfigureAwait(false);
+            await SendDialogMessage(header, GetKeyboardWithRowSizes(2, 1)).FastAwait();
+            await _mapPanel.Start().FastAwait();
         }
 
         public async Task StartWithLocation(LocationType locationType)
         {
             var header = Emojis.ButtonMap + Localization.Get(session, "menu_item_map").Bold();
-            await SendDialogMessage(header, GetKeyboardWithRowSizes(2, 1))
-                .ConfigureAwait(false);
-            await _mapPanel.ShowLocation(locationType)
-                .ConfigureAwait(false);
+            await SendDialogMessage(header, GetKeyboardWithRowSizes(2, 1)).FastAwait();
+            await _mapPanel.ShowLocation(locationType).FastAwait();
         }
 
     }

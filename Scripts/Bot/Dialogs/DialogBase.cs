@@ -144,16 +144,13 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
 
         protected async Task<Message?> SendDialogMessage(StringBuilder sb, ReplyKeyboardMarkup? replyMarkup)
         {
-            return await SendDialogMessage(sb.ToString(), replyMarkup)
-                .ConfigureAwait(false);
+            return await SendDialogMessage(sb.ToString(), replyMarkup).FastAwait();
         }
 
         protected async Task<Message?> SendDialogMessage(string text, ReplyKeyboardMarkup? replyMarkup)
         {
-            _resendLastMessageFunc = async() => await messageSender.SendTextDialog(session.chatId, text, replyMarkup)
-                .ConfigureAwait(false);
-            lastMessage = await _resendLastMessageFunc()
-                .ConfigureAwait(false);
+            _resendLastMessageFunc = async() => await messageSender.SendTextDialog(session.chatId, text, replyMarkup).FastAwait();
+            lastMessage = await _resendLastMessageFunc().FastAwait();
             return lastMessage;
         }
 
@@ -166,8 +163,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
             if (lastMessage == null || secondsFromPreviousSent < 3)
                 return;
 
-            await TryResendDialog()
-                .ConfigureAwait(false);
+            await TryResendDialog().FastAwait();
         }
 
         public virtual async Task TryResendDialog()
@@ -175,8 +171,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
             if (_resendLastMessageFunc == null)
                 return;
 
-            lastMessage = await _resendLastMessageFunc()
-                .ConfigureAwait(false);
+            lastMessage = await _resendLastMessageFunc().FastAwait();
         }
 
         public virtual async Task HandleMessage(Message message)
@@ -197,13 +192,12 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
 
             if (callback != null)
             {
-                await Task.Run(callback).ConfigureAwait(false);
+                await Task.Run(callback).FastAwait();
             }
             else
             {
                 // пришел какой-то другой ответ от игрока (не одна из кнопок). Возможно у него пропала клавиатура или весь чат, надо переотправить диалог
-                await TryResendDialogWithAntiFloodDelay()
-                    .ConfigureAwait(false);
+                await TryResendDialogWithAntiFloodDelay().FastAwait();
             }
         }
 
@@ -238,7 +232,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
                     {
                         if (oldSelectedAction != null)
                         {
-                            await oldSelectedAction().ConfigureAwait(false);
+                            await oldSelectedAction().FastAwait();
                         }
                         if (newStage > -1)
                         {
@@ -246,8 +240,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
                             if (focusedQuest != null)
                             {
                                 var quest = GameCore.Quests.QuestsHolder.GetQuest(focusedQuest.Value);
-                                await quest.SetStage(session, newStage)
-                                    .ConfigureAwait(false);
+                                await quest.SetStage(session, newStage).FastAwait();
                             }
                         }
                     };

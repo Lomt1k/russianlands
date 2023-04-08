@@ -19,18 +19,15 @@ namespace TextGameRPG.Scripts.Bot.Commands
             var sessionManager = TelegramBot.instance.sessionManager;
             var realId = session.actualUser.Id;
 
-            await sessionManager.CloseSession(fakeId)
-                .ConfigureAwait(false);
-            await sessionManager.CloseSession(realId)
-                .ConfigureAwait(false);
+            await sessionManager.CloseSession(fakeId).FastAwait();
+            await sessionManager.CloseSession(realId).FastAwait();
 
             sessionManager.Cheat_SetFakeId(realId, fakeId);
             var message = fakeId == 0
                 ? $"Game will be restarted with your real account\n<b>Telegram Id:</b> {realId}"
                 : $"Game will be restarted with\n<b>Telegram Id:</b> {fakeId}\n\n{Emojis.ElementWarning} To restore your real account use:\n/fakeid 0";
 
-            await messageSender.SendTextDialog(realId, message, "Restart")
-                .ConfigureAwait(false);
+            await messageSender.SendTextDialog(realId, message, "Restart").FastAwait();
         }
 
         public async Task SendManualMessage(GameSession session)
@@ -39,8 +36,7 @@ namespace TextGameRPG.Scripts.Bot.Commands
             sb.AppendLine("Usage:".Bold());
             sb.AppendLine();
             sb.AppendLine($"/fakeid [telegram_id]");
-            await messageSender.SendTextMessage(session.chatId, sb.ToString())
-                    .ConfigureAwait(false);
+            await messageSender.SendTextMessage(session.chatId, sb.ToString()).FastAwait();
         }
 
     }

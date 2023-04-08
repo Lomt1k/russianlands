@@ -154,15 +154,14 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
 
         protected async Task<Message> SendPanelMessage(StringBuilder sb, InlineKeyboardMarkup? inlineMarkup, bool asNewMessage = false)
         {
-            return await SendPanelMessage(sb.ToString(), inlineMarkup, asNewMessage)
-                .ConfigureAwait(false);
+            return await SendPanelMessage(sb.ToString(), inlineMarkup, asNewMessage).FastAwait();
         }
 
         protected async Task<Message> SendPanelMessage(string text, InlineKeyboardMarkup? inlineMarkup, bool asNewMessage = false)
         {
             lastMessage = lastMessage == null || asNewMessage
-                ? await messageSender.SendTextMessage(session.chatId, text, inlineMarkup).ConfigureAwait(false)
-                : await messageSender.EditTextMessage(session.chatId, lastMessage.MessageId, text, inlineMarkup).ConfigureAwait(false);
+                ? await messageSender.SendTextMessage(session.chatId, text, inlineMarkup).FastAwait()
+                : await messageSender.EditTextMessage(session.chatId, lastMessage.MessageId, text, inlineMarkup).FastAwait();
 
             return lastMessage;
         }
@@ -177,8 +176,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
             ClearButtons();
             if (lastMessage?.ReplyMarkup != null)
             {
-                await messageSender.EditMessageKeyboard(session.chatId, lastMessage.MessageId, null)
-                    .ConfigureAwait(false);
+                await messageSender.EditMessageKeyboard(session.chatId, lastMessage.MessageId, null).FastAwait();
             }
         }
 
@@ -194,10 +192,9 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
 
             if (callback != null)
             {
-                await callback().ConfigureAwait(false);
+                await callback().FastAwait();
             }
-            await messageSender.AnswerQuery(session.chatId, queryId, query)
-                .ConfigureAwait(false);
+            await messageSender.AnswerQuery(session.chatId, queryId, query).FastAwait();
         }
 
         protected bool TryAppendTooltip(StringBuilder sb, Tooltip? _tooltip = null)
@@ -250,7 +247,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
                 {
                     if (oldSelectedAction != null)
                     {
-                        await oldSelectedAction().ConfigureAwait(false);
+                        await oldSelectedAction().FastAwait();
                     }
                     if (newStage > -1)
                     {
@@ -258,7 +255,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
                         if (focusedQuest != null)
                         {
                             var quest = GameCore.Quests.QuestsHolder.GetQuest(focusedQuest.Value);
-                            await quest.SetStage(session, newStage).ConfigureAwait(false);
+                            await quest.SetStage(session, newStage).FastAwait();
                         }
                     }
                 };
@@ -293,10 +290,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
             if (lastMessage == null)
                 return;
 
-            await messageSender.DeleteMessage(lastMessage.Chat.Id, lastMessage.MessageId)
-                .ConfigureAwait(false);
-            lastMessage = await messageSender.SendTextMessage(session.chatId, lastMessage.Text, lastMessage.ReplyMarkup)
-                .ConfigureAwait(false);
+            await messageSender.DeleteMessage(lastMessage.Chat.Id, lastMessage.MessageId).FastAwait();
+            lastMessage = await messageSender.SendTextMessage(session.chatId, lastMessage.Text, lastMessage.ReplyMarkup).FastAwait();
         }
 
     }

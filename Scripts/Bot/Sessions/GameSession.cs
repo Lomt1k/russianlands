@@ -58,8 +58,7 @@ namespace TextGameRPG.Scripts.Bot.Sessions
             {
                 if (update.Type == UpdateType.CallbackQuery)
                 {
-                    await TelegramBot.instance.messageSender.AnswerQuery(refreshedUser.Id, update.CallbackQuery.Id)
-                        .ConfigureAwait(false);
+                    await TelegramBot.instance.messageSender.AnswerQuery(refreshedUser.Id, update.CallbackQuery.Id).FastAwait();
                 }
                 return;
             }
@@ -68,13 +67,13 @@ namespace TextGameRPG.Scripts.Bot.Sessions
             try
             {
                 // Делаем паузу на обработку апдейта в зависимости от нагрузки на процессор
-                await Task.Delay(_performanceManager.GetCurrentResponseDelay()).ConfigureAwait(false);
+                await Task.Delay(_performanceManager.GetCurrentResponseDelay()).FastAwait();
 
                 lastActivityTime = DateTime.UtcNow;
                 actualUser = refreshedUser;
                 if (profile == null)
                 {
-                    await OnStartNewSession(actualUser, update).ConfigureAwait(false);
+                    await OnStartNewSession(actualUser, update).FastAwait();
                     _isHandlingUpdate = false;
                     return;
                 }
@@ -82,18 +81,17 @@ namespace TextGameRPG.Scripts.Bot.Sessions
                 switch (update.Type)
                 {
                     case UpdateType.Message:
-                        await HandleMessageAsync(update.Message).ConfigureAwait(false);
+                        await HandleMessageAsync(update.Message).FastAwait();
                         break;
                     case UpdateType.CallbackQuery:
-                        await HandleQueryAsync(update.CallbackQuery).ConfigureAwait(false);
+                        await HandleQueryAsync(update.CallbackQuery).FastAwait();
                         break;
                 }
             }
             catch (Exception ex) 
             {
                 Program.logger.Error($"Exception in session [user: {refreshedUser}]\n{ex}\n");
-                await TelegramBot.instance.messageSender.SendErrorMessage(chatId, $"{ex.GetType()}: {ex.Message}")
-                    .ConfigureAwait(false);
+                await TelegramBot.instance.messageSender.SendErrorMessage(chatId, $"{ex.GetType()}: {ex.Message}").FastAwait();
             }
             _isHandlingUpdate = false;
         }
@@ -109,10 +107,10 @@ namespace TextGameRPG.Scripts.Bot.Sessions
 
             if (message.Text != null && message.Text.StartsWith('/'))
             {
-                await Commands.CommandHandler.HandleCommand(this, message.Text).ConfigureAwait(false);
+                await Commands.CommandHandler.HandleCommand(this, message.Text).FastAwait();
                 return;
             }
-            await currentDialog.HandleMessage(message).ConfigureAwait(false);
+            await currentDialog.HandleMessage(message).FastAwait();
         }
 
         public async Task HandleQueryAsync(CallbackQuery query)
@@ -126,7 +124,7 @@ namespace TextGameRPG.Scripts.Bot.Sessions
                 case DialogPanelButtonCallbackData dialogPanelButtonCallback:
                     if (currentDialog != null && currentDialog is DialogWithPanel dialogWithPanel)
                     {
-                        await dialogWithPanel.HandleCallbackQuery(query.Id, dialogPanelButtonCallback).ConfigureAwait(false);
+                        await dialogWithPanel.HandleCallbackQuery(query.Id, dialogPanelButtonCallback).FastAwait();
                     }
                     return;
 
@@ -136,8 +134,7 @@ namespace TextGameRPG.Scripts.Bot.Sessions
                     var currentBattle = GameCore.Managers.GlobalManagers.battleManager.GetCurrentBattle(player);
                     if (currentBattle == null)
                         return;
-                    await currentBattle.HandleBattleTooltipCallback(player, query.Id, battleTooltipCallback)
-                        .ConfigureAwait(false);
+                    await currentBattle.HandleBattleTooltipCallback(player, query.Id, battleTooltipCallback).FastAwait();
                     return;
             }
         }
@@ -145,7 +142,7 @@ namespace TextGameRPG.Scripts.Bot.Sessions
         private async Task OnStartNewSession(User actualUser, Update update)
         {
             var profilesTable = TelegramBot.instance.dataBase[Table.Profiles] as ProfilesDataTable;
-            var profileData = await profilesTable.GetOrCreateProfileData(actualUser, fakeChatId).ConfigureAwait(false);
+            var profileData = await profilesTable.GetOrCreateProfileData(actualUser, fakeChatId).FastAwait();
             if (profileData == null)
             {
                 Program.logger.Error($"Can`t get or create profile data after start new session (telegram_id: {actualUser.Id})");
@@ -153,7 +150,7 @@ namespace TextGameRPG.Scripts.Bot.Sessions
             }
 
             var profilesDynamicTable = TelegramBot.instance.dataBase[Table.ProfilesDynamic] as ProfilesDynamicDataTable;
-            var profileDynamicData = await profilesDynamicTable.GetOrCreateData(profileData.dbid).ConfigureAwait(false);
+            var profileDynamicData = await profilesDynamicTable.GetOrCreateData(profileData.dbid).FastAwait();
             if (profileDynamicData == null)
             {
                 Program.logger.Error($"Can`t get or create profile dynamic data after start new session (telegram_id: {actualUser.Id})");
@@ -161,7 +158,7 @@ namespace TextGameRPG.Scripts.Bot.Sessions
             }
 
             var profileBuildingsTable = TelegramBot.instance.dataBase[Table.ProfileBuildings] as ProfileBuildingsDataTable;
-            var profileBuildingsData = await profileBuildingsTable.GetOrCreateData(profileData.dbid).ConfigureAwait(false);
+            var profileBuildingsData = await profileBuildingsTable.GetOrCreateData(profileData.dbid).FastAwait();
             if (profileBuildingsData == null)
             {
                 Program.logger.Error($"Can`t get or create profile buildings data after start new session (telegram_id: {actualUser.Id})");
@@ -175,12 +172,12 @@ namespace TextGameRPG.Scripts.Bot.Sessions
             profile.data.lastDate = DateTime.UtcNow.AsString();
             profile.data.lastVersion = ProjectVersion.Current.ToString();
 
-            await QuestManager.HandleNewSession(this, update).ConfigureAwait(false);
+            await QuestManager.HandleNewSession(this, update).FastAwait();
         }
 
         public async Task OnCloseSession(bool onError)
         {
-            await SaveProfileIfNeed().ConfigureAwait(false);
+            await SaveProfileIfNeed().FastAwait();
             _sessionTasksCTS.Cancel();
             Program.logger.Info($"Session closed for {actualUser}" + (onError ? " [ON ERROR]" : string.Empty));
 
@@ -194,7 +191,7 @@ namespace TextGameRPG.Scripts.Bot.Sessions
         {
             if (profile != null)
             {
-                await profile.SaveProfileIfNeed(lastActivityTime).ConfigureAwait(false);
+                await profile.SaveProfileIfNeed(lastActivityTime).FastAwait();
             }
         }
 

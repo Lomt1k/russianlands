@@ -34,8 +34,8 @@ namespace TextGameRPG.Scripts.Bot.DataBase
             try
             {
                 connection = new SQLiteConnection("Data Source=" + dataBasePath);
-                await connection.OpenAsync().ConfigureAwait(false);
-                await RefreshTableStructure().ConfigureAwait(false);
+                await connection.OpenAsync().FastAwait();
+                await RefreshTableStructure().FastAwait();
                 Program.logger.Info("Successfully connected to database");
                 return connection.State == ConnectionState.Open;
             }
@@ -52,7 +52,7 @@ namespace TextGameRPG.Scripts.Bot.DataBase
             {
                 if (connection != null && connection.State != ConnectionState.Closed)
                 {
-                    await connection.CloseAsync().ConfigureAwait(false);
+                    await connection.CloseAsync().FastAwait();
                     Program.logger.Info("Closed connection to database");
                 }
             }
@@ -66,7 +66,7 @@ namespace TextGameRPG.Scripts.Bot.DataBase
         {
             foreach (var table in _tables.Values)
             {
-                await ExecuteQueryAsync(table.GetAllCommandsToRefreshStructure()).ConfigureAwait(false);
+                await ExecuteQueryAsync(table.GetAllCommandsToRefreshStructure()).FastAwait();
             }
             return 0;
         }
@@ -75,7 +75,7 @@ namespace TextGameRPG.Scripts.Bot.DataBase
         {
             foreach (var query in querries)
             {
-                await ExecuteQueryAsync(query).ConfigureAwait(false);
+                await ExecuteQueryAsync(query).FastAwait();
             }
             return 0;
         }
@@ -85,7 +85,7 @@ namespace TextGameRPG.Scripts.Bot.DataBase
             try
             {
                 var command = new SQLiteCommand(commandText, connection);
-                await command.ExecuteNonQueryAsync().ConfigureAwait(false);
+                await command.ExecuteNonQueryAsync().FastAwait();
                 return command;
             }
             catch (Exception ex)

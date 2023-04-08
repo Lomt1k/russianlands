@@ -45,8 +45,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
             RegisterButton("Account", () => ShowAccountGroup());
             RegisterTownButton(isDoubleBack: false);
 
-            await SendDialogMessage(sb, GetKeyboardWithRowSizes(3, 2, 2, 1))
-                .ConfigureAwait(false);
+            await SendDialogMessage(sb, GetKeyboardWithRowSizes(3, 2, 2, 1)).FastAwait();
         }
 
         #region Resources Group
@@ -67,8 +66,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
             RegisterBackButton("Cheats", () => Start());
             RegisterTownButton(isDoubleBack: true);
 
-            await SendDialogMessage("Resources".Bold(), GetKeyboardWithFixedRowSize(3))
-                .ConfigureAwait(false);
+            await SendDialogMessage("Resources".Bold(), GetKeyboardWithFixedRowSize(3)).FastAwait();
         }
 
         public async Task SelectAmountForAddResource(ResourceType resourceType)
@@ -87,19 +85,15 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
             RegisterDoubleBackButton("Cheats", () => Start());
 
             var text = $"{resourceType} | Add amount:";
-            await SendDialogMessage(text, GetKeyboardWithRowSizes(3, 3, 3, 2))
-                .ConfigureAwait(false);
+            await SendDialogMessage(text, GetKeyboardWithRowSizes(3, 3, 3, 2)).FastAwait();
         }
 
         public async Task InvokeAddResourceCommand(ResourceType resourceType, int amount)
         {
             var command = $"/addresource {resourceType} {amount}";
-            await messageSender.SendTextMessage(session.chatId, command)
-                .ConfigureAwait(false);
-            await CommandHandler.HandleCommand(session, command)
-                .ConfigureAwait(false);
-            await Start()
-                .ConfigureAwait(false);
+            await messageSender.SendTextMessage(session.chatId, command).FastAwait();
+            await CommandHandler.HandleCommand(session, command).FastAwait();
+            await Start().FastAwait();
         }
 
         #endregion
@@ -118,8 +112,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
             }
             RegisterBackButton("Cheats", () => Start());
 
-            await SendDialogMessage("Items".Bold(), GetKeyboardWithFixedRowSize(3))
-                .ConfigureAwait(false);
+            await SendDialogMessage("Items".Bold(), GetKeyboardWithFixedRowSize(3)).FastAwait();
         }
 
         public async Task SelectRarityForItem(ItemType itemType)
@@ -133,8 +126,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
             RegisterDoubleBackButton("Cheats", () => Start());
 
             var text = $"{itemType} | Select rarity:";
-            await SendDialogMessage(text, GetKeyboardWithFixedRowSize(2))
-                .ConfigureAwait(false);
+            await SendDialogMessage(text, GetKeyboardWithFixedRowSize(2)).FastAwait();
         }
 
         public async Task SelectTownhallLevelForItem(ItemType itemType, Rarity rarity)
@@ -149,8 +141,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
             RegisterDoubleBackButton("Items", () => ShowItemsGroup());
 
             var text = $"{itemType}, {rarity} | Select Townhall:";
-            await SendDialogMessage(text, GetKeyboardWithFixedRowSize(4))
-                .ConfigureAwait(false);
+            await SendDialogMessage(text, GetKeyboardWithFixedRowSize(4)).FastAwait();
         }
 
         public async Task InvokeAddItemCommand(ItemType itemType, Rarity rarity, int townhallLevel)
@@ -165,10 +156,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
             RegisterBackButton("Items", () => ShowItemsGroup());
             RegisterDoubleBackButton("Cheats", () => Start());
 
-            await SendDialogMessage(command, GetMultilineKeyboardWithDoubleBack())
-                .ConfigureAwait(false);
-            await CommandHandler.HandleCommand(session, command)
-                .ConfigureAwait(false);
+            await SendDialogMessage(command, GetMultilineKeyboardWithDoubleBack()).FastAwait();
+            await CommandHandler.HandleCommand(session, command).FastAwait();
         }
 
 
@@ -189,8 +178,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
             RegisterBackButton("Cheats", () => Start());
             RegisterTownButton(isDoubleBack: true);
 
-            await SendDialogMessage("Buildings".Bold(), GetMultilineKeyboardWithDoubleBack())
-                .ConfigureAwait(false);
+            await SendDialogMessage("Buildings".Bold(), GetMultilineKeyboardWithDoubleBack()).FastAwait();
         }
 
         private async Task SelectLevelForTownhallAndStorages()
@@ -207,8 +195,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
             RegisterDoubleBackButton("Cheats", () => Start());
 
             var text = $"Townhall + Storages | Change level:";
-            await SendDialogMessage(text, GetMultilineKeyboardWithDoubleBack())
-                .ConfigureAwait(false);
+            await SendDialogMessage(text, GetMultilineKeyboardWithDoubleBack()).FastAwait();
         }
 
         private async Task SelectLevelForAllBuildings()
@@ -225,8 +212,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
             RegisterDoubleBackButton("Cheats", () => Start());
 
             var text = $"All buildings | Set level by townhall:";
-            await SendDialogMessage(text, GetMultilineKeyboardWithDoubleBack())
-                .ConfigureAwait(false);
+            await SendDialogMessage(text, GetMultilineKeyboardWithDoubleBack()).FastAwait();
         }
 
         private async Task SelectLevelForBuilding(BuildingType buildingType)
@@ -243,8 +229,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
             RegisterDoubleBackButton("Cheats", () => Start());
 
             var text = $"{buildingType} | Change level:";
-            await SendDialogMessage(text, GetMultilineKeyboardWithDoubleBack())
-                .ConfigureAwait(false);
+            await SendDialogMessage(text, GetMultilineKeyboardWithDoubleBack()).FastAwait();
         }
 
         private async Task SetLevelForTownhallAndStorages(byte townhallLevel)
@@ -272,11 +257,9 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
                 sb.AppendLine(text);
             }
 
-            await messageSender.SendTextMessage(session.chatId, sb.ToString())
-                .ConfigureAwait(false);
+            await messageSender.SendTextMessage(session.chatId, sb.ToString()).FastAwait();
 
-            await Start()
-                .ConfigureAwait(false);
+            await Start().FastAwait();
         }
 
         private async Task SetLevelForAllBuildingsByTownhall(byte townhallLevel)
@@ -304,11 +287,9 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
                 sb.AppendLine(text);
             }
 
-            await messageSender.SendTextMessage(session.chatId, sb.ToString())
-                .ConfigureAwait(false);
+            await messageSender.SendTextMessage(session.chatId, sb.ToString()).FastAwait();
 
-            await Start()
-                .ConfigureAwait(false);
+            await Start().FastAwait();
         }
 
         private async Task SetBuildingLevel(BuildingType buildingType, byte level)
@@ -317,11 +298,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
             building.Cheat_SetCurrentLevel(session.profile.buildingsData, level);
 
             var text = $"{buildingType}:".Bold() + $" setuped level {level}";
-            await messageSender.SendTextMessage(session.chatId, text)
-                .ConfigureAwait(false);
-
-            await Start()
-                .ConfigureAwait(false);
+            await messageSender.SendTextMessage(session.chatId, text).FastAwait();
+            await Start().FastAwait();
         }
 
         #endregion
@@ -341,9 +319,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
             RegisterTownButton(isDoubleBack: true);
 
             var text = "Skills\n\n".Bold() + session.player.skills.GetShortView();
-
-            await SendDialogMessage(text, GetKeyboardWithRowSizes(3, 3, 3, 2))
-                .ConfigureAwait(false);
+            await SendDialogMessage(text, GetKeyboardWithRowSizes(3, 3, 3, 2)).FastAwait();
         }
 
         private async Task SelectLevelForSkill(ItemType itemType)
@@ -363,8 +339,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
             var text = itemType == ItemType.Any
                 ? "ALL SKILLS | Change skill level:"
                 : itemType.GetEmoji() + itemType.GetCategoryLocalization(session) + " | Change skill level:";
-            await SendDialogMessage(text, GetKeyboardWithFixedRowSize(5))
-                .ConfigureAwait(false);
+            await SendDialogMessage(text, GetKeyboardWithFixedRowSize(5)).FastAwait();
         }
 
         private async Task SetSkillLevel(ItemType itemType, byte level)
@@ -384,11 +359,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
             var text = itemType == ItemType.Any
                 ? "ALL SKILLS | Level changed to " + level
                 : itemType.GetEmoji() + itemType.GetCategoryLocalization(session) + ": skill level changed to " + level;
-            await messageSender.SendTextMessage(session.chatId, text)
-                .ConfigureAwait(false);
-
-            await ShowSkillsGroup()
-                .ConfigureAwait(false);
+            await messageSender.SendTextMessage(session.chatId, text).FastAwait();
+            await ShowSkillsGroup().FastAwait();
         }
 
         #endregion
@@ -420,8 +392,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
                 sb.AppendLine($"Current stage: {quest.GetCurrentStage(session).id}");
             }            
 
-            await SendDialogMessage(sb.ToString(), GetMultilineKeyboardWithDoubleBack())
-                .ConfigureAwait(false);
+            await SendDialogMessage(sb.ToString(), GetMultilineKeyboardWithDoubleBack()).FastAwait();
         }
 
         private async Task SelectQuestStage(QuestType questType)
@@ -442,8 +413,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
             RegisterDoubleBackButton("Cheats", () => Start());
 
             var text = $"{questType} | Set stage:";
-            await SendDialogMessage(text, GetMultilineKeyboardWithDoubleBack())
-                .ConfigureAwait(false);
+            await SendDialogMessage(text, GetMultilineKeyboardWithDoubleBack()).FastAwait();
         }
 
         private async Task SetupCurrentQuestProgress(QuestType questType, int stageId)
@@ -456,13 +426,11 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
             sb.AppendLine($"Quest progress changed".Bold());
             sb.AppendLine($"Current quest: {questType}");
             sb.AppendLine($"Current stage: {stageId}");
-            await messageSender.SendTextMessage(session.chatId, sb.ToString())
-                .ConfigureAwait(false);
+            await messageSender.SendTextMessage(session.chatId, sb.ToString()).FastAwait();
 
             var playerQuestsProgress = session.profile.dynamicData.quests;
             playerQuestsProgress.Cheat_SetCurrentQuest(questType, stageId);
-            await quest.SetStage(session, stageId)
-                .ConfigureAwait(false);
+            await quest.SetStage(session, stageId).FastAwait();
         }
 
         #endregion
@@ -480,19 +448,15 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
             RegisterTownButton(isDoubleBack: true);
 
             var text = "Switch language".Bold() + $"\n\nCurrent language: {session.language}";
-            await SendDialogMessage(text, GetMultilineKeyboardWithDoubleBack())
-                .ConfigureAwait(false);
+            await SendDialogMessage(text, GetMultilineKeyboardWithDoubleBack()).FastAwait();
         }
 
         public async Task InvokeLanguageCommand(LanguageCode code)
         {
             var command = $"/language {code}";
-            await messageSender.SendTextMessage(session.chatId, command)
-                .ConfigureAwait(false);
-            await CommandHandler.HandleCommand(session, command)
-                .ConfigureAwait(false);
-            await Start()
-                .ConfigureAwait(false);
+            await messageSender.SendTextMessage(session.chatId, command).FastAwait();
+            await CommandHandler.HandleCommand(session, command).FastAwait();
+            await Start().FastAwait();
         }
 
         #endregion
@@ -509,8 +473,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
             RegisterTownButton(isDoubleBack: true);
 
             var text = "Account".Bold();
-            await SendDialogMessage(text, GetKeyboardWithRowSizes(1, 2, 2))
-                .ConfigureAwait(false);
+            await SendDialogMessage(text, GetKeyboardWithRowSizes(1, 2, 2)).FastAwait();
         }
 
         private async Task ResetAccountConfirmation()
@@ -526,17 +489,14 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
             sb.AppendLine($"Nick: ".Bold() + session.player.nickname);
             sb.AppendLine("Database Id: ".Bold() + session.profile.data.dbid);
             sb.AppendLine("Telegram Id: ".Bold() + session.profile.data.telegram_id);
-            await SendDialogMessage(sb, GetMultilineKeyboardWithDoubleBack())
-                .ConfigureAwait(false);
+            await SendDialogMessage(sb, GetMultilineKeyboardWithDoubleBack()).FastAwait();
         }
 
         private async Task ResetAccount()
         {
             var telegramId = session.actualUser.Id;
-            await ResetAccountInDatabase()
-                .ConfigureAwait(false);
-            await messageSender.SendTextDialog(telegramId, "Account has been reseted", "Restart")
-                .ConfigureAwait(false);
+            await ResetAccountInDatabase().FastAwait();
+            await messageSender.SendTextDialog(telegramId, "Account has been reseted", "Restart").FastAwait();
         }
 
         private async Task ResetAccountInDatabase()
@@ -545,20 +505,16 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
             var dbId = session.profile.data.dbid;
 
             var sessionManager = TelegramBot.instance.sessionManager;
-            await sessionManager.CloseSession(telegramId)
-                .ConfigureAwait(false);
+            await sessionManager.CloseSession(telegramId).FastAwait();
 
             var profilesTable = TelegramBot.instance.dataBase[Table.Profiles] as ProfilesDataTable;
-            await profilesTable.ResetToDefaultValues(dbId)
-                .ConfigureAwait(false);
+            await profilesTable.ResetToDefaultValues(dbId).FastAwait();
 
             var profilesDynamicTable = TelegramBot.instance.dataBase[Table.ProfilesDynamic] as ProfilesDynamicDataTable;
-            await profilesDynamicTable.ResetToDefaultValues(dbId)
-                .ConfigureAwait(false);
+            await profilesDynamicTable.ResetToDefaultValues(dbId).FastAwait();
 
             var profileBuildingsTable = TelegramBot.instance.dataBase[Table.ProfileBuildings] as ProfileBuildingsDataTable;
-            await profileBuildingsTable.ResetToDefaultValues(dbId)
-                .ConfigureAwait(false);
+            await profileBuildingsTable.ResetToDefaultValues(dbId).FastAwait();
         }
 
         private async Task ExportAccount()
@@ -585,8 +541,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
 
             _onReceivedFileFromUser = (filePath) => OnAccountStateDownloaded(filePath);
 
-            await SendDialogMessage("Send profile .dat file", GetMultilineKeyboardWithDoubleBack())
-                .ConfigureAwait(false);
+            await SendDialogMessage("Send profile .dat file", GetMultilineKeyboardWithDoubleBack()).FastAwait();
         }
 
         private async Task OnAccountStateDownloaded(string filePath)
@@ -596,8 +551,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
             
             if (profileState == null)
             {
-                await messageSender.SendTextDialog(session.chatId, "Broken profile data")
-                    .ConfigureAwait(false);
+                await messageSender.SendTextDialog(session.chatId, "Broken profile data").FastAwait();
                 return;
             }
 
@@ -606,10 +560,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
             var realTelegramId = session.actualUser.Id;
             var telegramId = session.profile.data.telegram_id;
             var dbid = session.profile.data.dbid;
-            await ResetAccountInDatabase()
-                .ConfigureAwait(false);
-            await profileState.ExecuteQuery(dbid)
-                .ConfigureAwait(false);
+            await ResetAccountInDatabase().FastAwait();
+            await profileState.ExecuteQuery(dbid).FastAwait();
 
             var sb = new StringBuilder();
             sb.AppendLine("Account has been imported");
@@ -627,8 +579,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
             sb.AppendLine("Telegram Id: ".Bold() + telegramId);            
             _onReceivedFileFromUser = null;
 
-            await messageSender.SendTextDialog(realTelegramId, sb.ToString(), "Restart")
-                .ConfigureAwait(false);
+            await messageSender.SendTextDialog(realTelegramId, sb.ToString(), "Restart").FastAwait();
         }
 
         #endregion
@@ -638,25 +589,21 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
             if (message.Document != null && _onReceivedFileFromUser != null)
             {
                 var fileId = message.Document.FileId;
-                var file = await messageSender.GetFileAsync(fileId)
-                    .ConfigureAwait(false);
+                var file = await messageSender.GetFileAsync(fileId).FastAwait();
                 if (file != null && !string.IsNullOrEmpty(file.FilePath))
                 {
                     var localPath = Path.Combine(Program.cacheDirectory, fileId);
                     using (var fileStream = new FileStream(localPath, FileMode.Create))
                     {
-                        await messageSender.DownloadFileAsync(file.FilePath, fileStream)
-                            .ConfigureAwait(false);
+                        await messageSender.DownloadFileAsync(file.FilePath, fileStream).FastAwait();
                         fileStream.Close();
                     }
-                    await _onReceivedFileFromUser.Invoke(localPath)
-                            .ConfigureAwait(false);
+                    await _onReceivedFileFromUser.Invoke(localPath).FastAwait();
                 }
                 return;
             }            
 
-            await base.HandleMessage(message)
-                .ConfigureAwait(false);
+            await base.HandleMessage(message).FastAwait();
         }
 
 

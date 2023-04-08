@@ -18,7 +18,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests.Characters
         public async Task SetupFileIdFromStickerSet()
         {
             var botClient = Bot.TelegramBot.instance.client;
-            var stickerSet = await botClient.GetStickerSetAsync(setName).ConfigureAwait(false);
+            var stickerSet = await botClient.GetStickerSetAsync(setName).FastAwait();
             if (stickerSet == null)
             {
                 Program.logger.Error($"Not found stickerset '{setName}' on telegram servers");

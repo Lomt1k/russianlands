@@ -42,8 +42,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
             RegisterButton(getButton, () => TryToGetItem());
             RegisterBackButton(() => new BuildingsDialog(session).StartWithShowBuilding(_building));
 
-            await SendDialogMessage(sb, GetMultilineKeyboard())
-                .ConfigureAwait(false);
+            await SendDialogMessage(sb, GetMultilineKeyboard()).FastAwait();
         }
 
         public async Task TryToGetItem()
@@ -59,8 +58,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
                     () => new InventoryDialog(session).Start());
                 RegisterBackButton(() => Start());
 
-                await SendDialogMessage(text, GetMultilineKeyboard())
-                    .ConfigureAwait(false);
+                await SendDialogMessage(text, GetMultilineKeyboard()).FastAwait();
                 return;
             }
 
@@ -76,8 +74,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
             RegisterButton(Localization.Get(session, "menu_item_continue_button"),
                 () => new BuildingsDialog(session).StartWithShowBuilding(_building));
 
-            await SendDialogMessage(sb, GetOneLineKeyboard())
-                .ConfigureAwait(false);
+            await SendDialogMessage(sb, GetOneLineKeyboard()).FastAwait();
         }
 
     }

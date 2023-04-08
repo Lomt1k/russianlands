@@ -47,8 +47,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
             RegisterButton(buttonText, () => TryBoostCraftForDiamonds());
             RegisterBackButton(() => new BuildingsDialog(session).StartWithShowBuilding(_building));
 
-            await SendDialogMessage(sb, GetMultilineKeyboard())
-                .ConfigureAwait(false);
+            await SendDialogMessage(sb, GetMultilineKeyboard()).FastAwait();
         }
 
         public async Task TryBoostCraftForDiamonds()
@@ -59,8 +58,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
                 ClearButtons();
                 RegisterButton(Localization.Get(session, "menu_item_continue_button"),
                     () => new CraftCanCollectItemDialog(session, _building).Start());
-                await SendDialogMessage(message, GetOneLineKeyboard())
-                    .ConfigureAwait(false);
+                await SendDialogMessage(message, GetOneLineKeyboard()).FastAwait();
                 return;
             }
 
@@ -84,8 +82,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
                 RegisterButton(Localization.Get(session, "menu_item_continue_button"),
                     () => new CraftCanCollectItemDialog(session, _building).TryToGetItem());
 
-                await SendDialogMessage(sb, GetOneLineKeyboard())
-                    .ConfigureAwait(false);
+                await SendDialogMessage(sb, GetOneLineKeyboard()).FastAwait();
                 return;
             }
 
@@ -95,8 +92,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
                 () => new ShopDialog(session).Start());
             RegisterBackButton(() => new CraftInProgressDialog(session, _building).Start());
 
-            await SendDialogMessage(text, GetMultilineKeyboard())
-                .ConfigureAwait(false);
+            await SendDialogMessage(text, GetMultilineKeyboard()).FastAwait();
         }
 
         public int GetBoostPriceInDiamonds()

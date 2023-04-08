@@ -26,8 +26,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
             }
             RegisterBackButton(() => ShowPotionsList());
             
-            await SendPanelMessage(header, GetMultilineKeyboard())
-                .ConfigureAwait(false);
+            await SendPanelMessage(header, GetMultilineKeyboard()).FastAwait();
         }
 
         public async Task ShowPotionsProductionAmountSelection(PotionData data)
@@ -65,8 +64,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
             sb.AppendLine();
             sb.Append(Localization.Get(session, "dialog_potions_select_potions_amount"));
 
-            await SendPanelMessage(sb, GetSpecialKeyboard())
-                .ConfigureAwait(false);
+            await SendPanelMessage(sb, GetSpecialKeyboard()).FastAwait();
         }
 
         private int GetFreeSlotsCount()
@@ -104,15 +102,14 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
             if (successfullPurchase)
             {
                 StartCraft(data, amount);
-                await ShowPotionsList()
-                    .ConfigureAwait(false);
+                await ShowPotionsList().FastAwait();
                 return;
             }
 
             var buyResourcesDialog = new BuyResourcesForDiamondsDialog(session, notEnoughResources,
-                onSuccess: async () => await new PotionsDialog(session).StartWithTryCraft(data, amount).ConfigureAwait(false),
-                onCancel: async () => await new PotionsDialog(session).StartWithSelectionAmountToCraft(data).ConfigureAwait(false));
-            await buyResourcesDialog.Start().ConfigureAwait(false);
+                onSuccess: async () => await new PotionsDialog(session).StartWithTryCraft(data, amount).FastAwait(),
+                onCancel: async () => await new PotionsDialog(session).StartWithSelectionAmountToCraft(data).FastAwait());
+            await buyResourcesDialog.Start().FastAwait();
         }
 
         private void StartCraft(PotionData data, int amount)
