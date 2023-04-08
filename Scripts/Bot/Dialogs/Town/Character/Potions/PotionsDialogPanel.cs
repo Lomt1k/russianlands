@@ -8,7 +8,7 @@ using TextGameRPG.Scripts.GameCore.Resources;
 
 namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
 {
-    public class PotionsDialogPanel : DialogPanelBase
+    public partial class PotionsDialogPanel : DialogPanelBase
     {
         public List<PotionItem> playerPotions => session.player.potions;
 
@@ -57,12 +57,6 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
                 .ConfigureAwait(false);
         }
 
-        private async Task ShowPotionInfo(PotionItem item)
-        {
-            await new PotionItemInfoDialog(session, item).Start()
-                .ConfigureAwait(false);
-        }
-
         private async Task TryOpenProductionPanel()
         {
             bool isFull = session.player.potions.IsFull(session);
@@ -86,7 +80,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
                 return;
             }
 
-            await new PotionsProductionDialog(session).Start()
+            await ShowPotionsToProductionList()
                 .ConfigureAwait(false);
         }
 

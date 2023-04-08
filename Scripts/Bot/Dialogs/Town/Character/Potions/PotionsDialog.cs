@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Localizations;
+using TextGameRPG.Scripts.GameCore.Potions;
 
 namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
 {
@@ -24,6 +25,24 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
             await SendDialogMessage(header.Bold(), GetOneLineKeyboard())
                 .ConfigureAwait(false);
             await SendPanelsAsync()
+                .ConfigureAwait(false);
+        }
+
+        public async Task StartWithTryCraft(PotionData potionData, int amount)
+        {
+            var header = Emojis.ButtonPotions + Localization.Get(session, "menu_item_potions").Bold();
+            await SendDialogMessage(header.Bold(), GetOneLineKeyboard())
+                .ConfigureAwait(false);
+            await _potionsPanel.TryCraft(potionData, amount)
+                .ConfigureAwait(false);
+        }
+
+        public async Task StartWithSelectionAmountToCraft(PotionData potionData)
+        {
+            var header = Emojis.ButtonPotions + Localization.Get(session, "menu_item_potions").Bold();
+            await SendDialogMessage(header.Bold(), GetOneLineKeyboard())
+                .ConfigureAwait(false);
+            await _potionsPanel.ShowPotionsProductionAmountSelection(potionData)
                 .ConfigureAwait(false);
         }
 

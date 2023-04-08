@@ -4,7 +4,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Telegram.Bot.Types.ReplyMarkups;
 using TextGameRPG.Scripts.Bot.Dialogs.Resources;
-using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Buildings;
 using TextGameRPG.Scripts.GameCore.Buildings.General;
 using TextGameRPG.Scripts.GameCore.Localizations;
@@ -13,32 +12,42 @@ using TextGameRPG.Scripts.GameCore.Resources;
 
 namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
 {
-    public class CreatePotionDialog : DialogBase
+    public partial class PotionsDialogPanel : DialogPanelBase
     {
-        private PotionData _data;
-
-        public CreatePotionDialog(GameSession session, PotionData data) : base(session)
+        private async Task ShowPotionsToProductionList()
         {
-            _data = data;
+            ClearButtons();
+            var header = Localization.Get(session, "dialog_potions_produce_button").Bold();
+            var alchemyLab = (AlchemyLabBuilding)BuildingType.AlchemyLab.GetBuilding();
+            var potionsList = alchemyLab.GetPotionsForCurrentLevel(session.profile.buildingsData);
+            foreach (var potionData in potionsList)
+            {
+                RegisterButton(potionData.GetName(session), () => ShowPotionsProductionAmountSelection(potionData));
+            }
+            RegisterBackButton(() => ShowPotionsList());
+            
+            await SendPanelMessage(header, GetMultilineKeyboard())
+                .ConfigureAwait(false);
+        }
 
-            var countLimit = Math.Min(GetFreeSlotsCount(), 5); 
+        public async Task ShowPotionsProductionAmountSelection(PotionData data)
+        {
+            ClearButtons();
+            var countLimit = Math.Min(GetFreeSlotsCount(), 5);
             for (int i = 1; i <= countLimit; i++)
             {
                 var amountForDelegate = i; //it is important!
-                RegisterButton(i.ToString(), () => TryCraft(amountForDelegate));
+                RegisterButton(i.ToString(), () => TryCraft(data, amountForDelegate));
             }
-            RegisterBackButton(() => new PotionsProductionDialog(session).Start());
-        }
+            RegisterBackButton(() => ShowPotionsToProductionList());
 
-        public override async Task Start()
-        {
             var sb = new StringBuilder();
-            sb.AppendLine(_data.GetName(session).Bold());
+            sb.AppendLine(data.GetName(session).Bold());
 
             sb.AppendLine();
-            sb.AppendLine(_data.GetDescription(session, session));
+            sb.AppendLine(data.GetDescription(session, session));
 
-            sb.AppendLine();            
+            sb.AppendLine();
             var requiredResources = GetCraftCost();
             sb.Append(ResourceHelper.GetPriceView(session, requiredResources));
             var dtNow = DateTime.UtcNow;
@@ -56,13 +65,13 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
             sb.AppendLine();
             sb.Append(Localization.Get(session, "dialog_potions_select_potions_amount"));
 
-            await SendDialogMessage(sb, GetSpecialKeyboard())
+            await SendPanelMessage(sb, GetSpecialKeyboard())
                 .ConfigureAwait(false);
         }
 
         private int GetFreeSlotsCount()
         {
-            return session.player.potions.GetFreeSlotsCount(session);
+            return playerPotions.GetFreeSlotsCount(session);
         }
 
         private Dictionary<ResourceType, int> GetCraftCost()
@@ -77,12 +86,12 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
             return alchemyLab.GetCurrentCraftTimeInSeconds(session.profile.buildingsData);
         }
 
-        private ReplyKeyboardMarkup GetSpecialKeyboard()
+        private InlineKeyboardMarkup GetSpecialKeyboard()
         {
             return GetKeyboardWithRowSizes(buttonsCount - 1, 1);
         }
 
-        private async Task TryCraft(int amount)
+        public async Task TryCraft(PotionData data, int amount)
         {
             var requiredResources = GetCraftCost();
             if (amount > 1)
@@ -94,24 +103,24 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
             var successfullPurchase = playerResources.TryPurchase(requiredResources, out var notEnoughResources);
             if (successfullPurchase)
             {
-                StartCraft(amount);
-                await new PotionsDialog(session).Start()
+                StartCraft(data, amount);
+                await ShowPotionsList()
                     .ConfigureAwait(false);
                 return;
             }
 
             var buyResourcesDialog = new BuyResourcesForDiamondsDialog(session, notEnoughResources,
-                onSuccess: async () => await new CreatePotionDialog(session, _data).TryCraft(amount).ConfigureAwait(false),
-                onCancel: async () => await new CreatePotionDialog(session, _data).Start().ConfigureAwait(false));
+                onSuccess: async () => await new PotionsDialog(session).StartWithTryCraft(data, amount).ConfigureAwait(false),
+                onCancel: async () => await new PotionsDialog(session).StartWithSelectionAmountToCraft(data).ConfigureAwait(false));
             await buyResourcesDialog.Start().ConfigureAwait(false);
         }
 
-        private void StartCraft(int amount)
+        private void StartCraft(PotionData data, int amount)
         {
             var craftEndTime = DateTime.UtcNow.AddSeconds(GetCraftTimeInSeconds()).Ticks;
             for (int i = 0; i < amount; i++)
             {
-                var potionItem = new PotionItem(_data.id, craftEndTime);
+                var potionItem = new PotionItem(data.id, craftEndTime);
                 session.player.potions.Add(potionItem);
             }
         }

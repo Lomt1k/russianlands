@@ -24,7 +24,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
 
             var potionsText = Localization.Get(session, "menu_item_potions");
             var potionsButton = IsPotionsDialogAvailable()
-                ? Emojis.ButtonPotions + potionsText + $" ({session.player.potions.Count})"
+                ? Emojis.ButtonPotions + potionsText + $" ({session.player.potions.GetReadyPotionsCount()})"
                 : Emojis.ElementLocked + potionsText;
             RegisterButton(potionsButton, () => TryShowPotionsDialog());
 
