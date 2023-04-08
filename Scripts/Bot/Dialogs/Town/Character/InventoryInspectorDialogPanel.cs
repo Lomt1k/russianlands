@@ -176,9 +176,22 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
             {
                 text.AppendLine(Localization.Get(session, "dialog_inventory_current_page", _currentPage + 1, _pagesCount));
                 if (_currentPage > 0)
+                {
                     RegisterButton("<<", () => OnClickPreviousPage());
+                }
+                else
+                {
+                    RegisterButton(".", null);
+                }
+
                 if (_currentPage < _pagesCount - 1)
+                {
                     RegisterButton(">>", () => OnClickNextPage());
+                }
+                else
+                {
+                    RegisterButton(".", null);
+                }                    
             }
 
             TryAppendTooltip(text);
@@ -247,11 +260,10 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
             if (_pagesCount < 2)
                 return GetMultilineKeyboard();
 
-            int lastRowButtons = _currentPage == _pagesCount - 1 || _currentPage == 0 ? 2 : 3;
-            var parameters = new int[buttonsCount - lastRowButtons + 1];
+            var parameters = new int[buttonsCount - 2];
             for (int i = 0; i < parameters.Length; i++)
             {
-                parameters[i] = i < parameters.Length - 1 ? 1 : lastRowButtons;
+                parameters[i] = i < parameters.Length - 1 ? 1 : 3;
             }
             return GetKeyboardWithRowSizes(parameters);
         }
