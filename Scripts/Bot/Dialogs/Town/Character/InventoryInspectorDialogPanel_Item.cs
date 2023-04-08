@@ -217,7 +217,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
 
         private async Task SelectAnotherItemToCompare()
         {
-            await ShowCategory(_compareData.Value.categoryOnStartCompare);
+            await ShowItemsPage();
         }
 
         private async Task EndComparison()
@@ -227,6 +227,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
             _browsedCategory = _compareData.Value.categoryOnStartCompare;
             _pagesCount = _compareData.Value.pagesCountOnStartCompare;
             _compareData = null;
+            RefreshBrowsedItems();
             await ShowItemInspector();
         }
 
