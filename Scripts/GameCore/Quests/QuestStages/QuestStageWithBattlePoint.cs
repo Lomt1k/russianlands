@@ -26,22 +26,22 @@ namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
                 return; // При старте новой сессии
 
             var battlePointData = GetMobBattlePointData(session);
-            await new MobBattlePointDialog(session, battlePointData).Start();
+            await new BattlePointDialog(session, battlePointData).Start();
         }
 
         public async Task InvokeStageWithStartBattleImmediate(GameSession session)
         {
             var battlePointData = GetMobBattlePointData(session);
-            await new MobBattlePointDialog(session, battlePointData).SilentStart();
+            await new BattlePointDialog(session, battlePointData).SilentStart();
         }
 
-        private MobBattlePointData GetMobBattlePointData(GameSession session)
+        public BattlePointData GetMobBattlePointData(GameSession session)
         {
             var mobDB = GameDataBase.GameDataBase.instance.mobs;
             var mobData = mobDB[mobId];
 
             // stage у квеста меняем сразу по окончанию боя, но вызываем его только после нажатия кнопки continue в окне наград
-            var battlePointData = new MobBattlePointData
+            var battlePointData = new BattlePointData
             {
                 mob = new Mob(session, mobData),
                 foodPrice = foodPrice,

@@ -6,6 +6,7 @@ using TextGameRPG.Scripts.GameCore.Locations;
 using TextGameRPG.Scripts.GameCore.Quests;
 using TextGameRPG.Scripts.GameCore.Quests.NextStageTriggers;
 using TextGameRPG.Scripts.GameCore.Quests.QuestStages;
+using TextGameRPG.Scripts.GameCore.Resources;
 
 namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
 {
@@ -17,11 +18,11 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
 
         public override async Task SendAsync()
         {
-            await ShowGeneralMap()
+            await ShowGlobalMap()
                 .ConfigureAwait(false);
         }
 
-        private async Task ShowGeneralMap()
+        private async Task ShowGlobalMap()
         {
             ClearButtons();
             var locations = Enum.GetValues(typeof(LocationType));
@@ -64,7 +65,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
             sb.AppendLine(Localization.Get(session, "dialog_map_location_locked", previousLocation));
 
             ClearButtons();
-            RegisterBackButton(() => ShowGeneralMap());
+            RegisterBackButton(() => ShowGlobalMap());
             await SendPanelMessage(sb, GetOneLineKeyboard())
                 .ConfigureAwait(false);
         }
@@ -91,7 +92,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
                         () => ContinueStoryMode(locationType));
                 }
             }
-            RegisterBackButton(() => ShowGeneralMap());
+            RegisterBackButton(() => ShowGlobalMap());
 
             TryAppendTooltip(sb);
             await SendPanelMessage(sb, GetMultilineKeyboard())
@@ -111,11 +112,28 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
             var stage = quest.GetCurrentStage(session);
             if (stage is QuestStageWithBattlePoint withBattlePoint)
             {
-                await withBattlePoint.InvokeStage(session);
+                await SimulateStartBattlePointDialog(withBattlePoint, locationType);
                 return;
             }
 
             await QuestManager.TryInvokeTrigger(session, TriggerType.ContinueStoryMode)
+                .ConfigureAwait(false);
+        }
+
+        // simulate Start() from BattlePointDialog
+        private async Task SimulateStartBattlePointDialog(QuestStageWithBattlePoint stage, LocationType locationType)
+        {
+            var data = stage.GetMobBattlePointData(session);
+            var text = Emojis.ButtonBattle + data.mob.GetFullUnitInfoView(session);
+
+            ClearButtons();
+            var priceView = data.foodPrice > 0 ? ResourceType.Food.GetEmoji() + data.foodPrice.View() : string.Empty;
+            var startBattleButton = Localization.Get(session, "dialog_mob_battle_point_start_battle", priceView);
+            RegisterButton(startBattleButton, () => new BattlePointDialog(session, data).SilentStart());
+            RegisterBackButton(() => ShowLocation(locationType));
+            RegisterBackButton(Localization.Get(session, "menu_item_map") + Emojis.ButtonMap, () => ShowGlobalMap());
+
+            await SendPanelMessage(text, GetMultilineKeyboardWithDoubleBack())
                 .ConfigureAwait(false);
         }
 
