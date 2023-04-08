@@ -26,7 +26,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town
             var hasTooltip = session.tooltipController.HasTooltipToAppend(this);
 
             RegisterButton(Emojis.ButtonMap + Localization.Get(session, "menu_item_map"),
-                () => new GlobalMap.GlobalMapDialog(session).Start());
+                () => new GlobalMap.MapDialog(session).Start());
 
             var buildingsLocalization = Emojis.ButtonBuildings + Localization.Get(session, "menu_item_buildings")
                 + (player.buildings.HasImportantUpdates() && !hasTooltip ? Emojis.ElementWarningRed.ToString() : string.Empty);

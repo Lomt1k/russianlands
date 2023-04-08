@@ -87,12 +87,13 @@ namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
                 var locationType = questType.Value.GetLocation();
                 if (locationType.HasValue)
                 {
-                    await new LocationMapDialog(session, locationType.Value).Start();
+                    await new MapDialog(session).StartWithLocation(locationType.Value)
+                        .ConfigureAwait(false);
                     return;
                 }
             }
 
-            await new GlobalMapDialog(session).Start();
+            await new MapDialog(session).Start();
         }
 
     }
