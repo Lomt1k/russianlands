@@ -7,26 +7,26 @@ using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
 using TextGameRPG.Scripts.GameCore.Resources;
 using System.Collections.Generic;
 using Telegram.Bot.Types.ReplyMarkups;
+using System;
 
 namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
 {
-    public class BuildingsInspectorPanel : DialogPanelBase
+    public partial class BuildingsDialogPanel : DialogPanelBase
     {
         private ProfileBuildingsData _buildingsData => session.profile.buildingsData;
 
-        public BuildingsInspectorPanel(DialogBase _dialog, byte _panelId) : base(_dialog, _panelId)
+        public BuildingsDialogPanel(DialogBase _dialog, byte _panelId) : base(_dialog, _panelId)
         {
         }
 
         public override async Task SendAsync()
         {
-            await ShowNotifications()
+            await ShowCategories()
                 .ConfigureAwait(false);
         }
 
-        public async Task ShowNotifications()
+        public async Task ShowCategories()
         {
-            ClearButtons();
             var sb = new StringBuilder();
             var playerBuildings = session.player.buildings.GetAllBuildings();
             foreach (var building in playerBuildings)
@@ -47,11 +47,22 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
 
             AppendGeneralResources(sb);
             AppendProductionInfo(sb);
-            RegisterButton(Localization.Get(session, "dialog_buildings_get_resources"), () => new TryCollectResourcesDialog(session).Start());
+
+            ClearButtons();
+            RegisterButton(Localization.Get(session, "dialog_buildings_get_resources"), () => TryCollectResources());
+            RegisterCategoryButton(BuildingCategory.General);
+            RegisterCategoryButton(BuildingCategory.Storages);
+            RegisterCategoryButton(BuildingCategory.Production);
+            RegisterCategoryButton(BuildingCategory.Training);
 
             TryAppendTooltip(sb);
-            await SendPanelMessage(sb, GetMultilineKeyboard(), asNewMessage: true)
+            await SendPanelMessage(sb, GetKeyboardWithRowSizes(1, 2, 2))
                 .ConfigureAwait(false);
+        }
+
+        private void RegisterCategoryButton(BuildingCategory category)
+        {
+            RegisterButton(category.GetLocalization(session), () => ShowBuildingsList(category));
         }
 
         private void AppendGeneralResources(StringBuilder sb)
@@ -105,22 +116,23 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
             }
         }
 
-        public async Task ShowBuildingsList(BuildingCategory category, bool asNewMessage)
+        public async Task ShowBuildingsList(BuildingCategory category)
         {
-            await RemoveKeyboardFromLastMessage().ConfigureAwait(false);
+            ClearButtons();
+
             var sb = new StringBuilder();
             sb.Append(category.GetLocalization(session).Bold());
             var buildings = session.player.buildings.GetBuildingsByCategory(category);
             var sortedBuildings = buildings.OrderByDescending(x => x.IsBuilt(_buildingsData)).ThenBy(x => x.buildingData.levels[0].requiredTownHall);
-
             foreach (var building in sortedBuildings)
             {
                 var name = GetPrefix(building, _buildingsData) + building.GetLocalizedName(session, _buildingsData);
-                RegisterButton(name, () => ShowBuildingInfo(building));
+                RegisterButton(name, () => ShowBuilding(building));
             }
+            RegisterBackButton(() => ShowCategories());
 
             TryAppendTooltip(sb);
-            await SendPanelMessage(sb, GetListKeyboard(category), asNewMessage)
+            await SendPanelMessage(sb, GetListKeyboard(category))
                 .ConfigureAwait(false);
         }
 
@@ -139,20 +151,78 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
 
         private InlineKeyboardMarkup GetListKeyboard(BuildingCategory category)
         {
-            switch (category)
+            return category switch
             {
-                case BuildingCategory.Storages:
-                    return GetKeyboardWithRowSizes(1, 2, 2);
-                case BuildingCategory.Production:
-                    return GetKeyboardWithFixedRowSize(2);
-                default:
-                    return GetMultilineKeyboard();
-            }
+                BuildingCategory.Storages => GetKeyboardWithRowSizes(1, 2, 2, 1),
+                BuildingCategory.Production => GetKeyboardWithFixedRowSize(2),
+                _ => GetMultilineKeyboard()
+            };
         }
 
-        private async Task ShowBuildingInfo(BuildingBase building)
+        private async Task TryCollectResources()
         {
-            await new BuildingInfoDialog(session, building).Start()
+            var collectedResources = new Dictionary<ResourceType, int>();
+            var notCollectedResources = new Dictionary<ResourceType, int>();
+
+            var playerResources = session.player.resources;
+            var productionBuildings = session.player.buildings.GetBuildingsByCategory(BuildingCategory.Production);
+            foreach (ProductionBuildingBase building in productionBuildings)
+            {
+                var farmedAmout = building.GetFarmedResourceAmount(_buildingsData);
+                if (farmedAmout < 1)
+                    continue;
+
+                var reallyAdded = playerResources.Add(building.resourceType, farmedAmout);
+                if (reallyAdded > 0)
+                {
+                    collectedResources.TryGetValue(building.resourceType, out var prevValue);
+                    collectedResources[building.resourceType] = prevValue + reallyAdded;
+                }
+
+                if (reallyAdded == farmedAmout)
+                {
+                    building.SetStartFarmTime(_buildingsData, DateTime.UtcNow.Ticks);
+                }
+                else
+                {
+                    var startFarmDt = new DateTime(building.GetStartFarmTime(_buildingsData));
+                    var totalFarmSeconds = (DateTime.UtcNow - startFarmDt).TotalSeconds;
+                    var collectedPart = (float)reallyAdded / farmedAmout;
+                    var secondsToRemove = totalFarmSeconds * collectedPart;
+                    var newStartFarmDt = startFarmDt.AddSeconds(secondsToRemove);
+                    building.SetStartFarmTime(_buildingsData, newStartFarmDt.Ticks);
+
+                    var notCollectedAmount = farmedAmout - reallyAdded;
+                    notCollectedResources.TryGetValue(building.resourceType, out var prevValue);
+                    notCollectedResources[building.resourceType] = prevValue + notCollectedAmount;
+                }
+            }
+
+            var sb = new StringBuilder();
+            if (collectedResources.Count == 0 && notCollectedResources.Count == 0)
+            {
+                sb.AppendLine(Localization.Get(session, "dialog_buildings_no_resources_in_production"));
+            }
+            else
+            {
+                if (collectedResources.Count > 0)
+                {
+                    sb.AppendLine(Localization.Get(session, "dialog_buildings_collected_resources_header"));
+                    sb.AppendLine(ResourceHelper.GetCompactResourcesView(collectedResources));
+                    sb.AppendLine();
+                }
+                if (notCollectedResources.Count > 0)
+                {
+                    sb.AppendLine(Localization.Get(session, "dialog_buildings_resources_not_collected"));
+                    sb.AppendLine();
+                    sb.AppendLine(ResourceHelper.GetCompactResourcesView(notCollectedResources));
+                }
+            }
+
+            ClearButtons();
+            RegisterButton(Localization.Get(session, "menu_item_continue_button"), () => ShowCategories());
+
+            await SendPanelMessage(sb, GetOneLineKeyboard())
                 .ConfigureAwait(false);
         }
 

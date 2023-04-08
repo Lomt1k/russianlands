@@ -1,5 +1,4 @@
-﻿using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Buildings;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.Bot.Sessions;
@@ -8,82 +7,40 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
 {
     public class BuildingsDialog : DialogBase
     {
-        private BuildingsInspectorPanel _inspectorPanel;
+        private BuildingsDialogPanel _inspectorPanel;
 
         public BuildingsDialog(GameSession _session) : base(_session)
         {
-            _inspectorPanel = new BuildingsInspectorPanel(this, 0);
+            _inspectorPanel = new BuildingsDialogPanel(this, 0);
             RegisterPanel(_inspectorPanel);
-        }
-
-        private void RegisterCategoryButton(BuildingCategory category)
-        {
-            RegisterButton(category.GetLocalization(session), () => ShowBuildingsCategory(category));
-        }
-
-        public async Task ShowBuildingsCategory(BuildingCategory category)
-        {
-            ClearButtons();
-            RegisterBackButton(Localization.Get(session, "menu_item_buildings") + Emojis.ButtonBuildings, () => Start());
-            RegisterTownButton(isDoubleBack: true);
-
-            var text = Emojis.ButtonBuildings + Localization.Get(session, "menu_item_buildings").Bold();
-            await SendDialogMessage(text, GetOneLineKeyboard())
-                .ConfigureAwait(false);
-            await _inspectorPanel.ShowBuildingsList(category, asNewMessage: true)
-                .ConfigureAwait(false);
+            RegisterTownButton(isDoubleBack: false);
         }
 
         public override async Task Start()
         {
-            _inspectorPanel.OnDialogClose(); // чтобы убрать inline-клавиатуру, когда start вызван из "Назад к категориям"
-            if (session.tooltipController.HasTooltipToAppend(this))
-            {
-                await SendHeader()
-                    .ConfigureAwait(false);
-                return;
-            }
-            await SendHeader()
+            var header = Emojis.ButtonBuildings + Localization.Get(session, "menu_item_buildings").Bold();
+            await SendDialogMessage(header, GetOneLineKeyboard())
                 .ConfigureAwait(false);
             await SendPanelsAsync()
                 .ConfigureAwait(false);
         }
 
-        public async Task StartFromBuyResourcesDialog(BuildingBase inspectedBuilding, bool successfullPurchase)
+        public async Task StartWithShowBuilding(BuildingBase building)
         {
-            await SendHeader().ConfigureAwait(false);
-            if (successfullPurchase)
-            {
-                await new BuildingInfoDialog(session, inspectedBuilding).TryStartConstruction()
+            var header = Emojis.ButtonBuildings + Localization.Get(session, "menu_item_buildings").Bold();
+            await SendDialogMessage(header, GetOneLineKeyboard())
+                .ConfigureAwait(false);
+            await _inspectorPanel.ShowBuilding(building)
+                .ConfigureAwait(false);
+        }
+
+        public async Task StartWithTryStartConstruction(BuildingBase building)
+        {
+            var header = Emojis.ButtonBuildings + Localization.Get(session, "menu_item_buildings").Bold();
+            await SendDialogMessage(header, GetOneLineKeyboard())
+                .ConfigureAwait(false);
+            await _inspectorPanel.TryStartConstruction(building)
                     .ConfigureAwait(false);
-                return;
-            }
-            await new BuildingInfoDialog(session, inspectedBuilding).Start()
-                .ConfigureAwait(false);
-        }
-
-        public async Task StartWithShowBuildingInfo(BuildingBase building)
-        {
-            await SendHeader().ConfigureAwait(false);
-            await new BuildingInfoDialog(session, building).Start()
-                .ConfigureAwait(false);
-        }
-
-        private async Task SendHeader()
-        {
-            ClearButtons();
-            RegisterCategoryButton(BuildingCategory.General);
-            RegisterCategoryButton(BuildingCategory.Storages);
-            RegisterCategoryButton(BuildingCategory.Production);
-            RegisterCategoryButton(BuildingCategory.Training);
-
-            RegisterTownButton(isDoubleBack: false);
-
-            var sb = new StringBuilder();
-            sb.Append(Emojis.ButtonBuildings + Localization.Get(session, "menu_item_buildings").Bold());
-            TryAppendTooltip(sb);
-            await SendDialogMessage(sb, GetKeyboardWithRowSizes(2, 2, 1))
-                .ConfigureAwait(false);
         }
 
     }

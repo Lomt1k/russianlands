@@ -37,7 +37,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
             {
                 RegisterButton(itemType.GetEmoji() + itemType.GetLocalization(session), () => StartSelectRarity(itemType));
             }
-            RegisterBackButton(() => new BuildingInfoDialog(session, _building).Start());
+            RegisterBackButton(() => new BuildingsDialog(session).StartWithShowBuilding(_building));
 
             await SendDialogMessage(sb, GetSpecialKeyboard())
                 .ConfigureAwait(false);

@@ -33,13 +33,13 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
         public abstract long GetStartFarmTime(ProfileBuildingsData data);
         public abstract void SetStartFarmTime(ProfileBuildingsData data, long startFarmTime);
 
-        public override Dictionary<string, Func<Task>> GetSpecialButtons(GameSession session, ProfileBuildingsData data)
-        {
-            return new Dictionary<string, Func<Task>>
-            {
-                { Localization.Get(session, "dialog_buildings_get_resources"), () => new TryCollectResourcesDialog(session).Start() },
-            };
-        }
+        //public override Dictionary<string, Func<Task>> GetSpecialButtons(GameSession session, ProfileBuildingsData data)
+        //{
+        //    return new Dictionary<string, Func<Task>>
+        //    {
+        //        { Localization.Get(session, "dialog_buildings_get_resources"), () => new TryCollectResourcesDialog(session).Start() },
+        //    };
+        //}
 
         public int GetCurrentLevelResourceLimit(ProfileBuildingsData data)
         {

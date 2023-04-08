@@ -1,7 +1,6 @@
 ﻿using System.Text;
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
-using TextGameRPG.Scripts.Bot.Dialogs.Town.Character;
 using TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Inventory;
 using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Buildings;
@@ -41,7 +40,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
             ClearButtons();
             var getButton = Localization.Get(session, "menu_item_get_button") + itemType.GetEmoji();
             RegisterButton(getButton, () => TryToGetItem());
-            RegisterBackButton(() => new BuildingInfoDialog(session, _building).Start());
+            RegisterBackButton(() => new BuildingsDialog(session).StartWithShowBuilding(_building));
 
             await SendDialogMessage(sb, GetMultilineKeyboard())
                 .ConfigureAwait(false);
@@ -75,7 +74,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
 
             ClearButtons();
             RegisterButton(Localization.Get(session, "menu_item_continue_button"),
-                () => new BuildingInfoDialog(session, _building).Start());
+                () => new BuildingsDialog(session).StartWithShowBuilding(_building));
 
             await SendDialogMessage(sb, GetOneLineKeyboard())
                 .ConfigureAwait(false);

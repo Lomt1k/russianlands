@@ -57,7 +57,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.TrainingBuildingDialog
                 RegisterButton(button, () => ShowCurrentUnit(unit, fromUnitsList: true));
             }
 
-            RegisterBackButton(() => new BuildingInfoDialog(session, _building).Start());
+            RegisterBackButton(() => new BuildingsDialog(session).StartWithShowBuilding(_building));
             await SendDialogMessage(sb, GetKeyboardWithFixedRowSize(2))
                 .ConfigureAwait(false);
         }
@@ -138,7 +138,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.TrainingBuildingDialog
 
             if (_building is WarriorTrainingBuilding)
             {
-                RegisterBackButton(() => new BuildingInfoDialog(session, _building).Start());
+                RegisterBackButton(() => new BuildingsDialog(session).StartWithShowBuilding(_building));
             }
             else
             {

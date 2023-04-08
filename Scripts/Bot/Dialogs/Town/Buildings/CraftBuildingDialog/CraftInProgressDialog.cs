@@ -45,7 +45,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
             var priceView = ResourceType.Diamond.GetEmoji().ToString() + diamondsForBoost;
             var buttonText = Localization.Get(session, "menu_item_boost_button", priceView);
             RegisterButton(buttonText, () => TryBoostCraftForDiamonds());
-            RegisterBackButton(() => new BuildingInfoDialog(session, _building).Start());
+            RegisterBackButton(() => new BuildingsDialog(session).StartWithShowBuilding(_building));
 
             await SendDialogMessage(sb, GetMultilineKeyboard())
                 .ConfigureAwait(false);
