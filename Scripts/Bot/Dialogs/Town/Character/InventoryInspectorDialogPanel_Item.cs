@@ -29,7 +29,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
             }
 
             RegisterButton(Localization.Get(session, "menu_item_compare_button"),
-                () => StartSelectItemForCompare());
+                () => StartSelectItemForCompare(),
+                () => Localization.Get(session, "dialog_inventory_start_compare_query"));
 
             RegisterButton(Emojis.ElementBin + Localization.Get(session, "menu_item_break_apart_button"),
                 () => TryBreakApartItem());
@@ -201,7 +202,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
         {
             ClearButtons();
 
-            RegisterButton(Localization.Get(session, "menu_item_compare_another_button"), () => SelectAnotherItemToCompare());
+            RegisterButton(Localization.Get(session, "menu_item_compare_another_button"),() => SelectAnotherItemToCompare());
             RegisterButton(Localization.Get(session, "menu_item_compare_end_button"), () => EndComparison());
 
             var sb = new StringBuilder();

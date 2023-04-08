@@ -103,13 +103,14 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
         private void RegisterCategoryButton(ItemType itemType, Tooltip? tooltip, int buttonId)
         {
             var inventory = session.player.inventory;
-            var dialogHasTooltip = tooltip != null;
-            var isTooltipButton = dialogHasTooltip && tooltip?.buttonId == buttonId;
+            var isTooltipButton = tooltip != null && tooltip.buttonId == buttonId;
 
-            var prefix = inventory.HasNewInCategory(itemType) && !dialogHasTooltip ? Emojis.ElementWarningRed.ToString()
-                : isTooltipButton ? string.Empty
-                : itemType.GetEmoji().ToString() + ' ';
-            var text = prefix + itemType.GetCategoryLocalization(session);
+            var prefix = isTooltipButton ? string.Empty : itemType.GetEmoji().ToString() + ' ';
+            var postfix = !isTooltipButton && inventory.HasNewInCategory(itemType)
+                ? Emojis.ElementWarningRed.ToString()
+                : string.Empty;
+
+            var text = prefix + itemType.GetCategoryLocalization(session) + postfix;
             RegisterButton(text, () => ShowCategory(itemType));
         }
 
