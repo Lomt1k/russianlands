@@ -103,10 +103,11 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Inventory
         private void RegisterCategoryButton(ItemType itemType, Tooltip? tooltip, int buttonId)
         {
             var inventory = session.player.inventory;
-            var isTooltipButton = tooltip != null && tooltip.buttonId == buttonId;
+            var hasTooltip = tooltip != null;
+            var isTooltipButton = hasTooltip && tooltip.buttonId == buttonId;
 
             var prefix = isTooltipButton ? string.Empty : itemType.GetEmoji().ToString() + ' ';
-            var postfix = !isTooltipButton && inventory.HasNewInCategory(itemType)
+            var postfix = !hasTooltip && inventory.HasNewInCategory(itemType)
                 ? Emojis.ElementWarningRed.ToString()
                 : string.Empty;
 
