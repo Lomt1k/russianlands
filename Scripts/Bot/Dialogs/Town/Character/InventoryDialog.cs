@@ -1,5 +1,4 @@
 ﻿using TextGameRPG.Scripts.GameCore.Localizations;
-using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.Bot.Sessions;
 using System.Threading.Tasks;
 
@@ -24,11 +23,6 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
             var header = Emojis.ButtonInventory + Localization.Get(session, "menu_item_inventory").Bold();
             await SendDialogMessage(header, GetOneLineKeyboard()).ConfigureAwait(false);
             await SendPanelsAsync().ConfigureAwait(false);
-        }
-
-        public async Task ShowCategory(ItemType category, int page = 0, CompareData? newCompareData = null)
-        {
-            // TODO
         }
 
     }

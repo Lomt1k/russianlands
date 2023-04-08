@@ -94,6 +94,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
         private async Task EquipSingleSlot()
         {
             inventory.EquipSingleSlot(_browsedItem);
+            RefreshBrowsedItemsIfEquippedCategory();
+
             await ShowItemInspector()
                 .ConfigureAwait(false);
         }
@@ -101,6 +103,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
         private async Task EquipMultiSlot(int slotId)
         {
             inventory.EquipMultiSlot(_browsedItem, slotId);
+            RefreshBrowsedItemsIfEquippedCategory();
+
             await ShowItemInspector()
                 .ConfigureAwait(false);
         }
@@ -108,8 +112,19 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
         private async Task UnequipItem()
         {
             inventory.Unequip(_browsedItem);
+            RefreshBrowsedItemsIfEquippedCategory();
+
             await ShowItemInspector()
                 .ConfigureAwait(false);
+        }
+
+        // Если мы убираем / надеваем предмет, находясь в категории "экипированного" - список экипированных предметов должен обновиться
+        private void RefreshBrowsedItemsIfEquippedCategory()
+        {
+            if (_browsedCategory == ItemType.Equipped)
+            {
+                RefreshBrowsedItems();
+            }
         }
 
         private async Task StartSelectItemForCompare()
@@ -119,6 +134,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
                 comparedItem = _browsedItem,
                 categoryOnStartCompare = _browsedCategory,
                 currentPageOnStartCompare = _currentPage,
+                pagesCountOnStartCompare = _pagesCount,
             };
 
             await ShowCategory(_browsedCategory)
@@ -167,7 +183,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
             inventory.RemoveItem(_browsedItem);
             _browsedItem = null;
 
-            await new InventoryDialog(session).ShowCategory(_browsedCategory, _currentPage)
+            await ShowCategory(_browsedCategory, _currentPage)
                 .ConfigureAwait(false);
         }
 
@@ -179,6 +195,42 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
                 .ConfigureAwait(false);
         }
 
+        #region Comparison
+
+        private async Task ShowItemInspectorWithComparison()
+        {
+            ClearButtons();
+
+            RegisterButton(Localization.Get(session, "menu_item_compare_another_button"), () => SelectAnotherItemToCompare());
+            RegisterButton(Localization.Get(session, "menu_item_compare_end_button"), () => EndComparison());
+
+            var sb = new StringBuilder();
+            sb.AppendLine(_compareData.Value.comparedItem.GetView(session));
+            sb.AppendLine();
+            sb.AppendLine("========================");
+            sb.AppendLine();
+            sb.AppendLine(_browsedItem.GetView(session));
+
+            await SendPanelMessage(sb, GetMultilineKeyboard())
+                .ConfigureAwait(false);
+        }
+
+        private async Task SelectAnotherItemToCompare()
+        {
+            await ShowCategory(_compareData.Value.categoryOnStartCompare);
+        }
+
+        private async Task EndComparison()
+        {
+            _browsedItem = _compareData.Value.comparedItem;
+            _currentPage = _compareData.Value.currentPageOnStartCompare;
+            _browsedCategory = _compareData.Value.categoryOnStartCompare;
+            _pagesCount = _compareData.Value.pagesCountOnStartCompare;
+            _compareData = null;
+            await ShowItemInspector();
+        }
+
+        #endregion
 
     }
 }

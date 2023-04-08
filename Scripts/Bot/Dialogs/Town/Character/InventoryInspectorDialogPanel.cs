@@ -14,6 +14,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
         public InventoryItem comparedItem;
         public ItemType categoryOnStartCompare;
         public int currentPageOnStartCompare;
+        public int pagesCountOnStartCompare;
     }
 
     public partial class InventoryInspectorDialogPanel : DialogPanelBase
@@ -89,7 +90,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
             RegisterCategoryButton(ItemType.Scroll, tooltip, 9);
 
             RegisterButton(Emojis.ItemEquipped + Localization.Get(session, "menu_item_equipped"),
-                () => ((InventoryDialog)dialog).ShowCategory(ItemType.Equipped));
+                () => ShowCategory(ItemType.Equipped));
 
             var sb = new StringBuilder();
             sb.Append(BuildMainItemsInfo());
@@ -203,15 +204,17 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
 
         private async Task OnItemClick(InventoryItem item)
         {
-            //if (_compareData != null)
-            //{
-            //    await new InventoryItemComparisonDialog(session, item, _compareData.Value).Start()
-            //        .ConfigureAwait(false);
-            //    return;
-            //}
-
             _browsedItem = item;
             MarkItemAsViewed(item);
+
+            if (_compareData != null)
+            {
+                await ShowItemInspectorWithComparison()
+                    .ConfigureAwait(false);
+                return;
+            }
+
+            
             await ShowItemInspector()
                 .ConfigureAwait(false);
         }
