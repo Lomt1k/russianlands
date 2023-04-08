@@ -7,7 +7,7 @@ using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Quests.QuestStages;
 
-namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
+namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Inventory
 {
     public struct CompareData
     {

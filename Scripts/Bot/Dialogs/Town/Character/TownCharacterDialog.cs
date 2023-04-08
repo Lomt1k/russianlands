@@ -5,6 +5,7 @@ using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Buildings;
 using TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions;
 using TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Skills;
+using TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Inventory;
 
 namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
 {

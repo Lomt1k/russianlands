@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
 using TextGameRPG.Scripts.Bot.Dialogs.Town.Character;
+using TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Inventory;
 using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Buildings;
 using TextGameRPG.Scripts.GameCore.Items;

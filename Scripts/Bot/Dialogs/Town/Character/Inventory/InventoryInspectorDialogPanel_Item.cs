@@ -5,7 +5,7 @@ using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Resources;
 
-namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
+namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Inventory
 {
     public partial class InventoryInspectorDialogPanel : DialogPanelBase
     {

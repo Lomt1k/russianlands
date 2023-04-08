@@ -2,7 +2,7 @@
 using TextGameRPG.Scripts.Bot.Sessions;
 using System.Threading.Tasks;
 
-namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
+namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Inventory
 {
     public class InventoryDialog : DialogBase
     {
