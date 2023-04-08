@@ -5,14 +5,15 @@ using TextGameRPG.Scripts.GameCore.Locations;
 
 namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
 {
-    public class MapDialog : DialogBase
+    public class MapDialog : DialogWithPanel
     {
         private MapDialogPanel _mapPanel;
+        public override DialogPanelBase DialogPanel => _mapPanel;
+        
 
         public MapDialog(GameSession _session) : base(_session)
         {
-            _mapPanel = new MapDialogPanel(this, 0);
-            RegisterPanel(_mapPanel);
+            _mapPanel = new MapDialogPanel(this);
 
             RegisterButton(Emojis.ButtonArena + Localization.Get(session, "menu_item_arena"),
                 () => messageSender.SendTextMessage(session.chatId, "Арена недоступна в текущей версии игры")); // заглушка
@@ -21,12 +22,14 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
             RegisterTownButton(isDoubleBack: false);
         }
 
+        
+
         public override async Task Start()
         {
             var header = Emojis.ButtonMap + Localization.Get(session, "menu_item_map").Bold();
             await SendDialogMessage(header, GetKeyboardWithRowSizes(2, 1))
                 .ConfigureAwait(false);
-            await SendPanelsAsync()
+            await _mapPanel.Start()
                 .ConfigureAwait(false);
         }
 

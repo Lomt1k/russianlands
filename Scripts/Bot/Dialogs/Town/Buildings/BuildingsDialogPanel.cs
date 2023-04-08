@@ -15,11 +15,11 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
     {
         private ProfileBuildingsData _buildingsData => session.profile.buildingsData;
 
-        public BuildingsDialogPanel(DialogBase _dialog, byte _panelId) : base(_dialog, _panelId)
+        public BuildingsDialogPanel(DialogWithPanel _dialog) : base(_dialog)
         {
         }
 
-        public override async Task SendAsync()
+        public override async Task Start()
         {
             await ShowCategories()
                 .ConfigureAwait(false);

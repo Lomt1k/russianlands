@@ -12,11 +12,11 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
 {
     public class MapDialogPanel : DialogPanelBase
     {
-        public MapDialogPanel(DialogBase _dialog, byte _panelId) : base(_dialog, _panelId)
+        public MapDialogPanel(DialogWithPanel _dialog) : base(_dialog)
         {
         }
 
-        public override async Task SendAsync()
+        public override async Task Start()
         {
             await ShowGlobalMap()
                 .ConfigureAwait(false);

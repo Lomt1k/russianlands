@@ -17,13 +17,12 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
         protected static SessionManager sessionManager => TelegramBot.instance.sessionManager;
         protected static MessageSender messageSender => TelegramBot.instance.messageSender;        
 
-        private Dictionary<KeyboardButton, Func<Task>?> registeredButtons = new Dictionary<KeyboardButton, Func<Task>?>();
-        private Dictionary<byte, DialogPanelBase> registeredPanels = new Dictionary<byte, DialogPanelBase>();
-        private Func<Task<Message?>>? resendLastMessageFunc;
+        private Dictionary<KeyboardButton, Func<Task>?> _registeredButtons = new Dictionary<KeyboardButton, Func<Task>?>();
+        private Func<Task<Message?>>? _resendLastMessageFunc;
 
         public GameSession session { get; }
         public Tooltip? tooltip { get; private set; }
-        protected int buttonsCount => registeredButtons.Count;
+        protected int buttonsCount => _registeredButtons.Count;
         protected Message? lastMessage { get; private set; }
 
         public DialogBase(GameSession _session)
@@ -34,7 +33,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
 
         protected void RegisterButton(string text, Func<Task>? callback)
         {
-            registeredButtons.Add(text, callback);
+            _registeredButtons.Add(text, callback);
         }
 
         protected void RegisterBackButton(Func<Task> callback)
@@ -61,24 +60,19 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
 
         protected void ClearButtons()
         {
-            registeredButtons.Clear();
-        }
-
-        protected void RegisterPanel(DialogPanelBase dialogPanel)
-        {
-            registeredPanels.Add(dialogPanel.panelId, dialogPanel);
+            _registeredButtons.Clear();
         }
 
         protected ReplyKeyboardMarkup GetOneLineKeyboard()
         {
-            return new ReplyKeyboardMarkup(registeredButtons.Keys);
+            return new ReplyKeyboardMarkup(_registeredButtons.Keys);
         }
 
         protected ReplyKeyboardMarkup GetMultilineKeyboard()
         {
-            var linesArray = new KeyboardButton[registeredButtons.Count][];
+            var linesArray = new KeyboardButton[_registeredButtons.Count][];
             int i = 0;
-            foreach (var button in registeredButtons.Keys)
+            foreach (var button in _registeredButtons.Keys)
             {
                 linesArray[i] = new KeyboardButton[] { button };
                 i++;
@@ -89,7 +83,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
         protected ReplyKeyboardMarkup GetKeyboardWithRowSizes(params int[] args)
         {
             var rows = new List<List<KeyboardButton>>();
-            var buttons = registeredButtons.Keys.ToList();
+            var buttons = _registeredButtons.Keys.ToList();
 
             int startIndex = 0;
             foreach (var count in args)
@@ -106,7 +100,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
             if (rowSize < 2 || buttonsCount < 3)
                 return GetMultilineKeyboard();
             
-            var buttons = registeredButtons.Keys;
+            var buttons = _registeredButtons.Keys;
             var rows = new List<List<KeyboardButton>>();
             var currentRow = new List<KeyboardButton>();
 
@@ -126,7 +120,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
 
         protected ReplyKeyboardMarkup GetMultilineKeyboardWithDoubleBack()
         {
-            var buttons = registeredButtons.Keys.ToArray();
+            var buttons = _registeredButtons.Keys.ToArray();
             var rowsCount = buttons.Length - 1;
             var rows = new List<List<KeyboardButton>>(rowsCount);
             
@@ -146,15 +140,6 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
             return new ReplyKeyboardMarkup(rows);
         }
 
-        protected async Task SendPanelsAsync()
-        {
-            foreach (var panel in registeredPanels.Values)
-            {
-                await panel.SendAsync()
-                    .ConfigureAwait(false);
-            }
-        }
-
         public abstract Task Start();
 
         protected async Task<Message?> SendDialogMessage(StringBuilder sb, ReplyKeyboardMarkup? replyMarkup)
@@ -165,9 +150,9 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
 
         protected async Task<Message?> SendDialogMessage(string text, ReplyKeyboardMarkup? replyMarkup)
         {
-            resendLastMessageFunc = async() => await messageSender.SendTextDialog(session.chatId, text, replyMarkup)
+            _resendLastMessageFunc = async() => await messageSender.SendTextDialog(session.chatId, text, replyMarkup)
                 .ConfigureAwait(false);
-            lastMessage = await resendLastMessageFunc()
+            lastMessage = await _resendLastMessageFunc()
                 .ConfigureAwait(false);
             return lastMessage;
         }
@@ -187,16 +172,11 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
 
         public virtual async Task TryResendDialog()
         {
-            if (resendLastMessageFunc == null)
+            if (_resendLastMessageFunc == null)
                 return;
 
-            lastMessage = await resendLastMessageFunc()
+            lastMessage = await _resendLastMessageFunc()
                 .ConfigureAwait(false);
-            foreach (var panel in registeredPanels.Values)
-            {
-                await panel.ResendLastMessageAsNew()
-                    .ConfigureAwait(false);
-            }
         }
 
         public virtual async Task HandleMessage(Message message)
@@ -206,11 +186,11 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
                 return;
 
             Func<Task>? callback = null;
-            foreach (var button in registeredButtons.Keys)
+            foreach (var button in _registeredButtons.Keys)
             {
                 if (button.Text.Equals(text))
                 {
-                    registeredButtons.TryGetValue(button, out callback);
+                    _registeredButtons.TryGetValue(button, out callback);
                     break;
                 }
             }
@@ -227,15 +207,6 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
             }
         }
 
-        public virtual async Task HandleCallbackQuery(string queryId, DialogPanelButtonCallbackData callback)
-        {
-            if (registeredPanels.TryGetValue(callback.panelId, out var panel))
-            {
-                await panel.HandleButtonPress(callback.buttonId, queryId)
-                    .ConfigureAwait(false);
-            }
-        }
-
         protected bool TryAppendTooltip(StringBuilder sb, Tooltip? _tooltip = null)
         {
             tooltip = _tooltip ?? session.tooltipController.TryGetTooltip(this);
@@ -245,11 +216,11 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
             KeyboardButton? selectedButton = null;
             if (tooltip.buttonId > -1 && tooltip.buttonId < buttonsCount)
             {
-                var buttonsList = registeredButtons.Keys.ToList();
+                var buttonsList = _registeredButtons.Keys.ToList();
                 selectedButton = buttonsList[tooltip.buttonId];
 
                 var buttonsToBlock = new List<KeyboardButton>();
-                foreach (var button in registeredButtons)
+                foreach (var button in _registeredButtons)
                 {
                     if (button.Key != selectedButton)
                     {
@@ -261,7 +232,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
                 // Модифицируем логику клика по нужной кнопке (если еще не модифицировали)
                 if (!selectedButton.Text.Contains(Emojis.ElementWarning.ToString()))
                 {
-                    var oldSelectedAction = registeredButtons[selectedButton];
+                    var oldSelectedAction = _registeredButtons[selectedButton];
                     var newStage = tooltip.stageAfterButtonClick;
                     Func<Task> newSelectedAction = async () =>
                     {
@@ -280,7 +251,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
                             }
                         }
                     };
-                    registeredButtons[selectedButton] = () =>
+                    _registeredButtons[selectedButton] = () =>
                     {
                         tooltip = null;
                         return newSelectedAction();
@@ -304,7 +275,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
 
         public void BlockAllButtons()
         {
-            var allButtons = registeredButtons.Keys.ToArray();
+            var allButtons = _registeredButtons.Keys.ToArray();
             BlockButtons(allButtons);
         }
 
@@ -312,16 +283,13 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
         {
             foreach (var button in buttonsToBlock)
             {
-                registeredButtons[button] = () => TryResendDialog();
+                _registeredButtons[button] = () => TryResendDialog();
             }
         }
 
         public virtual void OnClose()
         {
-            foreach (var panel in registeredPanels.Values)
-            {
-                panel.OnDialogClose();
-            }
+            //ignored
         }
 
     }

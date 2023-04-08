@@ -29,7 +29,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Inventory
         private int _currentPage;
         private int _pagesCount;
 
-        public InventoryInspectorDialogPanel(DialogBase _dialog, byte _panelId) : base(_dialog, _panelId)
+        public InventoryInspectorDialogPanel(DialogWithPanel _dialog) : base(_dialog)
         {
             _inventory = session.player.inventory;
         }
@@ -67,7 +67,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Inventory
             return sb.ToString();
         }
 
-        public override async Task SendAsync()
+        public override async Task Start()
         {
             await ShowCategories()
                 .ConfigureAwait(false);

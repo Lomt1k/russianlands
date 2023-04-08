@@ -5,14 +5,14 @@ using TextGameRPG.Scripts.Bot.Sessions;
 
 namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
 {
-    public class BuildingsDialog : DialogBase
+    public class BuildingsDialog : DialogWithPanel
     {
         private BuildingsDialogPanel _inspectorPanel;
+        public override DialogPanelBase DialogPanel => _inspectorPanel;
 
         public BuildingsDialog(GameSession _session) : base(_session)
         {
-            _inspectorPanel = new BuildingsDialogPanel(this, 0);
-            RegisterPanel(_inspectorPanel);
+            _inspectorPanel = new BuildingsDialogPanel(this);
             RegisterTownButton(isDoubleBack: false);
         }
 
@@ -21,7 +21,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
             var header = Emojis.ButtonBuildings + Localization.Get(session, "menu_item_buildings").Bold();
             await SendDialogMessage(header, GetOneLineKeyboard())
                 .ConfigureAwait(false);
-            await SendPanelsAsync()
+            await _inspectorPanel.Start()
                 .ConfigureAwait(false);
         }
 

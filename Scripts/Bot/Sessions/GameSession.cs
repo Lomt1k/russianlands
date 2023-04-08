@@ -124,10 +124,10 @@ namespace TextGameRPG.Scripts.Bot.Sessions
             switch (callbackData)
             {
                 case DialogPanelButtonCallbackData dialogPanelButtonCallback:
-                    if (currentDialog == null)
-                        return;
-                    await currentDialog.HandleCallbackQuery(query.Id, dialogPanelButtonCallback)
-                        .ConfigureAwait(false);
+                    if (currentDialog != null && currentDialog is DialogWithPanel dialogWithPanel)
+                    {
+                        await dialogWithPanel.HandleCallbackQuery(query.Id, dialogPanelButtonCallback).ConfigureAwait(false);
+                    }
                     return;
 
                 case BattleTooltipCallbackData battleTooltipCallback:

@@ -17,10 +17,9 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
     {
         protected static SessionManager sessionManager => TelegramBot.instance.sessionManager;
         protected static MessageSender messageSender => TelegramBot.instance.messageSender;
-        public DialogBase dialog { get; }
+        public DialogWithPanel dialog { get; }
         public GameSession session { get; }
         public Tooltip? tooltip { get; private set; }
-        public byte panelId { get; }
 
         protected Message? lastMessage { get; set; } // необходимо присваивать, чтобы при выходе из диалога удалялся InlineKeyboard
 
@@ -31,11 +30,10 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
 
         protected int buttonsCount => _registeredButtons.Count;
 
-        public DialogPanelBase(DialogBase _dialog, byte _panelId)
+        public DialogPanelBase(DialogWithPanel _dialog)
         {
             dialog = _dialog;
             session = _dialog.session;
-            panelId = _panelId;
         }
 
         protected void RegisterBackButton(Func<Task> callback, Func<string?>? queryAnswer = null)
@@ -57,7 +55,6 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
         {
             var callbackData = new DialogPanelButtonCallbackData()
             {
-                panelId = panelId,
                 buttonId = _freeButtonId,
             };
             var callbackDataJson = JsonConvert.SerializeObject(callbackData);
@@ -153,7 +150,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
             return new InlineKeyboardMarkup(rows);
         }
 
-        public abstract Task SendAsync();
+        public abstract Task Start();
 
         protected async Task<Message> SendPanelMessage(StringBuilder sb, InlineKeyboardMarkup? inlineMarkup, bool asNewMessage = false)
         {
