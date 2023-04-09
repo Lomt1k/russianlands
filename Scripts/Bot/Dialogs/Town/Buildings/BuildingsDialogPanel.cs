@@ -7,7 +7,6 @@ using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
 using TextGameRPG.Scripts.GameCore.Resources;
 using System.Collections.Generic;
 using Telegram.Bot.Types.ReplyMarkups;
-using System;
 
 namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
 {
@@ -44,7 +43,6 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
                 sb.AppendLine();
             }
 
-            AppendGeneralResources(sb);
             AppendProductionInfo(sb);
 
             ClearButtons();
@@ -61,12 +59,6 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
         private void RegisterCategoryButton(BuildingCategory category)
         {
             RegisterButton(category.GetLocalization(session), () => ShowBuildingsList(category));
-        }
-
-        private void AppendGeneralResources(StringBuilder sb)
-        {
-            string resources = session.player.resources.GetGeneralResourcesView();
-            sb.AppendLine(resources);
         }
 
         private void AppendProductionInfo(StringBuilder sb)
@@ -158,68 +150,10 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
 
         private async Task TryCollectResources()
         {
-            var collectedResources = new Dictionary<ResourceType, int>();
-            var notCollectedResources = new Dictionary<ResourceType, int>();
-
-            var playerResources = session.player.resources;
-            var productionBuildings = session.player.buildings.GetBuildingsByCategory(BuildingCategory.Production);
-            foreach (ProductionBuildingBase building in productionBuildings)
-            {
-                var farmedAmout = building.GetFarmedResourceAmount(_buildingsData);
-                if (farmedAmout < 1)
-                    continue;
-
-                var reallyAdded = playerResources.Add(building.resourceType, farmedAmout);
-                if (reallyAdded > 0)
-                {
-                    collectedResources.TryGetValue(building.resourceType, out var prevValue);
-                    collectedResources[building.resourceType] = prevValue + reallyAdded;
-                }
-
-                if (reallyAdded == farmedAmout)
-                {
-                    building.SetStartFarmTime(_buildingsData, DateTime.UtcNow.Ticks);
-                }
-                else
-                {
-                    var startFarmDt = new DateTime(building.GetStartFarmTime(_buildingsData));
-                    var totalFarmSeconds = (DateTime.UtcNow - startFarmDt).TotalSeconds;
-                    var collectedPart = (float)reallyAdded / farmedAmout;
-                    var secondsToRemove = totalFarmSeconds * collectedPart;
-                    var newStartFarmDt = startFarmDt.AddSeconds(secondsToRemove);
-                    building.SetStartFarmTime(_buildingsData, newStartFarmDt.Ticks);
-
-                    var notCollectedAmount = farmedAmout - reallyAdded;
-                    notCollectedResources.TryGetValue(building.resourceType, out var prevValue);
-                    notCollectedResources[building.resourceType] = prevValue + notCollectedAmount;
-                }
-            }
-
-            var sb = new StringBuilder();
-            if (collectedResources.Count == 0 && notCollectedResources.Count == 0)
-            {
-                sb.AppendLine(Localization.Get(session, "dialog_buildings_no_resources_in_production"));
-            }
-            else
-            {
-                if (collectedResources.Count > 0)
-                {
-                    sb.AppendLine(Localization.Get(session, "dialog_buildings_collected_resources_header"));
-                    sb.AppendLine(ResourceHelper.GetCompactResourcesView(collectedResources));
-                    sb.AppendLine();
-                }
-                if (notCollectedResources.Count > 0)
-                {
-                    sb.AppendLine(Localization.Get(session, "dialog_buildings_resources_not_collected"));
-                    sb.AppendLine();
-                    sb.AppendLine(ResourceHelper.GetCompactResourcesView(notCollectedResources));
-                }
-            }
-
             ClearButtons();
             RegisterButton(Localization.Get(session, "menu_item_continue_button"), () => ShowCategories());
-
-            await SendPanelMessage(sb, GetOneLineKeyboard()).FastAwait();
+            var message = TryCollectResourcesDialog.StartLogicAndGetResultMessage(session);
+            await SendPanelMessage(message, GetOneLineKeyboard()).FastAwait();
         }
 
         

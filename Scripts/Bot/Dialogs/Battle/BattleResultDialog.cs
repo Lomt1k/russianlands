@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.Bot.Dialogs.Town;
 using TextGameRPG.Scripts.Bot.Sessions;
+using TextGameRPG.Scripts.GameCore.Managers;
 
 namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
 {
@@ -55,7 +56,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
 
         private async Task ReturnToTown()
         {
-            await new TownDialog(session, TownEntryReason.FromQuestAction).Start().FastAwait();
+            await GlobalManagers.notificationsManager.GetNotificationsAndEntryTown(session, TownEntryReason.FromQuestAction).FastAwait();
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Telegram.Bot.Types.ReplyMarkups;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.Bot.Sessions;
+using TextGameRPG.Scripts.GameCore.Managers;
 
 namespace TextGameRPG.Scripts.Bot.Dialogs.Town
 {
@@ -28,9 +29,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town
             RegisterButton(Emojis.ButtonMap + Localization.Get(session, "menu_item_map"),
                 () => new GlobalMap.MapDialog(session).Start());
 
-            var buildingsLocalization = Emojis.ButtonBuildings + Localization.Get(session, "menu_item_buildings")
-                + (player.buildings.HasImportantUpdates() && !hasTooltip ? Emojis.ElementWarningRed.ToString() : string.Empty);
-            RegisterButton(buildingsLocalization, () => new Buildings.BuildingsDialog(session).Start());
+            RegisterButton(Emojis.ButtonBuildings + Localization.Get(session, "menu_item_buildings"),
+                () => GlobalManagers.notificationsManager.GetNotificationsAndOpenBuildingsDialog(session));
 
             var characterButton = Emojis.AvatarMale + Localization.Get(session, "menu_item_character")
                 + (player.inventory.hasAnyNewItem && !hasTooltip ? Emojis.ElementWarningRed.ToString() : string.Empty);

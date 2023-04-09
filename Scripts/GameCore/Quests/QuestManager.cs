@@ -7,6 +7,7 @@ using TextGameRPG.Scripts.GameCore.Quests.StageActions;
 using TextGameRPG.Scripts.Bot.Dialogs.Town;
 using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Resources;
+using TextGameRPG.Scripts.GameCore.Managers;
 
 namespace TextGameRPG.Scripts.GameCore.Quests
 {
@@ -23,7 +24,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests
                     await QuestsHolder.GetQuest(QuestType.MainQuest).StartQuest(session).FastAwait();
                     return;
                 }
-                await new TownDialog(session, TownEntryReason.StartNewSession).Start().FastAwait();
+                await GlobalManagers.notificationsManager.GetNotificationsAndEntryTown(session, TownEntryReason.StartNewSession).FastAwait();
                 return;
             }
 
@@ -44,7 +45,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests
                         bool hasTownEntry = stageWithTrigger.questActions.Where(x => x is EntryTownAction).Count() > 0;
                         if (hasTownEntry)
                         {
-                            await new TownDialog(session, TownEntryReason.StartNewSession).Start().FastAwait();
+                            await GlobalManagers.notificationsManager.GetNotificationsAndEntryTown(session, TownEntryReason.StartNewSession).FastAwait();
                         }
                         break;
 
@@ -57,7 +58,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests
                         }
                         else
                         {
-                            await new TownDialog(session, TownEntryReason.StartNewSession).Start().FastAwait();
+                            await GlobalManagers.notificationsManager.GetNotificationsAndEntryTown(session, TownEntryReason.StartNewSession).FastAwait();
                         }                        
                         break;
 

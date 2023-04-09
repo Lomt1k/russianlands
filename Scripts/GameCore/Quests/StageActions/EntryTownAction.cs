@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.Bot.Dialogs.Town;
 using TextGameRPG.Scripts.Bot.Sessions;
+using TextGameRPG.Scripts.GameCore.Managers;
 
 namespace TextGameRPG.Scripts.GameCore.Quests.StageActions
 {
@@ -14,7 +15,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests.StageActions
             if (alreadyInTown)
                 return;
 
-            await new TownDialog(session, TownEntryReason.FromQuestAction).Start();
+            await GlobalManagers.notificationsManager.GetNotificationsAndEntryTown(session, TownEntryReason.FromQuestAction).FastAwait();
         }
     }
 }
