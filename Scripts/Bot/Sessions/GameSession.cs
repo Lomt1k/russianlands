@@ -12,13 +12,16 @@ using TextGameRPG.Scripts.Bot.Dialogs;
 using TextGameRPG.Scripts.GameCore.Quests;
 using TextGameRPG.Scripts.GameCore.Managers;
 using System.Threading;
+using TextGameRPG.Scripts.GameCore.Managers.Battles;
 
 namespace TextGameRPG.Scripts.Bot.Sessions
 {
     public class GameSession
     {
+        private static PerformanceManager performanceManager = Singletones.Get<PerformanceManager>();
+        private static readonly BattleManager battleManager = Singletones.Get<BattleManager>();
+
         private bool _isHandlingUpdate;
-        private PerformanceManager _performanceManager;
         private CancellationTokenSource _sessionTasksCTS = new CancellationTokenSource();
 
         public ChatId chatId { get; }
@@ -40,7 +43,6 @@ namespace TextGameRPG.Scripts.Bot.Sessions
             startTime = DateTime.UtcNow;
             lastActivityTime = DateTime.UtcNow;
 
-            _performanceManager = GlobalManagers.performanceManager;
             Program.logger.Info($"Started a new session for {user}"
                 + (fakeChatId?.Identifier != null ? $" with fakeId: {fakeChatId}" : string.Empty));
             Program.logger.Debug($"Sessions Count: {TelegramBot.instance.sessionManager.sessionsCount + 1}"); //for debug
@@ -67,7 +69,7 @@ namespace TextGameRPG.Scripts.Bot.Sessions
             try
             {
                 // Делаем паузу на обработку апдейта в зависимости от нагрузки на процессор
-                await Task.Delay(_performanceManager.GetCurrentResponseDelay()).FastAwait();
+                await Task.Delay(performanceManager.GetCurrentResponseDelay()).FastAwait();
 
                 lastActivityTime = DateTime.UtcNow;
                 actualUser = refreshedUser;
@@ -129,9 +131,9 @@ namespace TextGameRPG.Scripts.Bot.Sessions
                     return;
 
                 case BattleTooltipCallbackData battleTooltipCallback:
-                    if (player == null || GameCore.Managers.GlobalManagers.battleManager == null)
+                    if (player == null)
                         return;
-                    var currentBattle = GameCore.Managers.GlobalManagers.battleManager.GetCurrentBattle(player);
+                    var currentBattle = battleManager.GetCurrentBattle(player);
                     if (currentBattle == null)
                         return;
                     await currentBattle.HandleBattleTooltipCallback(player, query.Id, battleTooltipCallback).FastAwait();
@@ -183,7 +185,7 @@ namespace TextGameRPG.Scripts.Bot.Sessions
 
             if (onError)
             {
-                GlobalManagers.battleManager?.OnSessionClosedWithError(player);
+                battleManager.OnSessionClosedWithError(player);
             }
         }
 

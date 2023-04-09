@@ -9,13 +9,14 @@ namespace TextGameRPG.Scripts.Bot.Commands.Admin
 {
     public class StatusCommand : CommandBase
     {
+        private static readonly PerformanceManager pm = Singletones.Get<PerformanceManager>();
+
         public override CommandGroup commandGroup => CommandGroup.Admin;
 
         public override async Task Execute(GameSession session, string[] args)
         {
             var sb = new StringBuilder();
 
-            var pm = GlobalManagers.performanceManager;
             sb.AppendLine($"Status: {pm.currentState.ToString().Bold()}");
             sb.AppendLine($"CPU: {PerformanceMonitor.cpuUsage:F1}%"
                 + (pm.currentCpuState == PerformanceState.Normal ? string.Empty : $" ({pm.currentCpuState}") );

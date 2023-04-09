@@ -19,6 +19,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Quests.MainQuest
         private const int minLength = 3;
         private const int maxLength = 16;
 
+        private static readonly NotificationsManager notificationsManager = Singletones.Get<NotificationsManager>();
         private static readonly Dictionary<ResourceType, int> nickChangePrice = new Dictionary<ResourceType, int>()
         {
             { ResourceType.Diamond, 800 }
@@ -164,7 +165,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Quests.MainQuest
 
             currentNickname = newNickname;
             var notification = Localization.Get(session, "dialog_entry_name_name_changed", newNickname);
-            await GlobalManagers.notificationsManager.ShowNotification(session, notification, () => new TownCharacterDialog(session).Start()).FastAwait();
+            await notificationsManager.ShowNotification(session, notification, () => new TownCharacterDialog(session).Start()).FastAwait();
         }
 
     }

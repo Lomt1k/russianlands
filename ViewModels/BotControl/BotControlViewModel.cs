@@ -10,6 +10,8 @@ namespace TextGameRPG.ViewModels.BotControl
 {
     public class BotControlViewModel : ViewModelBase
     {
+        private static readonly PerformanceManager performanceManager = Singletones.Get<PerformanceManager>();
+
         private string _consoleOutput = string.Empty;
         private TelegramBot _bot;
         private bool _isBotListening;
@@ -72,6 +74,7 @@ namespace TextGameRPG.ViewModels.BotControl
 
             UpdatePerformanceStats(PerformanceMonitor.cpuUsage, PerformanceMonitor.memoryUsage);
             PerformanceMonitor.onUpdate += UpdatePerformanceStats;
+            performanceManager.onStateUpdate += UpdatePerformanceStatus;
         }
 
         private void RedirectConsoleOutput()
@@ -89,15 +92,6 @@ namespace TextGameRPG.ViewModels.BotControl
 
             canStartListening = !success;
             canStopListening = success;
-
-            if (success)
-            {
-                var performanceManager = GlobalManagers.performanceManager;
-                if (performanceManager != null)
-                {
-                    performanceManager.onStateUpdate += UpdatePerformanceStatus;
-                }
-            }
         }
 
         private async Task StopBotListening()

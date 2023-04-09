@@ -6,19 +6,17 @@ namespace TextGameRPG.Scripts.GameCore.Managers
     public enum PerformanceState { Normal, Highload, Busy }
 
     public class PerformanceManager : GlobalManager
-    {
-        private TelegramBot _bot;
-        
+    {        
         // cpu settings
-        public int cpuUsageLimit { get; }
-        public int cpuUsageHighload { get; }
-        public int responseDelayWhenCpuHighload { get; }
+        public int cpuUsageLimit { get; private set; }
+        public int cpuUsageHighload { get; private set; }
+        public int responseDelayWhenCpuHighload { get; private set; }
 
         // memory settings 
-        public int memoryUsageLimit { get; }
-        public int memoryUsageHighload { get; }
-        public int sessionTimeoutDefault { get; }
-        public int sessionTimeoutWhenMemoryHighload { get; }
+        public int memoryUsageLimit { get; private set; }
+        public int memoryUsageHighload { get; private set; }
+        public int sessionTimeoutDefault { get; private set; }
+        public int sessionTimeoutWhenMemoryHighload { get; private set; }
 
         public PerformanceState currentCpuState { get; private set; }
         public PerformanceState currentMemoryState { get; private set; }
@@ -37,31 +35,12 @@ namespace TextGameRPG.Scripts.GameCore.Managers
 
         public PerformanceManager()
         {
-            _bot = TelegramBot.instance;
-
-            var config = _bot.config;
-
-            cpuUsageLimit = config.cpuUsageLimitInPercents;
-            cpuUsageHighload = config.cpuUsageToHighloadState;
-            responseDelayWhenCpuHighload = config.responceMsDelayWhenCpuHighload;
-
-            memoryUsageLimit = config.memoryUsageLimitInMegabytes;
-            memoryUsageHighload = config.memoryUsageToHighloadState;
-            sessionTimeoutDefault = config.sessionTimeoutInMinutes;
-            sessionTimeoutWhenMemoryHighload = config.sessionTimeoutInMinutesWhenMemoryHighoad;
-
-            UpdateCurrentState(PerformanceMonitor.cpuUsage, PerformanceMonitor.memoryUsage);
             SubscribeEvents();
         }
 
         private void SubscribeEvents()
         {
             PerformanceMonitor.onUpdate += OnPerformanceUpdate;
-        }
-
-        private void UnsubscribeEvents()
-        {
-            PerformanceMonitor.onUpdate -= OnPerformanceUpdate;
         }
 
         private void OnPerformanceUpdate(double cpuUsage, double memoryUsage)
@@ -100,11 +79,19 @@ namespace TextGameRPG.Scripts.GameCore.Managers
             return currentMemoryState == PerformanceState.Normal ? sessionTimeoutDefault : sessionTimeoutWhenMemoryHighload;
         }
 
-        public override void OnDestroy()
+        public override void OnBotStarted()
         {
-            base.OnDestroy();
-            UnsubscribeEvents();
-            onStateUpdate = null;
+            var config = TelegramBot.instance.config;
+            cpuUsageLimit = config.cpuUsageLimitInPercents;
+            cpuUsageHighload = config.cpuUsageToHighloadState;
+            responseDelayWhenCpuHighload = config.responceMsDelayWhenCpuHighload;
+
+            memoryUsageLimit = config.memoryUsageLimitInMegabytes;
+            memoryUsageHighload = config.memoryUsageToHighloadState;
+            sessionTimeoutDefault = config.sessionTimeoutInMinutes;
+            sessionTimeoutWhenMemoryHighload = config.sessionTimeoutInMinutesWhenMemoryHighoad;
+
+            UpdateCurrentState(PerformanceMonitor.cpuUsage, PerformanceMonitor.memoryUsage);
         }
 
     }

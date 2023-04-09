@@ -12,6 +12,7 @@ namespace TextGameRPG.ConsoleMode
     {
         public const string botDataFolder = "botData";
 
+        private static readonly PerformanceManager pm = Singletones.Get<PerformanceManager>();
         private static Dictionary<string, Action<string[]>> commands = new Dictionary<string, Action<string[]>>
         {
             {"start", (args) => StartBotCommand(args) },
@@ -112,7 +113,6 @@ namespace TextGameRPG.ConsoleMode
 
         private static void StatusCommand(string[] args)
         {
-            var pm = GlobalManagers.performanceManager;
             if (pm == null)
                 return;
 

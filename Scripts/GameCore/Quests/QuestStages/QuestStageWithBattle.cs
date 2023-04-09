@@ -6,12 +6,15 @@ using TextGameRPG.Scripts.GameCore.Units;
 using TextGameRPG.Scripts.Bot.Dialogs.Battle;
 using TextGameRPG.Scripts.GameCore.Managers;
 using TextGameRPG.Scripts.Bot.Sessions;
+using TextGameRPG.Scripts.GameCore.Managers.Battles;
 
 namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
 {
     [JsonObject]
     public class QuestStageWithBattle : QuestStage
     {
+        private static readonly BattleManager battleManager = Singletones.Get<BattleManager>();
+
         public int mobId { get; set; }
         public int nextStageIfWin { get; set; }
         public int nextStageIfLose { get; set; }
@@ -24,7 +27,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
 
             // stage у квеста меняем сразу по окончанию боя, но вызываем его только после нажатия кнопки continue в окне наград
 
-            GlobalManagers.battleManager?.StartBattleWithMob(session.player, mobData,
+            battleManager.StartBattleWithMob(session.player, mobData,
                 rewards: rewards.Count > 0 ? rewards : null,
                 onBattleEndFunc: (Player player, BattleResult result) =>
                 {

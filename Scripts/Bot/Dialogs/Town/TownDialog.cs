@@ -16,6 +16,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town
 
     public class TownDialog : DialogBase
     {
+        private static readonly NotificationsManager notificationsManager = Singletones.Get<NotificationsManager>();
+
         private TownEntryReason _reason;
         private ReplyKeyboardMarkup _keyboard;
         private int? _regenHealthMessageId;
@@ -30,7 +32,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town
                 () => new GlobalMap.MapDialog(session).Start());
 
             RegisterButton(Emojis.ButtonBuildings + Localization.Get(session, "menu_item_buildings"),
-                () => GlobalManagers.notificationsManager.GetNotificationsAndOpenBuildingsDialog(session));
+                () => notificationsManager.GetNotificationsAndOpenBuildingsDialog(session));
 
             var characterButton = Emojis.AvatarMale + Localization.Get(session, "menu_item_character")
                 + (player.inventory.hasAnyNewItem && !hasTooltip ? Emojis.ElementWarningRed.ToString() : string.Empty);

@@ -11,9 +11,10 @@ namespace TextGameRPG.Scripts.Bot.Sessions
     public class SessionManager
     {
         private const int millisecondsInMinute = 60_000;
-        private readonly int periodicSaveDatabaseInMs;
 
-        private PerformanceManager _performanceManager;
+        private static readonly PerformanceManager performanceManager = Singletones.Get<PerformanceManager>();
+
+        private readonly int periodicSaveDatabaseInMs;
         private CancellationTokenSource _allSessionsTasksCTS;
         private Dictionary<ChatId, GameSession> _sessions = new Dictionary<ChatId, GameSession>();
         private Dictionary<long, long> _fakeIdsDict = new Dictionary<long, long>(); //cheat: allow play as another telegram user
@@ -23,7 +24,6 @@ namespace TextGameRPG.Scripts.Bot.Sessions
 
         public SessionManager(TelegramBot telegramBot)
         {
-            _performanceManager = GlobalManagers.performanceManager;
             periodicSaveDatabaseInMs = telegramBot.config.periodicSaveDatabaseInMinutes * millisecondsInMinute;
 
             _allSessionsTasksCTS = new CancellationTokenSource();
@@ -88,7 +88,7 @@ namespace TextGameRPG.Scripts.Bot.Sessions
                 List<ChatId> sessionsToClose = new List<ChatId>();
                 foreach (var chatId in _sessions.Keys)
                 {
-                    var timeoutMs = _performanceManager.GetCurrentSessionTimeout() * millisecondsInMinute;
+                    var timeoutMs = performanceManager.GetCurrentSessionTimeout() * millisecondsInMinute;
                     if (IsTimeout(chatId, timeoutMs))
                     {
                         sessionsToClose.Add(chatId);

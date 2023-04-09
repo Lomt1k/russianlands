@@ -7,6 +7,7 @@ using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Managers;
+using TextGameRPG.Scripts.GameCore.Managers.Battles;
 using TextGameRPG.Scripts.GameCore.Units;
 using TextGameRPG.Scripts.GameCore.Units.Mobs;
 
@@ -16,9 +17,11 @@ namespace TextGameRPG.Scripts.Bot.Commands.Cheats
     {
         public override CommandGroup commandGroup => CommandGroup.Cheat;
 
+        private static readonly BattleManager battleManager = Singletones.Get<BattleManager>();
+
         public override async Task Execute(GameSession session, string[] args)
         {
-            var currentBattle = GlobalManagers.battleManager?.GetCurrentBattle(session.player);
+            var currentBattle = battleManager.GetCurrentBattle(session.player);
             if (currentBattle != null)
                 return;
 
@@ -36,7 +39,7 @@ namespace TextGameRPG.Scripts.Bot.Commands.Cheats
             mobData.localizationKey = "Dummy";
             mobData.statsSettings.health = 100_000;
             mobData.mobAttacks.Add(new MobAttack());
-            GlobalManagers.battleManager?.StartBattleWithMob(player, mobData);
+            battleManager.StartBattleWithMob(player, mobData);
             return Task.CompletedTask;
         }
 
@@ -94,7 +97,7 @@ namespace TextGameRPG.Scripts.Bot.Commands.Cheats
                 }
             }
 
-            GlobalManagers.battleManager?.StartBattleWithMob(player, mobData);
+            battleManager.StartBattleWithMob(player, mobData);
             return Task.CompletedTask;
         }
 

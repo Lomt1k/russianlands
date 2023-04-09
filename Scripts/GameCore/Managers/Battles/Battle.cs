@@ -17,6 +17,8 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles
 
     public class Battle
     {
+        private static readonly BattleManager battleManager = Singletones.Get<BattleManager>();
+
         private List<RewardBase>? _rewards;
         private Func<Player, BattleResult, Task>? _onBattleEndFunc;
         private Func<Player, BattleResult, Task>? _onContinueButtonFunc;
@@ -152,7 +154,7 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles
         {
             if (IsCancellationRequested())
             {
-                GlobalManagers.battleManager?.UnregisterBattle(this);
+                battleManager.UnregisterBattle(this);
                 return;
             }
 
@@ -165,7 +167,7 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles
             {
                 await HandleBattleEndForPlayer(secondPlayer, hasWinner).FastAwait();
             }
-            GlobalManagers.battleManager?.UnregisterBattle(this);
+            battleManager.UnregisterBattle(this);
         }
 
         private async Task HandleBattleEndForPlayer(Player player, bool hasWinner)
@@ -181,7 +183,7 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles
         // Вызывается при ошибке (либо читом)
         public async Task ForceBattleEndWithResult(Player player, BattleResult battleResult)
         {
-            GlobalManagers.battleManager?.UnregisterBattle(this);
+            battleManager.UnregisterBattle(this);
             _forceBattleCTS.Cancel();
 
             if (!player.session.IsTasksCancelled())

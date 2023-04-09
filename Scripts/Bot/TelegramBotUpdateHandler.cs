@@ -20,14 +20,14 @@ namespace TextGameRPG.Scripts.Bot
         private readonly string accountIsBusyText = Emojis.ElementWarning + Localization.GetDefault("account_is_busy_message");
         private readonly ReplyKeyboardMarkup serverIsBusyKeyboard = new ReplyKeyboardMarkup(Localization.GetDefault("server_is_busy_restart_button"));
 
+        private static readonly PerformanceManager performanceManager = Singletones.Get<PerformanceManager>();
+
         private SessionManager _sessionManager;
-        private PerformanceManager _performanceManager;
         private MessageSender _messageSender;
 
         public TelegramBotUpdateHandler()
         {
             _sessionManager = TelegramBot.instance.sessionManager;
-            _performanceManager = GlobalManagers.performanceManager;
             _messageSender = TelegramBot.instance.messageSender;
         }
 
@@ -53,7 +53,7 @@ namespace TextGameRPG.Scripts.Bot
                     return;
                 }
 
-                bool serverIsBusy = _performanceManager.currentState == PerformanceState.Busy;
+                bool serverIsBusy = performanceManager.currentState == PerformanceState.Busy;
                 if (serverIsBusy && !_sessionManager.IsSessionExists(fromUser.Id))
                 {
                     SendServerIsBusyMessage(fromUser.Id);

@@ -9,6 +9,7 @@ using TextGameRPG.Scripts.Bot.Dialogs.Battle;
 using TextGameRPG.Scripts.Bot.Dialogs.Resources;
 using TextGameRPG.Scripts.GameCore.Managers;
 using TextGameRPG.Scripts.Bot.Sessions;
+using TextGameRPG.Scripts.GameCore.Managers.Battles;
 
 namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
 {
@@ -26,6 +27,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
     public class BattlePointDialog : DialogBase
     {
         private BattlePointData _data;
+        private BattleManager _battleManager = Singletones.Get<BattleManager>();
 
         public BattlePointDialog(GameSession session, BattlePointData data) : base(session)
         {
@@ -66,8 +68,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
                 return;
             }
 
-            GlobalManagers.battleManager?.StartBattleWithMob(session.player, 
-                _data.mob, _data.rewards, _data.onBattleEndFunc, _data.onContinueButtonFunc, _data.isAvailableReturnToTownFunc);
+            _battleManager.StartBattleWithMob(session.player, _data.mob, _data.rewards,
+                _data.onBattleEndFunc, _data.onContinueButtonFunc, _data.isAvailableReturnToTownFunc);
         }
 
     }

@@ -13,6 +13,8 @@ namespace TextGameRPG.Scripts.GameCore.Quests
 {
     public class QuestManager
     {
+        private static readonly NotificationsManager notificationsManager = Singletones.Get<NotificationsManager>();
+
         public static async Task HandleNewSession(GameSession session, Update update)
         {
             var playerQuestsProgress = session.profile.dynamicData.quests;
@@ -24,7 +26,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests
                     await QuestsHolder.GetQuest(QuestType.MainQuest).StartQuest(session).FastAwait();
                     return;
                 }
-                await GlobalManagers.notificationsManager.GetNotificationsAndEntryTown(session, TownEntryReason.StartNewSession).FastAwait();
+                await notificationsManager.GetNotificationsAndEntryTown(session, TownEntryReason.StartNewSession).FastAwait();
                 return;
             }
 
@@ -45,7 +47,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests
                         bool hasTownEntry = stageWithTrigger.questActions.Where(x => x is EntryTownAction).Count() > 0;
                         if (hasTownEntry)
                         {
-                            await GlobalManagers.notificationsManager.GetNotificationsAndEntryTown(session, TownEntryReason.StartNewSession).FastAwait();
+                            await notificationsManager.GetNotificationsAndEntryTown(session, TownEntryReason.StartNewSession).FastAwait();
                         }
                         break;
 
@@ -58,7 +60,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests
                         }
                         else
                         {
-                            await GlobalManagers.notificationsManager.GetNotificationsAndEntryTown(session, TownEntryReason.StartNewSession).FastAwait();
+                            await notificationsManager.GetNotificationsAndEntryTown(session, TownEntryReason.StartNewSession).FastAwait();
                         }                        
                         break;
 

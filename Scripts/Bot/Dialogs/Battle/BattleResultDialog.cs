@@ -9,6 +9,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
 {
     public class BattleResultDialog : DialogBase
     {
+        private static readonly NotificationsManager notificationsManager = Singletones.Get<NotificationsManager>();
+
         private BattleResultData _data;
 
         public BattleResultDialog(GameSession _session, BattleResultData data) : base(_session)
@@ -56,7 +58,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
 
         private async Task ReturnToTown()
         {
-            await GlobalManagers.notificationsManager.GetNotificationsAndEntryTown(session, TownEntryReason.FromQuestAction).FastAwait();
+            await notificationsManager.GetNotificationsAndEntryTown(session, TownEntryReason.FromQuestAction).FastAwait();
         }
     }
 }

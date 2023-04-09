@@ -12,6 +12,7 @@ namespace TextGameRPG.Scripts.Bot
     using TextGameRPG.Scripts.GameCore.Managers;
     using TextGameRPG.Scripts.GameCore.Quests.Characters;
     using System.Net.Http;
+    using TextGameRPG.Scripts.GameCore.Managers.Battles;
 
     public class TelegramBot
     {
@@ -99,7 +100,7 @@ namespace TextGameRPG.Scripts.Bot
             mineUser.CanJoinGroups = false;
             Program.SetTitle($"{mineUser.Username} [{dataPath}]");
 
-            GlobalManagers.CreateManagers();
+            Singletones.OnBotStarted();
             messageSender = new MessageSender(client);
             sessionManager = new SessionManager(this);
 
@@ -123,7 +124,7 @@ namespace TextGameRPG.Scripts.Bot
             await sessionManager.CloseAllSessions();
             await dataBase.CloseAsync();
 
-            GlobalManagers.DisposeManagers();
+            Singletones.OnBotStopped();
             messageSender = null;
             sessionManager = null;
             dataBase = null;
@@ -138,7 +139,7 @@ namespace TextGameRPG.Scripts.Bot
 
             Program.logger.Info("Reconnection starts...");
             botReceiving.StopReceiving();
-            var battleManager = GlobalManagers.battleManager;
+            var battleManager = Singletones.Get<BattleManager>();
             if (battleManager != null)
             {
                 var playersInBattle = battleManager.GetAllPlayers();

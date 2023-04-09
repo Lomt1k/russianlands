@@ -7,7 +7,6 @@ using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Quests.QuestStages;
-using TextGameRPG.Scripts.Bot.CallbackData;
 using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Managers;
 using TextGameRPG.Scripts.Bot.Dialogs.Town;
@@ -16,6 +15,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
 {
     public abstract class DialogBase
     {
+        private static readonly NotificationsManager notificationsManager = Singletones.Get<NotificationsManager>();
+
         protected static SessionManager sessionManager => TelegramBot.instance.sessionManager;
         protected static MessageSender messageSender => TelegramBot.instance.messageSender;        
 
@@ -57,7 +58,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
         {
             var emojiBack = isDoubleBack ? Emojis.ElementDoubleBack : Emojis.ElementBack;
             RegisterButton(emojiBack + Localization.Get(session, "menu_item_town") + Emojis.ButtonTown, 
-                () => GlobalManagers.notificationsManager.GetNotificationsAndEntryTown(session, TownEntryReason.BackFromInnerDialog));
+                () => notificationsManager.GetNotificationsAndEntryTown(session, TownEntryReason.BackFromInnerDialog));
         }        
 
         protected void ClearButtons()
