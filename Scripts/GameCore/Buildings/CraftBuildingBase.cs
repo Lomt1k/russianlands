@@ -111,7 +111,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             {
                 if (IsCraftCanBeFinished(data))
                 {
-                    // при первом сообщении о конце крафта оно считается important, далее - нет
+                    // первое сообщение о конце крафта считается important, далее - нет
                     var endCraftIsImprortant = EndOfCraftIsImportant(data);
                     if (endCraftIsImprortant)
                     {
@@ -138,7 +138,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             return updates;
         }
 
-        // при первом сообщении о конце крафта оно считается important, далее - нет
+        // первое сообщение о конце крафта считается important, далее - нет
         private bool EndOfCraftIsImportant(ProfileBuildingsData data)
         {
             return GetStartCraftTime(data) > 1;
