@@ -9,6 +9,8 @@ using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Quests.QuestStages;
 using TextGameRPG.Scripts.Bot.CallbackData;
 using TextGameRPG.Scripts.Bot.Sessions;
+using TextGameRPG.Scripts.GameCore.Managers;
+using TextGameRPG.Scripts.Bot.Dialogs.Town;
 
 namespace TextGameRPG.Scripts.Bot.Dialogs
 {
@@ -55,7 +57,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
         {
             var emojiBack = isDoubleBack ? Emojis.ElementDoubleBack : Emojis.ElementBack;
             RegisterButton(emojiBack + Localization.Get(session, "menu_item_town") + Emojis.ButtonTown, 
-                () => new Town.TownDialog(session, Town.TownEntryReason.BackFromInnerDialog).Start());
+                () => GlobalManagers.notificationsManager.GetNotificationsAndEntryTown(session, TownEntryReason.BackFromInnerDialog));
         }        
 
         protected void ClearButtons()

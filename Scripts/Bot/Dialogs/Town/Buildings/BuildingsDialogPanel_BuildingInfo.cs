@@ -187,7 +187,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
                 RegisterBackButton(category.GetLocalization(session), () => ShowBuildingsList(category));
             }
             RegisterDoubleBackButton(Localization.Get(session, "menu_item_buildings") + Emojis.ButtonBuildings,
-                () => new BuildingsDialog(session).Start());
+                () => ShowCategories());
 
             TryAppendTooltip(sb);
             await SendPanelMessage(sb, GetMultilineKeyboardWithDoubleBack()).FastAwait();

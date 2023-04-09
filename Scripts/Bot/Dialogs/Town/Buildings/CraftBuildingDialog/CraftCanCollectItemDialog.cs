@@ -34,9 +34,6 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
             var craftItemLevels = _building.GetCurrentCraftLevels(buildingsData);
             sb.AppendLine(Localization.Get(session, "level", craftItemLevels));
 
-            sb.AppendLine();
-            sb.AppendLine(Emojis.ButtonCraft + Localization.Get(session, "dialog_craft_completed"));
-
             ClearButtons();
             var getButton = Localization.Get(session, "menu_item_get_button") + itemType.GetEmoji();
             RegisterButton(getButton, () => TryToGetItem());

@@ -6,7 +6,8 @@
     public static class GlobalManagers
     {
         public static BattleManager? battleManager { get; private set; }
-        public static PerformanceManager? performanceManager { get; private set; }
+        public static PerformanceManager performanceManager { get; private set; }
+        public static NotificationsManager? notificationsManager { get; private set; }
 
         private static List<GlobalManager> _allManagers = new List<GlobalManager>();
 
@@ -14,6 +15,7 @@
         {
             battleManager = CreateManager<BattleManager>();
             performanceManager = CreateManager<PerformanceManager>();
+            notificationsManager = CreateManager<NotificationsManager>();
         }
 
         public static void DisposeManagers()
@@ -27,6 +29,7 @@
             //сбрасываем ссылки
             battleManager = null;
             performanceManager = null;
+            notificationsManager = null;
         }
 
         private static T CreateManager<T>() where T : GlobalManager, new()
