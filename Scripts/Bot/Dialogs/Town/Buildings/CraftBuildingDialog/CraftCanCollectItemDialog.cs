@@ -41,8 +41,9 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
             var getButton = Localization.Get(session, "menu_item_get_button") + itemType.GetEmoji();
             RegisterButton(getButton, () => TryToGetItem());
             RegisterBackButton(() => new BuildingsDialog(session).StartWithShowBuilding(_building));
+            RegisterTownButton(isDoubleBack: true);
 
-            await SendDialogMessage(sb, GetMultilineKeyboard()).FastAwait();
+            await SendDialogMessage(sb, GetMultilineKeyboardWithDoubleBack()).FastAwait();
         }
 
         public async Task TryToGetItem()
@@ -71,8 +72,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
             sb.Append(Localization.Get(session, "dialog_inventory_item_added_state"));
 
             ClearButtons();
-            RegisterButton(Localization.Get(session, "menu_item_continue_button"),
-                () => new BuildingsDialog(session).StartWithShowBuilding(_building));
+            RegisterButton(Localization.Get(session, "menu_item_continue_button"), () => new BuildingsDialog(session).StartWithShowBuilding(_building));
 
             await SendDialogMessage(sb, GetOneLineKeyboard()).FastAwait();
         }

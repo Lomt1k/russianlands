@@ -46,8 +46,9 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
             var buttonText = Localization.Get(session, "menu_item_boost_button", priceView);
             RegisterButton(buttonText, () => TryBoostCraftForDiamonds());
             RegisterBackButton(() => new BuildingsDialog(session).StartWithShowBuilding(_building));
+            RegisterTownButton(isDoubleBack: true);
 
-            await SendDialogMessage(sb, GetMultilineKeyboard()).FastAwait();
+            await SendDialogMessage(sb, GetMultilineKeyboardWithDoubleBack()).FastAwait();
         }
 
         public async Task TryBoostCraftForDiamonds()

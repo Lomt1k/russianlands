@@ -58,6 +58,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.TrainingBuildingDialog
             }
 
             RegisterBackButton(() => new BuildingsDialog(session).StartWithShowBuilding(_building));
+            RegisterTownButton(isDoubleBack: true);
             await SendDialogMessage(sb, GetKeyboardWithFixedRowSize(2)).FastAwait();
         }
 
@@ -143,7 +144,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.TrainingBuildingDialog
             {
                 RegisterBackButton(() => ShowUnitsList());
             }
-            await SendDialogMessage(sb, GetMultilineKeyboard()).FastAwait();
+            RegisterTownButton(isDoubleBack: true);
+            await SendDialogMessage(sb, GetMultilineKeyboardWithDoubleBack()).FastAwait();
         }
 
         private void TrySilentFinishTrainings()

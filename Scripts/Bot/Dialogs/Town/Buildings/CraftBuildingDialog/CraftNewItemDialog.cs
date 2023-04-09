@@ -38,6 +38,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
                 RegisterButton(itemType.GetEmoji() + itemType.GetLocalization(session), () => StartSelectRarity(itemType));
             }
             RegisterBackButton(() => new BuildingsDialog(session).StartWithShowBuilding(_building));
+            RegisterTownButton(isDoubleBack: true);
 
             await SendDialogMessage(sb, GetSpecialKeyboard()).FastAwait();
         }
@@ -46,13 +47,13 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
         {
             return _building.craftCategories.Count switch
             {
-                1 => GetMultilineKeyboard(),
-                2 => GetKeyboardWithRowSizes(2, 1),
-                3 => GetKeyboardWithRowSizes(3, 1),
-                4 => GetKeyboardWithRowSizes(2, 2, 1),
-                5 => GetKeyboardWithRowSizes(3, 2, 1),
-                6 => GetKeyboardWithRowSizes(3, 3, 1),
-                _ => GetMultilineKeyboard()
+                1 => GetMultilineKeyboardWithDoubleBack(),
+                2 => GetKeyboardWithRowSizes(2, 2),
+                3 => GetKeyboardWithRowSizes(3, 2),
+                4 => GetKeyboardWithRowSizes(2, 2, 2),
+                5 => GetKeyboardWithRowSizes(3, 2, 2),
+                6 => GetKeyboardWithRowSizes(3, 3, 2),
+                _ => GetMultilineKeyboardWithDoubleBack()
             };
         }
 
