@@ -9,6 +9,8 @@ namespace TextGameRPG.Scripts.GameCore.Items
     using TextGameRPG.Scripts.Bot;
     using TextGameRPG.Scripts.GameCore.Items.Generators;
     using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
+    using TextGameRPG.Scripts.GameCore.Managers;
+    using TextGameRPG.Scripts.GameCore.Managers.GameDataBase;
     using TextGameRPG.Scripts.GameCore.Resources;
     using TextGameRPG.Scripts.GameCore.Skills;
 
@@ -16,6 +18,8 @@ namespace TextGameRPG.Scripts.GameCore.Items
 
     public class InventoryItem
     {
+        private static readonly GameDataBase gameDataBase = Singletones.Get<GameDataBase>();
+
         public static byte requiredStickCharge = 3;
 
         [JsonProperty]
@@ -101,7 +105,7 @@ namespace TextGameRPG.Scripts.GameCore.Items
         private void RecalculateDynamicData()
         {
             data = int.TryParse(id, out int dbid)
-                ? GameDataBase.GameDataBase.instance.items[dbid].Clone()
+                ? gameDataBase.items[dbid].Clone()
                 : ItemDataDecoder.Decode(id);
 
             manaCost = 0;

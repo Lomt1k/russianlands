@@ -7,12 +7,17 @@ using TextGameRPG.Scripts.Bot.Dialogs.Battle;
 using TextGameRPG.Scripts.Bot.Dialogs.Town;
 using TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap;
 using TextGameRPG.Scripts.Bot.Sessions;
+using TextGameRPG.Scripts.GameCore.Managers.GameDataBase;
+using TextGameRPG.Scripts.GameCore.Managers;
 
 namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
 {
     [JsonObject]
     public class QuestStageWithBattlePoint : QuestStage
     {
+        private static readonly GameDataBase gameDataBase = Singletones.Get<GameDataBase>();
+
+
         public int mobId { get; set; }
         public int foodPrice { get; set; }
         public bool backButtonAvailable { get; set; } = true;
@@ -37,8 +42,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
 
         public BattlePointData GetMobBattlePointData(GameSession session)
         {
-            var mobDB = GameDataBase.GameDataBase.instance.mobs;
-            var mobData = mobDB[mobId];
+            var mobData = gameDataBase.mobs[mobId];
 
             // stage у квеста меняем сразу по окончанию боя, но вызываем его только после нажатия кнопки continue в окне наград
             var battlePointData = new BattlePointData

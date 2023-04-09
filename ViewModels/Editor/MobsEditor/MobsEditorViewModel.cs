@@ -1,10 +1,11 @@
 ﻿using System.Collections.ObjectModel;
-using TextGameRPG.Scripts.GameCore.GameDataBase;
+using TextGameRPG.Scripts.GameCore.Managers.GameDataBase;
 using TextGameRPG.Scripts.GameCore.Units.Mobs;
 using ReactiveUI;
 using System.Reactive;
 using System.Linq;
 using TextGameRPG.Views.Editor.MobsEditor;
+using TextGameRPG.Scripts.GameCore.Managers;
 
 namespace TextGameRPG.ViewModels.Editor.MobsEditor
 {
@@ -13,7 +14,8 @@ namespace TextGameRPG.ViewModels.Editor.MobsEditor
         private MobData? _selectedMob;
         private MobInspectorViewModel _mobInspectorVM;
 
-        public DataDictionaryWithIntegerID<MobData> mobsDB => GameDataBase.instance.mobs;
+        private static readonly GameDataBase gameDataBase = Singletones.Get<GameDataBase>();
+
         public ObservableCollection<MobData> mobsList { get; } = new ObservableCollection<MobData>();
         public MobData? selectedMob
         {
@@ -42,7 +44,7 @@ namespace TextGameRPG.ViewModels.Editor.MobsEditor
         public void RefreshMobsList()
         {
             mobsList.Clear();
-            foreach (var mobData in mobsDB.GetAllData())
+            foreach (var mobData in gameDataBase.mobs.GetAllData())
             {
                 mobsList.Add(mobData);
             }
@@ -50,13 +52,13 @@ namespace TextGameRPG.ViewModels.Editor.MobsEditor
 
         private void AddNewMob()
         {
-            var allMobs = mobsDB.GetAllData();
-            var id = mobsDB.count > 0 ? allMobs.Max(x => x.id) + 1 : 1;
+            var allMobs = gameDataBase.mobs.GetAllData();
+            var id = gameDataBase.mobs.count > 0 ? allMobs.Max(x => x.id) + 1 : 1;
             var mobData = new MobData()
             {
                 id = id,
             };
-            mobsDB.AddData(id, mobData);
+            gameDataBase.mobs.AddData(id, mobData);
             RefreshMobsList();
         }
 
@@ -65,7 +67,7 @@ namespace TextGameRPG.ViewModels.Editor.MobsEditor
             if (_selectedMob == null)
                 return;
 
-            mobsDB.RemoveData(_selectedMob.id);
+            gameDataBase.mobs.RemoveData(_selectedMob.id);
             _selectedMob = null;
             RefreshMobsList();
         }

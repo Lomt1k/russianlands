@@ -8,11 +8,16 @@ using TextGameRPG.Models.UserControls;
 using TextGameRPG.Models.RegularDialogs;
 using System;
 using TextGameRPG.Scripts.GameCore.Rewards;
+using TextGameRPG.Scripts.GameCore.Managers.GameDataBase;
+using TextGameRPG.Scripts.GameCore.Managers;
 
 namespace TextGameRPG.ViewModels.Editor.QuestsEditor
 {
     public class StageWithBattleViewModel : ViewModelBase
     {
+        private static readonly GameDataBase gameDataBase = Singletones.Get<GameDataBase>();
+
+
         private Dictionary<string, int> _mobIds = new Dictionary<string, int>();
         private string? _selectedMob;
         private ObjectFieldsEditorView? _selectedRewardView;
@@ -46,9 +51,8 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
         {
             this.stage = stage;
 
-            var mobDB = Scripts.GameCore.GameDataBase.GameDataBase.instance.mobs;
             mobsList = new ObservableCollection<string>();
-            foreach (var mob in mobDB.GetAllData())
+            foreach (var mob in gameDataBase.mobs.GetAllData())
             {
                 var mobStr = $"{mob.id} | {mob.debugName}";
                 _mobIds[mobStr] = mob.id;

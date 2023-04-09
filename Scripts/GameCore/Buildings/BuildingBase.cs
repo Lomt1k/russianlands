@@ -5,13 +5,17 @@ using TextGameRPG.Scripts.GameCore.Buildings.Data;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
 using TextGameRPG.Scripts.Bot.Sessions;
+using TextGameRPG.Scripts.GameCore.Managers.GameDataBase;
+using TextGameRPG.Scripts.GameCore.Managers;
 
 namespace TextGameRPG.Scripts.GameCore.Buildings
 {
     public abstract class BuildingBase
     {
+        private static readonly GameDataBase gameDataBase = Singletones.Get<GameDataBase>();
+
         public abstract BuildingType buildingType { get; }
-        public BuildingData buildingData => GameDataBase.GameDataBase.instance.buildings[(int)buildingType];
+        public BuildingData buildingData => gameDataBase.buildings[(int)buildingType];
 
         public virtual Dictionary<string, Func<Task>> GetSpecialButtons(GameSession session, ProfileBuildingsData data)
         {

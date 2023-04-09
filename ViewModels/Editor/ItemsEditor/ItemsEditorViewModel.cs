@@ -6,12 +6,15 @@ using System.Linq;
 using TextGameRPG.Views.Editor.ItemsEditor;
 using System.Reactive;
 using TextGameRPG.Scripts.GameCore.Items;
-using TextGameRPG.Scripts.GameCore.GameDataBase;
+using TextGameRPG.Scripts.GameCore.Managers.GameDataBase;
+using TextGameRPG.Scripts.GameCore.Managers;
 
 namespace TextGameRPG.ViewModels.Editor.ItemsEditor
 {
     public class ItemsEditorViewModel : ViewModelBase
     {
+        private static readonly GameDataBase gameDataBase = Singletones.Get<GameDataBase>();
+
         private ItemCategory _selectedCategory;
         private ItemData? _selectedItem;
 
@@ -54,7 +57,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
             addNewItemCommand = ReactiveCommand.Create(AddNewItem);
 
             RefreshShowedItems();
-            GameDataBase.instance.items.onDataChanged += OnDataBaseChanged;
+            gameDataBase.items.onDataChanged += OnDataBaseChanged;
         }
 
         private void OnDataBaseChanged()
@@ -64,9 +67,9 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
 
         private void RefreshShowedItems()
         {
-            var items = GameDataBase.instance.items.GetAllData();
+            var items = gameDataBase.items.GetAllData();
 
-            if (_selectedCategory != null && _selectedCategory.itemType != Scripts.GameCore.Items.ItemType.Any)
+            if (_selectedCategory != null && _selectedCategory.itemType != ItemType.Any)
             {
                 items = items.Where(x => x.itemType == _selectedCategory.itemType);
             }
@@ -85,7 +88,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
 
         private void AddNewItem()
         {
-            var allItems = GameDataBase.instance.items.GetAllData().ToList();
+            var allItems = gameDataBase.items.GetAllData().ToList();
 
             int newItemId = allItems.Count > 0 ? allItems.Max(x => x.id) + 1 : 1;
             var newItemType = selectedCategory.itemType == ItemType.Any
@@ -93,7 +96,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
                 : selectedCategory.itemType;
 
             var newItem = new ItemData("[NEW ITEM]", newItemId, newItemType);
-            GameDataBase.instance.items.AddData(newItemId, newItem);
+            gameDataBase.items.AddData(newItemId, newItem);
             selectedItem = newItem;
 
             var inspectorViewModel = itemInspector.DataContext as ItemInspectorViewModel;

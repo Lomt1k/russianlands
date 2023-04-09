@@ -3,11 +3,15 @@ using System.Collections.ObjectModel;
 using System.Reactive;
 using ReactiveUI;
 using TextGameRPG.Models;
+using TextGameRPG.Scripts.GameCore.Managers;
+using TextGameRPG.Scripts.GameCore.Managers.GameDataBase;
 
 namespace TextGameRPG.ViewModels
 {
     public class GameDataLoaderViewModel : ViewModelBase, IGameDataLoader
     {
+        private static readonly GameDataBase gameDataBase = Singletones.Get<GameDataBase>();
+
         private GameDataLoaderStateInfo _currentState;
 
         public ObservableCollection<GameDataLoaderStateInfo> items { get; private set; }
@@ -33,7 +37,7 @@ namespace TextGameRPG.ViewModels
 
         private void LoadGameData()
         {
-            Scripts.GameCore.GameDataBase.GameDataBase.instance.LoadAllData(this);
+            gameDataBase.LoadAllData(this);
         }
 
         public void AddNextState(string stateInfo)

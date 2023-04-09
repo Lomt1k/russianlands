@@ -4,14 +4,15 @@ using ReactiveUI;
 using TextGameRPG.Models.UserControls;
 using TextGameRPG.Scripts.GameCore.Buildings;
 using TextGameRPG.Scripts.GameCore.Buildings.Data;
-using TextGameRPG.Scripts.GameCore.GameDataBase;
+using TextGameRPG.Scripts.GameCore.Managers;
+using TextGameRPG.Scripts.GameCore.Managers.GameDataBase;
 using TextGameRPG.Views.UserControls;
 
 namespace TextGameRPG.ViewModels.Editor.BuildingsEditor
 {
     public class BuildingInspectorViewModel : ViewModelBase
     {
-        private static DataDictionaryWithIntegerID<BuildingData> buildingsDB => GameDataBase.instance.buildings;
+        private static readonly GameDataBase gameDataBase = Singletones.Get<GameDataBase>();
 
         private BuildingData? _tempBuilding;
         private ObjectFieldsEditorView? _selectedLevelView;
@@ -44,16 +45,16 @@ namespace TextGameRPG.ViewModels.Editor.BuildingsEditor
         public void Show(BuildingType buidlingType)
         {
             var id = (int)buidlingType;
-            if (!buildingsDB.ContainsKey(id))
+            if (!gameDataBase.buildings.ContainsKey(id))
             {
                 var newData = new BuildingData()
                 {
                     id = id
                 };
-                buildingsDB.AddData(id, newData);
-                buildingsDB.Save();
+                gameDataBase.buildings.AddData(id, newData);
+                gameDataBase.buildings.Save();
             }
-            tempBuilding = buildingsDB[id].Clone();
+            tempBuilding = gameDataBase.buildings[id].Clone();
 
             UserControlsHelper.RefillObjectEditorsCollection(levelViews, tempBuilding.levels);
         }
@@ -88,7 +89,7 @@ namespace TextGameRPG.ViewModels.Editor.BuildingsEditor
             {
                 levelView.vm.SaveObjectChanges();
             }
-            buildingsDB.ChangeData(_tempBuilding.id, _tempBuilding);
+            gameDataBase.buildings.ChangeData(_tempBuilding.id, _tempBuilding);
         }
 
         private void ResetChanges()

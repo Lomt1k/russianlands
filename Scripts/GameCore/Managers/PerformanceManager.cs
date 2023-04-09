@@ -5,7 +5,7 @@ namespace TextGameRPG.Scripts.GameCore.Managers
 {
     public enum PerformanceState { Normal, Highload, Busy }
 
-    public class PerformanceManager : GlobalManager
+    public class PerformanceManager : Singletone
     {        
         // cpu settings
         public int cpuUsageLimit { get; private set; }

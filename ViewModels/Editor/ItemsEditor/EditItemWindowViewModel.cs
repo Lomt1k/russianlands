@@ -5,12 +5,17 @@ using TextGameRPG.Models;
 using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
 using TextGameRPG.Scripts.GameCore.Items.ItemProperties;
+using TextGameRPG.Scripts.GameCore.Managers;
+using TextGameRPG.Scripts.GameCore.Managers.GameDataBase;
 using TextGameRPG.Views.Editor.ItemsEditor;
 
 namespace TextGameRPG.ViewModels.Editor.ItemsEditor
 {
     public class EditItemWindowViewModel : ViewModelBase
     {
+        private static readonly GameDataBase gameDataBase = Singletones.Get<GameDataBase>();
+
+
         private EditItemWindow _window;
         private bool _isNewItem;
         private EnumValueModel<ItemType> _selectedItemType;
@@ -148,7 +153,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
         {
             if (_isNewItem)
             {
-                Scripts.GameCore.GameDataBase.GameDataBase.instance.items.RemoveData(editableItem.id);
+                gameDataBase.items.RemoveData(editableItem.id);
             }
             _window.Close();
         }
@@ -161,8 +166,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
                     return;
             }
 
-            var dataBase = Scripts.GameCore.GameDataBase.GameDataBase.instance.items;
-            dataBase.ChangeData(editableItem.id, editableItem);
+            gameDataBase.items.ChangeData(editableItem.id, editableItem);
             _window.Close();
         }
 

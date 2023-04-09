@@ -7,11 +7,16 @@ using System.Linq;
 using TextGameRPG.Views.UserControls;
 using TextGameRPG.Models.UserControls;
 using System.Reactive;
+using TextGameRPG.Scripts.GameCore.Managers.GameDataBase;
+using TextGameRPG.Scripts.GameCore.Managers;
 
 namespace TextGameRPG.ViewModels.Editor.MobsEditor
 {
     public class MobInspectorViewModel : ViewModelBase
     {
+        private static readonly GameDataBase gameDataBase = Singletones.Get<GameDataBase>();
+
+
         private MobData? _mob;
         private string _header = string.Empty;
         private EnumValueModel<MobType>? _selectedMobType;
@@ -116,8 +121,7 @@ namespace TextGameRPG.ViewModels.Editor.MobsEditor
                 attackView.vm.SaveObjectChanges();
             }
 
-            var mobDB = Scripts.GameCore.GameDataBase.GameDataBase.instance.mobs;
-            mobDB.ChangeData(mob.id, mob);
+            gameDataBase.mobs.ChangeData(mob.id, mob);
 
             _mobEditorVM.RefreshMobsList();
             _mobEditorVM.selectedMob = mob;
@@ -125,8 +129,7 @@ namespace TextGameRPG.ViewModels.Editor.MobsEditor
 
         private void ResetMobChanges()
         {
-            var mobDB = Scripts.GameCore.GameDataBase.GameDataBase.instance.mobs;
-            mobDB.ReloadAllData();
+            gameDataBase.mobs.ReloadAllData();
 
             _mobEditorVM.RefreshMobsList();
             _mobEditorVM.selectedMob = mob;

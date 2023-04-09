@@ -7,6 +7,7 @@ using TextGameRPG.Scripts.Bot.Dialogs.Battle;
 using TextGameRPG.Scripts.GameCore.Managers;
 using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Managers.Battles;
+using TextGameRPG.Scripts.GameCore.Managers.GameDataBase;
 
 namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
 {
@@ -14,6 +15,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
     public class QuestStageWithBattle : QuestStage
     {
         private static readonly BattleManager battleManager = Singletones.Get<BattleManager>();
+        private static readonly GameDataBase gameDataBase = Singletones.Get<GameDataBase>();
 
         public int mobId { get; set; }
         public int nextStageIfWin { get; set; }
@@ -22,8 +24,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
 
         public override Task InvokeStage(GameSession session)
         {
-            var mobDB = GameDataBase.GameDataBase.instance.mobs;
-            var mobData = mobDB[mobId];
+            var mobData = gameDataBase.mobs[mobId];
 
             // stage у квеста меняем сразу по окончанию боя, но вызываем его только после нажатия кнопки continue в окне наград
 

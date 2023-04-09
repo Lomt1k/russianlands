@@ -1,4 +1,4 @@
-﻿namespace TextGameRPG.Scripts.GameCore.GameDataBase
+﻿namespace TextGameRPG.Scripts.GameCore.Managers.GameDataBase
 {
     public interface IDataWithIntegerID
     {

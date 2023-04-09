@@ -7,8 +7,9 @@ using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
 using TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions;
 using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Buildings.Data;
-using TextGameRPG.Scripts.GameCore.GameDataBase;
 using TextGameRPG.Scripts.GameCore.Localizations;
+using TextGameRPG.Scripts.GameCore.Managers;
+using TextGameRPG.Scripts.GameCore.Managers.GameDataBase;
 using TextGameRPG.Scripts.GameCore.Potions;
 using TextGameRPG.Scripts.GameCore.Resources;
 
@@ -16,9 +17,9 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.General
 {
     public class AlchemyLabBuilding : BuildingBase
     {
-        public override BuildingType buildingType => BuildingType.AlchemyLab;
+        private static readonly GameDataBase gameDataBase = Singletones.Get<GameDataBase>();
 
-        private static DataDictionaryWithIntegerID<PotionData> potionsDB => GameDataBase.GameDataBase.instance.potions;
+        public override BuildingType buildingType => BuildingType.AlchemyLab;
 
         public override byte GetCurrentLevel(ProfileBuildingsData data)
         {
@@ -102,7 +103,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.General
             if (currentLevel < 1)
                 return result;
 
-            foreach (var potionData in potionsDB.GetAllData())
+            foreach (var potionData in gameDataBase.potions.GetAllData())
             {
                 if (potionData.workshopLevel == currentLevel)
                 {
@@ -117,7 +118,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.General
             var result = new List<PotionData>();
             var nextLevel = GetCurrentLevel(data) + 1;
 
-            foreach (var potionData in potionsDB.GetAllData())
+            foreach (var potionData in gameDataBase.potions.GetAllData())
             {
                 if (potionData.workshopLevel == nextLevel)
                 {

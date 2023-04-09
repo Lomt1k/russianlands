@@ -6,11 +6,16 @@ using TextGameRPG.Views.Editor.ItemsEditor;
 using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.GameCore.Items.ItemProperties;
 using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
+using TextGameRPG.Scripts.GameCore.Managers.GameDataBase;
+using TextGameRPG.Scripts.GameCore.Managers;
 
 namespace TextGameRPG.ViewModels.Editor.ItemsEditor
 {
     public class ItemInspectorViewModel : ViewModelBase
     {
+        private static readonly GameDataBase gameDataBase = Singletones.Get<GameDataBase>();
+
+
         private ItemData _currentItem;
         private string? _header;
         private bool _hasAbilities;
@@ -87,8 +92,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
             RegularDialogHelper.ShowConfirmDialog("Are you sure you want to delete this item?" +
                 $"\n\n[ID {_currentItem.id}] {_currentItem.debugName} ({_currentItem.itemRarity}, Lvl {_currentItem.requiredLevel})", () => 
             {
-                var itemsDataBase = Scripts.GameCore.GameDataBase.GameDataBase.instance.items;
-                itemsDataBase.RemoveData(_currentItem.id);
+                gameDataBase.items.RemoveData(_currentItem.id);
             });
         }
 

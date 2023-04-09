@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace TextGameRPG.Scripts.GameCore.GameDataBase
+namespace TextGameRPG.Scripts.GameCore.Managers.GameDataBase
 {
     using Items;
     using TextGameRPG.Scripts.GameCore.Buildings.Data;
@@ -8,15 +8,11 @@ namespace TextGameRPG.Scripts.GameCore.GameDataBase
     using TextGameRPG.Scripts.GameCore.Units.Mobs;
     using TextGameRPG.ViewModels;
 
-    public class GameDataBase
+    public class GameDataBase : Singletone
     {
 #pragma warning disable CS8618
 
         private const string gameDataPath = "gameData";
-
-        private static GameDataBase _instance;
-
-        public static GameDataBase instance => _instance ??= new GameDataBase();
 
         private IGameDataLoader _loaderVM;
 

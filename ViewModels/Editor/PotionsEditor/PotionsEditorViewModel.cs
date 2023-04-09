@@ -4,15 +4,19 @@ using ReactiveUI;
 using System.Linq;
 using TextGameRPG.Views.Editor.PotionsEditor;
 using System.Reactive;
-using TextGameRPG.Scripts.GameCore.GameDataBase;
+using TextGameRPG.Scripts.GameCore.Managers.GameDataBase;
 using TextGameRPG.Scripts.GameCore.Potions;
 using TextGameRPG.Models.RegularDialogs;
 using System;
+using TextGameRPG.Scripts.GameCore.Managers;
 
 namespace TextGameRPG.ViewModels.Editor.PotionsEditor
 {
     public class PotionsEditorViewModel : ViewModelBase
     {
+        private static readonly GameDataBase gameDataBase = Singletones.Get<GameDataBase>();
+
+
         private PotionData? _selectedPotion;
         public ObservableCollection<PotionData> showedPotions { get; private set; } = new ObservableCollection<PotionData>();
 
@@ -43,7 +47,7 @@ namespace TextGameRPG.ViewModels.Editor.PotionsEditor
             removePotionCommand = ReactiveCommand.Create(RemoveSelectedPotion);
 
             RefreshShowedItems();
-            GameDataBase.instance.potions.onDataChanged += OnDataBaseChanged;
+            gameDataBase.potions.onDataChanged += OnDataBaseChanged;
         }
 
         private void OnDataBaseChanged()
@@ -53,7 +57,7 @@ namespace TextGameRPG.ViewModels.Editor.PotionsEditor
 
         private void RefreshShowedItems()
         {
-            var potions = GameDataBase.instance.potions.GetAllData();
+            var potions = gameDataBase.potions.GetAllData();
             RefreshShowedItems(potions);
         }
 
@@ -74,7 +78,7 @@ namespace TextGameRPG.ViewModels.Editor.PotionsEditor
 
         private void AddNewPotion()
         {
-            var allPotions = GameDataBase.instance.potions.GetAllData().ToList();
+            var allPotions = gameDataBase.potions.GetAllData().ToList();
             int newPotionId = allPotions.Count > 0 ? allPotions.Max(x => x.id) + 1 : 1;
 
             RegularDialogHelper.ShowItemSelectionDialog("Select potion type", new Dictionary<string, Action>()
@@ -87,7 +91,7 @@ namespace TextGameRPG.ViewModels.Editor.PotionsEditor
 
         private void AddNewPotionData(PotionData newPotionData)
         {
-            GameDataBase.instance.potions.AddData(newPotionData.id, newPotionData);
+            gameDataBase.potions.AddData(newPotionData.id, newPotionData);
             RefreshShowedItems();
             selectedPotion = newPotionData;
         }
@@ -97,7 +101,7 @@ namespace TextGameRPG.ViewModels.Editor.PotionsEditor
             if (selectedPotion == null)
                 return;
 
-            GameDataBase.instance.potions.RemoveData(selectedPotion.id);
+            gameDataBase.potions.RemoveData(selectedPotion.id);
         }
 
     }

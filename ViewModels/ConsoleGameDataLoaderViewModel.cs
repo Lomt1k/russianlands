@@ -1,15 +1,19 @@
 ﻿using System;
+using TextGameRPG.Scripts.GameCore.Managers;
+using TextGameRPG.Scripts.GameCore.Managers.GameDataBase;
 
 namespace TextGameRPG.ViewModels
 {
     public class ConsoleGameDataLoaderViewModel : IGameDataLoader
     {
+        private static readonly GameDataBase gameDataBase = Singletones.Get<GameDataBase>();
+
         public bool isCompleted { get; private set; } = false;
 
         public ConsoleGameDataLoaderViewModel()
         {
             AddNextState("Application started with console mode");
-            Scripts.GameCore.GameDataBase.GameDataBase.instance.LoadAllData(this);
+            gameDataBase.LoadAllData(this);
         }
 
         public void AddInfoToCurrentState(string text)

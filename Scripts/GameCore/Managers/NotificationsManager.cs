@@ -12,7 +12,7 @@ using TextGameRPG.Scripts.GameCore.Localizations;
 
 namespace TextGameRPG.Scripts.GameCore.Managers
 {
-    public class NotificationsManager : GlobalManager
+    public class NotificationsManager : Singletone
     {
         public async Task GetNotificationsAndEntryTown(GameSession session, TownEntryReason reason)
         {

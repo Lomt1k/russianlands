@@ -1,7 +1,8 @@
 ﻿using ReactiveUI;
 using System.Reactive;
 using TextGameRPG.Models.UserControls;
-using TextGameRPG.Scripts.GameCore.GameDataBase;
+using TextGameRPG.Scripts.GameCore.Managers;
+using TextGameRPG.Scripts.GameCore.Managers.GameDataBase;
 using TextGameRPG.Scripts.GameCore.Potions;
 using TextGameRPG.Views.UserControls;
 
@@ -9,7 +10,7 @@ namespace TextGameRPG.ViewModels.Editor.PotionsEditor
 {
     public class PotionInspectorViewModel : ViewModelBase
     {
-        private static DataDictionaryWithIntegerID<PotionData> potionsDB => GameDataBase.instance.potions;
+        private static readonly GameDataBase gameDataBase = Singletones.Get<GameDataBase>();
 
         private PotionData? _tempPotion;
         private ObjectFieldsEditorView? _potionFieldsEditorView;
@@ -46,7 +47,7 @@ namespace TextGameRPG.ViewModels.Editor.PotionsEditor
                 return;
 
             potionFieldsEditorView.vm.SaveObjectChanges();
-            potionsDB.ChangeData(_tempPotion.id, _tempPotion);
+            gameDataBase.potions.ChangeData(_tempPotion.id, _tempPotion);
         }
 
         private void ResetChanges()
@@ -55,7 +56,7 @@ namespace TextGameRPG.ViewModels.Editor.PotionsEditor
                 return;
 
             var id = tempPotion.id;
-            var originalData = potionsDB[id];
+            var originalData = gameDataBase.potions[id];
             ShowPotion(originalData);
         }
 

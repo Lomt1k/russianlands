@@ -9,7 +9,7 @@ using TextGameRPG.Scripts.Bot.Dialogs.Battle;
 
 namespace TextGameRPG.Scripts.GameCore.Managers.Battles
 {
-    public class BattleManager : GlobalManager
+    public class BattleManager : Singletone
     {
         private List<Battle> _battles = new List<Battle>();
         private Dictionary<Player, Battle> _battlesByPlayers = new Dictionary<Player, Battle>();

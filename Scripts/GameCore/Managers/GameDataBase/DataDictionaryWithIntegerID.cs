@@ -4,7 +4,7 @@ using System.IO;
 using System.Text;
 using System.Linq;
 
-namespace TextGameRPG.Scripts.GameCore.GameDataBase
+namespace TextGameRPG.Scripts.GameCore.Managers.GameDataBase
 {
     public class DataDictionaryWithIntegerID<T> where T : IDataWithIntegerID
     {

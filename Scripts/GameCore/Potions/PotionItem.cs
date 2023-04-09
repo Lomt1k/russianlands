@@ -4,6 +4,8 @@ using System.Text;
 using TextGameRPG.Scripts.Bot;
 using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Localizations;
+using TextGameRPG.Scripts.GameCore.Managers;
+using TextGameRPG.Scripts.GameCore.Managers.GameDataBase;
 using TextGameRPG.Scripts.GameCore.Resources;
 
 namespace TextGameRPG.Scripts.GameCore.Potions
@@ -11,6 +13,9 @@ namespace TextGameRPG.Scripts.GameCore.Potions
     [JsonObject]
     public class PotionItem
     {
+        private static readonly GameDataBase gameDataBase = Singletones.Get<GameDataBase>();
+
+
         [JsonProperty("id")]
         private int _id;
         [JsonProperty("t")]
@@ -29,7 +34,7 @@ namespace TextGameRPG.Scripts.GameCore.Potions
 
         public PotionData GetData()
         {
-            return GameDataBase.GameDataBase.instance.potions[_id];
+            return gameDataBase.potions[_id];
         }
 
         public bool IsReady()

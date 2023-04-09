@@ -6,23 +6,24 @@
 
     public static class Singletones
     {
-        private static Dictionary<Type, GlobalManager> _instances = new Dictionary<Type, GlobalManager>();
+        private static Dictionary<Type, Singletone> _instances = new Dictionary<Type, Singletone>();
 
         static Singletones()
         {
+            RegisterSingletone<GameDataBase.GameDataBase>();
             RegisterSingletone<BattleManager>();
             RegisterSingletone<PerformanceManager>();
             RegisterSingletone<NotificationsManager>();
         }
 
-        private static T RegisterSingletone<T>() where T : GlobalManager, new()
+        private static T RegisterSingletone<T>() where T : Singletone, new()
         {
             var manager = new T();
             _instances.Add(typeof(T), manager);
             return manager;
         }
 
-        public static T Get<T>() where T : GlobalManager
+        public static T Get<T>() where T : Singletone
         {
             var singletone = _instances[typeof(T)];
             return (T)singletone;
