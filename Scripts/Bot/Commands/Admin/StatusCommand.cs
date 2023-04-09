@@ -25,12 +25,9 @@ namespace TextGameRPG.Scripts.Bot.Commands.Admin
 
             sb.AppendLine();
             var allSessions = TelegramBot.instance.sessionManager.GetAllSessions();
-            sb.AppendLine($"Sessions: {allSessions.Count}");
+            sb.AppendLine($"Active sessions: {allSessions.Count}");
             var dtNow = DateTime.UtcNow;
-            var minutesCheck = TelegramBot.instance.config.sessionTimeoutInMinutesWhenMemoryHighoad;
-            var recentlyActive = allSessions.Where(x => (dtNow - x.lastActivityTime).TotalMinutes < minutesCheck).Count();
-            sb.AppendLine($"Active in {minutesCheck} minutes: {recentlyActive}");
-            recentlyActive = allSessions.Where(x => (dtNow - x.lastActivityTime).TotalMinutes < 5).Count();
+            var recentlyActive = allSessions.Where(x => (dtNow - x.lastActivityTime).TotalMinutes < 5).Count();
             sb.AppendLine($"Now playing: {recentlyActive}");
 
             var orderedByActivity = allSessions.OrderByDescending(x => x.lastActivityTime).ToArray();

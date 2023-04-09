@@ -124,12 +124,9 @@ namespace TextGameRPG.ConsoleMode
 
             Console.WriteLine();
             var allSessions = TelegramBot.instance.sessionManager.GetAllSessions();
-            Console.WriteLine($"Sessions: {allSessions.Count}");
+            Console.WriteLine($"Active sessions: {allSessions.Count}");
             var dtNow = DateTime.UtcNow;
-            var minutesCheck = TelegramBot.instance.config.sessionTimeoutInMinutesWhenMemoryHighoad;
-            var recentlyActive = allSessions.Where(x => (dtNow - x.lastActivityTime).TotalMinutes < minutesCheck).Count();
-            Console.WriteLine($"Active in {minutesCheck} minutes: {recentlyActive}");
-            recentlyActive = allSessions.Where(x => (dtNow - x.lastActivityTime).TotalMinutes < 5).Count();
+            var recentlyActive = allSessions.Where(x => (dtNow - x.lastActivityTime).TotalMinutes < 5).Count();
             Console.WriteLine($"Now playing: {recentlyActive}");
         }
 

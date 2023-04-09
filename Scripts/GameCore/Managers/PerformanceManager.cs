@@ -16,7 +16,6 @@ namespace TextGameRPG.Scripts.GameCore.Managers
         public int memoryUsageLimit { get; private set; }
         public int memoryUsageHighload { get; private set; }
         public int sessionTimeoutDefault { get; private set; }
-        public int sessionTimeoutWhenMemoryHighload { get; private set; }
 
         public PerformanceState currentCpuState { get; private set; }
         public PerformanceState currentMemoryState { get; private set; }
@@ -74,11 +73,6 @@ namespace TextGameRPG.Scripts.GameCore.Managers
             return currentCpuState == PerformanceState.Normal ? 0 : responseDelayWhenCpuHighload;
         }
 
-        public int GetCurrentSessionTimeout()
-        {
-            return currentMemoryState == PerformanceState.Normal ? sessionTimeoutDefault : sessionTimeoutWhenMemoryHighload;
-        }
-
         public override void OnBotStarted()
         {
             var config = TelegramBot.instance.config;
@@ -89,7 +83,6 @@ namespace TextGameRPG.Scripts.GameCore.Managers
             memoryUsageLimit = config.memoryUsageLimitInMegabytes;
             memoryUsageHighload = config.memoryUsageToHighloadState;
             sessionTimeoutDefault = config.sessionTimeoutInMinutes;
-            sessionTimeoutWhenMemoryHighload = config.sessionTimeoutInMinutesWhenMemoryHighoad;
 
             UpdateCurrentState(PerformanceMonitor.cpuUsage, PerformanceMonitor.memoryUsage);
         }

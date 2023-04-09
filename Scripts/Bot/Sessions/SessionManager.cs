@@ -86,9 +86,9 @@ namespace TextGameRPG.Scripts.Bot.Sessions
             while (!_allSessionsTasksCTS.IsCancellationRequested)
             {
                 List<ChatId> sessionsToClose = new List<ChatId>();
+                var timeoutMs = TelegramBot.instance.config.sessionTimeoutInMinutes * millisecondsInMinute;
                 foreach (var chatId in _sessions.Keys)
                 {
-                    var timeoutMs = performanceManager.GetCurrentSessionTimeout() * millisecondsInMinute;
                     if (IsTimeout(chatId, timeoutMs))
                     {
                         sessionsToClose.Add(chatId);

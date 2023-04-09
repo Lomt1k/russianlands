@@ -10,7 +10,7 @@ namespace TextGameRPG.Scripts.Bot
         public string token = "ENTER_TOKEN_HERE";
         public string defaultLanguage = "RU";
         public bool cheatsForAll = true;
-        public int sessionTimeoutInMinutes = 180;
+        public int sessionTimeoutInMinutes = 30;
         public int periodicSaveDatabaseInMinutes = 15;
 
         public int cpuUsageLimitInPercents = 80;
@@ -18,7 +18,6 @@ namespace TextGameRPG.Scripts.Bot
         public int responceMsDelayWhenCpuHighload = 500;
         public int memoryUsageLimitInMegabytes = 1024;
         public int memoryUsageToHighloadState = 768;
-        public int sessionTimeoutInMinutesWhenMemoryHighoad = 30;
 
         [JsonIgnore]
         public LanguageCode defaultLanguageCode;
