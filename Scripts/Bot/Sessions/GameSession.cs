@@ -124,6 +124,10 @@ namespace TextGameRPG.Scripts.Bot.Sessions
             switch (callbackData)
             {
                 case DialogPanelButtonCallbackData dialogPanelButtonCallback:
+                    if (dialogPanelButtonCallback.sessionTime != startTime.Ticks)
+                    {
+                        return;
+                    }
                     if (currentDialog != null && currentDialog is DialogWithPanel dialogWithPanel)
                     {
                         await dialogWithPanel.HandleCallbackQuery(query.Id, dialogPanelButtonCallback).FastAwait();

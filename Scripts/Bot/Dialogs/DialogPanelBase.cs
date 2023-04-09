@@ -55,6 +55,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
         {
             var callbackData = new DialogPanelButtonCallbackData()
             {
+                sessionTime = session.startTime.Ticks,
                 buttonId = _freeButtonId,
             };
             var callbackDataJson = JsonConvert.SerializeObject(callbackData);
