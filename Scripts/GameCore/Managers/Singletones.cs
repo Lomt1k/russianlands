@@ -3,6 +3,7 @@
     using Battles;
     using System;
     using System.Collections.Generic;
+    using TextGameRPG.Scripts.GameCore.Managers.Sending;
 
     public static class Singletones
     {
@@ -14,6 +15,7 @@
             RegisterSingletone<BattleManager>();
             RegisterSingletone<PerformanceManager>();
             RegisterSingletone<NotificationsManager>();
+            RegisterSingletone<MessageSequencer>();
         }
 
         private static T RegisterSingletone<T>() where T : Singletone, new()

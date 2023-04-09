@@ -12,6 +12,10 @@ namespace TextGameRPG.Scripts.Bot
         public bool cheatsForAll = true;
         public int sessionTimeoutInMinutes = 30;
         public int periodicSaveDatabaseInMinutes = 15;
+        public byte sendMessagePerSecondLimit = 25;
+        public byte editMessagePerSecondLimit = 30;
+        public byte sendStickerPerSecondLimit = 50;
+        public int dontSendStickerIfDelayInSeconds = 5;
 
         public int cpuUsageLimitInPercents = 80;
         public int cpuUsageToHighloadState = 65;

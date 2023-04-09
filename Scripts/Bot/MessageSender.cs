@@ -1,23 +1,28 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Telegram.Bot;
 using Telegram.Bot.Exceptions;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.InputFiles;
 using Telegram.Bot.Types.ReplyMarkups;
+using TextGameRPG.Scripts.GameCore.Managers;
+using TextGameRPG.Scripts.GameCore.Managers.Sending;
 
 namespace TextGameRPG.Scripts.Bot
 {
     public class MessageSender
     {
+        private static readonly MessageSequencer sequencer = Singletones.Get<MessageSequencer>();
+
         private TelegramBotClient _botClient;
         private RequestExceptionHandler _requestExceptionHandler;
+        private int _maxDelayForSendStickers;
 
         public MessageSender(TelegramBotClient botClient)
         {
             _botClient = botClient;
             _requestExceptionHandler = new RequestExceptionHandler();
+            _maxDelayForSendStickers = TelegramBot.instance.config.dontSendStickerIfDelayInSeconds * 1_000;
         }
 
         public async Task<Message?> SendTextMessage(ChatId id, string text, InlineKeyboardMarkup? inlineKeyboard = null,
@@ -25,6 +30,9 @@ namespace TextGameRPG.Scripts.Bot
         {
             try
             {
+                var delay = sequencer.GetDelayForSendMessage(text);
+                await Task.Delay(delay).FastAwait();
+
                 return await _botClient.SendTextMessageAsync(id, text, ParseMode.Html, replyMarkup: inlineKeyboard,
                     disableNotification: silent, disableWebPagePreview: disableWebPagePreview).FastAwait();
             }
@@ -40,6 +48,9 @@ namespace TextGameRPG.Scripts.Bot
         {
             try
             {
+                var delay = sequencer.GetDelayForEditMessage(text);
+                await Task.Delay(delay).FastAwait();
+
                 return await _botClient.EditMessageTextAsync(id, messageId, text, ParseMode.Html, replyMarkup: inlineKeyboard,
                     disableWebPagePreview: disableWebPagePreview).FastAwait();
             }
@@ -85,6 +96,9 @@ namespace TextGameRPG.Scripts.Bot
 
             try
             {
+                var delay = sequencer.GetDelayForSendMessage(text);
+                await Task.Delay(delay).FastAwait();
+
                 return await _botClient.SendTextMessageAsync(id, text, ParseMode.Html, replyMarkup: replyKeyboard,
                 disableNotification: silent, disableWebPagePreview: disableWebPagePreview).FastAwait();
             }
@@ -111,6 +125,9 @@ namespace TextGameRPG.Scripts.Bot
         {
             try
             {
+                var delay = sequencer.GetDelayForSendMessage(text);
+                await Task.Delay(delay).FastAwait();
+
                 return await _botClient.SendTextMessageAsync(id, Emojis.ElementWarning + "<b>Program Error</b>\n\n" + text, ParseMode.Html)
                     .FastAwait();
             }
@@ -121,16 +138,21 @@ namespace TextGameRPG.Scripts.Bot
             }
         }
 
-        public async Task<Message?> SendSticker(ChatId id, string stickerFileId)
+        public async Task SendSticker(ChatId id, string stickerFileId)
         {
             try
             {
-                return await _botClient.SendStickerAsync(id, stickerFileId).FastAwait();
+                var delay = sequencer.GetDelayForSendSticker(stickerFileId);
+                if (delay >= _maxDelayForSendStickers)
+                {
+                    return;
+                }
+                await Task.Delay(delay).FastAwait();
+                await _botClient.SendStickerAsync(id, stickerFileId).FastAwait();
             }
             catch (RequestException ex)
             {
                 await _requestExceptionHandler.HandleException(id, ex).FastAwait();
-                return null;
             }
         }
 
