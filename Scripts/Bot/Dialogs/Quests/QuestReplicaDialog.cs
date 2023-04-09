@@ -54,13 +54,12 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Quests
             {
                 await messageSender.SendSticker(session.chatId, sticker);
             }
-            await SendDialogMessage(GetText(), GetMultilineKeyboard())
-                .ConfigureAwait(false);
+            await SendDialogMessage(GetText(), GetMultilineKeyboard()).FastAwait();
         }
 
         public override async Task TryResendDialog()
         {
-            await Start().ConfigureAwait(false);
+            await Start().FastAwait();
         }
 
     }

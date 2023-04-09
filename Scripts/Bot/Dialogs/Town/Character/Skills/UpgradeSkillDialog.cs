@@ -73,8 +73,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Skills
                 sb.Append(Localization.Get(session, "dialog_skills_upgrade_elixirs_amount"));
             }
 
-            await SendDialogMessage(sb, GetSpecialKeyboard())
-                .ConfigureAwait(false);
+            await SendDialogMessage(sb, GetSpecialKeyboard()).FastAwait();
         }
 
         private Dictionary<ResourceType, int> GetRequiredResources()
@@ -121,15 +120,14 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Skills
             var successfullPurchase = playerResources.TryPurchase(requiredResources, out var notEnoughResources);
             if (successfullPurchase)
             {
-                await SkillUp(amount)
-                    .ConfigureAwait(false);
+                await SkillUp(amount).FastAwait();
                 return;
             }
 
             var buyResourcesDialog = new BuyResourcesForDiamondsDialog(session, notEnoughResources,
-                onSuccess: async () => await new UpgradeSkillDialog(session, _itemType, _upgradeButtons).TryUpgrade(amount).ConfigureAwait(false),
-                onCancel: async () => await new UpgradeSkillDialog(session, _itemType, _upgradeButtons).Start().ConfigureAwait(false));
-            await buyResourcesDialog.Start().ConfigureAwait(false);
+                onSuccess: async () => await new UpgradeSkillDialog(session, _itemType, _upgradeButtons).TryUpgrade(amount).FastAwait(),
+                onCancel: async () => await new UpgradeSkillDialog(session, _itemType, _upgradeButtons).Start().FastAwait());
+            await buyResourcesDialog.Start().FastAwait();
         }
 
         private async Task SkillUp(byte amount)
@@ -144,8 +142,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Skills
             ClearButtons();
             RegisterButton(Localization.Get(session, "menu_item_continue_button"), () => new SkillsDialog(session).Start());
 
-            await SendDialogMessage(sb, GetOneLineKeyboard())
-                .ConfigureAwait(false);
+            await SendDialogMessage(sb, GetOneLineKeyboard()).FastAwait();
         }
 
     }

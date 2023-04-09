@@ -3,43 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TextGameRPG.Scripts.Bot.Dialogs.Resources;
+using TextGameRPG.Scripts.Bot.Dialogs.Town.Shop;
 using TextGameRPG.Scripts.GameCore.Buildings;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Resources;
-using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
-using TextGameRPG.Scripts.Bot.Dialogs.Resources;
-using TextGameRPG.Scripts.Bot.Dialogs.Town.Shop;
-using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Units;
 
 namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
 {
-    public class BuildingInfoDialog : DialogBase
+    public partial class BuildingsDialogPanel : DialogPanelBase
     {
         public static int maxConstructions = 2;
         public static int maxConstructionsPremium = 4;
 
-        private ProfileBuildingsData _buildingsData => session.profile.buildingsData;
-        private BuildingBase building;
-
-        public BuildingInfoDialog(GameSession _session, BuildingBase building) : base(_session)
-        {
-            this.building = building;
-        }
-
-        public override async Task Start()
+        public async Task ShowBuilding(BuildingBase building)
         {
             if (!building.IsBuilt(_buildingsData) && !building.IsUnderConstruction(_buildingsData))
             {
-                await ShowConstructionAvailableInfo()
-                    .ConfigureAwait(false);
+                await ShowConstructionAvailableInfo(building).FastAwait();
                 return;
             }
-            await ShowBuildingCurrentLevelInfo()
-                .ConfigureAwait(false);
+            await ShowBuildingCurrentLevelInfo(building).FastAwait();
         }
 
-        public async Task ShowBuildingCurrentLevelInfo()
+        private async Task ShowBuildingCurrentLevelInfo(BuildingBase building)
         {
             ClearButtons();
             var sb = new StringBuilder();
@@ -78,7 +66,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
                     var buttonText = nextLevel.isBoostAvailable
                         ? Localization.Get(session, "menu_item_boost_free_button")
                         : Localization.Get(session, "menu_item_boost_button", priceView);
-                    RegisterButton(buttonText, () => TryBoostConstructionForDiamonds());
+                    RegisterButton(buttonText, () => TryBoostConstructionForDiamonds(building));
                 }
                 else
                 {
@@ -87,7 +75,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
                         ? Emojis.ElementLocked
                         : Emojis.ElementLevelUp;
                     RegisterButton(nextLevelIcon + Localization.Get(session, "dialog_buildings_construction_button"),
-                        () => ShowConstructionAvailableInfo());
+                        () => ShowConstructionAvailableInfo(building));
                 }
             }
             var specialButtons = building.GetSpecialButtons(session, _buildingsData);
@@ -96,25 +84,21 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
                 RegisterButton(button.Key, () => button.Value());
             }
             var category = building.buildingType.GetCategory();
-            RegisterBackButton(category.GetLocalization(session),
-                () => new BuildingsDialog(session).ShowBuildingsCategory(category));
-            RegisterDoubleBackButton(Localization.Get(session, "menu_item_buildings") + Emojis.ButtonBuildings,
-                () => new BuildingsDialog(session).Start());
+            RegisterBackButton(category.GetLocalization(session), () => ShowBuildingsList(category));
+            RegisterDoubleBackButton(Localization.Get(session, "menu_item_buildings") + Emojis.ButtonBuildings, () => ShowCategories());
 
             TryAppendTooltip(sb);
-            await SendDialogMessage(sb, GetMultilineKeyboardWithDoubleBack())
-                .ConfigureAwait(false);
+            await SendPanelMessage(sb, GetMultilineKeyboardWithDoubleBack()).FastAwait();
         }
 
-        private async Task TryBoostConstructionForDiamonds()
+        private async Task TryBoostConstructionForDiamonds(BuildingBase building)
         {
+            ClearButtons();
             if (!building.IsUnderConstruction(_buildingsData) || building.IsConstructionCanBeFinished(_buildingsData))
             {
-                var message = Emojis.ElementClock + Localization.Get(session, "dialog_buildings_construction_boost_expired");
-                ClearButtons();
-                RegisterButton(Localization.Get(session, "menu_item_continue_button"), () => ShowBuildingCurrentLevelInfo());
-                await SendDialogMessage(message, GetOneLineKeyboard())
-                    .ConfigureAwait(false);
+                var message = Emojis.ElementClock + Localization.Get(session, "dialog_buildings_construction_boost_expired");                
+                RegisterButton(Localization.Get(session, "menu_item_continue_button"), () => ShowBuildingCurrentLevelInfo(building));
+                await SendPanelMessage(message, GetOneLineKeyboard()).FastAwait();
                 return;
             }
 
@@ -142,32 +126,21 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
                     sb.AppendLine(ResourceType.Diamond.GetLocalizedView(session, requiredDiamonds));
                 }
 
-                ClearButtons();
-                RegisterButton(Localization.Get(session, "menu_item_continue_button"), () => ShowBuildingCurrentLevelInfo());
+                RegisterButton(Localization.Get(session, "menu_item_continue_button"), () => ShowBuildingCurrentLevelInfo(building));
 
-                await SendDialogMessage(sb, GetOneLineKeyboard())
-                    .ConfigureAwait(false);
+                await SendPanelMessage(sb, GetOneLineKeyboard()).FastAwait();
                 return;
             }
 
-            ClearButtons();
             var text = Localization.Get(session, "resource_not_enough_diamonds", Emojis.SmileSad);
-            RegisterButton(Emojis.ButtonShop + Localization.Get(session, "menu_item_shop"),
-                () => new ShopDialog(session).Start());
-            RegisterBackButton(() => ShowBuildingCurrentLevelInfo());
+            RegisterButton(Emojis.ButtonShop + Localization.Get(session, "menu_item_shop"), () => new ShopDialog(session).Start());
+            RegisterBackButton(() => ShowBuildingCurrentLevelInfo(building));
 
-            await SendDialogMessage(text, GetMultilineKeyboard()).ConfigureAwait(false);
+            await SendPanelMessage(text, GetMultilineKeyboard()).FastAwait();
         }
 
-        private async Task ShowConstructionAvailableInfo()
+        private async Task ShowConstructionAvailableInfo(BuildingBase building)
         {
-            if (building.IsMaxLevel(_buildingsData))
-            {
-                await ShowBuildingCurrentLevelInfo()
-                    .ConfigureAwait(false);
-                return;
-            }
-
             var sb = new StringBuilder();
             sb.AppendLine(building.GetNextLevelLocalizedName(session, _buildingsData).Bold());
             sb.AppendLine();
@@ -177,7 +150,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
             var levelData = building.buildingData.levels[level];
 
             sb.AppendLine();
-            var requiredResources = GetRequiredResourcesForConstruction();
+            var requiredResources = GetRequiredResourcesForConstruction(building);
             sb.Append(ResourceHelper.GetPriceView(session, requiredResources));
             var dtNow = DateTime.UtcNow;
             var timeSpan = (dtNow.AddSeconds(levelData.constructionTime) - dtNow);
@@ -193,7 +166,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
             else
             {
                 AppendOurResources(sb, requiredResources);
-                AppendSpecialConstructionWarnings(sb);
+                AppendSpecialConstructionWarnings(sb, building);
             }
 
 
@@ -201,27 +174,26 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
             if (playerTownHall >= levelData.requiredTownHall)
             {
                 RegisterButton(Emojis.ElementConstruction + Localization.Get(session, "dialog_buildings_start_construction_button"),
-                    () => TryStartConstruction());
+                    () => TryStartConstruction(building));
             }
 
             if (building.IsBuilt(_buildingsData))
             {
-                RegisterBackButton(() => ShowBuildingCurrentLevelInfo());
+                RegisterBackButton(() => ShowBuildingCurrentLevelInfo(building));
             }
             else
             {
                 var category = building.buildingType.GetCategory();
-                RegisterBackButton(category.GetLocalization(session), () => new BuildingsDialog(session).ShowBuildingsCategory(category));
+                RegisterBackButton(category.GetLocalization(session), () => ShowBuildingsList(category));
             }
             RegisterDoubleBackButton(Localization.Get(session, "menu_item_buildings") + Emojis.ButtonBuildings,
                 () => new BuildingsDialog(session).Start());
 
             TryAppendTooltip(sb);
-            await SendDialogMessage(sb, GetMultilineKeyboardWithDoubleBack())
-                .ConfigureAwait(false);
+            await SendPanelMessage(sb, GetMultilineKeyboardWithDoubleBack()).FastAwait();
         }
 
-        private void AppendOurResources(StringBuilder sb, Dictionary<ResourceType,int> requiredResources)
+        private void AppendOurResources(StringBuilder sb, Dictionary<ResourceType, int> requiredResources)
         {
             sb.AppendLine();
             sb.AppendLine(Localization.Get(session, "resource_header_ours"));
@@ -237,7 +209,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
             sb.Append(ResourceHelper.GetResourcesView(session, ourResources));
         }
 
-        private void AppendSpecialConstructionWarnings(StringBuilder sb)
+        private void AppendSpecialConstructionWarnings(StringBuilder sb, BuildingBase building)
         {
             if (building is TrainingBuildingBase trainingBuilding)
             {
@@ -251,20 +223,18 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
             }
         }
 
-        public async Task TryStartConstruction()
+        public async Task TryStartConstruction(BuildingBase building)
         {
             if (building.IsMaxLevel(_buildingsData))
             {
-                await ShowBuildingCurrentLevelInfo()
-                    .ConfigureAwait(false);
+                await ShowBuildingCurrentLevelInfo(building).FastAwait();
                 return;
             }
             if (building.IsStartConstructionBlocked(_buildingsData, out var blockReasonMessage))
             {
                 ClearButtons();
-                RegisterBackButton(() => ShowConstructionAvailableInfo());
-                await SendDialogMessage(blockReasonMessage, GetOneLineKeyboard())
-                    .ConfigureAwait(false);
+                RegisterBackButton(() => ShowConstructionAvailableInfo(building));
+                await SendPanelMessage(blockReasonMessage, GetOneLineKeyboard()).FastAwait();
                 return;
             }
 
@@ -274,37 +244,33 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
             var constructions = allBuildings.Where(x => x.IsUnderConstruction(_buildingsData) && !x.IsConstructionCanBeFinished(_buildingsData)).ToArray();
             if (constructions.Length >= constructionsLimit)
             {
-                await ShowConstructionsLimitMessage(constructions)
-                    .ConfigureAwait(false);
+                await ShowConstructionsLimitMessage(constructions, building).FastAwait();
                 return;
             }
 
-            var requiredResources = GetRequiredResourcesForConstruction();
+            var requiredResources = GetRequiredResourcesForConstruction(building);
             var playerResources = session.player.resources;
             var successfullPurchase = playerResources.TryPurchase(requiredResources, out var notEnoughResources);
             if (successfullPurchase)
             {
                 building.StartConstruction(_buildingsData);
-                await ShowBuildingCurrentLevelInfo()
-                    .ConfigureAwait(false);
+                await ShowBuildingCurrentLevelInfo(building).FastAwait();
                 return;
             }
 
             if (IsStorageUpgradeRequired(requiredResources, out var storageBuilding))
             {
-                await ShowStorageUpgradeRequired(storageBuilding)
-                    .ConfigureAwait(false);
+                await ShowStorageUpgradeRequired(building, storageBuilding).FastAwait();
                 return;
             }
 
             var buyResourcesDialog = new BuyResourcesForDiamondsDialog(session, notEnoughResources,
-                onSuccess: async () => await new BuildingsDialog(session).StartFromBuyResourcesDialog(building, true).ConfigureAwait(false),
-                onCancel: async () => await new BuildingsDialog(session).StartFromBuyResourcesDialog(building, false).ConfigureAwait(false));
-            await buyResourcesDialog.Start()
-                .ConfigureAwait(false);
+                onSuccess: async () => await new BuildingsDialog(session).StartWithTryStartConstruction(building).FastAwait(),
+                onCancel: async () => await new BuildingsDialog(session).StartWithShowBuilding(building).FastAwait());
+            await buyResourcesDialog.Start().FastAwait();
         }
 
-        private async Task ShowConstructionsLimitMessage(BuildingBase[] constructions)
+        private async Task ShowConstructionsLimitMessage(BuildingBase[] constructions, BuildingBase building)
         {
             ClearButtons();
             var sb = new StringBuilder();
@@ -329,13 +295,12 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
                 sb.AppendLine(Localization.Get(session, "dialog_buildings_construction_limit_can_buy_premium", maxConstructionsPremium));
                 RegisterButton(Emojis.ButtonShop + Localization.Get(session, "menu_item_shop"), () => new ShopDialog(session).Start());
             }
-            RegisterBackButton(() => ShowBuildingCurrentLevelInfo());
+            RegisterBackButton(() => ShowBuildingCurrentLevelInfo(building));
 
-            await SendDialogMessage(sb, GetMultilineKeyboard())
-                .ConfigureAwait(false);
+            await SendPanelMessage(sb, GetMultilineKeyboard()).FastAwait();
         }
 
-        private Dictionary<ResourceType, int> GetRequiredResourcesForConstruction()
+        private Dictionary<ResourceType, int> GetRequiredResourcesForConstruction(BuildingBase building)
         {
             if (building.IsMaxLevel(_buildingsData))
                 return new Dictionary<ResourceType, int>();
@@ -381,7 +346,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
             return false;
         }
 
-        private async Task ShowStorageUpgradeRequired(StorageBuildingBase storageToUpgrade)
+        private async Task ShowStorageUpgradeRequired(BuildingBase building, StorageBuildingBase storageToUpgrade)
         {
             ClearButtons();
             var sb = new StringBuilder();
@@ -389,12 +354,10 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
             sb.AppendLine(Localization.Get(session, "dialog_buildings_storage_upgrade_required"));
             sb.AppendLine(Emojis.ElementSmallBlack + storageToUpgrade.GetLocalizedName(session, _buildingsData));
 
-            RegisterButton(Localization.Get(session, "dialog_buildings_go_to_storage_button"), () => new BuildingInfoDialog(session, storageToUpgrade).Start());
-            RegisterBackButton(() => ShowConstructionAvailableInfo());
+            RegisterButton(Localization.Get(session, "dialog_buildings_go_to_storage_button"), () => ShowBuilding(storageToUpgrade));
+            RegisterBackButton(() => ShowConstructionAvailableInfo(building));
 
-            await SendDialogMessage(sb, GetMultilineKeyboard())
-                .ConfigureAwait(false);
+            await SendPanelMessage(sb, GetMultilineKeyboard()).FastAwait();
         }
-
     }
 }

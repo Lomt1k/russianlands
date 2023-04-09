@@ -86,8 +86,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
             sb.AppendLine();
             sb.AppendLine(Localization.Get(session, "battle_mine_turn_start_select_item"));
 
-            await SendDialogMessage(sb, keyboard)
-                .ConfigureAwait(false);
+            await SendDialogMessage(sb, keyboard).FastAwait();
 
             void TryAppendAdditionalLine()
             {
@@ -162,8 +161,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
                     TryInvokeItemSelection(item);
                     break;
                 case ItemType.Scroll:
-                    await ShowScrollsCategory()
-                        .ConfigureAwait(false);
+                    await ShowScrollsCategory().FastAwait();
                     break;
             }
         }
@@ -202,8 +200,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
             }
 
             RegisterBackButton(() => Start());
-            await SendDialogMessage(sb, GetMultilineKeyboard())
-                .ConfigureAwait(false);
+            await SendDialogMessage(sb, GetMultilineKeyboard()).FastAwait();
         }
 
         private Task SelectScrollItem(InventoryItem scrollItem)
@@ -242,8 +239,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
         {
             if (_isPotionAlreadySelected)
             {
-                await TelegramBot.instance.messageSender.SendTextMessage(session.chatId, Localization.Get(session, "battle_potion_already_used"))
-                    .ConfigureAwait(false);
+                await TelegramBot.instance.messageSender.SendTextMessage(session.chatId, Localization.Get(session, "battle_potion_already_used")).FastAwait();
                 return;
             }
 
@@ -262,8 +258,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
                 RegisterButton(potionItem.GetName(session), () => SelectPotionItem(potionItem));
             }
 
-            await SendDialogMessage(sb, GetMultilineKeyboard())
-                .ConfigureAwait(false);
+            await SendDialogMessage(sb, GetMultilineKeyboard()).FastAwait();
         }
 
         private async Task SelectPotionItem(PotionItem potionItem)
@@ -279,10 +274,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
             potionData.Apply(_battleTurn, session.player);
 
             SendPotionMessageForEnemy(potionData);
-            await SendPotionMessage(potionData)
-                .ConfigureAwait(false);
-            await Start()
-                .ConfigureAwait(false);
+            await SendPotionMessage(potionData).FastAwait();
+            await Start().FastAwait();
         }
 
         private async Task SendPotionMessage(PotionData potionData)
@@ -294,8 +287,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
             sb.AppendLine(potionData.GetDescription(session, session));
 
             var messageSender = TelegramBot.instance.messageSender;
-            await messageSender.SendTextMessage(session.chatId, sb.ToString())
-                .ConfigureAwait(false);
+            await messageSender.SendTextMessage(session.chatId, sb.ToString()).FastAwait();
         }
 
         private async void SendPotionMessageForEnemy(PotionData potionData)
@@ -313,8 +305,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
             sb.AppendLine(potionData.GetDescription(session, enemySession));
 
             var messageSender = TelegramBot.instance.messageSender;
-            await messageSender.SendTextMessage(enemySession.chatId, sb.ToString())
-                .ConfigureAwait(false);
+            await messageSender.SendTextMessage(enemySession.chatId, sb.ToString()).FastAwait();
         }
 
     }

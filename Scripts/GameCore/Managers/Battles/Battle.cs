@@ -80,8 +80,8 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles
             InvokeHealthRegen();
 
             //Сначала второму юниту, так как первый уже сразу сможет ходить
-            await secondUnit.OnStartBattle(this).ConfigureAwait(false);
-            await firstUnit.OnStartBattle(this).ConfigureAwait(false);
+            await secondUnit.OnStartBattle(this).FastAwait();
+            await firstUnit.OnStartBattle(this).FastAwait();
 
             HandleBattleAsync();
         }
@@ -104,12 +104,12 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles
             while (!HasDefeatedUnits())
             {
                 currentTurn = new BattleTurn(this, firstUnit, battleTurnTimeInSeconds);
-                await currentTurn.HandleTurn().ConfigureAwait(false);
+                await currentTurn.HandleTurn().FastAwait();
                 currentTurn = new BattleTurn(this, secondUnit, battleTurnTimeInSeconds);
-                await currentTurn.HandleTurn().ConfigureAwait(false);
+                await currentTurn.HandleTurn().FastAwait();
             }
             currentTurn = null;
-            await BattleEnd().ConfigureAwait(false);
+            await BattleEnd().FastAwait();
         }
 
         public string GetStatsView(GameSession session)
@@ -142,12 +142,10 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles
             Program.logger.Debug($"Message from {player.session.actualUser}: {callback.tooltip}");
             if (currentTurn == null)
             {
-                await TelegramBot.instance.messageSender.AnswerQuery(player.session.chatId, queryId)
-                    .ConfigureAwait(false);
+                await TelegramBot.instance.messageSender.AnswerQuery(player.session.chatId, queryId).FastAwait();
                 return;
             }
-            await currentTurn.HandleBattleTooltipCallback(player, queryId, callback)
-                .ConfigureAwait(false);
+            await currentTurn.HandleBattleTooltipCallback(player, queryId, callback).FastAwait();
         }
 
         private async Task BattleEnd()
@@ -161,11 +159,11 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles
             bool hasWinner = firstUnit.unitStats.currentHP > 0 || secondUnit.unitStats.currentHP > 0;
             if (firstUnit is Player firstPlayer)
             {
-                await HandleBattleEndForPlayer(firstPlayer, hasWinner).ConfigureAwait(false);
+                await HandleBattleEndForPlayer(firstPlayer, hasWinner).FastAwait();
             }
             if (secondUnit is Player secondPlayer)
             {
-                await HandleBattleEndForPlayer(secondPlayer, hasWinner).ConfigureAwait(false);
+                await HandleBattleEndForPlayer(secondPlayer, hasWinner).FastAwait();
             }
             GlobalManagers.battleManager?.UnregisterBattle(this);
         }
@@ -177,7 +175,7 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles
                 ? (player.unitStats.currentHP > enemy.unitStats.currentHP ? BattleResult.Win : BattleResult.Lose)
                 : BattleResult.Draw;
 
-            await HandleBattleEndForPlayer(player, battleResult).ConfigureAwait(false);
+            await HandleBattleEndForPlayer(player, battleResult).FastAwait();
         }
 
         // Вызывается при ошибке (либо читом)
@@ -188,7 +186,7 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles
 
             if (!player.session.IsTasksCancelled())
             {
-                await HandleBattleEndForPlayer(player, battleResult).ConfigureAwait(false);
+                await HandleBattleEndForPlayer(player, battleResult).FastAwait();
             }
 
             var enemy = GetEnemy(player);
@@ -198,7 +196,7 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles
                 {
                     if (battleResult == BattleResult.Win) battleResult = BattleResult.Lose;
                     else if (battleResult == BattleResult.Lose) battleResult = BattleResult.Win;
-                    await HandleBattleEndForPlayer(anotherPlayer, battleResult).ConfigureAwait(false);
+                    await HandleBattleEndForPlayer(anotherPlayer, battleResult).FastAwait();
                 }                
             }
         }
@@ -208,7 +206,7 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles
             player.OnBattleEnd(this, battleResult);
             if (_onBattleEndFunc != null)
             {
-                await _onBattleEndFunc(player, battleResult).ConfigureAwait(false);
+                await _onBattleEndFunc(player, battleResult).FastAwait();
             }
 
             bool hasContinueButton = _onContinueButtonFunc != null;
@@ -223,7 +221,7 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles
                 onContinueButtonFunc = _onContinueButtonFunc,
                 isReturnToTownAvailable = isReturnToTownAvailable
             };
-            await new BattleResultDialog(player.session, data).Start().ConfigureAwait(false);
+            await new BattleResultDialog(player.session, data).Start().FastAwait();
         }
 
 

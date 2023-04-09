@@ -24,27 +24,23 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Quests.MainQuest
             RegisterButton(Emojis.FlagBritain + "English", () => OnSelectEnglish());
             RegisterButton(Emojis.FlagRussia + "Русский", () => OnSelectRussian());
 
-            await SendDialogMessage(text, GetMultilineKeyboard())
-                .ConfigureAwait(false);
+            await SendDialogMessage(text, GetMultilineKeyboard()).FastAwait();
         }
 
         private async Task OnSelectRussian()
         {
-            await SetupLanguage(LanguageCode.RU)
-                .ConfigureAwait(false);
+            await SetupLanguage(LanguageCode.RU).FastAwait();
         }
 
         private async Task OnSelectEnglish()
         {
-            await SetupLanguage(LanguageCode.EN)
-                .ConfigureAwait(false);
+            await SetupLanguage(LanguageCode.EN).FastAwait();
         }
 
         private async Task SetupLanguage(LanguageCode language)
         {
             session.SetupLanguage(language);
-            await QuestManager.TryInvokeTrigger(session, TriggerType.InvokeFromCode)
-                .ConfigureAwait(false);
+            await QuestManager.TryInvokeTrigger(session, TriggerType.InvokeFromCode).FastAwait();
         }
     }
 }

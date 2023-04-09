@@ -45,10 +45,10 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
             var priceView = ResourceType.Diamond.GetEmoji().ToString() + diamondsForBoost;
             var buttonText = Localization.Get(session, "menu_item_boost_button", priceView);
             RegisterButton(buttonText, () => TryBoostCraftForDiamonds());
-            RegisterBackButton(() => new BuildingInfoDialog(session, _building).Start());
+            RegisterBackButton(() => new BuildingsDialog(session).StartWithShowBuilding(_building));
+            RegisterTownButton(isDoubleBack: true);
 
-            await SendDialogMessage(sb, GetMultilineKeyboard())
-                .ConfigureAwait(false);
+            await SendDialogMessage(sb, GetMultilineKeyboardWithDoubleBack()).FastAwait();
         }
 
         public async Task TryBoostCraftForDiamonds()
@@ -59,8 +59,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
                 ClearButtons();
                 RegisterButton(Localization.Get(session, "menu_item_continue_button"),
                     () => new CraftCanCollectItemDialog(session, _building).Start());
-                await SendDialogMessage(message, GetOneLineKeyboard())
-                    .ConfigureAwait(false);
+                await SendDialogMessage(message, GetOneLineKeyboard()).FastAwait();
                 return;
             }
 
@@ -84,8 +83,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
                 RegisterButton(Localization.Get(session, "menu_item_continue_button"),
                     () => new CraftCanCollectItemDialog(session, _building).TryToGetItem());
 
-                await SendDialogMessage(sb, GetOneLineKeyboard())
-                    .ConfigureAwait(false);
+                await SendDialogMessage(sb, GetOneLineKeyboard()).FastAwait();
                 return;
             }
 
@@ -95,8 +93,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
                 () => new ShopDialog(session).Start());
             RegisterBackButton(() => new CraftInProgressDialog(session, _building).Start());
 
-            await SendDialogMessage(text, GetMultilineKeyboard())
-                .ConfigureAwait(false);
+            await SendDialogMessage(text, GetMultilineKeyboard()).FastAwait();
         }
 
         public int GetBoostPriceInDiamonds()

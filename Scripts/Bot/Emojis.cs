@@ -54,8 +54,10 @@
         public static readonly Emoji ButtonNameChange = new Emoji("\ud83c\udff7");
         public static readonly Emoji ButtonInventory = new Emoji("\ud83c\udf92");
         public static readonly Emoji ButtonBattle = new Emoji("\u2694\ufe0f");
-        public static readonly Emoji ButtonArena = new Emoji("\ud83c\udfdf");
         public static readonly Emoji ButtonStoryMode = new Emoji("\ud83d\udea9");
+        public static readonly Emoji ButtonArena = new Emoji("\ud83c\udfdf");
+        public static readonly Emoji ButtonCrossRoads = new Emoji("\ud83e\udea8");
+
 
         // --- Stats
         public static readonly Emoji StatHealth = new Emoji("\u2764\ufe0f");

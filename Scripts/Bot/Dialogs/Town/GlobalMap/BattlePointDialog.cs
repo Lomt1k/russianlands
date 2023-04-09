@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Resources;
@@ -13,7 +12,7 @@ using TextGameRPG.Scripts.Bot.Sessions;
 
 namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
 {
-    public class MobBattlePointData
+    public class BattlePointData
     {
         public Mob mob;
         public int foodPrice;
@@ -24,19 +23,18 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
         public Func<Player, BattleResult, bool>? isAvailableReturnToTownFunc;
     }
 
-    public class MobBattlePointDialog : DialogBase
+    public class BattlePointDialog : DialogBase
     {
-        private MobBattlePointData _data;
+        private BattlePointData _data;
 
-        public MobBattlePointDialog(GameSession session, MobBattlePointData data) : base(session)
+        public BattlePointDialog(GameSession session, BattlePointData data) : base(session)
         {
             _data = data;
         }
 
         public override async Task Start()
         {
-            var sb = new StringBuilder();
-            sb.Append(Emojis.ButtonBattle + _data.mob.GetFullUnitInfoView(session));
+            var text = Emojis.ButtonBattle + _data.mob.GetFullUnitInfoView(session);
 
             ClearButtons();
             var priceView = _data.foodPrice > 0 ? ResourceType.Food.GetEmoji() + _data.foodPrice.View() : string.Empty;
@@ -47,14 +45,12 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
                 RegisterBackButton(_data.onBackButtonFunc);
             }
 
-            await SendDialogMessage(sb, GetMultilineKeyboard())
-                .ConfigureAwait(false);
+            await SendDialogMessage(text, GetMultilineKeyboard()).FastAwait();
         }
 
         public async Task SilentStart()
         {
-            await TryStartBattle()
-                .ConfigureAwait(false);
+            await TryStartBattle().FastAwait();
         }
 
         private async Task TryStartBattle()
@@ -64,9 +60,9 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
             if (!successsPurchase)
             {
                 var buyResourcesDialog = new BuyResourcesForDiamondsDialog(session, ResourceType.Food, _data.foodPrice,
-                onSuccess: async () => await new MobBattlePointDialog(session, _data).SilentStart(),
-                onCancel: async () => await new MobBattlePointDialog(session, _data).Start());
-                await buyResourcesDialog.Start();
+                onSuccess: async () => await new BattlePointDialog(session, _data).SilentStart(),
+                onCancel: async () => await new BattlePointDialog(session, _data).Start());
+                await buyResourcesDialog.Start().FastAwait();
                 return;
             }
 

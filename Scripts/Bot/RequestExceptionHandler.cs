@@ -16,13 +16,13 @@ namespace TextGameRPG.Scripts.Bot
             switch (hanldingEx)
             {
                 case HttpRequestException httpEx:
-                    await HandleHttpException(id, httpEx).ConfigureAwait(false);
+                    await HandleHttpException(id, httpEx).FastAwait();
                     return;
                 case ApiRequestException apiEx:
-                    await HandleApiException(id, apiEx).ConfigureAwait(false);
+                    await HandleApiException(id, apiEx).FastAwait();
                     return;
                 default:
-                    await HandleUnknownException(id, hanldingEx).ConfigureAwait(false);
+                    await HandleUnknownException(id, hanldingEx).FastAwait();
                     return;
             }
         }
@@ -33,21 +33,21 @@ namespace TextGameRPG.Scripts.Bot
 
             TelegramBot.instance.Reconnect();
             var sessionManager = TelegramBot.instance.sessionManager;
-            await sessionManager.CloseSession(id, onError: true).ConfigureAwait(false);
+            await sessionManager.CloseSession(id, onError: true).FastAwait();
         }
 
         private async Task HandleApiException(ChatId id, ApiRequestException ex)
         {
             Program.logger.Error($"ApiRequestException: {ex.Message}");
             var sessionManager = TelegramBot.instance.sessionManager;
-            await sessionManager.CloseSession(id, onError: true).ConfigureAwait(false);
+            await sessionManager.CloseSession(id, onError: true).FastAwait();
         }
 
         private async Task HandleUnknownException(ChatId id, System.Exception ex)
         {
             Program.logger.Error("Unkwown Exception: " + ex);
             var sessionManager = TelegramBot.instance.sessionManager;
-            await sessionManager.CloseSession(id, onError: true).ConfigureAwait(false);
+            await sessionManager.CloseSession(id, onError: true).FastAwait();
         }
 
     }

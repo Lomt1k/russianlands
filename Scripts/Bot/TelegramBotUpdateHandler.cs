@@ -77,14 +77,12 @@ namespace TextGameRPG.Scripts.Bot
 
         private async void SendServerIsBusyMessage(ChatId id)
         {
-            await _messageSender.SendTextDialog(id, serverIsBusyText, serverIsBusyKeyboard, silent: true)
-                .ConfigureAwait(false);
+            await _messageSender.SendTextDialog(id, serverIsBusyText, serverIsBusyKeyboard, silent: true).FastAwait();
         }
 
         private async void SendAccountIsBusyMessage(ChatId id)
         {
-            await _messageSender.SendTextDialog(id, accountIsBusyText, serverIsBusyKeyboard, silent: true)
-                .ConfigureAwait(false);
+            await _messageSender.SendTextDialog(id, accountIsBusyText, serverIsBusyKeyboard, silent: true).FastAwait();
         }
 
         public Task HandlePollingErrorAsync(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)

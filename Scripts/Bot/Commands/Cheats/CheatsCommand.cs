@@ -13,13 +13,11 @@ namespace TextGameRPG.Scripts.Bot.Commands.Cheats
         {
             if (GlobalManagers.battleManager?.GetCurrentBattle(session.player) != null)
             {
-                await new BattleCheatsDialog(session).Start()
-                    .ConfigureAwait(false);
+                await new BattleCheatsDialog(session).Start().FastAwait();
             }
             else
             {
-                await new CheatsDialog(session).Start()
-                    .ConfigureAwait(false);
+                await new CheatsDialog(session).Start().FastAwait();
             }
         }
     }

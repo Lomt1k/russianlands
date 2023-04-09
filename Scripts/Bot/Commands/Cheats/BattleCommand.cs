@@ -27,7 +27,7 @@ namespace TextGameRPG.Scripts.Bot.Commands.Cheats
                 { "Dummy", () => StartBattleWithDummy(session.player) },
                 { "Shadow Copy", () => StartBattleWithShadowCopy(session.player) },
             })
-            .Start().ConfigureAwait(false);
+            .Start().FastAwait();
         }
 
         private Task StartBattleWithDummy(Player player)

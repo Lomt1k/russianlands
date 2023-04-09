@@ -58,7 +58,7 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
                 return true;
 
             var dataTable = TelegramBot.instance.dataBase[Table.ProfilesDynamic] as ProfilesDynamicDataTable;
-            var success = await dataTable.UpdateDataInDatabase(this).ConfigureAwait(false);
+            var success = await dataTable.UpdateDataInDatabase(this).FastAwait();
             return success;
         }
 

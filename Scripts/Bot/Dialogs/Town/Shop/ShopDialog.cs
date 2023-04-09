@@ -15,8 +15,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Shop
         {
             var text = Emojis.ButtonShop + Localization.Get(session, "menu_item_shop").Bold()
                 + "\n\nВ разработке...";
-            await SendDialogMessage(text, GetMultilineKeyboard())
-                .ConfigureAwait(false);
+            await SendDialogMessage(text, GetMultilineKeyboard()).FastAwait();
         }
     }
 }

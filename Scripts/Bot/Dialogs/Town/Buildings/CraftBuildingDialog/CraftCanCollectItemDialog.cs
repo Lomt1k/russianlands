@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
-using TextGameRPG.Scripts.Bot.Dialogs.Town.Character;
+using TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Inventory;
 using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Buildings;
 using TextGameRPG.Scripts.GameCore.Items;
@@ -40,10 +40,10 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
             ClearButtons();
             var getButton = Localization.Get(session, "menu_item_get_button") + itemType.GetEmoji();
             RegisterButton(getButton, () => TryToGetItem());
-            RegisterBackButton(() => new BuildingInfoDialog(session, _building).Start());
+            RegisterBackButton(() => new BuildingsDialog(session).StartWithShowBuilding(_building));
+            RegisterTownButton(isDoubleBack: true);
 
-            await SendDialogMessage(sb, GetMultilineKeyboard())
-                .ConfigureAwait(false);
+            await SendDialogMessage(sb, GetMultilineKeyboardWithDoubleBack()).FastAwait();
         }
 
         public async Task TryToGetItem()
@@ -59,8 +59,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
                     () => new InventoryDialog(session).Start());
                 RegisterBackButton(() => Start());
 
-                await SendDialogMessage(text, GetMultilineKeyboard())
-                    .ConfigureAwait(false);
+                await SendDialogMessage(text, GetMultilineKeyboard()).FastAwait();
                 return;
             }
 
@@ -73,11 +72,9 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
             sb.Append(Localization.Get(session, "dialog_inventory_item_added_state"));
 
             ClearButtons();
-            RegisterButton(Localization.Get(session, "menu_item_continue_button"),
-                () => new BuildingInfoDialog(session, _building).Start());
+            RegisterButton(Localization.Get(session, "menu_item_continue_button"), () => new BuildingsDialog(session).StartWithShowBuilding(_building));
 
-            await SendDialogMessage(sb, GetOneLineKeyboard())
-                .ConfigureAwait(false);
+            await SendDialogMessage(sb, GetOneLineKeyboard()).FastAwait();
         }
 
     }

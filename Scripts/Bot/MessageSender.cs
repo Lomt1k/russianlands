@@ -26,11 +26,11 @@ namespace TextGameRPG.Scripts.Bot
             try
             {
                 return await _botClient.SendTextMessageAsync(id, text, ParseMode.Html, replyMarkup: inlineKeyboard,
-                    disableNotification: silent, disableWebPagePreview: disableWebPagePreview).ConfigureAwait(false);
+                    disableNotification: silent, disableWebPagePreview: disableWebPagePreview).FastAwait();
             }
             catch (RequestException ex)
             {
-                await _requestExceptionHandler.HandleException(id, ex).ConfigureAwait(false);
+                await _requestExceptionHandler.HandleException(id, ex).FastAwait();
                 return null;
             }
         }
@@ -41,11 +41,11 @@ namespace TextGameRPG.Scripts.Bot
             try
             {
                 return await _botClient.EditMessageTextAsync(id, messageId, text, ParseMode.Html, replyMarkup: inlineKeyboard,
-                    disableWebPagePreview: disableWebPagePreview).ConfigureAwait(false);
+                    disableWebPagePreview: disableWebPagePreview).FastAwait();
             }
             catch (RequestException ex)
             {
-                await _requestExceptionHandler.HandleException(id, ex).ConfigureAwait(false);
+                await _requestExceptionHandler.HandleException(id, ex).FastAwait();
                 return null;
             }
         }
@@ -54,11 +54,11 @@ namespace TextGameRPG.Scripts.Bot
         {
             try
             {
-                await _botClient.DeleteMessageAsync(id, messageId).ConfigureAwait(false);
+                await _botClient.DeleteMessageAsync(id, messageId).FastAwait();
             }
             catch (RequestException ex)
             {
-                await _requestExceptionHandler.HandleException(id, ex).ConfigureAwait(false);
+                await _requestExceptionHandler.HandleException(id, ex).FastAwait();
             }
         }
 
@@ -66,11 +66,11 @@ namespace TextGameRPG.Scripts.Bot
         {
             try
             {
-                return await _botClient.EditMessageReplyMarkupAsync(id, messageId, inlineKeyboard).ConfigureAwait(false);
+                return await _botClient.EditMessageReplyMarkupAsync(id, messageId, inlineKeyboard).FastAwait();
             }
             catch (RequestException ex)
             {
-                await _requestExceptionHandler.HandleException(id, ex).ConfigureAwait(false);
+                await _requestExceptionHandler.HandleException(id, ex).FastAwait();
                 return null;
             }
         }
@@ -86,11 +86,11 @@ namespace TextGameRPG.Scripts.Bot
             try
             {
                 return await _botClient.SendTextMessageAsync(id, text, ParseMode.Html, replyMarkup: replyKeyboard,
-                disableNotification: silent, disableWebPagePreview: disableWebPagePreview).ConfigureAwait(false);
+                disableNotification: silent, disableWebPagePreview: disableWebPagePreview).FastAwait();
             }
             catch (RequestException ex)
             {
-                await _requestExceptionHandler.HandleException(id, ex).ConfigureAwait(false);
+                await _requestExceptionHandler.HandleException(id, ex).FastAwait();
                 return null;
             }
         }
@@ -99,11 +99,11 @@ namespace TextGameRPG.Scripts.Bot
         {
             try
             {
-                await _botClient.AnswerCallbackQueryAsync(queryId, text).ConfigureAwait(false);
+                await _botClient.AnswerCallbackQueryAsync(queryId, text).FastAwait();
             }
             catch (RequestException ex)
             {
-                await _requestExceptionHandler.HandleException(id, ex).ConfigureAwait(false);
+                await _requestExceptionHandler.HandleException(id, ex).FastAwait();
             }
         }
 
@@ -112,11 +112,11 @@ namespace TextGameRPG.Scripts.Bot
             try
             {
                 return await _botClient.SendTextMessageAsync(id, Emojis.ElementWarning + "<b>Program Error</b>\n\n" + text, ParseMode.Html)
-                    .ConfigureAwait(false);
+                    .FastAwait();
             }
             catch (RequestException ex)
             {
-                await _requestExceptionHandler.HandleException(id, ex).ConfigureAwait(false);
+                await _requestExceptionHandler.HandleException(id, ex).FastAwait();
                 return null;
             }
         }
@@ -125,11 +125,11 @@ namespace TextGameRPG.Scripts.Bot
         {
             try
             {
-                return await _botClient.SendStickerAsync(id, stickerFileId).ConfigureAwait(false);
+                return await _botClient.SendStickerAsync(id, stickerFileId).FastAwait();
             }
             catch (RequestException ex)
             {
-                await _requestExceptionHandler.HandleException(id, ex).ConfigureAwait(false);
+                await _requestExceptionHandler.HandleException(id, ex).FastAwait();
                 return null;
             }
         }
@@ -138,11 +138,11 @@ namespace TextGameRPG.Scripts.Bot
         {
             try
             {
-                return await _botClient.SendDocumentAsync(id, document, caption, parseMode: ParseMode.Html).ConfigureAwait(false);
+                return await _botClient.SendDocumentAsync(id, document, caption, parseMode: ParseMode.Html).FastAwait();
             }
             catch (RequestException ex)
             {
-                await _requestExceptionHandler.HandleException(id, ex).ConfigureAwait(false);
+                await _requestExceptionHandler.HandleException(id, ex).FastAwait();
                 return null;
             }
         }
@@ -151,7 +151,7 @@ namespace TextGameRPG.Scripts.Bot
         {
             try
             {
-                return await _botClient.GetFileAsync(fileId).ConfigureAwait(false);
+                return await _botClient.GetFileAsync(fileId).FastAwait();
             }
             catch (RequestException ex)
             {
@@ -164,7 +164,7 @@ namespace TextGameRPG.Scripts.Bot
         {
             try
             {
-                await _botClient.DownloadFileAsync(filePath, destination).ConfigureAwait(false);
+                await _botClient.DownloadFileAsync(filePath, destination).FastAwait();
             }
             catch (RequestException ex)
             {

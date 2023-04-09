@@ -5,21 +5,23 @@ using Telegram.Bot.Types.ReplyMarkups;
 using TextGameRPG.Scripts.GameCore.Inventory;
 using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.GameCore.Localizations;
+using TextGameRPG.Scripts.GameCore.Quests.QuestStages;
 
-namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
+namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Inventory
 {
     public struct CompareData
     {
         public InventoryItem comparedItem;
         public ItemType categoryOnStartCompare;
         public int currentPageOnStartCompare;
+        public int pagesCountOnStartCompare;
     }
 
-    public class InventoryInspectorDialogPanel : DialogPanelBase
+    public partial class InventoryInspectorDialogPanel : DialogPanelBase
     {
         private const int browsedItemsOnPage = 8;
 
-        public CompareData? compareData;
+        public CompareData? _compareData;
 
         private PlayerInventory _inventory;
         private ItemType _browsedCategory;
@@ -27,7 +29,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
         private int _currentPage;
         private int _pagesCount;
 
-        public InventoryInspectorDialogPanel(DialogBase _dialog, byte _panelId) : base(_dialog, _panelId)
+        public InventoryInspectorDialogPanel(DialogWithPanel _dialog) : base(_dialog)
         {
             _inventory = session.player.inventory;
         }
@@ -65,26 +67,50 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
             return sb.ToString();
         }
 
-        public override async Task SendAsync()
+        public override async Task Start()
         {
-            await ShowMainInfo()
-                .ConfigureAwait(false);
+            await ShowCategories().FastAwait();
         }
 
-        public async Task ShowMainInfo()
+        private async Task ShowCategories()
         {
-            await RemoveKeyboardFromLastMessage()
-                .ConfigureAwait(false);
+            var tooltip = session.tooltipController.TryGetTooltip(this);
+
+            ClearButtons();
+            RegisterCategoryButton(ItemType.Sword, tooltip, 0);
+            RegisterCategoryButton(ItemType.Bow, tooltip, 1);
+            RegisterCategoryButton(ItemType.Stick, tooltip, 2);
+            RegisterCategoryButton(ItemType.Helmet, tooltip, 3);
+            RegisterCategoryButton(ItemType.Armor, tooltip, 4);
+            RegisterCategoryButton(ItemType.Boots, tooltip, 5);
+            RegisterCategoryButton(ItemType.Shield, tooltip, 6);
+            RegisterCategoryButton(ItemType.Ring, tooltip, 7);
+            RegisterCategoryButton(ItemType.Amulet, tooltip, 8);
+            RegisterCategoryButton(ItemType.Scroll, tooltip, 9);
 
             RegisterButton(Emojis.ItemEquipped + Localization.Get(session, "menu_item_equipped"),
-                () => ((InventoryDialog)dialog).ShowCategory(ItemType.Equipped));
+                () => ShowCategory(ItemType.Equipped));
 
             var sb = new StringBuilder();
             sb.Append(BuildMainItemsInfo());
+            var dialogHasTooltip = TryAppendTooltip(sb, tooltip);
 
-            TryAppendTooltip(sb);
-            await SendPanelMessage(sb, GetMultilineKeyboard(), asNewMessage: true)
-                .ConfigureAwait(false);
+            await SendPanelMessage(sb, GetKeyboardWithFixedRowSize(3)).FastAwait();
+        }
+
+        private void RegisterCategoryButton(ItemType itemType, Tooltip? tooltip, int buttonId)
+        {
+            var inventory = session.player.inventory;
+            var hasTooltip = tooltip != null;
+            var isTooltipButton = hasTooltip && tooltip.buttonId == buttonId;
+
+            var prefix = isTooltipButton ? string.Empty : itemType.GetEmoji().ToString() + ' ';
+            var postfix = !hasTooltip && inventory.HasNewInCategory(itemType)
+                ? Emojis.ElementWarningRed.ToString()
+                : string.Empty;
+
+            var text = prefix + itemType.GetCategoryLocalization(session) + postfix;
+            RegisterButton(text, () => ShowCategory(itemType));
         }
 
         public async Task ShowCategory(ItemType category, int itemsPage = 0)
@@ -92,8 +118,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
             _browsedCategory = category;
             RefreshBrowsedItems();
             _currentPage = itemsPage < _pagesCount ? itemsPage : _pagesCount - 1;
-            await ShowItemsPage(asNewMessage: true)
-                .ConfigureAwait(false);
+            await ShowItemsPage().FastAwait();
         }
 
         private void RefreshBrowsedItems()
@@ -119,7 +144,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
                 : _browsedItems.Length / browsedItemsOnPage;
         }
 
-        private async Task ShowItemsPage(bool asNewMessage)
+        private async Task ShowItemsPage()
         {
             ClearButtons();
             var categoryLocalization = GetCategoryLocalization(_browsedCategory) + ": ";
@@ -145,18 +170,31 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
                 }
             }
 
+            RegisterBackButton(() => ShowCategories());
             if (_pagesCount > 1)
             {
                 text.AppendLine(Localization.Get(session, "dialog_inventory_current_page", _currentPage + 1, _pagesCount));
                 if (_currentPage > 0)
+                {
                     RegisterButton("<<", () => OnClickPreviousPage());
+                }
+                else
+                {
+                    RegisterButton(".", null);
+                }
+
                 if (_currentPage < _pagesCount - 1)
+                {
                     RegisterButton(">>", () => OnClickNextPage());
+                }
+                else
+                {
+                    RegisterButton(".", null);
+                }                    
             }
 
             TryAppendTooltip(text);
-            await SendPanelMessage(text, GetItemsPageKeyboard(), asNewMessage)
-                .ConfigureAwait(false);
+            await SendPanelMessage(text, GetItemsPageKeyboard()).FastAwait();
         }
 
         private string GetCategoryLocalization(ItemType category)
@@ -177,28 +215,38 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
 
         private async Task OnItemClick(InventoryItem item)
         {
-            if (compareData != null)
+            _browsedItem = item;
+            MarkItemAsViewed(item);
+
+            if (_compareData != null)
             {
-                await new InventoryItemComparisonDialog(session, item, compareData.Value).Start()
-                    .ConfigureAwait(false);
+                await ShowItemInspectorWithComparison().FastAwait();
                 return;
             }
-            await new InventoryItemDialog(session, item, _browsedCategory, _currentPage).Start()
-                .ConfigureAwait(false);
+
+            
+            await ShowItemInspector().FastAwait();
+        }
+
+        private void MarkItemAsViewed(InventoryItem item)
+        {
+            if (item.state == ItemState.IsNewAndNotEquipped)
+            {
+                item.state = ItemState.IsNotEquipped;
+                session.player.inventory.UpdateHasNewItemsState();
+            }
         }
 
         private async Task OnClickPreviousPage()
         {
             _currentPage--;
-            await ShowItemsPage(asNewMessage: false)
-                .ConfigureAwait(false);
+            await ShowItemsPage().FastAwait();
         }
 
         private async Task OnClickNextPage()
         {
             _currentPage++;
-            await ShowItemsPage(asNewMessage: false)
-                .ConfigureAwait(false);
+            await ShowItemsPage().FastAwait();
         }
 
         private InlineKeyboardMarkup GetItemsPageKeyboard()
@@ -206,11 +254,10 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
             if (_pagesCount < 2)
                 return GetMultilineKeyboard();
 
-            int lastRowButtons = _currentPage == _pagesCount - 1 || _currentPage == 0 ? 1 : 2;
-            var parameters = new int[buttonsCount - lastRowButtons + 1];
+            var parameters = new int[buttonsCount - 2];
             for (int i = 0; i < parameters.Length; i++)
             {
-                parameters[i] = i < parameters.Length - 1 ? 1 : lastRowButtons;
+                parameters[i] = i < parameters.Length - 1 ? 1 : 3;
             }
             return GetKeyboardWithRowSizes(parameters);
         }

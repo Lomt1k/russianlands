@@ -16,26 +16,22 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
         public override async Task Start()
         {
             var header = "Battle Cheats".Bold();
-            await SendDialogMessage(header, GetKeyboardWithRowSizes(3))
-                .ConfigureAwait(false);
+            await SendDialogMessage(header, GetKeyboardWithRowSizes(3)).FastAwait();
         }
 
         public async Task BattleWinCommand()
         {
-            await CommandHandler.HandleCommand(session, "/win")
-                .ConfigureAwait(false);
+            await CommandHandler.HandleCommand(session, "/win").FastAwait();
         }
 
         public async Task BattleLoseCommand()
         {
-            await CommandHandler.HandleCommand(session, "/lose")
-                .ConfigureAwait(false);
+            await CommandHandler.HandleCommand(session, "/lose").FastAwait();
         }
 
         public async Task BattleDrawCommand()
         {
-            await CommandHandler.HandleCommand(session, "/draw")
-                .ConfigureAwait(false);
+            await CommandHandler.HandleCommand(session, "/draw").FastAwait();
         }
 
     }

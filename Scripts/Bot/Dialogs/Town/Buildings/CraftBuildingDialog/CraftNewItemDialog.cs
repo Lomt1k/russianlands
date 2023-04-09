@@ -37,23 +37,23 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
             {
                 RegisterButton(itemType.GetEmoji() + itemType.GetLocalization(session), () => StartSelectRarity(itemType));
             }
-            RegisterBackButton(() => new BuildingInfoDialog(session, _building).Start());
+            RegisterBackButton(() => new BuildingsDialog(session).StartWithShowBuilding(_building));
+            RegisterTownButton(isDoubleBack: true);
 
-            await SendDialogMessage(sb, GetSpecialKeyboard())
-                .ConfigureAwait(false);
+            await SendDialogMessage(sb, GetSpecialKeyboard()).FastAwait();
         }
 
         private ReplyKeyboardMarkup GetSpecialKeyboard()
         {
             return _building.craftCategories.Count switch
             {
-                1 => GetMultilineKeyboard(),
-                2 => GetKeyboardWithRowSizes(2, 1),
-                3 => GetKeyboardWithRowSizes(3, 1),
-                4 => GetKeyboardWithRowSizes(2, 2, 1),
-                5 => GetKeyboardWithRowSizes(3, 2, 1),
-                6 => GetKeyboardWithRowSizes(3, 3, 1),
-                _ => GetMultilineKeyboard()
+                1 => GetMultilineKeyboardWithDoubleBack(),
+                2 => GetKeyboardWithRowSizes(2, 2),
+                3 => GetKeyboardWithRowSizes(3, 2),
+                4 => GetKeyboardWithRowSizes(2, 2, 2),
+                5 => GetKeyboardWithRowSizes(3, 2, 2),
+                6 => GetKeyboardWithRowSizes(3, 3, 2),
+                _ => GetMultilineKeyboardWithDoubleBack()
             };
         }
 
@@ -70,8 +70,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
             RegisterRarityButton(itemType, Rarity.Legendary);
             RegisterBackButton(() => Start());
 
-            await SendDialogMessage(sb, GetKeyboardWithRowSizes(3, 1))
-                .ConfigureAwait(false);
+            await SendDialogMessage(sb, GetKeyboardWithRowSizes(3, 1)).FastAwait();
         }
 
         private void RegisterRarityButton(ItemType itemType, Rarity rarity)
@@ -112,8 +111,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
                 () => StartCraftItem(itemType, rarity));
             RegisterBackButton(() => StartSelectRarity(itemType));
 
-            await SendDialogMessage(sb, GetMultilineKeyboard())
-                .ConfigureAwait(false);
+            await SendDialogMessage(sb, GetMultilineKeyboard()).FastAwait();
         }
 
         private async Task StartCraftItem(ItemType itemType, Rarity rarity)
@@ -124,8 +122,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
             if (successfullPurchase)
             {
                 _building.StartCraft(buildingsData, itemType, rarity);
-                await new CraftInProgressDialog(session, _building).Start()
-                    .ConfigureAwait(false);
+                await new CraftInProgressDialog(session, _building).Start().FastAwait();
                 return;
             }
 
@@ -142,16 +139,14 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
                 ClearButtons();
                 RegisterBackButton(() => ShowCraftPrice(itemType, rarity));
 
-                await SendDialogMessage(sb, GetOneLineKeyboard())
-                    .ConfigureAwait(false);
+                await SendDialogMessage(sb, GetOneLineKeyboard()).FastAwait();
                 return;
             }
 
             var buyResourcesDialog = new BuyResourcesForDiamondsDialog(session, notEnoughResources,
-                onSuccess: async () => await new CraftNewItemDialog(session, _building).StartCraftItem(itemType, rarity).ConfigureAwait(false),
-                onCancel: async () => await new CraftNewItemDialog(session, _building).ShowCraftPrice(itemType, rarity).ConfigureAwait(false));
-            await buyResourcesDialog.Start()
-                .ConfigureAwait(false);
+                onSuccess: async () => await new CraftNewItemDialog(session, _building).StartCraftItem(itemType, rarity).FastAwait(),
+                onCancel: async () => await new CraftNewItemDialog(session, _building).ShowCraftPrice(itemType, rarity).FastAwait());
+            await buyResourcesDialog.Start().FastAwait();
         }
 
     }

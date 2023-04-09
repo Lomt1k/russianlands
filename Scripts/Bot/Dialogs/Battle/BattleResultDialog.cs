@@ -30,8 +30,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
                 sb.AppendLine(Localization.Get(session, "battle_result_header_rewards"));
                 foreach (var reward in _data.rewards)
                 {
-                    var addedReward = await reward.AddReward(session)
-                        .ConfigureAwait(false);
+                    var addedReward = await reward.AddReward(session).FastAwait();
                     if (!string.IsNullOrEmpty(addedReward))
                     {
                         sb.AppendLine(addedReward);
@@ -51,14 +50,12 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
                 RegisterButton(returnToTownText, ReturnToTown);
             }
 
-            await SendDialogMessage(sb, GetMultilineKeyboard())
-                .ConfigureAwait(false);
+            await SendDialogMessage(sb, GetMultilineKeyboard()).FastAwait();
         }
 
         private async Task ReturnToTown()
         {
-            await new TownDialog(session, TownEntryReason.FromQuestAction).Start()
-                .ConfigureAwait(false);
+            await new TownDialog(session, TownEntryReason.FromQuestAction).Start().FastAwait();
         }
     }
 }

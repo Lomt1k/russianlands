@@ -15,8 +15,7 @@ namespace TextGameRPG.Scripts.Bot.Commands.Cheats
         {
             if (args.Length < 1)
             {
-                await SendManualMessage(session)
-                    .ConfigureAwait(false);
+                await SendManualMessage(session).FastAwait();
                 return;
             }
 
@@ -29,14 +28,13 @@ namespace TextGameRPG.Scripts.Bot.Commands.Cheats
             }
             catch (Exception ex)
             {
-                await messageSender.SendTextMessage(session.chatId, $"Incorrect item ID\n\n{ex.Message}");
+                await messageSender.SendTextMessage(session.chatId, $"Incorrect item ID\n\n{ex.Message}").FastAwait();
                 return;
             }
 
             session.player.inventory.ForceAddItem(item);
             string message = $"{item.GetView(session)}\n\n{Localization.Get(session, "dialog_inventory_item_added_state")}";
-            await messageSender.SendTextMessage(session.chatId, message)
-                .ConfigureAwait(false);
+            await messageSender.SendTextMessage(session.chatId, message).FastAwait();
         }
 
         public async Task SendManualMessage(GameSession session)
@@ -47,8 +45,7 @@ namespace TextGameRPG.Scripts.Bot.Commands.Cheats
             sb.AppendLine($"/additem [itemId]");
             sb.AppendLine($"/additem [itemCode]");
 
-            await messageSender.SendTextMessage(session.chatId, sb.ToString())
-                    .ConfigureAwait(false);
+            await messageSender.SendTextMessage(session.chatId, sb.ToString()).FastAwait();
         }
 
     }

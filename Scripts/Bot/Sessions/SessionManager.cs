@@ -69,7 +69,7 @@ namespace TextGameRPG.Scripts.Bot.Sessions
 
         private async Task PeriodicSaveProfilesAsync()
         {
-            await Task.Delay(periodicSaveDatabaseInMs).ConfigureAwait(false);
+            await Task.Delay(periodicSaveDatabaseInMs).FastAwait();
             while (!_allSessionsTasksCTS.IsCancellationRequested)
             {
                 Program.logger.Info("Saving changes in database for active users...");
@@ -77,7 +77,7 @@ namespace TextGameRPG.Scripts.Bot.Sessions
                 {
                     await session.SaveProfileIfNeed();
                 }
-                await Task.Delay(periodicSaveDatabaseInMs).ConfigureAwait(false);
+                await Task.Delay(periodicSaveDatabaseInMs).FastAwait();
             }
         }
 
@@ -96,10 +96,10 @@ namespace TextGameRPG.Scripts.Bot.Sessions
                 }
                 foreach (var chatId in sessionsToClose)
                 {
-                    await CloseSession(chatId).ConfigureAwait(false);
+                    await CloseSession(chatId).FastAwait();
                 }
 
-                await Task.Delay(10_000).ConfigureAwait(false);
+                await Task.Delay(10_000).FastAwait();
             }
         }
 
@@ -115,7 +115,7 @@ namespace TextGameRPG.Scripts.Bot.Sessions
             if (_sessions.TryGetValue(chatId, out var session))
             {
                 _sessions.Remove(chatId);
-                await session.OnCloseSession(onError).ConfigureAwait(false);                
+                await session.OnCloseSession(onError).FastAwait();                
             }
         }
 
@@ -126,7 +126,7 @@ namespace TextGameRPG.Scripts.Bot.Sessions
 
             foreach (var chatId in _sessions.Keys)
             {
-                await CloseSession(chatId).ConfigureAwait(false);
+                await CloseSession(chatId).FastAwait();
             }
             Program.logger.Info($"All sessions closed. Profiles data saved.");
         }

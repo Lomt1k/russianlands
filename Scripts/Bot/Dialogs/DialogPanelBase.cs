@@ -17,10 +17,9 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
     {
         protected static SessionManager sessionManager => TelegramBot.instance.sessionManager;
         protected static MessageSender messageSender => TelegramBot.instance.messageSender;
-        public DialogBase dialog { get; }
+        public DialogWithPanel dialog { get; }
         public GameSession session { get; }
         public Tooltip? tooltip { get; private set; }
-        public byte panelId { get; }
 
         protected Message? lastMessage { get; set; } // необходимо присваивать, чтобы при выходе из диалога удалялся InlineKeyboard
 
@@ -31,11 +30,10 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
 
         protected int buttonsCount => _registeredButtons.Count;
 
-        public DialogPanelBase(DialogBase _dialog, byte _panelId)
+        public DialogPanelBase(DialogWithPanel _dialog)
         {
             dialog = _dialog;
             session = _dialog.session;
-            panelId = _panelId;
         }
 
         protected void RegisterBackButton(Func<Task> callback, Func<string?>? queryAnswer = null)
@@ -43,11 +41,20 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
             RegisterButton(Emojis.ElementBack + Localization.Get(session, "menu_item_back_button"), callback, queryAnswer);
         }
 
+        protected void RegisterBackButton(string text, Func<Task> callback)
+        {
+            RegisterButton(Emojis.ElementBack + text, callback);
+        }
+
+        protected void RegisterDoubleBackButton(string text, Func<Task> callback)
+        {
+            RegisterButton(Emojis.ElementBack + text, callback);
+        }
+
         protected void RegisterButton(string text, Func<Task>? callback, Func<string?>? queryAnswer = null)
         {
             var callbackData = new DialogPanelButtonCallbackData()
             {
-                panelId = panelId,
                 buttonId = _freeButtonId,
             };
             var callbackDataJson = JsonConvert.SerializeObject(callbackData);
@@ -81,6 +88,28 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
                 i++;
             }
             return new InlineKeyboardMarkup(linesArray);
+        }
+
+        protected InlineKeyboardMarkup GetMultilineKeyboardWithDoubleBack()
+        {
+            var buttons = _registeredButtons.Values.ToArray();
+            var rowsCount = buttons.Length - 1;
+            var rows = new List<List<InlineKeyboardButton>>(rowsCount);
+
+            var lastRow = new List<InlineKeyboardButton>
+            {
+                buttons[buttonsCount - 2],
+                buttons[buttonsCount - 1]
+            };
+
+            for (int i = 0; i < buttonsCount - 2; i++)
+            {
+                var row = new List<InlineKeyboardButton> { buttons[i] };
+                rows.Add(row);
+            }
+            rows.Add(lastRow);
+
+            return new InlineKeyboardMarkup(rows);
         }
 
         protected InlineKeyboardMarkup GetKeyboardWithRowSizes(params int[] args)
@@ -121,19 +150,18 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
             return new InlineKeyboardMarkup(rows);
         }
 
-        public abstract Task SendAsync();
+        public abstract Task Start();
 
         protected async Task<Message> SendPanelMessage(StringBuilder sb, InlineKeyboardMarkup? inlineMarkup, bool asNewMessage = false)
         {
-            return await SendPanelMessage(sb.ToString(), inlineMarkup, asNewMessage)
-                .ConfigureAwait(false);
+            return await SendPanelMessage(sb.ToString(), inlineMarkup, asNewMessage).FastAwait();
         }
 
         protected async Task<Message> SendPanelMessage(string text, InlineKeyboardMarkup? inlineMarkup, bool asNewMessage = false)
         {
             lastMessage = lastMessage == null || asNewMessage
-                ? await messageSender.SendTextMessage(session.chatId, text, inlineMarkup).ConfigureAwait(false)
-                : await messageSender.EditTextMessage(session.chatId, lastMessage.MessageId, text, inlineMarkup).ConfigureAwait(false);
+                ? await messageSender.SendTextMessage(session.chatId, text, inlineMarkup).FastAwait()
+                : await messageSender.EditTextMessage(session.chatId, lastMessage.MessageId, text, inlineMarkup).FastAwait();
 
             return lastMessage;
         }
@@ -148,8 +176,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
             ClearButtons();
             if (lastMessage?.ReplyMarkup != null)
             {
-                await messageSender.EditMessageKeyboard(session.chatId, lastMessage.MessageId, null)
-                    .ConfigureAwait(false);
+                await messageSender.EditMessageKeyboard(session.chatId, lastMessage.MessageId, null).FastAwait();
             }
         }
 
@@ -165,10 +192,9 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
 
             if (callback != null)
             {
-                await callback().ConfigureAwait(false);
+                await callback().FastAwait();
             }
-            await messageSender.AnswerQuery(session.chatId, queryId, query)
-                .ConfigureAwait(false);
+            await messageSender.AnswerQuery(session.chatId, queryId, query).FastAwait();
         }
 
         protected bool TryAppendTooltip(StringBuilder sb, Tooltip? _tooltip = null)
@@ -221,7 +247,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
                 {
                     if (oldSelectedAction != null)
                     {
-                        await oldSelectedAction().ConfigureAwait(false);
+                        await oldSelectedAction().FastAwait();
                     }
                     if (newStage > -1)
                     {
@@ -229,7 +255,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
                         if (focusedQuest != null)
                         {
                             var quest = GameCore.Quests.QuestsHolder.GetQuest(focusedQuest.Value);
-                            await quest.SetStage(session, newStage).ConfigureAwait(false);
+                            await quest.SetStage(session, newStage).FastAwait();
                         }
                     }
                 };
@@ -264,10 +290,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
             if (lastMessage == null)
                 return;
 
-            await messageSender.DeleteMessage(lastMessage.Chat.Id, lastMessage.MessageId)
-                .ConfigureAwait(false);
-            lastMessage = await messageSender.SendTextMessage(session.chatId, lastMessage.Text, lastMessage.ReplyMarkup)
-                .ConfigureAwait(false);
+            await messageSender.DeleteMessage(lastMessage.Chat.Id, lastMessage.MessageId).FastAwait();
+            lastMessage = await messageSender.SendTextMessage(session.chatId, lastMessage.Text, lastMessage.ReplyMarkup).FastAwait();
         }
 
     }

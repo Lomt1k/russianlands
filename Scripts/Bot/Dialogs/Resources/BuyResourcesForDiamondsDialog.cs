@@ -48,8 +48,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Resources
             RegisterButton(ResourceType.Diamond.GetEmoji() + _priceInDiamonds.ToString(), () => TryPurchase());
             RegisterBackButton(_onCancel);
 
-            await SendDialogMessage(sb, GetMultilineKeyboard())
-                .ConfigureAwait(false);
+            await SendDialogMessage(sb, GetMultilineKeyboard()).FastAwait();
         }
 
         private async Task TryPurchase()
@@ -68,8 +67,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Resources
                     sb.AppendLine(resource.Key.GetLocalizedView(session, resource.Value));
                 }
 
-                await messageSender.SendTextMessage(session.chatId, sb.ToString()).ConfigureAwait(false);
-                await _onSuccess().ConfigureAwait(false);
+                await messageSender.SendTextMessage(session.chatId, sb.ToString()).FastAwait();
+                await _onSuccess().FastAwait();
                 return;
             }
 
@@ -79,8 +78,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Resources
                 () => new ShopDialog(session).Start());
             RegisterBackButton(_onCancel);
 
-            await SendDialogMessage(text, GetMultilineKeyboard())
-                .ConfigureAwait(false);
+            await SendDialogMessage(text, GetMultilineKeyboard()).FastAwait();
         }
 
     }
