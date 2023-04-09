@@ -29,7 +29,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
             var playerBuildings = session.player.buildings.GetAllBuildings();
             foreach (var building in playerBuildings)
             {
-                var updates = building.GetUpdates(session, session.profile.buildingsData, onlyImportant: true);
+                var isOnlyImportant = !(building is CraftBuildingBase);
+                var updates = building.GetUpdates(session, session.profile.buildingsData, isOnlyImportant);
                 if (updates.Count < 1)
                     continue;
 
@@ -87,7 +88,6 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
                 }
             }
 
-            sb.AppendLine();
             sb.AppendLine(Localization.Get(session, "resource_header_producted"));
             sb.AppendLine(ResourceHelper.GetCompactResourcesView(resourcesToShow));
 

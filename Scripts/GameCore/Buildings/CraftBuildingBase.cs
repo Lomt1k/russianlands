@@ -100,7 +100,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
 
         public override bool HasImportantUpdatesInternal(ProfileBuildingsData data)
         {
-            return IsCraftStarted(data) && IsCraftCanBeFinished(data);
+            return EndOfCraftIsImportant(data) && IsCraftCanBeFinished(data);
         }
 
         protected override List<string> GetUpdatesInternal(GameSession session, ProfileBuildingsData data, bool onlyImportant)
@@ -111,7 +111,16 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             {
                 if (IsCraftCanBeFinished(data))
                 {
-                    updates.Add(Localization.Get(session, "dialog_craft_completed"));
+                    // при первом сообщении о конце крафта оно считается important, далее - нет
+                    var endCraftIsImprortant = EndOfCraftIsImportant(data);
+                    if (endCraftIsImprortant)
+                    {
+                        MarkEndOfCraftAsNotImportant(data);
+                    }
+                    if (endCraftIsImprortant || !onlyImportant)
+                    {
+                        updates.Add(Localization.Get(session, "dialog_craft_completed"));
+                    }
                 }
                 else if (!onlyImportant)
                 {
@@ -127,6 +136,17 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             }
 
             return updates;
+        }
+
+        // при первом сообщении о конце крафта оно считается important, далее - нет
+        private bool EndOfCraftIsImportant(ProfileBuildingsData data)
+        {
+            return GetStartCraftTime(data) > 1;
+        }
+
+        private void MarkEndOfCraftAsNotImportant(ProfileBuildingsData data)
+        {
+            SetStartCraftTime(data, 1);
         }
 
         public override Dictionary<string, Func<Task>> GetSpecialButtons(GameSession session, ProfileBuildingsData data)

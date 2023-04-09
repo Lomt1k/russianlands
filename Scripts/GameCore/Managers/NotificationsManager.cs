@@ -56,7 +56,10 @@ namespace TextGameRPG.Scripts.GameCore.Managers
                     notification.AppendLine(Emojis.ElementSmallBlack + update);
                 }
                 notification.AppendLine();
+            }
 
+            if (notification.Length > 0)
+            {
                 await ShowNotification(session, notification, () => CommonNotificationsLogic(session, onNotificationsEnd)).FastAwait();
                 return;
             }
