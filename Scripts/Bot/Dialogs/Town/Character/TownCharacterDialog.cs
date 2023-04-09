@@ -6,6 +6,7 @@ using TextGameRPG.Scripts.GameCore.Buildings;
 using TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions;
 using TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Skills;
 using TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Inventory;
+using TextGameRPG.Scripts.Bot.Dialogs.Quests.MainQuest;
 
 namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
 {
@@ -32,7 +33,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
             RegisterButton(skillsEmoji + Localization.Get(session, "menu_item_skills"), () => TryShowSkillsDialog());
 
             RegisterButton(Emojis.AvatarMale + Localization.Get(session, "menu_item_avatar"), null);
-            RegisterButton(Emojis.ButtonNameChange + Localization.Get(session, "menu_item_namechange"), null);
+            RegisterButton(Emojis.ButtonNameChange + Localization.Get(session, "menu_item_namechange"),
+                () => new EnterNameDialog(session).Start());
             RegisterTownButton(isDoubleBack: false);
         }
 

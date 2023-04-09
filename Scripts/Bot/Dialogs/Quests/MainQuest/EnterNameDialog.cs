@@ -6,6 +6,11 @@ using TextGameRPG.Scripts.GameCore.Quests;
 using TextGameRPG.Scripts.GameCore.Quests.Characters;
 using TextGameRPG.Scripts.GameCore.Quests.NextStageTriggers;
 using TextGameRPG.Scripts.Bot.Sessions;
+using System.Collections.Generic;
+using TextGameRPG.Scripts.GameCore.Resources;
+using TextGameRPG.Scripts.Bot.Dialogs.Town.Shop;
+using TextGameRPG.Scripts.Bot.Dialogs.Town.Character;
+using TextGameRPG.Scripts.GameCore.Managers;
 
 namespace TextGameRPG.Scripts.Bot.Dialogs.Quests.MainQuest
 {
@@ -14,7 +19,24 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Quests.MainQuest
         private const int minLength = 3;
         private const int maxLength = 16;
 
+        private static readonly Dictionary<ResourceType, int> nickChangePrice = new Dictionary<ResourceType, int>()
+        {
+            { ResourceType.Diamond, 800 }
+        };
+
         private bool _isQuestReplicaStage = false;
+
+        public byte freeNickChanges
+        {
+            get => session.profile.data.freeNickChanges;
+            set => session.profile.data.freeNickChanges = value;
+        }
+
+        public string currentNickname
+        {
+            get => session.profile.data.nickname;
+            set => session.profile.data.nickname = value;
+        }
 
         public EnterNameDialog(GameSession _session) : base(_session)
         {
@@ -54,10 +76,24 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Quests.MainQuest
             sb.AppendLine(Localization.Get(session, "dialog_entry_name_description"));
             sb.AppendLine(Localization.Get(session, "dialog_entry_name_requirments_1"));
             sb.AppendLine(Localization.Get(session, "dialog_entry_name_requirments_2", minLength, maxLength));
+
+            if (!_isQuestReplicaStage)
+            {
+                sb.AppendLine();
+                if (freeNickChanges > 0)
+                {
+                    sb.AppendLine(Localization.Get(session, "dialog_entry_name_free_nick_changes", freeNickChanges));
+                }
+                else
+                {
+                    sb.Append(ResourceHelper.GetPriceView(session, nickChangePrice));
+                }
+            }
+
             sb.AppendLine();
             sb.AppendLine(Localization.Get(session, "dialog_entry_name_header"));
 
-            RegisterButton(session.player.nickname, null);
+            RegisterButton(currentNickname, null);
             await SendDialogMessage(sb, GetMultilineKeyboard()).FastAwait();
         }
 
@@ -65,26 +101,71 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Quests.MainQuest
         {
             if (_isQuestReplicaStage)
             {
-                if (string.IsNullOrWhiteSpace(message.Text) || message.Text.Equals(GetQuestButtonText(session)))
-                {
-                    _isQuestReplicaStage = false;
-                    await Start().FastAwait();
-                    return;
-                }
-            }
-
-            if (message.Text == null || message.Text.Equals(GetQuestButtonText(session)))
+                await HandleMessageInQuestStage(message).FastAwait();
                 return;
+            }
+            await HandleMessageNotInQuest(message).FastAwait();
+        }
 
-            var nickname = message.Text;
-            if (!nickname.IsCorrectNickname())
+        public async Task HandleMessageInQuestStage(Message message)
+        {
+            if (message.Text == null || string.IsNullOrWhiteSpace(message.Text) || message.Text.Equals(GetQuestButtonText(session)))
             {
                 await Start().FastAwait();
                 return;
             }
 
-            session.profile.data.nickname = nickname;
+            var newNickname = message.Text;
+            if (!newNickname.IsCorrectNickname())
+            {
+                await Start().FastAwait();
+                return;
+            }
+
+            currentNickname = newNickname;
             await QuestManager.TryInvokeTrigger(session, TriggerType.InvokeFromCode).FastAwait();
+            return;
         }
+
+        public async Task HandleMessageNotInQuest(Message message)
+        {
+            if (message.Text == null || string.IsNullOrWhiteSpace(message.Text))
+            {
+                await Start().FastAwait();
+                return;
+            }
+
+            var newNickname = message.Text;
+            if (!newNickname.IsCorrectNickname())
+            {
+                await Start().FastAwait();
+                return;
+            }
+
+            if (currentNickname.Equals(newNickname))
+            {
+                await new TownCharacterDialog(session).Start().FastAwait();
+                return;
+            }
+
+            if (freeNickChanges > 0)
+            {
+                freeNickChanges--;
+            }
+            else if (!session.player.resources.TryPurchase(nickChangePrice))
+            {
+                ClearButtons();
+                var text = Localization.Get(session, "resource_not_enough_diamonds", Emojis.SmileSad);
+                RegisterButton(Emojis.ButtonShop + Localization.Get(session, "menu_item_shop"), () => new ShopDialog(session).Start());
+                RegisterBackButton(() => new TownCharacterDialog(session).Start());
+                await SendDialogMessage(text, GetMultilineKeyboard()).FastAwait();
+                return;
+            }
+
+            currentNickname = newNickname;
+            var notification = Localization.Get(session, "dialog_entry_name_name_changed", newNickname);
+            await GlobalManagers.notificationsManager.ShowNotification(session, notification, () => new TownCharacterDialog(session).Start()).FastAwait();
+        }
+
     }
 }

@@ -92,9 +92,18 @@ namespace TextGameRPG.Scripts.GameCore.Managers
             return false;
         }
 
-        private async Task ShowNotification(GameSession session, StringBuilder text, Func<Task> onButtonClick)
+        public async Task ShowNotification(GameSession session, StringBuilder text, Func<Task> onButtonClick)
         {
             var dialog = new SimpleDialog(session, text.ToString(), false, new Dictionary<string, Func<Task>>
+            {
+                { Localization.Get(session, "menu_item_continue_button"), onButtonClick }
+            });
+            await dialog.Start().FastAwait();
+        }
+
+        public async Task ShowNotification(GameSession session, string text, Func<Task> onButtonClick)
+        {
+            var dialog = new SimpleDialog(session, text, false, new Dictionary<string, Func<Task>>
             {
                 { Localization.Get(session, "menu_item_continue_button"), onButtonClick }
             });

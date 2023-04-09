@@ -23,7 +23,9 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
 
         public int adminStatus;
         public byte level;
+        public byte freeNickChanges;
         public long endPremiumTime;
+
 
         // resources
         public int resourceGold;
@@ -78,6 +80,7 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
 
                 new TableColumn("adminStatus", "INTEGER", "0"),
                 new TableColumn("level", "INTEGER", "1"),
+                new TableColumn("freeNickChanges", "INTEGER", "1"),
                 new TableColumn("endPremiumTime", "INTEGER", "0"),
 
                 new TableColumn("resourceGold", "INTEGER", "3500"),
