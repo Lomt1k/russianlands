@@ -11,7 +11,7 @@ namespace TextGameRPG.Scripts.Bot.Commands.Admin
     {
         private static readonly PerformanceManager pm = Singletones.Get<PerformanceManager>();
 
-        public override CommandGroup commandGroup => CommandGroup.Admin;
+        public override CommandGroup commandGroup => CommandGroup.Cheat;
 
         public override async Task Execute(GameSession session, string[] args)
         {
