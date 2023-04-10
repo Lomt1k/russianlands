@@ -28,9 +28,10 @@ namespace TextGameRPG.Scripts.Bot.Commands
                 { "/win", new Cheats.WinCommand() },
                 { "/lose", new Cheats.LoseCommand() },
                 { "/draw", new Cheats.DrawCommand() },
+                { "/status", new Admin.StatusCommand() },
 
                 // admin commands
-                { "/status", new Admin.StatusCommand() },
+                // --- empty for now
             };
         }
 
