@@ -17,11 +17,9 @@ namespace TextGameRPG.Scripts.Bot
         public byte sendStickerPerSecondLimit = 50;
         public int dontSendStickerIfDelayInSeconds = 5;
 
-        public int cpuUsageLimitInPercents = 80;
-        public int cpuUsageToHighloadState = 65;
+        public int cpuUsageToHighloadState = 80;
         public int responceMsDelayWhenCpuHighload = 500;
         public int memoryUsageLimitInMegabytes = 1024;
-        public int memoryUsageToHighloadState = 768;
 
         [JsonIgnore]
         public LanguageCode defaultLanguageCode;

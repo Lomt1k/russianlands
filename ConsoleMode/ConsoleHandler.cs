@@ -117,10 +117,8 @@ namespace TextGameRPG.ConsoleMode
                 return;
 
             Console.WriteLine($"Status: {pm.currentState}");
-            Console.WriteLine($"CPU: {PerformanceMonitor.cpuUsage:F1}%"
-                + (pm.currentCpuState == PerformanceState.Normal ? string.Empty : $" ({pm.currentCpuState}"));
-            Console.WriteLine($"RAM: {PerformanceMonitor.memoryUsage:F0} MB"
-                + (pm.currentMemoryState == PerformanceState.Normal ? string.Empty : $" ({pm.currentMemoryState}"));
+            Console.WriteLine($"CPU: {PerformanceMonitor.cpuUsage:F1}%");
+            Console.WriteLine($"RAM: {PerformanceMonitor.memoryUsage:F0} MB");
 
             Console.WriteLine();
             var allSessions = TelegramBot.instance.sessionManager.GetAllSessions();

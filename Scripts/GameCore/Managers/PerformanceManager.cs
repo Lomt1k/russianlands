@@ -8,26 +8,14 @@ namespace TextGameRPG.Scripts.GameCore.Managers
     public class PerformanceManager : Singletone
     {        
         // cpu settings
-        public int cpuUsageLimit { get; private set; }
         public int cpuUsageHighload { get; private set; }
         public int responseDelayWhenCpuHighload { get; private set; }
 
         // memory settings 
         public int memoryUsageLimit { get; private set; }
-        public int memoryUsageHighload { get; private set; }
         public int sessionTimeoutDefault { get; private set; }
 
-        public PerformanceState currentCpuState { get; private set; }
-        public PerformanceState currentMemoryState { get; private set; }
-        public PerformanceState currentState
-        {
-            get
-            {
-                return currentCpuState == PerformanceState.Busy || currentMemoryState == PerformanceState.Busy ? PerformanceState.Busy
-                    : currentCpuState == PerformanceState.Highload || currentMemoryState == PerformanceState.Highload ? PerformanceState.Highload
-                    : PerformanceState.Normal;
-            }
-        }
+        public PerformanceState currentState { get; private set; }
 
         public Action<PerformanceManager>? onStateUpdate;
 
@@ -49,39 +37,23 @@ namespace TextGameRPG.Scripts.GameCore.Managers
 
         private void UpdateCurrentState(double cpuUsage, double memoryUsage)
         {
-            UpdateCpuState(cpuUsage);
-            UpdateMemoryState(memoryUsage);
+            currentState = memoryUsage >= memoryUsageLimit ? PerformanceState.Busy
+                : cpuUsage >= cpuUsageHighload ? PerformanceState.Highload
+                : PerformanceState.Normal;
             onStateUpdate?.Invoke(this);
-        }
-
-        private void UpdateCpuState(double cpuUsage)
-        {
-            currentCpuState = cpuUsage > cpuUsageLimit ? PerformanceState.Busy
-                : cpuUsage > cpuUsageHighload ? PerformanceState.Highload
-                : PerformanceState.Normal;
-        }
-
-        private void UpdateMemoryState(double memoryUsage)
-        {
-            currentMemoryState = memoryUsage > memoryUsageLimit ? PerformanceState.Busy
-                : memoryUsage > memoryUsageHighload ? PerformanceState.Highload
-                : PerformanceState.Normal;
         }
 
         public int GetCurrentResponseDelay()
         {
-            return currentCpuState == PerformanceState.Normal ? 0 : responseDelayWhenCpuHighload;
+            return PerformanceMonitor.cpuUsage < cpuUsageHighload ? 0 : responseDelayWhenCpuHighload;
         }
 
         public override void OnBotStarted()
         {
             var config = TelegramBot.instance.config;
-            cpuUsageLimit = config.cpuUsageLimitInPercents;
             cpuUsageHighload = config.cpuUsageToHighloadState;
             responseDelayWhenCpuHighload = config.responceMsDelayWhenCpuHighload;
-
             memoryUsageLimit = config.memoryUsageLimitInMegabytes;
-            memoryUsageHighload = config.memoryUsageToHighloadState;
             sessionTimeoutDefault = config.sessionTimeoutInMinutes;
 
             UpdateCurrentState(PerformanceMonitor.cpuUsage, PerformanceMonitor.memoryUsage);

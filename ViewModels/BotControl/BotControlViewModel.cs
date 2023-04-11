@@ -113,10 +113,7 @@ namespace TextGameRPG.ViewModels.BotControl
         private void UpdatePerformanceStatus(PerformanceManager performance)
         {
             var currentState = performance.currentState;
-            var cpuState = performance.currentCpuState;
-            var memoryState = performance.currentMemoryState;
-            performanceStatus = $"Status: {currentState}"
-                + (currentState == PerformanceState.Normal ? string.Empty : $" (CPU: {cpuState}, RAM: {memoryState})");
+            performanceStatus = $"Status: {currentState}";
         }
 
     }

@@ -18,10 +18,8 @@ namespace TextGameRPG.Scripts.Bot.Commands.Admin
             var sb = new StringBuilder();
 
             sb.AppendLine($"Status: {pm.currentState.ToString().Bold()}");
-            sb.AppendLine($"CPU: {PerformanceMonitor.cpuUsage:F1}%"
-                + (pm.currentCpuState == PerformanceState.Normal ? string.Empty : $" ({pm.currentCpuState}") );
-            sb.AppendLine($"RAM: {PerformanceMonitor.memoryUsage:F0} MB"
-                + (pm.currentMemoryState == PerformanceState.Normal ? string.Empty : $" ({pm.currentMemoryState}"));
+            sb.AppendLine($"CPU: {PerformanceMonitor.cpuUsage:F1}%");
+            sb.AppendLine($"RAM: {PerformanceMonitor.memoryUsage:F0} MB");
 
             sb.AppendLine();
             var allSessions = TelegramBot.instance.sessionManager.GetAllSessions();
@@ -49,7 +47,7 @@ namespace TextGameRPG.Scripts.Bot.Commands.Admin
                 }
             }            
 
-            await messageSender.SendTextMessage(session.chatId, sb.ToString());
+            await messageSender.SendTextMessage(session.chatId, sb.ToString()).FastAwait();
         }
     }
 }
