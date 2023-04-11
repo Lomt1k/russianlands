@@ -31,7 +31,7 @@ namespace TextGameRPG.Scripts.Bot.Sessions
         public User actualUser { get; private set; }
         public Profile profile { get; private set; }
         public Player player { get; private set; }
-        public LanguageCode language { get; private set; } = TelegramBot.instance.config.defaultLanguageCode;
+        public LanguageCode language { get; private set; } = BotConfig.instance.defaultLanguageCode;
         public DialogBase? currentDialog { get; private set; }
         public TooltipController tooltipController { get; } = new TooltipController();
         public bool isAdmin => profile.data.adminStatus > 0;
@@ -101,10 +101,9 @@ namespace TextGameRPG.Scripts.Bot.Sessions
 
         public async Task HandleMessageAsync(Message message)
         {
-            //debug
-            if (message.Text != null)
+            if (BotConfig.instance.logUserInput && message.Text != null)
             {
-                Program.logger.Debug($"Message from {actualUser}: {message.Text}");
+                Program.logger.Info($"Message from {actualUser}: {message.Text}");
             }
 
             if (message.Text != null && message.Text.StartsWith('/'))

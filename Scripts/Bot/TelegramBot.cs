@@ -19,8 +19,9 @@ namespace TextGameRPG.Scripts.Bot
         public static TelegramBot instance { get; private set; }
         public static HttpClient httpClient { get; } = new HttpClient();
 
+        private BotConfig _config;
+
         public string dataPath { get; }
-        public TelegramBotConfig config { get; private set; }
         public TelegramBotClient client { get; private set; }
         public User mineUser { get; private set; }
         public BotDataBase dataBase { get; private set; }
@@ -38,16 +39,16 @@ namespace TextGameRPG.Scripts.Bot
 
         public void Init()
         {
-            config = GetConfig();
+            _config = GetConfig();
         }
 
-        private TelegramBotConfig GetConfig()
+        private BotConfig GetConfig()
         {
             var jsonStr = string.Empty;
             string configPath = Path.Combine(dataPath, "config.json");
             if (!System.IO.File.Exists(configPath))
             {
-                var newConfig = new TelegramBotConfig();
+                var newConfig = new BotConfig();
                 jsonStr = JsonConvert.SerializeObject(newConfig, Formatting.Indented);
                 using (StreamWriter writer = new StreamWriter(configPath, false, Encoding.UTF8))
                 {
@@ -57,11 +58,11 @@ namespace TextGameRPG.Scripts.Bot
                 return newConfig;
             }
 
-            TelegramBotConfig loadedConfig;
+            BotConfig loadedConfig;
             using (StreamReader reader = new StreamReader(configPath, Encoding.UTF8))
             {
                 jsonStr = reader.ReadToEnd();
-                loadedConfig = JsonConvert.DeserializeObject<TelegramBotConfig>(jsonStr);                
+                loadedConfig = JsonConvert.DeserializeObject<BotConfig>(jsonStr);                
             }
 
             // пересохраняем загруженный конфиг (на случай, если в новой версии приложения были добавлены новые поля - чтобы они появились)
@@ -83,7 +84,7 @@ namespace TextGameRPG.Scripts.Bot
             }
 
             Program.logger.Info($"Starting bot with data... {dataPath}");
-            config = GetConfig(); //reload config: maybe something was changed before start
+            _config = GetConfig(); //reload config: maybe something was changed before start
 
             Program.logger.Info("Connecting to bot database...");
             dataBase = new BotDataBase(dataPath);
@@ -95,7 +96,7 @@ namespace TextGameRPG.Scripts.Bot
             }
 
             await WaitForNetworkConnection();
-            client = new TelegramBotClient(config.token);
+            client = new TelegramBotClient(_config.token);
             mineUser = await client.GetMeAsync();
             mineUser.CanJoinGroups = false;
             Program.SetTitle($"{mineUser.Username} [{dataPath}]");

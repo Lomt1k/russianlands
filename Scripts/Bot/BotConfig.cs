@@ -5,11 +5,14 @@ using TextGameRPG.Scripts.GameCore.Localizations;
 namespace TextGameRPG.Scripts.Bot
 {
     [JsonObject]
-    public class TelegramBotConfig
+    public class BotConfig
     {
+        [JsonIgnore] public static BotConfig instance { get; private set; }
+
         public string token = "ENTER_TOKEN_HERE";
         public string defaultLanguage = "RU";
         public bool cheatsForAll = true;
+        public bool logUserInput = true;
         public int sessionTimeoutInMinutes = 30;
         public int periodicSaveDatabaseInMinutes = 15;
         public byte sendMessagePerSecondLimit = 25;
@@ -21,17 +24,19 @@ namespace TextGameRPG.Scripts.Bot
         public int responceMsDelayWhenCpuHighload = 500;
         public int memoryUsageLimitInMegabytes = 1024;
 
-        [JsonIgnore]
-        public LanguageCode defaultLanguageCode;
+        [JsonIgnore] public LanguageCode defaultLanguageCode { get; private set; }
+
 
         [OnDeserialized]
         private void OnDeserialized(StreamingContext context)
         {
-            if (!System.Enum.TryParse(defaultLanguage.ToUpper(), out defaultLanguageCode))
+            if (!System.Enum.TryParse(defaultLanguage.ToUpper(), out LanguageCode parsedLanguage))
             {
-                defaultLanguageCode = LanguageCode.EN;
-                Program.logger.Error($"Incorrect language code in config field 'defaultLanguage'. Setuped {defaultLanguageCode} by default");
+                parsedLanguage = LanguageCode.EN;
+                Program.logger.Error($"Incorrect language code in config field 'defaultLanguage'. Setuped {parsedLanguage} by default");
             }
+            defaultLanguageCode = parsedLanguage;
+            instance = this;
         }
 
     }

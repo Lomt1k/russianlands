@@ -50,7 +50,7 @@ namespace TextGameRPG.Scripts.GameCore.Managers
 
         public override void OnBotStarted()
         {
-            var config = TelegramBot.instance.config;
+            var config = BotConfig.instance;
             cpuUsageHighload = config.cpuUsageToHighloadState;
             responseDelayWhenCpuHighload = config.responceMsDelayWhenCpuHighload;
             memoryUsageLimit = config.memoryUsageLimitInMegabytes;

@@ -48,7 +48,7 @@ namespace TextGameRPG.Scripts.Bot.Commands
             {
                 CommandGroup.ForAll => true,
                 CommandGroup.Admin => session.isAdmin,
-                CommandGroup.Cheat => session.isAdmin || TelegramBot.instance.config.cheatsForAll || session.fakeChatId?.Identifier != null,
+                CommandGroup.Cheat => session.isAdmin || BotConfig.instance.cheatsForAll || session.fakeChatId?.Identifier != null,
                 _ => false
             };
             if (!access)

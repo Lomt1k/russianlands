@@ -186,7 +186,10 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
             if (!_registeredCallbacks.TryGetValue(buttonId, out var callback))
                 return;
 
-            Program.logger.Debug($"Message from {session.actualUser}: {_registeredButtons[buttonId].Text}");
+            if (BotConfig.instance.logUserInput)
+            {
+                Program.logger.Info($"Message from {session.actualUser}: {_registeredButtons[buttonId].Text}");
+            }            
 
             var generateQueryFunc = _registeredQueryAnswers[buttonId];
             var query = generateQueryFunc != null ? generateQueryFunc() : null;

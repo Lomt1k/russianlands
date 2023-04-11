@@ -37,7 +37,7 @@ namespace TextGameRPG.Scripts.GameCore.Localizations
 
         public static string GetDefault(string key, params object[] args)
         {
-            var defaultLanguage = TelegramBot.instance?.config.defaultLanguageCode ?? LanguageCode.EN;
+            var defaultLanguage = BotConfig.instance?.defaultLanguageCode ?? LanguageCode.EN;
             return Get(defaultLanguage, key, args);
         }
 

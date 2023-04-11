@@ -39,7 +39,7 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Sending
 
         public override void OnBotStarted()
         {
-            var config = TelegramBot.instance.config;
+            var config = BotConfig.instance;
             SendMessageLimit = config.sendMessagePerSecondLimit;
             EditMessageLimit = config.editMessagePerSecondLimit;
             SendStickerLimit = config.sendStickerPerSecondLimit;

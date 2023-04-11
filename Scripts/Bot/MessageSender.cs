@@ -22,7 +22,7 @@ namespace TextGameRPG.Scripts.Bot
         {
             _botClient = botClient;
             _requestExceptionHandler = new RequestExceptionHandler();
-            _maxDelayForSendStickers = TelegramBot.instance.config.dontSendStickerIfDelayInSeconds * 1_000;
+            _maxDelayForSendStickers = BotConfig.instance.dontSendStickerIfDelayInSeconds * 1_000;
         }
 
         public async Task<Message?> SendTextMessage(ChatId id, string text, InlineKeyboardMarkup? inlineKeyboard = null,

@@ -24,7 +24,7 @@ namespace TextGameRPG.Scripts.Bot.Sessions
 
         public SessionManager(TelegramBot telegramBot)
         {
-            periodicSaveDatabaseInMs = telegramBot.config.periodicSaveDatabaseInMinutes * millisecondsInMinute;
+            periodicSaveDatabaseInMs = BotConfig.instance.periodicSaveDatabaseInMinutes * millisecondsInMinute;
 
             _allSessionsTasksCTS = new CancellationTokenSource();
             Task.Run(() => PeriodicSaveProfilesAsync(), _allSessionsTasksCTS.Token);
@@ -86,7 +86,7 @@ namespace TextGameRPG.Scripts.Bot.Sessions
             while (!_allSessionsTasksCTS.IsCancellationRequested)
             {
                 List<ChatId> sessionsToClose = new List<ChatId>();
-                var timeoutMs = TelegramBot.instance.config.sessionTimeoutInMinutes * millisecondsInMinute;
+                var timeoutMs = BotConfig.instance.sessionTimeoutInMinutes * millisecondsInMinute;
                 foreach (var chatId in _sessions.Keys)
                 {
                     if (IsTimeout(chatId, timeoutMs))
