@@ -17,6 +17,7 @@ namespace TextGameRPG.ConsoleMode
         {
             {"start", (args) => StartBotCommand(args) },
             {"stop", (args) => StopBotCommand(args) },
+            {"exit", (args) => Shutdown(args) },
             {"status", (args) => StatusCommand(args) },
             {"collect", (args) => CollectCommand(args) }
         };
@@ -71,16 +72,6 @@ namespace TextGameRPG.ConsoleMode
                 var args = input.Split(' ', StringSplitOptions.RemoveEmptyEntries);
                 var command = args[0].ToLower();
                 args = args.Skip(1).ToArray();
-
-                if (command.Equals("exit"))
-                {
-                    if (TelegramBot.instance != null && TelegramBot.instance.isReceiving)
-                    {
-                        Console.WriteLine("Bot is listening! Enter 'stop' command first!");
-                        continue;
-                    }
-                    return; //exit
-                }
                 HandleCommand(command, args);
             }
         }
@@ -103,6 +94,11 @@ namespace TextGameRPG.ConsoleMode
         private static void StopBotCommand(string[] args)
         {
             TelegramBot.instance.StopListening();
+        }
+
+        private static void Shutdown(string[] args)
+        {
+            TelegramBot.instance.Shutdown();
         }
 
         private static void CollectCommand(string[] args)

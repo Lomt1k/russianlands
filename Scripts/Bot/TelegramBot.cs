@@ -16,6 +16,8 @@ namespace TextGameRPG.Scripts.Bot
 
     public class TelegramBot
     {
+        private static readonly PerformanceManager performanceManager = Singletones.Get<PerformanceManager>();
+
         public static TelegramBot instance { get; private set; }
         public static HttpClient httpClient { get; } = new HttpClient();
 
@@ -101,6 +103,7 @@ namespace TextGameRPG.Scripts.Bot
             mineUser.CanJoinGroups = false;
             Program.SetTitle($"{mineUser.Username} [{dataPath}]");
 
+            SubcribeEvents();
             Singletones.OnBotStarted();
             messageSender = new MessageSender(client);
             sessionManager = new SessionManager(this);
@@ -126,6 +129,8 @@ namespace TextGameRPG.Scripts.Bot
             await dataBase.CloseAsync();
 
             Singletones.OnBotStopped();
+            UnsubscribeEvents();
+
             messageSender = null;
             sessionManager = null;
             dataBase = null;
@@ -158,23 +163,58 @@ namespace TextGameRPG.Scripts.Bot
         {
             while (true)
             {
-                Program.logger.Debug("Connecting to telegram servers...");
+                Program.logger.Info("Connecting to telegram servers...");
                 try
                 {
                     using HttpRequestMessage checkConnectionRequest = new HttpRequestMessage(HttpMethod.Get, "https://t.me");
                     var result = await httpClient.SendAsync(checkConnectionRequest);
                     if (result.StatusCode == System.Net.HttpStatusCode.OK)
                     {
-                        Program.logger.Debug($"Status Code: {result.StatusCode}");
+                        Program.logger.Info($"Connected to telegram servers");
                         return; //success!
                     }
                 }
                 catch (System.Exception ex)
                 {
-                    //Program.logger.Info(ex.Message);
-                }                
+                    //ignored
+                }
                 await Task.Delay(1000);
             }
+        }
+
+        private void SubcribeEvents()
+        {
+            performanceManager.onStateUpdate += OnUpdatePerformanceState;
+        }
+
+        private void UnsubscribeEvents()
+        {
+            performanceManager.onStateUpdate -= OnUpdatePerformanceState;
+        }
+
+        private async void OnUpdatePerformanceState(PerformanceState state)
+        {
+            if (isReceiving && state == PerformanceState.ShutdownRequired)
+            {
+                Shutdown(errorReason: "Performance limit reached");
+            }
+        }
+
+        public async void Shutdown(string? errorReason = null)
+        {
+            if (errorReason != null)
+            {
+                Program.logger.Fatal("The server will be shutdown. Reason:" + errorReason);
+            }
+            else
+            {
+                Program.logger.Info("The server will be shutdown...");
+            }
+            Program.logger.Info("Performance Stats:\n" + performanceManager.debugInfo);
+            
+            await StopListening();
+            Program.logger.Info("Stopping the server was completed correctly");
+            System.Environment.Exit(0);
         }
 
 

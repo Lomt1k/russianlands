@@ -16,9 +16,8 @@ namespace TextGameRPG.Scripts.Bot
 
     public class TelegramBotUpdateHandler : IUpdateHandler
     {
-        private readonly string serverIsBusyText = Emojis.ElementWarning + Localization.GetDefault("server_is_busy_message");
         private readonly string accountIsBusyText = Emojis.ElementWarning + Localization.GetDefault("account_is_busy_message");
-        private readonly ReplyKeyboardMarkup serverIsBusyKeyboard = new ReplyKeyboardMarkup(Localization.GetDefault("server_is_busy_restart_button"));
+        private readonly ReplyKeyboardMarkup restartButton = new ReplyKeyboardMarkup(Localization.GetDefault("server_is_busy_restart_button"));
 
         private static readonly PerformanceManager performanceManager = Singletones.Get<PerformanceManager>();
 
@@ -53,12 +52,6 @@ namespace TextGameRPG.Scripts.Bot
                     return;
                 }
 
-                bool serverIsBusy = performanceManager.currentState == PerformanceState.ShutdownRequired;
-                if (serverIsBusy && !_sessionManager.IsSessionExists(fromUser.Id))
-                {
-                    SendServerIsBusyMessage(fromUser.Id);
-                    return;
-                }
                 if (_sessionManager.IsAccountUsedByFakeId(fromUser))
                 {
                     SendAccountIsBusyMessage(fromUser.Id);
@@ -75,14 +68,9 @@ namespace TextGameRPG.Scripts.Bot
             }            
         }
 
-        private async void SendServerIsBusyMessage(ChatId id)
-        {
-            await _messageSender.SendTextDialog(id, serverIsBusyText, serverIsBusyKeyboard, silent: true).FastAwait();
-        }
-
         private async void SendAccountIsBusyMessage(ChatId id)
         {
-            await _messageSender.SendTextDialog(id, accountIsBusyText, serverIsBusyKeyboard, silent: true).FastAwait();
+            await _messageSender.SendTextDialog(id, accountIsBusyText, restartButton, silent: true).FastAwait();
         }
 
         public Task HandlePollingErrorAsync(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)
