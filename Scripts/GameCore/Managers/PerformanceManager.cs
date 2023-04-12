@@ -3,21 +3,28 @@ using TextGameRPG.Scripts.Bot;
 
 namespace TextGameRPG.Scripts.GameCore.Managers
 {
-    public enum PerformanceState { Normal, Highload, Busy }
+    public enum PerformanceState { Normal, Highload, ShutdownRequired }
+
+    public struct PerformanceDebugInfo
+    {
+        public string cpuInfo;
+        public string memoryInfo;
+        public string totalMemoryInfo;
+
+        public override string ToString()
+        {
+            return cpuInfo + '\n' + memoryInfo + '\n' + totalMemoryInfo;
+        }
+    }
 
     public class PerformanceManager : Singletone
     {        
-        // cpu settings
-        public int cpuUsageHighload { get; private set; }
-        public int responseDelayWhenCpuHighload { get; private set; }
-
-        // memory settings 
-        public int memoryUsageLimit { get; private set; }
-        public int sessionTimeoutDefault { get; private set; }
 
         public PerformanceState currentState { get; private set; }
+        public int currentResponceDelay { get; private set; }
+        public PerformanceDebugInfo debugInfo { get; private set; }
 
-        public Action<PerformanceManager>? onStateUpdate;
+        public Action<PerformanceState>? onStateUpdate;
 
 
         public PerformanceManager()
@@ -30,33 +37,54 @@ namespace TextGameRPG.Scripts.GameCore.Managers
             PerformanceMonitor.onUpdate += OnPerformanceUpdate;
         }
 
-        private void OnPerformanceUpdate(double cpuUsage, double memoryUsage)
+        private void OnPerformanceUpdate(PerformanceInfo info)
         {
-            UpdateCurrentState(cpuUsage, memoryUsage);
+            currentState = GetActualState(info);
+            debugInfo = GetDebugInfo(info);
+            currentResponceDelay = currentState != PerformanceState.Normal ? BotConfig.instance.responceMsDelayWhenCpuHighload : 0;
+
+            onStateUpdate?.Invoke(currentState);
         }
 
-        private void UpdateCurrentState(double cpuUsage, double memoryUsage)
+        private PerformanceState GetActualState(PerformanceInfo info)
         {
-            currentState = memoryUsage >= memoryUsageLimit ? PerformanceState.Busy
-                : cpuUsage >= cpuUsageHighload ? PerformanceState.Highload
-                : PerformanceState.Normal;
-            onStateUpdate?.Invoke(this);
+            var config = BotConfig.instance;
+            var appRamLimit = config.appRamUsageLimitInMegabytes >  0 ? (int?)config.appRamUsageLimitInMegabytes : null;
+            var totalRamLimitPercentage = config.totalRamUsageLimitInPercents > 0 ? (int?)config.totalRamUsageLimitInPercents : null;
+            var cpuLimitPercentage = config.cpuUsageToHighloadStateInPercents > 0 ? (int?)config.cpuUsageToHighloadStateInPercents : null;
+
+            if (appRamLimit.HasValue && info.applicationRamUsage >= appRamLimit)
+            {
+                return PerformanceState.ShutdownRequired;
+            }
+            if (totalRamLimitPercentage.HasValue && info.totalRamUsagePercents >= totalRamLimitPercentage)
+            {
+                return PerformanceState.ShutdownRequired;
+            }
+            if (cpuLimitPercentage.HasValue && info.applicationCpuUsage > cpuLimitPercentage)
+            {
+                return PerformanceState.Highload;
+            }
+
+            return PerformanceState.Normal;
         }
 
-        public int GetCurrentResponseDelay()
+        private PerformanceDebugInfo GetDebugInfo(PerformanceInfo info)
         {
-            return PerformanceMonitor.cpuUsage < cpuUsageHighload ? 0 : responseDelayWhenCpuHighload;
+            var config = BotConfig.instance;
+            var appRamLimit = config.appRamUsageLimitInMegabytes > 0 ? (int?)config.appRamUsageLimitInMegabytes : null;
+
+            return new PerformanceDebugInfo
+            {
+                cpuInfo = $"CPU: {info.applicationCpuUsage:F1}%",
+                memoryInfo = $"RAM: {info.applicationRamUsage:F0}" + (appRamLimit.HasValue ? $" / {appRamLimit:F0}" : string.Empty) + " MB",
+                totalMemoryInfo = $"Total RAM: {info.totalRamUsage:F0} / {info.totalRamSize:F0} MB ({info.totalRamUsagePercents:F0}%)"
+            };
         }
 
         public override void OnBotStarted()
         {
-            var config = BotConfig.instance;
-            cpuUsageHighload = config.cpuUsageToHighloadState;
-            responseDelayWhenCpuHighload = config.responceMsDelayWhenCpuHighload;
-            memoryUsageLimit = config.memoryUsageLimitInMegabytes;
-            sessionTimeoutDefault = config.sessionTimeoutInMinutes;
-
-            UpdateCurrentState(PerformanceMonitor.cpuUsage, PerformanceMonitor.memoryUsage);
+            onStateUpdate?.Invoke(PerformanceState.Normal);
         }
 
     }

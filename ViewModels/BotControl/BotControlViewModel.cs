@@ -72,7 +72,7 @@ namespace TextGameRPG.ViewModels.BotControl
             startListening = ReactiveCommand.Create(StartBotListening);
             stopListening = ReactiveCommand.Create(StopBotListening);
 
-            UpdatePerformanceStats(PerformanceMonitor.cpuUsage, PerformanceMonitor.memoryUsage);
+            UpdatePerformanceStats(new PerformanceInfo());
             PerformanceMonitor.onUpdate += UpdatePerformanceStats;
             performanceManager.onStateUpdate += UpdatePerformanceStatus;
         }
@@ -104,16 +104,15 @@ namespace TextGameRPG.ViewModels.BotControl
             performanceStatus = "Current status: -";
         }
 
-        private void UpdatePerformanceStats(double cpuUsage, double memoryUsage)
+        private void UpdatePerformanceStats(PerformanceInfo info)
         {
-            cpuUsageStat = $"CPU: {cpuUsage:F1}%";
-            memoryUsageStat = $"RAM: {memoryUsage:F0} MB";
+            cpuUsageStat = $"CPU: {info.applicationCpuUsage:F1}%";
+            memoryUsageStat = $"RAM: {info.applicationRamUsage:F0} MB";
         }
 
-        private void UpdatePerformanceStatus(PerformanceManager performance)
+        private void UpdatePerformanceStatus(PerformanceState state)
         {
-            var currentState = performance.currentState;
-            performanceStatus = $"Status: {currentState}";
+            performanceStatus = $"Status: {state}";
         }
 
     }

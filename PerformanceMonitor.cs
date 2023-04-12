@@ -4,37 +4,66 @@ using System.Threading.Tasks;
 
 namespace TextGameRPG
 {
+    public struct PerformanceInfo
+    {
+        public double applicationCpuUsage;
+        public double applicationRamUsage;
+        public double totalRamUsage;
+        public double totalRamSize;
+
+        public double totalRamUsagePercents => totalRamSize > 0 ? totalRamUsage / totalRamSize * 100 : 0;
+
+        public PerformanceInfo(double _applicationCpuUsage, double _applicationRamUsage, double _totalRamUsage, double _totalRamSize)
+        {
+            applicationCpuUsage = _applicationCpuUsage;
+            applicationRamUsage = _applicationRamUsage;
+            totalRamUsage = _totalRamUsage;
+            totalRamSize = _totalRamSize;
+        }
+    }
+
     public static class PerformanceMonitor
     {
         private const int BYTES_IN_MEGABYTE = 1024 * 1024;
         private const int UPDATE_DELAY_MS = 5_000;
 
         private static Process _process;
-        private static DateTime _lastCpuUpdateTime;
+        private static DateTime _lastUpdateTime;
         private static double _lastProcessorTime;
         private static int _nextMsDelay = UPDATE_DELAY_MS;
 
-        public static bool isRunning { get; private set; }
+        private static PerformanceInfo _info;
+
+
         /// <summary>
-        /// Сколько ресурсов процессора в % занято приложением
+        /// Сколько ресурсов процессора занято приложением (%)
         /// </summary>
-        public static double cpuUsage { get; private set; }
+        public static double applicationCpuUsage => _info.applicationCpuUsage;
         /// <summary>
-        /// Сколько оперативной памяти (в мегабайтах) занято приложением
+        /// Объём оперативной памяти, занятой приложением (MB)
         /// </summary>
-        public static double memoryUsage { get; private set; }
+        public static double applicationRamUsage => _info.applicationRamUsage;
+        /// <summary>
+        /// Общий объем использумой компьютером оперативной памяти (MB)
+        /// </summary>
+        public static double totalRamUsage => _info.totalRamUsage;
+        /// <summary>
+        /// Общий объем оперативной памяти компьютера (MB)
+        /// </summary>
+        public static double totalRamSize => _info.totalRamSize;
+        /// <summary>
+        /// Общий объем использумой компьютером оперативной памяти (%)
+        /// </summary>
+        public static double totalRamUsagePercents => _info.totalRamUsagePercents;
+
 
         /// <summary>
         /// On update: cpu usage (%), memory usage (Mb)
         /// </summary>
-        public static Action<double, double>? onUpdate;
+        public static Action<PerformanceInfo>? onUpdate;
 
         public static void Start()
         {
-            if (isRunning)
-                return;
-
-            isRunning = true;
             Monitoring();
         }
 
@@ -42,7 +71,8 @@ namespace TextGameRPG
         {
             _process = Process.GetCurrentProcess();
             _process.Refresh();
-            _lastCpuUpdateTime = DateTime.UtcNow;
+            _lastUpdateTime = DateTime.UtcNow;
+
             _lastProcessorTime = _process.TotalProcessorTime.TotalMilliseconds;
             while (true)
             {
@@ -53,16 +83,21 @@ namespace TextGameRPG
                 var processorTime = _process.TotalProcessorTime.TotalMilliseconds;
                 var totalMsUsed = processorTime - _lastProcessorTime;
                 var cpuUpdateTime = DateTime.UtcNow;
-                var totalMsPassed = (cpuUpdateTime - _lastCpuUpdateTime).TotalMilliseconds;
-                cpuUsage = totalMsUsed / (Environment.ProcessorCount * totalMsPassed) * 100;
+                var totalMsPassed = (cpuUpdateTime - _lastUpdateTime).TotalMilliseconds;
+                var appCpuUsage = totalMsUsed / (Environment.ProcessorCount * totalMsPassed) * 100;
 
-                _lastCpuUpdateTime = cpuUpdateTime;
+                _lastUpdateTime = cpuUpdateTime;
                 _lastProcessorTime = processorTime;
 
                 // Memory
-                memoryUsage = (double)_process.WorkingSet64 / BYTES_IN_MEGABYTE;
+                var gcMemoryInfo = GC.GetGCMemoryInfo();
+                var appRamUsage = (double)_process.WorkingSet64 / BYTES_IN_MEGABYTE;                
+                var totalRamUsage = (double)gcMemoryInfo.MemoryLoadBytes / BYTES_IN_MEGABYTE;
+                var totalRamSize = (double)gcMemoryInfo.TotalAvailableMemoryBytes / BYTES_IN_MEGABYTE;
 
-                NotifyListeners();
+                // Update current info
+                _info = new PerformanceInfo(appCpuUsage, appRamUsage, totalRamUsage, totalRamSize);
+                NotifyListeners(_info);
 
                 //calculate next delay
                 var nextUpdateTime = cpuUpdateTime.AddMilliseconds(UPDATE_DELAY_MS);
@@ -72,11 +107,11 @@ namespace TextGameRPG
             }            
         }
 
-        private static void NotifyListeners()
+        private static void NotifyListeners(PerformanceInfo performanceInfo)
         {
             try
             {
-                onUpdate?.Invoke(cpuUsage, memoryUsage);
+                onUpdate?.Invoke(performanceInfo);
             }
             catch (Exception ex)
             {

@@ -53,7 +53,7 @@ namespace TextGameRPG.Scripts.Bot
                     return;
                 }
 
-                bool serverIsBusy = performanceManager.currentState == PerformanceState.Busy;
+                bool serverIsBusy = performanceManager.currentState == PerformanceState.ShutdownRequired;
                 if (serverIsBusy && !_sessionManager.IsSessionExists(fromUser.Id))
                 {
                     SendServerIsBusyMessage(fromUser.Id);

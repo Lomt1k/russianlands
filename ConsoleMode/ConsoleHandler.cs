@@ -117,8 +117,7 @@ namespace TextGameRPG.ConsoleMode
                 return;
 
             Console.WriteLine($"Status: {pm.currentState}");
-            Console.WriteLine($"CPU: {PerformanceMonitor.cpuUsage:F1}%");
-            Console.WriteLine($"RAM: {PerformanceMonitor.memoryUsage:F0} MB");
+            Console.WriteLine(pm.debugInfo);
 
             Console.WriteLine();
             var allSessions = TelegramBot.instance.sessionManager.GetAllSessions();

@@ -18,8 +18,7 @@ namespace TextGameRPG.Scripts.Bot.Commands.Admin
             var sb = new StringBuilder();
 
             sb.AppendLine($"Status: {pm.currentState.ToString().Bold()}");
-            sb.AppendLine($"CPU: {PerformanceMonitor.cpuUsage:F1}%");
-            sb.AppendLine($"RAM: {PerformanceMonitor.memoryUsage:F0} MB");
+            sb.AppendLine(pm.debugInfo.ToString());
 
             sb.AppendLine();
             var allSessions = TelegramBot.instance.sessionManager.GetAllSessions();

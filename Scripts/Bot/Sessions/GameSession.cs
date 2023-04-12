@@ -69,7 +69,7 @@ namespace TextGameRPG.Scripts.Bot.Sessions
             try
             {
                 // Делаем паузу на обработку апдейта в зависимости от нагрузки на процессор
-                await Task.Delay(performanceManager.GetCurrentResponseDelay()).FastAwait();
+                await Task.Delay(performanceManager.currentResponceDelay).FastAwait();
 
                 lastActivityTime = DateTime.UtcNow;
                 actualUser = refreshedUser;
