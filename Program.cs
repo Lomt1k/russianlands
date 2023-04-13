@@ -35,8 +35,6 @@ namespace TextGameRPG
                 Console.OutputEncoding = System.Text.Encoding.Unicode;
             }
 
-            logger.Info("args: " + args);
-
             PrepareCacheFolder();
             ConfigureLogger();
             PerformanceMonitor.Start();
@@ -57,8 +55,7 @@ namespace TextGameRPG
             // Catching exception when application started with GUI
             try
             {
-                bool withGUI = ConsoleMode.ConsoleHelper.AskYesNo("Start with GUI?");
-                if (!withGUI)
+                if (args.Length > 0 || !ConsoleMode.ConsoleHelper.AskYesNo("Start with GUI?"))
                 {
                     StartInConsoleMode(args);
                     return;

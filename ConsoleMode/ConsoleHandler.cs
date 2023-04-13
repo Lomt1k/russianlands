@@ -25,7 +25,17 @@ namespace TextGameRPG.ConsoleMode
         public void Start(string[] args)
         {
             Console.WriteLine("Started with console...");
-            StartWithBotDataSelection();
+
+            if (args.Length > 0)
+            {
+                var botDataInput = args[0].TrimStart('-');
+                var botDataPath = Path.Combine(botDataFolder, botDataInput);
+                StartWithBotData(botDataPath);
+            }
+            else
+            {
+                StartWithBotDataSelection();
+            }
 
             Console.WriteLine("Shutdown...");
         }
@@ -56,6 +66,11 @@ namespace TextGameRPG.ConsoleMode
                 botDataPath = Path.Combine(botDataFolder, input);
             }
 
+            StartWithBotData(botDataPath);
+        }
+
+        private void StartWithBotData(string botDataPath)
+        {
             var telegramBot = new TelegramBot(botDataPath);
             telegramBot.StartListening();
             ListenConsoleCommands();
