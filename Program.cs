@@ -35,6 +35,8 @@ namespace TextGameRPG
                 Console.OutputEncoding = System.Text.Encoding.Unicode;
             }
 
+            logger.Info("args: " + args);
+
             PrepareCacheFolder();
             ConfigureLogger();
             PerformanceMonitor.Start();

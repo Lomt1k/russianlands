@@ -49,6 +49,9 @@ namespace TextGameRPG.Scripts.GameCore.Managers
         private PerformanceState GetActualState(PerformanceInfo info)
         {
             var config = BotConfig.instance;
+            if (config == null)
+                return PerformanceState.Normal;
+
             var appRamLimit = config.appRamUsageLimitInMegabytes >  0 ? (int?)config.appRamUsageLimitInMegabytes : null;
             var totalRamLimitPercentage = config.totalRamUsageLimitInPercents > 0 ? (int?)config.totalRamUsageLimitInPercents : null;
             var cpuLimitPercentage = config.cpuUsageToHighloadStateInPercents > 0 ? (int?)config.cpuUsageToHighloadStateInPercents : null;
@@ -72,6 +75,9 @@ namespace TextGameRPG.Scripts.GameCore.Managers
         private PerformanceDebugInfo GetDebugInfo(PerformanceInfo info)
         {
             var config = BotConfig.instance;
+            if (config == null)
+                return new PerformanceDebugInfo();
+
             var appRamLimit = config.appRamUsageLimitInMegabytes > 0 ? (int?)config.appRamUsageLimitInMegabytes : null;
 
             return new PerformanceDebugInfo
