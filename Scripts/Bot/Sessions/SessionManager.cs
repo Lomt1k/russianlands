@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
+using Telegram.Bot.Types.ReplyMarkups;
+using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Managers;
 
 namespace TextGameRPG.Scripts.Bot.Sessions
@@ -110,6 +112,11 @@ namespace TextGameRPG.Scripts.Bot.Sessions
             return millisecondsFromLastActivity > timeoutMs;
         }
 
+        public List<GameSession> GetAllSessions()
+        {
+            return _sessions.Values.ToList();
+        }
+
         public async Task CloseSession(ChatId chatId, bool onError = false)
         {
             if (_sessions.TryGetValue(chatId, out var session))
@@ -124,16 +131,48 @@ namespace TextGameRPG.Scripts.Bot.Sessions
             Program.logger.Info($"Closing all sessions...");
             _allSessionsTasksCTS.Cancel();
 
+            var dtNow = DateTime.UtcNow;
+            var lastActivePlayers = GetAllSessions()
+                .Where(x => (dtNow - x.lastActivityTime).TotalMinutes < 5)
+                .OrderByDescending(x => x.lastActivityTime)
+                .ToArray();
+
             foreach (var chatId in _sessions.Keys)
             {
                 await CloseSession(chatId).FastAwait();
             }
             Program.logger.Info($"All sessions closed. Profiles data saved.");
+
+            await SendMaintenanceNotifications(lastActivePlayers).FastAwait();
         }
 
-        public List<GameSession> GetAllSessions()
+        private async Task SendMaintenanceNotifications(GameSession[] lastActivePlayers)
         {
-            return _sessions.Values.ToList();
+            if (!BotConfig.instance.sendTechWorksNotificationsOnStop)
+                return;
+
+            Program.logger.Info("Sending notifications for active players...");
+
+            var secondsLimit = BotConfig.instance.secondsLimitForSendTechWorks;
+            var playersCountLimit = secondsLimit * BotConfig.instance.sendMessagePerSecondLimit;
+            if (playersCountLimit < 1 || playersCountLimit > lastActivePlayers.Length)
+            {
+                playersCountLimit = lastActivePlayers.Length;
+            }
+
+            var messageSender = TelegramBot.instance.messageSender;
+            var sendMessageTasks = new List<Task>();
+            for (int i = 0; i < playersCountLimit; i++)
+            {
+                var session = lastActivePlayers[i];
+                var text = Emojis.ElementWarning + Localization.Get(session, "maintenance_message");
+                var button = new ReplyKeyboardMarkup(Localization.GetDefault("restart_button"));
+                var task = messageSender.SendTextDialog(session.chatId, text, button, silent: true);
+                sendMessageTasks.Add(task);
+            }
+
+            await Task.WhenAll(sendMessageTasks).FastAwait();
+            Program.logger.Info("Notifications sending completed");
         }
 
         // allow play as another telegram user

@@ -119,10 +119,7 @@ namespace TextGameRPG.Scripts.Bot
         public async Task StopListening()
         {
             if (!isReceiving)
-            {
-                Program.logger.Info("Bot listening is already stopped");
                 return;
-            }
 
             botReceiving.StopReceiving();
             await sessionManager.CloseAllSessions();
@@ -196,15 +193,15 @@ namespace TextGameRPG.Scripts.Bot
         {
             if (isReceiving && state == PerformanceState.ShutdownRequired)
             {
-                Shutdown(errorReason: "Performance limit reached");
+                Shutdown(fatalError: "Performance limit reached");
             }
         }
 
-        public async void Shutdown(string? errorReason = null)
+        public async void Shutdown(string? fatalError = null)
         {
-            if (errorReason != null)
+            if (fatalError != null)
             {
-                Program.logger.Fatal("The server will be shutdown. Reason:" + errorReason);
+                Program.logger.Fatal("The server will be shutdown. Reason:" + fatalError);
             }
             else
             {
