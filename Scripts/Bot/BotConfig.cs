@@ -24,8 +24,8 @@ namespace TextGameRPG.Scripts.Bot
         public int responceMsDelayWhenCpuHighload = 500;
         public int appRamUsageLimitInMegabytes = 0;
         public int totalRamUsageLimitInPercents = 95;
-        public bool sendTechWorksNotificationsOnStop = true;
-        public int secondsLimitForSendTechWorks = 30;
+        public bool sendMaintenanceNotificationsOnStop = true;
+        public int secondsLimitForSendMaintenance = 30;
 
         [JsonIgnore] public LanguageCode defaultLanguageCode { get; private set; }
 

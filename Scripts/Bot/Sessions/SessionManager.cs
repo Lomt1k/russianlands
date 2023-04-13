@@ -148,12 +148,12 @@ namespace TextGameRPG.Scripts.Bot.Sessions
 
         private async Task SendMaintenanceNotifications(GameSession[] lastActivePlayers)
         {
-            if (!BotConfig.instance.sendTechWorksNotificationsOnStop)
+            if (!BotConfig.instance.sendMaintenanceNotificationsOnStop)
                 return;
 
             Program.logger.Info("Sending notifications for active players...");
 
-            var secondsLimit = BotConfig.instance.secondsLimitForSendTechWorks;
+            var secondsLimit = BotConfig.instance.secondsLimitForSendMaintenance;
             var playersCountLimit = secondsLimit * BotConfig.instance.sendMessagePerSecondLimit;
             if (playersCountLimit < 1 || playersCountLimit > lastActivePlayers.Length)
             {
