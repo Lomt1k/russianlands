@@ -7,16 +7,6 @@ using System.Globalization;
 
 public static class DateTimeExtensions
 {
-    public static DateTime AsDateTime(this long longDateTime)
-    {
-        return new DateTime(longDateTime);
-    }
-
-    public static long AsLong(this DateTime dateTime)
-    {
-        return dateTime.Ticks;
-    }
-
     public static string GetView(this TimeSpan timeSpan, GameSession session, bool withCaption = false)
     {
         var sb = new StringBuilder();
