@@ -22,26 +22,29 @@ namespace TextGameRPG.Scripts.Bot
         public static HttpClient httpClient { get; } = new HttpClient();
 
         private BotConfig _config;
+        private TelegramBotReceiving _botReceiving;
 
         public string dataPath { get; }
-        public TelegramBotClient client { get; private set; }
+        public TelegramBotClient botClient { get; private set; }
         public User mineUser { get; private set; }
         public BotDataBase dataBase { get; private set; }
         public MessageSender messageSender { get; private set; }
         public SessionManager sessionManager { get; private set; }
-        public TelegramBotReceiving botReceiving { get; private set; }
 
-        public bool isReceiving => botReceiving != null && botReceiving.isReceiving;
+        public bool isReceiving => _botReceiving != null && _botReceiving.isReceiving;
 
         public TelegramBot(string botDataPath)
         {
             instance = this;
             dataPath = botDataPath;
-        }
 
-        public void Init()
-        {
             _config = GetConfig();
+            _botReceiving = new TelegramBotReceiving(this);
+
+            dataBase = new BotDataBase(botDataPath);
+            botClient = new TelegramBotClient(_config.token);
+            messageSender = new MessageSender(botClient);
+            sessionManager = new SessionManager(this);
         }
 
         private BotConfig GetConfig()
@@ -86,10 +89,7 @@ namespace TextGameRPG.Scripts.Bot
             }
 
             Program.logger.Info($"Starting bot with data... {dataPath}");
-            _config = GetConfig(); //reload config: maybe something was changed before start
-
             Program.logger.Info("Connecting to bot database...");
-            dataBase = new BotDataBase(dataPath);
             bool isConnected = await dataBase.ConnectAsync();
             if (!isConnected)
             {
@@ -98,20 +98,16 @@ namespace TextGameRPG.Scripts.Bot
             }
 
             await WaitForNetworkConnection();
-            client = new TelegramBotClient(_config.token);
-            mineUser = await client.GetMeAsync();
+            mineUser = await botClient.GetMeAsync();
             mineUser.CanJoinGroups = false;
             Program.SetTitle($"{mineUser.Username} [{dataPath}]");
 
             SubcribeEvents();
             Singletones.OnBotStarted();
-            messageSender = new MessageSender(client);
-            sessionManager = new SessionManager(this);
 
             await CharacterStickersHolder.StickersUpdate();
 
-            botReceiving = new TelegramBotReceiving(this);
-            botReceiving.StartReceiving();
+            _botReceiving.StartReceiving();
 
             return true;
         }
@@ -121,18 +117,12 @@ namespace TextGameRPG.Scripts.Bot
             if (!isReceiving)
                 return;
 
-            botReceiving.StopReceiving();
+            _botReceiving.StopReceiving();
             await sessionManager.CloseAllSessions();
             await dataBase.CloseAsync();
 
             Singletones.OnBotStopped();
             UnsubscribeEvents();
-
-            messageSender = null;
-            sessionManager = null;
-            dataBase = null;
-            botReceiving = null;
-            client = null;
         }
 
         public async void Reconnect()
@@ -141,7 +131,7 @@ namespace TextGameRPG.Scripts.Bot
                 return;
 
             Program.logger.Info("Reconnection starts...");
-            botReceiving.StopReceiving();
+            _botReceiving.StopReceiving();
             var battleManager = Singletones.Get<BattleManager>();
             if (battleManager != null)
             {
@@ -153,7 +143,7 @@ namespace TextGameRPG.Scripts.Bot
                 }
             }
             await WaitForNetworkConnection();
-            botReceiving.StartReceiving();
+            _botReceiving.StartReceiving();
         }
 
         private async Task WaitForNetworkConnection()

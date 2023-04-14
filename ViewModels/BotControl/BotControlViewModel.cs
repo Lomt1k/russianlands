@@ -67,7 +67,6 @@ namespace TextGameRPG.ViewModels.BotControl
             RedirectConsoleOutput();
             Program.logger.Info($"Selected bot data: {bot.dataPath}");
             _bot = bot;
-            _bot.Init();
 
             startListening = ReactiveCommand.Create(StartBotListening);
             stopListening = ReactiveCommand.Create(StopBotListening);

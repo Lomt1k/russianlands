@@ -33,7 +33,7 @@ namespace TextGameRPG.Scripts.Bot
                 },
                 Offset = -1 // После рестарта бота обработает только последнее сообщение, отправленное за время офлайна (оно запустит новую сессию)
             };
-            _bot.client.ReceiveAsync<TelegramBotUpdateHandler>(receiverOptions, _cts.Token);
+            _bot.botClient.ReceiveAsync<TelegramBotUpdateHandler>(receiverOptions, _cts.Token);
             isReceiving = true;
             Program.logger.Info($"Start listening for @{_bot.mineUser.Username}");
         }
