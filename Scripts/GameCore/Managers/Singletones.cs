@@ -12,19 +12,17 @@
 
         static Singletones()
         {
-            RegisterSingletone<GameDataBase.GameDataBase>();
-            RegisterSingletone<SessionManager>();
-            RegisterSingletone<BattleManager>();
-            RegisterSingletone<PerformanceManager>();
-            RegisterSingletone<NotificationsManager>();
-            RegisterSingletone<MessageSequencer>();
+            RegisterSingletone<GameDataBase.GameDataBase>(new GameDataBase.GameDataBase());
+            RegisterSingletone<SessionManager>(new SessionManager());
+            RegisterSingletone<BattleManager>(new BattleManager());
+            RegisterSingletone<PerformanceManager>(new PerformanceManager());
+            RegisterSingletone<NotificationsManager>(new NotificationsManager());
+            RegisterSingletone<MessageSequencer>(new MessageSequencer());
         }
 
-        private static T RegisterSingletone<T>() where T : Singletone, new()
+        private static void RegisterSingletone<T>(T instance) where T : Singletone, new()
         {
-            var manager = new T();
-            _instances.Add(typeof(T), manager);
-            return manager;
+            _instances.Add(typeof(T), instance);
         }
 
         public static T Get<T>() where T : Singletone
