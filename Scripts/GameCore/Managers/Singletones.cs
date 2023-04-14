@@ -12,12 +12,12 @@
 
         static Singletones()
         {
-            RegisterSingletone<GameDataBase.GameDataBase>(new GameDataBase.GameDataBase());
-            RegisterSingletone<SessionManager>(new SessionManager());
-            RegisterSingletone<BattleManager>(new BattleManager());
-            RegisterSingletone<PerformanceManager>(new PerformanceManager());
-            RegisterSingletone<NotificationsManager>(new NotificationsManager());
-            RegisterSingletone<MessageSequencer>(new MessageSequencer());
+            RegisterSingletone(new GameDataBase.GameDataBase());
+            RegisterSingletone(new SessionManager());
+            RegisterSingletone(new BattleManager());
+            RegisterSingletone(new PerformanceManager());
+            RegisterSingletone(new NotificationsManager());
+            RegisterSingletone(new MessageSequencer());
         }
 
         private static void RegisterSingletone<T>(T instance) where T : Singletone, new()
