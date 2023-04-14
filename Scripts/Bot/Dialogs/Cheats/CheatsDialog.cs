@@ -12,6 +12,7 @@ using TextGameRPG.Scripts.GameCore.Buildings.General;
 using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.GameCore.Items.Generators;
 using TextGameRPG.Scripts.GameCore.Localizations;
+using TextGameRPG.Scripts.GameCore.Managers;
 using TextGameRPG.Scripts.GameCore.Quests;
 using TextGameRPG.Scripts.GameCore.Resources;
 using TextGameRPG.Scripts.GameCore.Skills;
@@ -20,6 +21,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
 {
     public class CheatsDialog : DialogBase
     {
+        private static readonly SessionManager sessionManager = Singletones.Get<SessionManager>();
+
         private Func<string, Task>? _onReceivedFileFromUser;
 
         public CheatsDialog(GameSession _session) : base(_session)
@@ -504,7 +507,6 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
             var telegramId = session.profile.data.telegram_id;
             var dbId = session.profile.data.dbid;
 
-            var sessionManager = TelegramBot.instance.sessionManager;
             await sessionManager.CloseSession(telegramId).FastAwait();
 
             var profilesTable = TelegramBot.instance.dataBase[Table.Profiles] as ProfilesDataTable;

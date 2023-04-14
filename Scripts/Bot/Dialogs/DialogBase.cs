@@ -17,7 +17,6 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
     {
         private static readonly NotificationsManager notificationsManager = Singletones.Get<NotificationsManager>();
 
-        protected static SessionManager sessionManager => TelegramBot.instance.sessionManager;
         protected static MessageSender messageSender => TelegramBot.instance.messageSender;        
 
         private Dictionary<KeyboardButton, Func<Task>?> _registeredButtons = new Dictionary<KeyboardButton, Func<Task>?>();

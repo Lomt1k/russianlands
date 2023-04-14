@@ -16,6 +16,7 @@ namespace TextGameRPG.Scripts.Bot
 
     public class TelegramBot
     {
+        private static readonly SessionManager sessionManager = Singletones.Get<SessionManager>();
         private static readonly PerformanceManager performanceManager = Singletones.Get<PerformanceManager>();
 
         public static TelegramBot instance { get; private set; }
@@ -29,7 +30,6 @@ namespace TextGameRPG.Scripts.Bot
         public User mineUser { get; private set; }
         public BotDataBase dataBase { get; private set; }
         public MessageSender messageSender { get; private set; }
-        public SessionManager sessionManager { get; private set; }
 
         public bool isReceiving => _botReceiving != null && _botReceiving.isReceiving;
 
@@ -44,7 +44,6 @@ namespace TextGameRPG.Scripts.Bot
             dataBase = new BotDataBase(botDataPath);
             botClient = new TelegramBotClient(_config.token);
             messageSender = new MessageSender(botClient);
-            sessionManager = new SessionManager(this);
         }
 
         private BotConfig GetConfig()

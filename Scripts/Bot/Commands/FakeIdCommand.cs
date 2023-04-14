@@ -1,11 +1,14 @@
 ﻿using System.Text;
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.Bot.Sessions;
+using TextGameRPG.Scripts.GameCore.Managers;
 
 namespace TextGameRPG.Scripts.Bot.Commands
 {
     internal class FakeIdCommand : CommandBase
     {
+        private static readonly SessionManager sessionManager = Singletones.Get<SessionManager>();
+
         public override CommandGroup commandGroup => CommandGroup.Cheat;
 
         public override async Task Execute(GameSession session, string[] args)
@@ -16,9 +19,7 @@ namespace TextGameRPG.Scripts.Bot.Commands
                 return;
             }
 
-            var sessionManager = TelegramBot.instance.sessionManager;
             var realId = session.actualUser.Id;
-
             await sessionManager.CloseSession(fakeId).FastAwait();
             await sessionManager.CloseSession(realId).FastAwait();
 

@@ -2,14 +2,18 @@
 using System.Threading.Tasks;
 using Telegram.Bot.Exceptions;
 using Telegram.Bot.Types;
+using TextGameRPG.Scripts.Bot.Sessions;
+using TextGameRPG.Scripts.GameCore.Managers;
 
 namespace TextGameRPG.Scripts.Bot
 {
     public class RequestExceptionHandler
     {
+        private static readonly SessionManager sessionManager = Singletones.Get<SessionManager>();
+
         public async Task HandleException(ChatId id, RequestException ex)
         {
-            var user = TelegramBot.instance.sessionManager.GetSessionIfExists(id)?.actualUser;
+            var user = sessionManager.GetSessionIfExists(id)?.actualUser;
             Program.logger.Error($"Catched exception on sending request to " + (user != null ? user.ToString() : id.ToString()));
 
             var hanldingEx = ex.InnerException ?? ex;
@@ -32,21 +36,18 @@ namespace TextGameRPG.Scripts.Bot
             Program.logger.Error($"HttpRequestException: {ex.Message}");
 
             TelegramBot.instance.Reconnect();
-            var sessionManager = TelegramBot.instance.sessionManager;
             await sessionManager.CloseSession(id, onError: true).FastAwait();
         }
 
         private async Task HandleApiException(ChatId id, ApiRequestException ex)
         {
             Program.logger.Error($"ApiRequestException: {ex.Message}");
-            var sessionManager = TelegramBot.instance.sessionManager;
             await sessionManager.CloseSession(id, onError: true).FastAwait();
         }
 
         private async Task HandleUnknownException(ChatId id, System.Exception ex)
         {
             Program.logger.Error("Unkwown Exception: " + ex);
-            var sessionManager = TelegramBot.instance.sessionManager;
             await sessionManager.CloseSession(id, onError: true).FastAwait();
         }
 

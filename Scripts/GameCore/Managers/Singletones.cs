@@ -3,6 +3,7 @@
     using Battles;
     using System;
     using System.Collections.Generic;
+    using TextGameRPG.Scripts.Bot.Sessions;
     using TextGameRPG.Scripts.GameCore.Managers.Sending;
 
     public static class Singletones
@@ -12,6 +13,7 @@
         static Singletones()
         {
             RegisterSingletone<GameDataBase.GameDataBase>();
+            RegisterSingletone<SessionManager>();
             RegisterSingletone<BattleManager>();
             RegisterSingletone<PerformanceManager>();
             RegisterSingletone<NotificationsManager>();

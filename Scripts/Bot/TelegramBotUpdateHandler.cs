@@ -19,14 +19,13 @@ namespace TextGameRPG.Scripts.Bot
         private readonly string accountIsBusyText = Emojis.ElementWarning + Localization.GetDefault("account_is_busy_message");
         private readonly ReplyKeyboardMarkup restartButton = new ReplyKeyboardMarkup(Localization.GetDefault("restart_button"));
 
+        private static readonly SessionManager sessionManager = Singletones.Get<SessionManager>();
         private static readonly PerformanceManager performanceManager = Singletones.Get<PerformanceManager>();
 
-        private SessionManager _sessionManager;
         private MessageSender _messageSender;
 
         public TelegramBotUpdateHandler()
         {
-            _sessionManager = TelegramBot.instance.sessionManager;
             _messageSender = TelegramBot.instance.messageSender;
         }
 
@@ -52,13 +51,13 @@ namespace TextGameRPG.Scripts.Bot
                     return;
                 }
 
-                if (_sessionManager.IsAccountUsedByFakeId(fromUser))
+                if (sessionManager.IsAccountUsedByFakeId(fromUser))
                 {
                     SendAccountIsBusyMessage(fromUser.Id);
                     return;
                 }
 
-                var gameSession = _sessionManager.GetOrCreateSession(fromUser);
+                var gameSession = sessionManager.GetOrCreateSession(fromUser);
                 gameSession.HandleUpdateAsync(fromUser, update);
             }
             catch (Exception ex)

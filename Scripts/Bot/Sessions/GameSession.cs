@@ -18,7 +18,8 @@ namespace TextGameRPG.Scripts.Bot.Sessions
 {
     public class GameSession
     {
-        private static PerformanceManager performanceManager = Singletones.Get<PerformanceManager>();
+        private static readonly SessionManager sessionManager = Singletones.Get<SessionManager>();
+        private static readonly PerformanceManager performanceManager = Singletones.Get<PerformanceManager>();
         private static readonly BattleManager battleManager = Singletones.Get<BattleManager>();
 
         private bool _isHandlingUpdate;
@@ -45,7 +46,7 @@ namespace TextGameRPG.Scripts.Bot.Sessions
 
             Program.logger.Info($"Started a new session for {user}"
                 + (fakeChatId?.Identifier != null ? $" with fakeId: {fakeChatId}" : string.Empty));
-            Program.logger.Debug($"Sessions Count: {TelegramBot.instance.sessionManager.sessionsCount + 1}"); //for debug
+            Program.logger.Info($"Sessions Count: {sessionManager.sessionsCount + 1}");
         }
 
         public void SetupActiveDialog(DialogBase dialog)
@@ -205,8 +206,7 @@ namespace TextGameRPG.Scripts.Bot.Sessions
             if (_sessionTasksCTS.IsCancellationRequested)
                 return true;
 
-            var sessionManager = TelegramBot.instance.sessionManager;
-            return sessionManager == null || sessionManager.allSessionsTasksCTS.IsCancellationRequested;
+            return sessionManager.allSessionsTasksCTS.IsCancellationRequested;
         }
 
         public void SetupLanguage(LanguageCode languageCode)

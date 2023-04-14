@@ -10,13 +10,11 @@ using TextGameRPG.Scripts.GameCore.Managers;
 
 namespace TextGameRPG.Scripts.Bot.Sessions
 {
-    public class SessionManager
+    public class SessionManager : Singletone
     {
         private const int millisecondsInMinute = 60_000;
 
-        private static readonly PerformanceManager performanceManager = Singletones.Get<PerformanceManager>();
-
-        private readonly int periodicSaveDatabaseInMs;
+        private int _periodicSaveDatabaseInMs;
         private CancellationTokenSource _allSessionsTasksCTS;
         private Dictionary<ChatId, GameSession> _sessions = new Dictionary<ChatId, GameSession>();
         private Dictionary<long, long> _fakeIdsDict = new Dictionary<long, long>(); //cheat: allow play as another telegram user
@@ -24,10 +22,9 @@ namespace TextGameRPG.Scripts.Bot.Sessions
         public int sessionsCount => _sessions.Count;
         public CancellationTokenSource allSessionsTasksCTS => _allSessionsTasksCTS;
 
-        public SessionManager(TelegramBot telegramBot)
+        public override void OnBotStarted()
         {
-            periodicSaveDatabaseInMs = BotConfig.instance.periodicSaveDatabaseInMinutes * millisecondsInMinute;
-
+            _periodicSaveDatabaseInMs = BotConfig.instance.periodicSaveDatabaseInMinutes * millisecondsInMinute;
             _allSessionsTasksCTS = new CancellationTokenSource();
             Task.Run(() => PeriodicSaveProfilesAsync(), _allSessionsTasksCTS.Token);
             Task.Run(() => CloseSessionsWithTimeoutAsync(), _allSessionsTasksCTS.Token);
@@ -71,7 +68,7 @@ namespace TextGameRPG.Scripts.Bot.Sessions
 
         private async Task PeriodicSaveProfilesAsync()
         {
-            await Task.Delay(periodicSaveDatabaseInMs).FastAwait();
+            await Task.Delay(_periodicSaveDatabaseInMs).FastAwait();
             while (!_allSessionsTasksCTS.IsCancellationRequested)
             {
                 Program.logger.Info("Saving changes in database for active users...");
@@ -79,7 +76,7 @@ namespace TextGameRPG.Scripts.Bot.Sessions
                 {
                     await session.SaveProfileIfNeed();
                 }
-                await Task.Delay(periodicSaveDatabaseInMs).FastAwait();
+                await Task.Delay(_periodicSaveDatabaseInMs).FastAwait();
             }
         }
 

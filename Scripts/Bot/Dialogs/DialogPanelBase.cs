@@ -15,7 +15,6 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
 {
     public abstract class DialogPanelBase
     {
-        protected static SessionManager sessionManager => TelegramBot.instance.sessionManager;
         protected static MessageSender messageSender => TelegramBot.instance.messageSender;
         public DialogWithPanel dialog { get; }
         public GameSession session { get; }

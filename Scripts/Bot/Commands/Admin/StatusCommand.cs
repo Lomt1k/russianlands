@@ -9,6 +9,7 @@ namespace TextGameRPG.Scripts.Bot.Commands.Admin
 {
     public class StatusCommand : CommandBase
     {
+        private static readonly SessionManager sessionManager = Singletones.Get<SessionManager>();
         private static readonly PerformanceManager pm = Singletones.Get<PerformanceManager>();
 
         public override CommandGroup commandGroup => CommandGroup.Cheat;
@@ -21,7 +22,7 @@ namespace TextGameRPG.Scripts.Bot.Commands.Admin
             sb.AppendLine(pm.debugInfo.ToString());
 
             sb.AppendLine();
-            var allSessions = TelegramBot.instance.sessionManager.GetAllSessions();
+            var allSessions = sessionManager.GetAllSessions();
             sb.AppendLine($"Active sessions: {allSessions.Count}");
             var dtNow = DateTime.UtcNow;
             var recentlyActive = allSessions.Where(x => (dtNow - x.lastActivityTime).TotalMinutes < 5).Count();

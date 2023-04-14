@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using TextGameRPG.Scripts.Bot;
+using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Managers;
 
 namespace TextGameRPG.ConsoleMode
@@ -12,7 +13,9 @@ namespace TextGameRPG.ConsoleMode
     {
         public const string botDataFolder = "botData";
 
+        private static readonly SessionManager sessionManager = Singletones.Get<SessionManager>();
         private static readonly PerformanceManager pm = Singletones.Get<PerformanceManager>();
+
         private static Dictionary<string, Action<string[]>> commands = new Dictionary<string, Action<string[]>>
         {
             {"start", (args) => StartBotCommand(args) },
@@ -131,7 +134,7 @@ namespace TextGameRPG.ConsoleMode
             Console.WriteLine(pm.debugInfo);
 
             Console.WriteLine();
-            var allSessions = TelegramBot.instance.sessionManager.GetAllSessions();
+            var allSessions = sessionManager.GetAllSessions();
             Console.WriteLine($"Active sessions: {allSessions.Count}");
             var dtNow = DateTime.UtcNow;
             var recentlyActive = allSessions.Where(x => (dtNow - x.lastActivityTime).TotalMinutes < 5).Count();
