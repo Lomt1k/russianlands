@@ -49,7 +49,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests
                         {
                             await notificationsManager.GetNotificationsAndEntryTown(session, TownEntryReason.StartNewSession).FastAwait();
                         }
-                        break;
+                        return;
 
                     // Если игрок закончил игру на PvE точке и в начале новой сессии нажал "в бой" - запускаем бой
                     case QuestStageWithBattlePoint stageWithBattlePoint:
@@ -62,7 +62,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests
                         {
                             await notificationsManager.GetNotificationsAndEntryTown(session, TownEntryReason.StartNewSession).FastAwait();
                         }                        
-                        break;
+                        return;
 
                     // Если игрок прислал корректный вариант ответа в диалоге - переходим на следующий этап диалога
                     case QuestStageWithReplica stageWithReplica:
