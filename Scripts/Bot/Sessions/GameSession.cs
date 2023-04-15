@@ -10,18 +10,18 @@ using TextGameRPG.Scripts.Bot.CallbackData;
 using TextGameRPG.Scripts.Bot.DataBase.TablesStructure;
 using TextGameRPG.Scripts.Bot.Dialogs;
 using TextGameRPG.Scripts.GameCore.Quests;
-using TextGameRPG.Scripts.GameCore.Managers;
+using TextGameRPG.Scripts.GameCore.Services;
 using System.Threading;
-using TextGameRPG.Scripts.GameCore.Managers.Battles;
+using TextGameRPG.Scripts.GameCore.Services.Battles;
 
 namespace TextGameRPG.Scripts.Bot.Sessions
 {
     public class GameSession
     {
-        private static readonly SessionManager sessionManager = Singletones.Get<SessionManager>();
-        private static readonly PerformanceManager performanceManager = Singletones.Get<PerformanceManager>();
-        private static readonly BattleManager battleManager = Singletones.Get<BattleManager>();
-        private static readonly MessageSender messageSender = Singletones.Get<MessageSender>();
+        private static readonly SessionManager sessionManager = Services.Get<SessionManager>();
+        private static readonly PerformanceManager performanceManager = Services.Get<PerformanceManager>();
+        private static readonly BattleManager battleManager = Services.Get<BattleManager>();
+        private static readonly MessageSender messageSender = Services.Get<MessageSender>();
 
         private bool _isHandlingUpdate;
         private CancellationTokenSource _sessionTasksCTS = new CancellationTokenSource();

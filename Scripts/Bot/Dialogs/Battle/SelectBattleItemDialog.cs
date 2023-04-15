@@ -5,7 +5,7 @@ using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Items;
 using Telegram.Bot.Types.ReplyMarkups;
 using TextGameRPG.Scripts.GameCore.Localizations;
-using TextGameRPG.Scripts.GameCore.Managers.Battles;
+using TextGameRPG.Scripts.GameCore.Services.Battles;
 using System.Text;
 using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
 using TextGameRPG.Scripts.GameCore.Units.Stats;

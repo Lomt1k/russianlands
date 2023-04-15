@@ -10,13 +10,13 @@ using Telegram.Bot.Types;
 using System.Text;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Quests.QuestStages;
-using TextGameRPG.Scripts.GameCore.Managers;
+using TextGameRPG.Scripts.GameCore.Services;
 
 namespace TextGameRPG.Scripts.Bot.Dialogs
 {
     public abstract class DialogPanelBase
     {
-        protected static readonly MessageSender messageSender = Singletones.Get<MessageSender>();
+        protected static readonly MessageSender messageSender = Services.Get<MessageSender>();
         public DialogWithPanel dialog { get; }
         public GameSession session { get; }
         public Tooltip? tooltip { get; private set; }

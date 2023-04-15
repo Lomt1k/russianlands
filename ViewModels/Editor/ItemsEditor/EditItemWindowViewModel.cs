@@ -5,15 +5,15 @@ using TextGameRPG.Models;
 using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
 using TextGameRPG.Scripts.GameCore.Items.ItemProperties;
-using TextGameRPG.Scripts.GameCore.Managers;
-using TextGameRPG.Scripts.GameCore.Managers.GameDataBase;
+using TextGameRPG.Scripts.GameCore.Services;
+using TextGameRPG.Scripts.GameCore.Services.GameDataBase;
 using TextGameRPG.Views.Editor.ItemsEditor;
 
 namespace TextGameRPG.ViewModels.Editor.ItemsEditor
 {
     public class EditItemWindowViewModel : ViewModelBase
     {
-        private static readonly GameDataBase gameDataBase = Singletones.Get<GameDataBase>();
+        private static readonly GameDataBase gameDataBase = Services.Get<GameDataBase>();
 
 
         private EditItemWindow _window;

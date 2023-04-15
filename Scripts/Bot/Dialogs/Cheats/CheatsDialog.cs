@@ -12,7 +12,7 @@ using TextGameRPG.Scripts.GameCore.Buildings.General;
 using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.GameCore.Items.Generators;
 using TextGameRPG.Scripts.GameCore.Localizations;
-using TextGameRPG.Scripts.GameCore.Managers;
+using TextGameRPG.Scripts.GameCore.Services;
 using TextGameRPG.Scripts.GameCore.Quests;
 using TextGameRPG.Scripts.GameCore.Resources;
 using TextGameRPG.Scripts.GameCore.Skills;
@@ -21,7 +21,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
 {
     public class CheatsDialog : DialogBase
     {
-        private static readonly SessionManager sessionManager = Singletones.Get<SessionManager>();
+        private static readonly SessionManager sessionManager = Services.Get<SessionManager>();
 
         private Func<string, Task>? _onReceivedFileFromUser;
 

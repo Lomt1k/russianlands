@@ -9,15 +9,15 @@ namespace TextGameRPG.Scripts.Bot
     using Sessions;
     using DataBase;
     using System.Threading.Tasks;
-    using TextGameRPG.Scripts.GameCore.Managers;
+    using TextGameRPG.Scripts.GameCore.Services;
     using TextGameRPG.Scripts.GameCore.Quests.Characters;
     using System.Net.Http;
-    using TextGameRPG.Scripts.GameCore.Managers.Battles;
+    using TextGameRPG.Scripts.GameCore.Services.Battles;
 
     public class TelegramBot
     {
-        private static readonly SessionManager sessionManager = Singletones.Get<SessionManager>();
-        private static readonly PerformanceManager performanceManager = Singletones.Get<PerformanceManager>();
+        private static readonly SessionManager sessionManager = Services.Get<SessionManager>();
+        private static readonly PerformanceManager performanceManager = Services.Get<PerformanceManager>();
 
         public static TelegramBot instance { get; private set; }
 
@@ -100,7 +100,7 @@ namespace TextGameRPG.Scripts.Bot
             Program.SetTitle($"{mineUser.Username} [{dataPath}]");
 
             SubcribeEvents();
-            Singletones.OnBotStarted(this);
+            Services.OnBotStarted(this);
 
             await CharacterStickersHolder.StickersUpdate();
 
@@ -118,7 +118,7 @@ namespace TextGameRPG.Scripts.Bot
             await sessionManager.CloseAllSessions();
             await dataBase.CloseAsync();
 
-            Singletones.OnBotStopped(this);
+            Services.OnBotStopped(this);
             UnsubscribeEvents();
         }
 
@@ -129,7 +129,7 @@ namespace TextGameRPG.Scripts.Bot
 
             Program.logger.Info("Reconnection starts...");
             _botReceiving.StopReceiving();
-            var battleManager = Singletones.Get<BattleManager>();
+            var battleManager = Services.Get<BattleManager>();
             if (battleManager != null)
             {
                 var playersInBattle = battleManager.GetAllPlayers();

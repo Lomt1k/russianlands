@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Managers;
+using TextGameRPG.Scripts.GameCore.Services;
 
 namespace TextGameRPG.Scripts.Bot.Commands
 {
@@ -13,7 +13,7 @@ namespace TextGameRPG.Scripts.Bot.Commands
 
     public abstract class CommandBase
     {
-        protected static readonly MessageSender messageSender = Singletones.Get<MessageSender>();
+        protected static readonly MessageSender messageSender = Services.Get<MessageSender>();
 
         public abstract CommandGroup commandGroup { get; }
 

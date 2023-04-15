@@ -9,19 +9,19 @@ using TextGameRPG.Scripts.GameCore.Units.Stats;
 using TextGameRPG.Scripts.Bot;
 using TextGameRPG.Scripts.Bot.CallbackData;
 using TextGameRPG.Scripts.Bot.Dialogs.Battle;
-using TextGameRPG.Scripts.GameCore.Managers.Battles;
+using TextGameRPG.Scripts.GameCore.Services.Battles;
 using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Units.ActionHandlers;
 using TextGameRPG.Scripts.GameCore.Potions;
 using System.Collections.Generic;
 using TextGameRPG.Scripts.GameCore.Skills;
-using TextGameRPG.Scripts.GameCore.Managers;
+using TextGameRPG.Scripts.GameCore.Services;
 
 namespace TextGameRPG.Scripts.GameCore.Units
 {
     public class Player : IBattleUnit
     {
-        private static readonly MessageSender messageSender = Singletones.Get<MessageSender>();
+        private static readonly MessageSender messageSender = Services.Services.Get<MessageSender>();
 
         public GameSession session { get; }
         public UnitStats unitStats { get; }

@@ -3,13 +3,13 @@ using System.Threading.Tasks;
 using Telegram.Bot.Exceptions;
 using Telegram.Bot.Types;
 using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Managers;
+using TextGameRPG.Scripts.GameCore.Services;
 
 namespace TextGameRPG.Scripts.Bot
 {
     public class RequestExceptionHandler
     {
-        private static readonly SessionManager sessionManager = Singletones.Get<SessionManager>();
+        private static readonly SessionManager sessionManager = Services.Get<SessionManager>();
 
         public async Task HandleException(ChatId id, RequestException ex)
         {

@@ -1,13 +1,13 @@
 ﻿using System.Text;
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Managers;
+using TextGameRPG.Scripts.GameCore.Services;
 
 namespace TextGameRPG.Scripts.Bot.Commands
 {
     internal class FakeIdCommand : CommandBase
     {
-        private static readonly SessionManager sessionManager = Singletones.Get<SessionManager>();
+        private static readonly SessionManager sessionManager = Services.Get<SessionManager>();
 
         public override CommandGroup commandGroup => CommandGroup.Cheat;
 

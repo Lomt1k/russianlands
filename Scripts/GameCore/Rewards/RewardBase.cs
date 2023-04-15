@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.Bot;
 using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Managers;
+using TextGameRPG.Scripts.GameCore.Services;
 
 namespace TextGameRPG.Scripts.GameCore.Rewards
 {
@@ -12,7 +12,7 @@ namespace TextGameRPG.Scripts.GameCore.Rewards
     public abstract class RewardBase
     {
         [JsonIgnore]
-        protected static readonly MessageSender messageSender = Singletones.Get<MessageSender>();
+        protected static readonly MessageSender messageSender = Services.Services.Get<MessageSender>();
 
         public abstract Task<string> AddReward(GameSession session);
     }

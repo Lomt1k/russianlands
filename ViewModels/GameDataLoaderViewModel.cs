@@ -3,14 +3,14 @@ using System.Collections.ObjectModel;
 using System.Reactive;
 using ReactiveUI;
 using TextGameRPG.Models;
-using TextGameRPG.Scripts.GameCore.Managers;
-using TextGameRPG.Scripts.GameCore.Managers.GameDataBase;
+using TextGameRPG.Scripts.GameCore.Services;
+using TextGameRPG.Scripts.GameCore.Services.GameDataBase;
 
 namespace TextGameRPG.ViewModels
 {
     public class GameDataLoaderViewModel : ViewModelBase, IGameDataLoader
     {
-        private static readonly GameDataBase gameDataBase = Singletones.Get<GameDataBase>();
+        private static readonly GameDataBase gameDataBase = Services.Get<GameDataBase>();
 
         private GameDataLoaderStateInfo _currentState;
 

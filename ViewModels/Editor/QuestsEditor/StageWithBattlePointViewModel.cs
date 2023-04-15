@@ -8,14 +8,14 @@ using TextGameRPG.Models.UserControls;
 using TextGameRPG.Models.RegularDialogs;
 using System;
 using TextGameRPG.Scripts.GameCore.Rewards;
-using TextGameRPG.Scripts.GameCore.Managers.GameDataBase;
-using TextGameRPG.Scripts.GameCore.Managers;
+using TextGameRPG.Scripts.GameCore.Services.GameDataBase;
+using TextGameRPG.Scripts.GameCore.Services;
 
 namespace TextGameRPG.ViewModels.Editor.QuestsEditor
 {
     public class StageWithBattlePointViewModel : ViewModelBase
     {
-        private static readonly GameDataBase gameDataBase = Singletones.Get<GameDataBase>();
+        private static readonly GameDataBase gameDataBase = Services.Get<GameDataBase>();
 
 
         private Dictionary<string, int> _mobIds = new Dictionary<string, int>();

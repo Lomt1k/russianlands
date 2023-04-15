@@ -4,15 +4,15 @@ using ReactiveUI;
 using TextGameRPG.Models.UserControls;
 using TextGameRPG.Scripts.GameCore.Buildings;
 using TextGameRPG.Scripts.GameCore.Buildings.Data;
-using TextGameRPG.Scripts.GameCore.Managers;
-using TextGameRPG.Scripts.GameCore.Managers.GameDataBase;
+using TextGameRPG.Scripts.GameCore.Services;
+using TextGameRPG.Scripts.GameCore.Services.GameDataBase;
 using TextGameRPG.Views.UserControls;
 
 namespace TextGameRPG.ViewModels.Editor.BuildingsEditor
 {
     public class BuildingInspectorViewModel : ViewModelBase
     {
-        private static readonly GameDataBase gameDataBase = Singletones.Get<GameDataBase>();
+        private static readonly GameDataBase gameDataBase = Services.Get<GameDataBase>();
 
         private BuildingData? _tempBuilding;
         private ObjectFieldsEditorView? _selectedLevelView;

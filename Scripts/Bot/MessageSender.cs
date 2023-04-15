@@ -5,14 +5,14 @@ using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.InputFiles;
 using Telegram.Bot.Types.ReplyMarkups;
-using TextGameRPG.Scripts.GameCore.Managers;
-using TextGameRPG.Scripts.GameCore.Managers.Sending;
+using TextGameRPG.Scripts.GameCore.Services;
+using TextGameRPG.Scripts.GameCore.Services.Sending;
 
 namespace TextGameRPG.Scripts.Bot
 {
-    public class MessageSender : Singletone
+    public class MessageSender : Service
     {
-        private static readonly MessageSequencer sequencer = Singletones.Get<MessageSequencer>();
+        private static readonly MessageSequencer sequencer = Services.Get<MessageSequencer>();
 
         private TelegramBotClient _botClient;
         private RequestExceptionHandler _requestExceptionHandler;

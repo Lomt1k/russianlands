@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using TextGameRPG.Scripts.Bot;
 using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Managers;
+using TextGameRPG.Scripts.GameCore.Services;
 
 namespace TextGameRPG.ConsoleMode
 {
@@ -13,8 +13,8 @@ namespace TextGameRPG.ConsoleMode
     {
         public const string botDataFolder = "botData";
 
-        private static readonly SessionManager sessionManager = Singletones.Get<SessionManager>();
-        private static readonly PerformanceManager pm = Singletones.Get<PerformanceManager>();
+        private static readonly SessionManager sessionManager = Services.Get<SessionManager>();
+        private static readonly PerformanceManager pm = Services.Get<PerformanceManager>();
 
         private static Dictionary<string, Action<string[]>> commands = new Dictionary<string, Action<string[]>>
         {

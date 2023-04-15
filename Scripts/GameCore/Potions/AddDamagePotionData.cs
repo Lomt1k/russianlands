@@ -2,7 +2,7 @@
 using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.GameCore.Localizations;
-using TextGameRPG.Scripts.GameCore.Managers.Battles;
+using TextGameRPG.Scripts.GameCore.Services.Battles;
 using TextGameRPG.Scripts.GameCore.Units;
 using TextGameRPG.Scripts.GameCore.Units.Stats.StatEffects;
 

@@ -2,14 +2,14 @@
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.Bot.Dialogs.Town;
 using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Managers;
+using TextGameRPG.Scripts.GameCore.Services;
 
 namespace TextGameRPG.Scripts.GameCore.Quests.StageActions
 {
     [JsonObject]
     public class EntryTownAction : StageActionBase
     {
-        private static readonly NotificationsManager notificationsManager = Singletones.Get<NotificationsManager>();
+        private static readonly NotificationsManager notificationsManager = Services.Services.Get<NotificationsManager>();
 
         public override async Task Execute(GameSession session)
         {

@@ -7,9 +7,9 @@ using TextGameRPG.Scripts.GameCore.Rewards;
 using TextGameRPG.Scripts.GameCore.Units;
 using TextGameRPG.Scripts.Bot.Dialogs.Battle;
 using TextGameRPG.Scripts.Bot.Dialogs.Resources;
-using TextGameRPG.Scripts.GameCore.Managers;
+using TextGameRPG.Scripts.GameCore.Services;
 using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Managers.Battles;
+using TextGameRPG.Scripts.GameCore.Services.Battles;
 
 namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
 {
@@ -27,7 +27,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
     public class BattlePointDialog : DialogBase
     {
         private BattlePointData _data;
-        private BattleManager _battleManager = Singletones.Get<BattleManager>();
+        private BattleManager _battleManager = Services.Get<BattleManager>();
 
         public BattlePointDialog(GameSession session, BattlePointData data) : base(session)
         {

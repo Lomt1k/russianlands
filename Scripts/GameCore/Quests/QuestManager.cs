@@ -7,13 +7,13 @@ using TextGameRPG.Scripts.GameCore.Quests.StageActions;
 using TextGameRPG.Scripts.Bot.Dialogs.Town;
 using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Resources;
-using TextGameRPG.Scripts.GameCore.Managers;
+using TextGameRPG.Scripts.GameCore.Services;
 
 namespace TextGameRPG.Scripts.GameCore.Quests
 {
     public class QuestManager
     {
-        private static readonly NotificationsManager notificationsManager = Singletones.Get<NotificationsManager>();
+        private static readonly NotificationsManager notificationsManager = Services.Services.Get<NotificationsManager>();
 
         public static async Task HandleNewSession(GameSession session, Update update)
         {

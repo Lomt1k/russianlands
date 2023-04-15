@@ -8,15 +8,15 @@ using Telegram.Bot.Types.ReplyMarkups;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Quests.QuestStages;
 using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Managers;
+using TextGameRPG.Scripts.GameCore.Services;
 using TextGameRPG.Scripts.Bot.Dialogs.Town;
 
 namespace TextGameRPG.Scripts.Bot.Dialogs
 {
     public abstract class DialogBase
     {
-        protected static readonly MessageSender messageSender = Singletones.Get<MessageSender>();
-        private static readonly NotificationsManager notificationsManager = Singletones.Get<NotificationsManager>();
+        protected static readonly MessageSender messageSender = Services.Get<MessageSender>();
+        private static readonly NotificationsManager notificationsManager = Services.Get<NotificationsManager>();
 
         private Dictionary<KeyboardButton, Func<Task>?> _registeredButtons = new Dictionary<KeyboardButton, Func<Task>?>();
         private Func<Task<Message?>>? _resendLastMessageFunc;

@@ -3,13 +3,13 @@ using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.Bot.Dialogs.Town;
 using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Managers;
+using TextGameRPG.Scripts.GameCore.Services;
 
 namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
 {
     public class BattleResultDialog : DialogBase
     {
-        private static readonly NotificationsManager notificationsManager = Singletones.Get<NotificationsManager>();
+        private static readonly NotificationsManager notificationsManager = Services.Get<NotificationsManager>();
 
         private BattleResultData _data;
 

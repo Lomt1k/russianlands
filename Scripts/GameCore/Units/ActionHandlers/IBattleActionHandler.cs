@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Items;
-using TextGameRPG.Scripts.GameCore.Managers.Battles;
-using TextGameRPG.Scripts.GameCore.Managers.Battles.Actions;
+using TextGameRPG.Scripts.GameCore.Services.Battles;
+using TextGameRPG.Scripts.GameCore.Services.Battles.Actions;
 
 namespace TextGameRPG.Scripts.GameCore.Units.ActionHandlers
 {

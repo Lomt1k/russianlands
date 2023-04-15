@@ -6,8 +6,8 @@ using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
 using TextGameRPG.Scripts.GameCore.Localizations;
-using TextGameRPG.Scripts.GameCore.Managers;
-using TextGameRPG.Scripts.GameCore.Managers.Battles;
+using TextGameRPG.Scripts.GameCore.Services;
+using TextGameRPG.Scripts.GameCore.Services.Battles;
 using TextGameRPG.Scripts.GameCore.Units;
 using TextGameRPG.Scripts.GameCore.Units.Mobs;
 
@@ -17,7 +17,7 @@ namespace TextGameRPG.Scripts.Bot.Commands.Cheats
     {
         public override CommandGroup commandGroup => CommandGroup.Cheat;
 
-        private static readonly BattleManager battleManager = Singletones.Get<BattleManager>();
+        private static readonly BattleManager battleManager = Services.Get<BattleManager>();
 
         public override async Task Execute(GameSession session, string[] args)
         {

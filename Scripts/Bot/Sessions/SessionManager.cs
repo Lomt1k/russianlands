@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
 using TextGameRPG.Scripts.GameCore.Localizations;
-using TextGameRPG.Scripts.GameCore.Managers;
+using TextGameRPG.Scripts.GameCore.Services;
 
 namespace TextGameRPG.Scripts.Bot.Sessions
 {
-    public class SessionManager : Singletone
+    public class SessionManager : Service
     {
         private const int millisecondsInMinute = 60_000;
 
-        private static readonly MessageSender messageSender = Singletones.Get<MessageSender>();
+        private static readonly MessageSender messageSender = Services.Get<MessageSender>();
 
         private int _periodicSaveDatabaseInMs;
         private CancellationTokenSource _allSessionsTasksCTS;

@@ -4,13 +4,13 @@ using ReactiveUI;
 using TextGameRPG.Scripts.Utils;
 using System.Reactive;
 using System.Threading.Tasks;
-using TextGameRPG.Scripts.GameCore.Managers;
+using TextGameRPG.Scripts.GameCore.Services;
 
 namespace TextGameRPG.ViewModels.BotControl
 {
     public class BotControlViewModel : ViewModelBase
     {
-        private static readonly PerformanceManager performanceManager = Singletones.Get<PerformanceManager>();
+        private static readonly PerformanceManager performanceManager = Services.Get<PerformanceManager>();
 
         private string _consoleOutput = string.Empty;
         private TelegramBot _bot;

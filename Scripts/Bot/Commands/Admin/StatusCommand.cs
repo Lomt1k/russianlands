@@ -2,15 +2,15 @@
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TextGameRPG.Scripts.GameCore.Managers;
+using TextGameRPG.Scripts.GameCore.Services;
 using TextGameRPG.Scripts.Bot.Sessions;
 
 namespace TextGameRPG.Scripts.Bot.Commands.Admin
 {
     public class StatusCommand : CommandBase
     {
-        private static readonly SessionManager sessionManager = Singletones.Get<SessionManager>();
-        private static readonly PerformanceManager pm = Singletones.Get<PerformanceManager>();
+        private static readonly SessionManager sessionManager = Services.Get<SessionManager>();
+        private static readonly PerformanceManager pm = Services.Get<PerformanceManager>();
 
         public override CommandGroup commandGroup => CommandGroup.Cheat;
 

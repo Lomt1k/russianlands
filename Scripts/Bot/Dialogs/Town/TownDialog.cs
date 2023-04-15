@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Telegram.Bot.Types.ReplyMarkups;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Managers;
+using TextGameRPG.Scripts.GameCore.Services;
 
 namespace TextGameRPG.Scripts.Bot.Dialogs.Town
 {
@@ -16,7 +16,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town
 
     public class TownDialog : DialogBase
     {
-        private static readonly NotificationsManager notificationsManager = Singletones.Get<NotificationsManager>();
+        private static readonly NotificationsManager notificationsManager = Services.Get<NotificationsManager>();
 
         private TownEntryReason _reason;
         private ReplyKeyboardMarkup _keyboard;

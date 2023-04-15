@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using TextGameRPG.Scripts.GameCore.Resources;
 using TextGameRPG.Scripts.Bot.Dialogs.Town.Shop;
 using TextGameRPG.Scripts.Bot.Dialogs.Town.Character;
-using TextGameRPG.Scripts.GameCore.Managers;
+using TextGameRPG.Scripts.GameCore.Services;
 
 namespace TextGameRPG.Scripts.Bot.Dialogs.Quests.MainQuest
 {
@@ -19,7 +19,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Quests.MainQuest
         private const int minLength = 3;
         private const int maxLength = 16;
 
-        private static readonly NotificationsManager notificationsManager = Singletones.Get<NotificationsManager>();
+        private static readonly NotificationsManager notificationsManager = Services.Get<NotificationsManager>();
         private static readonly Dictionary<ResourceType, int> nickChangePrice = new Dictionary<ResourceType, int>()
         {
             { ResourceType.Diamond, 800 }

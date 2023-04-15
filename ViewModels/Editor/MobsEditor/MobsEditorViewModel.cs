@@ -1,11 +1,11 @@
 ﻿using System.Collections.ObjectModel;
-using TextGameRPG.Scripts.GameCore.Managers.GameDataBase;
+using TextGameRPG.Scripts.GameCore.Services.GameDataBase;
 using TextGameRPG.Scripts.GameCore.Units.Mobs;
 using ReactiveUI;
 using System.Reactive;
 using System.Linq;
 using TextGameRPG.Views.Editor.MobsEditor;
-using TextGameRPG.Scripts.GameCore.Managers;
+using TextGameRPG.Scripts.GameCore.Services;
 
 namespace TextGameRPG.ViewModels.Editor.MobsEditor
 {
@@ -14,7 +14,7 @@ namespace TextGameRPG.ViewModels.Editor.MobsEditor
         private MobData? _selectedMob;
         private MobInspectorViewModel _mobInspectorVM;
 
-        private static readonly GameDataBase gameDataBase = Singletones.Get<GameDataBase>();
+        private static readonly GameDataBase gameDataBase = Services.Get<GameDataBase>();
 
         public ObservableCollection<MobData> mobsList { get; } = new ObservableCollection<MobData>();
         public MobData? selectedMob

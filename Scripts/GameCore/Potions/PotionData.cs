@@ -2,9 +2,9 @@
 using Newtonsoft.Json;
 using TextGameRPG.Scripts.Bot;
 using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Managers.GameDataBase;
+using TextGameRPG.Scripts.GameCore.Services.GameDataBase;
 using TextGameRPG.Scripts.GameCore.Localizations;
-using TextGameRPG.Scripts.GameCore.Managers.Battles;
+using TextGameRPG.Scripts.GameCore.Services.Battles;
 using TextGameRPG.Scripts.GameCore.Units;
 
 namespace TextGameRPG.Scripts.GameCore.Potions

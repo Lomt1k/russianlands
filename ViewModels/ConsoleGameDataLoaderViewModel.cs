@@ -1,12 +1,12 @@
 ﻿using System;
-using TextGameRPG.Scripts.GameCore.Managers;
-using TextGameRPG.Scripts.GameCore.Managers.GameDataBase;
+using TextGameRPG.Scripts.GameCore.Services;
+using TextGameRPG.Scripts.GameCore.Services.GameDataBase;
 
 namespace TextGameRPG.ViewModels
 {
     public class ConsoleGameDataLoaderViewModel : IGameDataLoader
     {
-        private static readonly GameDataBase gameDataBase = Singletones.Get<GameDataBase>();
+        private static readonly GameDataBase gameDataBase = Services.Get<GameDataBase>();
 
         public bool isCompleted { get; private set; } = false;
 

@@ -2,8 +2,8 @@
 using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
 using TextGameRPG.Scripts.GameCore.Items.ItemAbilities.Keywords;
-using TextGameRPG.Scripts.GameCore.Managers.Battles;
-using TextGameRPG.Scripts.GameCore.Managers.Battles.Actions;
+using TextGameRPG.Scripts.GameCore.Services.Battles;
+using TextGameRPG.Scripts.GameCore.Services.Battles.Actions;
 using TextGameRPG.Scripts.GameCore.Units.Stats;
 
 namespace TextGameRPG.Scripts.GameCore.Units.ActionHandlers

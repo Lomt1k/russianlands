@@ -4,18 +4,18 @@ using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Rewards;
 using TextGameRPG.Scripts.GameCore.Units;
 using TextGameRPG.Scripts.Bot.Dialogs.Battle;
-using TextGameRPG.Scripts.GameCore.Managers;
+using TextGameRPG.Scripts.GameCore.Services;
 using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Managers.Battles;
-using TextGameRPG.Scripts.GameCore.Managers.GameDataBase;
+using TextGameRPG.Scripts.GameCore.Services.Battles;
+using TextGameRPG.Scripts.GameCore.Services.GameDataBase;
 
 namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
 {
     [JsonObject]
     public class QuestStageWithBattle : QuestStage
     {
-        private static readonly BattleManager battleManager = Singletones.Get<BattleManager>();
-        private static readonly GameDataBase gameDataBase = Singletones.Get<GameDataBase>();
+        private static readonly BattleManager battleManager = Services.Services.Get<BattleManager>();
+        private static readonly GameDataBase gameDataBase = Services.Services.Get<GameDataBase>();
 
         public int mobId { get; set; }
         public int nextStageIfWin { get; set; }

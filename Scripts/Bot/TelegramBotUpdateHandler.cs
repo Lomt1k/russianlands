@@ -10,7 +10,7 @@ namespace TextGameRPG.Scripts.Bot
     using Telegram.Bot.Types;
     using Telegram.Bot.Types.Enums;
     using Telegram.Bot.Types.ReplyMarkups;
-    using TextGameRPG.Scripts.GameCore.Managers;
+    using TextGameRPG.Scripts.GameCore.Services;
     using TextGameRPG.Scripts.Bot.Sessions;
     using TextGameRPG.Scripts.GameCore.Localizations;
 
@@ -19,9 +19,9 @@ namespace TextGameRPG.Scripts.Bot
         private readonly string accountIsBusyText = Emojis.ElementWarning + Localization.GetDefault("account_is_busy_message");
         private readonly ReplyKeyboardMarkup restartButton = new ReplyKeyboardMarkup(Localization.GetDefault("restart_button"));
 
-        private static readonly SessionManager sessionManager = Singletones.Get<SessionManager>();
-        private static readonly PerformanceManager performanceManager = Singletones.Get<PerformanceManager>();
-        private static readonly MessageSender messageSender = Singletones.Get<MessageSender>();
+        private static readonly SessionManager sessionManager = Services.Get<SessionManager>();
+        private static readonly PerformanceManager performanceManager = Services.Get<PerformanceManager>();
+        private static readonly MessageSender messageSender = Services.Get<MessageSender>();
 
         public async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
         {
