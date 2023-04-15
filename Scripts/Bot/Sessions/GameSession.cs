@@ -153,7 +153,10 @@ namespace TextGameRPG.Scripts.Bot.Sessions
             var profileData = await query.FirstOrDefaultAsync().FastAwait();
             if (profileData == null)
             {
-                profileData = new ProfileData();
+                var nickname = actualUser.FirstName.IsCorrectNickname()
+                    ? actualUser.FirstName
+                    : "Player_" + (new Random().Next(8999) + 1000);
+                profileData = new ProfileData() { nickname = nickname };
                 await db.InsertAsync(profileData).FastAwait();
             }
 
