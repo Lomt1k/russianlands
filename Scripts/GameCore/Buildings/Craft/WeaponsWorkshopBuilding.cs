@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
 using TextGameRPG.Scripts.Bot.Sessions;
@@ -29,12 +30,12 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Craft
             data.weaponsWorkshopLevel = level;
         }
 
-        protected override long GetStartConstructionTime(ProfileBuildingsData data)
+        protected override DateTime GetStartConstructionTime(ProfileBuildingsData data)
         {
             return data.weaponsWorkshopStartConstructionTime;
         }
 
-        protected override void SetStartConstructionTime(ProfileBuildingsData data, long startConstructionTime)
+        protected override void SetStartConstructionTime(ProfileBuildingsData data, DateTime startConstructionTime)
         {
             data.weaponsWorkshopStartConstructionTime = startConstructionTime;
         }
@@ -71,12 +72,12 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Craft
             return sb.ToString();
         }
 
-        public override long GetStartCraftTime(ProfileBuildingsData data)
+        public override DateTime GetStartCraftTime(ProfileBuildingsData data)
         {
             return data.weaponsWorkshopStartCraftTime;
         }
 
-        protected override void SetStartCraftTime(ProfileBuildingsData data, long startCraftTime)
+        protected override void SetStartCraftTime(ProfileBuildingsData data, DateTime startCraftTime)
         {
             data.weaponsWorkshopStartCraftTime = startCraftTime;
         }

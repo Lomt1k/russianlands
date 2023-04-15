@@ -50,16 +50,16 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
 
                 if (reallyAdded == farmedAmout)
                 {
-                    building.SetStartFarmTime(buildingsData, DateTime.UtcNow.Ticks);
+                    building.SetStartFarmTime(buildingsData, DateTime.UtcNow);
                 }
                 else
                 {
-                    var startFarmDt = new DateTime(building.GetStartFarmTime(buildingsData));
+                    var startFarmDt = building.GetStartFarmTime(buildingsData);
                     var totalFarmSeconds = (DateTime.UtcNow - startFarmDt).TotalSeconds;
                     var collectedPart = (float)reallyAdded / farmedAmout;
                     var secondsToRemove = totalFarmSeconds * collectedPart;
                     var newStartFarmDt = startFarmDt.AddSeconds(secondsToRemove);
-                    building.SetStartFarmTime(buildingsData, newStartFarmDt.Ticks);
+                    building.SetStartFarmTime(buildingsData, newStartFarmDt);
 
                     var notCollectedAmount = farmedAmout - reallyAdded;
                     notCollectedResources.TryGetValue(building.resourceType, out var prevValue);

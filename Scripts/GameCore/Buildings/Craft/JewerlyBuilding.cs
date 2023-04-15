@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
 using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Items;
-using TextGameRPG.Scripts.GameCore.Items.Generators;
 using TextGameRPG.Scripts.GameCore.Localizations;
 
 namespace TextGameRPG.Scripts.GameCore.Buildings.Craft
@@ -28,12 +28,12 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Craft
             data.jewerlyLevel = level;
         }
 
-        protected override long GetStartConstructionTime(ProfileBuildingsData data)
+        protected override DateTime GetStartConstructionTime(ProfileBuildingsData data)
         {
             return data.jewerlyStartConstructionTime;
         }
 
-        protected override void SetStartConstructionTime(ProfileBuildingsData data, long startConstructionTime)
+        protected override void SetStartConstructionTime(ProfileBuildingsData data, DateTime startConstructionTime)
         {
             data.jewerlyStartConstructionTime = startConstructionTime;
         }
@@ -70,12 +70,12 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Craft
             return sb.ToString();
         }
 
-        public override long GetStartCraftTime(ProfileBuildingsData data)
+        public override DateTime GetStartCraftTime(ProfileBuildingsData data)
         {
             return data.jewerlyStartCraftTime;
         }
 
-        protected override void SetStartCraftTime(ProfileBuildingsData data, long startCraftTime)
+        protected override void SetStartCraftTime(ProfileBuildingsData data, DateTime startCraftTime)
         {
             data.jewerlyStartCraftTime = startCraftTime;
         }

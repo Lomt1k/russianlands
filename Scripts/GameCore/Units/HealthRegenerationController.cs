@@ -23,8 +23,7 @@ namespace TextGameRPG.Scripts.GameCore.Units
                 return;
 
             var prevRegenTime = hospital.GetLastRegenTime(buildingsData);
-            var prevRegenTimeDt = new DateTime(prevRegenTime);
-            var timeSpan = DateTime.UtcNow - prevRegenTimeDt;
+            var timeSpan = DateTime.UtcNow - prevRegenTime;
             if (timeSpan.TotalSeconds < 1)
                 return;
 

@@ -27,8 +27,8 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
         public abstract byte GetSecondWorkerLevel(ProfileBuildingsData data);
         public abstract void SetFirstWorkerLevel(ProfileBuildingsData data, byte level);
         public abstract void SetSecondWorkerLevel(ProfileBuildingsData data, byte level);
-        public abstract long GetStartFarmTime(ProfileBuildingsData data);
-        public abstract void SetStartFarmTime(ProfileBuildingsData data, long startFarmTime);
+        public abstract DateTime GetStartFarmTime(ProfileBuildingsData data);
+        public abstract void SetStartFarmTime(ProfileBuildingsData data, DateTime startFarmTime);
 
         public int GetCurrentLevelResourceLimit(ProfileBuildingsData data)
         {
@@ -95,17 +95,16 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
                 return 0;
 
             var startFarmTime = GetStartFarmTime(data);
-            if (startFarmTime < 1) //fix incorrect startTime
+            if (startFarmTime == DateTime.MinValue) //fix incorrect startTime
             {
-                SetStartFarmTime(data, DateTime.UtcNow.Ticks);
+                SetStartFarmTime(data, DateTime.UtcNow);
                 return 0;
             }
 
             var dtNow = DateTime.UtcNow;
-            var startFarmTimeDt = new DateTime(startFarmTime);
-            var endFarmTimeDt = IsUnderConstruction(data) ? new DateTime(GetStartConstructionTime(data)) : dtNow;
+            var endFarmTimeDt = IsUnderConstruction(data) ? GetStartConstructionTime(data) : dtNow;
       
-            var farmHours = (endFarmTimeDt - startFarmTimeDt).TotalHours;
+            var farmHours = (endFarmTimeDt - startFarmTime).TotalHours;
             var farmPerHour = GetCurrentLevelFirstWorkerProductionPerHour(data) 
                 + GetCurrentLevelSecondWorkerProductionPerHour(data);
             var farmedTotal = (int)(farmPerHour * farmHours);
@@ -114,9 +113,9 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             if (IsUnderConstruction(data) && IsConstructionCanBeFinished(data))
             {
                 // нужно посчитать то, что было добыто уже после завершения строительства
-                startFarmTimeDt = GetEndConstructionTime(data);
+                startFarmTime = GetEndConstructionTime(data);
                 endFarmTimeDt = dtNow;
-                farmHours = (endFarmTimeDt - startFarmTimeDt).TotalHours;
+                farmHours = (endFarmTimeDt - startFarmTime).TotalHours;
                 farmPerHour = GetNextLevelFirstWorkerProductionPerHour(data)
                 + GetNextLevelSecondWorkerProductionPerHour(data);
                 farmedTotal += (int)(farmPerHour * farmHours);
@@ -210,7 +209,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             var targetFarmValue = GetFarmedResourceAmount(data);
             var newProductionPerHour = GetNextLevelFirstWorkerProductionPerHour(data) + GetNextLevelSecondWorkerProductionPerHour(data);
             var targetFarmHours = (double)targetFarmValue / newProductionPerHour;
-            var startFarmTime = DateTime.UtcNow.AddHours(-targetFarmHours).Ticks;
+            var startFarmTime = DateTime.UtcNow.AddHours(-targetFarmHours);
             SetStartFarmTime(data, startFarmTime);
         }
 

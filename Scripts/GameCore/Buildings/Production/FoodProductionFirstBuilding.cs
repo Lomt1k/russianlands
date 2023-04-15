@@ -1,6 +1,7 @@
 ﻿using TextGameRPG.Scripts.GameCore.Resources;
 using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
 using TextGameRPG.Scripts.GameCore.Units;
+using System;
 
 namespace TextGameRPG.Scripts.GameCore.Buildings.Production
 {
@@ -21,22 +22,22 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Production
             data.foodProdFirstLevel = level;
         }
 
-        protected override long GetStartConstructionTime(ProfileBuildingsData data)
+        protected override DateTime GetStartConstructionTime(ProfileBuildingsData data)
         {
             return data.foodProdFirstStartConstructionTime;
         }
 
-        protected override void SetStartConstructionTime(ProfileBuildingsData data, long startConstructionTime)
+        protected override void SetStartConstructionTime(ProfileBuildingsData data, DateTime startConstructionTime)
         {
             data.foodProdFirstStartConstructionTime = startConstructionTime;
         }
 
-        public override long GetStartFarmTime(ProfileBuildingsData data)
+        public override DateTime GetStartFarmTime(ProfileBuildingsData data)
         {
             return data.foodProdFirstStartFarmTime;
         }
 
-        public override void SetStartFarmTime(ProfileBuildingsData data, long startFarmTime)
+        public override void SetStartFarmTime(ProfileBuildingsData data, DateTime startFarmTime)
         {
             data.foodProdFirstStartFarmTime = startFarmTime;
         }

@@ -1,5 +1,6 @@
 ﻿using TextGameRPG.Scripts.GameCore.Resources;
 using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
+using System;
 
 namespace TextGameRPG.Scripts.GameCore.Buildings.Storages
 {
@@ -14,7 +15,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Storages
             return data.foodStorageLevel;
         }
 
-        protected override long GetStartConstructionTime(ProfileBuildingsData data)
+        protected override DateTime GetStartConstructionTime(ProfileBuildingsData data)
         {
             return data.foodStorageStartConstructionTime;
         }
@@ -24,7 +25,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Storages
             data.foodStorageLevel = level;
         }
 
-        protected override void SetStartConstructionTime(ProfileBuildingsData data, long startConstructionTime)
+        protected override void SetStartConstructionTime(ProfileBuildingsData data, DateTime startConstructionTime)
         {
             data.foodStorageStartConstructionTime = startConstructionTime;
         }

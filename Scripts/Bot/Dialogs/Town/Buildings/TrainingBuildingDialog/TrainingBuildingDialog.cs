@@ -166,12 +166,12 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.TrainingBuildingDialog
             if (!_building.HasFirstTrainingUnit(_data))
             {
                 _building.SetFirstTrainingUnitIndex(_data, unitIndex);
-                _building.SetFirstTrainingUnitStartTime(_data, DateTime.UtcNow.Ticks);
+                _building.SetFirstTrainingUnitStartTime(_data, DateTime.UtcNow);
             }
             else if (!_building.HasSecondTrainingUnit(_data))
             {
                 _building.SetSecondTrainingUnitIndex(_data, unitIndex);
-                _building.SetSecondTrainingUnitStartTime(_data, DateTime.UtcNow.Ticks);
+                _building.SetSecondTrainingUnitStartTime(_data, DateTime.UtcNow);
             }
             await ShowCurrentUnit(unitIndex).FastAwait();
         }
@@ -244,7 +244,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.TrainingBuildingDialog
                 else
                 {
                     _building.SetFirstTrainingUnitIndex(_data, -1);
-                    _building.SetFirstTrainingUnitStartTime(_data, 0);
+                    _building.SetFirstTrainingUnitStartTime(_data, DateTime.MinValue);
                 }
             }
             else if (unitIndex == _building.GetSecondTrainingUnitIndex(_data))
@@ -256,7 +256,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.TrainingBuildingDialog
                 else
                 {
                     _building.SetSecondTrainingUnitIndex(_data, -1);
-                    _building.SetSecondTrainingUnitStartTime(_data, 0);
+                    _building.SetSecondTrainingUnitStartTime(_data, DateTime.MinValue);
                 }
             }
 

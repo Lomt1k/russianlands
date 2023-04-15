@@ -1,6 +1,7 @@
 ﻿using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
 using TextGameRPG.Scripts.Bot.Sessions;
+using System;
 
 namespace TextGameRPG.Scripts.GameCore.Buildings.General
 {
@@ -18,12 +19,12 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.General
             data.townHallLevel = level;
         }
 
-        protected override long GetStartConstructionTime(ProfileBuildingsData data)
+        protected override DateTime GetStartConstructionTime(ProfileBuildingsData data)
         {
             return data.townHallStartConstructionTime;
         }
 
-        protected override void SetStartConstructionTime(ProfileBuildingsData data, long startConstructionTime)
+        protected override void SetStartConstructionTime(ProfileBuildingsData data, DateTime startConstructionTime)
         {
             data.townHallStartConstructionTime = startConstructionTime;
         }

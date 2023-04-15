@@ -29,8 +29,8 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
     {
         public abstract List<ItemType> craftCategories { get; }
 
-        public abstract long GetStartCraftTime(ProfileBuildingsData data);
-        protected abstract void SetStartCraftTime(ProfileBuildingsData data, long startCraftTime);
+        public abstract DateTime GetStartCraftTime(ProfileBuildingsData data);
+        protected abstract void SetStartCraftTime(ProfileBuildingsData data, DateTime startCraftTime);
         public abstract ItemType GetCurrentCraftItemType(ProfileBuildingsData data);
         protected abstract void SetCurrentCraftItemType(ProfileBuildingsData data, ItemType itemType);
         public abstract Rarity GetCurrentCraftItemRarity(ProfileBuildingsData data);
@@ -39,7 +39,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
         /// <returns>Ведётся ли сейчас изготовление предмета</returns>
         public bool IsCraftStarted(ProfileBuildingsData data)
         {
-            return GetStartCraftTime(data) > 0;
+            return GetStartCraftTime(data) > DateTime.MinValue;
         }
 
         /// <returns>Время изготовления предмета в зависимости от его редкости</returns>
@@ -84,8 +84,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
         /// <returns>Дата, когда изготовление предмета должно быть заверено</returns>
         public DateTime GetEndCraftTime(ProfileBuildingsData data)
         {
-            var ticks = GetStartCraftTime(data);
-            var startDt = new DateTime(ticks);
+            var startDt = GetStartCraftTime(data);
             var rarity = GetCurrentCraftItemRarity(data);
             var secondsForCraft = GetCraftTimeInSeconds(data, rarity);
             var endDt = startDt.AddSeconds(secondsForCraft);
@@ -141,12 +140,12 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
         // первое сообщение о конце крафта считается important, далее - нет
         private bool EndOfCraftIsImportant(ProfileBuildingsData data)
         {
-            return GetStartCraftTime(data) > 1;
+            return GetStartCraftTime(data).Ticks > 1;
         }
 
         private void MarkEndOfCraftAsNotImportant(ProfileBuildingsData data)
         {
-            SetStartCraftTime(data, 1);
+            SetStartCraftTime(data, new DateTime(1));
         }
 
         public override Dictionary<string, Func<Task>> GetSpecialButtons(GameSession session, ProfileBuildingsData data)
@@ -208,17 +207,17 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
         {
             SetCurrentCraftItemType(data, itemType);
             SetCurrentCraftItemRarity(data, rarity);
-            SetStartCraftTime(data, DateTime.UtcNow.Ticks);
+            SetStartCraftTime(data, DateTime.UtcNow);
         }
 
         public void BoostCraft(ProfileBuildingsData data)
         {
-            SetStartCraftTime(data, 1);
+            SetStartCraftTime(data, new DateTime(1));
         }
 
         public InventoryItem GetCraftItemAndResetCraft(ProfileBuildingsData data)
         {
-            SetStartCraftTime(data, 0);
+            SetStartCraftTime(data, DateTime.MinValue);
             var itemType = GetCurrentCraftItemType(data);
             var rarity = GetCurrentCraftItemRarity(data);
             var townhallLevel = GetCurrentTownhallLevelForCraftItem(data);
