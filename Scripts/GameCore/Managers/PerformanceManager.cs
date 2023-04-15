@@ -88,7 +88,7 @@ namespace TextGameRPG.Scripts.GameCore.Managers
             };
         }
 
-        public override void OnBotStarted()
+        public override void OnBotStarted(TelegramBot bot)
         {
             onStateUpdate?.Invoke(PerformanceState.Normal);
         }

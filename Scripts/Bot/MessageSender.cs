@@ -10,7 +10,7 @@ using TextGameRPG.Scripts.GameCore.Managers.Sending;
 
 namespace TextGameRPG.Scripts.Bot
 {
-    public class MessageSender
+    public class MessageSender : Singletone
     {
         private static readonly MessageSequencer sequencer = Singletones.Get<MessageSequencer>();
 
@@ -18,9 +18,9 @@ namespace TextGameRPG.Scripts.Bot
         private RequestExceptionHandler _requestExceptionHandler;
         private int _maxDelayForSendStickers;
 
-        public MessageSender(TelegramBotClient botClient)
+        public override void OnBotStarted(TelegramBot bot)
         {
-            _botClient = botClient;
+            _botClient = bot.botClient;
             _requestExceptionHandler = new RequestExceptionHandler();
             _maxDelayForSendStickers = BotConfig.instance.dontSendStickerIfDelayInSeconds * 1_000;
         }

@@ -3,6 +3,7 @@
     using Battles;
     using System;
     using System.Collections.Generic;
+    using TextGameRPG.Scripts.Bot;
     using TextGameRPG.Scripts.Bot.Sessions;
     using TextGameRPG.Scripts.GameCore.Managers.Sending;
 
@@ -14,10 +15,11 @@
         {
             RegisterSingletone(new GameDataBase.GameDataBase());
             RegisterSingletone(new SessionManager());
-            RegisterSingletone(new BattleManager());
+            RegisterSingletone(new BattleManager());            
             RegisterSingletone(new PerformanceManager());
             RegisterSingletone(new NotificationsManager());
             RegisterSingletone(new MessageSequencer());
+            RegisterSingletone(new MessageSender());
         }
 
         private static void RegisterSingletone<T>(T instance) where T : Singletone, new()
@@ -31,19 +33,19 @@
             return (T)singletone;
         }
 
-        public static void OnBotStarted()
+        public static void OnBotStarted(TelegramBot bot)
         {
             foreach (var singletone in _instances.Values)
             {
-                singletone.OnBotStarted();
+                singletone.OnBotStarted(bot);
             }
         }
 
-        public static void OnBotStopped()
+        public static void OnBotStopped(TelegramBot bot)
         {
             foreach (var singletone in _instances.Values)
             {
-                singletone.OnBotStopped();
+                singletone.OnBotStopped(bot);
             }
         }
 

@@ -15,9 +15,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
 {
     public abstract class DialogBase
     {
+        protected static readonly MessageSender messageSender = Singletones.Get<MessageSender>();
         private static readonly NotificationsManager notificationsManager = Singletones.Get<NotificationsManager>();
-
-        protected static MessageSender messageSender => TelegramBot.instance.messageSender;        
 
         private Dictionary<KeyboardButton, Func<Task>?> _registeredButtons = new Dictionary<KeyboardButton, Func<Task>?>();
         private Func<Task<Message?>>? _resendLastMessageFunc;

@@ -37,7 +37,7 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Sending
             }
         }
 
-        public override void OnBotStarted()
+        public override void OnBotStarted(TelegramBot bot)
         {
             var config = BotConfig.instance;
             SendMessageLimit = config.sendMessagePerSecondLimit;

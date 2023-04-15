@@ -15,6 +15,8 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles
     {
         public const int MOB_TURN_MILISECONDS_DELAY = 3_000;
 
+        private static readonly MessageSender messageSender = Singletones.Get<MessageSender>();
+
         private List<IBattleAction>? _battleActions = null;
         private Dictionary<Player, List<BattleTooltipType>> _queryTooltipsToIgnoreByPlayers = new Dictionary<Player, List<BattleTooltipType>>();
 
@@ -139,7 +141,6 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles
                 enemyStringBuilder?.AppendLine(action.GetDescription(enemy.session));
             }
 
-            var messageSender = TelegramBot.instance.messageSender;
             if (mineStringBuilder != null)
             {
                 mineStringBuilder.AppendLine();
@@ -171,7 +172,7 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles
             var ingoreList = _queryTooltipsToIgnoreByPlayers[player];
             if (ingoreList.Contains(callback.tooltip))
             {
-                await TelegramBot.instance.messageSender.AnswerQuery(player.session.chatId, queryId).FastAwait();
+                await messageSender.AnswerQuery(player.session.chatId, queryId).FastAwait();
                 return;
             }
 
@@ -197,7 +198,6 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles
 
         private async Task CreateUnitStatsTooltip(Player player, string queryId, IBattleUnit targetUnit)
         {
-            var messageSender = TelegramBot.instance.messageSender;
             var text = targetUnit.GetFullUnitInfoView(player.session);
             await messageSender.SendTextMessage(player.session.chatId, text).FastAwait();
             await messageSender.AnswerQuery(player.session.chatId, queryId).FastAwait();

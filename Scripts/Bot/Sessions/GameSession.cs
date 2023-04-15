@@ -21,6 +21,7 @@ namespace TextGameRPG.Scripts.Bot.Sessions
         private static readonly SessionManager sessionManager = Singletones.Get<SessionManager>();
         private static readonly PerformanceManager performanceManager = Singletones.Get<PerformanceManager>();
         private static readonly BattleManager battleManager = Singletones.Get<BattleManager>();
+        private static readonly MessageSender messageSender = Singletones.Get<MessageSender>();
 
         private bool _isHandlingUpdate;
         private CancellationTokenSource _sessionTasksCTS = new CancellationTokenSource();
@@ -61,7 +62,7 @@ namespace TextGameRPG.Scripts.Bot.Sessions
             {
                 if (update.Type == UpdateType.CallbackQuery)
                 {
-                    await TelegramBot.instance.messageSender.AnswerQuery(refreshedUser.Id, update.CallbackQuery.Id).FastAwait();
+                    await messageSender.AnswerQuery(refreshedUser.Id, update.CallbackQuery.Id).FastAwait();
                 }
                 return;
             }
@@ -94,7 +95,7 @@ namespace TextGameRPG.Scripts.Bot.Sessions
             catch (Exception ex) 
             {
                 Program.logger.Error($"Exception in session [user: {refreshedUser}]\n{ex}\n");
-                await TelegramBot.instance.messageSender.SendErrorMessage(chatId, $"{ex.GetType()}: {ex.Message}").FastAwait();
+                await messageSender.SendErrorMessage(chatId, $"{ex.GetType()}: {ex.Message}").FastAwait();
             }
             _isHandlingUpdate = false;
         }

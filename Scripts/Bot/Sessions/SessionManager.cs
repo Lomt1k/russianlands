@@ -14,6 +14,8 @@ namespace TextGameRPG.Scripts.Bot.Sessions
     {
         private const int millisecondsInMinute = 60_000;
 
+        private static readonly MessageSender messageSender = Singletones.Get<MessageSender>();
+
         private int _periodicSaveDatabaseInMs;
         private CancellationTokenSource _allSessionsTasksCTS;
         private Dictionary<ChatId, GameSession> _sessions = new Dictionary<ChatId, GameSession>();
@@ -22,7 +24,7 @@ namespace TextGameRPG.Scripts.Bot.Sessions
         public int sessionsCount => _sessions.Count;
         public CancellationTokenSource allSessionsTasksCTS => _allSessionsTasksCTS;
 
-        public override void OnBotStarted()
+        public override void OnBotStarted(TelegramBot bot)
         {
             _periodicSaveDatabaseInMs = BotConfig.instance.periodicSaveDatabaseInMinutes * millisecondsInMinute;
             _allSessionsTasksCTS = new CancellationTokenSource();
@@ -157,7 +159,6 @@ namespace TextGameRPG.Scripts.Bot.Sessions
                 playersCountLimit = lastActivePlayers.Length;
             }
 
-            var messageSender = TelegramBot.instance.messageSender;
             var sendMessageTasks = new List<Task>();
             for (int i = 0; i < playersCountLimit; i++)
             {

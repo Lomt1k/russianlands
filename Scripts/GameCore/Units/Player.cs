@@ -15,11 +15,14 @@ using TextGameRPG.Scripts.GameCore.Units.ActionHandlers;
 using TextGameRPG.Scripts.GameCore.Potions;
 using System.Collections.Generic;
 using TextGameRPG.Scripts.GameCore.Skills;
+using TextGameRPG.Scripts.GameCore.Managers;
 
 namespace TextGameRPG.Scripts.GameCore.Units
 {
     public class Player : IBattleUnit
     {
+        private static readonly MessageSender messageSender = Singletones.Get<MessageSender>();
+
         public GameSession session { get; }
         public UnitStats unitStats { get; }
         public IBattleActionHandler actionHandler { get; }
@@ -31,8 +34,6 @@ namespace TextGameRPG.Scripts.GameCore.Units
         public List<PotionItem> potions => session.profile.dynamicData.potions;
         public string nickname => session.profile.data.nickname;
         public byte level => session.profile.data.level;
-
-        private static MessageSender messageSender => Bot.TelegramBot.instance.messageSender;
 
         public Player(GameSession _session)
         {

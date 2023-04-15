@@ -18,6 +18,7 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles
     public class Battle
     {
         private static readonly BattleManager battleManager = Singletones.Get<BattleManager>();
+        private static readonly MessageSender messageSender = Singletones.Get<MessageSender>();
 
         private List<RewardBase>? _rewards;
         private Func<Player, BattleResult, Task>? _onBattleEndFunc;
@@ -148,7 +149,7 @@ namespace TextGameRPG.Scripts.GameCore.Managers.Battles
             
             if (currentTurn == null)
             {
-                await TelegramBot.instance.messageSender.AnswerQuery(player.session.chatId, queryId).FastAwait();
+                await messageSender.AnswerQuery(player.session.chatId, queryId).FastAwait();
                 return;
             }
             await currentTurn.HandleBattleTooltipCallback(player, queryId, callback).FastAwait();

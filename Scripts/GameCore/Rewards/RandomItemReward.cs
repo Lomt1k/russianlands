@@ -25,7 +25,7 @@ namespace TextGameRPG.Scripts.GameCore.Rewards
             }
             catch (Exception ex)
             {
-                await Bot.TelegramBot.instance.messageSender.SendErrorMessage(session.chatId, ex.Message);
+                await messageSender.SendErrorMessage(session.chatId, ex.Message);
                 return string.Empty;
             }
         }

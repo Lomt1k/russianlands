@@ -239,7 +239,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
         {
             if (_isPotionAlreadySelected)
             {
-                await TelegramBot.instance.messageSender.SendTextMessage(session.chatId, Localization.Get(session, "battle_potion_already_used")).FastAwait();
+                await messageSender.SendTextMessage(session.chatId, Localization.Get(session, "battle_potion_already_used")).FastAwait();
                 return;
             }
 
@@ -286,7 +286,6 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
             sb.AppendLine();
             sb.AppendLine(potionData.GetDescription(session, session));
 
-            var messageSender = TelegramBot.instance.messageSender;
             await messageSender.SendTextMessage(session.chatId, sb.ToString()).FastAwait();
         }
 
@@ -304,7 +303,6 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
             sb.AppendLine();
             sb.AppendLine(potionData.GetDescription(session, enemySession));
 
-            var messageSender = TelegramBot.instance.messageSender;
             await messageSender.SendTextMessage(enemySession.chatId, sb.ToString()).FastAwait();
         }
 

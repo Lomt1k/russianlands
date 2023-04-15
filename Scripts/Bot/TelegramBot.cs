@@ -20,16 +20,15 @@ namespace TextGameRPG.Scripts.Bot
         private static readonly PerformanceManager performanceManager = Singletones.Get<PerformanceManager>();
 
         public static TelegramBot instance { get; private set; }
-        public static HttpClient httpClient { get; } = new HttpClient();
 
         private BotConfig _config;
         private TelegramBotReceiving _botReceiving;
+        private HttpClient _httpClient = new HttpClient();
 
         public string dataPath { get; }
         public TelegramBotClient botClient { get; private set; }
         public User mineUser { get; private set; }
         public BotDataBase dataBase { get; private set; }
-        public MessageSender messageSender { get; private set; }
 
         public bool isReceiving => _botReceiving != null && _botReceiving.isReceiving;
 
@@ -43,7 +42,6 @@ namespace TextGameRPG.Scripts.Bot
 
             dataBase = new BotDataBase(botDataPath);
             botClient = new TelegramBotClient(_config.token);
-            messageSender = new MessageSender(botClient);
         }
 
         private BotConfig GetConfig()
@@ -102,7 +100,7 @@ namespace TextGameRPG.Scripts.Bot
             Program.SetTitle($"{mineUser.Username} [{dataPath}]");
 
             SubcribeEvents();
-            Singletones.OnBotStarted();
+            Singletones.OnBotStarted(this);
 
             await CharacterStickersHolder.StickersUpdate();
 
@@ -120,7 +118,7 @@ namespace TextGameRPG.Scripts.Bot
             await sessionManager.CloseAllSessions();
             await dataBase.CloseAsync();
 
-            Singletones.OnBotStopped();
+            Singletones.OnBotStopped(this);
             UnsubscribeEvents();
         }
 
@@ -153,7 +151,7 @@ namespace TextGameRPG.Scripts.Bot
                 try
                 {
                     using HttpRequestMessage checkConnectionRequest = new HttpRequestMessage(HttpMethod.Get, "https://t.me");
-                    var result = await httpClient.SendAsync(checkConnectionRequest);
+                    var result = await _httpClient.SendAsync(checkConnectionRequest);
                     if (result.StatusCode == System.Net.HttpStatusCode.OK)
                     {
                         Program.logger.Info($"Connected to telegram servers");

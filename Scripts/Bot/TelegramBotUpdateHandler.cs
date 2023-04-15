@@ -21,13 +21,7 @@ namespace TextGameRPG.Scripts.Bot
 
         private static readonly SessionManager sessionManager = Singletones.Get<SessionManager>();
         private static readonly PerformanceManager performanceManager = Singletones.Get<PerformanceManager>();
-
-        private MessageSender _messageSender;
-
-        public TelegramBotUpdateHandler()
-        {
-            _messageSender = TelegramBot.instance.messageSender;
-        }
+        private static readonly MessageSender messageSender = Singletones.Get<MessageSender>();
 
         public async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
         {
@@ -69,7 +63,7 @@ namespace TextGameRPG.Scripts.Bot
 
         private async void SendAccountIsBusyMessage(ChatId id)
         {
-            await _messageSender.SendTextDialog(id, accountIsBusyText, restartButton, silent: true).FastAwait();
+            await messageSender.SendTextDialog(id, accountIsBusyText, restartButton, silent: true).FastAwait();
         }
 
         public Task HandlePollingErrorAsync(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)
