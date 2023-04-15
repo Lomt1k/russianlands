@@ -4,6 +4,7 @@ using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.Bot;
 using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
 using TextGameRPG.Scripts.Bot.Sessions;
+using System;
 
 namespace TextGameRPG.Scripts.GameCore.Buildings.General
 {
@@ -21,12 +22,12 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.General
             data.hospitalLevel = level;
         }
 
-        protected override long GetStartConstructionTime(ProfileBuildingsData data)
+        protected override DateTime GetStartConstructionTime(ProfileBuildingsData data)
         {
             return data.hospitalStartConstructionTime;
         }
 
-        protected override void SetStartConstructionTime(ProfileBuildingsData data, long startConstructionTime)
+        protected override void SetStartConstructionTime(ProfileBuildingsData data, DateTime startConstructionTime)
         {
             data.hospitalStartConstructionTime = startConstructionTime;
         }
@@ -82,10 +83,10 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.General
 
         public void SetLastRegenTimeAsNow(ProfileBuildingsData data)
         {
-            data.hospitalLastHealthRestoreTime = System.DateTime.UtcNow.Ticks;
+            data.hospitalLastHealthRestoreTime = DateTime.UtcNow;
         }
 
-        public long GetLastRegenTime(ProfileBuildingsData data)
+        public DateTime GetLastRegenTime(ProfileBuildingsData data)
         {
             return data.hospitalLastHealthRestoreTime;
         }

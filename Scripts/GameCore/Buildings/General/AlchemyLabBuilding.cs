@@ -31,12 +31,12 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.General
             data.potionWorkshopLevel = level;
         }
 
-        protected override long GetStartConstructionTime(ProfileBuildingsData data)
+        protected override DateTime GetStartConstructionTime(ProfileBuildingsData data)
         {
             return data.potionWorkshopStartConstructionTime;
         }
 
-        protected override void SetStartConstructionTime(ProfileBuildingsData data, long startConstructionTime)
+        protected override void SetStartConstructionTime(ProfileBuildingsData data, DateTime startConstructionTime)
         {
             data.potionWorkshopStartConstructionTime = startConstructionTime;
         }

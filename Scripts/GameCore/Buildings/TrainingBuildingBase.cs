@@ -24,15 +24,15 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
         public bool HasFirstTrainingUnit(ProfileBuildingsData data) => GetFirstTrainingUnitIndex(data) != -1;
         public abstract sbyte GetFirstTrainingUnitIndex(ProfileBuildingsData data);
         public abstract void SetFirstTrainingUnitIndex(ProfileBuildingsData data, sbyte unitIndex);
-        public abstract long GetFirstTrainingUnitStartTime(ProfileBuildingsData data);
-        public abstract void SetFirstTrainingUnitStartTime(ProfileBuildingsData data, long ticks);
+        public abstract DateTime GetFirstTrainingUnitStartTime(ProfileBuildingsData data);
+        public abstract void SetFirstTrainingUnitStartTime(ProfileBuildingsData data, DateTime dateTime);
         public abstract void LevelUpFirst(GameSession session, ProfileBuildingsData data);
 
         public bool HasSecondTrainingUnit(ProfileBuildingsData data) => GetSecondTrainingUnitIndex(data) != -1;
         public abstract sbyte GetSecondTrainingUnitIndex(ProfileBuildingsData data);
         public abstract void SetSecondTrainingUnitIndex(ProfileBuildingsData data, sbyte unitIndex);
-        public abstract long GetSecondTrainingUnitStartTime(ProfileBuildingsData data);
-        public abstract void SetSecondTrainingUnitStartTime(ProfileBuildingsData data, long ticks);
+        public abstract DateTime GetSecondTrainingUnitStartTime(ProfileBuildingsData data);
+        public abstract void SetSecondTrainingUnitStartTime(ProfileBuildingsData data, DateTime dateTime);
         public abstract void LevelUpSecond(GameSession session, ProfileBuildingsData data);
 
         /// <returns>Дата, когда тренировка первого юнита должна была быть завершена</returns>
@@ -41,8 +41,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             var unitIndex = GetFirstTrainingUnitIndex(data);
             var currentLevel = GetUnitLevel(data, unitIndex);
             var secondsForTraining = GetRequiredTrainingTime(currentLevel);
-            var ticks = GetFirstTrainingUnitStartTime(data);
-            var startDt = new DateTime(ticks);            
+            var startDt = GetFirstTrainingUnitStartTime(data);
             var endDt = startDt.AddSeconds(secondsForTraining);
             return endDt;
         }
@@ -53,8 +52,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             var unitIndex = GetSecondTrainingUnitIndex(data);
             var currentLevel = GetUnitLevel(data, unitIndex);
             var secondsForTraining = GetRequiredTrainingTime(currentLevel);
-            var ticks = GetSecondTrainingUnitStartTime(data);
-            var startDt = new DateTime(ticks);
+            var startDt = GetSecondTrainingUnitStartTime(data);
             var endDt = startDt.AddSeconds(secondsForTraining);
             return endDt;
         }
@@ -185,8 +183,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
                 var unitIndex = GetFirstTrainingUnitIndex(data);
                 var unitLevel = GetUnitLevel(data, unitIndex) ;
                 var requiredSeconds = GetRequiredTrainingTime(unitLevel);
-                var startTicks = GetFirstTrainingUnitStartTime(data);
-                var startDt = new DateTime(startTicks);
+                var startDt = GetFirstTrainingUnitStartTime(data);
                 var trainingSeconds = (DateTime.UtcNow - startDt).TotalSeconds;
                 firstTraining = trainingSeconds > requiredSeconds;
             }
@@ -195,8 +192,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
                 var unitIndex = GetSecondTrainingUnitIndex(data);
                 var unitLevel = GetUnitLevel(data, unitIndex);
                 var requiredSeconds = GetRequiredTrainingTime(unitLevel);
-                var startTicks = GetSecondTrainingUnitStartTime(data);
-                var startDt = new DateTime(startTicks);
+                var startDt = GetSecondTrainingUnitStartTime(data);
                 var trainingSeconds = (DateTime.UtcNow - startDt).TotalSeconds;
                 secondTraining = trainingSeconds > requiredSeconds;
             }
@@ -207,9 +203,9 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
         protected override void OnConstructionStart(ProfileBuildingsData data)
         {
             SetFirstTrainingUnitIndex(data, -1);
-            SetFirstTrainingUnitStartTime(data, 0);
+            SetFirstTrainingUnitStartTime(data, DateTime.MinValue);
             SetSecondTrainingUnitIndex(data, -1);
-            SetSecondTrainingUnitStartTime(data, 0);
+            SetSecondTrainingUnitStartTime(data, DateTime.MinValue);
         }
 
     }

@@ -4,7 +4,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Telegram.Bot.Types.InputFiles;
 using TextGameRPG.Scripts.Bot.Commands;
-using TextGameRPG.Scripts.Bot.DataBase.TablesStructure;
 using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Buildings;
 using TextGameRPG.Scripts.GameCore.Buildings.Data;
@@ -504,19 +503,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
 
         private async Task ResetAccountInDatabase()
         {
-            var telegramId = session.profile.data.telegram_id;
-            var dbId = session.profile.data.dbid;
-
-            await sessionManager.CloseSession(telegramId).FastAwait();
-
-            var profilesTable = BotController.dataBase[Table.Profiles] as ProfilesDataTable;
-            await profilesTable.ResetToDefaultValues(dbId).FastAwait();
-
-            var profilesDynamicTable = BotController.dataBase[Table.ProfilesDynamic] as ProfilesDynamicDataTable;
-            await profilesDynamicTable.ResetToDefaultValues(dbId).FastAwait();
-
-            var profileBuildingsTable = BotController.dataBase[Table.ProfileBuildings] as ProfileBuildingsDataTable;
-            await profileBuildingsTable.ResetToDefaultValues(dbId).FastAwait();
+            await session.profile.Cheat_ResetProfile().FastAwait();
+            await sessionManager.CloseSession(session.chatId).FastAwait();
         }
 
         private async Task ExportAccount()

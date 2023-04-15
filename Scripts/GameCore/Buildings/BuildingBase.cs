@@ -26,8 +26,8 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
         public abstract string GetCurrentLevelInfo(GameSession session, ProfileBuildingsData data);
         public abstract string GetNextLevelInfo(GameSession session, ProfileBuildingsData data);
         protected abstract void SetCurrentLevel(ProfileBuildingsData data, byte level);
-        protected abstract long GetStartConstructionTime(ProfileBuildingsData data);
-        protected abstract void SetStartConstructionTime(ProfileBuildingsData data, long startConstructionTime);
+        protected abstract DateTime GetStartConstructionTime(ProfileBuildingsData data);
+        protected abstract void SetStartConstructionTime(ProfileBuildingsData data, DateTime startConstructionTime);
 
 
         public bool HasImportantUpdates(ProfileBuildingsData data)
@@ -119,7 +119,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
         /// <returns>Находится ли здание в процессе постройки / улучшения</returns>
         public bool IsUnderConstruction(ProfileBuildingsData data)
         {
-            return GetStartConstructionTime(data) > 0;
+            return GetStartConstructionTime(data) > DateTime.MinValue;
         }
 
         /// <summary>
@@ -129,7 +129,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
         {
             if (IsNextLevelUnlocked(data))
             {
-                SetStartConstructionTime(data, DateTime.UtcNow.Ticks);
+                SetStartConstructionTime(data, DateTime.UtcNow);
                 OnConstructionStart(data);
             }
         }
@@ -155,8 +155,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
                 return DateTime.UtcNow;
             
             var currentLevel = GetCurrentLevel(data);
-            var ticks = GetStartConstructionTime(data);
-            var startDt = new DateTime(ticks);
+            var startDt = GetStartConstructionTime(data);
             var secondsForConstruction = buildingData.levels[currentLevel].constructionTime;
             var endDt = startDt.AddSeconds(secondsForConstruction);
             return endDt;
@@ -176,14 +175,14 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             if (IsMaxLevel(data))
                 return;
 
-            var startConstructionTime = new DateTime(GetStartConstructionTime(data));
+            var startConstructionTime = GetStartConstructionTime(data);
             var endConstructionTime = GetEndConstructionTime(data);
             OnConstructionEnd(data, startConstructionTime, endConstructionTime);
 
             var currentLevel = GetCurrentLevel(data);
             currentLevel++;
             SetCurrentLevel(data, currentLevel);
-            SetStartConstructionTime(data, 0);
+            SetStartConstructionTime(data, DateTime.MinValue);
         }
 
         // Тут можно определить дополнительную логику, которая будет вызываться при завершении строительства (улучшения)
@@ -200,7 +199,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
         public void Cheat_SetCurrentLevel(ProfileBuildingsData data, byte level)
         {
             SetCurrentLevel(data, level);
-            SetStartConstructionTime(data, 0);
+            SetStartConstructionTime(data, DateTime.MinValue);
         }
 
     }

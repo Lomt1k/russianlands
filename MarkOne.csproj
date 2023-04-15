@@ -31,8 +31,8 @@
     <PackageReference Include="JsonKnownTypes" Version="0.5.5" />
     <PackageReference Include="log4net" Version="2.0.15" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
     <PackageReference Include="System.Collections" Version="4.3.0" />
-    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.117" />
     <PackageReference Include="Telegram.Bot" Version="18.0.0" />
     <PackageReference Include="XamlNameReferenceGenerator" Version="1.6.1" />
   </ItemGroup>

@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
 using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Items;
-using TextGameRPG.Scripts.GameCore.Items.Generators;
 using TextGameRPG.Scripts.GameCore.Localizations;
 
 namespace TextGameRPG.Scripts.GameCore.Buildings.Craft
@@ -29,12 +29,12 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Craft
             data.weaponsWorkshopLevel = level;
         }
 
-        protected override long GetStartConstructionTime(ProfileBuildingsData data)
+        protected override DateTime GetStartConstructionTime(ProfileBuildingsData data)
         {
             return data.weaponsWorkshopStartConstructionTime;
         }
 
-        protected override void SetStartConstructionTime(ProfileBuildingsData data, long startConstructionTime)
+        protected override void SetStartConstructionTime(ProfileBuildingsData data, DateTime startConstructionTime)
         {
             data.weaponsWorkshopStartConstructionTime = startConstructionTime;
         }
@@ -71,34 +71,34 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Craft
             return sb.ToString();
         }
 
-        public override long GetStartCraftTime(ProfileBuildingsData data)
+        public override DateTime GetStartCraftTime(ProfileBuildingsData data)
         {
             return data.weaponsWorkshopStartCraftTime;
         }
 
-        protected override void SetStartCraftTime(ProfileBuildingsData data, long startCraftTime)
+        protected override void SetStartCraftTime(ProfileBuildingsData data, DateTime startCraftTime)
         {
             data.weaponsWorkshopStartCraftTime = startCraftTime;
         }
 
         public override ItemType GetCurrentCraftItemType(ProfileBuildingsData data)
         {
-            return (ItemType)data.weaponsWorkshopCraftItemType;
+            return data.weaponsWorkshopCraftItemType;
         }
 
         protected override void SetCurrentCraftItemType(ProfileBuildingsData data, ItemType itemType)
         {
-            data.weaponsWorkshopCraftItemType = (sbyte)itemType;
+            data.weaponsWorkshopCraftItemType = itemType;
         }
 
         public override Rarity GetCurrentCraftItemRarity(ProfileBuildingsData data)
         {
-            return (Rarity)data.weaponsWorkshopCraftItemRarity;
+            return data.weaponsWorkshopCraftItemRarity;
         }
 
         protected override void SetCurrentCraftItemRarity(ProfileBuildingsData data, Rarity rarity)
         {
-            data.weaponsWorkshopCraftItemRarity = (byte)rarity;
+            data.weaponsWorkshopCraftItemRarity = rarity;
         }
         
     }

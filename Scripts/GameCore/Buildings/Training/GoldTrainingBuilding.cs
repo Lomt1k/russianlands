@@ -24,12 +24,12 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Training
             data.goldTrainingLevel = level;
         }
 
-        protected override long GetStartConstructionTime(ProfileBuildingsData data)
+        protected override DateTime GetStartConstructionTime(ProfileBuildingsData data)
         {
             return data.goldTrainingStartConstructionTime;
         }
 
-        protected override void SetStartConstructionTime(ProfileBuildingsData data, long startConstructionTime)
+        protected override void SetStartConstructionTime(ProfileBuildingsData data, DateTime startConstructionTime)
         {
             data.goldTrainingStartConstructionTime = startConstructionTime;
         }
@@ -102,14 +102,14 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Training
             data.goldTrainingFirstUnitIndex = unitIndex;
         }
 
-        public override long GetFirstTrainingUnitStartTime(ProfileBuildingsData data)
+        public override DateTime GetFirstTrainingUnitStartTime(ProfileBuildingsData data)
         {
             return data.goldTrainingFirstUnitStartTime;
         }
 
-        public override void SetFirstTrainingUnitStartTime(ProfileBuildingsData data, long ticks)
+        public override void SetFirstTrainingUnitStartTime(ProfileBuildingsData data, DateTime dateTime)
         {
-            data.goldTrainingFirstUnitStartTime = ticks;
+            data.goldTrainingFirstUnitStartTime = dateTime;
         }
 
         public override sbyte GetSecondTrainingUnitIndex(ProfileBuildingsData data)
@@ -122,14 +122,14 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Training
             data.goldTrainingSecondUnitIndex = unitIndex;
         }
 
-        public override long GetSecondTrainingUnitStartTime(ProfileBuildingsData data)
+        public override DateTime GetSecondTrainingUnitStartTime(ProfileBuildingsData data)
         {
             return data.goldTrainingSecondUnitStartTime;
         }
 
-        public override void SetSecondTrainingUnitStartTime(ProfileBuildingsData data, long ticks)
+        public override void SetSecondTrainingUnitStartTime(ProfileBuildingsData data, DateTime dateTime)
         {
-            data.goldTrainingSecondUnitStartTime = ticks;
+            data.goldTrainingSecondUnitStartTime = dateTime;
         }
 
         public override void LevelUpFirst(GameSession session, ProfileBuildingsData data)
@@ -137,7 +137,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Training
             var unitIndex = GetFirstTrainingUnitIndex(data);
             LevelUpUnitByIndex(data, unitIndex);
             SetFirstTrainingUnitIndex(data, -1);
-            SetFirstTrainingUnitStartTime(data, 0);
+            SetFirstTrainingUnitStartTime(data, DateTime.MinValue);
         }
 
         public override void LevelUpSecond(GameSession session, ProfileBuildingsData data)
@@ -145,7 +145,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Training
             var unitIndex = GetSecondTrainingUnitIndex(data);
             LevelUpUnitByIndex(data, unitIndex);
             SetSecondTrainingUnitIndex(data, -1);
-            SetSecondTrainingUnitStartTime(data, 0);
+            SetSecondTrainingUnitStartTime(data, DateTime.MinValue);
         }
 
         private void LevelUpUnitByIndex(ProfileBuildingsData data, sbyte unitIndex)

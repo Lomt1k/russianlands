@@ -1,337 +1,162 @@
-﻿using System.Data;
-using System.Reflection;
-using System.Threading.Tasks;
-using TextGameRPG.Scripts.Bot.DataBase.TablesStructure;
+﻿using SQLite;
+using System;
+using TextGameRPG.Scripts.GameCore.Items;
 
 namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
 {
-    public class ProfileBuildingsData : DatabaseSerializableData
+    [Table("Buildings")]
+    public class ProfileBuildingsData : DataWithSession
     {
-        static FieldInfo[] staticFieldsInfo = typeof(ProfileBuildingsData).GetFields();
-        public override FieldInfo[] fieldsInfo => staticFieldsInfo;
+        [PrimaryKey]
+        public long dbid { get; set; }
 
-        public long dbid;
+        public byte townHallLevel { get; set; } = 1;
+        public DateTime townHallStartConstructionTime { get; set; }
+        public byte tyrLevel { get; set; } = 1;
+        public DateTime tyrStartConstructionTime { get; set; }
+        public byte hospitalLevel { get; set; } = 1;
+        public DateTime hospitalStartConstructionTime { get; set; }
+        public DateTime hospitalLastHealthRestoreTime { get; set; }
+        public byte potionWorkshopLevel { get; set; }
+        public DateTime potionWorkshopStartConstructionTime { get; set; }
+        public byte elixirWorkshopLevel { get; set; }
+        public DateTime elixirWorkshopStartConstructionTime { get; set; }
 
-        public byte townHallLevel = 1;
-        public long townHallStartConstructionTime;
-        public byte tyrLevel = 1;
-        public long tyrStartConstructionTime;
-        public byte hospitalLevel = 1;
-        public long hospitalStartConstructionTime;
-        public long hospitalLastHealthRestoreTime;
-        public byte potionWorkshopLevel;
-        public long potionWorkshopStartConstructionTime;
-        public byte elixirWorkshopLevel;
-        public long elixirWorkshopStartConstructionTime;
-
-        public byte weaponsWorkshopLevel;
-        public long weaponsWorkshopStartConstructionTime;
-        public long weaponsWorkshopStartCraftTime;
-        public sbyte weaponsWorkshopCraftItemType;
-        public byte weaponsWorkshopCraftItemRarity;
-        public byte armorWorkshopLevel;
-        public long armorWorkshopStartConstructionTime;
-        public long armorWorkshopStartCraftTime;
-        public sbyte armorWorkshopCraftItemType;
-        public byte armorWorkshopCraftItemRarity;
-        public byte jewerlyLevel;
-        public long jewerlyStartConstructionTime;
-        public long jewerlyStartCraftTime;
-        public sbyte jewerlyCraftItemType;
-        public byte jewerlyCraftItemRarity;
-        public byte scribesHouseLevel;
-        public long scribesHouseStartConstructionTime;
-        public long scribesHouseStartCraftTime;
-        public byte scribesHouseCraftItemRarity;
+        public byte weaponsWorkshopLevel { get; set; }
+        public DateTime weaponsWorkshopStartConstructionTime { get; set; }
+        public DateTime weaponsWorkshopStartCraftTime { get; set; }
+        public ItemType weaponsWorkshopCraftItemType { get; set; }
+        public Rarity weaponsWorkshopCraftItemRarity { get; set; }
+        public byte armorWorkshopLevel { get; set; }
+        public DateTime armorWorkshopStartConstructionTime { get; set; }
+        public DateTime armorWorkshopStartCraftTime { get; set; }
+        public ItemType armorWorkshopCraftItemType { get; set; }
+        public Rarity armorWorkshopCraftItemRarity { get; set; }
+        public byte jewerlyLevel { get; set; }
+        public DateTime jewerlyStartConstructionTime { get; set; }
+        public DateTime jewerlyStartCraftTime { get; set; }
+        public ItemType jewerlyCraftItemType { get; set; }
+        public Rarity jewerlyCraftItemRarity { get; set; }
+        public byte scribesHouseLevel { get; set; }
+        public DateTime scribesHouseStartConstructionTime { get; set; }
+        public DateTime scribesHouseStartCraftTime { get; set; }
+        public Rarity scribesHouseCraftItemRarity { get; set; }
 
         // --- Хранилища
-        public byte goldStorageLevel = 1;
-        public long goldStorageStartConstructionTime;
-        public byte foodStorageLevel;
-        public long foodStorageStartConstructionTime;
-        public byte herbsStorageLevel;
-        public long herbsStorageStartConstructionTime;
-        public byte woodStorageLevel;
-        public long woodStorageStartConstructionTime;
-        public byte itemsStorageLevel;
-        public long itemsStorageStartConstructionTime;
+        public byte goldStorageLevel { get; set; } = 1;
+        public DateTime goldStorageStartConstructionTime { get; set; }
+        public byte foodStorageLevel { get; set; }
+        public DateTime foodStorageStartConstructionTime { get; set; }
+        public byte herbsStorageLevel { get; set; }
+        public DateTime herbsStorageStartConstructionTime { get; set; }
+        public byte woodStorageLevel { get; set; }
+        public DateTime woodStorageStartConstructionTime { get; set; }
+        public byte itemsStorageLevel { get; set; } = 1;
+        public DateTime itemsStorageStartConstructionTime { get; set; }
 
         // --- Добыча ресурсов: Золото
-        public byte goldProdFirstLevel = 1;
-        public long goldProdFirstStartConstructionTime;
-        public long goldProdFirstStartFarmTime;
-        public byte goldProdFirstWorkerFirst;
-        public byte goldProdFirstWorkerSecond;
+        public byte goldProdFirstLevel { get; set; } = 1;
+        public DateTime goldProdFirstStartConstructionTime { get; set; }
+        public DateTime goldProdFirstStartFarmTime { get; set; }
+        public byte goldProdFirstWorkerFirst { get; set; } = 1;
+        public byte goldProdFirstWorkerSecond { get; set; } = 1;
 
-        public byte goldProdSecondLevel;
-        public long goldProdSecondStartConstructionTime;
-        public long goldProdSecondStartFarmTime;
-        public byte goldProdSecondWorkerFirst;
-        public byte goldProdSecondWorkerSecond;
+        public byte goldProdSecondLevel { get; set; }
+        public DateTime goldProdSecondStartConstructionTime { get; set; }
+        public DateTime goldProdSecondStartFarmTime { get; set; }
+        public byte goldProdSecondWorkerFirst { get; set; } = 1;
+        public byte goldProdSecondWorkerSecond { get; set; } = 1;
 
-        public byte goldProdThirdLevel;
-        public long goldProdThirdStartConstructionTime;
-        public long goldProdThirdStartFarmTime;
-        public byte goldProdThirdWorkerFirst;
-        public byte goldProdThirdWorkerSecond;
+        public byte goldProdThirdLevel { get; set; }
+        public DateTime goldProdThirdStartConstructionTime { get; set; }
+        public DateTime goldProdThirdStartFarmTime { get; set; }
+        public byte goldProdThirdWorkerFirst { get; set; } = 1;
+        public byte goldProdThirdWorkerSecond { get; set; } = 1;
 
         // --- Добыча ресурсов: Еда
-        public byte foodProdFirstLevel;
-        public long foodProdFirstStartConstructionTime;
-        public long foodProdFirstStartFarmTime;
-        public byte foodProdFirstWorkerFirst;
-        public byte foodProdFirstWorkerSecond;
+        public byte foodProdFirstLevel { get; set; }
+        public DateTime foodProdFirstStartConstructionTime { get; set; }
+        public DateTime foodProdFirstStartFarmTime { get; set; }
+        public byte foodProdFirstWorkerFirst { get; set; } = 1;
+        public byte foodProdFirstWorkerSecond { get; set; } = 1;
 
-        public byte foodProdSecondLevel;
-        public long foodProdSecondStartConstructionTime;
-        public long foodProdSecondStartFarmTime;
-        public byte foodProdSecondWorkerFirst;
-        public byte foodProdSecondWorkerSecond;
+        public byte foodProdSecondLevel { get; set; }
+        public DateTime foodProdSecondStartConstructionTime { get; set; }
+        public DateTime foodProdSecondStartFarmTime { get; set; }
+        public byte foodProdSecondWorkerFirst { get; set; } = 1;
+        public byte foodProdSecondWorkerSecond { get; set; } = 1;
 
-        public byte foodProdThirdLevel;
-        public long foodProdThirdStartConstructionTime;
-        public long foodProdThirdStartFarmTime;
-        public byte foodProdThirdWorkerFirst;
-        public byte foodProdThirdWorkerSecond;
+        public byte foodProdThirdLevel { get; set; }
+        public DateTime foodProdThirdStartConstructionTime { get; set; }
+        public DateTime foodProdThirdStartFarmTime { get; set; }
+        public byte foodProdThirdWorkerFirst { get; set; } = 1;
+        public byte foodProdThirdWorkerSecond { get; set; } = 1;
 
         // --- Добыча ресурсов: Травы
-        public byte herbsProdFirstLevel;
-        public long herbsProdFirstStartConstructionTime;
-        public long herbsProdFirstStartFarmTime;
-        public byte herbsProdFirstWorkerFirst;
-        public byte herbsProdFirstWorkerSecond;
+        public byte herbsProdFirstLevel { get; set; }
+        public DateTime herbsProdFirstStartConstructionTime { get; set; }
+        public DateTime herbsProdFirstStartFarmTime { get; set; }
+        public byte herbsProdFirstWorkerFirst { get; set; } = 1;
+        public byte herbsProdFirstWorkerSecond { get; set; } = 1;
 
-        public byte herbsProdSecondLevel;
-        public long herbsProdSecondStartConstructionTime;
-        public long herbsProdSecondStartFarmTime;
-        public byte herbsProdSecondWorkerFirst;
-        public byte herbsProdSecondWorkerSecond;
+        public byte herbsProdSecondLevel { get; set; }
+        public DateTime herbsProdSecondStartConstructionTime { get; set; }
+        public DateTime herbsProdSecondStartFarmTime { get; set; }
+        public byte herbsProdSecondWorkerFirst { get; set; } = 1;
+        public byte herbsProdSecondWorkerSecond { get; set; } = 1;
 
-        public byte herbsProdThirdLevel;
-        public long herbsProdThirdStartConstructionTime;
-        public long herbsProdThirdStartFarmTime;
-        public byte herbsProdThirdWorkerFirst;
-        public byte herbsProdThirdWorkerSecond;
+        public byte herbsProdThirdLevel { get; set; }
+        public DateTime herbsProdThirdStartConstructionTime { get; set; }
+        public DateTime herbsProdThirdStartFarmTime { get; set; }
+        public byte herbsProdThirdWorkerFirst { get; set; } = 1;
+        public byte herbsProdThirdWorkerSecond { get; set; } = 1;
 
         // --- Добыча ресурсов: Дерево
-        public byte woodProdFirstLevel;
-        public long woodProdFirstStartConstructionTime;
-        public long woodProdFirstStartFarmTime;
-        public byte woodProdFirstWorkerFirst;
-        public byte woodProdFirstWorkerSecond;
+        public byte woodProdFirstLevel { get; set; }
+        public DateTime woodProdFirstStartConstructionTime { get; set; }
+        public DateTime woodProdFirstStartFarmTime { get; set; }
+        public byte woodProdFirstWorkerFirst { get; set; } = 1;
+        public byte woodProdFirstWorkerSecond { get; set; } = 1;
 
-        public byte woodProdSecondLevel;
-        public long woodProdSecondStartConstructionTime;
-        public long woodProdSecondStartFarmTime;
-        public byte woodProdSecondWorkerFirst;
-        public byte woodProdSecondWorkerSecond;
+        public byte woodProdSecondLevel { get; set; }
+        public DateTime woodProdSecondStartConstructionTime { get; set; }
+        public DateTime woodProdSecondStartFarmTime { get; set; }
+        public byte woodProdSecondWorkerFirst { get; set; } = 1;
+        public byte woodProdSecondWorkerSecond { get; set; } = 1;
 
         // --- Тренировка
-        public byte warriorTrainingLevel;
-        public long warriorTrainingStartConstructionTime;
-        public sbyte warriorTrainingFirstUnitIndex;
-        public long warriorTrainingFirstUnitStartTime;
+        public byte warriorTrainingLevel { get; set; }
+        public DateTime warriorTrainingStartConstructionTime { get; set; }
+        public sbyte warriorTrainingFirstUnitIndex { get; set; } = -1;
+        public DateTime warriorTrainingFirstUnitStartTime { get; set; }
 
-        public byte goldTrainingLevel;
-        public long goldTrainingStartConstructionTime;
-        public sbyte goldTrainingFirstUnitIndex;
-        public sbyte goldTrainingSecondUnitIndex;
-        public long goldTrainingFirstUnitStartTime;
-        public long goldTrainingSecondUnitStartTime;
+        public byte goldTrainingLevel { get; set; }
+        public DateTime goldTrainingStartConstructionTime { get; set; }
+        public sbyte goldTrainingFirstUnitIndex { get; set; } = -1;
+        public sbyte goldTrainingSecondUnitIndex { get; set; } = -1;
+        public DateTime goldTrainingFirstUnitStartTime { get; set; }
+        public DateTime goldTrainingSecondUnitStartTime { get; set; }
 
-        public byte foodTrainingLevel;
-        public long foodTrainingStartConstructionTime;
-        public sbyte foodTrainingFirstUnitIndex;
-        public sbyte foodTrainingSecondUnitIndex;
-        public long foodTrainingFirstUnitStartTime;
-        public long foodTrainingSecondUnitStartTime;
+        public byte foodTrainingLevel { get; set; }
+        public DateTime foodTrainingStartConstructionTime { get; set; }
+        public sbyte foodTrainingFirstUnitIndex { get; set; } = -1;
+        public sbyte foodTrainingSecondUnitIndex { get; set; } = -1;
+        public DateTime foodTrainingFirstUnitStartTime { get; set; }
+        public DateTime foodTrainingSecondUnitStartTime { get; set; }
 
-        public byte herbsTrainingLevel;
-        public long herbsTrainingStartConstructionTime;
-        public sbyte herbsTrainingFirstUnitIndex;
-        public sbyte herbsTrainingSecondUnitIndex;
-        public long herbsTrainingFirstUnitStartTime;
-        public long herbsTrainingSecondUnitStartTime;
+        public byte herbsTrainingLevel { get; set; }
+        public DateTime herbsTrainingStartConstructionTime { get; set; }
+        public sbyte herbsTrainingFirstUnitIndex { get; set; } = -1;
+        public sbyte herbsTrainingSecondUnitIndex { get; set; } = -1;
+        public DateTime herbsTrainingFirstUnitStartTime { get; set; }
+        public DateTime herbsTrainingSecondUnitStartTime { get; set; }
 
-        public byte woodTrainingLevel;
-        public long woodTrainingStartConstructionTime;
-        public sbyte woodTrainingFirstUnitIndex;
-        public sbyte woodTrainingSecondUnitIndex;
-        public long woodTrainingFirstUnitStartTime;
-        public long woodTrainingSecondUnitStartTime;
-
-        public static TableColumn[] GetTableColumns()
-        {
-            return new TableColumn[]
-            {
-                new TableColumn("dbid", "INTEGER PRIMARY KEY AUTOINCREMENT", "0"),
-
-                new TableColumn("townHallLevel", "INTEGER", "1"),
-                new TableColumn("townHallStartConstructionTime", "INTEGER", "0"),
-                new TableColumn("tyrLevel", "INTEGER", "1"),
-                new TableColumn("tyrStartConstructionTime", "INTEGER", "0"),
-                new TableColumn("hospitalLevel", "INTEGER", "1"),
-                new TableColumn("hospitalStartConstructionTime", "INTEGER", "0"),
-                new TableColumn("hospitalLastHealthRestoreTime", "INTEGER", "0"),
-                new TableColumn("potionWorkshopLevel", "INTEGER", "0"),
-                new TableColumn("potionWorkshopStartConstructionTime", "INTEGER", "0"),
-                new TableColumn("elixirWorkshopLevel", "INTEGER", "0"),
-                new TableColumn("elixirWorkshopStartConstructionTime", "INTEGER", "0"),
-
-                new TableColumn("weaponsWorkshopLevel", "INTEGER", "0"),
-                new TableColumn("weaponsWorkshopStartConstructionTime", "INTEGER", "0"),
-                new TableColumn("weaponsWorkshopStartCraftTime", "INTEGER", "0"),
-                new TableColumn("weaponsWorkshopCraftItemType", "INTEGER", "0"),
-                new TableColumn("weaponsWorkshopCraftItemRarity", "INTEGER", "0"),
-                new TableColumn("armorWorkshopLevel", "INTEGER", "0"),
-                new TableColumn("armorWorkshopStartConstructionTime", "INTEGER", "0"),
-                new TableColumn("armorWorkshopStartCraftTime", "INTEGER", "0"),
-                new TableColumn("armorWorkshopCraftItemType", "INTEGER", "0"),
-                new TableColumn("armorWorkshopCraftItemRarity", "INTEGER", "0"),
-                new TableColumn("jewerlyLevel", "INTEGER", "0"),
-                new TableColumn("jewerlyStartConstructionTime", "INTEGER", "0"),
-                new TableColumn("jewerlyStartCraftTime", "INTEGER", "0"),
-                new TableColumn("jewerlyCraftItemType", "INTEGER", "0"),
-                new TableColumn("jewerlyCraftItemRarity", "INTEGER", "0"),
-                new TableColumn("scribesHouseLevel", "INTEGER", "0"),
-                new TableColumn("scribesHouseStartConstructionTime", "INTEGER", "0"),
-                new TableColumn("scribesHouseStartCraftTime", "INTEGER", "0"),
-                new TableColumn("scribesHouseCraftItemRarity", "INTEGER", "0"),
-
-                // --- Хранилища
-                new TableColumn("goldStorageLevel", "INTEGER", "1"),
-                new TableColumn("goldStorageStartConstructionTime", "INTEGER", "0"),
-                new TableColumn("foodStorageLevel", "INTEGER", "0"),
-                new TableColumn("foodStorageStartConstructionTime", "INTEGER", "0"),
-                new TableColumn("herbsStorageLevel", "INTEGER", "0"),
-                new TableColumn("herbsStorageStartConstructionTime", "INTEGER", "0"),
-                new TableColumn("woodStorageLevel", "INTEGER", "0"),
-                new TableColumn("woodStorageStartConstructionTime", "INTEGER", "0"),
-                new TableColumn("itemsStorageLevel", "INTEGER", "1"),
-                new TableColumn("itemsStorageStartConstructionTime", "INTEGER", "0"),
-
-                // --- Добыча ресурсов: Золото
-                new TableColumn("goldProdFirstLevel", "INTEGER", "1"),
-                new TableColumn("goldProdFirstStartConstructionTime", "INTEGER", "0"),
-                new TableColumn("goldProdFirstStartFarmTime", "INTEGER", "0"),
-                new TableColumn("goldProdFirstWorkerFirst", "INTEGER", "1"),
-                new TableColumn("goldProdFirstWorkerSecond", "INTEGER", "1"),
-
-                new TableColumn("goldProdSecondLevel", "INTEGER", "0"),
-                new TableColumn("goldProdSecondStartConstructionTime", "INTEGER", "0"),
-                new TableColumn("goldProdSecondStartFarmTime", "INTEGER", "0"),
-                new TableColumn("goldProdSecondWorkerFirst", "INTEGER", "1"),
-                new TableColumn("goldProdSecondWorkerSecond", "INTEGER", "1"),
-
-                new TableColumn("goldProdThirdLevel", "INTEGER", "0"),
-                new TableColumn("goldProdThirdStartConstructionTime", "INTEGER", "0"),
-                new TableColumn("goldProdThirdStartFarmTime", "INTEGER", "0"),
-                new TableColumn("goldProdThirdWorkerFirst", "INTEGER", "1"),
-                new TableColumn("goldProdThirdWorkerSecond", "INTEGER", "1"),
-
-                // --- Добыча ресурсов: Еда
-                new TableColumn("foodProdFirstLevel", "INTEGER", "0"),
-                new TableColumn("foodProdFirstStartConstructionTime", "INTEGER", "0"),
-                new TableColumn("foodProdFirstStartFarmTime", "INTEGER", "0"),
-                new TableColumn("foodProdFirstWorkerFirst", "INTEGER", "1"),
-                new TableColumn("foodProdFirstWorkerSecond", "INTEGER", "1"),
-
-                new TableColumn("foodProdSecondLevel", "INTEGER", "0"),
-                new TableColumn("foodProdSecondStartConstructionTime", "INTEGER", "0"),
-                new TableColumn("foodProdSecondStartFarmTime", "INTEGER", "0"),
-                new TableColumn("foodProdSecondWorkerFirst", "INTEGER", "1"),
-                new TableColumn("foodProdSecondWorkerSecond", "INTEGER", "1"),
-
-                new TableColumn("foodProdThirdLevel", "INTEGER", "0"),
-                new TableColumn("foodProdThirdStartConstructionTime", "INTEGER", "0"),
-                new TableColumn("foodProdThirdStartFarmTime", "INTEGER", "0"),
-                new TableColumn("foodProdThirdWorkerFirst", "INTEGER", "1"),
-                new TableColumn("foodProdThirdWorkerSecond", "INTEGER", "1"),
-
-                // --- Добыча ресурсов: Травы
-                new TableColumn("herbsProdFirstLevel", "INTEGER", "0"),
-                new TableColumn("herbsProdFirstStartConstructionTime", "INTEGER", "0"),
-                new TableColumn("herbsProdFirstStartFarmTime", "INTEGER", "0"),
-                new TableColumn("herbsProdFirstWorkerFirst", "INTEGER", "1"),
-                new TableColumn("herbsProdFirstWorkerSecond", "INTEGER", "1"),
-
-                new TableColumn("herbsProdSecondLevel", "INTEGER", "0"),
-                new TableColumn("herbsProdSecondStartConstructionTime", "INTEGER", "0"),
-                new TableColumn("herbsProdSecondStartFarmTime", "INTEGER", "0"),
-                new TableColumn("herbsProdSecondWorkerFirst", "INTEGER", "1"),
-                new TableColumn("herbsProdSecondWorkerSecond", "INTEGER", "1"),
-
-                new TableColumn("herbsProdThirdLevel", "INTEGER", "0"),
-                new TableColumn("herbsProdThirdStartConstructionTime", "INTEGER", "0"),
-                new TableColumn("herbsProdThirdStartFarmTime", "INTEGER", "0"),
-                new TableColumn("herbsProdThirdWorkerFirst", "INTEGER", "1"),
-                new TableColumn("herbsProdThirdWorkerSecond", "INTEGER", "1"),
-
-                // --- Добыча ресурсов: Дерево
-                new TableColumn("woodProdFirstLevel", "INTEGER", "0"),
-                new TableColumn("woodProdFirstStartConstructionTime", "INTEGER", "0"),
-                new TableColumn("woodProdFirstStartFarmTime", "INTEGER", "0"),
-                new TableColumn("woodProdFirstWorkerFirst", "INTEGER", "1"),
-                new TableColumn("woodProdFirstWorkerSecond", "INTEGER", "1"),
-
-                new TableColumn("woodProdSecondLevel", "INTEGER", "0"),
-                new TableColumn("woodProdSecondStartConstructionTime", "INTEGER", "0"),
-                new TableColumn("woodProdSecondStartFarmTime", "INTEGER", "0"),
-                new TableColumn("woodProdSecondWorkerFirst", "INTEGER", "1"),
-                new TableColumn("woodProdSecondWorkerSecond", "INTEGER", "1"),
-
-                // --- Тренировка
-                new TableColumn("warriorTrainingLevel", "INTEGER", "0"),
-                new TableColumn("warriorTrainingStartConstructionTime", "INTEGER", "0"),
-                new TableColumn("warriorTrainingFirstUnitIndex", "INTEGER", "-1"),
-                new TableColumn("warriorTrainingFirstUnitStartTime", "INTEGER", "0"),
-
-                new TableColumn("goldTrainingLevel", "INTEGER", "0"),
-                new TableColumn("goldTrainingStartConstructionTime", "INTEGER", "0"),
-                new TableColumn("goldTrainingFirstUnitIndex", "INTEGER", "-1"),
-                new TableColumn("goldTrainingSecondUnitIndex", "INTEGER", "-1"),
-                new TableColumn("goldTrainingFirstUnitStartTime", "INTEGER", "0"),
-                new TableColumn("goldTrainingSecondUnitStartTime", "INTEGER", "0"),
-
-                new TableColumn("foodTrainingLevel", "INTEGER", "0"),
-                new TableColumn("foodTrainingStartConstructionTime", "INTEGER", "0"),
-                new TableColumn("foodTrainingFirstUnitIndex", "INTEGER", "-1"),
-                new TableColumn("foodTrainingSecondUnitIndex", "INTEGER", "-1"),
-                new TableColumn("foodTrainingFirstUnitStartTime", "INTEGER", "0"),
-                new TableColumn("foodTrainingSecondUnitStartTime", "INTEGER", "0"),
-
-                new TableColumn("herbsTrainingLevel", "INTEGER", "0"),
-                new TableColumn("herbsTrainingStartConstructionTime", "INTEGER", "0"),
-                new TableColumn("herbsTrainingFirstUnitIndex", "INTEGER", "-1"),
-                new TableColumn("herbsTrainingSecondUnitIndex", "INTEGER", "-1"),
-                new TableColumn("herbsTrainingFirstUnitStartTime", "INTEGER", "0"),
-                new TableColumn("herbsTrainingSecondUnitStartTime", "INTEGER", "0"),
-
-                new TableColumn("woodTrainingLevel", "INTEGER", "0"),
-                new TableColumn("woodTrainingStartConstructionTime", "INTEGER", "0"),
-                new TableColumn("woodTrainingFirstUnitIndex", "INTEGER", "-1"),
-                new TableColumn("woodTrainingSecondUnitIndex", "INTEGER", "-1"),
-                new TableColumn("woodTrainingFirstUnitStartTime", "INTEGER", "0"),
-                new TableColumn("woodTrainingSecondUnitStartTime", "INTEGER", "0"),
-            };
-        }
-
-        public ProfileBuildingsData(DataRow data) : base(data)
-        {
-        }
-
-        public async override Task<bool> UpdateInDatabase()
-        {
-            if (!isDeserializationCompleted)
-                return true;
-
-            var buildingsTable = BotController.dataBase[Table.ProfileBuildings] as ProfileBuildingsDataTable;
-            var success = await buildingsTable.UpdateDataInDatabase(this).FastAwait();
-            return success;
-        }
-
-
-
+        public byte woodTrainingLevel { get; set; }
+        public DateTime woodTrainingStartConstructionTime { get; set; }
+        public sbyte woodTrainingFirstUnitIndex { get; set; } = -1;
+        public sbyte woodTrainingSecondUnitIndex { get; set; } = -1;
+        public DateTime woodTrainingFirstUnitStartTime { get; set; }
+        public DateTime woodTrainingSecondUnitStartTime { get; set; }
 
     }
 }

@@ -7,12 +7,12 @@ using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Profiles;
 using TextGameRPG.Scripts.GameCore.Units;
 using TextGameRPG.Scripts.Bot.CallbackData;
-using TextGameRPG.Scripts.Bot.DataBase.TablesStructure;
 using TextGameRPG.Scripts.Bot.Dialogs;
 using TextGameRPG.Scripts.GameCore.Quests;
 using TextGameRPG.Scripts.GameCore.Services;
 using System.Threading;
 using TextGameRPG.Scripts.GameCore.Services.Battles;
+using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
 
 namespace TextGameRPG.Scripts.Bot.Sessions
 {
@@ -148,31 +148,38 @@ namespace TextGameRPG.Scripts.Bot.Sessions
 
         private async Task OnStartNewSession(User actualUser, Update update)
         {
-            var profilesTable = BotController.dataBase[Table.Profiles] as ProfilesDataTable;
-            var profileData = await profilesTable.GetOrCreateProfileData(actualUser, fakeChatId).FastAwait();
+            var db = BotController.dataBase.db;
+            var query = db.Table<ProfileData>().Where(x => x.telegram_id == actualUser.Id);
+            var profileData = await query.FirstOrDefaultAsync().FastAwait();
             if (profileData == null)
             {
-                Program.logger.Error($"Can`t get or create profile data after start new session (telegram_id: {actualUser.Id})");
-                return;
+                var nickname = actualUser.FirstName.IsCorrectNickname()
+                    ? actualUser.FirstName
+                    : "Player_" + (new Random().Next(8999) + 1000);
+                profileData = new ProfileData() 
+                {
+                    nickname = nickname,
+                    telegram_id = actualUser.Id,
+                };
+                await db.InsertAsync(profileData).FastAwait();
             }
 
-            var profilesDynamicTable = BotController.dataBase[Table.ProfilesDynamic] as ProfilesDynamicDataTable;
-            var profileDynamicData = await profilesDynamicTable.GetOrCreateData(profileData.dbid).FastAwait();
-            if (profileDynamicData == null)
+            var dbid = profileData.dbid;
+            var rawDynamicData = await db.GetOrNullAsync<RawProfileDynamicData>(dbid).FastAwait();
+            if (rawDynamicData == null)
             {
-                Program.logger.Error($"Can`t get or create profile dynamic data after start new session (telegram_id: {actualUser.Id})");
-                return;
+                rawDynamicData = new RawProfileDynamicData() { dbid = dbid };
+                await db.InsertAsync(rawDynamicData).FastAwait();
             }
 
-            var profileBuildingsTable = BotController.dataBase[Table.ProfileBuildings] as ProfileBuildingsDataTable;
-            var profileBuildingsData = await profileBuildingsTable.GetOrCreateData(profileData.dbid).FastAwait();
+            var profileBuildingsData = await db.GetOrNullAsync<ProfileBuildingsData>(dbid).FastAwait();
             if (profileBuildingsData == null)
             {
-                Program.logger.Error($"Can`t get or create profile buildings data after start new session (telegram_id: {actualUser.Id})");
-                return;
+                profileBuildingsData = new ProfileBuildingsData() { dbid = dbid };
+                await db.InsertAsync(profileBuildingsData).FastAwait();
             }
 
-            profile = new Profile(this, profileData, profileDynamicData, profileBuildingsData);
+            profile = new Profile(this, profileData, rawDynamicData.Deserialize(), profileBuildingsData);
             language = Enum.Parse<LanguageCode>(profileData.language);
             player = new Player(this);
 
