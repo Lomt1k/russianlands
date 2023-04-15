@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using TextGameRPG.Scripts.Bot;
 
 namespace TextGameRPG.Scripts.GameCore.Services
@@ -41,14 +42,14 @@ namespace TextGameRPG.Scripts.GameCore.Services
         {
             currentState = GetActualState(info);
             debugInfo = GetDebugInfo(info);
-            currentResponceDelay = currentState != PerformanceState.Normal ? BotConfig.instance.responceMsDelayWhenCpuHighload : 0;
+            currentResponceDelay = currentState != PerformanceState.Normal ? BotController.config.responceMsDelayWhenCpuHighload : 0;
 
             onStateUpdate?.Invoke(currentState);
         }
 
         private PerformanceState GetActualState(PerformanceInfo info)
         {
-            var config = BotConfig.instance;
+            var config = BotController.config;
             if (config == null)
                 return PerformanceState.Normal;
 
@@ -74,7 +75,7 @@ namespace TextGameRPG.Scripts.GameCore.Services
 
         private PerformanceDebugInfo GetDebugInfo(PerformanceInfo info)
         {
-            var config = BotConfig.instance;
+            var config = BotController.config;
             if (config == null)
                 return new PerformanceDebugInfo();
 
@@ -88,9 +89,10 @@ namespace TextGameRPG.Scripts.GameCore.Services
             };
         }
 
-        public override void OnBotStarted(TelegramBot bot)
+        public override Task OnBotStarted()
         {
             onStateUpdate?.Invoke(PerformanceState.Normal);
+            return Task.CompletedTask;
         }
 
     }

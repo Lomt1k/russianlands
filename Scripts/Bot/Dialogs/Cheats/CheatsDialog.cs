@@ -509,13 +509,13 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
 
             await sessionManager.CloseSession(telegramId).FastAwait();
 
-            var profilesTable = TelegramBot.instance.dataBase[Table.Profiles] as ProfilesDataTable;
+            var profilesTable = BotController.dataBase[Table.Profiles] as ProfilesDataTable;
             await profilesTable.ResetToDefaultValues(dbId).FastAwait();
 
-            var profilesDynamicTable = TelegramBot.instance.dataBase[Table.ProfilesDynamic] as ProfilesDynamicDataTable;
+            var profilesDynamicTable = BotController.dataBase[Table.ProfilesDynamic] as ProfilesDynamicDataTable;
             await profilesDynamicTable.ResetToDefaultValues(dbId).FastAwait();
 
-            var profileBuildingsTable = TelegramBot.instance.dataBase[Table.ProfileBuildings] as ProfileBuildingsDataTable;
+            var profileBuildingsTable = BotController.dataBase[Table.ProfileBuildings] as ProfileBuildingsDataTable;
             await profileBuildingsTable.ResetToDefaultValues(dbId).FastAwait();
         }
 

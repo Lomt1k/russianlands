@@ -24,7 +24,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
         {
             return new ProfileState
             {
-                environment = TelegramBot.instance.dataPath,
+                environment = BotController.dataPath,
                 nickname = profile.data.nickname,
                 databaseId = profile.data.dbid,
                 telegramId = profile.data.telegram_id,
@@ -93,7 +93,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
             foreach (var query in sqlQuerries)
             {
                 var preparedQuery = query.Replace(idPlacement, dbid.ToString());
-                await TelegramBot.instance.dataBase.ExecuteQueryAsync(preparedQuery);
+                await BotController.dataBase.ExecuteQueryAsync(preparedQuery);
             }
         }
 

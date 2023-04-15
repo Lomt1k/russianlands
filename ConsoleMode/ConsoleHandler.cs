@@ -74,8 +74,8 @@ namespace TextGameRPG.ConsoleMode
 
         private void StartWithBotData(string botDataPath)
         {
-            var telegramBot = new TelegramBot(botDataPath);
-            telegramBot.StartListening();
+            BotController.Init(botDataPath);
+            BotController.StartListening();
             ListenConsoleCommands();
         }
 
@@ -106,17 +106,17 @@ namespace TextGameRPG.ConsoleMode
 
         private static void StartBotCommand(string[] args)
         {
-            TelegramBot.instance.StartListening();
+            BotController.StartListening();
         }
 
         private static void StopBotCommand(string[] args)
         {
-            TelegramBot.instance.StopListening();
+            BotController.StopListening();
         }
 
         private static void Shutdown(string[] args)
         {
-            TelegramBot.instance.Shutdown();
+            BotController.Shutdown();
         }
 
         private static void CollectCommand(string[] args)

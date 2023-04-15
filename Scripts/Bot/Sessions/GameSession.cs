@@ -33,7 +33,7 @@ namespace TextGameRPG.Scripts.Bot.Sessions
         public User actualUser { get; private set; }
         public Profile profile { get; private set; }
         public Player player { get; private set; }
-        public LanguageCode language { get; private set; } = BotConfig.instance.defaultLanguageCode;
+        public LanguageCode language { get; private set; } = BotController.config.defaultLanguageCode;
         public DialogBase? currentDialog { get; private set; }
         public TooltipController tooltipController { get; } = new TooltipController();
         public bool isAdmin => profile.data.adminStatus > 0;
@@ -103,7 +103,7 @@ namespace TextGameRPG.Scripts.Bot.Sessions
 
         public async Task HandleMessageAsync(Message message)
         {
-            if (BotConfig.instance.logUserInput && message.Text != null)
+            if (BotController.config.logUserInput && message.Text != null)
             {
                 Program.logger.Info($"Message from {actualUser}: {message.Text}");
             }
@@ -148,7 +148,7 @@ namespace TextGameRPG.Scripts.Bot.Sessions
 
         private async Task OnStartNewSession(User actualUser, Update update)
         {
-            var profilesTable = TelegramBot.instance.dataBase[Table.Profiles] as ProfilesDataTable;
+            var profilesTable = BotController.dataBase[Table.Profiles] as ProfilesDataTable;
             var profileData = await profilesTable.GetOrCreateProfileData(actualUser, fakeChatId).FastAwait();
             if (profileData == null)
             {
@@ -156,7 +156,7 @@ namespace TextGameRPG.Scripts.Bot.Sessions
                 return;
             }
 
-            var profilesDynamicTable = TelegramBot.instance.dataBase[Table.ProfilesDynamic] as ProfilesDynamicDataTable;
+            var profilesDynamicTable = BotController.dataBase[Table.ProfilesDynamic] as ProfilesDynamicDataTable;
             var profileDynamicData = await profilesDynamicTable.GetOrCreateData(profileData.dbid).FastAwait();
             if (profileDynamicData == null)
             {
@@ -164,7 +164,7 @@ namespace TextGameRPG.Scripts.Bot.Sessions
                 return;
             }
 
-            var profileBuildingsTable = TelegramBot.instance.dataBase[Table.ProfileBuildings] as ProfileBuildingsDataTable;
+            var profileBuildingsTable = BotController.dataBase[Table.ProfileBuildings] as ProfileBuildingsDataTable;
             var profileBuildingsData = await profileBuildingsTable.GetOrCreateData(profileData.dbid).FastAwait();
             if (profileBuildingsData == null)
             {

@@ -37,7 +37,7 @@ namespace TextGameRPG.Scripts.Bot.DataBase.TablesStructure
                 else
                 {
                     // First profile setup
-                    var language = BotConfig.instance.defaultLanguageCode.ToString();
+                    var language = BotController.config.defaultLanguageCode.ToString();
                     var nickname = user.FirstName.IsCorrectNickname() ? user.FirstName : "Player_" + (1_000 + new Random().Next(9_000));
                     var regDate = DateTime.UtcNow.AsString();
                     var regVersion = ProjectVersion.Current.ToString();

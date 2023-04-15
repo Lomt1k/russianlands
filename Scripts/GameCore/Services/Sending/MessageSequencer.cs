@@ -37,12 +37,13 @@ namespace TextGameRPG.Scripts.GameCore.Services.Sending
             }
         }
 
-        public override void OnBotStarted(TelegramBot bot)
+        public override Task OnBotStarted()
         {
-            var config = BotConfig.instance;
+            var config = BotController.config;
             SendMessageLimit = config.sendMessagePerSecondLimit;
             EditMessageLimit = config.editMessagePerSecondLimit;
             SendStickerLimit = config.sendStickerPerSecondLimit;
+            return Task.CompletedTask;
         }
 
         public int GetDelayForSendMessage(string messageText)

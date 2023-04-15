@@ -18,11 +18,12 @@ namespace TextGameRPG.Scripts.Bot
         private RequestExceptionHandler _requestExceptionHandler;
         private int _maxDelayForSendStickers;
 
-        public override void OnBotStarted(TelegramBot bot)
+        public override Task OnBotStarted()
         {
-            _botClient = bot.botClient;
+            _botClient = BotController.botClient;
             _requestExceptionHandler = new RequestExceptionHandler();
-            _maxDelayForSendStickers = BotConfig.instance.dontSendStickerIfDelayInSeconds * 1_000;
+            _maxDelayForSendStickers = BotController.config.dontSendStickerIfDelayInSeconds * 1_000;
+            return Task.CompletedTask;
         }
 
         public async Task<Message?> SendTextMessage(ChatId id, string text, InlineKeyboardMarkup? inlineKeyboard = null,

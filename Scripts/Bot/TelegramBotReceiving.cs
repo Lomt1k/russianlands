@@ -2,25 +2,24 @@
 using Telegram.Bot.Polling;
 using System.Threading;
 using Telegram.Bot.Types.Enums;
+using System.Threading.Tasks;
 
 namespace TextGameRPG.Scripts.Bot
 {
     public class TelegramBotReceiving
     {
-        private TelegramBot _bot;
-        private CancellationTokenSource _cts;
+        private CancellationTokenSource _cts = new CancellationTokenSource();
 
         public bool isReceiving { get; private set; }
 
-        public TelegramBotReceiving(TelegramBot bot)
-        {
-            _bot = bot;
-        }
-
-        public void StartReceiving()
+        public async Task StartReceiving()
         {
             if (isReceiving)
                 return;
+
+            var mineUser = await BotController.botClient.GetMeAsync().FastAwait();
+            mineUser.CanJoinGroups = false;
+            Program.SetTitle($"{mineUser.Username} [{BotController.dataPath}]");
 
             _cts = new CancellationTokenSource();
             var receiverOptions = new ReceiverOptions
@@ -33,9 +32,9 @@ namespace TextGameRPG.Scripts.Bot
                 },
                 Offset = -1 // После рестарта бота обработает только последнее сообщение, отправленное за время офлайна (оно запустит новую сессию)
             };
-            _bot.botClient.ReceiveAsync<TelegramBotUpdateHandler>(receiverOptions, _cts.Token);
+            BotController.botClient.ReceiveAsync<TelegramBotUpdateHandler>(receiverOptions, _cts.Token);
             isReceiving = true;
-            Program.logger.Info($"Start listening for @{_bot.mineUser.Username}");
+            Program.logger.Info($"Start listening for @{mineUser.Username}");
         }
 
         public void StopReceiving()
@@ -45,7 +44,7 @@ namespace TextGameRPG.Scripts.Bot
 
             _cts.Cancel();
             isReceiving = false;
-            Program.logger.Info($"Stop listening for @{_bot.mineUser.Username}");
+            Program.logger.Info($"Listening has been stopped");
         }
 
 

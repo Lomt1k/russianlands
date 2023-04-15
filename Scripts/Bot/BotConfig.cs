@@ -7,8 +7,6 @@ namespace TextGameRPG.Scripts.Bot
     [JsonObject]
     public class BotConfig
     {
-        [JsonIgnore] public static BotConfig instance { get; private set; }
-
         public string token = "ENTER_TOKEN_HERE";
         public string defaultLanguage = "RU";
         public bool cheatsForAll = true;
@@ -39,7 +37,6 @@ namespace TextGameRPG.Scripts.Bot
                 Program.logger.Error($"Incorrect language code in config field 'defaultLanguage'. Setuped {parsedLanguage} by default");
             }
             defaultLanguageCode = parsedLanguage;
-            instance = this;
         }
 
     }

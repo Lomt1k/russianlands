@@ -1,5 +1,6 @@
 using Avalonia.Controls;
 using ReactiveUI;
+using TextGameRPG.Scripts.Bot;
 using TextGameRPG.Views;
 
 namespace TextGameRPG.ViewModels
@@ -38,9 +39,9 @@ namespace TextGameRPG.ViewModels
         private void LauchBot(string botDataPath)
         {
             Program.SetupAppMode(AppMode.Bot);
-            var telegramBot = new Scripts.Bot.TelegramBot(botDataPath);
+            BotController.Init(botDataPath);
             mainContentView = new Views.BotControl.BotControl();
-            mainContentView.DataContext = new BotControl.BotControlViewModel(telegramBot);
+            mainContentView.DataContext = new BotControl.BotControlViewModel();
         }
 
 

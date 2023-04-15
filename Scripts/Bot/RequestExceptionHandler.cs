@@ -35,7 +35,7 @@ namespace TextGameRPG.Scripts.Bot
         {
             Program.logger.Error($"HttpRequestException: {ex.Message}");
 
-            TelegramBot.instance.Reconnect();
+            BotController.Reconnect();
             await sessionManager.CloseSession(id, onError: true).FastAwait();
         }
 

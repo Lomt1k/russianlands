@@ -325,7 +325,7 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
             if (!isDeserializationCompleted)
                 return true;
 
-            var buildingsTable = TelegramBot.instance.dataBase[Table.ProfileBuildings] as ProfileBuildingsDataTable;
+            var buildingsTable = BotController.dataBase[Table.ProfileBuildings] as ProfileBuildingsDataTable;
             var success = await buildingsTable.UpdateDataInDatabase(this).FastAwait();
             return success;
         }

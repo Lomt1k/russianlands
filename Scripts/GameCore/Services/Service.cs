@@ -1,10 +1,16 @@
-﻿using TextGameRPG.Scripts.Bot;
+﻿using System.Threading.Tasks;
 
 namespace TextGameRPG.Scripts.GameCore.Services
 {
     public abstract class Service
     {
-        public virtual void OnBotStarted(TelegramBot bot) { }
-        public virtual void OnBotStopped(TelegramBot bot) { }
+        public virtual Task OnBotStarted()
+        {
+            return Task.CompletedTask;
+        }
+        public virtual Task OnBotStopped()
+        {
+            return Task.CompletedTask;
+        }
     }
 }

@@ -12,43 +12,45 @@ namespace TextGameRPG.Scripts.Bot
     using TextGameRPG.Scripts.GameCore.Quests.Characters;
     using System.Net.Http;
     using TextGameRPG.Scripts.GameCore.Services.Battles;
-    using Telegram.Bot.Types;
 
-    public class TelegramBot
+    public static class BotController
     {
         private static readonly SessionManager sessionManager = Services.Get<SessionManager>();
         private static readonly PerformanceManager performanceManager = Services.Get<PerformanceManager>();
 
-        public static TelegramBot instance { get; private set; }
+        private static bool _isInited;
+        private static TelegramBotReceiving _botReceiving;
+        private static HttpClient _httpClient = new HttpClient();
 
-        private BotConfig _config;
-        private TelegramBotReceiving _botReceiving;
-        private HttpClient _httpClient = new HttpClient();
+        public static string dataPath { get; private set; }
+        public static TelegramBotClient botClient { get; private set; }
+        public static BotConfig config { get; private set; }
+        public static BotDataBase dataBase { get; private set; }
 
-        public string dataPath { get; }
-        public TelegramBotClient botClient { get; private set; }
-        public User mineUser { get; private set; }
-        public BotDataBase dataBase { get; private set; }
+        public static bool isReceiving => _botReceiving != null && _botReceiving.isReceiving;
 
-        public bool isReceiving => _botReceiving != null && _botReceiving.isReceiving;
-
-        public TelegramBot(string botDataPath)
+        public static void Init(string botDataPath)
         {
-            instance = this;
-            dataPath = botDataPath;
+            if (_isInited)
+            {
+                Program.logger.Error("BotController is already initialized");
+                return;
+            }
 
-            _config = GetConfig();
-            _botReceiving = new TelegramBotReceiving(this);
+            dataPath = botDataPath;
+            config = GetConfig();
+            _botReceiving = new TelegramBotReceiving();
 
             dataBase = new BotDataBase(botDataPath);
-            botClient = new TelegramBotClient(_config.token);
+            botClient = new TelegramBotClient(config.token);
+            _isInited = true;
         }
 
-        private BotConfig GetConfig()
+        private static BotConfig GetConfig()
         {
             var jsonStr = string.Empty;
             string configPath = Path.Combine(dataPath, "config.json");
-            if (!System.IO.File.Exists(configPath))
+            if (!File.Exists(configPath))
             {
                 var newConfig = new BotConfig();
                 jsonStr = JsonConvert.SerializeObject(newConfig, Formatting.Indented);
@@ -77,7 +79,7 @@ namespace TextGameRPG.Scripts.Bot
             return loadedConfig;
         }
 
-        public async Task<bool> StartListening()
+        public static async Task<bool> StartListening()
         {
             if (isReceiving)
             {
@@ -94,35 +96,28 @@ namespace TextGameRPG.Scripts.Bot
                 return false;
             }
 
-            await WaitForNetworkConnection();
-            mineUser = await botClient.GetMeAsync();
-            mineUser.CanJoinGroups = false;
-            Program.SetTitle($"{mineUser.Username} [{dataPath}]");
-
+            await WaitForNetworkConnection().FastAwait();
             SubcribeEvents();
-            Services.OnBotStarted(this);
-
-            await CharacterStickersHolder.StickersUpdate();
-
-            _botReceiving.StartReceiving();
+            await Services.OnBotStarted().FastAwait();
+            await CharacterStickersHolder.StickersUpdate().FastAwait();
+            await _botReceiving.StartReceiving().FastAwait();
 
             return true;
         }
 
-        public async Task StopListening()
+        public static async Task StopListening()
         {
             if (!isReceiving)
                 return;
 
             _botReceiving.StopReceiving();
-            await sessionManager.CloseAllSessions();
-            await dataBase.CloseAsync();
-
-            Services.OnBotStopped(this);
+            await sessionManager.CloseAllSessions().FastAwait();
+            await dataBase.CloseAsync().FastAwait();
+            await Services.OnBotStopped().FastAwait();
             UnsubscribeEvents();
         }
 
-        public async void Reconnect()
+        public static async void Reconnect()
         {
             if (!isReceiving)
                 return;
@@ -139,11 +134,11 @@ namespace TextGameRPG.Scripts.Bot
                     await sessionManager.CloseSession(player.session.chatId, onError: true);
                 }
             }
-            await WaitForNetworkConnection();
-            _botReceiving.StartReceiving();
+            await WaitForNetworkConnection().FastAwait();
+            await _botReceiving.StartReceiving().FastAwait();
         }
 
-        private async Task WaitForNetworkConnection()
+        private static async Task WaitForNetworkConnection()
         {
             while (true)
             {
@@ -166,17 +161,17 @@ namespace TextGameRPG.Scripts.Bot
             }
         }
 
-        private void SubcribeEvents()
+        private static void SubcribeEvents()
         {
             performanceManager.onStateUpdate += OnUpdatePerformanceState;
         }
 
-        private void UnsubscribeEvents()
+        private static void UnsubscribeEvents()
         {
             performanceManager.onStateUpdate -= OnUpdatePerformanceState;
         }
 
-        private async void OnUpdatePerformanceState(PerformanceState state)
+        private static async void OnUpdatePerformanceState(PerformanceState state)
         {
             if (isReceiving && state == PerformanceState.ShutdownRequired)
             {
@@ -184,7 +179,7 @@ namespace TextGameRPG.Scripts.Bot
             }
         }
 
-        public async void Shutdown(string? fatalError = null)
+        public static async void Shutdown(string? fatalError = null)
         {
             if (fatalError != null)
             {
@@ -196,7 +191,7 @@ namespace TextGameRPG.Scripts.Bot
             }
             Program.logger.Info("Performance Stats:\n" + performanceManager.debugInfo);
             
-            await StopListening();
+            await StopListening().FastAwait();
             Program.logger.Info("Stopping the server was completed correctly");
             System.Environment.Exit(0);
         }

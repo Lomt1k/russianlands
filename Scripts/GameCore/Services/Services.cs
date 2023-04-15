@@ -3,6 +3,7 @@
     using Battles;
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using TextGameRPG.Scripts.Bot;
     using TextGameRPG.Scripts.Bot.Sessions;
     using TextGameRPG.Scripts.GameCore.Services.Sending;
@@ -33,19 +34,19 @@
             return (T)singletone;
         }
 
-        public static void OnBotStarted(TelegramBot bot)
+        public static async Task OnBotStarted()
         {
             foreach (var singletone in _instances.Values)
             {
-                singletone.OnBotStarted(bot);
+                await singletone.OnBotStarted().FastAwait();
             }
         }
 
-        public static void OnBotStopped(TelegramBot bot)
+        public static async Task OnBotStopped()
         {
             foreach (var singletone in _instances.Values)
             {
-                singletone.OnBotStopped(bot);
+                await singletone.OnBotStopped().FastAwait();
             }
         }
 

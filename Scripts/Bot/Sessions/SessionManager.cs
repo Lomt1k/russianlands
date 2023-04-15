@@ -24,12 +24,13 @@ namespace TextGameRPG.Scripts.Bot.Sessions
         public int sessionsCount => _sessions.Count;
         public CancellationTokenSource allSessionsTasksCTS => _allSessionsTasksCTS;
 
-        public override void OnBotStarted(TelegramBot bot)
+        public override Task OnBotStarted()
         {
-            _periodicSaveDatabaseInMs = BotConfig.instance.periodicSaveDatabaseInMinutes * millisecondsInMinute;
+            _periodicSaveDatabaseInMs = BotController.config.periodicSaveDatabaseInMinutes * millisecondsInMinute;
             _allSessionsTasksCTS = new CancellationTokenSource();
             Task.Run(() => PeriodicSaveProfilesAsync(), _allSessionsTasksCTS.Token);
             Task.Run(() => CloseSessionsWithTimeoutAsync(), _allSessionsTasksCTS.Token);
+            return Task.CompletedTask;
         }
 
         public GameSession GetOrCreateSession(User user)
@@ -87,7 +88,7 @@ namespace TextGameRPG.Scripts.Bot.Sessions
             while (!_allSessionsTasksCTS.IsCancellationRequested)
             {
                 List<ChatId> sessionsToClose = new List<ChatId>();
-                var timeoutMs = BotConfig.instance.sessionTimeoutInMinutes * millisecondsInMinute;
+                var timeoutMs = BotController.config.sessionTimeoutInMinutes * millisecondsInMinute;
                 foreach (var chatId in _sessions.Keys)
                 {
                     if (IsTimeout(chatId, timeoutMs))
@@ -147,13 +148,13 @@ namespace TextGameRPG.Scripts.Bot.Sessions
 
         private async Task SendMaintenanceNotifications(GameSession[] lastActivePlayers)
         {
-            if (!BotConfig.instance.sendMaintenanceNotificationsOnStop)
+            if (!BotController.config.sendMaintenanceNotificationsOnStop)
                 return;
 
             Program.logger.Info("Sending notifications for active players...");
 
-            var secondsLimit = BotConfig.instance.secondsLimitForSendMaintenance;
-            var playersCountLimit = secondsLimit * BotConfig.instance.sendMessagePerSecondLimit;
+            var secondsLimit = BotController.config.secondsLimitForSendMaintenance;
+            var playersCountLimit = secondsLimit * BotController.config.sendMessagePerSecondLimit;
             if (playersCountLimit < 1 || playersCountLimit > lastActivePlayers.Length)
             {
                 playersCountLimit = lastActivePlayers.Length;

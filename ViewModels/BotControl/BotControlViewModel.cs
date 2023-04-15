@@ -13,7 +13,6 @@ namespace TextGameRPG.ViewModels.BotControl
         private static readonly PerformanceManager performanceManager = Services.Get<PerformanceManager>();
 
         private string _consoleOutput = string.Empty;
-        private TelegramBot _bot;
         private bool _isBotListening;
         private bool _canStartListening = true;
         private bool _canStopListening;
@@ -62,11 +61,10 @@ namespace TextGameRPG.ViewModels.BotControl
         public ReactiveCommand<Unit, Task> startListening { get; }
         public ReactiveCommand<Unit, Task> stopListening { get; }
 
-        public BotControlViewModel(TelegramBot bot)
+        public BotControlViewModel()
         {
             RedirectConsoleOutput();
-            Program.logger.Info($"Selected bot data: {bot.dataPath}");
-            _bot = bot;
+            Program.logger.Info($"Selected bot data: {BotController.dataPath}");
 
             startListening = ReactiveCommand.Create(StartBotListening);
             stopListening = ReactiveCommand.Create(StopBotListening);
@@ -86,7 +84,7 @@ namespace TextGameRPG.ViewModels.BotControl
         {
             canStartListening = false;
 
-            bool success = await _bot.StartListening().FastAwait();
+            bool success = await BotController.StartListening().FastAwait();
             isBotListening = success;
 
             canStartListening = !success;
@@ -97,7 +95,7 @@ namespace TextGameRPG.ViewModels.BotControl
         {
             canStopListening = false;
 
-            await _bot.StopListening().FastAwait();
+            await BotController.StopListening().FastAwait();
             isBotListening = false;
             canStartListening = true;
             performanceStatus = "Current status: -";
