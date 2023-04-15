@@ -156,7 +156,11 @@ namespace TextGameRPG.Scripts.Bot.Sessions
                 var nickname = actualUser.FirstName.IsCorrectNickname()
                     ? actualUser.FirstName
                     : "Player_" + (new Random().Next(8999) + 1000);
-                profileData = new ProfileData() { nickname = nickname };
+                profileData = new ProfileData() 
+                {
+                    nickname = nickname,
+                    telegram_id = actualUser.Id,
+                };
                 await db.InsertAsync(profileData).FastAwait();
             }
 

@@ -50,7 +50,7 @@ namespace TextGameRPG.Scripts.GameCore.Profiles
         public async Task Cheat_ResetProfile()
         {
             var previousDbid = data.dbid;
-            data = new ProfileData() { dbid = previousDbid };
+            data = new ProfileData() { dbid = previousDbid, telegram_id = data.telegram_id };
             dynamicData = new RawProfileDynamicData().Deserialize();
             buildingsData = new ProfileBuildingsData() { dbid = previousDbid };
             await SaveProfile().FastAwait();

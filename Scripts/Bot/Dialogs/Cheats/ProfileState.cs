@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -41,64 +42,68 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
 
         private static string CreateQueryForRestore(ProfileData data)
         {
-            //var sb = new StringBuilder();
-            //sb.Append($"UPDATE Profiles SET ");
-            //var fields = data.fieldsInfo;
-            //for (int i = 2; i < fields.Length; i++) //avoid dbid and telegram_id
-            //{
-            //    var field = fields[i];
-            //    var fieldValue = field.GetValue(data);
-            //    sb.Append($"{field.Name} = '{fieldValue}'");
-            //    sb.Append(i < fields.Length - 1 ? ", " : " ");
-            //}
-            //sb.Append($"WHERE dbid='{idPlacement}' LIMIT 1");
-            //return sb.ToString();
-            throw new System.NotImplementedException();
+            var sb = new StringBuilder();
+            sb.Append($"UPDATE Profiles SET ");
+            var allProperties = data.GetType().GetProperties();
+            var propertiesToSave = allProperties.Where(x => !x.GetCustomAttributesData().Any(atr => atr.AttributeType.Name.Equals("IgnoreAttribute"))).ToArray();
+
+            for (int i = 2; i < propertiesToSave.Length; i++) //avoid dbid and telegram_id
+            {
+                var property = propertiesToSave[i];
+                var value = property.GetValue(data);
+                sb.Append($"{property.Name} = '{value}'");
+                sb.Append(i < propertiesToSave.Length - 1 ? ", " : " ");
+            }
+            sb.Append($"WHERE dbid='{idPlacement}'");
+            return sb.ToString();
         }
 
         private static string CreateQueryForRestore(ProfileDynamicData data)
         {
-            //var sb = new StringBuilder();
-            //sb.Append($"UPDATE ProfilesDynamic SET ");
-            //var fields = data.fieldsInfo;
-            //for (int i = 1; i < fields.Length; i++) //avoid dbid
-            //{
-            //    var field = fields[i];
-            //    var fieldValue = field.GetValue(data);
-            //    var jsonStr = JsonConvert.SerializeObject(fieldValue);
-            //    sb.Append($"{field.Name} = '{jsonStr}'");
-            //    sb.Append(i < fields.Length - 1 ? ", " : " ");
-            //}
-            //sb.Append($"WHERE dbid='{idPlacement}' LIMIT 1");
-            //return sb.ToString();
-            throw new System.NotImplementedException();
+            var sb = new StringBuilder();
+            sb.Append($"UPDATE ProfilesDynamic SET ");
+            var allProperties = data.GetType().GetProperties();
+            var propertiesToSave = allProperties.Where(x => !x.GetCustomAttributesData().Any(atr => atr.AttributeType.Name.Equals("IgnoreAttribute"))).ToArray();
+
+            for (int i = 1; i < propertiesToSave.Length; i++) //avoid dbid
+            {
+                var property = propertiesToSave[i];
+                var value = property.GetValue(data);
+                Program.logger.Info($"{property.Name}");
+                var jsonStr = JsonConvert.SerializeObject(value);
+                sb.Append($"{property.Name} = '{jsonStr}'");
+                sb.Append(i < propertiesToSave.Length - 1 ? ", " : " ");
+            }
+            sb.Append($"WHERE dbid='{idPlacement}'");
+            return sb.ToString();
         }
 
         private static string CreateQueryForRestore(ProfileBuildingsData data)
         {
-            //var sb = new StringBuilder();
-            //sb.Append($"UPDATE Buildings SET ");
-            //var fields = data.fieldsInfo;
-            //for (int i = 1; i < fields.Length; i++) //avoid dbid
-            //{
-            //    var field = fields[i];
-            //    var fieldValue = field.GetValue(data);
-            //    sb.Append($"{field.Name} = '{fieldValue}'");
-            //    sb.Append(i < fields.Length - 1 ? ", " : " ");
-            //}
-            //sb.Append($"WHERE dbid='{idPlacement}' LIMIT 1");
-            //return sb.ToString();
-            throw new System.NotImplementedException();
+            var sb = new StringBuilder();
+            sb.Append($"UPDATE Buildings SET ");
+            var allProperties = data.GetType().GetProperties();
+            var propertiesToSave = allProperties.Where(x => !x.GetCustomAttributesData().Any(atr => atr.AttributeType.Name.Equals("IgnoreAttribute"))).ToArray();
+
+            for (int i = 1; i < propertiesToSave.Length; i++) //avoid dbid
+            {
+                var property = propertiesToSave[i];
+                var value = property.GetValue(data);
+                sb.Append($"{property.Name} = '{value}'");
+                sb.Append(i < propertiesToSave.Length - 1 ? ", " : " ");
+            }
+            sb.Append($"WHERE dbid='{idPlacement}'");
+            return sb.ToString();
         }
 
         public async Task ExecuteQuery(long dbid)
         {
-            //foreach (var query in sqlQuerries)
-            //{
-            //    var preparedQuery = query.Replace(idPlacement, dbid.ToString());
-            //    await BotController.dataBase.ExecuteQueryAsync(preparedQuery);
-            //}
-            throw new System.NotImplementedException();
+            foreach (var query in sqlQuerries)
+            {
+                Program.logger.Info("Query: " + query);
+                var preparedQuery = query.Replace(idPlacement, dbid.ToString());
+                await BotController.dataBase.db.ExecuteAsync(preparedQuery);
+            }
         }
 
     }
