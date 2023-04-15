@@ -61,16 +61,6 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
         public byte skillShield { get; set; }
 
 
-        //public async override Task<bool> UpdateInDatabase()
-        //{
-        //    if (!isDeserializationCompleted)
-        //        return true;
-
-        //    var profilesTable = BotController.dataBase[Table.Profiles] as ProfilesDataTable;
-        //    var success = await profilesTable.UpdateDataInDatabase(this).FastAwait();
-        //    return success;
-        //}
-
         public bool IsPremiumActive()
         {
             return endPremiumTime > DateTime.UtcNow.Ticks;

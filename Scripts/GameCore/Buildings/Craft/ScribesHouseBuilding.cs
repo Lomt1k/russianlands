@@ -91,12 +91,12 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Craft
 
         public override Rarity GetCurrentCraftItemRarity(ProfileBuildingsData data)
         {
-            return (Rarity)data.scribesHouseCraftItemRarity;
+            return data.scribesHouseCraftItemRarity;
         }
 
         protected override void SetCurrentCraftItemRarity(ProfileBuildingsData data, Rarity rarity)
         {
-            data.scribesHouseCraftItemRarity = (byte)rarity;
+            data.scribesHouseCraftItemRarity = rarity;
         }
 
     }

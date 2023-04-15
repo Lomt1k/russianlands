@@ -4,7 +4,6 @@ using System.Text;
 using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
 using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Items;
-using TextGameRPG.Scripts.GameCore.Items.Generators;
 using TextGameRPG.Scripts.GameCore.Localizations;
 
 namespace TextGameRPG.Scripts.GameCore.Buildings.Craft
@@ -84,22 +83,22 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Craft
 
         public override ItemType GetCurrentCraftItemType(ProfileBuildingsData data)
         {
-            return (ItemType)data.weaponsWorkshopCraftItemType;
+            return data.weaponsWorkshopCraftItemType;
         }
 
         protected override void SetCurrentCraftItemType(ProfileBuildingsData data, ItemType itemType)
         {
-            data.weaponsWorkshopCraftItemType = (sbyte)itemType;
+            data.weaponsWorkshopCraftItemType = itemType;
         }
 
         public override Rarity GetCurrentCraftItemRarity(ProfileBuildingsData data)
         {
-            return (Rarity)data.weaponsWorkshopCraftItemRarity;
+            return data.weaponsWorkshopCraftItemRarity;
         }
 
         protected override void SetCurrentCraftItemRarity(ProfileBuildingsData data, Rarity rarity)
         {
-            data.weaponsWorkshopCraftItemRarity = (byte)rarity;
+            data.weaponsWorkshopCraftItemRarity = rarity;
         }
         
     }

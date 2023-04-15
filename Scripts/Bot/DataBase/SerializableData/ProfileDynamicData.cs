@@ -45,44 +45,6 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
             json_lastGeneratedItemTypes = JsonConvert.SerializeObject(lastGeneratedItemTypes);
         }
 
-
-
-
-        //public static TableColumn[] GetTableColumns()
-        //{
-        //    return new TableColumn[]
-        //    {
-        //        new TableColumn("dbid", "INTEGER PRIMARY KEY AUTOINCREMENT", "0"),
-        //        new TableColumn("inventory", "TEXT", "'{}'"),
-        //        new TableColumn("potions", "TEXT", "'[]'"),
-        //        new TableColumn("quests", "TEXT", "'{}'"),
-        //        new TableColumn("lastGeneratedItemTypes", "TEXT", "'[]'")
-        //    };
-        //}
-
-        //protected override void Deserialize(DataRow data)
-        //{
-        //    dbid = (long)data["dbid"];
-        //    var json = (string)data[nameof(inventory)];
-        //    inventory = JsonConvert.DeserializeObject<PlayerInventory>(json);
-        //    json = (string)data[nameof(potions)];
-        //    potions = JsonConvert.DeserializeObject<List<PotionItem>>(json);
-        //    json = (string)data[nameof(quests)];
-        //    quests = JsonConvert.DeserializeObject<PlayerQuestsProgress>(json);
-        //    json = (string)data[nameof(lastGeneratedItemTypes)];
-        //    lastGeneratedItemTypes = JsonConvert.DeserializeObject<List<ItemType>>(json);
-        //}
-
-        //public override async Task<bool> UpdateInDatabase()
-        //{
-        //    if (!isDeserializationCompleted)
-        //        return true;
-
-        //    var dataTable = BotController.dataBase[Table.ProfilesDynamic] as ProfilesDynamicDataTable;
-        //    var success = await dataTable.UpdateDataInDatabase(this).FastAwait();
-        //    return success;
-        //}
-
         public override void SetupSession(GameSession _session)
         {
             base.SetupSession(_session);

@@ -1,5 +1,6 @@
 ﻿using SQLite;
 using System;
+using TextGameRPG.Scripts.GameCore.Items;
 
 namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
 {
@@ -24,22 +25,22 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
         public byte weaponsWorkshopLevel { get; set; }
         public DateTime weaponsWorkshopStartConstructionTime { get; set; }
         public DateTime weaponsWorkshopStartCraftTime { get; set; }
-        public sbyte weaponsWorkshopCraftItemType { get; set; }
-        public byte weaponsWorkshopCraftItemRarity { get; set; }
+        public ItemType weaponsWorkshopCraftItemType { get; set; }
+        public Rarity weaponsWorkshopCraftItemRarity { get; set; }
         public byte armorWorkshopLevel { get; set; }
         public DateTime armorWorkshopStartConstructionTime { get; set; }
         public DateTime armorWorkshopStartCraftTime { get; set; }
-        public sbyte armorWorkshopCraftItemType { get; set; }
-        public byte armorWorkshopCraftItemRarity { get; set; }
+        public ItemType armorWorkshopCraftItemType { get; set; }
+        public Rarity armorWorkshopCraftItemRarity { get; set; }
         public byte jewerlyLevel { get; set; }
         public DateTime jewerlyStartConstructionTime { get; set; }
         public DateTime jewerlyStartCraftTime { get; set; }
-        public sbyte jewerlyCraftItemType { get; set; }
-        public byte jewerlyCraftItemRarity { get; set; }
+        public ItemType jewerlyCraftItemType { get; set; }
+        public Rarity jewerlyCraftItemRarity { get; set; }
         public byte scribesHouseLevel { get; set; }
         public DateTime scribesHouseStartConstructionTime { get; set; }
         public DateTime scribesHouseStartCraftTime { get; set; }
-        public byte scribesHouseCraftItemRarity { get; set; }
+        public Rarity scribesHouseCraftItemRarity { get; set; }
 
         // --- Хранилища
         public byte goldStorageLevel { get; set; } = 1;
@@ -156,20 +157,6 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
         public sbyte woodTrainingSecondUnitIndex { get; set; } = -1;
         public DateTime woodTrainingFirstUnitStartTime { get; set; }
         public DateTime woodTrainingSecondUnitStartTime { get; set; }
-
-
-        //public async override Task<bool> UpdateInDatabase()
-        //{
-        //    if (!isDeserializationCompleted)
-        //        return true;
-
-        //    var buildingsTable = BotController.dataBase[Table.ProfileBuildings] as ProfileBuildingsDataTable;
-        //    var success = await buildingsTable.UpdateDataInDatabase(this).FastAwait();
-        //    return success;
-        //}
-
-
-
 
     }
 }

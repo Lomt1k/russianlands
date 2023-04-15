@@ -84,22 +84,22 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Craft
 
         public override ItemType GetCurrentCraftItemType(ProfileBuildingsData data)
         {
-            return (ItemType)data.armorWorkshopCraftItemType;
+            return data.armorWorkshopCraftItemType;
         }
 
         protected override void SetCurrentCraftItemType(ProfileBuildingsData data, ItemType itemType)
         {
-            data.armorWorkshopCraftItemType = (sbyte)itemType;
+            data.armorWorkshopCraftItemType = itemType;
         }
 
         public override Rarity GetCurrentCraftItemRarity(ProfileBuildingsData data)
         {
-            return (Rarity)data.armorWorkshopCraftItemRarity;
+            return data.armorWorkshopCraftItemRarity;
         }
 
         protected override void SetCurrentCraftItemRarity(ProfileBuildingsData data, Rarity rarity)
         {
-            data.armorWorkshopCraftItemRarity = (byte)rarity;
+            data.armorWorkshopCraftItemRarity = rarity;
         }
 
     }
