@@ -17,7 +17,7 @@ namespace TextGameRPG.Scripts.Bot.Sessions
         private static readonly MessageSender messageSender = Services.Get<MessageSender>();
 
         private int _periodicSaveDatabaseInMs;
-        private CancellationTokenSource _allSessionsTasksCTS;
+        private CancellationTokenSource _allSessionsTasksCTS = new CancellationTokenSource();
         private Dictionary<ChatId, GameSession> _sessions = new Dictionary<ChatId, GameSession>();
         private Dictionary<long, long> _fakeIdsDict = new Dictionary<long, long>(); //cheat: allow play as another telegram user
 

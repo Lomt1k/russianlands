@@ -125,14 +125,11 @@ namespace TextGameRPG.Scripts.Bot
             Program.logger.Info("Reconnection starts...");
             _botReceiving.StopReceiving();
             var battleManager = Services.Get<BattleManager>();
-            if (battleManager != null)
+            var playersInBattle = battleManager.GetAllPlayers();
+            battleManager.UnregisterAllBattles(); //специально вызываем перед закрытием сессий!
+            foreach (var player in playersInBattle)
             {
-                var playersInBattle = battleManager.GetAllPlayers();
-                battleManager.UnregisterAllBattles(); //специально вызываем перед закрытием сессий!
-                foreach (var player in playersInBattle)
-                {
-                    await sessionManager.CloseSession(player.session.chatId, onError: true);
-                }
+                await sessionManager.CloseSession(player.session.chatId, onError: true);
             }
             await WaitForNetworkConnection().FastAwait();
             await _botReceiving.StartReceiving().FastAwait();
