@@ -4,13 +4,13 @@ using System.Reactive;
 using ReactiveUI;
 using TextGameRPG.Models;
 using TextGameRPG.Scripts.GameCore.Services;
-using TextGameRPG.Scripts.GameCore.Services.GameDataBase;
+using TextGameRPG.Scripts.GameCore.Services.GameData;
 
 namespace TextGameRPG.ViewModels
 {
     public class GameDataLoaderViewModel : ViewModelBase, IGameDataLoader
     {
-        private static readonly GameDataBase gameDataBase = Services.Get<GameDataBase>();
+        private static readonly GameDataHolder gameDataBase = Services.Get<GameDataHolder>();
 
         private GameDataLoaderStateInfo _currentState;
 

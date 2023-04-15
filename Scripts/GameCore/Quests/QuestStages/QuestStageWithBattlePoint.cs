@@ -7,7 +7,7 @@ using TextGameRPG.Scripts.Bot.Dialogs.Battle;
 using TextGameRPG.Scripts.Bot.Dialogs.Town;
 using TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap;
 using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Services.GameDataBase;
+using TextGameRPG.Scripts.GameCore.Services.GameData;
 using TextGameRPG.Scripts.GameCore.Services;
 
 namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
@@ -15,7 +15,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
     [JsonObject]
     public class QuestStageWithBattlePoint : QuestStage
     {
-        private static readonly GameDataBase gameDataBase = Services.Services.Get<GameDataBase>();
+        private static readonly GameDataHolder gameDataBase = Services.Services.Get<GameDataHolder>();
 
 
         public int mobId { get; set; }

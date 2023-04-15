@@ -9,7 +9,7 @@ using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Buildings.Data;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Services;
-using TextGameRPG.Scripts.GameCore.Services.GameDataBase;
+using TextGameRPG.Scripts.GameCore.Services.GameData;
 using TextGameRPG.Scripts.GameCore.Potions;
 using TextGameRPG.Scripts.GameCore.Resources;
 
@@ -17,7 +17,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.General
 {
     public class AlchemyLabBuilding : BuildingBase
     {
-        private static readonly GameDataBase gameDataBase = Services.Services.Get<GameDataBase>();
+        private static readonly GameDataHolder gameDataBase = Services.Services.Get<GameDataHolder>();
 
         public override BuildingType buildingType => BuildingType.AlchemyLab;
 

@@ -2,7 +2,7 @@
 using System.Reactive;
 using TextGameRPG.Models.UserControls;
 using TextGameRPG.Scripts.GameCore.Services;
-using TextGameRPG.Scripts.GameCore.Services.GameDataBase;
+using TextGameRPG.Scripts.GameCore.Services.GameData;
 using TextGameRPG.Scripts.GameCore.Potions;
 using TextGameRPG.Views.UserControls;
 
@@ -10,7 +10,7 @@ namespace TextGameRPG.ViewModels.Editor.PotionsEditor
 {
     public class PotionInspectorViewModel : ViewModelBase
     {
-        private static readonly GameDataBase gameDataBase = Services.Get<GameDataBase>();
+        private static readonly GameDataHolder gameDataBase = Services.Get<GameDataHolder>();
 
         private PotionData? _tempPotion;
         private ObjectFieldsEditorView? _potionFieldsEditorView;

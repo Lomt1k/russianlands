@@ -6,14 +6,14 @@ using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
 using TextGameRPG.Scripts.GameCore.Items.ItemProperties;
 using TextGameRPG.Scripts.GameCore.Services;
-using TextGameRPG.Scripts.GameCore.Services.GameDataBase;
+using TextGameRPG.Scripts.GameCore.Services.GameData;
 using TextGameRPG.Views.Editor.ItemsEditor;
 
 namespace TextGameRPG.ViewModels.Editor.ItemsEditor
 {
     public class EditItemWindowViewModel : ViewModelBase
     {
-        private static readonly GameDataBase gameDataBase = Services.Get<GameDataBase>();
+        private static readonly GameDataHolder gameDataBase = Services.Get<GameDataHolder>();
 
 
         private EditItemWindow _window;

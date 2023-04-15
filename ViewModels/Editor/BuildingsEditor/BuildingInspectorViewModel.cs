@@ -5,14 +5,14 @@ using TextGameRPG.Models.UserControls;
 using TextGameRPG.Scripts.GameCore.Buildings;
 using TextGameRPG.Scripts.GameCore.Buildings.Data;
 using TextGameRPG.Scripts.GameCore.Services;
-using TextGameRPG.Scripts.GameCore.Services.GameDataBase;
+using TextGameRPG.Scripts.GameCore.Services.GameData;
 using TextGameRPG.Views.UserControls;
 
 namespace TextGameRPG.ViewModels.Editor.BuildingsEditor
 {
     public class BuildingInspectorViewModel : ViewModelBase
     {
-        private static readonly GameDataBase gameDataBase = Services.Get<GameDataBase>();
+        private static readonly GameDataHolder gameDataBase = Services.Get<GameDataHolder>();
 
         private BuildingData? _tempBuilding;
         private ObjectFieldsEditorView? _selectedLevelView;

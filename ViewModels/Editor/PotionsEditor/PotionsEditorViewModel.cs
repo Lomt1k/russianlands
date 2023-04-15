@@ -4,7 +4,7 @@ using ReactiveUI;
 using System.Linq;
 using TextGameRPG.Views.Editor.PotionsEditor;
 using System.Reactive;
-using TextGameRPG.Scripts.GameCore.Services.GameDataBase;
+using TextGameRPG.Scripts.GameCore.Services.GameData;
 using TextGameRPG.Scripts.GameCore.Potions;
 using TextGameRPG.Models.RegularDialogs;
 using System;
@@ -14,7 +14,7 @@ namespace TextGameRPG.ViewModels.Editor.PotionsEditor
 {
     public class PotionsEditorViewModel : ViewModelBase
     {
-        private static readonly GameDataBase gameDataBase = Services.Get<GameDataBase>();
+        private static readonly GameDataHolder gameDataBase = Services.Get<GameDataHolder>();
 
 
         private PotionData? _selectedPotion;

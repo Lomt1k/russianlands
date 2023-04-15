@@ -7,7 +7,7 @@ using TextGameRPG.Scripts.Bot.Dialogs.Battle;
 using TextGameRPG.Scripts.GameCore.Services;
 using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Services.Battles;
-using TextGameRPG.Scripts.GameCore.Services.GameDataBase;
+using TextGameRPG.Scripts.GameCore.Services.GameData;
 
 namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
 {
@@ -15,7 +15,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
     public class QuestStageWithBattle : QuestStage
     {
         private static readonly BattleManager battleManager = Services.Services.Get<BattleManager>();
-        private static readonly GameDataBase gameDataBase = Services.Services.Get<GameDataBase>();
+        private static readonly GameDataHolder gameDataBase = Services.Services.Get<GameDataHolder>();
 
         public int mobId { get; set; }
         public int nextStageIfWin { get; set; }

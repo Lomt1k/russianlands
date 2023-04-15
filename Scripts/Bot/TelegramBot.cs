@@ -12,6 +12,7 @@ namespace TextGameRPG.Scripts.Bot
     using TextGameRPG.Scripts.GameCore.Quests.Characters;
     using System.Net.Http;
     using TextGameRPG.Scripts.GameCore.Services.Battles;
+    using Telegram.Bot.Types;
 
     public class TelegramBot
     {
@@ -26,6 +27,7 @@ namespace TextGameRPG.Scripts.Bot
 
         public string dataPath { get; }
         public TelegramBotClient botClient { get; private set; }
+        public User mineUser { get; private set; }
         public BotDataBase dataBase { get; private set; }
 
         public bool isReceiving => _botReceiving != null && _botReceiving.isReceiving;
@@ -93,7 +95,7 @@ namespace TextGameRPG.Scripts.Bot
             }
 
             await WaitForNetworkConnection();
-            var mineUser = await botClient.GetMeAsync();
+            mineUser = await botClient.GetMeAsync();
             mineUser.CanJoinGroups = false;
             Program.SetTitle($"{mineUser.Username} [{dataPath}]");
 

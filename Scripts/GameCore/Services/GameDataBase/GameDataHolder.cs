@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace TextGameRPG.Scripts.GameCore.Services.GameDataBase
+namespace TextGameRPG.Scripts.GameCore.Services.GameData
 {
     using Items;
     using TextGameRPG.Scripts.GameCore.Buildings.Data;
@@ -8,7 +8,7 @@ namespace TextGameRPG.Scripts.GameCore.Services.GameDataBase
     using TextGameRPG.Scripts.GameCore.Units.Mobs;
     using TextGameRPG.ViewModels;
 
-    public class GameDataBase : Service
+    public class GameDataHolder : Service
     {
 #pragma warning disable CS8618
 

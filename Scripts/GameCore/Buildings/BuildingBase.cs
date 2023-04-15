@@ -5,14 +5,14 @@ using TextGameRPG.Scripts.GameCore.Buildings.Data;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
 using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Services.GameDataBase;
+using TextGameRPG.Scripts.GameCore.Services.GameData;
 using TextGameRPG.Scripts.GameCore.Services;
 
 namespace TextGameRPG.Scripts.GameCore.Buildings
 {
     public abstract class BuildingBase
     {
-        private static readonly GameDataBase gameDataBase = Services.Services.Get<GameDataBase>();
+        private static readonly GameDataHolder gameDataBase = Services.Services.Get<GameDataHolder>();
 
         public abstract BuildingType buildingType { get; }
         public BuildingData buildingData => gameDataBase.buildings[(int)buildingType];

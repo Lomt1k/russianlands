@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using JsonKnownTypes;
 using System.Collections.Generic;
-using TextGameRPG.Scripts.GameCore.Services.GameDataBase;
+using TextGameRPG.Scripts.GameCore.Services.GameData;
 
 namespace TextGameRPG.Scripts.GameCore.Buildings.Data
 {

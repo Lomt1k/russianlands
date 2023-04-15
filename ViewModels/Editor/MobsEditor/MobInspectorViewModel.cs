@@ -7,14 +7,14 @@ using System.Linq;
 using TextGameRPG.Views.UserControls;
 using TextGameRPG.Models.UserControls;
 using System.Reactive;
-using TextGameRPG.Scripts.GameCore.Services.GameDataBase;
+using TextGameRPG.Scripts.GameCore.Services.GameData;
 using TextGameRPG.Scripts.GameCore.Services;
 
 namespace TextGameRPG.ViewModels.Editor.MobsEditor
 {
     public class MobInspectorViewModel : ViewModelBase
     {
-        private static readonly GameDataBase gameDataBase = Services.Get<GameDataBase>();
+        private static readonly GameDataHolder gameDataBase = Services.Get<GameDataHolder>();
 
 
         private MobData? _mob;

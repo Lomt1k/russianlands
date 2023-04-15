@@ -10,7 +10,7 @@ namespace TextGameRPG.Scripts.GameCore.Items
     using TextGameRPG.Scripts.GameCore.Items.Generators;
     using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
     using TextGameRPG.Scripts.GameCore.Services;
-    using TextGameRPG.Scripts.GameCore.Services.GameDataBase;
+    using TextGameRPG.Scripts.GameCore.Services.GameData;
     using TextGameRPG.Scripts.GameCore.Resources;
     using TextGameRPG.Scripts.GameCore.Skills;
 
@@ -18,7 +18,7 @@ namespace TextGameRPG.Scripts.GameCore.Items
 
     public class InventoryItem
     {
-        private static readonly GameDataBase gameDataBase = Services.Get<GameDataBase>();
+        private static readonly GameDataHolder gameDataBase = Services.Get<GameDataHolder>();
 
         public static byte requiredStickCharge = 3;
 

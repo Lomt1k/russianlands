@@ -1,5 +1,5 @@
 ﻿using System.Collections.ObjectModel;
-using TextGameRPG.Scripts.GameCore.Services.GameDataBase;
+using TextGameRPG.Scripts.GameCore.Services.GameData;
 using TextGameRPG.Scripts.GameCore.Units.Mobs;
 using ReactiveUI;
 using System.Reactive;
@@ -14,7 +14,7 @@ namespace TextGameRPG.ViewModels.Editor.MobsEditor
         private MobData? _selectedMob;
         private MobInspectorViewModel _mobInspectorVM;
 
-        private static readonly GameDataBase gameDataBase = Services.Get<GameDataBase>();
+        private static readonly GameDataHolder gameDataBase = Services.Get<GameDataHolder>();
 
         public ObservableCollection<MobData> mobsList { get; } = new ObservableCollection<MobData>();
         public MobData? selectedMob

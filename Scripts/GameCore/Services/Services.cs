@@ -13,7 +13,7 @@
 
         static Services()
         {
-            Register(new GameDataBase.GameDataBase());
+            Register(new GameData.GameDataHolder());
             Register(new SessionManager());
             Register(new BattleManager());            
             Register(new PerformanceManager());

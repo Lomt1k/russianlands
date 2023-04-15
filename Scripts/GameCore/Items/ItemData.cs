@@ -1,4 +1,4 @@
-﻿using TextGameRPG.Scripts.GameCore.Services.GameDataBase;
+﻿using TextGameRPG.Scripts.GameCore.Services.GameData;
 using Newtonsoft.Json;
 
 namespace TextGameRPG.Scripts.GameCore.Items

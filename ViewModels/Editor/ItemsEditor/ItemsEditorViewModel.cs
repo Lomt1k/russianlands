@@ -6,14 +6,14 @@ using System.Linq;
 using TextGameRPG.Views.Editor.ItemsEditor;
 using System.Reactive;
 using TextGameRPG.Scripts.GameCore.Items;
-using TextGameRPG.Scripts.GameCore.Services.GameDataBase;
+using TextGameRPG.Scripts.GameCore.Services.GameData;
 using TextGameRPG.Scripts.GameCore.Services;
 
 namespace TextGameRPG.ViewModels.Editor.ItemsEditor
 {
     public class ItemsEditorViewModel : ViewModelBase
     {
-        private static readonly GameDataBase gameDataBase = Services.Get<GameDataBase>();
+        private static readonly GameDataHolder gameDataBase = Services.Get<GameDataHolder>();
 
         private ItemCategory _selectedCategory;
         private ItemData? _selectedItem;
