@@ -1,136 +1,76 @@
-﻿using System;
-using System.Data;
-using System.Reflection;
-using System.Threading.Tasks;
-using TextGameRPG.Scripts.Bot.DataBase.TablesStructure;
+﻿using SQLite;
+using System;
 
 namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
 {
-    public class ProfileData : DatabaseSerializableData
+    [Table("Profiles")]
+    public class ProfileData : DataWithSession
     {
-        static FieldInfo[] staticFieldsInfo = typeof(ProfileData).GetFields();
-        public override FieldInfo[] fieldsInfo => staticFieldsInfo;
+        [PrimaryKey, AutoIncrement]
+        public long dbid { get; set; }
+        public long telegram_id { get; set; }
+        public string username { get; set; } = "na";
+        public string language { get; set; } = "RU";
+        public string nickname { get; set; } = "na";
+        public string regDate { get; set; } = "na";
+        public string regVersion { get; set; } = "na";
+        public string lastDate { get; set; } = "na";
+        public string lastVersion { get; set; } = "na";
 
-        public long dbid;
-        public long telegram_id;
-        public string username;
-        public string language;
-        public string nickname;
-        public string regDate;
-        public string regVersion;
-        public string lastDate;
-        public string lastVersion;
-
-        public int adminStatus;
-        public byte level;
-        public byte freeNickChanges;
-        public long endPremiumTime;
+        public int adminStatus { get; set; }
+        public byte level { get; set; } = 1;
+        public byte freeNickChanges { get; set; } = 1;
+        public long endPremiumTime { get; set; }
 
 
         // resources
-        public int resourceGold;
-        public int resourceFood;
-        public int resourceDiamond;
-        public int resourceHerbs;
-        public int resourceWood;
+        public int resourceGold { get; set; } = 3500;
+        public int resourceFood { get; set; } = 1000;
+        public int resourceDiamond { get; set; } = 100;
+        public int resourceHerbs { get; set; }
+        public int resourceWood { get; set; }
 
         // craft resources
-        public int resourceCraftPiecesCommon;
-        public int resourceCraftPiecesRare;
-        public int resourceCraftPiecesEpic;
-        public int resourceCraftPiecesLegendary;
+        public int resourceCraftPiecesCommon { get; set; }
+        public int resourceCraftPiecesRare { get; set; }
+        public int resourceCraftPiecesEpic { get; set; }
+        public int resourceCraftPiecesLegendary { get; set; }
 
         // skill resources
-        public int resourceFruitApple;
-        public int resourceFruitPear;
-        public int resourceFruitMandarin;
-        public int resourceFruitCoconut;
-        public int resourceFruitPineapple;
-        public int resourceFruitBanana;
-        public int resourceFruitWatermelon;
-        public int resourceFruitStrawberry;
-        public int resourceFruitBlueberry;
-        public int resourceFruitKiwi;
-        public int resourceFruitCherry;
-        public int resourceFruitGrape;
+        public int resourceFruitApple { get; set; }
+        public int resourceFruitPear { get; set; }
+        public int resourceFruitMandarin { get; set; }
+        public int resourceFruitCoconut { get; set; }
+        public int resourceFruitPineapple { get; set; }
+        public int resourceFruitBanana { get; set; }
+        public int resourceFruitWatermelon { get; set; }
+        public int resourceFruitStrawberry { get; set; }
+        public int resourceFruitBlueberry { get; set; }
+        public int resourceFruitKiwi { get; set; }
+        public int resourceFruitCherry { get; set; }
+        public int resourceFruitGrape { get; set; }
 
         // skills
-        public byte skillSword;
-        public byte skillBow;
-        public byte skillStick;
-        public byte skillScroll;
-        public byte skillArmor;
-        public byte skillHelmet;
-        public byte skillBoots;
-        public byte skillShield;
+        public byte skillSword { get; set; }
+        public byte skillBow { get; set; }
+        public byte skillStick { get; set; }
+        public byte skillScroll { get; set; }
+        public byte skillArmor { get; set; }
+        public byte skillHelmet { get; set; }
+        public byte skillBoots { get; set; }
+        public byte skillShield { get; set; }
 
-        public static TableColumn[] GetTableColumns()
-        {
-            return new TableColumn[]
-            {
-                new TableColumn("dbid", "INTEGER PRIMARY KEY AUTOINCREMENT", "0"),
-                new TableColumn("telegram_id", "INTEGER", "0"),
-                new TableColumn("username", "TEXT", "na"),
-                new TableColumn("language", "TEXT", "RU"),
-                new TableColumn("nickname", "TEXT", "na"),
-                new TableColumn("regDate", "TEXT", "na"),
-                new TableColumn("regVersion", "TEXT", "na"),
-                new TableColumn("lastDate", "TEXT", "na"),
-                new TableColumn("lastVersion", "TEXT", "na"),
 
-                new TableColumn("adminStatus", "INTEGER", "0"),
-                new TableColumn("level", "INTEGER", "1"),
-                new TableColumn("freeNickChanges", "INTEGER", "1"),
-                new TableColumn("endPremiumTime", "INTEGER", "0"),
+        //public async override Task<bool> UpdateInDatabase()
+        //{
+        //    if (!isDeserializationCompleted)
+        //        return true;
 
-                new TableColumn("resourceGold", "INTEGER", "3500"),
-                new TableColumn("resourceFood", "INTEGER", "1000"),
-                new TableColumn("resourceDiamond", "INTEGER", "100"),
-                new TableColumn("resourceHerbs", "INTEGER", "0"),
-                new TableColumn("resourceWood", "INTEGER", "0"),
+        //    var profilesTable = BotController.dataBase[Table.Profiles] as ProfilesDataTable;
+        //    var success = await profilesTable.UpdateDataInDatabase(this).FastAwait();
+        //    return success;
+        //}
 
-                new TableColumn("resourceCraftPiecesCommon", "INTEGER", "0"),
-                new TableColumn("resourceCraftPiecesRare", "INTEGER", "0"),
-                new TableColumn("resourceCraftPiecesEpic", "INTEGER", "0"),
-                new TableColumn("resourceCraftPiecesLegendary", "INTEGER", "0"),
-
-                new TableColumn("resourceFruitApple", "INTEGER", "0"),
-                new TableColumn("resourceFruitPear", "INTEGER", "0"),
-                new TableColumn("resourceFruitMandarin", "INTEGER", "0"),
-                new TableColumn("resourceFruitCoconut", "INTEGER", "0"),
-                new TableColumn("resourceFruitPineapple", "INTEGER", "0"),
-                new TableColumn("resourceFruitBanana", "INTEGER", "0"),
-                new TableColumn("resourceFruitWatermelon", "INTEGER", "0"),
-                new TableColumn("resourceFruitStrawberry", "INTEGER", "0"),
-                new TableColumn("resourceFruitBlueberry", "INTEGER", "0"),
-                new TableColumn("resourceFruitKiwi", "INTEGER", "0"),
-                new TableColumn("resourceFruitCherry", "INTEGER", "0"),
-                new TableColumn("resourceFruitGrape", "INTEGER", "0"),
-
-                new TableColumn("skillSword", "INTEGER", "0"),
-                new TableColumn("skillBow", "INTEGER", "0"),
-                new TableColumn("skillStick", "INTEGER", "0"),
-                new TableColumn("skillScroll", "INTEGER", "0"),
-                new TableColumn("skillArmor", "INTEGER", "0"),
-                new TableColumn("skillHelmet", "INTEGER", "0"),
-                new TableColumn("skillBoots", "INTEGER", "0"),
-                new TableColumn("skillShield", "INTEGER", "0"),
-            };
-        }
-
-        public ProfileData(DataRow data) : base(data) 
-        {
-        }
-
-        public async override Task<bool> UpdateInDatabase()
-        {
-            if (!isDeserializationCompleted)
-                return true;
-
-            var profilesTable = BotController.dataBase[Table.Profiles] as ProfilesDataTable;
-            var success = await profilesTable.UpdateDataInDatabase(this).FastAwait();
-            return success;
-        }
         public bool IsPremiumActive()
         {
             return endPremiumTime > DateTime.UtcNow.Ticks;

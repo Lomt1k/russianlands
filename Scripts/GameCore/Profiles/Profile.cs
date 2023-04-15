@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using TextGameRPG.Scripts.Bot;
 using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
 using TextGameRPG.Scripts.Bot.Sessions;
 
@@ -8,9 +9,9 @@ namespace TextGameRPG.Scripts.GameCore.Profiles
     public class Profile
     {
         public GameSession session { get; }
-        public ProfileData data { get; }
-        public ProfileDynamicData dynamicData { get; }
-        public ProfileBuildingsData buildingsData { get; }
+        public ProfileData data { get; private set; }
+        public ProfileDynamicData dynamicData { get; private set; }
+        public ProfileBuildingsData buildingsData { get; private set; }
         public DateTime lastSaveProfileTime { get; private set; }
 
         public Profile(GameSession _session, ProfileData _data, ProfileDynamicData _dynamicData, ProfileBuildingsData _buildingsData)
@@ -35,10 +36,22 @@ namespace TextGameRPG.Scripts.GameCore.Profiles
 
         private async Task SaveProfile()
         {
-            await data.UpdateInDatabase().FastAwait();
-            await dynamicData.UpdateInDatabase().FastAwait();
-            await buildingsData.UpdateInDatabase().FastAwait();
+            dynamicData.PrepareToSave();
+
+            var db = BotController.dataBase.db;
+            await db.UpdateAsync(data).FastAwait();
+            await db.UpdateAsync(dynamicData).FastAwait();
+            await db.UpdateAsync(buildingsData).FastAwait();
             lastSaveProfileTime = DateTime.UtcNow;
+        }
+
+        public async Task Cheat_ResetProfile()
+        {
+            var previousDbid = data.dbid;
+            data = new ProfileData() { dbid = previousDbid };
+            dynamicData = new ProfileDynamicData() { dbid = previousDbid };
+            buildingsData = new ProfileBuildingsData() { dbid = previousDbid };
+            await SaveProfile().FastAwait();
         }
 
     }
