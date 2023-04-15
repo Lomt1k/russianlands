@@ -22,7 +22,7 @@ namespace TextGameRPG.Scripts.Bot.DataBase
             {
                 db = new SQLiteAsyncConnection(dataBasePath);
                 await db.CreateTableAsync<ProfileData>().FastAwait();
-                await db.CreateTableAsync<ProfileDynamicData>().FastAwait();
+                await db.CreateTableAsync<RawProfileDynamicData>().FastAwait();
                 await db.CreateTableAsync<ProfileBuildingsData>().FastAwait();
                 Program.logger.Info("Successfully connected to database");
                 return true;

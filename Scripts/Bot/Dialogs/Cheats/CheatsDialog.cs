@@ -504,6 +504,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
         private async Task ResetAccountInDatabase()
         {
             await session.profile.Cheat_ResetProfile().FastAwait();
+            await sessionManager.CloseSession(session.chatId).FastAwait();
         }
 
         private async Task ExportAccount()

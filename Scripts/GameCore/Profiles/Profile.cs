@@ -36,11 +36,13 @@ namespace TextGameRPG.Scripts.GameCore.Profiles
 
         private async Task SaveProfile()
         {
-            dynamicData.PrepareToSave();
-
             var db = BotController.dataBase.db;
             await db.UpdateAsync(data).FastAwait();
-            await db.UpdateAsync(dynamicData).FastAwait();
+
+            var rawDynamicData = new RawProfileDynamicData();
+            rawDynamicData.Fill(dynamicData);
+            await db.UpdateAsync(rawDynamicData).FastAwait();
+
             await db.UpdateAsync(buildingsData).FastAwait();
             lastSaveProfileTime = DateTime.UtcNow;
         }
@@ -49,7 +51,7 @@ namespace TextGameRPG.Scripts.GameCore.Profiles
         {
             var previousDbid = data.dbid;
             data = new ProfileData() { dbid = previousDbid };
-            dynamicData = new ProfileDynamicData() { dbid = previousDbid };
+            dynamicData = new RawProfileDynamicData().Deserialize();
             buildingsData = new ProfileBuildingsData() { dbid = previousDbid };
             await SaveProfile().FastAwait();
         }

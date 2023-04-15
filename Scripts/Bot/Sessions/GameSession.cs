@@ -161,11 +161,11 @@ namespace TextGameRPG.Scripts.Bot.Sessions
             }
 
             var dbid = profileData.dbid;
-            var profileDynamicData = await db.GetOrNullAsync<ProfileDynamicData>(dbid).FastAwait();
-            if (profileDynamicData == null)
+            var rawDynamicData = await db.GetOrNullAsync<RawProfileDynamicData>(dbid).FastAwait();
+            if (rawDynamicData == null)
             {
-                profileDynamicData = new ProfileDynamicData() { dbid = dbid };
-                await db.InsertAsync(profileDynamicData).FastAwait();
+                rawDynamicData = new RawProfileDynamicData() { dbid = dbid };
+                await db.InsertAsync(rawDynamicData).FastAwait();
             }
 
             var profileBuildingsData = await db.GetOrNullAsync<ProfileBuildingsData>(dbid).FastAwait();
@@ -175,7 +175,7 @@ namespace TextGameRPG.Scripts.Bot.Sessions
                 await db.InsertAsync(profileBuildingsData).FastAwait();
             }
 
-            profile = new Profile(this, profileData, profileDynamicData, profileBuildingsData);
+            profile = new Profile(this, profileData, rawDynamicData.Deserialize(), profileBuildingsData);
             language = Enum.Parse<LanguageCode>(profileData.language);
             player = new Player(this);
 
