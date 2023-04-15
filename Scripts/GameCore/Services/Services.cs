@@ -13,16 +13,16 @@
 
         static Services()
         {
-            RegisterSingletone(new GameDataBase.GameDataBase());
-            RegisterSingletone(new SessionManager());
-            RegisterSingletone(new BattleManager());            
-            RegisterSingletone(new PerformanceManager());
-            RegisterSingletone(new NotificationsManager());
-            RegisterSingletone(new MessageSequencer());
-            RegisterSingletone(new MessageSender());
+            Register(new GameDataBase.GameDataBase());
+            Register(new SessionManager());
+            Register(new BattleManager());            
+            Register(new PerformanceManager());
+            Register(new NotificationsManager());
+            Register(new MessageSequencer());
+            Register(new MessageSender());
         }
 
-        private static void RegisterSingletone<T>(T instance) where T : Service, new()
+        private static void Register<T>(T instance) where T : Service, new()
         {
             _instances.Add(typeof(T), instance);
         }

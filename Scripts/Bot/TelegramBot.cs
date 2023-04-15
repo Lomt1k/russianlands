@@ -2,7 +2,6 @@
 using System.IO;
 using Newtonsoft.Json;
 using Telegram.Bot;
-using Telegram.Bot.Types;
 
 namespace TextGameRPG.Scripts.Bot
 {
@@ -27,7 +26,6 @@ namespace TextGameRPG.Scripts.Bot
 
         public string dataPath { get; }
         public TelegramBotClient botClient { get; private set; }
-        public User mineUser { get; private set; }
         public BotDataBase dataBase { get; private set; }
 
         public bool isReceiving => _botReceiving != null && _botReceiving.isReceiving;
@@ -81,7 +79,7 @@ namespace TextGameRPG.Scripts.Bot
         {
             if (isReceiving)
             {
-                Program.logger.Info("Bot listening is already started");
+                Program.logger.Error("Bot listening is already started");
                 return false;
             }
 
@@ -95,7 +93,7 @@ namespace TextGameRPG.Scripts.Bot
             }
 
             await WaitForNetworkConnection();
-            mineUser = await botClient.GetMeAsync();
+            var mineUser = await botClient.GetMeAsync();
             mineUser.CanJoinGroups = false;
             Program.SetTitle($"{mineUser.Username} [{dataPath}]");
 
