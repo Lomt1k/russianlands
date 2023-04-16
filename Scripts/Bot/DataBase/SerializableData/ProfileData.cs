@@ -9,13 +9,13 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
         [PrimaryKey, AutoIncrement]
         public long dbid { get; set; }
         public long telegram_id { get; set; }
-        public string username { get; set; }
-        public string language { get; set; } = "RU";
-        public string nickname { get; set; }
-        public string regDate { get; set; }
-        public string regVersion { get; set; }
-        public string lastDate { get; set; }
-        public string lastVersion { get; set; }
+        [MaxLength(32)] public string username { get; set; }
+        [MaxLength(8)] public string language { get; set; } = "RU";
+        [MaxLength(16)] public string nickname { get; set; }
+        [MaxLength(24)] public string regDate { get; set; }
+        [MaxLength(16)] public string regVersion { get; set; }
+        [MaxLength(24)] public string lastDate { get; set; }
+        [MaxLength(16)] public string lastVersion { get; set; }
 
         public int adminStatus { get; set; }
         public byte level { get; set; } = 1;

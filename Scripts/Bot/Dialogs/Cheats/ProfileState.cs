@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -50,7 +52,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
             for (int i = 2; i < propertiesToSave.Length; i++) //avoid dbid and telegram_id
             {
                 var property = propertiesToSave[i];
-                var value = property.GetValue(data);
+                var value = GetPropertyValue(property, data);
                 sb.Append($"{property.Name} = '{value}'");
                 sb.Append(i < propertiesToSave.Length - 1 ? ", " : " ");
             }
@@ -68,7 +70,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
             for (int i = 1; i < propertiesToSave.Length; i++) //avoid dbid
             {
                 var property = propertiesToSave[i];
-                var value = property.GetValue(data);
+                var value = GetPropertyValue(property, data);
                 Program.logger.Info($"{property.Name}");
                 var jsonStr = JsonConvert.SerializeObject(value);
                 sb.Append($"{property.Name} = '{jsonStr}'");
@@ -88,7 +90,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
             for (int i = 1; i < propertiesToSave.Length; i++) //avoid dbid
             {
                 var property = propertiesToSave[i];
-                var value = property.GetValue(data);
+                var value = GetPropertyValue(property, data);
                 sb.Append($"{property.Name} = '{value}'");
                 sb.Append(i < propertiesToSave.Length - 1 ? ", " : " ");
             }
@@ -96,11 +98,20 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
             return sb.ToString();
         }
 
+        private static object? GetPropertyValue(PropertyInfo property, object obj)
+        {
+            if (property.PropertyType == typeof(DateTime))
+            {
+                var dateTime = (DateTime)property.GetValue(obj);
+                return dateTime.Ticks;
+            }
+            return property.GetValue(obj);
+        }
+
         public async Task ExecuteQuery(long dbid)
         {
             foreach (var query in sqlQuerries)
             {
-                Program.logger.Info("Query: " + query);
                 var preparedQuery = query.Replace(idPlacement, dbid.ToString());
                 await BotController.dataBase.db.ExecuteAsync(preparedQuery);
             }
