@@ -71,7 +71,6 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
             {
                 var property = propertiesToSave[i];
                 var value = GetPropertyValue(property, data);
-                Program.logger.Info($"{property.Name}");
                 var jsonStr = JsonConvert.SerializeObject(value);
                 sb.Append($"{property.Name} = '{jsonStr}'");
                 sb.Append(i < propertiesToSave.Length - 1 ? ", " : " ");
@@ -104,6 +103,12 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
             {
                 var dateTime = (DateTime)property.GetValue(obj);
                 return dateTime.Ticks;
+            }
+            if (property.PropertyType.IsEnum && property.GetCustomAttributesData().Any(atr => atr.AttributeType.Name.Equals("StoreAsText")))
+            {
+                var value = property.GetValue(obj);
+                var enumType = property.PropertyType;
+                return Enum.ToObject(enumType, value).ToString();
             }
             return property.GetValue(obj);
         }
