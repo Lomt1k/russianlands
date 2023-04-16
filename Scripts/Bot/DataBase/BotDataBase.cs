@@ -37,7 +37,7 @@ namespace TextGameRPG.Scripts.Bot.DataBase
             await db.CreateTableAsync<ProfileData>().FastAwait();
             await db.CreateTableAsync<RawProfileDynamicData>().FastAwait();
             await db.CreateTableAsync<ProfileBuildingsData>().FastAwait();
-            await db.CreateTableAsync<ReminderData>().FastAwait();
+            await db.CreateTableAsync<DailyReminderData>().FastAwait();
         }
 
         public async Task CloseAsync()

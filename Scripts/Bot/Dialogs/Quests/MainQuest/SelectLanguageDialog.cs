@@ -9,7 +9,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Quests.MainQuest
 {
     public class SelectLanguageDialog : DialogBase
     {
-        private static readonly RemindersManager remindersManager = Services.Get<RemindersManager>();
+        private static readonly DailyRemindersManager remindersManager = Services.Get<DailyRemindersManager>();
 
         public SelectLanguageDialog(GameSession _session) : base(_session)
         {
@@ -43,7 +43,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Quests.MainQuest
         private async Task SetupLanguage(LanguageCode language)
         {
             session.profile.data.language = language;
-            await remindersManager.ScheduleReminder(session).FastAwait();
+            await remindersManager.ScheduleReminder(session.profile.data).FastAwait();
             await QuestManager.TryInvokeTrigger(session, TriggerType.InvokeFromCode).FastAwait();
         }
     }

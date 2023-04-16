@@ -4,8 +4,8 @@ using TextGameRPG.Scripts.GameCore.Localizations;
 
 namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
 {
-    [Table("Reminders")]
-    public class ReminderData
+    [Table("DailyReminders")]
+    public class DailyReminderData
     {
         [PrimaryKey]
         public long dbid { get; set; }

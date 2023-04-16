@@ -1,15 +1,26 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Telegram.Bot.Types.ReplyMarkups;
 using TextGameRPG.Scripts.Bot;
 using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
-using TextGameRPG.Scripts.Bot.Sessions;
+using TextGameRPG.Scripts.GameCore.Localizations;
 
 namespace TextGameRPG.Scripts.GameCore.Services
 {
-    public class RemindersManager : Service
+    public class DailyRemindersManager : Service
     {
         private static readonly MessageSender messageSender = Services.Get<MessageSender>();
+
+        private static readonly string[] localizationKeys =
+        {
+            "daily_reminder_variant_0",
+            "daily_reminder_variant_1",
+            "daily_reminder_variant_2",
+            "daily_reminder_variant_3",
+            "daily_reminder_variant_4",
+            "daily_reminder_variant_5",
+        };
 
         private CancellationTokenSource _cts = new CancellationTokenSource();
 
@@ -26,16 +37,15 @@ namespace TextGameRPG.Scripts.GameCore.Services
             return Task.CompletedTask;
         }
 
-        public async Task ScheduleReminder(GameSession session)
+        public async Task ScheduleReminder(ProfileData profileData)
         {
             try
             {
-                var profileData = session.profile.data;
-                var reminderData = new ReminderData()
+                var reminderData = new DailyReminderData()
                 {
                     dbid = profileData.dbid,
                     userId = profileData.telegram_id,
-                    timeToSend = DateTime.UtcNow.AddSeconds(30),
+                    timeToSend = DateTime.UtcNow.AddDays(1),
                     languageCode = profileData.language
                 };
                 await BotController.dataBase.db.InsertOrReplaceAsync(reminderData).FastAwait();
@@ -51,7 +61,7 @@ namespace TextGameRPG.Scripts.GameCore.Services
             while (!cancellationToken.IsCancellationRequested)
             {
                 SendRemindersAsync(cancellationToken);
-                await Task.Delay(1_000).FastAwait(); // TODO: change 1_000 to 60_000 !
+                await Task.Delay(60_000).FastAwait();
             }
         }
 
@@ -61,7 +71,7 @@ namespace TextGameRPG.Scripts.GameCore.Services
             {
                 var db = BotController.dataBase.db;
                 var now = DateTime.UtcNow;
-                var reminderDatas = await db.Table<ReminderData>().Where(x => x.timeToSend < now).ToArrayAsync().FastAwait();
+                var reminderDatas = await db.Table<DailyReminderData>().Where(x => x.timeToSend < now).ToArrayAsync().FastAwait();
                 if (reminderDatas == null || reminderDatas.Length == 0)
                 {
                     return;
@@ -77,12 +87,15 @@ namespace TextGameRPG.Scripts.GameCore.Services
             }
         }
 
-        private async void SendReminderAsync(ReminderData reminderData, CancellationToken cancellationToken)
+        private async void SendReminderAsync(DailyReminderData reminderData, CancellationToken cancellationToken)
         {
             try
             {
-                var text = "Вернись в игру, чел!";
-                await messageSender.SendTextDialog(reminderData.userId, text, cancellationToken: cancellationToken).FastAwait();
+                var index = new Random().Next(localizationKeys.Length);
+                var text = Localization.Get(reminderData.languageCode, localizationKeys[index]);
+                var buttonText = Localization.Get(reminderData.languageCode, "restart_button");                
+                var keyboard = new ReplyKeyboardMarkup(buttonText);
+                await messageSender.SendTextDialog(reminderData.userId, text, keyboard, cancellationToken: cancellationToken).FastAwait();
                 await BotController.dataBase.db.DeleteAsync(reminderData).FastAwait();
             }
             catch (Exception ex)

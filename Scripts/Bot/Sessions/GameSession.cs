@@ -22,7 +22,7 @@ namespace TextGameRPG.Scripts.Bot.Sessions
         private static readonly PerformanceManager performanceManager = Services.Get<PerformanceManager>();
         private static readonly BattleManager battleManager = Services.Get<BattleManager>();
         private static readonly MessageSender messageSender = Services.Get<MessageSender>();
-        private static readonly RemindersManager remindersManager = Services.Get<RemindersManager>();
+        private static readonly DailyRemindersManager remindersManager = Services.Get<DailyRemindersManager>();
 
         private bool _isHandlingUpdate;
         private CancellationTokenSource _sessionTasksCTS = new CancellationTokenSource();
@@ -170,7 +170,7 @@ namespace TextGameRPG.Scripts.Bot.Sessions
             else
             {
                 // В первой сессии срабатывает только после выбора языка
-                await remindersManager.ScheduleReminder(this).FastAwait();
+                await remindersManager.ScheduleReminder(profileData).FastAwait();
             }
 
             var dbid = profileData.dbid;
