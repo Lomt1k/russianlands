@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using SQLite;
 using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
 using TextGameRPG.Scripts.GameCore.Profiles;
 
@@ -53,10 +54,12 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
             {
                 var property = propertiesToSave[i];
                 var value = GetPropertyValue(property, data);
-                sb.Append($"{property.Name} = '{value}'");
+                var kvp = string.Format("{0} = '{1}'", property.Name, value);
+                sb.Append(kvp);
                 sb.Append(i < propertiesToSave.Length - 1 ? ", " : " ");
             }
             sb.Append($"WHERE dbid='{idPlacement}'");
+            Program.logger.Debug(sb.ToString() + "\n\n\n");
             return sb.ToString();
         }
 
@@ -84,16 +87,18 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
             var sb = new StringBuilder();
             sb.Append($"UPDATE Buildings SET ");
             var allProperties = data.GetType().GetProperties();
-            var propertiesToSave = allProperties.Where(x => !x.GetCustomAttributesData().Any(atr => atr.AttributeType.Name.Equals("IgnoreAttribute"))).ToArray();
+            var propertiesToSave = allProperties.Where(x => !x.GetCustomAttributesData().Any(atr => atr.AttributeType == typeof(IgnoreAttribute))).ToArray();
 
             for (int i = 1; i < propertiesToSave.Length; i++) //avoid dbid
             {
                 var property = propertiesToSave[i];
                 var value = GetPropertyValue(property, data);
-                sb.Append($"{property.Name} = '{value}'");
+                var kvp = string.Format("{0} = '{1}'", property.Name, value);
+                sb.Append(kvp);
                 sb.Append(i < propertiesToSave.Length - 1 ? ", " : " ");
             }
             sb.Append($"WHERE dbid='{idPlacement}'");
+            Program.logger.Debug(sb.ToString());
             return sb.ToString();
         }
 
@@ -104,12 +109,17 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
                 var dateTime = (DateTime)property.GetValue(obj);
                 return dateTime.Ticks;
             }
-            if (property.PropertyType.IsEnum && property.GetCustomAttributesData().Any(atr => atr.AttributeType.Name.Equals("StoreAsText")))
+            if (property.PropertyType.IsEnum)
             {
-                var value = property.GetValue(obj);
-                var enumType = property.PropertyType;
-                return Enum.ToObject(enumType, value).ToString();
+                bool storeAsText = property.PropertyType.GetTypeInfo().CustomAttributes.Any(x => x.AttributeType == typeof(StoreAsTextAttribute));
+                if (storeAsText)
+                {
+                    return property.GetValue(obj).ToString();
+                }
+                var underlyingValue = Convert.ChangeType(property.GetValue(obj), Enum.GetUnderlyingType(property.PropertyType));
+                return underlyingValue;
             }
+
             return property.GetValue(obj);
         }
 
