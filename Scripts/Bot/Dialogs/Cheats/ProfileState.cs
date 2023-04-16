@@ -59,7 +59,6 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
                 sb.Append(i < propertiesToSave.Length - 1 ? ", " : " ");
             }
             sb.Append($"WHERE dbid='{idPlacement}'");
-            Program.logger.Debug(sb.ToString() + "\n\n\n");
             return sb.ToString();
         }
 
@@ -98,7 +97,6 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
                 sb.Append(i < propertiesToSave.Length - 1 ? ", " : " ");
             }
             sb.Append($"WHERE dbid='{idPlacement}'");
-            Program.logger.Debug(sb.ToString());
             return sb.ToString();
         }
 
