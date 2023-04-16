@@ -49,7 +49,7 @@ namespace TextGameRPG.Scripts.GameCore.Services
 
         private PerformanceState GetActualState(PerformanceInfo info)
         {
-            var config = BotController.config.performanceSettings;
+            var config = BotController.config?.performanceSettings;
             if (config == null)
                 return PerformanceState.Normal;
 
@@ -75,7 +75,7 @@ namespace TextGameRPG.Scripts.GameCore.Services
 
         private PerformanceDebugInfo GetDebugInfo(PerformanceInfo info)
         {
-            var config = BotController.config.performanceSettings;
+            var config = BotController.config?.performanceSettings;
             if (config == null)
                 return new PerformanceDebugInfo();
 
