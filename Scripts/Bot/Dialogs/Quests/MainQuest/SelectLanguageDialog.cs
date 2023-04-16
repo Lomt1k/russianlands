@@ -3,11 +3,14 @@ using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Quests;
 using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Quests.NextStageTriggers;
+using TextGameRPG.Scripts.GameCore.Services;
 
 namespace TextGameRPG.Scripts.Bot.Dialogs.Quests.MainQuest
 {
     public class SelectLanguageDialog : DialogBase
     {
+        private static readonly RemindersManager remindersManager = Services.Get<RemindersManager>();
+
         public SelectLanguageDialog(GameSession _session) : base(_session)
         {
         }
@@ -39,7 +42,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Quests.MainQuest
 
         private async Task SetupLanguage(LanguageCode language)
         {
-            session.SetupLanguage(language);
+            session.profile.data.language = language;
+            await remindersManager.ScheduleReminder(session).FastAwait();
             await QuestManager.TryInvokeTrigger(session, TriggerType.InvokeFromCode).FastAwait();
         }
     }

@@ -21,9 +21,7 @@ namespace TextGameRPG.Scripts.Bot.DataBase
             try
             {
                 db = new SQLiteAsyncConnection(dataBasePath);
-                await db.CreateTableAsync<ProfileData>().FastAwait();
-                await db.CreateTableAsync<RawProfileDynamicData>().FastAwait();
-                await db.CreateTableAsync<ProfileBuildingsData>().FastAwait();
+                await CreateTables().FastAwait();
                 Program.logger.Info("Successfully connected to database");
                 return true;
             }
@@ -32,6 +30,14 @@ namespace TextGameRPG.Scripts.Bot.DataBase
                 Program.logger.Fatal(ex);
             }
             return false;
+        }
+
+        private async Task CreateTables()
+        {
+            await db.CreateTableAsync<ProfileData>().FastAwait();
+            await db.CreateTableAsync<RawProfileDynamicData>().FastAwait();
+            await db.CreateTableAsync<ProfileBuildingsData>().FastAwait();
+            await db.CreateTableAsync<ReminderData>().FastAwait();
         }
 
         public async Task CloseAsync()

@@ -1,5 +1,6 @@
 ﻿using SQLite;
 using System;
+using TextGameRPG.Scripts.GameCore.Localizations;
 
 namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
 {
@@ -10,7 +11,7 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
         public long dbid { get; set; }
         public long telegram_id { get; set; }
         [MaxLength(32)] public string username { get; set; }
-        [MaxLength(8)] public string language { get; set; } = "RU";
+        public LanguageCode language { get; set; } = LanguageCode.RU;
         [MaxLength(16)] public string nickname { get; set; }
         [MaxLength(24)] public string regDate { get; set; }
         [MaxLength(16)] public string regVersion { get; set; }

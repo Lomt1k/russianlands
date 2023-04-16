@@ -21,6 +21,7 @@
             Register(new NotificationsManager());
             Register(new MessageSequencer());
             Register(new MessageSender());
+            Register(new RemindersManager());
         }
 
         private static void Register<T>(T instance) where T : Service, new()

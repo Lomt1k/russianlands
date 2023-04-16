@@ -22,6 +22,7 @@ namespace TextGameRPG.Scripts.Bot.Sessions
         private static readonly PerformanceManager performanceManager = Services.Get<PerformanceManager>();
         private static readonly BattleManager battleManager = Services.Get<BattleManager>();
         private static readonly MessageSender messageSender = Services.Get<MessageSender>();
+        private static readonly RemindersManager remindersManager = Services.Get<RemindersManager>();
 
         private bool _isHandlingUpdate;
         private CancellationTokenSource _sessionTasksCTS = new CancellationTokenSource();
@@ -33,7 +34,7 @@ namespace TextGameRPG.Scripts.Bot.Sessions
         public User actualUser { get; private set; }
         public Profile profile { get; private set; }
         public Player player { get; private set; }
-        public LanguageCode language { get; private set; } = BotController.config.defaultLanguageCode;
+        public LanguageCode language => profile?.data.language ?? BotController.config.defaultLanguageCode;
         public DialogBase? currentDialog { get; private set; }
         public TooltipController tooltipController { get; } = new TooltipController();
         public bool isAdmin => profile.data.adminStatus > 0;
@@ -166,6 +167,11 @@ namespace TextGameRPG.Scripts.Bot.Sessions
                 };
                 await db.InsertAsync(profileData).FastAwait();
             }
+            else
+            {
+                // В первой сессии срабатывает только после выбора языка
+                await remindersManager.ScheduleReminder(this).FastAwait();
+            }
 
             var dbid = profileData.dbid;
             var rawDynamicData = await db.GetOrNullAsync<RawProfileDynamicData>(dbid).FastAwait();
@@ -183,7 +189,6 @@ namespace TextGameRPG.Scripts.Bot.Sessions
             }
 
             profile = new Profile(this, profileData, rawDynamicData.Deserialize(), profileBuildingsData);
-            language = Enum.Parse<LanguageCode>(profileData.language);
             player = new Player(this);
 
             profile.data.lastDate = DateTime.UtcNow.AsString();
@@ -218,11 +223,6 @@ namespace TextGameRPG.Scripts.Bot.Sessions
                 return true;
 
             return sessionManager.allSessionsTasksCTS.IsCancellationRequested;
-        }
-
-        public void SetupLanguage(LanguageCode languageCode)
-        {
-            language = languageCode;
         }
 
     }

@@ -1,5 +1,6 @@
 ﻿namespace TextGameRPG.Scripts.GameCore.Localizations
 {
+    [SQLite.StoreAsText]
     public enum LanguageCode
     {
         EN = 0,

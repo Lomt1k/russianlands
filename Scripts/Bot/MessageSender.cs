@@ -33,7 +33,7 @@ namespace TextGameRPG.Scripts.Bot
             try
             {
                 var delay = sequencer.GetDelayForSendMessage(text);
-                await Task.Delay(delay, cancellationToken).FastAwait();
+                await Task.Delay(delay).FastAwait();
                 if (cancellationToken.IsCancellationRequested)
                     return null;
 
@@ -56,7 +56,7 @@ namespace TextGameRPG.Scripts.Bot
             try
             {
                 var delay = sequencer.GetDelayForEditMessage(text);
-                await Task.Delay(delay, cancellationToken).FastAwait();
+                await Task.Delay(delay).FastAwait();
                 if (cancellationToken.IsCancellationRequested)
                     return null;
 
@@ -108,7 +108,7 @@ namespace TextGameRPG.Scripts.Bot
             try
             {
                 var delay = sequencer.GetDelayForSendMessage(text);
-                await Task.Delay(delay, cancellationToken).FastAwait();
+                await Task.Delay(delay).FastAwait();
                 if (cancellationToken.IsCancellationRequested)
                     return null;
 
@@ -163,7 +163,7 @@ namespace TextGameRPG.Scripts.Bot
                 {
                     return;
                 }
-                await Task.Delay(delay, cancellationToken).FastAwait();
+                await Task.Delay(delay).FastAwait();
                 if (cancellationToken.IsCancellationRequested)
                     return;
 
