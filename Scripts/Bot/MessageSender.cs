@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using Telegram.Bot;
 using Telegram.Bot.Exceptions;
 using Telegram.Bot.Types;
@@ -27,15 +28,20 @@ namespace TextGameRPG.Scripts.Bot
         }
 
         public async Task<Message?> SendTextMessage(ChatId id, string text, InlineKeyboardMarkup? inlineKeyboard = null,
-            bool silent = false, bool disableWebPagePreview = false)
+            bool silent = false, bool disableWebPagePreview = false, CancellationToken cancellationToken = default)
         {
             try
             {
                 var delay = sequencer.GetDelayForSendMessage(text);
-                await Task.Delay(delay).FastAwait();
+                await Task.Delay(delay, cancellationToken).FastAwait();
+                if (cancellationToken.IsCancellationRequested)
+                    return null;
 
-                return await _botClient.SendTextMessageAsync(id, text, ParseMode.Html, replyMarkup: inlineKeyboard,
-                    disableNotification: silent, disableWebPagePreview: disableWebPagePreview).FastAwait();
+                return await _botClient.SendTextMessageAsync(id, text, ParseMode.Html,
+                    replyMarkup: inlineKeyboard,
+                    disableNotification: silent, 
+                    disableWebPagePreview: disableWebPagePreview, 
+                    cancellationToken: cancellationToken).FastAwait();
             }
             catch (RequestException ex)
             {
@@ -45,15 +51,19 @@ namespace TextGameRPG.Scripts.Bot
         }
 
         public async Task<Message?> EditTextMessage(ChatId id, int messageId, string text, InlineKeyboardMarkup? inlineKeyboard = null,
-            bool disableWebPagePreview = false)
+            bool disableWebPagePreview = false, CancellationToken cancellationToken = default)
         {
             try
             {
                 var delay = sequencer.GetDelayForEditMessage(text);
-                await Task.Delay(delay).FastAwait();
+                await Task.Delay(delay, cancellationToken).FastAwait();
+                if (cancellationToken.IsCancellationRequested)
+                    return null;
 
-                return await _botClient.EditMessageTextAsync(id, messageId, text, ParseMode.Html, replyMarkup: inlineKeyboard,
-                    disableWebPagePreview: disableWebPagePreview).FastAwait();
+                return await _botClient.EditMessageTextAsync(id, messageId, text, ParseMode.Html,
+                    replyMarkup: inlineKeyboard,
+                    disableWebPagePreview: disableWebPagePreview,
+                    cancellationToken: cancellationToken).FastAwait();
             }
             catch (RequestException ex)
             {
@@ -74,11 +84,11 @@ namespace TextGameRPG.Scripts.Bot
             }
         }
 
-        public async Task<Message?> EditMessageKeyboard(ChatId id, int messageId, InlineKeyboardMarkup? inlineKeyboard)
+        public async Task<Message?> EditMessageKeyboard(ChatId id, int messageId, InlineKeyboardMarkup? inlineKeyboard, CancellationToken cancellationToken = default)
         {
             try
             {
-                return await _botClient.EditMessageReplyMarkupAsync(id, messageId, inlineKeyboard).FastAwait();
+                return await _botClient.EditMessageReplyMarkupAsync(id, messageId, inlineKeyboard, cancellationToken: cancellationToken).FastAwait();
             }
             catch (RequestException ex)
             {
@@ -88,7 +98,7 @@ namespace TextGameRPG.Scripts.Bot
         }
 
         public async Task<Message?> SendTextDialog(ChatId id, string text, ReplyKeyboardMarkup? replyKeyboard = null,
-            bool silent = false, bool disableWebPagePreview = false)
+            bool silent = false, bool disableWebPagePreview = false, CancellationToken cancellationToken = default)
         {
             if (replyKeyboard != null)
             {
@@ -98,10 +108,15 @@ namespace TextGameRPG.Scripts.Bot
             try
             {
                 var delay = sequencer.GetDelayForSendMessage(text);
-                await Task.Delay(delay).FastAwait();
+                await Task.Delay(delay, cancellationToken).FastAwait();
+                if (cancellationToken.IsCancellationRequested)
+                    return null;
 
-                return await _botClient.SendTextMessageAsync(id, text, ParseMode.Html, replyMarkup: replyKeyboard,
-                disableNotification: silent, disableWebPagePreview: disableWebPagePreview).FastAwait();
+                return await _botClient.SendTextMessageAsync(id, text, ParseMode.Html,
+                    replyMarkup: replyKeyboard,
+                    disableNotification: silent, 
+                    disableWebPagePreview: disableWebPagePreview,
+                    cancellationToken: cancellationToken).FastAwait();
             }
             catch (RequestException ex)
             {
@@ -110,11 +125,11 @@ namespace TextGameRPG.Scripts.Bot
             }
         }
 
-        public async Task AnswerQuery(ChatId id, string queryId, string? text = null)
+        public async Task AnswerQuery(ChatId id, string queryId, string? text = null, CancellationToken cancellationToken = default)
         {
             try
             {
-                await _botClient.AnswerCallbackQueryAsync(queryId, text).FastAwait();
+                await _botClient.AnswerCallbackQueryAsync(queryId, text, cancellationToken: cancellationToken).FastAwait();
             }
             catch (RequestException ex)
             {
@@ -139,7 +154,7 @@ namespace TextGameRPG.Scripts.Bot
             }
         }
 
-        public async Task SendSticker(ChatId id, string stickerFileId)
+        public async Task SendSticker(ChatId id, string stickerFileId, CancellationToken cancellationToken = default)
         {
             try
             {
@@ -148,8 +163,11 @@ namespace TextGameRPG.Scripts.Bot
                 {
                     return;
                 }
-                await Task.Delay(delay).FastAwait();
-                await _botClient.SendStickerAsync(id, stickerFileId).FastAwait();
+                await Task.Delay(delay, cancellationToken).FastAwait();
+                if (cancellationToken.IsCancellationRequested)
+                    return;
+
+                await _botClient.SendStickerAsync(id, stickerFileId, cancellationToken: cancellationToken).FastAwait();
             }
             catch (RequestException ex)
             {
@@ -157,11 +175,12 @@ namespace TextGameRPG.Scripts.Bot
             }
         }
 
-        public async Task<Message?> SendDocument(ChatId id, InputOnlineFile document, string? caption = null)
+        public async Task<Message?> SendDocument(ChatId id, InputOnlineFile document, string? caption = null, CancellationToken cancellationToken = default)
         {
             try
             {
-                return await _botClient.SendDocumentAsync(id, document, caption, parseMode: ParseMode.Html).FastAwait();
+                return await _botClient.SendDocumentAsync(id, document, caption, parseMode: ParseMode.Html,
+                    cancellationToken: cancellationToken).FastAwait();
             }
             catch (RequestException ex)
             {
@@ -170,11 +189,11 @@ namespace TextGameRPG.Scripts.Bot
             }
         }
 
-        public async Task<File?> GetFileAsync(string fileId)
+        public async Task<File?> GetFileAsync(string fileId, CancellationToken cancellationToken = default)
         {
             try
             {
-                return await _botClient.GetFileAsync(fileId).FastAwait();
+                return await _botClient.GetFileAsync(fileId, cancellationToken).FastAwait();
             }
             catch (RequestException ex)
             {
@@ -183,11 +202,11 @@ namespace TextGameRPG.Scripts.Bot
             }
         }
 
-        public async Task DownloadFileAsync(string filePath, System.IO.Stream destination)
+        public async Task DownloadFileAsync(string filePath, System.IO.Stream destination, CancellationToken cancellationToken = default)
         {
             try
             {
-                await _botClient.DownloadFileAsync(filePath, destination).FastAwait();
+                await _botClient.DownloadFileAsync(filePath, destination, cancellationToken).FastAwait();
             }
             catch (RequestException ex)
             {

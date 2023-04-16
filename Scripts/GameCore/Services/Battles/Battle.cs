@@ -149,7 +149,7 @@ namespace TextGameRPG.Scripts.GameCore.Services.Battles
             
             if (currentTurn == null)
             {
-                await messageSender.AnswerQuery(player.session.chatId, queryId).FastAwait();
+                await messageSender.AnswerQuery(player.session.chatId, queryId, cancellationToken: player.session.cancellationToken).FastAwait();
                 return;
             }
             await currentTurn.HandleBattleTooltipCallback(player, queryId, callback).FastAwait();

@@ -150,7 +150,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
 
         protected async Task<Message?> SendDialogMessage(string text, ReplyKeyboardMarkup? replyMarkup)
         {
-            _resendLastMessageFunc = async() => await messageSender.SendTextDialog(session.chatId, text, replyMarkup).FastAwait();
+            _resendLastMessageFunc = async() => await messageSender.SendTextDialog(session.chatId, text, replyMarkup, cancellationToken: session.cancellationToken).FastAwait();
             lastMessage = await _resendLastMessageFunc().FastAwait();
             return lastMessage;
         }

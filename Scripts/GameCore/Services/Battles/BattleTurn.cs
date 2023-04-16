@@ -146,14 +146,16 @@ namespace TextGameRPG.Scripts.GameCore.Services.Battles
                 mineStringBuilder.AppendLine();
                 mineStringBuilder.AppendLine(battle.GetStatsView(unit.session));
                 var keyboard = BattleToolipHelper.GetStatsKeyboard(unit.session);
-                await messageSender.SendTextMessage(unit.session.chatId, mineStringBuilder.ToString(), keyboard).FastAwait();
+                await messageSender.SendTextMessage(unit.session.chatId, mineStringBuilder.ToString(), keyboard,
+                    cancellationToken: unit.session.cancellationToken).FastAwait();
             }
             if (enemyStringBuilder != null)
             {
                 enemyStringBuilder.AppendLine();
                 enemyStringBuilder.AppendLine(battle.GetStatsView(enemy.session));
                 var keyboard = BattleToolipHelper.GetStatsKeyboard(enemy.session);
-                await messageSender.SendTextMessage(enemy.session.chatId, enemyStringBuilder.ToString(), keyboard).FastAwait();
+                await messageSender.SendTextMessage(enemy.session.chatId, enemyStringBuilder.ToString(), keyboard,
+                    cancellationToken: enemy.session.cancellationToken).FastAwait();
             }
         }
 
@@ -172,7 +174,7 @@ namespace TextGameRPG.Scripts.GameCore.Services.Battles
             var ingoreList = _queryTooltipsToIgnoreByPlayers[player];
             if (ingoreList.Contains(callback.tooltip))
             {
-                await messageSender.AnswerQuery(player.session.chatId, queryId).FastAwait();
+                await messageSender.AnswerQuery(player.session.chatId, queryId, cancellationToken: player.session.cancellationToken).FastAwait();
                 return;
             }
 
@@ -199,8 +201,8 @@ namespace TextGameRPG.Scripts.GameCore.Services.Battles
         private async Task CreateUnitStatsTooltip(Player player, string queryId, IBattleUnit targetUnit)
         {
             var text = targetUnit.GetFullUnitInfoView(player.session);
-            await messageSender.SendTextMessage(player.session.chatId, text).FastAwait();
-            await messageSender.AnswerQuery(player.session.chatId, queryId).FastAwait();
+            await messageSender.SendTextMessage(player.session.chatId, text, cancellationToken: player.session.cancellationToken).FastAwait();
+            await messageSender.AnswerQuery(player.session.chatId, queryId, cancellationToken: player.session.cancellationToken).FastAwait();
         }
 
 

@@ -37,6 +37,7 @@ namespace TextGameRPG.Scripts.Bot.Sessions
         public DialogBase? currentDialog { get; private set; }
         public TooltipController tooltipController { get; } = new TooltipController();
         public bool isAdmin => profile.data.adminStatus > 0;
+        public CancellationToken cancellationToken => _sessionTasksCTS.Token;
 
         public GameSession(User user, ChatId? _fakeChatId = null)
         {
@@ -62,7 +63,7 @@ namespace TextGameRPG.Scripts.Bot.Sessions
             {
                 if (update.Type == UpdateType.CallbackQuery)
                 {
-                    await messageSender.AnswerQuery(refreshedUser.Id, update.CallbackQuery.Id).FastAwait();
+                    await messageSender.AnswerQuery(refreshedUser.Id, update.CallbackQuery.Id, cancellationToken: cancellationToken).FastAwait();
                 }
                 return;
             }
@@ -71,7 +72,9 @@ namespace TextGameRPG.Scripts.Bot.Sessions
             try
             {
                 // Делаем паузу на обработку апдейта в зависимости от нагрузки на процессор
-                await Task.Delay(performanceManager.currentResponceDelay).FastAwait();
+                await Task.Delay(performanceManager.currentResponceDelay, cancellationToken).FastAwait();
+                if (cancellationToken.IsCancellationRequested)
+                    return;
 
                 lastActivityTime = DateTime.UtcNow;
                 actualUser = refreshedUser;

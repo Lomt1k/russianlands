@@ -239,7 +239,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
         {
             if (_isPotionAlreadySelected)
             {
-                await messageSender.SendTextMessage(session.chatId, Localization.Get(session, "battle_potion_already_used")).FastAwait();
+                await messageSender.SendTextMessage(session.chatId, Localization.Get(session, "battle_potion_already_used"),
+                    cancellationToken: session.cancellationToken).FastAwait();
                 return;
             }
 
@@ -286,7 +287,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
             sb.AppendLine();
             sb.AppendLine(potionData.GetDescription(session, session));
 
-            await messageSender.SendTextMessage(session.chatId, sb.ToString()).FastAwait();
+            await messageSender.SendTextMessage(session.chatId, sb.ToString(),
+                cancellationToken: session.cancellationToken).FastAwait();
         }
 
         private async void SendPotionMessageForEnemy(PotionData potionData)
@@ -303,7 +305,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
             sb.AppendLine();
             sb.AppendLine(potionData.GetDescription(session, enemySession));
 
-            await messageSender.SendTextMessage(enemySession.chatId, sb.ToString()).FastAwait();
+            await messageSender.SendTextMessage(enemySession.chatId, sb.ToString(),
+                cancellationToken: enemySession.cancellationToken).FastAwait();
         }
 
     }

@@ -56,7 +56,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Quests.MainQuest
             var sticker = CharacterType.Vasilisa.GetSticker();
             if (sticker != null)
             {
-                await messageSender.SendSticker(session.chatId, sticker).FastAwait();
+                await messageSender.SendSticker(session.chatId, sticker, session.cancellationToken).FastAwait();
             }
 
             var text = Localization.Get(session, "quest_main_vasilisa_encounter_replica");

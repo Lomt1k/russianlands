@@ -52,7 +52,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Quests
             var sticker = _replica.characterType.GetSticker();
             if (sticker != null)
             {
-                await messageSender.SendSticker(session.chatId, sticker);
+                await messageSender.SendSticker(session.chatId, sticker, cancellationToken: session.cancellationToken);
             }
             await SendDialogMessage(GetText(), GetMultilineKeyboard()).FastAwait();
         }

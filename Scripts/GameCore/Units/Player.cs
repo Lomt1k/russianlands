@@ -89,7 +89,7 @@ namespace TextGameRPG.Scripts.GameCore.Units
             sb.AppendLine(battle.GetStatsView(session));
 
             var keyboard = BattleToolipHelper.GetStatsKeyboard(session);
-            await messageSender.SendTextMessage(session.chatId, sb.ToString(), keyboard);
+            await messageSender.SendTextMessage(session.chatId, sb.ToString(), keyboard, cancellationToken: session.cancellationToken).FastAwait();
         }
 
         public void OnBattleEnd(Battle battle, BattleResult battleResult)
@@ -110,25 +110,25 @@ namespace TextGameRPG.Scripts.GameCore.Units
             var waitingText = Emojis.ElementHourgrlass + Localization.Get(session, "battle_enemy_turn_start");
             sb.AppendLine(waitingText);
             var keyboard = new ReplyKeyboardMarkup(waitingText);
-            await messageSender.SendTextDialog(session.chatId, sb.ToString(), keyboard, silent: true);
+            await messageSender.SendTextDialog(session.chatId, sb.ToString(), keyboard, silent: true, cancellationToken: session.cancellationToken).FastAwait();
         }
 
         public async void OnMineBattleTurnAlmostEnd()
         {
             var text = Emojis.ElementWarningGrey + Localization.Get(session, "battle_mine_turn_almost_end");
-            await messageSender.SendTextMessage(session.chatId, text, silent: true);
+            await messageSender.SendTextMessage(session.chatId, text, silent: true, cancellationToken: session.cancellationToken).FastAwait();
         }
 
         public async Task OnMineBatteTurnTimeEnd()
         {
             var text = Localization.Get(session, "battle_mine_turn_time_end") + Emojis.SmileSad;
-            await messageSender.SendTextMessage(session.chatId, text, silent: true);
+            await messageSender.SendTextMessage(session.chatId, text, silent: true, cancellationToken: session.cancellationToken).FastAwait();
         }
 
         public async Task OnEnemyBattleTurnTimeEnd()
         {
             var text = Localization.Get(session, "battle_enemy_turn_time_end");
-            await messageSender.SendTextMessage(session.chatId, text, silent: true);
+            await messageSender.SendTextMessage(session.chatId, text, silent: true, cancellationToken: session.cancellationToken).FastAwait();
         }
 
     }
