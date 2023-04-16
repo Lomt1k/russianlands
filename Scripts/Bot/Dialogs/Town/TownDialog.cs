@@ -98,8 +98,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town
                 sb.AppendLine(Emojis.StatHealth + $"{stats.currentHP} / {stats.maxHP}");
 
                 var message = _regenHealthMessageId == null
-                    ? await messageSender.SendTextMessage(session.chatId, sb.ToString(), silent: true).FastAwait()
-                    : await messageSender.EditTextMessage(session.chatId, _regenHealthMessageId.Value, sb.ToString()).FastAwait();
+                    ? await messageSender.SendTextMessage(session.chatId, sb.ToString(), silent: true, cancellationToken: session.cancellationToken).FastAwait()
+                    : await messageSender.EditTextMessage(session.chatId, _regenHealthMessageId.Value, sb.ToString(), cancellationToken: session.cancellationToken).FastAwait();
                 _regenHealthMessageId = message?.MessageId;
 
                 WaitOneSecondAndInvokeHealthRegen();
