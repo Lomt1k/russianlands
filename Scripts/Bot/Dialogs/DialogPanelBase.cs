@@ -186,7 +186,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
             if (!_registeredCallbacks.TryGetValue(buttonId, out var callback))
                 return;
 
-            if (BotController.config.logUserInput)
+            if (BotController.config.logSettings.logUserInput)
             {
                 Program.logger.Info($"Message from {session.actualUser}: {_registeredButtons[buttonId].Text}");
             }            

@@ -23,10 +23,12 @@ namespace TextGameRPG.Scripts.GameCore.Services
         };
 
         private CancellationTokenSource _cts = new CancellationTokenSource();
+        private bool _isLogRequired = false;
 
         public override Task OnBotStarted()
         {
             _cts = new CancellationTokenSource();
+            _isLogRequired = BotController.config.logSettings.logDailyNotifications;
             SendingLogicAsync(_cts.Token);
             return Task.CompletedTask;
         }
@@ -97,6 +99,10 @@ namespace TextGameRPG.Scripts.GameCore.Services
                 var keyboard = new ReplyKeyboardMarkup(buttonText);
                 await messageSender.SendTextDialog(reminderData.userId, text, keyboard, cancellationToken: cancellationToken).FastAwait();
                 await BotController.dataBase.db.DeleteAsync(reminderData).FastAwait();
+                if (_isLogRequired)
+                {
+                    Program.logger.Info($"Daily notification sended for {reminderData.userId}");
+                }
             }
             catch (Exception ex)
             {

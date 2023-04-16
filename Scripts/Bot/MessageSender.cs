@@ -23,7 +23,7 @@ namespace TextGameRPG.Scripts.Bot
         {
             _botClient = BotController.botClient;
             _requestExceptionHandler = new RequestExceptionHandler();
-            _maxDelayForSendStickers = BotController.config.dontSendStickerIfDelayInSeconds * 1_000;
+            _maxDelayForSendStickers = BotController.config.sendingLimits.dontSendStickerIfDelayInSeconds * 1_000;
             return Task.CompletedTask;
         }
 

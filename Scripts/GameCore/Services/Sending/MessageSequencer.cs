@@ -39,10 +39,10 @@ namespace TextGameRPG.Scripts.GameCore.Services.Sending
 
         public override Task OnBotStarted()
         {
-            var config = BotController.config;
-            SendMessageLimit = config.sendMessagePerSecondLimit;
-            EditMessageLimit = config.editMessagePerSecondLimit;
-            SendStickerLimit = config.sendStickerPerSecondLimit;
+            var sendingLimits = BotController.config.sendingLimits;
+            SendMessageLimit = sendingLimits.sendMessagePerSecondLimit;
+            EditMessageLimit = sendingLimits.editMessagePerSecondLimit;
+            SendStickerLimit = sendingLimits.sendStickerPerSecondLimit;
             return Task.CompletedTask;
         }
 

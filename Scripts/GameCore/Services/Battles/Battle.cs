@@ -142,7 +142,7 @@ namespace TextGameRPG.Scripts.GameCore.Services.Battles
 
         public async Task HandleBattleTooltipCallback(Player player, string queryId, BattleTooltipCallbackData callback)
         {
-            if (BotController.config.logUserInput)
+            if (BotController.config.logSettings.logUserInput)
             {
                 Program.logger.Info($"Message from {player.session.actualUser}: {callback.tooltip}");
             }

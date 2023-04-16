@@ -42,14 +42,14 @@ namespace TextGameRPG.Scripts.GameCore.Services
         {
             currentState = GetActualState(info);
             debugInfo = GetDebugInfo(info);
-            currentResponceDelay = currentState != PerformanceState.Normal ? BotController.config.responceMsDelayWhenCpuHighload : 0;
+            currentResponceDelay = currentState != PerformanceState.Normal ? BotController.config.performanceSettings.responceMsDelayWhenCpuHighload : 0;
 
             onStateUpdate?.Invoke(currentState);
         }
 
         private PerformanceState GetActualState(PerformanceInfo info)
         {
-            var config = BotController.config;
+            var config = BotController.config.performanceSettings;
             if (config == null)
                 return PerformanceState.Normal;
 
@@ -75,7 +75,7 @@ namespace TextGameRPG.Scripts.GameCore.Services
 
         private PerformanceDebugInfo GetDebugInfo(PerformanceInfo info)
         {
-            var config = BotController.config;
+            var config = BotController.config.performanceSettings;
             if (config == null)
                 return new PerformanceDebugInfo();
 

@@ -107,7 +107,7 @@ namespace TextGameRPG.Scripts.Bot.Sessions
 
         public async Task HandleMessageAsync(Message message)
         {
-            if (BotController.config.logUserInput && message.Text != null)
+            if (BotController.config.logSettings.logUserInput && message.Text != null)
             {
                 Program.logger.Info($"Message from {actualUser}: {message.Text}");
             }
