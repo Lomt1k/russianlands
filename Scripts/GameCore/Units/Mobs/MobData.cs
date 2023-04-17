@@ -97,6 +97,26 @@ namespace TextGameRPG.Scripts.GameCore.Units.Mobs
             }
             return sb.ToString();
         }
+
+        public MobAttack CloneForMobBuilder()
+        {
+            var localization = localizationKey.Equals("battle_action_mob_normal_attack")
+                ? localizationKey
+                : "battle_action_mob_strong_attack";
+            return new MobAttack()
+            {
+                localizationKey = localization,
+                manaCost = manaCost,
+                minPhysicalDamage = minPhysicalDamage,
+                maxPhysicalDamage = maxPhysicalDamage,
+                minFireDamage = minFireDamage,
+                maxFireDamage = maxFireDamage,
+                minColdDamage = minColdDamage,
+                maxColdDamage = maxColdDamage,
+                minLightningDamage = minLightningDamage,
+                maxLightningDamage = maxLightningDamage,
+            };
+        }
     }
 
 
