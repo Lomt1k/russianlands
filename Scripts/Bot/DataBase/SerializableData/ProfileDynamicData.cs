@@ -15,6 +15,11 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
         public PlayerQuestsProgress quests { get; } = new PlayerQuestsProgress();
         public List<ItemType> lastGeneratedItemTypes { get; } = new List<ItemType>();
 
+        public ProfileDynamicData(long _dbid)
+        {
+            dbid = _dbid;
+        }
+
         public ProfileDynamicData(long _dbid, PlayerInventory _inventory, List<PotionItem> _potions, PlayerQuestsProgress _quests, List<ItemType> _lastGeneratedItemTypes)
         {
             dbid = _dbid;
