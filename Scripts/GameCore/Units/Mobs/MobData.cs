@@ -100,8 +100,8 @@ namespace TextGameRPG.Scripts.GameCore.Units.Mobs
 
         public MobAttack CloneForMobBuilder()
         {
-            var localization = localizationKey.Equals("battle_action_mob_normal_attack")
-                ? localizationKey
+            var localization = manaCost == 0
+                ? "battle_action_mob_normal_attack"
                 : "battle_action_mob_strong_attack";
             return new MobAttack()
             {
