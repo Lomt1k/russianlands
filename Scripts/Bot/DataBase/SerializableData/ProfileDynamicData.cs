@@ -9,7 +9,7 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
 {
     public class ProfileDynamicData : DataWithSession
     {
-        public long dbid;
+        public long dbid { get; }
         public PlayerInventory inventory { get; } = new PlayerInventory();
         public List<PotionItem> potions { get; } = new List<PotionItem>();
         public PlayerQuestsProgress quests { get; } = new PlayerQuestsProgress();
