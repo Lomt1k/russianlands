@@ -7,7 +7,7 @@ using TextGameRPG.Scripts.GameCore.Units.Stats;
 
 namespace TextGameRPG.Scripts.GameCore.Services.MobGenerator
 {
-    public class MobBuilder
+    public partial class MobBuilder
     {
         private const float healthByPlayerHealthQuotient = 1.5f;
 
@@ -15,9 +15,8 @@ namespace TextGameRPG.Scripts.GameCore.Services.MobGenerator
         private static IEnumerable<MobData> questMobs => gameDataHolder.mobs.GetAllData();
 
         private MobData _mobData;
-        private byte _mobLevel;
 
-        public MobBuilder(byte mobLevel)
+        public MobBuilder(int mobLevel)
         {
             _mobData = new MobData()
             {
@@ -27,7 +26,6 @@ namespace TextGameRPG.Scripts.GameCore.Services.MobGenerator
             var playerHealth = PlayerHealthByLevel.Get(mobLevel);
             _mobData.statsSettings.health = (int)(playerHealth * healthByPlayerHealthQuotient);
             _mobData.statsSettings.level = mobLevel;
-            _mobLevel = mobLevel;
         }
 
         public MobBuilder RandomizeHealthByPercents(byte percents)
@@ -36,13 +34,13 @@ namespace TextGameRPG.Scripts.GameCore.Services.MobGenerator
             return this;
         }
 
-        public MobBuilder SetRandomVisualLevel(byte minLevel, byte maxLevel)
+        public MobBuilder SetRandomVisualLevel(int minLevel, int maxLevel)
         {
             _mobData.statsSettings.level = new Random().Next(minLevel, maxLevel + 1);
             return this;
         }
 
-        public MobBuilder CopyResistanceFromQuestMob(byte minLevel, byte maxLevel)
+        public MobBuilder CopyResistanceFromQuestMob(int minLevel, int maxLevel)
         {
             var mobs = questMobs.Where(x => x.statsSettings.level >= minLevel && x.statsSettings.level <= maxLevel).ToArray();
             var index = new Random().Next(mobs.Length);
@@ -87,7 +85,7 @@ namespace TextGameRPG.Scripts.GameCore.Services.MobGenerator
             return this;
         }
 
-        public MobBuilder CopyAttacksFromQuestMob(byte minLevel, byte maxLevel)
+        public MobBuilder CopyAttacksFromQuestMob(int minLevel, int maxLevel)
         {
             var mobs = questMobs.Where(x => x.statsSettings.level >= minLevel && x.statsSettings.level <= maxLevel).ToArray();
             var index = new Random().Next(mobs.Length);
@@ -103,7 +101,27 @@ namespace TextGameRPG.Scripts.GameCore.Services.MobGenerator
 
         public MobBuilder ShuffleDamageValues()
         {
-            // TODO
+            var random = new Random();
+            foreach (var attack in _mobData.mobAttacks)
+            {
+                var availableValues = new List<(int min, int max)>();
+                availableValues.Add((attack.minFireDamage, attack.maxFireDamage));
+                availableValues.Add((attack.minColdDamage, attack.maxColdDamage));
+                availableValues.Add((attack.minLightningDamage, attack.maxLightningDamage));
+                
+                var randomIndex = random.Next(availableValues.Count);
+                attack.minFireDamage = availableValues[randomIndex].min;
+                attack.maxFireDamage = availableValues[randomIndex].max;
+                availableValues.RemoveAt(randomIndex);
+
+                randomIndex = random.Next(availableValues.Count);
+                attack.minColdDamage = availableValues[randomIndex].min;
+                attack.maxColdDamage = availableValues[randomIndex].max;
+                availableValues.RemoveAt(randomIndex);
+
+                attack.minLightningDamage = availableValues[0].min;
+                attack.maxLightningDamage = availableValues[0].max;
+            }                
             return this;
         }
 
@@ -119,13 +137,31 @@ namespace TextGameRPG.Scripts.GameCore.Services.MobGenerator
                 RandomizeByPercents(ref attack.maxColdDamage, percents);
                 RandomizeByPercents(ref attack.minLightningDamage, percents);
                 RandomizeByPercents(ref attack.maxLightningDamage, percents);
+
+                if (attack.minPhysicalDamage > attack.maxPhysicalDamage)
+                {
+                    Swap(ref attack.minPhysicalDamage, ref attack.maxPhysicalDamage);
+                }
+                if (attack.minFireDamage > attack.maxFireDamage)
+                {
+                    Swap(ref attack.minFireDamage, ref attack.maxFireDamage);
+                }
+                if (attack.minColdDamage > attack.maxColdDamage)
+                {
+                    Swap(ref attack.minColdDamage, ref attack.maxColdDamage);
+                }
+                if (attack.minLightningDamage > attack.maxLightningDamage)
+                {
+                    Swap(ref attack.minLightningDamage, ref attack.maxLightningDamage);
+                }
             }
             return this;
         }
 
-
-
-
+        public MobData GetResult()
+        {
+            return _mobData;
+        }
 
 
 
@@ -144,6 +180,13 @@ namespace TextGameRPG.Scripts.GameCore.Services.MobGenerator
                 var remainder = value % roundBy;
                 value = remainder < roundBy / 2 ? value - remainder : value + (roundBy - remainder);
             }
+        }
+
+        private void Swap(ref int a, ref int b)
+        {
+            var temp = a;
+            a = b;
+            b = temp;
         }
 
 
