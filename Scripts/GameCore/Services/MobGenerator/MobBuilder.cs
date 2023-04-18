@@ -121,8 +121,65 @@ namespace TextGameRPG.Scripts.GameCore.Services.MobGenerator
 
                 attack.minLightningDamage = availableValues[0].min;
                 attack.maxLightningDamage = availableValues[0].max;
-            }                
+            }
+            FixSimilarAttacksAfterShuffle();
             return this;
+        }
+
+        // Исправляет ситуацию, когда после шафла появляется две очень похожие атаки (например, обе атаки на урон холодом с похожим диапозоном урона)
+        private void FixSimilarAttacksAfterShuffle()
+        {
+            if (_mobData.mobAttacks.Count < 2)
+                return;
+
+            var attacksForDelete = new HashSet<MobAttack>();
+            for (int i = 0; i < _mobData.mobAttacks.Count - 1; i++)
+            {
+                for (int j = 1; j < _mobData.mobAttacks.Count; j++)
+                {
+                    if (IsSimilarAttacks(_mobData.mobAttacks[i], _mobData.mobAttacks[j]))
+                    {
+                        attacksForDelete.Add(_mobData.mobAttacks[j]);
+                    }
+                }
+            }
+
+            foreach (var attack in attacksForDelete)
+            {
+                _mobData.mobAttacks.Remove(attack);
+            }
+        }
+
+        private bool IsSimilarAttacks(MobAttack a, MobAttack b)
+        {
+            if (a.manaCost != b.manaCost)
+                return false;
+
+            // similar fire
+            if (a.minFireDamage > 0 && b.minFireDamage > 0
+                && a.minColdDamage == 0 && b.minColdDamage == 0
+                && a.minLightningDamage == 0 && b.minLightningDamage == 0)
+            {
+                return true;
+            }
+
+            // similar cold
+            if (a.minColdDamage > 0 && b.minColdDamage > 0
+                && a.minFireDamage == 0 && b.minFireDamage == 0
+                && a.minLightningDamage == 0 && b.minLightningDamage == 0)
+            {
+                return true;
+            }
+
+            // similar lightning
+            if (a.minLightningDamage > 0 && b.minLightningDamage > 0
+                && a.minFireDamage == 0 && b.minFireDamage == 0
+                && a.minColdDamage == 0 && b.minColdDamage == 0)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         public MobBuilder RandomizeDamageValuesByPercents(byte percents)
