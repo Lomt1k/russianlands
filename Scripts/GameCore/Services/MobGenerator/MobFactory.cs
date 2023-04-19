@@ -7,7 +7,7 @@ namespace TextGameRPG.Scripts.GameCore.Services
     {
         public MobData GenerateMobForDebugBattle(byte playerLevel)
         {
-            return new MobBuilder(playerLevel)
+            return new MobDataBuilder(playerLevel)
                 .RandomizeHealthByPercents(10)
                 .CopyResistanceFromQuestMob(playerLevel - 1, playerLevel + 1)
                 .RandomizeResistanceByPercents(10)

@@ -3,7 +3,7 @@ using TextGameRPG.Scripts.GameCore.Locations;
 
 namespace TextGameRPG.Scripts.GameCore.Services.MobGenerator
 {
-    public partial class MobBuilder
+    public partial class MobDataBuilder
     {
         private static readonly string[] location_1_names =
         {
@@ -100,7 +100,7 @@ namespace TextGameRPG.Scripts.GameCore.Services.MobGenerator
             "mob_name_caribou",
         };
 
-        public MobBuilder SetRandomName(LocationType locationType = LocationType.None)
+        public MobDataBuilder SetRandomName(LocationType locationType = LocationType.None)
         {
             var random = new Random();
             if (locationType == LocationType.None)
