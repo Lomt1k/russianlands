@@ -2,7 +2,7 @@
 {
     public enum MobDifficulty : byte
     {
-        HALL_3_START,
+        HALL_3_START = 0,
         HALL_3_END,
         HALL_4_START,
         HALL_4_END,

@@ -18,6 +18,17 @@ namespace TextGameRPG.Scripts.GameCore.Services.MobGenerator
 
         public MobDataBuilder(int mobLevel)
         {
+            CreateDefaultMobData(mobLevel);
+        }
+
+        public MobDataBuilder(int minLevel, int maxLevel)
+        {
+            var mobLevel = new Random().Next(minLevel, maxLevel + 1);
+            CreateDefaultMobData(mobLevel);
+        }
+
+        private void CreateDefaultMobData(int mobLevel)
+        {
             _mobData = new MobData()
             {
                 id = -1,
