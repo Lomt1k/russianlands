@@ -128,6 +128,20 @@ namespace TextGameRPG.Scripts.GameCore.Skills
             return skillsDictionary.GetAllSkillTypes();
         }
 
+        /// <returns>Средний уровень навыков</returns>
+        public byte GetAverageSkillLevel()
+        {
+            int sum = 0;
+            int count = 0;
+            foreach (var skill in GetAllSkillTypes())
+            {
+                sum += GetValue(skill);
+                count++;
+            }
+            var result = Math.Round((float)sum / count);
+            return (byte)result;
+        }
+
         private void RecalculateStatsAfterSkillChange()
         {
             var playerStats = (PlayerStats)_player.unitStats;
