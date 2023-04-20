@@ -6,6 +6,7 @@ namespace TextGameRPG.Scripts.GameCore.Items
     using ItemProperties;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Runtime.Serialization;
     using TextGameRPG.Scripts.GameCore.Items.Generators;
     using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
 
@@ -21,7 +22,7 @@ namespace TextGameRPG.Scripts.GameCore.Items
         public List<ItemStatIcon> statIcons { get; private set; } = new List<ItemStatIcon>();
 
         [JsonIgnore]
-        public byte requiredTownHall { get; }
+        public byte requiredTownHall { get; private set; }
         [JsonIgnore]
         public byte grade { get; }
         [JsonIgnore]
@@ -57,6 +58,12 @@ namespace TextGameRPG.Scripts.GameCore.Items
             properties = _properties;
             statIcons = _statIcons;
             RebuildDictionaries();
+        }
+
+        [OnDeserialized]
+        internal void OnDeserialized(StreamingContext context)
+        {
+            requiredTownHall = CalculateTownhallByLevel();
         }
 
         public ItemData Clone()
@@ -117,6 +124,17 @@ namespace TextGameRPG.Scripts.GameCore.Items
             {
                 debugName = string.Empty;
             }
+        }
+
+        private byte CalculateTownhallByLevel()
+        {
+            if (requiredLevel >= 29) return 8;
+            if (requiredLevel >= 21) return 7;
+            if (requiredLevel >= 16) return 6;
+            if (requiredLevel >= 11) return 5;
+            if (requiredLevel >= 8) return 4;
+            if (requiredLevel >= 5) return 3;
+            return 2;
         }
 
     }
