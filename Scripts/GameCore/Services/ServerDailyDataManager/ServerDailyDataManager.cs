@@ -40,8 +40,8 @@ namespace TextGameRPG.Scripts.GameCore.Services
                 var now = DateTime.UtcNow;
                 if ((now - lastDate).Days > 0)
                 {
-                    await StartNewDay().FastAwait();
                     lastDate = lastDate.AddDays(1);
+                    await StartNewDay().FastAwait();
                 }
                 var nextDate = lastDate.AddDays(1);
                 var secondsToWait = (nextDate - now).TotalSeconds;
@@ -53,7 +53,7 @@ namespace TextGameRPG.Scripts.GameCore.Services
         private async Task StartNewDay()
         {
             await db.DeleteAllAsync<ServerDailyData>().FastAwait();
-            await SetDateValue("lastDate", DateTime.UtcNow).FastAwait();
+            await SetDateValue("lastDate", lastDate).FastAwait();
             onStartNewDay?.Invoke();
         }
 
