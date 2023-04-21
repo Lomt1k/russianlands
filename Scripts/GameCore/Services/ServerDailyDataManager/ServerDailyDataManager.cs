@@ -8,8 +8,6 @@ namespace TextGameRPG.Scripts.GameCore.Services
 {
     public class ServerDailyDataManager : Service
     {
-        private const int SECONDS_IN_DAY = 86_400;
-
         private static SQLiteAsyncConnection db => BotController.dataBase.db;
 
         private CancellationTokenSource _cts = new CancellationTokenSource();
@@ -43,8 +41,7 @@ namespace TextGameRPG.Scripts.GameCore.Services
                 if ((now - lastDate).Days > 0)
                 {
                     await StartNewDay().FastAwait();
-                    await Task.Delay(SECONDS_IN_DAY).FastAwait();
-                    continue;
+                    lastDate = lastDate.AddDays(1);
                 }
                 var nextDate = lastDate.AddDays(1);
                 var secondsToWait = (nextDate - now).TotalSeconds;
