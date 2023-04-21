@@ -18,12 +18,15 @@ namespace TextGameRPG.Scripts.GameCore.Services.MobGenerator
             var minDifficulty = minDifficultyByQuests > minDifficultyByItems ? minDifficultyByQuests : minDifficultyByItems;
 
             var difficulty = (int)GetDifficultyByPlayerLevel(player.level);
-            var bySkill = (int)GetDifficultyByAverageSkillLevel(player);
-            if (Math.Abs(bySkill - difficulty) > MaxDifficultyChangeBySkillLevel)
+            if (player.buildings.HasBuilding(Buildings.BuildingType.ElixirWorkshop))
             {
-                bySkill = bySkill > difficulty ? difficulty + 2 : difficulty - 2;
+                var bySkill = (int)GetDifficultyByAverageSkillLevel(player);
+                if (Math.Abs(bySkill - difficulty) > MaxDifficultyChangeBySkillLevel)
+                {
+                    bySkill = bySkill > difficulty ? difficulty + 2 : difficulty - 2;
+                }
+                difficulty = bySkill;
             }
-            difficulty = bySkill;
 
             var result = (MobDifficulty)difficulty;
             return result > minDifficulty ? result : minDifficulty;
@@ -75,8 +78,7 @@ namespace TextGameRPG.Scripts.GameCore.Services.MobGenerator
             if (skills >= 25) return MobDifficulty.HALL_6_MID;
             if (skills >= 20) return MobDifficulty.HALL_6_START;
             if (skills >= 15) return MobDifficulty.HALL_5_END;
-            if (skills >= 1) return MobDifficulty.HALL_5_START;
-            return MobDifficulty.HALL_3_START;
+            return MobDifficulty.HALL_5_START;
         }
 
         private static MobDifficulty GetMinimumDifficultyByPlayerItems(Player player)
