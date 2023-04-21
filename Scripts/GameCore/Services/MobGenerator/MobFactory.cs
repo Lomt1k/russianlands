@@ -1,6 +1,7 @@
 ﻿using TextGameRPG.Scripts.GameCore.Locations;
 using TextGameRPG.Scripts.GameCore.Services.MobGenerator;
 using TextGameRPG.Scripts.GameCore.Units.Mobs;
+using TextGameRPG.Scripts.Utils;
 
 namespace TextGameRPG.Scripts.GameCore.Services
 {
@@ -28,20 +29,16 @@ namespace TextGameRPG.Scripts.GameCore.Services
                 LocationType.Loc_02 => GenerateMobFor_Localtion_02(mobDifficulty),
                 LocationType.Loc_03 => GenerateMobFor_Localtion_03(mobDifficulty),
                 LocationType.Loc_04 => GenerateMobFor_Localtion_04(mobDifficulty),
+                LocationType.Loc_05 => GenerateMobFor_Localtion_05(mobDifficulty),
+                LocationType.Loc_06 => GenerateMobFor_Localtion_06(mobDifficulty),
+                LocationType.Loc_07 => GenerateMobFor_Localtion_07(mobDifficulty),
                 _ => GenerateMobFor_Localtion_01(mobDifficulty)
             };
         }
 
         private MobData GenerateMobFor_Localtion_01(MobDifficulty mobDifficulty)
         {
-            if (mobDifficulty > MobDifficulty.HALL_6_MID)
-            {
-                DowngradeDifficulty(ref mobDifficulty, 2);
-            }
-            else if (mobDifficulty > MobDifficulty.HALL_5_START)
-            {
-                DowngradeDifficulty(ref mobDifficulty, 1);
-            }
+            DecreaseDifficulty(ref mobDifficulty, 1);
 
             var mobLevels = mobDifficulty.GetMobLevelRange();
             return new MobDataBuilder(mobLevels.minLevel, mobLevels.maxLevel)
@@ -101,16 +98,82 @@ namespace TextGameRPG.Scripts.GameCore.Services
                 .GetResult();
         }
 
+        private MobData GenerateMobFor_Localtion_05(MobDifficulty mobDifficulty)
+        {
+            var chanceToIncreaseDifficulty = 50;
+            if (Randomizer.TryPercentage(chanceToIncreaseDifficulty))
+            {
+                var grades = Randomizer.TryPercentage(15) ? 2 : 1;
+                IncreaseDifficulty(ref mobDifficulty, grades);
+            }
+
+            var mobLevels = mobDifficulty.GetMobLevelRange();
+            return new MobDataBuilder(mobLevels.minLevel, mobLevels.maxLevel)
+                .RandomizeHealthByPercents(10)
+                .CopyResistanceFromQuestMob(mobLevels.minLevel, mobLevels.maxLevel)
+                .RandomizeResistanceByPercents(10)
+                .ShuffleResistanceValues()
+                .CopyAttacksFromQuestMob(mobLevels.minLevel, mobLevels.maxLevel)
+                .RandomizeDamageValuesByPercents(10)
+                .ShuffleDamageValues()
+                .SetRandomName(LocationType.Loc_05)
+                .GetResult();
+        }
+
+        private MobData GenerateMobFor_Localtion_06(MobDifficulty mobDifficulty)
+        {
+            var chanceToIncreaseDifficulty = 50;
+            if (Randomizer.TryPercentage(chanceToIncreaseDifficulty))
+            {
+                var grades = Randomizer.TryPercentage(25) ? 2 : 1;
+                IncreaseDifficulty(ref mobDifficulty, grades);
+            }
+
+            var mobLevels = mobDifficulty.GetMobLevelRange();
+            return new MobDataBuilder(mobLevels.minLevel, mobLevels.maxLevel)
+                .RandomizeHealthByPercents(10)
+                .CopyResistanceFromQuestMob(mobLevels.minLevel, mobLevels.maxLevel)
+                .RandomizeResistanceByPercents(10)
+                .ShuffleResistanceValues()
+                .CopyAttacksFromQuestMob(mobLevels.minLevel, mobLevels.maxLevel)
+                .RandomizeDamageValuesByPercents(10)
+                .ShuffleDamageValues()
+                .SetRandomName(LocationType.Loc_06)
+                .GetResult();
+        }
+
+        private MobData GenerateMobFor_Localtion_07(MobDifficulty mobDifficulty)
+        {
+            var chanceToIncreaseDifficulty = 50;
+            if (Randomizer.TryPercentage(chanceToIncreaseDifficulty))
+            {
+                var grades = Randomizer.TryPercentage(35) ? 2 : 1;
+                IncreaseDifficulty(ref mobDifficulty, grades);
+            }
+
+            var mobLevels = mobDifficulty.GetMobLevelRange();
+            return new MobDataBuilder(mobLevels.minLevel, mobLevels.maxLevel)
+                .RandomizeHealthByPercents(10)
+                .CopyResistanceFromQuestMob(mobLevels.minLevel, mobLevels.maxLevel)
+                .RandomizeResistanceByPercents(10)
+                .ShuffleResistanceValues()
+                .CopyAttacksFromQuestMob(mobLevels.minLevel, mobLevels.maxLevel)
+                .RandomizeDamageValuesByPercents(10)
+                .ShuffleDamageValues()
+                .SetRandomName(LocationType.Loc_07)
+                .GetResult();
+        }
 
 
-        private void DowngradeDifficulty(ref MobDifficulty mobDifficulty, int grades)
+
+        private void DecreaseDifficulty(ref MobDifficulty mobDifficulty, int grades)
         {
             var difficulty = (int)mobDifficulty;
             difficulty -= grades;
             mobDifficulty = difficulty < 0 ? MobDifficulty.HALL_3_START : (MobDifficulty)difficulty;
         }
 
-        private void UpgradeDifficulty(ref MobDifficulty mobDifficulty, int grades)
+        private void IncreaseDifficulty(ref MobDifficulty mobDifficulty, int grades)
         {
             var difficulty = (int)mobDifficulty;
             difficulty += grades;
