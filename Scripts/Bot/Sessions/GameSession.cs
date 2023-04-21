@@ -191,7 +191,7 @@ namespace TextGameRPG.Scripts.Bot.Sessions
             profile = new Profile(this, profileData, rawDynamicData.Deserialize(), profileBuildingsData);
             player = new Player(this);
 
-            profile.data.lastDate = DateTime.UtcNow.AsString();
+            profile.data.lastDate = DateTime.UtcNow.AsDateTimeString();
             profile.data.lastVersion = ProjectVersion.Current.ToString();
 
             await QuestManager.HandleNewSession(this, update).FastAwait();

@@ -73,14 +73,24 @@ public static class DateTimeExtensions
         return Emojis.ElementClock + result;
     }
 
-    public static string AsString(this DateTime dt)
+    public static string AsDateTimeString(this DateTime dt)
     {
         return dt.ToString("dd.MM.yyyy H:mm:ss");
     }
 
-    public static DateTime AsDate(this string str)
+    public static DateTime AsDateTime(this string str)
     {
         return DateTime.ParseExact(str, "dd.MM.yyyy H:mm:ss", CultureInfo.InvariantCulture);
+    }
+
+    public static string AsDateString(this DateTime dt)
+    {
+        return dt.ToString("dd.MM.yyyy");
+    }
+
+    public static DateTime AsDate(this string str)
+    {
+        return DateTime.ParseExact(str, "dd.MM.yyyy", CultureInfo.InvariantCulture);
     }
 
 }

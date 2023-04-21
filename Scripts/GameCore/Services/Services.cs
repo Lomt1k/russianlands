@@ -23,6 +23,7 @@
             Register(new MessageSender());
             Register(new DailyRemindersManager());
             Register(new MobFactory());
+            Register(new ServerDailyDataManager());
         }
 
         private static void Register<T>(T instance) where T : Service, new()

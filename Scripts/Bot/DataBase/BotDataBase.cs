@@ -3,6 +3,7 @@ using System.IO;
 using System.Threading.Tasks;
 using SQLite;
 using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
+using TextGameRPG.Scripts.GameCore.Services;
 
 namespace TextGameRPG.Scripts.Bot.DataBase
 {
@@ -38,6 +39,7 @@ namespace TextGameRPG.Scripts.Bot.DataBase
             await db.CreateTableAsync<RawProfileDynamicData>().FastAwait();
             await db.CreateTableAsync<ProfileBuildingsData>().FastAwait();
             await db.CreateTableAsync<DailyReminderData>().FastAwait();
+            await db.CreateTableAsync<ServerDailyData>().FastAwait();
         }
 
         public async Task CloseAsync()
