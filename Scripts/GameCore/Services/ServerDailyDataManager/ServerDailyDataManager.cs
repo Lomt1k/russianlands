@@ -19,6 +19,15 @@ namespace TextGameRPG.Scripts.GameCore.Services
         {
             lastDate = await GetDateValue("lastDate", DateTime.MinValue).FastAwait();
             _cts = new CancellationTokenSource();
+
+            var now = DateTime.UtcNow;
+            var daysPassed = (now - lastDate).Days;
+            if (daysPassed > 0)
+            {
+                lastDate = lastDate.AddDays(daysPassed);
+                await StartNewDay().FastAwait();
+            }
+
             WaitNextDay(_cts.Token);
         }
 
