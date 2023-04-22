@@ -1,7 +1,7 @@
 ﻿using System;
 using TextGameRPG.Scripts.GameCore.Locations;
 
-namespace TextGameRPG.Scripts.GameCore.Services.MobGenerator
+namespace TextGameRPG.Scripts.GameCore.Services.Mobs
 {
     public partial class MobDataBuilder
     {

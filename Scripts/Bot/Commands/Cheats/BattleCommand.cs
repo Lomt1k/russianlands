@@ -8,6 +8,7 @@ using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Services;
 using TextGameRPG.Scripts.GameCore.Services.Battles;
+using TextGameRPG.Scripts.GameCore.Services.Mobs;
 using TextGameRPG.Scripts.GameCore.Units;
 using TextGameRPG.Scripts.GameCore.Units.Mobs;
 

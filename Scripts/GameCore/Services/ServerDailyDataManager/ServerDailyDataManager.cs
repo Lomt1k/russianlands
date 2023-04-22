@@ -68,6 +68,7 @@ namespace TextGameRPG.Scripts.GameCore.Services
         {
             await db.DeleteAllAsync<ServerDailyData>().FastAwait();
             await SetDateValue("lastDate", lastDate).FastAwait();
+            Program.logger.Info($"ServerDailyManager: New day started! ({lastDate.AsDateString()})");
             onStartNewDay?.Invoke();
         }
 

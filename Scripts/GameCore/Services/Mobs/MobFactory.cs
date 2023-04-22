@@ -1,9 +1,8 @@
 ﻿using TextGameRPG.Scripts.GameCore.Locations;
-using TextGameRPG.Scripts.GameCore.Services.MobGenerator;
 using TextGameRPG.Scripts.GameCore.Units.Mobs;
 using TextGameRPG.Scripts.Utils;
 
-namespace TextGameRPG.Scripts.GameCore.Services
+namespace TextGameRPG.Scripts.GameCore.Services.Mobs
 {
     public class MobFactory : Service
     {

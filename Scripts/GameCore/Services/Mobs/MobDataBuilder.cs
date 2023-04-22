@@ -5,7 +5,7 @@ using TextGameRPG.Scripts.GameCore.Services.GameData;
 using TextGameRPG.Scripts.GameCore.Units.Mobs;
 using TextGameRPG.Scripts.GameCore.Units.Stats;
 
-namespace TextGameRPG.Scripts.GameCore.Services.MobGenerator
+namespace TextGameRPG.Scripts.GameCore.Services.Mobs
 {
     public partial class MobDataBuilder
     {

@@ -5,7 +5,7 @@ using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.GameCore.Quests;
 using TextGameRPG.Scripts.GameCore.Units;
 
-namespace TextGameRPG.Scripts.GameCore.Services.MobGenerator
+namespace TextGameRPG.Scripts.GameCore.Services.Mobs
 {
     public static class MobDifficultyCalculator
     {
