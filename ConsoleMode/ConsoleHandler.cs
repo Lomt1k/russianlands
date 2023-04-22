@@ -11,7 +11,7 @@ namespace TextGameRPG.ConsoleMode
     // Для запуска приложения в консольном режиме
     public class ConsoleHandler
     {
-        public const string botDataFolder = "botData";
+        public static readonly string botDataFolder = Path.Combine("Assets", "botData");
 
         private static readonly SessionManager sessionManager = Services.Get<SessionManager>();
         private static readonly PerformanceManager pm = Services.Get<PerformanceManager>();

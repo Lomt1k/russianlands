@@ -12,7 +12,7 @@ namespace TextGameRPG.Scripts.GameCore.Services.GameData
     {
 #pragma warning disable CS8618
 
-        private const string gameDataPath = "gameData";
+        private static readonly string gameDataPath = Path.Combine("Assets", "gameData");
 
         private IGameDataLoader _loaderVM;
 
@@ -30,7 +30,7 @@ namespace TextGameRPG.Scripts.GameCore.Services.GameData
             if (!Directory.Exists(gameDataPath))
             {
                 Directory.CreateDirectory(gameDataPath);
-                _loaderVM.AddNextState("'gameData' folder not found! Creating new gameData...");
+                _loaderVM.AddNextState("'gameData' folder not found in Assets! Creating new gameData...");
             }
 
             buildings = LoadDataBaseWithIntegerID<BuildingData>("buildings");
