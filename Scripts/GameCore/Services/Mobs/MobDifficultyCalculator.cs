@@ -46,39 +46,45 @@ namespace TextGameRPG.Scripts.GameCore.Services.Mobs
 
         private static MobDifficulty GetDifficultyByPlayerLevel(byte level)
         {
-            if (level >= 34) return MobDifficulty.HALL_8_END;
-            if (level >= 32) return MobDifficulty.HALL_8_MID;
-            if (level >= 29) return MobDifficulty.HALL_8_START;
-            if (level >= 27) return MobDifficulty.HALL_7_END;
-            if (level >= 24) return MobDifficulty.HALL_7_MID;
-            if (level >= 21) return MobDifficulty.HALL_7_START;
-            if (level >= 20) return MobDifficulty.HALL_6_END;
-            if (level >= 18) return MobDifficulty.HALL_6_MID;
-            if (level >= 16) return MobDifficulty.HALL_6_START;
-            if (level >= 14) return MobDifficulty.HALL_5_END;
-            if (level >= 11) return MobDifficulty.HALL_5_START;
-            if (level >= 10) return MobDifficulty.HALL_4_END;
-            if (level >= 8) return MobDifficulty.HALL_4_START;
-            if (level >= 6) return MobDifficulty.HALL_3_END;
-            return MobDifficulty.HALL_3_START;
+            return level switch
+            {
+                >= 34 => MobDifficulty.HALL_8_END,
+                >= 32 => MobDifficulty.HALL_8_MID,
+                >= 29 => MobDifficulty.HALL_8_START,
+                >= 27 => MobDifficulty.HALL_7_END,
+                >= 24 => MobDifficulty.HALL_7_MID,
+                >= 21 => MobDifficulty.HALL_7_START,
+                >= 20 => MobDifficulty.HALL_6_END,
+                >= 18 => MobDifficulty.HALL_6_MID,
+                >= 16 => MobDifficulty.HALL_6_START,
+                >= 14 => MobDifficulty.HALL_5_END,
+                >= 11 => MobDifficulty.HALL_5_START,
+                >= 10 => MobDifficulty.HALL_4_END,
+                >= 8 => MobDifficulty.HALL_4_START,
+                >= 6 => MobDifficulty.HALL_3_END,
+                _ => MobDifficulty.HALL_3_START
+            };
         }
 
         private static MobDifficulty GetDifficultyByAverageSkillLevel(Player player)
         {
             var skills = player.skills.GetAverageSkillLevel();
-            if (skills >= 95) return MobDifficulty.END_GAME_PLUS;
-            if (skills >= 85) return MobDifficulty.END_GAME;
-            if (skills >= 70) return MobDifficulty.HALL_8_END;
-            if (skills >= 65) return MobDifficulty.HALL_8_MID;
-            if (skills >= 60) return MobDifficulty.HALL_8_START;
-            if (skills >= 55) return MobDifficulty.HALL_7_END;
-            if (skills >= 45) return MobDifficulty.HALL_7_MID;
-            if (skills >= 40) return MobDifficulty.HALL_7_START;
-            if (skills >= 35) return MobDifficulty.HALL_6_END;
-            if (skills >= 25) return MobDifficulty.HALL_6_MID;
-            if (skills >= 20) return MobDifficulty.HALL_6_START;
-            if (skills >= 15) return MobDifficulty.HALL_5_END;
-            return MobDifficulty.HALL_5_START;
+            return skills switch
+            {
+                >= 95 => MobDifficulty.END_GAME_PLUS,
+                >= 85 => MobDifficulty.END_GAME,
+                >= 70 => MobDifficulty.HALL_8_END,
+                >= 65 => MobDifficulty.HALL_8_MID,
+                >= 60 => MobDifficulty.HALL_8_START,
+                >= 55 => MobDifficulty.HALL_7_END,
+                >= 45 => MobDifficulty.HALL_7_MID,
+                >= 40 => MobDifficulty.HALL_7_START,
+                >= 35 => MobDifficulty.HALL_6_END,
+                >= 25 => MobDifficulty.HALL_6_MID,
+                >= 20 => MobDifficulty.HALL_6_START,
+                >= 15 => MobDifficulty.HALL_5_END,
+                _ => MobDifficulty.HALL_5_START
+            };
         }
 
         private static MobDifficulty GetMinimumDifficultyByPlayerItems(Player player)

@@ -13,7 +13,7 @@ namespace TextGameRPG.Scripts.GameCore.Services.Mobs
         private static readonly ServerDailyDataManager serverDailyDataManager = Services.Get<ServerDailyDataManager>();
         private static readonly MobFactory mobFactory = Services.Get<MobFactory>();
 
-        private Dictionary<MobDifficulty, LocationsMobPack> _mobPacks = new Dictionary<MobDifficulty, LocationsMobPack>();
+        private Dictionary<MobDifficulty, LocationsMobPack> _mobPacks = new();
 
         public LocationsMobPack this[MobDifficulty mobDifficulty] => _mobPacks[mobDifficulty];
 

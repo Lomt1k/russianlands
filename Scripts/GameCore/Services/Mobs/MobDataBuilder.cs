@@ -115,11 +115,13 @@ namespace TextGameRPG.Scripts.GameCore.Services.Mobs
             var random = new Random();
             foreach (var attack in _mobData.mobAttacks)
             {
-                var availableValues = new List<(int min, int max)>();
-                availableValues.Add((attack.minFireDamage, attack.maxFireDamage));
-                availableValues.Add((attack.minColdDamage, attack.maxColdDamage));
-                availableValues.Add((attack.minLightningDamage, attack.maxLightningDamage));
-                
+                var availableValues = new List<(int min, int max)>
+                {
+                    (attack.minFireDamage, attack.maxFireDamage),
+                    (attack.minColdDamage, attack.maxColdDamage),
+                    (attack.minLightningDamage, attack.maxLightningDamage)
+                };
+
                 var randomIndex = random.Next(availableValues.Count);
                 attack.minFireDamage = availableValues[randomIndex].min;
                 attack.maxFireDamage = availableValues[randomIndex].max;
