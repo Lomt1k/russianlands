@@ -157,14 +157,7 @@ namespace TextGameRPG.Scripts.Bot.Sessions
             var profileData = await query.FirstOrDefaultAsync().FastAwait();
             if (profileData == null)
             {
-                var nickname = actualUser.FirstName.IsCorrectNickname()
-                    ? actualUser.FirstName
-                    : "Player_" + (new Random().Next(8999) + 1000);
-                profileData = new ProfileData() 
-                {
-                    nickname = nickname,
-                    telegram_id = actualUser.Id,
-                };
+                profileData = new ProfileData().SetupNewProfile(actualUser);
                 await db.InsertAsync(profileData).FastAwait();
             }
             else
@@ -193,6 +186,7 @@ namespace TextGameRPG.Scripts.Bot.Sessions
 
             profile.data.lastDate = DateTime.UtcNow.AsDateTimeString();
             profile.data.lastVersion = ProjectVersion.Current.ToString();
+            profile.data.username = actualUser.Username;
 
             await QuestManager.HandleNewSession(this, update).FastAwait();
         }
