@@ -22,144 +22,38 @@ namespace TextGameRPG.Scripts.GameCore.Services.Mobs
 
         public MobData GenerateMobForLocation(MobDifficulty mobDifficulty, LocationType locationType)
         {
-            return locationType switch
+            if (locationType == LocationType.Loc_01)
             {
-                LocationType.Loc_01 => GenerateMobFor_Localtion_01(mobDifficulty),
-                LocationType.Loc_02 => GenerateMobFor_Localtion_02(mobDifficulty),
-                LocationType.Loc_03 => GenerateMobFor_Localtion_03(mobDifficulty),
-                LocationType.Loc_04 => GenerateMobFor_Localtion_04(mobDifficulty),
-                LocationType.Loc_05 => GenerateMobFor_Localtion_05(mobDifficulty),
-                LocationType.Loc_06 => GenerateMobFor_Localtion_06(mobDifficulty),
-                LocationType.Loc_07 => GenerateMobFor_Localtion_07(mobDifficulty),
-                _ => GenerateMobFor_Localtion_01(mobDifficulty)
+                DecreaseDifficulty(ref mobDifficulty, 1);
+            }
+            else if (locationType >= LocationType.Loc_05 && locationType <= LocationType.Loc_07)
+            {
+                var chanceToIncreaseDifficulty = 50;
+                if (Randomizer.TryPercentage(chanceToIncreaseDifficulty))
+                {
+                    IncreaseDifficulty(ref mobDifficulty, 1);
+                }
+            }
+
+            byte increasePercents = mobDifficulty switch
+            {
+                MobDifficulty.END_GAME => 15,
+                MobDifficulty.END_GAME_PLUS => 30,
+                _ => 0
             };
-        }
-
-        private MobData GenerateMobFor_Localtion_01(MobDifficulty mobDifficulty)
-        {
-            DecreaseDifficulty(ref mobDifficulty, 1);
 
             var mobLevels = mobDifficulty.GetMobLevelRange();
             return new MobDataBuilder(mobLevels.minLevel, mobLevels.maxLevel)
                 .RandomizeHealthByPercents(10)
                 .CopyResistanceFromQuestMob(mobLevels.minLevel, mobLevels.maxLevel)
+                .IncreaseResistanceByPercents(increasePercents)
                 .RandomizeResistanceByPercents(10)
                 .ShuffleResistanceValues()
                 .CopyAttacksFromQuestMob(mobLevels.minLevel, mobLevels.maxLevel)
+                .IncreaseDamageValuesByPercents(increasePercents)
                 .RandomizeDamageValuesByPercents(10)
                 .ShuffleDamageValues()
-                .SetRandomName(LocationType.Loc_01)
-                .GetResult();
-        }
-
-        private MobData GenerateMobFor_Localtion_02(MobDifficulty mobDifficulty)
-        {
-            var mobLevels = mobDifficulty.GetMobLevelRange();
-            return new MobDataBuilder(mobLevels.minLevel, mobLevels.maxLevel)
-                .RandomizeHealthByPercents(10)
-                .CopyResistanceFromQuestMob(mobLevels.minLevel, mobLevels.maxLevel)
-                .RandomizeResistanceByPercents(10)
-                .ShuffleResistanceValues()
-                .CopyAttacksFromQuestMob(mobLevels.minLevel, mobLevels.maxLevel)
-                .RandomizeDamageValuesByPercents(10)
-                .ShuffleDamageValues()
-                .SetRandomName(LocationType.Loc_02)
-                .GetResult();
-        }
-
-        private MobData GenerateMobFor_Localtion_03(MobDifficulty mobDifficulty)
-        {
-            var mobLevels = mobDifficulty.GetMobLevelRange();
-            return new MobDataBuilder(mobLevels.minLevel, mobLevels.maxLevel)
-                .RandomizeHealthByPercents(10)
-                .CopyResistanceFromQuestMob(mobLevels.minLevel, mobLevels.maxLevel)
-                .RandomizeResistanceByPercents(10)
-                .ShuffleResistanceValues()
-                .CopyAttacksFromQuestMob(mobLevels.minLevel, mobLevels.maxLevel)
-                .RandomizeDamageValuesByPercents(10)
-                .ShuffleDamageValues()
-                .SetRandomName(LocationType.Loc_03)
-                .GetResult();
-        }
-
-        private MobData GenerateMobFor_Localtion_04(MobDifficulty mobDifficulty)
-        {
-            var mobLevels = mobDifficulty.GetMobLevelRange();
-            return new MobDataBuilder(mobLevels.minLevel, mobLevels.maxLevel)
-                .RandomizeHealthByPercents(10)
-                .CopyResistanceFromQuestMob(mobLevels.minLevel, mobLevels.maxLevel)
-                .RandomizeResistanceByPercents(10)
-                .ShuffleResistanceValues()
-                .CopyAttacksFromQuestMob(mobLevels.minLevel, mobLevels.maxLevel)
-                .RandomizeDamageValuesByPercents(10)
-                .ShuffleDamageValues()
-                .SetRandomName(LocationType.Loc_04)
-                .GetResult();
-        }
-
-        private MobData GenerateMobFor_Localtion_05(MobDifficulty mobDifficulty)
-        {
-            var chanceToIncreaseDifficulty = 50;
-            if (Randomizer.TryPercentage(chanceToIncreaseDifficulty))
-            {
-                var grades = Randomizer.TryPercentage(15) ? 2 : 1;
-                IncreaseDifficulty(ref mobDifficulty, grades);
-            }
-
-            var mobLevels = mobDifficulty.GetMobLevelRange();
-            return new MobDataBuilder(mobLevels.minLevel, mobLevels.maxLevel)
-                .RandomizeHealthByPercents(10)
-                .CopyResistanceFromQuestMob(mobLevels.minLevel, mobLevels.maxLevel)
-                .RandomizeResistanceByPercents(10)
-                .ShuffleResistanceValues()
-                .CopyAttacksFromQuestMob(mobLevels.minLevel, mobLevels.maxLevel)
-                .RandomizeDamageValuesByPercents(10)
-                .ShuffleDamageValues()
-                .SetRandomName(LocationType.Loc_05)
-                .GetResult();
-        }
-
-        private MobData GenerateMobFor_Localtion_06(MobDifficulty mobDifficulty)
-        {
-            var chanceToIncreaseDifficulty = 50;
-            if (Randomizer.TryPercentage(chanceToIncreaseDifficulty))
-            {
-                var grades = Randomizer.TryPercentage(25) ? 2 : 1;
-                IncreaseDifficulty(ref mobDifficulty, grades);
-            }
-
-            var mobLevels = mobDifficulty.GetMobLevelRange();
-            return new MobDataBuilder(mobLevels.minLevel, mobLevels.maxLevel)
-                .RandomizeHealthByPercents(10)
-                .CopyResistanceFromQuestMob(mobLevels.minLevel, mobLevels.maxLevel)
-                .RandomizeResistanceByPercents(10)
-                .ShuffleResistanceValues()
-                .CopyAttacksFromQuestMob(mobLevels.minLevel, mobLevels.maxLevel)
-                .RandomizeDamageValuesByPercents(10)
-                .ShuffleDamageValues()
-                .SetRandomName(LocationType.Loc_06)
-                .GetResult();
-        }
-
-        private MobData GenerateMobFor_Localtion_07(MobDifficulty mobDifficulty)
-        {
-            var chanceToIncreaseDifficulty = 50;
-            if (Randomizer.TryPercentage(chanceToIncreaseDifficulty))
-            {
-                var grades = Randomizer.TryPercentage(35) ? 2 : 1;
-                IncreaseDifficulty(ref mobDifficulty, grades);
-            }
-
-            var mobLevels = mobDifficulty.GetMobLevelRange();
-            return new MobDataBuilder(mobLevels.minLevel, mobLevels.maxLevel)
-                .RandomizeHealthByPercents(10)
-                .CopyResistanceFromQuestMob(mobLevels.minLevel, mobLevels.maxLevel)
-                .RandomizeResistanceByPercents(10)
-                .ShuffleResistanceValues()
-                .CopyAttacksFromQuestMob(mobLevels.minLevel, mobLevels.maxLevel)
-                .RandomizeDamageValuesByPercents(10)
-                .ShuffleDamageValues()
-                .SetRandomName(LocationType.Loc_07)
+                .SetRandomName(locationType)
                 .GetResult();
         }
 

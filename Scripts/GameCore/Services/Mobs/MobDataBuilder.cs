@@ -87,6 +87,15 @@ namespace TextGameRPG.Scripts.GameCore.Services.Mobs
             return this;
         }
 
+        public MobDataBuilder IncreaseResistanceByPercents(byte percents)
+        {
+            IncreaseByPercents(ref _mobData.statsSettings.physicalResist, percents);
+            IncreaseByPercents(ref _mobData.statsSettings.fireResist, percents);
+            IncreaseByPercents(ref _mobData.statsSettings.coldResist, percents);
+            IncreaseByPercents(ref _mobData.statsSettings.lightningResist, percents);
+            return this;
+        }
+
         public MobDataBuilder RandomizeResistanceByPercents(byte percents)
         {
             RandomizeByPercents(ref _mobData.statsSettings.physicalResist, percents, roundBy: 5);
@@ -195,6 +204,22 @@ namespace TextGameRPG.Scripts.GameCore.Services.Mobs
             return false;
         }
 
+        public MobDataBuilder IncreaseDamageValuesByPercents(byte percents)
+        {
+            foreach (var attack in _mobData.mobAttacks)
+            {
+                IncreaseByPercents(ref attack.minPhysicalDamage, percents);
+                IncreaseByPercents(ref attack.maxPhysicalDamage, percents);
+                IncreaseByPercents(ref attack.minFireDamage, percents);
+                IncreaseByPercents(ref attack.maxFireDamage, percents);
+                IncreaseByPercents(ref attack.minColdDamage, percents);
+                IncreaseByPercents(ref attack.maxColdDamage, percents);
+                IncreaseByPercents(ref attack.minLightningDamage, percents);
+                IncreaseByPercents(ref attack.maxLightningDamage, percents);
+            }
+            return this;
+        }
+
         public MobDataBuilder RandomizeDamageValuesByPercents(byte percents)
         {
             foreach (var attack in _mobData.mobAttacks)
@@ -235,6 +260,12 @@ namespace TextGameRPG.Scripts.GameCore.Services.Mobs
 
 
 
+
+        private void IncreaseByPercents(ref int value, byte percents)
+        {
+            var delta = value * percents / 100;
+            value += delta;
+        }
 
         private void RandomizeByPercents(ref int value, byte percents, int roundBy = 0)
         {
