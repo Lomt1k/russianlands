@@ -17,27 +17,20 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Quests.MainQuest
 
         public override async Task Start()
         {
-            await SetupLanguage(LanguageCode.RU);
-            return; //заглушка: пока что тупо ставим русский язык
+            var availableLanguages = BotController.config.languageCodes;
+            if (availableLanguages.Length == 1)
+            {
+                await SetupLanguage(availableLanguages[0]).FastAwait();
+                return;
+            }
 
-            string text = "Please select your language:\n" +
-                "-----------------------\n" +
-                "Пожалуйста, выберите ваш язык:";
-
-            RegisterButton(Emojis.FlagBritain + "English", () => OnSelectEnglish());
-            RegisterButton(Emojis.FlagRussia + "Русский", () => OnSelectRussian());
+            string text = "Please select your language:\n";
+            foreach (var languageCode in availableLanguages)
+            {
+                RegisterButton(languageCode.GetLanguageView(), () => SetupLanguage(languageCode));
+            }
 
             await SendDialogMessage(text, GetMultilineKeyboard()).FastAwait();
-        }
-
-        private async Task OnSelectRussian()
-        {
-            await SetupLanguage(LanguageCode.RU).FastAwait();
-        }
-
-        private async Task OnSelectEnglish()
-        {
-            await SetupLanguage(LanguageCode.EN).FastAwait();
         }
 
         private async Task SetupLanguage(LanguageCode language)
