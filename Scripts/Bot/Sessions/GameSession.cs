@@ -12,7 +12,6 @@ using TextGameRPG.Scripts.GameCore.Quests;
 using TextGameRPG.Scripts.GameCore.Services;
 using System.Threading;
 using TextGameRPG.Scripts.GameCore.Services.Battles;
-using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
 
 namespace TextGameRPG.Scripts.Bot.Sessions
 {
@@ -22,7 +21,6 @@ namespace TextGameRPG.Scripts.Bot.Sessions
         private static readonly PerformanceManager performanceManager = Services.Get<PerformanceManager>();
         private static readonly BattleManager battleManager = Services.Get<BattleManager>();
         private static readonly MessageSender messageSender = Services.Get<MessageSender>();
-        private static readonly DailyRemindersManager remindersManager = Services.Get<DailyRemindersManager>();
 
         private bool _isHandlingUpdate;
         private CancellationTokenSource _sessionTasksCTS = new CancellationTokenSource();
@@ -77,15 +75,24 @@ namespace TextGameRPG.Scripts.Bot.Sessions
                 if (cancellationToken.IsCancellationRequested)
                     return;
 
+                var previousActivity = lastActivityTime;
                 lastActivityTime = DateTime.UtcNow;
                 actualUser = refreshedUser;
                 if (profile == null)
                 {
-                    await OnStartNewSession(actualUser, update).FastAwait();
+                    await OnStartNewSession(update).FastAwait();
                     _isHandlingUpdate = false;
                     return;
                 }
 
+                // Регистрируем игровую активность для статистики
+                var secondsBeforeActivities = (lastActivityTime - previousActivity).Seconds;
+                if (secondsBeforeActivities < 60)
+                {
+                    profile.dailyData.activityInSeconds += secondsBeforeActivities;
+                }
+
+                // Обрабатываем апдейт
                 switch (update.Type)
                 {
                     case UpdateType.Message:
@@ -150,44 +157,10 @@ namespace TextGameRPG.Scripts.Bot.Sessions
             }
         }
 
-        private async Task OnStartNewSession(User actualUser, Update update)
+        private async Task OnStartNewSession(Update update)
         {
-            var db = BotController.dataBase.db;
-            var query = db.Table<ProfileData>().Where(x => x.telegram_id == actualUser.Id);
-            var profileData = await query.FirstOrDefaultAsync().FastAwait();
-            if (profileData == null)
-            {
-                profileData = new ProfileData().SetupNewProfile(actualUser);
-                await db.InsertAsync(profileData).FastAwait();
-            }
-            else
-            {
-                // В первой сессии срабатывает только после выбора языка
-                await remindersManager.ScheduleReminder(profileData).FastAwait();
-            }
-
-            var dbid = profileData.dbid;
-            var rawDynamicData = await db.GetOrNullAsync<RawProfileDynamicData>(dbid).FastAwait();
-            if (rawDynamicData == null)
-            {
-                rawDynamicData = new RawProfileDynamicData() { dbid = dbid };
-                await db.InsertAsync(rawDynamicData).FastAwait();
-            }
-
-            var profileBuildingsData = await db.GetOrNullAsync<ProfileBuildingsData>(dbid).FastAwait();
-            if (profileBuildingsData == null)
-            {
-                profileBuildingsData = new ProfileBuildingsData() { dbid = dbid };
-                await db.InsertAsync(profileBuildingsData).FastAwait();
-            }
-
-            profile = new Profile(this, profileData, rawDynamicData.Deserialize(), profileBuildingsData);
+            profile = await Profile.Load(this).FastAwait();
             player = new Player(this);
-
-            profile.data.lastDate = DateTime.UtcNow.AsDateTimeString();
-            profile.data.lastVersion = ProjectVersion.Current.ToString();
-            profile.data.username = actualUser.Username;
-
             await QuestManager.HandleNewSession(this, update).FastAwait();
         }
 

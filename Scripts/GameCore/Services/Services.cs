@@ -6,6 +6,8 @@
     using System.Threading.Tasks;
     using TextGameRPG.Scripts.Bot;
     using TextGameRPG.Scripts.Bot.Sessions;
+    using TextGameRPG.Scripts.GameCore.Services.DailyDataManager;
+    using TextGameRPG.Scripts.GameCore.Services.DailyDataManagers;
     using TextGameRPG.Scripts.GameCore.Services.Mobs;
     using TextGameRPG.Scripts.GameCore.Services.Sending;
 
@@ -16,6 +18,7 @@
         static Services()
         {
             Register(new GameData.GameDataHolder());
+            // ServerDailyDataManager должен быть как можно выше
             Register(new ServerDailyDataManager());
 
             Register(new SessionManager());
@@ -27,6 +30,7 @@
             Register(new DailyRemindersManager());
             Register(new MobFactory());
             Register(new LocationMobsManager());
+            Register(new ProfileDailyDataManager());
         }
 
         private static void Register<T>(T instance) where T : Service, new()

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using TextGameRPG.Scripts.GameCore.Locations;
+using TextGameRPG.Scripts.GameCore.Services.DailyDataManagers;
 using TextGameRPG.Scripts.GameCore.Units.Mobs;
 
 namespace TextGameRPG.Scripts.GameCore.Services.Mobs
@@ -31,7 +32,7 @@ namespace TextGameRPG.Scripts.GameCore.Services.Mobs
             LoadMobPacks();
         }
 
-        private void OnStartNewDay()
+        private void OnStartNewDay(DateTime oldDate, DateTime newDate)
         {
             isMobsReady = false;
             CreateNewMobPacks();

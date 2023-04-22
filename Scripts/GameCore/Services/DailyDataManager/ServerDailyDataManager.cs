@@ -3,8 +3,9 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.Bot;
+using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
 
-namespace TextGameRPG.Scripts.GameCore.Services
+namespace TextGameRPG.Scripts.GameCore.Services.DailyDataManagers
 {
     public class ServerDailyDataManager : Service
     {
@@ -13,7 +14,7 @@ namespace TextGameRPG.Scripts.GameCore.Services
         private CancellationTokenSource _cts = new CancellationTokenSource();
 
         public DateTime lastDate { get; private set; }
-        public event Action? onStartNewDay;
+        public event Action<DateTime,DateTime>? onStartNewDay;
         public event Action? onStartWithOldDay;
 
         public override async Task OnBotStarted()
@@ -25,8 +26,8 @@ namespace TextGameRPG.Scripts.GameCore.Services
             var daysPassed = (now - lastDate).Days;
             if (daysPassed > 0)
             {
-                lastDate = lastDate.AddDays(daysPassed);
-                await StartNewDay().FastAwait();
+                var newDate = lastDate.AddDays(daysPassed);
+                await StartNewDay(lastDate, newDate).FastAwait();
             }
             else
             {
@@ -54,8 +55,7 @@ namespace TextGameRPG.Scripts.GameCore.Services
                 var now = DateTime.UtcNow;
                 if ((now - lastDate).Days > 0)
                 {
-                    lastDate = lastDate.AddDays(1);
-                    await StartNewDay().FastAwait();
+                    await StartNewDay(lastDate, lastDate.AddDays(1)).FastAwait();
                 }
                 var nextDate = lastDate.AddDays(1);
                 var secondsToWait = (nextDate - now).TotalSeconds;
@@ -64,12 +64,13 @@ namespace TextGameRPG.Scripts.GameCore.Services
             }
         }
 
-        private async Task StartNewDay()
+        private async Task StartNewDay(DateTime oldDate, DateTime newDate)
         {
+            lastDate = newDate;
             await db.DeleteAllAsync<ServerDailyData>().FastAwait();
             await SetDateValue("lastDate", lastDate).FastAwait();
             Program.logger.Info($"ServerDailyManager: New day started! ({lastDate.AsDateString()})");
-            onStartNewDay?.Invoke();
+            onStartNewDay?.Invoke(oldDate, newDate);
         }
 
         #region setters
