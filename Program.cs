@@ -67,7 +67,8 @@ namespace TextGameRPG
 
         private static void ConfigureLogger()
         {
-            XmlConfigurator.Configure(new FileInfo("log4net.config"));
+            var configPath = Path.Combine("Assets", "log4net.config");
+            XmlConfigurator.Configure(new FileInfo(configPath));
         }
 
         private static void StartAvalonia(string[] args)
