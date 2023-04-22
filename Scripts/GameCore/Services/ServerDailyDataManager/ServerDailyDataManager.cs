@@ -14,6 +14,7 @@ namespace TextGameRPG.Scripts.GameCore.Services
 
         public DateTime lastDate { get; private set; }
         public event Action? onStartNewDay;
+        public event Action? onStartWithOldDay;
 
         public override async Task OnBotStarted()
         {
@@ -26,6 +27,10 @@ namespace TextGameRPG.Scripts.GameCore.Services
             {
                 lastDate = lastDate.AddDays(daysPassed);
                 await StartNewDay().FastAwait();
+            }
+            else
+            {
+                onStartWithOldDay?.Invoke();
             }
 
             WaitNextDay(_cts.Token);
