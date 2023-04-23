@@ -20,17 +20,18 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
         public static ProfileDailyStatData Create(ProfileDailyData data, string dateStr)
         {
             var now = DateTime.UtcNow;
+            var regDate = data.regDate.AsDate();
             return new ProfileDailyStatData
             {
                 statId = $"{dateStr} (dbid {data.dbid})",
                 dbid = data.dbid,
                 telegram_id = data.telegram_id,
-                regDate = data.regDate,
+                regDate = regDate,
                 regVersion = data.regVersion,
                 lastVersion = data.lastVersion,
 
                 activityInSeconds = data.activityInSeconds,
-                daysAfterRegistration = (now - data.regDate).Days,
+                daysAfterRegistration = (now - regDate).Days,
             };
         }
     }
