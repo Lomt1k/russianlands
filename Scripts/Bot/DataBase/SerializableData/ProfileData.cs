@@ -68,6 +68,7 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
             telegram_id = user.Id;
             regDate = DateTime.UtcNow.AsDateString();
             regVersion = ProjectVersion.Current.ToString();
+            lastVersion = regVersion;
             nickname = user.FirstName.IsCorrectNickname() ? user.FirstName : "Player_" + (new Random().Next(8999) + 1000);
             username = user.Username;
 

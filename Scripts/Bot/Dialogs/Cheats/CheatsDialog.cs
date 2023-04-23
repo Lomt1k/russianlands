@@ -274,6 +274,9 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
 
             foreach (var building in session.player.buildings.GetAllBuildings())
             {
+                if (building.buildingType == BuildingType.TownHall)
+                    continue;
+
                 byte maxAvailableLevel = 0;
                 var buildingLevels = building.buildingData.levels;
                 for (byte i = 0; i < buildingLevels.Count; i++)
