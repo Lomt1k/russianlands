@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -22,7 +21,9 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
         public long telegramId;
         public string lastDate = string.Empty;
         public string lastVersion = string.Empty;
-        public List<string> sqlQuerries = new List<string>();
+        public string profileQuery = string.Empty;
+        public string profileDynamicQuery = string.Empty;
+        public string buildingsQuery = string.Empty;
 
         public static ProfileState Create(Profile profile)
         {
@@ -34,12 +35,9 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
                 telegramId = profile.data.telegram_id,
                 lastDate = profile.data.lastActivityTime,
                 lastVersion = profile.data.lastVersion,
-                sqlQuerries = new List<string>
-                {
-                    CreateQueryForRestore(profile.data),
-                    CreateQueryForRestore(profile.dynamicData),
-                    CreateQueryForRestore(profile.buildingsData)
-                }
+                profileQuery = CreateQueryForRestore(profile.data),
+                profileDynamicQuery = CreateQueryForRestore(profile.dynamicData),
+                buildingsQuery = CreateQueryForRestore(profile.buildingsData)
             };
         }
 
@@ -64,17 +62,20 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
 
         private static string CreateQueryForRestore(ProfileDynamicData data)
         {
+            var rawDynamicData = new RawProfileDynamicData();
+            rawDynamicData.Fill(data);
+
             var sb = new StringBuilder();
             sb.Append($"UPDATE ProfilesDynamic SET ");
-            var allProperties = data.GetType().GetProperties();
-            var propertiesToSave = allProperties.Where(x => !x.GetCustomAttributesData().Any(atr => atr.AttributeType.Name.Equals("IgnoreAttribute"))).ToArray();
+            var allProperties = rawDynamicData.GetType().GetProperties();
+            var propertiesToSave = allProperties.Where(x => !x.GetCustomAttributesData().Any(atr => atr.AttributeType == typeof(IgnoreAttribute))).ToArray();
 
             for (int i = 1; i < propertiesToSave.Length; i++) //avoid dbid
             {
                 var property = propertiesToSave[i];
-                var value = GetPropertyValue(property, data);
-                var jsonStr = JsonConvert.SerializeObject(value);
-                sb.Append($"{property.Name} = '{jsonStr}'");
+                var value = GetPropertyValue(property, rawDynamicData);
+                var kvp = string.Format("{0} = '{1}'", property.Name, value);
+                sb.Append(kvp);
                 sb.Append(i < propertiesToSave.Length - 1 ? ", " : " ");
             }
             sb.Append($"WHERE dbid='{idPlacement}'");
@@ -121,13 +122,18 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
             return property.GetValue(obj);
         }
 
-        public async Task ExecuteQuery(long dbid)
+        public async Task ExecuteQuerries(long dbid)
         {
-            foreach (var query in sqlQuerries)
-            {
-                var preparedQuery = query.Replace(idPlacement, dbid.ToString());
-                await BotController.dataBase.db.ExecuteAsync(preparedQuery);
-            }
+            await ExecuteQuery(dbid, profileQuery).FastAwait();
+            await ExecuteQuery(dbid, profileDynamicQuery).FastAwait();
+            await ExecuteQuery(dbid, buildingsQuery).FastAwait();
+        }
+
+        private async Task ExecuteQuery(long dbid, string query)
+        {
+            var preparedQuery = query.Replace(idPlacement, dbid.ToString());
+            Program.logger.Info("\n\n\n" + "execute query: \n" + preparedQuery);
+            await BotController.dataBase.db.ExecuteAsync(preparedQuery).FastAwait();
         }
 
     }

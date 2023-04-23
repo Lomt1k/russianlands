@@ -279,10 +279,12 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
 
                 byte maxAvailableLevel = 0;
                 var buildingLevels = building.buildingData.levels;
+                var minRequiredLevel = 0; // Бывают здания, где у следующих уровней указан требуемый уровень ниже, чем в предыдущим(шахта 2, шахта 3 и тд)
                 for (byte i = 0; i < buildingLevels.Count; i++)
                 {
                     var level = buildingLevels[i];
-                    if (level.requiredTownHall <= townhallLevel)
+                    minRequiredLevel = level.requiredTownHall > minRequiredLevel ? level.requiredTownHall : minRequiredLevel;
+                    if (minRequiredLevel <= townhallLevel)
                     {
                         maxAvailableLevel = (byte)(i + 1);
                     }
@@ -554,7 +556,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
             var telegramId = session.profile.data.telegram_id;
             var dbid = session.profile.data.dbid;
             await ResetAccountInDatabase().FastAwait();
-            await profileState.ExecuteQuery(dbid).FastAwait();
+            await profileState.ExecuteQuerries(dbid).FastAwait();
 
             var sb = new StringBuilder();
             sb.AppendLine("Account has been imported");

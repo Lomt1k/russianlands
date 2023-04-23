@@ -9,15 +9,15 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
 
         public static string Serialize(ProfileState state)
         {
-            var json = JsonConvert.SerializeObject(state);
-            return Encryption.EncryptString(json, encryptionPass);
+            var json = JsonConvert.SerializeObject(state, Formatting.Indented);
+            return Encryption.EncryptStringAES(json, encryptionPass);
         }
 
         public static ProfileState? Deserialize(string encryptedStr)
         {
             try
             {
-                var json = Encryption.DecryptString(encryptedStr, encryptionPass);
+                var json = Encryption.DecryptStringAES(encryptedStr, encryptionPass);
                 return JsonConvert.DeserializeObject<ProfileState>(json);
             }
             catch (System.Exception ex)
