@@ -46,7 +46,7 @@ namespace TextGameRPG.Scripts.GameCore.Services.DailyDataManager
                 Directory.CreateDirectory(statisticsDir);
             }
             var statDBPath = Path.Combine(statisticsDir, $"stats_{date}.sqlite");
-            var statsDB = new SQLiteAsyncConnection(statDBPath);
+            var statsDB = new SQLiteAsyncConnection(statDBPath, storeDateTimeAsTicks: false);
             await statsDB.CreateTableAsync<ProfileDailyStatData>().FastAwait();
 
             var statDatas = new List<ProfileDailyStatData>();

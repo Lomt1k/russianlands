@@ -87,7 +87,7 @@ namespace TextGameRPG.Scripts.Bot.Sessions
 
                 // Регистрируем игровую активность для статистики
                 var secondsBeforeActivities = (lastActivityTime - previousActivity).Seconds;
-                if (secondsBeforeActivities < 60)
+                if (secondsBeforeActivities < 120)
                 {
                     profile.dailyData.activityInSeconds += secondsBeforeActivities;
                 }

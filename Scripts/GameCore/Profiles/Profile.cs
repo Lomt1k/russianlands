@@ -85,7 +85,7 @@ namespace TextGameRPG.Scripts.GameCore.Profiles
                 await remindersManager.ScheduleReminder(profileData).FastAwait();
             }
 
-            profileData.lastDate = DateTime.UtcNow.AsDateTimeString();
+            profileData.lastActivityTime = DateTime.UtcNow.AsDateTimeString();
             profileData.lastVersion = ProjectVersion.Current.ToString();
             profileData.username = session.actualUser.Username;
 

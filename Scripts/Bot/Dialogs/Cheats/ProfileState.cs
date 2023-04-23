@@ -32,7 +32,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
                 nickname = profile.data.nickname,
                 databaseId = profile.data.dbid,
                 telegramId = profile.data.telegram_id,
-                lastDate = profile.data.lastDate,
+                lastDate = profile.data.lastActivityTime,
                 lastVersion = profile.data.lastVersion,
                 sqlQuerries = new List<string>
                 {

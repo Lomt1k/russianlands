@@ -16,7 +16,7 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
         [MaxLength(16)] public string nickname { get; set; }
         [MaxLength(24)] public string regDate { get; set; }
         [MaxLength(16)] public string regVersion { get; set; }
-        [MaxLength(24)] public string lastDate { get; set; }
+        [MaxLength(24)] public string lastActivityTime { get; set; }
         [MaxLength(16)] public string lastVersion { get; set; }
 
         public int adminStatus { get; set; }
@@ -66,7 +66,7 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
         public ProfileData SetupNewProfile(User user)
         {
             telegram_id = user.Id;
-            regDate = DateTime.UtcNow.AsDateTimeString();
+            regDate = DateTime.UtcNow.AsDateString();
             regVersion = ProjectVersion.Current.ToString();
             nickname = user.FirstName.IsCorrectNickname() ? user.FirstName : "Player_" + (new Random().Next(8999) + 1000);
             username = user.Username;

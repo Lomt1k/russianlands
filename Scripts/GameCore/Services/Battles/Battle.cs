@@ -103,7 +103,7 @@ namespace TextGameRPG.Scripts.GameCore.Services.Battles
 
         private async void HandleBattleAsync()
         {
-            var battleTurnTimeInSeconds = isPVE ? 180 : 80;
+            var battleTurnTimeInSeconds = isPVE ? 120 : 80;
             while (!HasDefeatedUnits())
             {
                 currentTurn = new BattleTurn(this, firstUnit, battleTurnTimeInSeconds);

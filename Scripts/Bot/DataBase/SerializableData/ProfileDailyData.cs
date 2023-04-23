@@ -1,4 +1,5 @@
 ﻿using SQLite;
+using System;
 
 namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
 {
@@ -9,7 +10,7 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
         [PrimaryKey]
         public long dbid { get; set; }
         public long telegram_id { get; set; }
-        [MaxLength(24)] public string regDate { get; set; }
+        public DateTime regDate { get; set; }
         [MaxLength(16)] public string regVersion { get; set; }
         [MaxLength(16)] public string lastVersion { get; set; }
 
@@ -23,7 +24,7 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
             {
                 dbid = data.dbid,
                 telegram_id = data.telegram_id,
-                regDate = data.regDate,
+                regDate = data.regDate.AsDate(),
                 regVersion = data.regVersion,
                 lastVersion = data.lastVersion,
             };

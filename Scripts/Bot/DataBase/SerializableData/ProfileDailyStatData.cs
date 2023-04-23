@@ -1,4 +1,5 @@
 ﻿using SQLite;
+using System;
 
 namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
 {
@@ -9,14 +10,16 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
         public string statId { get; set; }
         public long dbid { get; set; }
         public long telegram_id { get; set; }
-        [MaxLength(24)] public string regDate { get; set; }
+        public DateTime regDate { get; set; }
         [MaxLength(16)] public string regVersion { get; set; }
         [MaxLength(16)] public string lastVersion { get; set; }
 
         public int activityInSeconds { get; set; }
+        public int daysAfterRegistration { get; set; }
 
         public static ProfileDailyStatData Create(ProfileDailyData data, string dateStr)
         {
+            var now = DateTime.UtcNow;
             return new ProfileDailyStatData
             {
                 statId = $"{dateStr} (dbid {data.dbid})",
@@ -27,6 +30,7 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
                 lastVersion = data.lastVersion,
 
                 activityInSeconds = data.activityInSeconds,
+                daysAfterRegistration = (now - data.regDate).Days,
             };
         }
     }
