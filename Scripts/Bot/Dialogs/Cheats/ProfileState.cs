@@ -132,7 +132,6 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
         private async Task ExecuteQuery(long dbid, string query)
         {
             var preparedQuery = query.Replace(idPlacement, dbid.ToString());
-            Program.logger.Info("\n\n\n" + "execute query: \n" + preparedQuery);
             await BotController.dataBase.db.ExecuteAsync(preparedQuery).FastAwait();
         }
 

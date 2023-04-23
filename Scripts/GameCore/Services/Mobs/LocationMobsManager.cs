@@ -54,7 +54,7 @@ namespace TextGameRPG.Scripts.GameCore.Services.Mobs
                 return;
             }
             _mobPacks = loadedMobPacks;
-            Program.logger.Info("LocationMobsManager: Location mobs loaded successfully");
+            Program.logger.Info("Location mobs loaded");
             isMobsReady = true;
         }
 
@@ -67,7 +67,7 @@ namespace TextGameRPG.Scripts.GameCore.Services.Mobs
             }
             var jsonStr = JsonConvert.SerializeObject(_mobPacks);
             await serverDailyDataManager.SetStringValue("locationMobs", jsonStr).FastAwait();
-            Program.logger.Info("LocationMobsManager: New location mobs created");
+            Program.logger.Info("New location mobs created");
             isMobsReady = true;
         }
 
