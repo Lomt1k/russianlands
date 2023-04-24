@@ -28,14 +28,14 @@ namespace TextGameRPG.Scripts.GameCore.Services.DailyDataManager
 
         private async void ExportAndResetProfileDailyData(DateTime oldDate)
         {
-            var dateForStats = oldDate.ToString("yyyy.MM.dd");
             var allData = await db.Table<ProfileDailyData>().ToListAsync().FastAwait();
-            ExportStatisticData(dateForStats, allData);
+            ExportStatisticData(oldDate, allData);
             ResetAllProfileDailyData();
         }
 
-        private async void ExportStatisticData(string date, List<ProfileDailyData> profileDailyDatas)
+        private async void ExportStatisticData(DateTime date, List<ProfileDailyData> profileDailyDatas)
         {
+            var stringDate = date.ToString("yyyy.MM.dd");
             if (profileDailyDatas.Count == 0)
             {
                 return;
@@ -45,19 +45,19 @@ namespace TextGameRPG.Scripts.GameCore.Services.DailyDataManager
             {
                 Directory.CreateDirectory(statisticsDir);
             }
-            var statDBPath = Path.Combine(statisticsDir, $"stats_{date}.sqlite");
+            var statDBPath = Path.Combine(statisticsDir, $"stats_{stringDate}.sqlite");
             var statsDB = new SQLiteAsyncConnection(statDBPath, storeDateTimeAsTicks: false);
             await statsDB.CreateTableAsync<ProfileDailyStatData>().FastAwait();
 
             var statDatas = new List<ProfileDailyStatData>();
             foreach (var profileDailyData in profileDailyDatas)
             {
-                var statData = ProfileDailyStatData.Create(profileDailyData, date);
+                var statData = ProfileDailyStatData.Create(profileDailyData, date, stringDate);
                 statDatas.Add(statData);
             }
             await statsDB.InsertAllAsync(statDatas).FastAwait();
             await statsDB.CloseAsync().FastAwait();
-            Program.logger.Info($"Statistics: Daily statistics exported to file: stats_{date}.sqlite");
+            Program.logger.Info($"Daily statistics exported to file: stats_{stringDate}.sqlite");
         }
 
         private async void ResetAllProfileDailyData()

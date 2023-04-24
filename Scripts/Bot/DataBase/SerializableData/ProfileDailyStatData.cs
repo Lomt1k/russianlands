@@ -17,13 +17,13 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
         public int activityInSeconds { get; set; }
         public int daysAfterRegistration { get; set; }
 
-        public static ProfileDailyStatData Create(ProfileDailyData data, string dateStr)
+        public static ProfileDailyStatData Create(ProfileDailyData data, DateTime date, string dateStr)
         {
             var now = DateTime.UtcNow;
             var regDate = data.regDate.AsDate();
             return new ProfileDailyStatData
             {
-                statId = $"{dateStr} (dbid {data.dbid})",
+                statId = $"{dateStr} | dbid {data.dbid}",
                 dbid = data.dbid,
                 telegram_id = data.telegram_id,
                 regDate = regDate,
@@ -31,7 +31,7 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
                 lastVersion = data.lastVersion,
 
                 activityInSeconds = data.activityInSeconds,
-                daysAfterRegistration = (now - regDate).Days,
+                daysAfterRegistration = (date - regDate).Days,
             };
         }
     }
