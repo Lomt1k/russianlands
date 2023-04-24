@@ -66,7 +66,7 @@ namespace TextGameRPG.Scripts.GameCore.Profiles
 
         public void ResetDailyDataWithoutSave()
         {
-            dailyData = ProfileDailyData.Create(data);
+            dailyData = ProfileDailyData.Create(data, dynamicData, buildingsData);
         }
 
         public static async Task<Profile> Load(GameSession session)
@@ -96,6 +96,7 @@ namespace TextGameRPG.Scripts.GameCore.Profiles
                 rawDynamicData = new RawProfileDynamicData() { dbid = dbid };
                 await db.InsertAsync(rawDynamicData).FastAwait();
             }
+            var profileDynamicData = rawDynamicData.Deserialize();
 
             var profileBuildingsData = await db.GetOrNullAsync<ProfileBuildingsData>(dbid).FastAwait();
             if (profileBuildingsData == null)
@@ -107,11 +108,11 @@ namespace TextGameRPG.Scripts.GameCore.Profiles
             var dailyData = await db.GetOrNullAsync<ProfileDailyData>(dbid).FastAwait();
             if (dailyData == null)
             {
-                dailyData = ProfileDailyData.Create(profileData);
+                dailyData = ProfileDailyData.Create(profileData, profileDynamicData, profileBuildingsData);
                 await db.InsertAsync(dailyData).FastAwait();
             }
 
-            var profile = new Profile(session, profileData, rawDynamicData.Deserialize(), profileBuildingsData, dailyData);
+            var profile = new Profile(session, profileData, profileDynamicData, profileBuildingsData, dailyData);
             return profile;
         }
 
