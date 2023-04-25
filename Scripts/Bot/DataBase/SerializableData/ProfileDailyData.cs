@@ -25,6 +25,22 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
 
 
 
+        public MobDifficulty GetLocationMobDifficulty()
+        {
+            return locationMobsDifficulty ??= MobDifficultyCalculator.GetActualDifficultyForPlayer(session.player);
+        }
+
+        public List<byte> GetLocationDefeatedMobs(LocationType locationType)
+        {
+            if (defeatedLocationMobs.TryGetValue(locationType, out var result))
+            {
+                return result;
+            }
+            var newList = new List<byte>();
+            defeatedLocationMobs.Add(locationType, newList);
+            return newList;
+        }
+
         public static ProfileDailyData Create(ProfileData data, ProfileDynamicData dynamicData, ProfileBuildingsData buildingsData)
         {
             return new ProfileDailyData
