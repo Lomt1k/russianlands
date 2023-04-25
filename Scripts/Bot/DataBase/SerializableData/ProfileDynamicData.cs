@@ -4,6 +4,7 @@ using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Potions;
 using System.Collections.Generic;
 using TextGameRPG.Scripts.GameCore.Items;
+using Newtonsoft.Json;
 
 namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
 {
@@ -33,6 +34,15 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
         {
             base.SetupSession(_session);
             inventory.SetupSession(_session);
+        }
+
+        public static ProfileDynamicData Deserialize(RawProfileDynamicData rawData)
+        {
+            return new ProfileDynamicData(rawData.dbid,
+                JsonConvert.DeserializeObject<PlayerInventory>(rawData.inventory),
+                JsonConvert.DeserializeObject<List<PotionItem>>(rawData.potions),
+                JsonConvert.DeserializeObject<PlayerQuestsProgress>(rawData.quests),
+                JsonConvert.DeserializeObject<List<ItemType>>(rawData.lastGeneratedItemTypes));
         }
     }
 }

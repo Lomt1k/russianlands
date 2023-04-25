@@ -1,9 +1,11 @@
-﻿using SQLite;
+﻿using Newtonsoft.Json;
+using SQLite;
+using System.Collections.Generic;
+using TextGameRPG.Scripts.GameCore.Locations;
 using TextGameRPG.Scripts.GameCore.Services.Mobs;
 
 namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
 {
-    [Table("ProfileDailyData")]
     public class ProfileDailyData : DataWithSession
     {
         // identification data
@@ -19,6 +21,7 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
 
         // map mobs progress
         public MobDifficulty? locationMobsDifficulty { get; set; }
+        public Dictionary<LocationType, List<byte>> defeatedLocationMobs { get; set; } = new();
 
 
 
@@ -31,6 +34,23 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
                 regDate = data.regDate,
                 regVersion = data.regVersion,
                 lastVersion = data.lastVersion,
+            };
+        }
+
+        public static ProfileDailyData Deserialize(RawProfileDailyData rawData)
+        {
+            return new ProfileDailyData
+            {
+                dbid = rawData.dbid,
+                telegram_id = rawData.telegram_id,
+                regDate = rawData.regDate,
+                regVersion = rawData.regVersion,
+                lastVersion = rawData.lastVersion,
+
+                activityInSeconds = rawData.activityInSeconds,
+
+                locationMobsDifficulty = rawData.locationMobsDifficulty,
+                defeatedLocationMobs = JsonConvert.DeserializeObject<Dictionary<LocationType, List<byte>>>(rawData.defeatedLocationMobs),
             };
         }
     }

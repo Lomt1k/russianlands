@@ -50,7 +50,11 @@ namespace TextGameRPG.Scripts.GameCore.Profiles
             await db.UpdateAsync(rawDynamicData).FastAwait();
 
             await db.UpdateAsync(buildingsData).FastAwait();
-            await db.InsertOrReplaceAsync(dailyData).FastAwait();
+
+            var rawDailyData = new RawProfileDailyData();
+            rawDailyData.Fill(dailyData);
+            await db.InsertOrReplaceAsync(rawDailyData).FastAwait();
+
             lastSaveProfileTime = DateTime.UtcNow;
         }
 
@@ -96,7 +100,7 @@ namespace TextGameRPG.Scripts.GameCore.Profiles
                 rawDynamicData = new RawProfileDynamicData() { dbid = dbid };
                 await db.InsertAsync(rawDynamicData).FastAwait();
             }
-            var profileDynamicData = rawDynamicData.Deserialize();
+            var profileDynamicData = ProfileDynamicData.Deserialize(rawDynamicData);
 
             var profileBuildingsData = await db.GetOrNullAsync<ProfileBuildingsData>(dbid).FastAwait();
             if (profileBuildingsData == null)
@@ -105,11 +109,18 @@ namespace TextGameRPG.Scripts.GameCore.Profiles
                 await db.InsertAsync(profileBuildingsData).FastAwait();
             }
 
-            var dailyData = await db.GetOrNullAsync<ProfileDailyData>(dbid).FastAwait();
-            if (dailyData == null)
+            var rawDailyData = await db.GetOrNullAsync<RawProfileDailyData>(dbid).FastAwait();
+            ProfileDailyData dailyData;
+            if (rawDailyData == null)
             {
                 dailyData = ProfileDailyData.Create(profileData, profileDynamicData, profileBuildingsData);
-                await db.InsertAsync(dailyData).FastAwait();
+                rawDailyData = new RawProfileDailyData();
+                rawDailyData.Fill(dailyData);
+                await db.InsertAsync(rawDailyData).FastAwait();
+            }
+            else
+            {
+                dailyData = ProfileDailyData.Deserialize(rawDailyData);
             }
 
             var profile = new Profile(session, profileData, profileDynamicData, profileBuildingsData, dailyData);
