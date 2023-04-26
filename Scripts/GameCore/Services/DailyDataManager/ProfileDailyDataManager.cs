@@ -28,15 +28,15 @@ namespace TextGameRPG.Scripts.GameCore.Services.DailyDataManager
 
         private async void ExportAndResetProfileDailyData(DateTime oldDate)
         {
-            var allData = await db.Table<ProfileDailyData>().ToListAsync().FastAwait();
+            var allData = await db.Table<RawProfileDailyData>().ToListAsync().FastAwait();
             ExportStatisticData(oldDate, allData);
             ResetAllProfileDailyData();
         }
 
-        private async void ExportStatisticData(DateTime date, List<ProfileDailyData> profileDailyDatas)
+        private async void ExportStatisticData(DateTime date, List<RawProfileDailyData> rawProfileDailyDatas)
         {
             var stringDate = date.ToString("yyyy.MM.dd");
-            if (profileDailyDatas.Count == 0)
+            if (rawProfileDailyDatas.Count == 0)
             {
                 return;
             }
@@ -50,9 +50,9 @@ namespace TextGameRPG.Scripts.GameCore.Services.DailyDataManager
             await statsDB.CreateTableAsync<ProfileDailyStatData>().FastAwait();
 
             var statDatas = new List<ProfileDailyStatData>();
-            foreach (var profileDailyData in profileDailyDatas)
+            foreach (var rawProfileDailyData in rawProfileDailyDatas)
             {
-                var statData = ProfileDailyStatData.Create(profileDailyData, date, stringDate);
+                var statData = ProfileDailyStatData.Create(rawProfileDailyData, date, stringDate);
                 statDatas.Add(statData);
             }
             await statsDB.InsertAllAsync(statDatas).FastAwait();

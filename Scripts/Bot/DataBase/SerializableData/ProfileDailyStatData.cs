@@ -17,7 +17,7 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
         public int activityInSeconds { get; set; }
         public int daysAfterRegistration { get; set; }
 
-        public static ProfileDailyStatData Create(ProfileDailyData data, DateTime date, string dateStr)
+        public static ProfileDailyStatData Create(RawProfileDailyData data, DateTime date, string dateStr)
         {
             var now = DateTime.UtcNow;
             var regDate = data.regDate.AsDate();
