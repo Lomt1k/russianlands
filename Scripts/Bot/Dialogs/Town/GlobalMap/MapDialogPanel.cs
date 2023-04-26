@@ -123,7 +123,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
             var locationDefeatedMobs = session.profile.dailyData.GetLocationDefeatedMobs(locationType);
 
             sb.AppendLine();
-            //TODO text
+            // TODO text
             
             var mobDatas = locationMobsManager[mobDifficulty][locationType];
             for (byte i = 0; i < mobDatas.Length; i++)
@@ -162,13 +162,13 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
         // simulate Start() from BattlePointDialog
         private async Task SimulateStartBattlePointDialog(QuestStageWithBattlePoint stage, LocationType locationType)
         {
-            var data = stage.GetMobBattlePointData(session);
-            var text = Emojis.ButtonBattle + data.mob.GetFullUnitInfoView(session);
+            var mobData = stage.GetMobBattlePointData(session);
+            var text = Emojis.ButtonBattle + mobData.mob.GetFullUnitInfoView(session);
 
             ClearButtons();
-            var priceView = data.foodPrice > 0 ? ResourceType.Food.GetEmoji() + data.foodPrice.View() : string.Empty;
+            var priceView = mobData.foodPrice > 0 ? ResourceType.Food.GetEmoji() + mobData.foodPrice.View() : string.Empty;
             var startBattleButton = Localization.Get(session, "dialog_mob_battle_point_start_battle", priceView);
-            RegisterButton(startBattleButton, () => new BattlePointDialog(session, data).SilentStart());
+            RegisterButton(startBattleButton, () => new BattlePointDialog(session, mobData).SilentStart());
             RegisterBackButton(() => ShowLocation(locationType));
             RegisterBackButton(Localization.Get(session, "menu_item_map") + Emojis.ButtonMap, ShowGlobalMap);
 
@@ -177,7 +177,22 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
 
         private async Task ShowBattlePointWithLocationMob(LocationType locationType, byte mobIndex)
         {
+            var mobData = locationMobsManager.GetMobBattlePointData(session, locationType, mobIndex);
+            if (mobData == null)
+            {
+                // Клик в момент пересоздания мобов (можно здесь вывести игроку какое-то сообщение
+                return;
+            }
 
+            ClearButtons();
+            var text = Emojis.ButtonBattle + mobData.mob.GetFullUnitInfoView(session);
+            var priceView = mobData.foodPrice > 0 ? ResourceType.Food.GetEmoji() + mobData.foodPrice.View() : string.Empty;
+            var startBattleButton = Localization.Get(session, "dialog_mob_battle_point_start_battle", priceView);
+            RegisterButton(startBattleButton, () => new BattlePointDialog(session, mobData).SilentStart());
+            RegisterBackButton(() => ShowLocation(locationType));
+            RegisterBackButton(Localization.Get(session, "menu_item_map") + Emojis.ButtonMap, ShowGlobalMap);
+
+            await SendPanelMessage(text, GetMultilineKeyboardWithDoubleBack()).FastAwait();
         }
 
     }

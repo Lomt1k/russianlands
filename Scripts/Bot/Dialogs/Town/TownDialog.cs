@@ -11,7 +11,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town
     {
         StartNewSession,
         BackFromInnerDialog,
-        FromQuestAction
+        FromQuestAction,
+        BattleEnd
     }
 
     public class TownDialog : DialogBase
