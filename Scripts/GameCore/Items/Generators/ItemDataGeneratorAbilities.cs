@@ -229,7 +229,7 @@
 
         #region Block Incoming Damage
 
-        protected void AddBlockIncomingPhysicalDamage(int value, byte chancePercentage = 30)
+        protected void AddBlockIncomingPhysicalDamage(int value, byte chancePercentage = 25)
         {
             var abilityType = AbilityType.BlockIncomingDamageEveryTurn;
             if (_abilities.TryGetValue(abilityType, out var ability))
@@ -253,7 +253,7 @@
             _abilities.Add(abilityType, newAbility);
         }
 
-        protected void AddBlockIncomingFireDamage(int value, byte chancePercentage = 30)
+        protected void AddBlockIncomingFireDamage(int value, byte chancePercentage = 25)
         {
             _statIcons.Add(ItemStatIcon.FireDamage);
             var abilityType = AbilityType.BlockIncomingDamageEveryTurn;
@@ -277,7 +277,7 @@
             _abilities.Add(abilityType, newAbility);
         }
 
-        protected void AddBlockIncomingColdDamage(int value, byte chancePercentage = 30)
+        protected void AddBlockIncomingColdDamage(int value, byte chancePercentage = 25)
         {
             _statIcons.Add(ItemStatIcon.ColdDamage);
             var abilityType = AbilityType.BlockIncomingDamageEveryTurn;
@@ -301,7 +301,7 @@
             _abilities.Add(abilityType, newAbility);
         }
 
-        protected void AddBlockIncomingLightningDamage(int value, byte chancePercentage = 30)
+        protected void AddBlockIncomingLightningDamage(int value, byte chancePercentage = 25)
         {
             _statIcons.Add(ItemStatIcon.LightningDamage);
             var abilityType = AbilityType.BlockIncomingDamageEveryTurn;
