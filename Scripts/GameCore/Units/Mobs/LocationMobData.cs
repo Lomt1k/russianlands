@@ -13,7 +13,7 @@ namespace TextGameRPG.Scripts.GameCore.Units.Mobs
     {
         public LocationType id { get; set; }
         public int mobsCount { get; set; }
-        public Dictionary<byte, LocationMobDataByTownHall> dataByTownhall { get; set; }
+        public Dictionary<byte, LocationMobDataByTownHall> dataByTownhall { get; set; } = new();
 
         [JsonIgnore]
         public byte minTownHall { get; private set; }
@@ -28,7 +28,7 @@ namespace TextGameRPG.Scripts.GameCore.Units.Mobs
         [OnDeserialized]
         private void OnDeserialized(StreamingContext context)
         {
-            if (dataByTownhall.Count > 0)
+            if (dataByTownhall?.Count > 0)
             {
                 minTownHall = dataByTownhall.Keys.Min();
                 maxTownHall = dataByTownhall.Keys.Max();

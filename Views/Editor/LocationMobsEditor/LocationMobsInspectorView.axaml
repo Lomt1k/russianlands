@@ -2,7 +2,67 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="700"
              x:Class="TextGameRPG.Views.Editor.LocationMobsEditor.LocationMobsInspectorView">
-  Welcome to Avalonia!
+
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="300"/>
+      <ColumnDefinition Width="auto"/>
+    </Grid.ColumnDefinitions>
+
+    <!-- Column 0: Main Settings-->
+    <StackPanel Grid.Column="0" Orientation="Vertical" Spacing="20">
+      
+      <Panel Background="WhiteSmoke">
+        <StackPanel Margin="20" Orientation="Vertical">
+          <TextBlock Text="mobsCount"/>
+          <TextBox Text="{Binding locationMobData.mobsCount}"/>
+        </StackPanel>
+      </Panel>
+      
+      <Panel Background="WhiteSmoke">
+        <StackPanel Margin="20" Orientation="Vertical">
+          
+          <!-- TownHall List -->
+          <TextBlock Classes="h3" Text="TownHall"/>
+          <ListBox
+                 ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                 Items="{Binding townHallsList}"
+                 SelectedItem="{Binding selectedTownHall}">
+            <ListBox.ItemTemplate>
+              <DataTemplate>
+                <UserControl Content="{Binding}"/>
+              </DataTemplate>
+            </ListBox.ItemTemplate>
+          </ListBox>
+
+          <StackPanel Orientation="Horizontal" Spacing="20">
+            <Button Classes="Neutral" Content="Add"
+                    Command="{Binding addNewTownHallCommand}"/>
+            <Button Classes="Neutral" Content="Remove"
+                    Command="{Binding removeTownHallCommand}"/>
+          </StackPanel>
+          
+        </StackPanel>
+      </Panel>
+      
+      
+    </StackPanel>
+    
+
+    <!-- Column 1: Subsettings -->
+    <StackPanel Grid.Column="1" Orientation="Vertical" Spacing="20" Margin="40,0">
+
+      <Border Background="WhiteSmoke" Padding="20">
+        <StackPanel Grid.Column="0" Orientation="Vertical" Spacing="5">
+          <TextBlock Text="mobsCount"/>
+          <TextBox Text="{Binding locationMobData.mobsCount}"/>
+        </StackPanel>
+      </Border>
+
+    </StackPanel>
+
+  </Grid>
+  
 </UserControl>
