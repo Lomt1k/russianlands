@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using TextGameRPG.Scripts.GameCore.Buildings;
 using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.GameCore.Quests;
 using TextGameRPG.Scripts.GameCore.Units;
@@ -18,7 +19,7 @@ namespace TextGameRPG.Scripts.GameCore.Services.Mobs
             var minDifficulty = minDifficultyByQuests > minDifficultyByItems ? minDifficultyByQuests : minDifficultyByItems;
 
             var difficulty = (int)GetDifficultyByPlayerLevel(player.level);
-            if (player.buildings.HasBuilding(Buildings.BuildingType.ElixirWorkshop))
+            if (player.buildings.HasBuilding(BuildingType.ElixirWorkshop) || player.buildings.GetBuildingLevel(BuildingType.TownHall) > 5)
             {
                 var bySkill = (int)GetDifficultyByAverageSkillLevel(player);
                 if (Math.Abs(bySkill - difficulty) > MaxDifficultyChangeBySkillLevel)

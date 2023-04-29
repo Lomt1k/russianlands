@@ -89,5 +89,10 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             return building.GetBuilding().GetCurrentLevel(_buildingsData) > 0;
         }
 
+        public byte GetBuildingLevel(BuildingType building)
+        {
+            return building.GetBuilding().GetCurrentLevel(_buildingsData);
+        }
+
     }
 }
