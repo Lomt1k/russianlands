@@ -12,6 +12,7 @@ namespace TextGameRPG.Scripts.GameCore.Units.Mobs
     public class LocationMobData : IDataWithEnumID<LocationType>
     {
         public LocationType id { get; set; }
+        public int mobsCount { get; set; }
         public Dictionary<byte, LocationMobDataByTownHall> dataByTownhall { get; set; }
 
         [JsonIgnore]
@@ -27,8 +28,11 @@ namespace TextGameRPG.Scripts.GameCore.Units.Mobs
         [OnDeserialized]
         private void OnDeserialized(StreamingContext context)
         {
-            minTownHall = dataByTownhall.Keys.Min();
-            maxTownHall = dataByTownhall.Keys.Max();
+            if (dataByTownhall.Count > 0)
+            {
+                minTownHall = dataByTownhall.Keys.Min();
+                maxTownHall = dataByTownhall.Keys.Max();
+            }
         }
 
         public LocationMobDataByTownHall Get(byte townhHallLevel)
@@ -44,7 +48,6 @@ namespace TextGameRPG.Scripts.GameCore.Units.Mobs
     [JsonObject]
     public class LocationMobDataByTownHall
     {
-        public int mobsCount { get; set; }
         public int foodPrice { get; set; }
         public List<RewardBase> battleRewards { get; set; } = new List<RewardBase>();
         public List<RewardBase> locationRewards { get; set; } = new List<RewardBase>();

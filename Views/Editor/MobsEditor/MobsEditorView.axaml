@@ -46,7 +46,7 @@
     
     
 
-    <!-- Column 2: Location Inspector -->
+    <!-- Column 2: Mob Inspector -->
     <UserControl Grid.Column="1" Grid.Row="1" Margin="40,0" VerticalAlignment="Top"
                  Content="{Binding mobInspector}"
                  IsVisible="{Binding selectedMob, Converter={x:Static ObjectConverters.IsNotNull}}"/>
