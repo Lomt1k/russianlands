@@ -13,7 +13,7 @@ namespace TextGameRPG.Scripts.GameCore.Rewards
         public byte townhallLevel { get; set; } = 1;
         public Rarity rarity { get; set; }
 
-        public override async Task<string> AddReward(GameSession session)
+        public override async Task<string?> AddReward(GameSession session)
         {
             try
             {
@@ -24,7 +24,7 @@ namespace TextGameRPG.Scripts.GameCore.Rewards
             catch (Exception ex)
             {
                 await messageSender.SendErrorMessage(session.chatId, ex.Message);
-                return string.Empty;
+                return null;
             }
         }
 

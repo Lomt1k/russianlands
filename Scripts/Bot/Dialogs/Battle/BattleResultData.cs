@@ -16,7 +16,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Battle
     public struct BattleResultData
     {
         public BattleResult battleResult;
-        public List<RewardBase>? rewards;
+        public IReadOnlyList<RewardBase>? rewards;
         public Func<Player, BattleResult, Task>? onContinueButtonFunc;
         public bool isReturnToTownAvailable;
     }

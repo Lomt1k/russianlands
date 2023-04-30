@@ -11,7 +11,7 @@ namespace TextGameRPG.Scripts.GameCore.Rewards
     {
         public string itemCode { get; set; } = string.Empty;
 
-        public override async Task<string> AddReward(GameSession session)
+        public override async Task<string?> AddReward(GameSession session)
         {
             try
             {
@@ -22,7 +22,7 @@ namespace TextGameRPG.Scripts.GameCore.Rewards
             catch (Exception ex)
             {
                 await messageSender.SendErrorMessage(session.chatId, ex.Message);
-                return string.Empty;
+                return null;
             }
         }
 

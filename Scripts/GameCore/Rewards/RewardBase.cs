@@ -13,6 +13,6 @@ namespace TextGameRPG.Scripts.GameCore.Rewards
         [JsonIgnore]
         protected static readonly MessageSender messageSender = Services.Services.Get<MessageSender>();
 
-        public abstract Task<string> AddReward(GameSession session);
+        public abstract Task<string?> AddReward(GameSession session);
     }
 }

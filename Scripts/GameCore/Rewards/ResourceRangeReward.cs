@@ -13,7 +13,7 @@ namespace TextGameRPG.Scripts.GameCore.Rewards
         public int amountMin { get; set; }
         public int amountMax { get; set; }
 
-        public override Task<string> AddReward(GameSession session)
+        public override Task<string?> AddReward(GameSession session)
         {
             var amount = new Random().Next(amountMin, amountMax + 1);
             session.player.resources.ForceAdd(resourceType, amount);

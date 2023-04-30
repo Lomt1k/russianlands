@@ -22,13 +22,13 @@ namespace TextGameRPG.Scripts.GameCore.Rewards
         public int bonusB_max { get; set; }
 
 
-        public override Task<string> AddReward(GameSession session)
+        public override Task<string?> AddReward(GameSession session)
         {
             var isA = new Random().Next(2) == 0;
             return isA ? AddRewardWithBonusA(session) : AddRewardWithBonusB(session);
         }
 
-        private Task<string> AddRewardWithBonusA(GameSession session)
+        private Task<string?> AddRewardWithBonusA(GameSession session)
         {
             var amountWithBonus = amountA + new Random().Next(bonusA_min, bonusA_max + 1);
             session.player.resources.ForceAdd(resourceTypeA, amountWithBonus);
@@ -41,7 +41,7 @@ namespace TextGameRPG.Scripts.GameCore.Rewards
             return Task.FromResult(sb.ToString());
         }
 
-        private Task<string> AddRewardWithBonusB(GameSession session)
+        private Task<string?> AddRewardWithBonusB(GameSession session)
         {
             session.player.resources.ForceAdd(resourceTypeA, amountA);
             var amountWithBonus = amountB + new Random().Next(bonusB_min, bonusB_max + 1);

@@ -30,7 +30,7 @@ namespace TextGameRPG.Scripts.GameCore.Units.Mobs
             // ignored
         }
 
-        public LocationMobDataByTownHall Get(byte townhHallLevel)
+        public LocationMobDataByTownHall GetClosest(byte townhHallLevel)
         {
             if (dataByTownhall.TryGetValue(townhHallLevel, out var value))
             {
