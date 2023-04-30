@@ -10,10 +10,8 @@ namespace TextGameRPG.Scripts.GameCore.Rewards
     [JsonObject]
     public class RandomItemReward : RewardBase
     {
-        [JsonProperty]
-        public byte townhallLevel = 1;
-        [JsonProperty]
-        public Rarity rarity;
+        public byte townhallLevel { get; set; } = 1;
+        public Rarity rarity { get; set; }
 
         public override async Task<string> AddReward(GameSession session)
         {
