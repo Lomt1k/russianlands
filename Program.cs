@@ -17,7 +17,6 @@ namespace TextGameRPG
 
         public static bool isUnixPlatform => Environment.OSVersion.Platform == PlatformID.Unix;
         public static AppMode appMode { get; private set; } = AppMode.None;
-        public static bool isConsoleMode { get; private set; }
         public static Window mainWindow { get; set; }
         public readonly static ILog logger = LogManager.GetLogger(typeof(Program));
 
@@ -102,7 +101,6 @@ namespace TextGameRPG
 
         private static void StartInConsoleMode(string[] args)
         {
-            isConsoleMode = true;
             new ConsoleMode.ConsoleHandler().Start(args);
         }
 
@@ -118,10 +116,11 @@ namespace TextGameRPG
 
         public static void SetTitle(string title)
         {
-            if (isConsoleMode)
-                Console.Title = title;
-            else
+            Console.Title = title;
+            if (mainWindow != null)
+            {
                 mainWindow.Title = title;
+            }
         }
     }
 }

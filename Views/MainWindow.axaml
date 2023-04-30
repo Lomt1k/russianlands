@@ -6,7 +6,7 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
         x:Class="TextGameRPG.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
-        Title="TextGameRPG"
+        Title="MarkOne"
         Width="700" Height="600"
         WindowStartupLocation="CenterScreen">
 
