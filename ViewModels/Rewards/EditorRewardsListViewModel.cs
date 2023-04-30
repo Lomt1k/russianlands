@@ -29,7 +29,9 @@ namespace TextGameRPG.ViewModels.Rewards
         {
             return item switch
             {
-                ResourceReward resourceReward => new EditorResourceRewardView() { DataContext = new EditorResourceRewardViewModel(resourceReward) },
+                ResourceReward reward => new EditorResourceRewardView() { DataContext = new EditorResourceRewardViewModel(reward) },
+                ResourceRangeReward reward => new EditorResourceRangeRewardView() { DataContext = new EditorResourceRangeRewardViewModel(reward) },
+                ResourceABWithOneBonusReward reward => new EditorResourceABWithOneBonusRewardView() { DataContext = new EditorResourceABWithOneBonusRewardViewModel(reward) },
             };
         }
     }

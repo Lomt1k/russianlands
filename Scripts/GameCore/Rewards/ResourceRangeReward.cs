@@ -9,12 +9,9 @@ namespace TextGameRPG.Scripts.GameCore.Rewards
     [JsonObject]
     public class ResourceRangeReward : RewardBase
     {
-        [JsonProperty]
-        public ResourceType resourceType = ResourceType.Gold;
-        [JsonProperty]
-        public int amountMin;
-        [JsonProperty]
-        public int amountMax;
+        public ResourceType resourceType { get; set; } = ResourceType.Gold;
+        public int amountMin { get; set; }
+        public int amountMax { get; set; }
 
         public override Task<string> AddReward(GameSession session)
         {

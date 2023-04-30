@@ -1,0 +1,38 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="500"
+             x:Class="TextGameRPG.Views.Editor.Rewards.EditorResourceABWithOneBonusRewardView">
+
+  <Border Background="SlateGray" Padding="5">
+    <Border Background="WhiteSmoke" Padding="5">
+      <StackPanel Background="WhiteSmoke" Margin="5">
+
+        <TextBlock Text="Resource AB With One Bonus" Padding="0,5,0,15" Classes="h3"/>
+        
+        <TextBlock Text="resource type A"/>
+        <ComboBox Items="{Binding resourceTypes}"
+                  SelectedItem="{Binding selectedResourceTypeA}"/>
+        <TextBlock Text="amountA"/>
+        <TextBox Text="{Binding reward.amountA}"/>
+        <TextBlock Text="bonus A: Min"/>
+        <TextBox Text="{Binding reward.bonusA_min}"/>
+        <TextBlock Text="bonus A: Max"/>
+        <TextBox Text="{Binding reward.bonusA_max}"/>
+
+        <TextBlock Text="resource type B" Padding="0,20,0,0"/>
+        <ComboBox Items="{Binding resourceTypes}"
+                  SelectedItem="{Binding selectedResourceTypeB}"/>
+        <TextBlock Text="amountB"/>
+        <TextBox Text="{Binding reward.amountB}"/>
+        <TextBlock Text="bonus B: Min"/>
+        <TextBox Text="{Binding reward.bonusB_min}"/>
+        <TextBlock Text="bonus B: Max"/>
+        <TextBox Text="{Binding reward.bonusB_max}"/>
+
+      </StackPanel>
+    </Border>
+  </Border>
+
+</UserControl>

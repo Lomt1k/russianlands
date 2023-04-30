@@ -10,24 +10,16 @@ namespace TextGameRPG.Scripts.GameCore.Rewards
     [JsonObject]
     public class ResourceABWithOneBonusReward : RewardBase
     {
-        [JsonProperty]
-        public ResourceType resourceTypeA = ResourceType.Gold;
-        [JsonProperty]
-        public int amountA;
+        public ResourceType resourceTypeA { get; set; } = ResourceType.Gold;
+        public int amountA { get; set; }
 
-        [JsonProperty]
-        public ResourceType resourceTypeB = ResourceType.Wood;
-        [JsonProperty]
-        public int amountB;
+        public ResourceType resourceTypeB { get; set; } = ResourceType.Wood;
+        public int amountB { get; set; }
 
-        [JsonProperty]
-        public int bonusA_min;
-        [JsonProperty]
-        public int bonusA_max;
-        [JsonProperty]
-        public int bonusB_min;
-        [JsonProperty]
-        public int bonusB_max;
+        public int bonusA_min { get; set; }
+        public int bonusA_max { get; set; }
+        public int bonusB_min { get; set; }
+        public int bonusB_max { get; set; }
 
 
         public override Task<string> AddReward(GameSession session)

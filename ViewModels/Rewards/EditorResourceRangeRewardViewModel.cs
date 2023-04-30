@@ -7,14 +7,14 @@ using TextGameRPG.Scripts.GameCore.Rewards;
 
 namespace TextGameRPG.ViewModels.Rewards
 {
-    internal class EditorResourceRewardViewModel : ViewModelBase
+    internal class EditorResourceRangeRewardViewModel : ViewModelBase
     {
         private EnumValueModel<ResourceType> _selectedResourceType;
 
-        public ResourceReward reward { get; }
+        public ResourceRangeReward reward { get; }
 
         public ObservableCollection<EnumValueModel<ResourceType>> resourceTypes { get; }
-        public EnumValueModel<ResourceType> selectedResourceType 
+        public EnumValueModel<ResourceType> selectedResourceType
         {
             get => _selectedResourceType;
             set
@@ -23,11 +23,11 @@ namespace TextGameRPG.ViewModels.Rewards
                 reward.resourceType = value.value;
             }
         }
-        
 
-        public EditorResourceRewardViewModel(ResourceReward _resourceReward)
+
+        public EditorResourceRangeRewardViewModel(ResourceRangeReward _reward)
         {
-            reward = _resourceReward;
+            reward = _reward;
             resourceTypes = EnumValueModel<ResourceType>.CreateCollection();
             selectedResourceType = resourceTypes.First(x => x.value == reward.resourceType);
         }
