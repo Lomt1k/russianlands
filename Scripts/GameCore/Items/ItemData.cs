@@ -120,7 +120,7 @@ namespace TextGameRPG.Scripts.GameCore.Items
 
         public void OnSetupAppMode(AppMode appMode)
         {
-            if (appMode == AppMode.Bot)
+            if (appMode == AppMode.PlayMode)
             {
                 debugName = string.Empty;
             }

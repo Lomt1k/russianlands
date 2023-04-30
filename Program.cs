@@ -1,16 +1,15 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.ReactiveUI;
 using System;
 using log4net;
 using log4net.Config;
 using System.IO;
-using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace TextGameRPG
 {
-    public enum AppMode { None, Editor, Bot };
+    public enum AppMode { None, Editor, PlayMode };
 
     public class Program
     {
@@ -38,7 +37,8 @@ namespace TextGameRPG
             PrepareCacheFolder();
             ConfigureLogger();
             PerformanceMonitor.Start();
-            SelectGUIModeAndRun(args);
+            LoadGameData();
+            SelectAppModeAndRun(args);
         }
 
         private static void PrepareCacheFolder()
@@ -50,29 +50,45 @@ namespace TextGameRPG
             Directory.CreateDirectory(cacheDirectory);
         }
 
-        private static void SelectGUIModeAndRun(string[] args)
-        {
-            // Catching exception when application started with GUI
-            try
-            {
-                if (args.Length > 0 || !ConsoleMode.ConsoleHelper.AskYesNo("Start with GUI?"))
-                {
-                    StartInConsoleMode(args);
-                    return;
-                }
-            }
-            catch (Exception ex) { }
-            StartAvalonia(args);
-        }
-
         private static void ConfigureLogger()
         {
             var configPath = Path.Combine("Assets", "log4net.config");
             XmlConfigurator.Configure(new FileInfo(configPath));
         }
 
+        private static void LoadGameData()
+        {
+            new ViewModels.GameDataLoader().Load();
+        }
+
+        private static void SelectAppModeAndRun(string[] args)
+        {
+            if (args.Length > 0)
+            {
+                StartInConsoleMode(args);
+                return;
+            }
+            var appMode = ConsoleMode.ConsoleHelper.SelectFromVariants("Select run mode", new Dictionary<string, AppMode>()
+            {
+                { "Editor", AppMode.Editor },
+                { "PlayMode", AppMode.PlayMode },
+            });
+
+            SetupAppMode(appMode);
+            switch (appMode)
+            {
+                case AppMode.PlayMode:
+                    StartInConsoleMode(args);
+                    return;
+                default:
+                    StartAvalonia(args);
+                    return;
+            }
+        }
+
         private static void StartAvalonia(string[] args)
         {
+            Console.WriteLine("Start with Avalonia...");
             BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
         }
             
@@ -84,24 +100,18 @@ namespace TextGameRPG
                 .LogToTrace()
                 .UseReactiveUI();
 
-        public static async void StartInConsoleMode(string[] args)
+        private static void StartInConsoleMode(string[] args)
         {
             isConsoleMode = true;
-            SetupAppMode(AppMode.Bot);
-
-            var gameDataLoader = new ViewModels.ConsoleGameDataLoaderViewModel();
-            while (!gameDataLoader.isCompleted)
-            {
-                await Task.Delay(15);
-            }
             new ConsoleMode.ConsoleHandler().Start(args);
         }
 
-        public static void SetupAppMode(AppMode _appMode)
+        private static void SetupAppMode(AppMode _appMode)
         {
             if (appMode != AppMode.None)
                 throw new InvalidOperationException("AppMode can only be installed once");
 
+            Console.WriteLine("Starting " + _appMode);
             appMode = _appMode;
             onSetupAppMode?.Invoke(_appMode);
         }

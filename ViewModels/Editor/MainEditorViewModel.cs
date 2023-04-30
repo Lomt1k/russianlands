@@ -2,6 +2,8 @@
 using System.Collections.ObjectModel;
 using System.Reactive;
 using TextGameRPG.Models.Editor;
+using TextGameRPG.Scripts.GameCore.Services;
+using TextGameRPG.Scripts.GameCore.Services.GameData;
 using TextGameRPG.Views.Editor.BuildingsEditor;
 using TextGameRPG.Views.Editor.ItemsEditor;
 using TextGameRPG.Views.Editor.LocationMobsEditor;
@@ -13,6 +15,8 @@ namespace TextGameRPG.ViewModels.Editor
 {
     public class MainEditorViewModel : ViewModelBase
     {
+        private readonly GameDataHolder gameDataHolder = Services.Get<GameDataHolder>();
+
         private MainEditorCategory _selectedCategory;
 
         public ObservableCollection<MainEditorCategory> categories { get; }
@@ -51,7 +55,7 @@ namespace TextGameRPG.ViewModels.Editor
 
         private void ReloadCommand()
         {
-            // TODO
+            gameDataHolder.LoadAllData();
         }
 
 

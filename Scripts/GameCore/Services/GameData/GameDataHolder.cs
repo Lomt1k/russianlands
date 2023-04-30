@@ -16,7 +16,7 @@ namespace TextGameRPG.Scripts.GameCore.Services.GameData
 
         private static readonly string gameDataPath = Path.Combine("Assets", "gameData");
 
-        private IGameDataLoader _loaderVM;
+        private GameDataLoader? _loader;
 
         public DataDictionaryWithIntegerID<BuildingData> buildings { get; private set; }
         public DataDictionaryWithIntegerID<ItemData> items { get; private set; }
@@ -26,14 +26,14 @@ namespace TextGameRPG.Scripts.GameCore.Services.GameData
 
 #pragma warning restore CS8618
 
-        public void LoadAllData(IGameDataLoader loaderVM)
+        public void LoadAllData(GameDataLoader? loader = null)
         {
-            _loaderVM = loaderVM;
+            _loader = loader;
 
             if (!Directory.Exists(gameDataPath))
             {
                 Directory.CreateDirectory(gameDataPath);
-                _loaderVM.AddNextState("'gameData' folder not found in Assets! Creating new gameData...");
+                _loader?.AddNextState("'gameData' folder not found in Assets! Creating new gameData...");
             }
 
             buildings = LoadDataWithIntegerID<BuildingData>("buildings");
@@ -42,28 +42,41 @@ namespace TextGameRPG.Scripts.GameCore.Services.GameData
             potions = LoadDataWithIntegerID<PotionData>("potions");
             locationGeneratedMobs = LoadDataWithEnumID<LocationType, LocationMobData>("locationGeneratedMobs");
 
-            Localizations.Localization.LoadAll(_loaderVM, gameDataPath);
-            Quests.QuestsHolder.LoadAll(_loaderVM, gameDataPath);
+            Localizations.Localization.LoadAll(_loader, gameDataPath);
+            Quests.QuestsHolder.LoadAll(_loader, gameDataPath);
 
-            _loaderVM.OnGameDataLoaded();
+            _loader?.OnGameDataLoaded();
         }
 
         private DataDictionaryWithIntegerID<T> LoadDataWithIntegerID<T>(string fileName) where T : IDataWithIntegerID
         {
-            _loaderVM.AddNextState($"Loading {fileName}...");
+            _loader?.AddNextState($"Loading {fileName}...");
             string fullPath = Path.Combine(gameDataPath, fileName + ".json");
             var dataBase = DataDictionaryWithIntegerID<T>.LoadFromJSON<T>(fullPath);
-            _loaderVM.AddInfoToCurrentState(dataBase.count.ToString());
+            _loader?.AddInfoToCurrentState(dataBase.count.ToString());
             return dataBase;
         }
 
         private DataDictionaryWithEnumID<TEnum, TData> LoadDataWithEnumID<TEnum, TData>(string fileName) where TEnum : Enum where TData : IDataWithEnumID<TEnum>
         {
-            _loaderVM.AddNextState($"Loading {fileName}...");
+            _loader?.AddNextState($"Loading {fileName}...");
             string fullPath = Path.Combine(gameDataPath, fileName + ".json");
             var dataBase = DataDictionaryWithEnumID<TEnum, TData>.LoadFromJSON<TEnum, TData>(fullPath);
-            _loaderVM.AddInfoToCurrentState(dataBase.count.ToString());
+            _loader?.AddInfoToCurrentState(dataBase.count.ToString());
             return dataBase;
+        }
+
+        public void SaveAllData()
+        {
+            if (Program.appMode != AppMode.Editor)
+                return;
+
+            buildings.Save();
+            items.Save();
+            mobs.Save();
+            potions.Save();
+            locationGeneratedMobs.Save();
+            Quests.QuestsHolder.SaveQuests();
         }
 
     }

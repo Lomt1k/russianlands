@@ -104,7 +104,7 @@ namespace TextGameRPG.Scripts.GameCore.Services.GameData
 
         private void OnSetupAppMode(AppMode appMode)
         {
-            if (appMode != AppMode.Bot)
+            if (appMode != AppMode.PlayMode)
                 return;
 
             foreach (var item in _dictionary.Values)
