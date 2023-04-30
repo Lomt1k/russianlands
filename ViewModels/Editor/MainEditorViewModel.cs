@@ -50,7 +50,7 @@ namespace TextGameRPG.ViewModels.Editor
 
         private void SaveCommand()
         {
-            // TODO
+            gameDataHolder.SaveAllData();
         }
 
         private void ReloadCommand()
