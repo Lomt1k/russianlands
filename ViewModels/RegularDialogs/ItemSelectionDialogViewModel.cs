@@ -43,12 +43,12 @@ namespace TextGameRPG.ViewModels.RegularDialogs
             if (selectedItem == null)
                 return;
 
-            _window.Close();
             var callback = _itemsWithCallbacks[selectedItem];
             if (callback != null)
             {
                 callback();
             }
+            _window.Close();
         }
 
     }

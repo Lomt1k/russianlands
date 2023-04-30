@@ -3,7 +3,6 @@ using Newtonsoft.Json;
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.Bot;
 using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Services;
 
 namespace TextGameRPG.Scripts.GameCore.Rewards
 {

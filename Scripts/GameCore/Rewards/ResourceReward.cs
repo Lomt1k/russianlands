@@ -8,10 +8,8 @@ namespace TextGameRPG.Scripts.GameCore.Rewards
     [JsonObject]
     public class ResourceReward : RewardBase
     {
-        [JsonProperty]
-        public ResourceType resourceType = ResourceType.Gold;
-        [JsonProperty]
-        public int amount;
+        public ResourceType resourceType { get; set; } = ResourceType.Gold;
+        public int amount { get; set; }
 
         public override Task<string> AddReward(GameSession session)
         {

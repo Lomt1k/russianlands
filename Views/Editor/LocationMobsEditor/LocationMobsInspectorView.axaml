@@ -8,7 +8,7 @@
   <Grid>
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="auto"/>
-      <ColumnDefinition Width="auto"/>
+      <ColumnDefinition Width="400"/>
     </Grid.ColumnDefinitions>
 
     <!-- Column 0: Main Settings-->
@@ -56,10 +56,17 @@
     <StackPanel Grid.Column="1" Orientation="Vertical" Spacing="20" Margin="40,0"
                 IsVisible="{Binding townHallData, Converter={x:Static ObjectConverters.IsNotNull}}">
 
-      <Border Background="WhiteSmoke" Padding="20">
+      <Border Background="WhiteSmoke" Padding="18">
         <StackPanel Grid.Column="0" Orientation="Vertical" Spacing="5">
           <TextBlock Text="foodPrice"/>
           <TextBox Text="{Binding townHallData.foodPrice}"/>
+        </StackPanel>
+      </Border>
+
+      <Border Background="WhiteSmoke" Padding="20">
+        <StackPanel Grid.Column="0" Orientation="Vertical" Spacing="5">
+          <TextBlock Text="battleRewards"/>
+          <UserControl Content="{Binding battleRewards}"/>
         </StackPanel>
       </Border>
 
