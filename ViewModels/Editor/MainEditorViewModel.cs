@@ -1,5 +1,6 @@
 ﻿using ReactiveUI;
 using System.Collections.ObjectModel;
+using System.Reactive;
 using TextGameRPG.Models.Editor;
 using TextGameRPG.Views.Editor.BuildingsEditor;
 using TextGameRPG.Views.Editor.ItemsEditor;
@@ -21,11 +22,16 @@ namespace TextGameRPG.ViewModels.Editor
             set => this.RaiseAndSetIfChanged(ref _selectedCategory, value);
         }
 
+        public ReactiveCommand<Unit, Unit> saveCommand { get; }
+        public ReactiveCommand<Unit, Unit> reloadCommand { get; }
+
         public MainEditorViewModel()
         {
             categories = new ObservableCollection<MainEditorCategory>();
-
             InitializeCategories();
+
+            saveCommand = ReactiveCommand.Create(SaveCommand);
+            reloadCommand = ReactiveCommand.Create(ReloadCommand);
         }
 
         private void InitializeCategories()
@@ -36,6 +42,16 @@ namespace TextGameRPG.ViewModels.Editor
             categories.Add(new MainEditorCategory("Mobs", new MobsEditorView()));
             categories.Add(new MainEditorCategory("LocationMobs", new LocationMobsEditorView()));
             categories.Add(new MainEditorCategory("Potions", new PotionsEditorView()));
+        }
+
+        private void SaveCommand()
+        {
+            // TODO
+        }
+
+        private void ReloadCommand()
+        {
+            // TODO
         }
 
 

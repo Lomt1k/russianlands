@@ -10,15 +10,14 @@
 
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="auto"/>
-        <ColumnDefinition/>
+        <ColumnDefinition Width="*"/>
       </Grid.ColumnDefinitions>
       
-      <StackPanel Grid.Column="0" Classes="Content" MinWidth="200"
+      <Grid Classes="Content" MinWidth="200"
                   Background="SlateGray">
         <ListBox Items="{Binding categories}" 
                  SelectedItem="{Binding selectedCategory}"
-                 Background="SlateGray"
-                 MinHeight="600">
+                 Background="SlateGray">
           <ListBox.ItemTemplate>
             
             <DataTemplate>
@@ -30,7 +29,19 @@
             
           </ListBox.ItemTemplate>
         </ListBox>
-      </StackPanel>
+        
+        <StackPanel Orientation="Vertical" VerticalAlignment="Bottom"
+                    Margin="15,0" Spacing="5" Height="100">
+          <Button Content="Save" Height="45" Width="160"  Classes="Positive"
+                  VerticalContentAlignment="Center"
+                  HorizontalContentAlignment="Center"
+                  Command="{Binding saveCommand}"/>
+          <Button Content="Reload" Height="30" Width="160"
+                  VerticalContentAlignment="Center"
+                  HorizontalContentAlignment="Center"
+                  Command="{Binding reloadCommand}"/>
+        </StackPanel>
+      </Grid>
 
       <UserControl Grid.Column="1" 
                    Content="{Binding selectedCategory.view, Mode=TwoWay}"/>
