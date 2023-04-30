@@ -19,7 +19,7 @@ namespace TextGameRPG.ViewModels.Editor
 
         private MainEditorCategory _selectedCategory;
 
-        public ObservableCollection<MainEditorCategory> categories { get; }
+        public ObservableCollection<MainEditorCategory> categories { get; } = new();
         public MainEditorCategory selectedCategory
         {
             get => _selectedCategory;
@@ -31,15 +31,22 @@ namespace TextGameRPG.ViewModels.Editor
 
         public MainEditorViewModel()
         {
-            categories = new ObservableCollection<MainEditorCategory>();
-            InitializeCategories();
+            RestartEditor();
 
             saveCommand = ReactiveCommand.Create(SaveCommand);
             reloadCommand = ReactiveCommand.Create(ReloadCommand);
+
+            gameDataHolder.onDataReloaded += OnDataReloaded;
+        }
+
+        private void RestartEditor()
+        {
+            InitializeCategories();
         }
 
         private void InitializeCategories()
         {
+            categories.Clear();
             categories.Add(new MainEditorCategory("Buildings", new BuildingsEditorView()));
             categories.Add(new MainEditorCategory("Items", new ItemsEditorView() ));
             categories.Add(new MainEditorCategory("Quests", new QuestsEditorView()));
@@ -56,6 +63,11 @@ namespace TextGameRPG.ViewModels.Editor
         private void ReloadCommand()
         {
             gameDataHolder.LoadAllData();
+        }
+
+        private void OnDataReloaded()
+        {
+            RestartEditor();
         }
 
 

@@ -26,6 +26,8 @@ namespace TextGameRPG.Scripts.GameCore.Services.GameData
 
 #pragma warning restore CS8618
 
+        public event Action? onDataReloaded;
+
         public void LoadAllData(GameDataLoader? loader = null)
         {
             _loader = loader;
@@ -46,6 +48,7 @@ namespace TextGameRPG.Scripts.GameCore.Services.GameData
             Quests.QuestsHolder.LoadAll(_loader, gameDataPath);
 
             _loader?.OnGameDataLoaded();
+            onDataReloaded?.Invoke();
         }
 
         private DataDictionaryWithIntegerID<T> LoadDataWithIntegerID<T>(string fileName) where T : IDataWithIntegerID
