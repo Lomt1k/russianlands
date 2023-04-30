@@ -7,7 +7,7 @@
 
   <Grid>
     <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="300"/>
+      <ColumnDefinition Width="auto"/>
       <ColumnDefinition Width="auto"/>
     </Grid.ColumnDefinitions>
 
@@ -39,9 +39,10 @@
 
           <StackPanel Orientation="Horizontal" Spacing="20">
             <Button Classes="Neutral" Content="Add"
-                    Command="{Binding addNewTownHallCommand}"/>
+                    Command="{Binding addTownHallCommand}"/>
             <Button Classes="Neutral" Content="Remove"
-                    Command="{Binding removeTownHallCommand}"/>
+                    Command="{Binding removeTownHallCommand}"
+                    IsEnabled="{Binding selectedTownHall, Converter={x:Static ObjectConverters.IsNotNull}}"/>
           </StackPanel>
           
         </StackPanel>
@@ -51,13 +52,14 @@
     </StackPanel>
     
 
-    <!-- Column 1: Subsettings -->
-    <StackPanel Grid.Column="1" Orientation="Vertical" Spacing="20" Margin="40,0">
+    <!-- Column 1: Town Hall Data -->
+    <StackPanel Grid.Column="1" Orientation="Vertical" Spacing="20" Margin="40,0"
+                IsVisible="{Binding townHallData, Converter={x:Static ObjectConverters.IsNotNull}}">
 
       <Border Background="WhiteSmoke" Padding="20">
         <StackPanel Grid.Column="0" Orientation="Vertical" Spacing="5">
-          <TextBlock Text="mobsCount"/>
-          <TextBox Text="{Binding locationMobData.mobsCount}"/>
+          <TextBlock Text="foodPrice"/>
+          <TextBox Text="{Binding townHallData.foodPrice}"/>
         </StackPanel>
       </Border>
 
