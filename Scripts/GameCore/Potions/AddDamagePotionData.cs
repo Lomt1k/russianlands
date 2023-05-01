@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using Newtonsoft.Json;
+using System.Text;
 using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.GameCore.Localizations;
@@ -8,12 +9,13 @@ using TextGameRPG.Scripts.GameCore.Units.Stats.StatEffects;
 
 namespace TextGameRPG.Scripts.GameCore.Potions
 {
+    [JsonObject]
     public class AddDamagePotionData : PotionData
     {
-        public int physicalDamage;
-        public int fireDamage;
-        public int coldDamage;
-        public int lightningDamage;
+        public int physicalDamage { get; set; }
+        public int fireDamage { get; set; }
+        public int coldDamage { get; set; }
+        public int lightningDamage { get; set; }
 
         public AddDamagePotionData(int _id) : base(_id)
         {

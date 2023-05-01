@@ -5,16 +5,17 @@ using System.Linq;
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Quests.QuestStages;
 using Newtonsoft.Json;
+using TextGameRPG.Scripts.GameCore.Services.GameData;
 
 namespace TextGameRPG.Scripts.GameCore.Quests
 {
     [JsonObject]
-    public class Quest
+    public class QuestData : IGameDataWithId<QuestId>
     {
         private const int STAGE_FIRST = 100;
 
-        public QuestType questType;
-        public List<QuestStage> stages = new List<QuestStage>();
+        public QuestId id { get; set; }
+        public List<QuestStage> stages { get; set; } = new List<QuestStage>();
 
         [JsonIgnore]
         protected Dictionary<int, QuestStage> _stagesById = new Dictionary<int, QuestStage>();
@@ -36,7 +37,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests
 
         public int GetCurrentStageId(GameSession session)
         {
-            return session.profile.dynamicData.quests.GetStage(questType);
+            return session.profile.dynamicData.quests.GetStage(id);
         }
 
         public QuestStage GetCurrentStage(GameSession session)
@@ -60,7 +61,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests
 
         public async Task SetStage(GameSession session, int stageId)
         {
-            session.profile.dynamicData.quests.SetStage(questType, stageId);
+            session.profile.dynamicData.quests.SetStage(id, stageId);
             if (stageId <= 0)
                 return;
 
@@ -70,12 +71,12 @@ namespace TextGameRPG.Scripts.GameCore.Quests
 
         public bool IsCompleted(GameSession session)
         {
-            return session.profile.dynamicData.quests.IsCompleted(questType);
+            return session.profile.dynamicData.quests.IsCompleted(id);
         }
 
         public bool IsStarted(GameSession session)
         {
-            return session.profile.dynamicData.quests.IsStarted(questType);
+            return session.profile.dynamicData.quests.IsStarted(id);
         }
 
         public async Task StartQuest(GameSession session)
@@ -105,5 +106,9 @@ namespace TextGameRPG.Scripts.GameCore.Quests
             return completedPoints;
         }
 
+        public void OnSetupAppMode(AppMode appMode)
+        {
+            // ignored
+        }
     }
 }

@@ -36,12 +36,12 @@ namespace TextGameRPG.Scripts.GameCore.Services.Mobs
         private static MobDifficulty GetMinimumDifficultyByQuestProgress(Player player)
         {
             var playerQuestsProgress = player.session.profile.dynamicData.quests;
-            if (playerQuestsProgress.IsCompleted(QuestType.Loc_07)) return MobDifficulty.HALL_8_END;
-            if (playerQuestsProgress.IsCompleted(QuestType.Loc_06)) return MobDifficulty.HALL_7_END;
-            if (playerQuestsProgress.IsCompleted(QuestType.Loc_05)) return MobDifficulty.HALL_6_END;
-            if (playerQuestsProgress.IsCompleted(QuestType.Loc_04)) return MobDifficulty.HALL_5_END;
-            if (playerQuestsProgress.IsCompleted(QuestType.Loc_03)) return MobDifficulty.HALL_4_END;
-            if (playerQuestsProgress.IsCompleted(QuestType.Loc_02)) return MobDifficulty.HALL_3_END;
+            if (playerQuestsProgress.IsCompleted(QuestId.Loc_07)) return MobDifficulty.HALL_8_END;
+            if (playerQuestsProgress.IsCompleted(QuestId.Loc_06)) return MobDifficulty.HALL_7_END;
+            if (playerQuestsProgress.IsCompleted(QuestId.Loc_05)) return MobDifficulty.HALL_6_END;
+            if (playerQuestsProgress.IsCompleted(QuestId.Loc_04)) return MobDifficulty.HALL_5_END;
+            if (playerQuestsProgress.IsCompleted(QuestId.Loc_03)) return MobDifficulty.HALL_4_END;
+            if (playerQuestsProgress.IsCompleted(QuestId.Loc_02)) return MobDifficulty.HALL_3_END;
             return MobDifficulty.HALL_3_START;
         }
 

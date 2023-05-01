@@ -65,14 +65,14 @@ namespace TextGameRPG.ViewModels.Editor.LocationMobsEditor
         }
 
 
-        public void Show(LocationType locationType)
+        public void Show(LocationId locationId)
         {
             var locationMobs = gameDataHolder.locationGeneratedMobs;
-            if (!locationMobs.ContainsKey(locationType))
+            if (!locationMobs.ContainsKey(locationId))
             {
-                locationMobs.AddData(locationType, new LocationMobData() { id = locationType });
+                locationMobs.AddData(locationId, new LocationMobData() { id = locationId });
             }
-            locationMobData = locationMobs[locationType];
+            locationMobData = locationMobs[locationId];
             townHallsList.Clear();
             townHallsList.AddRange(locationMobData.dataByTownhall.Keys);
         }

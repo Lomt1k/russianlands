@@ -15,7 +15,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
         private static readonly GameDataHolder gameDataBase = Services.Services.Get<GameDataHolder>();
 
         public abstract BuildingId buildingId { get; }
-        public BuildingData buildingData => gameDataBase.buildings[(int)buildingId];
+        public BuildingData buildingData => gameDataBase.buildings[buildingId];
 
         public virtual Dictionary<string, Func<Task>> GetSpecialButtons(GameSession session, ProfileBuildingsData data)
         {

@@ -14,26 +14,26 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
 {
     public class StageWithTriggerViewModel : ViewModelBase
     {
-        private ObjectFieldsEditorView? _selectedActionView;
-        private ObjectFieldsEditorView? _selectedTooltipView;
-        private ObjectFieldsEditorView? _selectedTriggerView;
+        private ObjectPropertiesEditorView? _selectedActionView;
+        private ObjectPropertiesEditorView? _selectedTooltipView;
+        private ObjectPropertiesEditorView? _selectedTriggerView;
 
         public QuestStageWithTrigger stage { get; }
 
-        public ObservableCollection<ObjectFieldsEditorView> actionViews { get; }
-        public ObservableCollection<ObjectFieldsEditorView> tooltipViews { get; }
-        public ObservableCollection<ObjectFieldsEditorView> triggerViews { get; }
-        public ObjectFieldsEditorView? selectedActionView
+        public ObservableCollection<ObjectPropertiesEditorView> actionViews { get; }
+        public ObservableCollection<ObjectPropertiesEditorView> tooltipViews { get; }
+        public ObservableCollection<ObjectPropertiesEditorView> triggerViews { get; }
+        public ObjectPropertiesEditorView? selectedActionView
         {
             get => _selectedActionView;
             set => this.RaiseAndSetIfChanged(ref _selectedActionView, value);
         }
-        public ObjectFieldsEditorView? selectedTooltipView
+        public ObjectPropertiesEditorView? selectedTooltipView
         {
             get => _selectedTooltipView;
             set => this.RaiseAndSetIfChanged(ref _selectedTooltipView, value);
         }
-        public ObjectFieldsEditorView? selectedTriggerView
+        public ObjectPropertiesEditorView? selectedTriggerView
         {
             get => _selectedTriggerView;
             set => this.RaiseAndSetIfChanged(ref _selectedTriggerView, value);
@@ -50,17 +50,17 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
         {
             this.stage = stage;
 
-            actionViews = new ObservableCollection<ObjectFieldsEditorView>();
+            actionViews = new ObservableCollection<ObjectPropertiesEditorView>();
             RefillActionsCollection();
             addNewActionCommand = ReactiveCommand.Create(AddNewAction);
             removeActionCommand = ReactiveCommand.Create(RemoveSelectedAction);
 
-            tooltipViews = new ObservableCollection<ObjectFieldsEditorView>();
+            tooltipViews = new ObservableCollection<ObjectPropertiesEditorView>();
             RefillTooltipsCollection();
             addNewTooltipCommand = ReactiveCommand.Create(AddNewTooltip);
             removeTooltipCommand = ReactiveCommand.Create(RemoveSelectedTooltip);
 
-            triggerViews = new ObservableCollection<ObjectFieldsEditorView>();
+            triggerViews = new ObservableCollection<ObjectPropertiesEditorView>();
             RefillTriggersCollection();
             addNewTriggerCommand = ReactiveCommand.Create(AddNewTrigger);
             removeTriggerCommand = ReactiveCommand.Create(RemoveSelectedTrigger);
@@ -149,18 +149,18 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
 
         public void SaveChanges()
         {
-            foreach (var actionView in actionViews)
-            {
-                actionView.vm.SaveObjectChanges();
-            }
-            foreach (var tooltipView in tooltipViews)
-            {
-                tooltipView.vm.SaveObjectChanges();
-            }
-            foreach (var triggerView in triggerViews)
-            {
-                triggerView.vm.SaveObjectChanges();
-            }
+            //foreach (var actionView in actionViews)
+            //{
+            //    actionView.vm.SaveObjectChanges();
+            //}
+            //foreach (var tooltipView in tooltipViews)
+            //{
+            //    tooltipView.vm.SaveObjectChanges();
+            //}
+            //foreach (var triggerView in triggerViews)
+            //{
+            //    triggerView.vm.SaveObjectChanges();
+            //}
         }
 
 

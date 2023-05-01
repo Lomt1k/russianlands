@@ -21,13 +21,13 @@ namespace TextGameRPG.Scripts.GameCore.Services.Mobs
                 .GetResult();
         }
 
-        public MobData GenerateMobForLocation(MobDifficulty mobDifficulty, LocationType locationType, List<string>? excludeNames)
+        public MobData GenerateMobForLocation(MobDifficulty mobDifficulty, LocationId locationId, List<string>? excludeNames)
         {
-            if (locationType == LocationType.Loc_01)
+            if (locationId == LocationId.Loc_01)
             {
                 DecreaseDifficulty(ref mobDifficulty, 1);
             }
-            else if (locationType >= LocationType.Loc_05 && locationType <= LocationType.Loc_07)
+            else if (locationId >= LocationId.Loc_05 && locationId <= LocationId.Loc_07)
             {
                 var chanceToIncreaseDifficulty = 50;
                 if (Randomizer.TryPercentage(chanceToIncreaseDifficulty))
@@ -54,7 +54,7 @@ namespace TextGameRPG.Scripts.GameCore.Services.Mobs
                 .IncreaseDamageValuesByPercents(increasePercents)
                 .RandomizeDamageValuesByPercents(10)
                 .ShuffleDamageValues()
-                .SetRandomName(locationType, excludeNames)
+                .SetRandomName(locationId, excludeNames)
                 .GetResult();
         }
 

@@ -7,22 +7,16 @@ using System.Linq;
 using TextGameRPG.Views.UserControls;
 using TextGameRPG.Models.UserControls;
 using System.Reactive;
-using TextGameRPG.Scripts.GameCore.Services.GameData;
-using TextGameRPG.Scripts.GameCore.Services;
 
 namespace TextGameRPG.ViewModels.Editor.MobsEditor
 {
     public class MobInspectorViewModel : ViewModelBase
     {
-        private static readonly GameDataHolder gameDataBase = Services.Get<GameDataHolder>();
-
-
         private MobData? _mob;
         private string _header = string.Empty;
         private EnumValueModel<MobType>? _selectedMobType;
-        private ObjectFieldsEditorView? _statsSettingsView;
-        private ObjectFieldsEditorView? _selectedAttackView;
-        private MobsEditorViewModel _mobEditorVM;
+        private ObjectPropertiesEditorView? _statsSettingsView;
+        private ObjectPropertiesEditorView? _selectedAttackView;
 
         public MobData? mob
         {
@@ -36,7 +30,7 @@ namespace TextGameRPG.ViewModels.Editor.MobsEditor
         }
         public ObservableCollection<EnumValueModel<MobType>> mobTypes { get; }
         public ObservableCollection<EnumValueModel<Rarity>> rarities { get; }
-        public ObservableCollection<ObjectFieldsEditorView> attackViews { get; }
+        public ObservableCollection<ObjectPropertiesEditorView> attackViews { get; }
 
         public EnumValueModel<MobType>? selectedMobType
         {
@@ -51,12 +45,12 @@ namespace TextGameRPG.ViewModels.Editor.MobsEditor
             }
         }
 
-        public ObjectFieldsEditorView? statsSettingsView
+        public ObjectPropertiesEditorView? statsSettingsView
         {
             get => _statsSettingsView;
             set => this.RaiseAndSetIfChanged(ref _statsSettingsView, value);
         }
-        public ObjectFieldsEditorView? selectedAttackView
+        public ObjectPropertiesEditorView? selectedAttackView
         {
             get => _selectedAttackView;
             set => this.RaiseAndSetIfChanged(ref _selectedAttackView, value);
@@ -67,18 +61,14 @@ namespace TextGameRPG.ViewModels.Editor.MobsEditor
         public ReactiveCommand<Unit, Unit> saveCommand { get; }
         public ReactiveCommand<Unit, Unit> cancelCommand { get; }
 
-        public MobInspectorViewModel(MobsEditorViewModel parent)
+        public MobInspectorViewModel()
         {
             mobTypes = EnumValueModel<MobType>.CreateCollection();
             rarities = EnumValueModel<Rarity>.CreateCollection();
 
-            attackViews = new ObservableCollection<ObjectFieldsEditorView>();
+            attackViews = new ObservableCollection<ObjectPropertiesEditorView>();
             addAttackCommand = ReactiveCommand.Create(AddNewAttack);
             removeAttackCommand = ReactiveCommand.Create(RemoveSelectedAttack);
-            saveCommand = ReactiveCommand.Create(SaveMobChanges);
-            cancelCommand = ReactiveCommand.Create(ResetMobChanges);
-
-            _mobEditorVM = parent;
         }
 
         public void ShowMob(MobData data)
@@ -108,31 +98,6 @@ namespace TextGameRPG.ViewModels.Editor.MobsEditor
             var mobAttack = _selectedAttackView.vm.GetEditableObject<MobAttack>();
             _mob.mobAttacks.Remove(mobAttack);
             UserControlsHelper.RefillObjectEditorsCollection(attackViews, _mob.mobAttacks);
-        }
-
-        private void SaveMobChanges()
-        {
-            if (mob == null)
-                return;
-
-            _statsSettingsView?.vm.SaveObjectChanges();
-            foreach (var attackView in attackViews)
-            {
-                attackView.vm.SaveObjectChanges();
-            }
-
-            gameDataBase.mobs.ChangeData(mob.id, mob);
-
-            _mobEditorVM.RefreshMobsList();
-            _mobEditorVM.selectedMob = mob;
-        }
-
-        private void ResetMobChanges()
-        {
-            gameDataBase.mobs.ReloadAllData();
-
-            _mobEditorVM.RefreshMobsList();
-            _mobEditorVM.selectedMob = mob;
         }
 
     }

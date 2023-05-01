@@ -83,53 +83,53 @@ namespace TextGameRPG.Scripts.GameCore.Services.Mobs
 
         private LocationsMobPack GenerateMobPack(MobDifficulty difficulty)
         {
-            var result = new Dictionary<LocationType, MobData[]>();
-            foreach (LocationType locationType in Enum.GetValues(typeof(LocationType)))
+            var result = new Dictionary<LocationId, MobData[]>();
+            foreach (LocationId locationId in Enum.GetValues(typeof(LocationId)))
             {
-                if (locationType == LocationType.None)
+                if (locationId == LocationId.None)
                     continue;
 
-                var mobsCount = gameDataHolder.locationGeneratedMobs[locationType].mobsCount;
+                var mobsCount = gameDataHolder.locationGeneratedMobs[locationId].mobsCount;
                 var array = new MobData[mobsCount];
                 var excludeNames = new List<string>();
                 for (int i = 0; i < mobsCount; i++)
                 {
-                    array[i] = mobFactory.GenerateMobForLocation(difficulty, locationType, excludeNames);
+                    array[i] = mobFactory.GenerateMobForLocation(difficulty, locationId, excludeNames);
                     excludeNames.Add(array[i].localizationKey);
                 }
-                result[locationType] = array;
+                result[locationId] = array;
             }
             return new LocationsMobPack(result);
         }
 
-        public IReadOnlyList<RewardBase> GetLocationRewards(GameSession session, LocationType locationType)
+        public IReadOnlyList<RewardBase> GetLocationRewards(GameSession session, LocationId locationId)
         {
             var townHall = session.player.buildings.GetBuildingLevel(Buildings.BuildingId.TownHall);
-            var locationMobSettings = gameDataHolder.locationGeneratedMobs[locationType].GetClosest(townHall);
+            var locationMobSettings = gameDataHolder.locationGeneratedMobs[locationId].GetClosest(townHall);
             return locationMobSettings.locationRewards;
         }
 
-        public BattlePointData? GetMobBattlePointData(GameSession session, LocationType locationType, byte mobIndex)
+        public BattlePointData? GetMobBattlePointData(GameSession session, LocationId locationId, byte mobIndex)
         {
             if (!isMobsReady)
                 return null;
 
             var difficulty = session.profile.dailyData.GetLocationMobDifficulty();
-            var mobData = this[difficulty][locationType][mobIndex];
+            var mobData = this[difficulty][locationId][mobIndex];
             var townHall = session.player.buildings.GetBuildingLevel(Buildings.BuildingId.TownHall);
-            var locationMobSettings = gameDataHolder.locationGeneratedMobs[locationType].GetClosest(townHall);
+            var locationMobSettings = gameDataHolder.locationGeneratedMobs[locationId].GetClosest(townHall);
 
             return new BattlePointData
             {
                 mob = new Mob(session, mobData),
                 foodPrice = locationMobSettings.foodPrice,
                 rewards = locationMobSettings.battleRewards,
-                onBackButtonFunc = () => new MapDialog(session).StartWithLocation(locationType),
+                onBackButtonFunc = () => new MapDialog(session).StartWithLocation(locationId),
                 onBattleEndFunc = (Player player, BattleResult result) =>
                 {
                     if (result == BattleResult.Win)
                     {
-                        var defeatedMobs = player.session.profile.dailyData.GetLocationDefeatedMobs(locationType);
+                        var defeatedMobs = player.session.profile.dailyData.GetLocationDefeatedMobs(locationId);
                         defeatedMobs.Add(mobIndex);
                     }
                     return Task.CompletedTask;
@@ -138,10 +138,10 @@ namespace TextGameRPG.Scripts.GameCore.Services.Mobs
                 {
                     if (result == BattleResult.Win && isMobsReady)
                     {
-                        var defeatedMobs = player.session.profile.dailyData.GetLocationDefeatedMobs(locationType);
-                        if (defeatedMobs.Count == this[difficulty][locationType].Length)
+                        var defeatedMobs = player.session.profile.dailyData.GetLocationDefeatedMobs(locationId);
+                        if (defeatedMobs.Count == this[difficulty][locationId].Length)
                         {
-                            await GiveLocationRewards(session, locationType).FastAwait();
+                            await GiveLocationRewards(session, locationId).FastAwait();
                             return;
                         }
                     }
@@ -150,13 +150,13 @@ namespace TextGameRPG.Scripts.GameCore.Services.Mobs
             };
         }
 
-        private async Task GiveLocationRewards(GameSession session, LocationType locationType)
+        private async Task GiveLocationRewards(GameSession session, LocationId locationId)
         {
             var townHall = session.player.buildings.GetBuildingLevel(Buildings.BuildingId.TownHall);
-            var locationMobSettings = gameDataHolder.locationGeneratedMobs[locationType].GetClosest(townHall);
+            var locationMobSettings = gameDataHolder.locationGeneratedMobs[locationId].GetClosest(townHall);
 
             var sb = new StringBuilder();
-            sb.AppendLine(locationType.GetLocalization(session).Bold());
+            sb.AppendLine(locationId.GetLocalization(session).Bold());
 
             sb.AppendLine();
             sb.AppendLine(Localization.Get(session, "dialog_map_all_enemies_defeated"));

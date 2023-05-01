@@ -5,11 +5,11 @@ using TextGameRPG.ViewModels.UserControls;
 
 namespace TextGameRPG.Views.UserControls
 {
-    public partial class ObjectFieldsEditorView : UserControl
+    public partial class ObjectPropertiesEditorView : UserControl
     {
-        public ObjectFieldsEditorViewModel vm => DataContext as ObjectFieldsEditorViewModel;
+        public ObjectPropertiesEditorViewModel vm => DataContext as ObjectPropertiesEditorViewModel;
 
-        public ObjectFieldsEditorView()
+        public ObjectPropertiesEditorView()
         {
             InitializeComponent();
         }

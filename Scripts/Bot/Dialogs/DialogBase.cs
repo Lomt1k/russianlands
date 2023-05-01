@@ -10,13 +10,15 @@ using TextGameRPG.Scripts.GameCore.Quests.QuestStages;
 using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Services;
 using TextGameRPG.Scripts.Bot.Dialogs.Town;
+using TextGameRPG.Scripts.GameCore.Services.GameData;
 
 namespace TextGameRPG.Scripts.Bot.Dialogs
 {
     public abstract class DialogBase
     {
         protected static readonly MessageSender messageSender = Services.Get<MessageSender>();
-        private static readonly NotificationsManager notificationsManager = Services.Get<NotificationsManager>();
+        protected static readonly NotificationsManager notificationsManager = Services.Get<NotificationsManager>();
+        protected static readonly GameDataHolder gameDataHolder = Services.Get<GameDataHolder>();
 
         private Dictionary<KeyboardButton, Func<Task>?> _registeredButtons = new Dictionary<KeyboardButton, Func<Task>?>();
         private Func<Task<Message?>>? _resendLastMessageFunc;
@@ -240,7 +242,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
                             var focusedQuest = session.profile.dynamicData.quests.GetFocusedQuest();
                             if (focusedQuest != null)
                             {
-                                var quest = GameCore.Quests.QuestsHolder.GetQuest(focusedQuest.Value);
+                                var quest = gameDataHolder.quests[focusedQuest.Value];
                                 await quest.SetStage(session, newStage).FastAwait();
                             }
                         }

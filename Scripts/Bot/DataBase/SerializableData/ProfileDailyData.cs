@@ -21,7 +21,7 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
 
         // map mobs progress
         public MobDifficulty? locationMobsDifficulty { get; set; }
-        public Dictionary<LocationType, List<byte>> defeatedLocationMobs { get; set; } = new();
+        public Dictionary<LocationId, List<byte>> defeatedLocationMobs { get; set; } = new();
 
 
 
@@ -30,14 +30,14 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
             return locationMobsDifficulty ??= MobDifficultyCalculator.GetActualDifficultyForPlayer(session.player);
         }
 
-        public List<byte> GetLocationDefeatedMobs(LocationType locationType)
+        public List<byte> GetLocationDefeatedMobs(LocationId locationId)
         {
-            if (defeatedLocationMobs.TryGetValue(locationType, out var result))
+            if (defeatedLocationMobs.TryGetValue(locationId, out var result))
             {
                 return result;
             }
             var newList = new List<byte>();
-            defeatedLocationMobs.Add(locationType, newList);
+            defeatedLocationMobs.Add(locationId, newList);
             return newList;
         }
 
@@ -66,7 +66,7 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
                 activityInSeconds = rawData.activityInSeconds,
 
                 locationMobsDifficulty = rawData.locationMobsDifficulty,
-                defeatedLocationMobs = JsonConvert.DeserializeObject<Dictionary<LocationType, List<byte>>>(rawData.defeatedLocationMobs),
+                defeatedLocationMobs = JsonConvert.DeserializeObject<Dictionary<LocationId, List<byte>>>(rawData.defeatedLocationMobs),
             };
         }
     }

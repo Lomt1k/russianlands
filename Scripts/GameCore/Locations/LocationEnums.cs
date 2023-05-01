@@ -1,10 +1,11 @@
 ﻿using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Quests;
 using TextGameRPG.Scripts.Bot.Sessions;
+using TextGameRPG.Scripts.GameCore.Services.GameData;
 
 namespace TextGameRPG.Scripts.GameCore.Locations
 {
-    public enum LocationType : byte
+    public enum LocationId : byte
     {
         None = 0,
         Loc_01 = 1,
@@ -18,33 +19,35 @@ namespace TextGameRPG.Scripts.GameCore.Locations
 
     public static class LocationExtensions
     {
-        public static string GetLocalization(this LocationType locationType, GameSession session)
+        private static readonly GameDataHolder gameDataHolder = Services.Services.Get<GameDataHolder>();
+
+        public static string GetLocalization(this LocationId locationId, GameSession session)
         {
-            return Localization.Get(session, $"menu_item_location_{(int)locationType}");
+            return Localization.Get(session, $"menu_item_location_{(int)locationId}");
         }
 
-        public static QuestType? GetQuest(this LocationType locationType)
+        public static QuestId? GetQuest(this LocationId locationId)
         {
-            switch (locationType)
+            switch (locationId)
             {
-                case LocationType.Loc_01: return QuestType.Loc_01;
-                case LocationType.Loc_02: return QuestType.Loc_02;
-                case LocationType.Loc_03: return QuestType.Loc_03;
-                case LocationType.Loc_04: return QuestType.Loc_04;
-                case LocationType.Loc_05: return QuestType.Loc_05;
-                case LocationType.Loc_06: return QuestType.Loc_06;
-                case LocationType.Loc_07: return QuestType.Loc_07;
+                case LocationId.Loc_01: return QuestId.Loc_01;
+                case LocationId.Loc_02: return QuestId.Loc_02;
+                case LocationId.Loc_03: return QuestId.Loc_03;
+                case LocationId.Loc_04: return QuestId.Loc_04;
+                case LocationId.Loc_05: return QuestId.Loc_05;
+                case LocationId.Loc_06: return QuestId.Loc_06;
+                case LocationId.Loc_07: return QuestId.Loc_07;
             }
             return null;
         }
 
-        public static bool IsLocked(this LocationType locationType, GameSession session)
+        public static bool IsLocked(this LocationId locationId, GameSession session)
         {
-            var questType = locationType.GetQuest();
-            if (questType == null)
+            var questId = locationId.GetQuest();
+            if (questId == null)
                 return false;
 
-            var quest = QuestsHolder.GetQuest(questType.Value);
+            var quest = gameDataHolder.quests[questId.Value];
             bool isLocked = !quest.IsStarted(session);
             return isLocked;
         }

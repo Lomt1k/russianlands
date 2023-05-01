@@ -7,14 +7,14 @@ namespace TextGameRPG.Models.UserControls
 {
     public static class UserControlsHelper
     {
-        public static ObjectFieldsEditorView CreateObjectEditorView(object obj)
+        public static ObjectPropertiesEditorView CreateObjectEditorView(object obj)
         {
-            var view = new ObjectFieldsEditorView();
-            view.DataContext = new ObjectFieldsEditorViewModel(obj);
+            var view = new ObjectPropertiesEditorView();
+            view.DataContext = new ObjectPropertiesEditorViewModel(obj);
             return view;
         }
 
-        public static void RefillObjectEditorsCollection(ObservableCollection<ObjectFieldsEditorView> collection, IEnumerable<object> objects)
+        public static void RefillObjectEditorsCollection(ObservableCollection<ObjectPropertiesEditorView> collection, IEnumerable<object> objects)
         {
             collection.Clear();
             foreach (var element in objects)

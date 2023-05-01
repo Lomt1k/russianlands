@@ -31,11 +31,11 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
             await _mapPanel.Start().FastAwait();
         }
 
-        public async Task StartWithLocation(LocationType locationType)
+        public async Task StartWithLocation(LocationId locationId)
         {
             var header = Emojis.ButtonMap + Localization.Get(session, "menu_item_map").Bold();
             await SendDialogMessage(header, GetKeyboardWithRowSizes(2, 1)).FastAwait();
-            await _mapPanel.ShowLocation(locationType).FastAwait();
+            await _mapPanel.ShowLocation(locationId).FastAwait();
         }
 
     }

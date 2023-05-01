@@ -36,7 +36,7 @@
             <StackPanel Orientation="Horizontal">
               <TextBlock Text="{Binding id}" Width="80"/>
               <TextBlock Text="{Binding debugName}" MinWidth="300"/>
-              <TextBlock Text="{Binding workshopLevelProperty, StringFormat='Lvl {0}'}"
+              <TextBlock Text="{Binding workshopLevel, StringFormat='Lvl {0}'}"
                          Width="120"/>
             </StackPanel>
           </DataTemplate>
@@ -56,7 +56,7 @@
 
     <!-- Column 3: Item Inspector -->
     <UserControl Grid.Column="1" Grid.Row="1" Margin="40,0" VerticalAlignment="Top"
-                 Content="{Binding potionInspector}"
+                 Content="{Binding potionPropertiesEditorView}"
                  IsVisible="{Binding selectedPotion, Converter={x:Static ObjectConverters.IsNotNull}}"/>
 
 

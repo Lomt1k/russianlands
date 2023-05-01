@@ -9,6 +9,7 @@ using TextGameRPG.Scripts.GameCore.Quests.QuestStages;
 using TextGameRPG.Scripts.GameCore.Resources;
 using TextGameRPG.Scripts.GameCore.Rewards;
 using TextGameRPG.Scripts.GameCore.Services;
+using TextGameRPG.Scripts.GameCore.Services.GameData;
 using TextGameRPG.Scripts.GameCore.Services.Mobs;
 
 namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
@@ -16,7 +17,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
     public class MapDialogPanel : DialogPanelBase
     {
         private static readonly LocationMobsManager locationMobsManager = Services.Get<LocationMobsManager>();
-        private static readonly NotificationsManager notificationsManager = Services.Get<NotificationsManager>();
+
+        private static GameDataDictionary<QuestId,QuestData> quests => gameDataHolder.quests;
 
         private MobDifficulty mobDifficulty => session.profile.dailyData.GetLocationMobDifficulty();
 
@@ -32,40 +34,42 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
         private async Task ShowGlobalMap()
         {
             ClearButtons();
-            var locations = Enum.GetValues(typeof(LocationType));
-            foreach (LocationType locationType in locations)
+            var locations = Enum.GetValues(typeof(LocationId));
+            foreach (LocationId locationId in locations)
             {
-                if (locationType == LocationType.None)
+                if (locationId == LocationId.None)
                     continue;
 
-                string locationName = locationType.GetLocalization(session);
-                if (locationType.IsLocked(session))
+                string locationName = locationId.GetLocalization(session);
+                if (locationId.IsLocked(session))
                 {
                     locationName = Emojis.ElementLocked + locationName;
-                    RegisterButton(locationName, () => ShowLockedLocationInfo(locationType));
+                    RegisterButton(locationName, () => ShowLockedLocationInfo(locationId));
                     continue;
                 }
 
-                var questType = locationType.GetQuest();
-                var quest = questType.HasValue ? QuestsHolder.GetQuest(questType.Value) : null;
-                var hasStory = quest != null && quest.IsStarted(session) && !quest.IsCompleted(session);
-                if (hasStory)
+                var questId = locationId.GetQuest();
+                if (questId != null && quests.TryGetValue(questId.Value, out var quest))
                 {
-                    RegisterButton(Emojis.ButtonStoryMode + locationName, () => ShowLocation(locationType));
-                    continue;
-                }
+                    var hasStory = quest.IsStarted(session) && !quest.IsCompleted(session);
+                    if (hasStory)
+                    {
+                        RegisterButton(Emojis.ButtonStoryMode + locationName, () => ShowLocation(locationId));
+                        continue;
+                    }
+                }                
 
-                var mobsCount = locationMobsManager.isMobsReady ? locationMobsManager[mobDifficulty][locationType].Length : 0;
-                var defeatedMobsCount = session.profile.dailyData.GetLocationDefeatedMobs(locationType).Count;
+                var mobsCount = locationMobsManager.isMobsReady ? locationMobsManager[mobDifficulty][locationId].Length : 0;
+                var defeatedMobsCount = session.profile.dailyData.GetLocationDefeatedMobs(locationId).Count;
                 var mobsRemaining = mobsCount - defeatedMobsCount;
                 if (mobsRemaining <= 0)
                 {
-                    RegisterButton(locationName, () => ShowLocation(locationType));
+                    RegisterButton(locationName, () => ShowLocation(locationId));
                     continue;
                 }
 
                 var buttonText = new StringBuilder();
-                var locationRewards = locationMobsManager.GetLocationRewards(session, locationType);
+                var locationRewards = locationMobsManager.GetLocationRewards(session, locationId);
                 foreach (var reward in locationRewards)
                 {
                     if (reward is ResourceReward resourceReward)
@@ -74,13 +78,13 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
                     }
                 }
                 buttonText.Append(locationName);
-                RegisterButton(buttonText.ToString(), () => ShowLocation(locationType));
+                RegisterButton(buttonText.ToString(), () => ShowLocation(locationId));
             }
 
             var sb = new StringBuilder();
             sb.AppendLine(Localization.Get(session, "dialog_map_select_location"));
 
-            if (!LocationType.Loc_02.IsLocked(session))
+            if (!LocationId.Loc_02.IsLocked(session))
             {
                 if (locationMobsManager.isMobsReady)
                 {
@@ -98,14 +102,14 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
             await SendPanelMessage(sb, GetKeyboardWithFixedRowSize(2)).FastAwait();
         }
 
-        private async Task ShowLockedLocationInfo(LocationType locationType)
+        private async Task ShowLockedLocationInfo(LocationId locationId)
         {
             var sb = new StringBuilder();
-            var locationName = locationType.GetLocalization(session);
+            var locationName = locationId.GetLocalization(session);
             sb.AppendLine(Emojis.ElementLocked + locationName.Bold());
 
             sb.AppendLine();
-            var previousLocation = (locationType - 1).GetLocalization(session);
+            var previousLocation = (locationId - 1).GetLocalization(session);
             sb.AppendLine(Localization.Get(session, "dialog_map_location_locked", previousLocation));
 
             ClearButtons();
@@ -113,17 +117,17 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
             await SendPanelMessage(sb, GetOneLineKeyboard()).FastAwait();
         }
 
-        public async Task ShowLocation(LocationType locationType)
+        public async Task ShowLocation(LocationId locationId)
         {
             ClearButtons();
             var sb = new StringBuilder();
-            sb.AppendLine(locationType.GetLocalization(session).Bold());
+            sb.AppendLine(locationId.GetLocalization(session).Bold());
 
-            var questType = locationType.GetQuest();
+            var questId = locationId.GetQuest();
             var hasActiveQuest = false;
-            if (questType.HasValue)
+            if (questId.HasValue)
             {
-                var quest = QuestsHolder.GetQuest(questType.Value);
+                var quest = quests[questId.Value];
                 hasActiveQuest = quest.IsStarted(session) && !quest.IsCompleted(session);
                 if (hasActiveQuest)
                 {
@@ -133,7 +137,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
 
             if (!hasActiveQuest)
             {
-                AppendLocationMobsContent(sb, locationType);
+                AppendLocationMobsContent(sb, locationId);
             }
 
             RegisterBackButton(ShowGlobalMap);
@@ -142,7 +146,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
             await SendPanelMessage(sb, GetMultilineKeyboard()).FastAwait();
         }
 
-        private void AppendActiveQuestContent(StringBuilder sb, Quest quest)
+        private void AppendActiveQuestContent(StringBuilder sb, QuestData quest)
         {
             sb.AppendLine();
             var currentProgress = quest.GetCompletedBattlePoints(session);
@@ -151,10 +155,10 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
             sb.AppendLine(Emojis.ButtonStoryMode + progressText);
 
             RegisterButton(Emojis.ButtonStoryMode + Localization.Get(session, "dialog_map_continue_story_mode"),
-                () => ContinueStoryMode(quest.questType.GetLocation().EnsureNotNull()));
+                () => ContinueStoryMode(quest.id.GetLocation().EnsureNotNull()));
         }
 
-        private void AppendLocationMobsContent(StringBuilder sb, LocationType locationType)
+        private void AppendLocationMobsContent(StringBuilder sb, LocationId locationId)
         {
             sb.AppendLine();
             if (!locationMobsManager.isMobsReady)
@@ -163,8 +167,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
                 return;
             }
 
-            var mobDatas = locationMobsManager[mobDifficulty][locationType];
-            var defeatedMobs = session.profile.dailyData.GetLocationDefeatedMobs(locationType);
+            var mobDatas = locationMobsManager[mobDifficulty][locationId];
+            var defeatedMobs = session.profile.dailyData.GetLocationDefeatedMobs(locationId);
 
             if (defeatedMobs.Count >= mobDatas.Length)
             {
@@ -177,7 +181,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
             sb.AppendLine(Localization.Get(session, "dialog_map_location_with_mobs_description"));
             sb.AppendLine();
             sb.AppendLine(Localization.Get(session, "dialog_map_header_special_reward"));
-            var locationRewards = locationMobsManager.GetLocationRewards(session, locationType);
+            var locationRewards = locationMobsManager.GetLocationRewards(session, locationId);
             foreach (var reward in locationRewards)
             {
                 if (reward is ResourceReward resourceReward)
@@ -196,24 +200,24 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
                 var mobData = mobDatas[i];
                 var mobName = Localization.Get(session, mobData.localizationKey);
                 var index = i; // it is important!
-                RegisterButton(mobName, () => ShowBattlePointWithLocationMob(locationType, index));
+                RegisterButton(mobName, () => ShowBattlePointWithLocationMob(locationId, index));
             }
         }
 
-        private async Task ContinueStoryMode(LocationType locationType)
+        private async Task ContinueStoryMode(LocationId locationId)
         {
-            var questType = locationType.GetQuest();
-            if (questType == null)
+            var questId = locationId.GetQuest();
+            if (questId == null)
                 return;
 
-            var quest = QuestsHolder.GetQuest(questType.Value);
+            var quest = quests[questId.Value];
             if (quest == null || !quest.IsStarted(session))
                 return;
 
             var stage = quest.GetCurrentStage(session);
             if (stage is QuestStageWithBattlePoint withBattlePoint)
             {
-                await SimulateStartBattlePointDialog(withBattlePoint, locationType);
+                await SimulateStartBattlePointDialog(withBattlePoint, locationId);
                 return;
             }
 
@@ -221,7 +225,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
         }
 
         // simulate Start() from BattlePointDialog
-        private async Task SimulateStartBattlePointDialog(QuestStageWithBattlePoint stage, LocationType locationType)
+        private async Task SimulateStartBattlePointDialog(QuestStageWithBattlePoint stage, LocationId locationId)
         {
             var mobData = stage.GetMobBattlePointData(session);
             var text = Emojis.ButtonBattle + mobData.mob.GetFullUnitInfoView(session);
@@ -230,15 +234,15 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
             var priceView = mobData.foodPrice > 0 ? ResourceId.Food.GetEmoji() + mobData.foodPrice.View() : string.Empty;
             var startBattleButton = Localization.Get(session, "dialog_mob_battle_point_start_battle", priceView);
             RegisterButton(startBattleButton, () => new BattlePointDialog(session, mobData).SilentStart());
-            RegisterBackButton(() => ShowLocation(locationType));
+            RegisterBackButton(() => ShowLocation(locationId));
             RegisterBackButton(Localization.Get(session, "menu_item_map") + Emojis.ButtonMap, ShowGlobalMap);
 
             await SendPanelMessage(text, GetMultilineKeyboardWithDoubleBack()).FastAwait();
         }
 
-        private async Task ShowBattlePointWithLocationMob(LocationType locationType, byte mobIndex)
+        private async Task ShowBattlePointWithLocationMob(LocationId locationId, byte mobIndex)
         {
-            var mobData = locationMobsManager.GetMobBattlePointData(session, locationType, mobIndex);
+            var mobData = locationMobsManager.GetMobBattlePointData(session, locationId, mobIndex);
             if (mobData == null)
             {
                 // Клик в момент пересоздания мобов
@@ -253,7 +257,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
             var priceView = mobData.foodPrice > 0 ? ResourceId.Food.GetEmoji() + mobData.foodPrice.View() : string.Empty;
             var startBattleButton = Localization.Get(session, "dialog_mob_battle_point_start_battle", priceView);
             RegisterButton(startBattleButton, () => new BattlePointDialog(session, mobData).SilentStart());
-            RegisterBackButton(() => ShowLocation(locationType));
+            RegisterBackButton(() => ShowLocation(locationId));
             RegisterBackButton(Localization.Get(session, "menu_item_map") + Emojis.ButtonMap, ShowGlobalMap);
 
             await SendPanelMessage(text, GetMultilineKeyboardWithDoubleBack()).FastAwait();

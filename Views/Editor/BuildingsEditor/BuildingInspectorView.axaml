@@ -2,49 +2,41 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="600"
+             mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="300"
              x:Class="TextGameRPG.Views.Editor.BuildingsEditor.BuildingInspectorView">
 
-  <Grid>
-    <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="auto"/>
-      <ColumnDefinition Width="auto"/>
-    </Grid.ColumnDefinitions>
+  <Grid Background="WhiteSmoke" Width="500" Margin="40,0">
 
-    <!-- Column 1: Building Levels -->
-    <Border Grid.Column="0" Background="WhiteSmoke" Width="500" Margin="40,0">
+    <Grid.RowDefinitions>
+      <RowDefinition/>
+      <RowDefinition Height="50"/>
+    </Grid.RowDefinitions>
+    
+    <Border Grid.Row="0">
       <ScrollViewer Height="800" Padding="0,0,20,0"
-                    VerticalScrollBarVisibility="Visible" AllowAutoHide="False">
-
-        <StackPanel Spacing="10">
-          <!-- Actions -->
-          <TextBlock Classes="h3" Text="{Binding tempBuilding.debugName}"/>
-          <ListBox
-                 ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                 Items="{Binding levelViews}"
-                 SelectedItem="{Binding selectedLevelView}">
+                    VerticalScrollBarVisibility="Visible"
+                    AllowAutoHide="False">
+        <StackPanel Grid.Row="0" Spacing="10">
+          <TextBlock Classes="h3" Text="{Binding buildingData.debugName}" Margin="10"/>
+          <ListBox Items="{Binding levelViews}"
+                   SelectedItem="{Binding selectedLevelView}"
+                   ScrollViewer.VerticalScrollBarVisibility="Disabled">
             <ListBox.ItemTemplate>
               <DataTemplate>
                 <UserControl Content="{Binding}"/>
               </DataTemplate>
             </ListBox.ItemTemplate>
           </ListBox>
-
-          <StackPanel Orientation="Horizontal" Spacing="20">
-            <Button Classes="Neutral" Content="Add"
-                    Command="{Binding addLevelCommand}"/>
-            <Button Classes="Neutral" Content="Remove"
-                    Command="{Binding removeLevelCommand}"/>
-          </StackPanel>
-
         </StackPanel>
+        
       </ScrollViewer>
     </Border>
 
-    <!-- Column 2: Controls -->
-    <StackPanel Grid.Column="1" Orientation="Vertical" Spacing="20" Margin="20">
-      <Button Content=" Save building " Classes="NeutralBig" Command="{Binding saveCommand}"/>
-      <Button Content="Reset unsaved" Classes="NeutralBig" Command="{Binding cancelCommand}"/>
+    <StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="20" Margin="10">
+      <Button Classes="Neutral" Content="Add"
+              Command="{Binding addLevelCommand}"/>
+      <Button Classes="Neutral" Content="Remove"
+              Command="{Binding removeLevelCommand}"/>
     </StackPanel>
 
   </Grid>

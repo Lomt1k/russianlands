@@ -377,12 +377,12 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
         private async Task ShowQuestProgressGroup()
         {
             ClearButtons();
-            foreach (QuestType questType in Enum.GetValues(typeof(QuestType)))
+            foreach (QuestId questId in Enum.GetValues(typeof(QuestId)))
             {
-                if (questType == QuestType.None)
+                if (questId == QuestId.None)
                     continue;
 
-                RegisterButton(questType.ToString(), () => SelectQuestStage(questType));
+                RegisterButton(questId.ToString(), () => SelectQuestStage(questId));
             }
             RegisterBackButton("Cheats", () => Start());
             RegisterTownButton(isDoubleBack: true);
@@ -394,7 +394,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
             if (focusedQuest.HasValue)
             {
                 sb.AppendLine();
-                var quest = QuestsHolder.GetQuest(focusedQuest.Value);
+                var quest = gameDataHolder.quests[focusedQuest.Value];
                 sb.AppendLine($"Current quest: {focusedQuest}");
                 sb.AppendLine($"Current stage: {quest.GetCurrentStage(session).id}");
             }            
@@ -402,41 +402,35 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
             await SendDialogMessage(sb.ToString(), GetMultilineKeyboardWithDoubleBack()).FastAwait();
         }
 
-        private async Task SelectQuestStage(QuestType questType)
+        private async Task SelectQuestStage(QuestId questId)
         {
-            var quest = QuestsHolder.GetQuest(questType);
-            if (quest == null)
-                return;
-
+            var quest = gameDataHolder.quests[questId];
             var stages = quest.stages;
             ClearButtons();
             foreach (var stage in stages)
             {
                 var comment = stage.comment.Trim().Replace(Environment.NewLine, " ");
                 var stageView = $"{stage.id} - {comment}";
-                RegisterButton(stageView, () => SetupCurrentQuestProgress(questType, stage.id));
+                RegisterButton(stageView, () => SetupCurrentQuestProgress(questId, stage.id));
             }
             RegisterBackButton("Quest Progress", () => ShowQuestProgressGroup());
             RegisterDoubleBackButton("Cheats", () => Start());
 
-            var text = $"{questType} | Set stage:";
+            var text = $"{questId} | Set stage:";
             await SendDialogMessage(text, GetMultilineKeyboardWithDoubleBack()).FastAwait();
         }
 
-        private async Task SetupCurrentQuestProgress(QuestType questType, int stageId)
+        private async Task SetupCurrentQuestProgress(QuestId questId, int stageId)
         {
-            var quest = QuestsHolder.GetQuest(questType);
-            if (quest == null)
-                return;
-
+            var quest = gameDataHolder.quests[questId];
             var sb = new StringBuilder();
             sb.AppendLine($"Quest progress changed".Bold());
-            sb.AppendLine($"Current quest: {questType}");
+            sb.AppendLine($"Current quest: {questId}");
             sb.AppendLine($"Current stage: {stageId}");
             await messageSender.SendTextMessage(session.chatId, sb.ToString()).FastAwait();
 
             var playerQuestsProgress = session.profile.dynamicData.quests;
-            playerQuestsProgress.Cheat_SetCurrentQuest(questType, stageId);
+            playerQuestsProgress.Cheat_SetCurrentQuest(questId, stageId);
             await quest.SetStage(session, stageId).FastAwait();
         }
 

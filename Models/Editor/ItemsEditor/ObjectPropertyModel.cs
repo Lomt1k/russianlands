@@ -1,18 +1,21 @@
-﻿using System;
+﻿using SQLite;
+using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
+using System.Linq;
 using System.Reflection;
-using TextGameRPG.Scripts.Utils;
+using TextGameRPG.ViewModels.UserControls;
 
 namespace TextGameRPG.Models.Editor.ItemsEditor
 {
-    public class FieldModel
+    public class ObjectPropertyModel
     {
         private string _unparsedValue;
         private string _selectedEnumValue;
 
-        public string name { get; }
-        public Type type { get;  }
+        public object editableObject { get; }
+        public PropertyInfo propertyInfo { get; }
+        public string name => propertyInfo.Name;
+        public Type type => propertyInfo.PropertyType;
         public string typeView { get; }
         public object? value { get; private set; }
         public string unparsedValue
@@ -22,6 +25,7 @@ namespace TextGameRPG.Models.Editor.ItemsEditor
             {
                 _unparsedValue = value;
                 TryParse();
+                SaveValueIfValid();
             }
         }
         public bool isValidValue { get; private set; }
@@ -53,10 +57,10 @@ namespace TextGameRPG.Models.Editor.ItemsEditor
         public bool isDefaultType => !isBooleanValue && !isEnumValue;
 
 
-        public FieldModel(FieldInfo _info, object? _value)
+        public ObjectPropertyModel(object _editableObject, PropertyInfo _info, object? _value)
         {
-            name = _info.Name;
-            type = _info.FieldType;
+            editableObject = _editableObject;
+            propertyInfo = _info;
             typeView = type.ToString().TrimStart("System.".ToCharArray());
             value = _value;
             _unparsedValue = _value.ToString();
@@ -140,16 +144,29 @@ namespace TextGameRPG.Models.Editor.ItemsEditor
             isValidValue = success;
         }
 
-        public static void FillObservableCollection<T>(ref ObservableCollection<FieldModel> collection, T obj, bool includeClasses = false)
+        private void SaveValueIfValid()
+        {
+            if (isValidValue)
+            {
+                propertyInfo.SetValue(editableObject, value);
+            }
+        }
+
+        public static void FillObservableCollection<T>(ref ObservableCollection<ObjectPropertyModel> collection, T obj, bool includeClasses = false)
         {
             if (obj == null)
                 return;
 
-            var fields = obj.GetType().GetFields();
-            foreach (var fieldInfo in fields)
+            var properties = obj.GetType().GetProperties();
+            foreach (var propertyInfo in properties)
             {
-                var value = fieldInfo.GetValue(obj);
-                if (fieldInfo.FieldType.IsClass && !fieldInfo.FieldType.Name.Equals("String") )
+                if (propertyInfo.CustomAttributes.Any(x => x.AttributeType == typeof(IgnoreInEditorAttribute)))
+                {
+                    continue;
+                }
+
+                var value = propertyInfo.GetValue(obj);
+                if (propertyInfo.PropertyType.IsClass && !propertyInfo.PropertyType.Name.Equals("String") )
                 {
                     if (includeClasses)
                     {
@@ -158,8 +175,8 @@ namespace TextGameRPG.Models.Editor.ItemsEditor
                     continue;
                 }
 
-                var fieldModel = new FieldModel(fieldInfo, value);
-                collection.Add(fieldModel);
+                var objectPropertyModel = new ObjectPropertyModel(obj, propertyInfo, value);
+                collection.Add(objectPropertyModel);
             }
         }
 

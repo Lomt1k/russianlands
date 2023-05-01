@@ -14,88 +14,63 @@ namespace TextGameRPG.ViewModels.Editor.BuildingsEditor
     {
         private static readonly GameDataHolder gameDataBase = Services.Get<GameDataHolder>();
 
-        private BuildingData? _tempBuilding;
-        private ObjectFieldsEditorView? _selectedLevelView;
+        private BuildingData? _buildingData;
+        private ObjectPropertiesEditorView? _selectedLevelView;
 
-        public BuildingData? tempBuilding
+        public BuildingData? buildingData
         {
-            get => _tempBuilding;
-            set => this.RaiseAndSetIfChanged(ref _tempBuilding, value);
+            get => _buildingData;
+            set => this.RaiseAndSetIfChanged(ref _buildingData, value);
         }
-        public ObservableCollection<ObjectFieldsEditorView> levelViews { get; }
-        public ObjectFieldsEditorView? selectedLevelView
+        public ObservableCollection<ObjectPropertiesEditorView> levelViews { get; }
+        public ObjectPropertiesEditorView? selectedLevelView
         {
             get => _selectedLevelView;
             set => this.RaiseAndSetIfChanged(ref _selectedLevelView, value);
         }
         public ReactiveCommand<Unit, Unit> addLevelCommand { get; }
         public ReactiveCommand<Unit, Unit> removeLevelCommand { get; }
-        public ReactiveCommand<Unit, Unit> saveCommand { get; }
-        public ReactiveCommand<Unit, Unit> cancelCommand { get; }
 
         public BuildingInspectorViewModel()
         {
-            levelViews = new ObservableCollection<ObjectFieldsEditorView>();
+            levelViews = new ObservableCollection<ObjectPropertiesEditorView>();
             addLevelCommand = ReactiveCommand.Create(AddNewLevel);
             removeLevelCommand = ReactiveCommand.Create(RemoveSelectedLevel);
-            saveCommand = ReactiveCommand.Create(SaveChanges);
-            cancelCommand = ReactiveCommand.Create(ResetChanges);
         }
 
-        public void Show(BuildingId buidlingType)
+        public void Show(BuildingId buildingId)
         {
-            var id = (int)buidlingType;
-            if (!gameDataBase.buildings.ContainsKey(id))
+            if (!gameDataBase.buildings.ContainsKey(buildingId))
             {
                 var newData = new BuildingData()
                 {
-                    id = id
+                    id = buildingId
                 };
-                gameDataBase.buildings.AddData(id, newData);
-                gameDataBase.buildings.Save();
+                gameDataBase.buildings.AddData(buildingId, newData);
             }
-            tempBuilding = gameDataBase.buildings[id].Clone();
+            buildingData = gameDataBase.buildings[buildingId];
 
-            UserControlsHelper.RefillObjectEditorsCollection(levelViews, tempBuilding.levels);
+            UserControlsHelper.RefillObjectEditorsCollection(levelViews, buildingData.levels);
         }
 
         private void AddNewLevel()
         {
-            if (_tempBuilding == null)
+            if (_buildingData == null)
                 return;
 
-            SaveChanges();
-
-            var newLevel = _tempBuilding.buildingId.CreateNewLevelInfo();
-            _tempBuilding.levels.Add(newLevel);
-            UserControlsHelper.RefillObjectEditorsCollection(levelViews, _tempBuilding.levels);
+            var newLevel = _buildingData.id.CreateNewLevelInfo();
+            _buildingData.levels.Add(newLevel);
+            UserControlsHelper.RefillObjectEditorsCollection(levelViews, _buildingData.levels);
         }
 
         private void RemoveSelectedLevel()
         {
-            if (_tempBuilding == null || _selectedLevelView == null)
+            if (_buildingData == null || _selectedLevelView == null)
                 return;
 
-            SaveChanges();
-
             var buildingLevel = _selectedLevelView.vm.GetEditableObject<BuildingLevelInfo>();
-            _tempBuilding.levels.Remove(buildingLevel);
-            UserControlsHelper.RefillObjectEditorsCollection(levelViews, _tempBuilding.levels);
-        }
-
-        private void SaveChanges()
-        {
-            foreach (var levelView in levelViews)
-            {
-                levelView.vm.SaveObjectChanges();
-            }
-            gameDataBase.buildings.ChangeData(_tempBuilding.id, _tempBuilding);
-        }
-
-        private void ResetChanges()
-        {
-            var locationType = (BuildingId)_tempBuilding.id;
-            Show(locationType);
+            _buildingData.levels.Remove(buildingLevel);
+            UserControlsHelper.RefillObjectEditorsCollection(levelViews, _buildingData.levels);
         }
 
     }

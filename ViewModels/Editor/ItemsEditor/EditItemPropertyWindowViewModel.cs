@@ -13,7 +13,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
     public class EditItemPropertyWindowViewModel : ViewModelBase
     {
         private ItemPropertyBase _tempProperty;
-        private ObservableCollection<FieldModel>  _propertyFields = new ObservableCollection<FieldModel>();
+        private ObservableCollection<ObjectPropertyModel>  _propertyFields = new ObservableCollection<ObjectPropertyModel>();
         private EnumValueModel<PropertyType> _selectedPropertyType;
         private Action<ItemPropertyBase> _onEditEnd;
 
@@ -38,7 +38,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
             }
         }
 
-        public ObservableCollection<FieldModel> propertyFields => _propertyFields;
+        public ObservableCollection<ObjectPropertyModel> propertyFields => _propertyFields;
 
         public Action closeWindow { get; }
         public ReactiveCommand<Unit, Unit> saveCommand { get; }
@@ -60,7 +60,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
         private void RefreshFields()
         {
             propertyFields.Clear();
-            FieldModel.FillObservableCollection(ref _propertyFields, _tempProperty);
+            ObjectPropertyModel.FillObservableCollection(ref _propertyFields, _tempProperty);
         }
 
         private void SaveProperty()

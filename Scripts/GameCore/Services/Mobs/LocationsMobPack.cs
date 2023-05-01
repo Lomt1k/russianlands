@@ -9,11 +9,11 @@ namespace TextGameRPG.Scripts.GameCore.Services.Mobs
     public class LocationsMobPack
     {
         [JsonProperty]
-        public Dictionary<LocationType, MobData[]> mobsByLocation { get; private set; } = new();
+        public Dictionary<LocationId, MobData[]> mobsByLocation { get; private set; } = new();
 
-        public MobData[] this[LocationType locationType] => mobsByLocation[locationType];
+        public MobData[] this[LocationId locationId] => mobsByLocation[locationId];
 
-        public LocationsMobPack(Dictionary<LocationType, MobData[]> _mobsByLocation)
+        public LocationsMobPack(Dictionary<LocationId, MobData[]> _mobsByLocation)
         {
             mobsByLocation = _mobsByLocation;
         }

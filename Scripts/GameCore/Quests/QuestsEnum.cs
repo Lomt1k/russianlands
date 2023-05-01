@@ -2,7 +2,7 @@
 
 namespace TextGameRPG.Scripts.GameCore.Quests
 {
-    public enum QuestType : ushort
+    public enum QuestId : ushort
     {
         None = 0,
         MainQuest = 1,
@@ -15,19 +15,19 @@ namespace TextGameRPG.Scripts.GameCore.Quests
         Loc_07 = 8,
     }
 
-    public static class QuestTypeEstensions
+    public static class QuestIdEstensions
     {
-        public static LocationType? GetLocation(this QuestType questType)
+        public static LocationId? GetLocation(this QuestId questId)
         {
-            switch (questType)
+            switch (questId)
             {
-                case QuestType.Loc_01: return LocationType.Loc_01;
-                case QuestType.Loc_02: return LocationType.Loc_02;
-                case QuestType.Loc_03: return LocationType.Loc_03;
-                case QuestType.Loc_04: return LocationType.Loc_04;
-                case QuestType.Loc_05: return LocationType.Loc_05;
-                case QuestType.Loc_06: return LocationType.Loc_06;
-                case QuestType.Loc_07: return LocationType.Loc_07;
+                case QuestId.Loc_01: return LocationId.Loc_01;
+                case QuestId.Loc_02: return LocationId.Loc_02;
+                case QuestId.Loc_03: return LocationId.Loc_03;
+                case QuestId.Loc_04: return LocationId.Loc_04;
+                case QuestId.Loc_05: return LocationId.Loc_05;
+                case QuestId.Loc_06: return LocationId.Loc_06;
+                case QuestId.Loc_07: return LocationId.Loc_07;
             }
             return null;
         }

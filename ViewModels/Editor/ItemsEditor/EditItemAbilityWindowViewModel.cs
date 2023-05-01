@@ -13,7 +13,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
     public class EditItemAbilityWindowViewModel : ViewModelBase
     {
         private ItemAbilityBase _tempAbility;
-        private ObservableCollection<FieldModel> _abilityFields = new ObservableCollection<FieldModel>();
+        private ObservableCollection<ObjectPropertyModel> _abilityFields = new ObservableCollection<ObjectPropertyModel>();
         private EnumValueModel<AbilityType> _selectedAbilityType;
         private Action<ItemAbilityBase> _onEditEnd;
 
@@ -38,7 +38,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
             }
         }
 
-        public ObservableCollection<FieldModel> abilityFields => _abilityFields;
+        public ObservableCollection<ObjectPropertyModel> abilityFields => _abilityFields;
 
         public Action closeWindow { get; }
         public ReactiveCommand<Unit, Unit> saveCommand { get; }
@@ -60,7 +60,7 @@ namespace TextGameRPG.ViewModels.Editor.ItemsEditor
         private void RefreshFields()
         {
             abilityFields.Clear();
-            FieldModel.FillObservableCollection(ref _abilityFields, _tempAbility);
+            ObjectPropertyModel.FillObservableCollection(ref _abilityFields, _tempAbility);
         }
 
         private void SaveAbility()
