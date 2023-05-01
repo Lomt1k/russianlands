@@ -23,23 +23,7 @@
 
         <!-- Rewards -->
         <TextBlock Classes="h3" Text="Rewards"/>
-        <ListBox
-               ScrollViewer.VerticalScrollBarVisibility="Disabled"
-               Items="{Binding rewardViews}"
-               SelectedItem="{Binding selectedRewardView}">
-          <ListBox.ItemTemplate>
-            <DataTemplate>
-              <UserControl Content="{Binding}"/>
-            </DataTemplate>
-          </ListBox.ItemTemplate>
-        </ListBox>
-
-        <StackPanel Orientation="Horizontal" Spacing="20">
-          <Button Classes="Neutral" Content="Add"
-                  Command="{Binding addNewRewardCommand}"/>
-          <Button Classes="Neutral" Content="Remove"
-                  Command="{Binding removeRewardCommand}"/>
-        </StackPanel>
+        <UserControl Content="{Binding rewardViews}"/>
 
       </StackPanel>
     </ScrollViewer>

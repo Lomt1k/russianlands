@@ -77,16 +77,6 @@ namespace TextGameRPG.Scripts.GameCore.Services.GameData
             onDataChanged?.Invoke();
         }
 
-        public void ReloadAllData()
-        {
-            _dictionary.Clear();
-            using (StreamReader reader = new StreamReader(dataPath, Encoding.UTF8))
-            {
-                var jsonStr = reader.ReadToEnd();
-                _dictionary = JsonConvert.DeserializeObject<IEnumerable<TData>>(jsonStr).ToDictionary(x => x.id);
-            }
-        }
-
         public void Save()
         {
             if (Program.appMode != AppMode.Editor)

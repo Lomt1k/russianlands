@@ -80,20 +80,5 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
             }
         }
 
-        public void SaveChanges()
-        {
-            if (specialStageInspector == null)
-                return;
-
-            if (specialStageInspector.DataContext is StageWithTriggerViewModel stageWithTriggerVM)
-            {
-                stageWithTriggerVM.SaveChanges();
-            }
-            if (specialStageInspector.DataContext is StageWithBattleViewModel stageWithBattleVM)
-            {
-                stageWithBattleVM.SaveChanges();
-            }
-        }
-
     }
 }

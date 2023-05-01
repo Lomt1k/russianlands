@@ -3,13 +3,9 @@ using System.Collections.ObjectModel;
 using TextGameRPG.Scripts.GameCore.Quests.QuestStages;
 using ReactiveUI;
 using TextGameRPG.Views.UserControls;
-using System.Reactive;
-using TextGameRPG.Models.UserControls;
-using TextGameRPG.Models.RegularDialogs;
-using System;
-using TextGameRPG.Scripts.GameCore.Rewards;
 using TextGameRPG.Scripts.GameCore.Services.GameData;
 using TextGameRPG.Scripts.GameCore.Services;
+using TextGameRPG.ViewModels.Rewards;
 
 namespace TextGameRPG.ViewModels.Editor.QuestsEditor
 {
@@ -24,7 +20,7 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
 
         public QuestStageWithBattle stage { get; }
         public ObservableCollection<string> mobsList { get; }
-        public ObservableCollection<ObjectPropertiesEditorView> rewardViews { get; }
+        public EditorListView rewardViews { get; }
 
         public string? selectedMob
         {
@@ -44,9 +40,6 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
             set => this.RaiseAndSetIfChanged(ref _selectedRewardView, value);
         }
 
-        public ReactiveCommand<Unit, Unit> addNewRewardCommand { get; }
-        public ReactiveCommand<Unit, Unit> removeRewardCommand { get; }
-
         public StageWithBattleViewModel(QuestStageWithBattle stage)
         {
             this.stage = stage;
@@ -64,47 +57,9 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
                 }
             }
 
-            rewardViews = new ObservableCollection<ObjectPropertiesEditorView>();
-            RefillRewardsCollection();
-            addNewRewardCommand = ReactiveCommand.Create(AddNewReward);
-            removeRewardCommand = ReactiveCommand.Create(RemoveSelectedReward);
-        }
-
-        public void RefillRewardsCollection()
-        {
-            UserControlsHelper.RefillObjectEditorsCollection(rewardViews, stage.rewards);
-        }
-
-        public void AddNewReward()
-        {
-            SaveChanges();
-            RegularDialogHelper.ShowItemSelectionDialog("Select reward type:", new Dictionary<string, Action>()
-            {
-                {"Resource", () => { stage.rewards.Add(new ResourceReward()); RefillRewardsCollection(); } },
-                {"Resource Range", () => { stage.rewards.Add(new ResourceRangeReward()); RefillRewardsCollection(); } },
-                {"Resource AB Range", () => { stage.rewards.Add(new ResourceABWithOneBonusReward()); RefillRewardsCollection(); } },
-                {"Item With Code", () => { stage.rewards.Add(new ItemWithCodeReward()); RefillRewardsCollection(); } },
-                {"Random Item", () => { stage.rewards.Add(new RandomItemReward()); RefillRewardsCollection(); } },
-            });
-        }
-
-        public void RemoveSelectedReward()
-        {
-            if (_selectedRewardView == null)
-                return;
-
-            var rewardToRemove = _selectedRewardView.vm.GetEditableObject<RewardBase>();
-            stage.rewards.Remove(rewardToRemove);
-            SaveChanges();
-            RefillRewardsCollection();
-        }
-
-        public void SaveChanges()
-        {
-            foreach (var rewardView in rewardViews)
-            {
-                //rewardView.vm.SaveObjectChanges();
-            }
+            var rewardsViewModel = new EditorRewardsListViewModel();
+            rewardsViewModel.SetModel(stage.rewards);
+            rewardViews = new EditorListView() { DataContext = rewardsViewModel };
         }
 
     }

@@ -15,7 +15,7 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
     public class QuestsEditorViewModel : ViewModelBase
     {
         private EnumValueModel<QuestId>? _selectedQuest;
-        private Quest? _quest;
+        private QuestData? _quest;
         private QuestStage? _selectedStage;
 
         public ObservableCollection<EnumValueModel<QuestId>> quests { get; }
@@ -44,7 +44,6 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
             get => _selectedStage;
             set
             {
-                stageInspectorVM.SaveChanges();
                 this.RaiseAndSetIfChanged(ref _selectedStage, value);
                 stageInspectorVM.ShowStage(value);
             }
@@ -55,16 +54,12 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
 
         public ReactiveCommand<Unit,Unit> addStageCommand { get; }
         public ReactiveCommand<Unit,Unit> removeStageCommand { get; }
-        public ReactiveCommand<Unit,Unit> saveQuestChangesCommand { get; }
-        public ReactiveCommand<Unit, Unit> resetQuestChangesCommand { get; }
 
         public QuestsEditorViewModel()
         {
             quests = EnumValueModel<QuestId>.CreateCollection(excludeValue: QuestId.None);
             addStageCommand = ReactiveCommand.Create(AddNewStage);
             removeStageCommand = ReactiveCommand.Create(RemoveSelectedStage);
-            saveQuestChangesCommand = ReactiveCommand.Create(SaveQuestChanges);
-            resetQuestChangesCommand = ReactiveCommand.Create(ReloadQuestFromData);
 
             stageInspector = new StageInspectorView();
             stageInspector.DataContext = stageInspectorVM = new StageInspectorViewModel();
@@ -145,26 +140,6 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
 
             questStages.Remove(selectedStage);
             selectedStage = null;
-        }
-
-        public void SaveQuestChanges()
-        {
-            if (_quest == null || _selectedQuest == null)
-                return;
-
-            stageInspectorVM?.SaveChanges();
-            _quest.stages = questStages.OrderBy(x => x.id).ToList();
-            //QuestsHolder.SaveQuest(_selectedQuest.value);
-            ReloadQuestFromData();
-        }
-
-        public void ReloadQuestFromData()
-        {
-            if (selectedQuest == null)
-                return;
-
-            QuestsHolder.LoadQuest(selectedQuest.value);
-            selectedQuest = selectedQuest;
         }
 
 

@@ -58,15 +58,6 @@
                 IsVisible="{Binding selectedStage, Converter={x:Static ObjectConverters.IsNotNull}}"/>
       </StackPanel>
 
-      <!-- Quest changes Save / Reset -->
-      <StackPanel Orientation="Vertical" Spacing="10" Margin="40,10,0,0"
-                  IsVisible="{Binding selectedQuest, Converter={x:Static ObjectConverters.IsNotNull}}">
-        <TextBlock Text="{Binding selectedQuest, StringFormat='Changes in {0}'}"/>
-        <StackPanel Orientation="Horizontal" Spacing="20">
-          <Button Content="Save" Command="{Binding saveQuestChangesCommand}" Classes="Neutral"/>
-          <Button Content="Reset" Command="{Binding resetQuestChangesCommand}" Classes="Neutral"/>
-        </StackPanel>
-      </StackPanel>
     </StackPanel>
 
     <!-- Column 2: Location Inspector -->

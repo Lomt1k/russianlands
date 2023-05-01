@@ -48,7 +48,6 @@ namespace TextGameRPG.ViewModels.Editor.BuildingsEditor
                     id = id
                 };
                 gameDataBase.buildings.AddData(id, newData);
-                gameDataBase.buildings.Save();
             }
             buildingData = gameDataBase.buildings[id];
 

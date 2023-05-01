@@ -9,12 +9,12 @@ using Newtonsoft.Json;
 namespace TextGameRPG.Scripts.GameCore.Quests
 {
     [JsonObject]
-    public class Quest
+    public class QuestData
     {
         private const int STAGE_FIRST = 100;
 
-        public QuestId questId;
-        public List<QuestStage> stages = new List<QuestStage>();
+        public QuestId questId { get; set; }
+        public List<QuestStage> stages { get; set; } = new List<QuestStage>();
 
         [JsonIgnore]
         protected Dictionary<int, QuestStage> _stagesById = new Dictionary<int, QuestStage>();

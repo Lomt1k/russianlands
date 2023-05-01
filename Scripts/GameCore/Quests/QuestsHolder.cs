@@ -10,7 +10,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests
     public static class QuestsHolder
     {
         private static string questFolderPath = string.Empty;
-        private static Dictionary<QuestId, Quest> quests = new Dictionary<QuestId, Quest>();
+        private static Dictionary<QuestId, QuestData> quests = new Dictionary<QuestId, QuestData>();
 
         public static void LoadAll(GameDataLoader? loader, string gamedataPath)
         {
@@ -40,7 +40,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests
 
             if (!File.Exists(filePath))
             {
-                var quest = new Quest() 
+                var quest = new QuestData() 
                 {
                     questId = questId 
                 };
@@ -53,7 +53,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests
             using (StreamReader reader = new StreamReader(filePath, Encoding.UTF8))
             {
                 var jsonStr = reader.ReadToEnd();
-                var quest = JsonConvert.DeserializeObject<Quest>(jsonStr);
+                var quest = JsonConvert.DeserializeObject<QuestData>(jsonStr);
                 quests[questId] = quest;
             }
         }
@@ -77,12 +77,12 @@ namespace TextGameRPG.Scripts.GameCore.Quests
             }
         }
 
-        public static Quest GetQuest(QuestId questId)
+        public static QuestData GetQuest(QuestId questId)
         {
             return quests[questId];
         }
 
-        public static IEnumerable<Quest> GetAllQuests()
+        public static IEnumerable<QuestData> GetAllQuests()
         {
             return quests.Values;
         }

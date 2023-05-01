@@ -142,7 +142,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
             await SendPanelMessage(sb, GetMultilineKeyboard()).FastAwait();
         }
 
-        private void AppendActiveQuestContent(StringBuilder sb, Quest quest)
+        private void AppendActiveQuestContent(StringBuilder sb, QuestData quest)
         {
             sb.AppendLine();
             var currentProgress = quest.GetCompletedBattlePoints(session);
