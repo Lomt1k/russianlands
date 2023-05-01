@@ -120,6 +120,8 @@
         public static readonly Emoji ResourceFruitCherry = new Emoji("\ud83c\udf52");
         public static readonly Emoji ResourceFruitGrape = new Emoji("\ud83c\udf47");
 
+        public static readonly Emoji ResourceArenaTicket = new Emoji("\ud83d\udd16");
+
         // --- Characters
         public static readonly Emoji AvatarMale = new Emoji("\ud83e\uddd1\ud83c\udffb\u200d\ud83e\uddb1");
         public static readonly Emoji AvatarMaleB = new Emoji("\ud83e\uddd1\ud83c\udffc\u200d\ud83e\uddb1");

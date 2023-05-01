@@ -7,6 +7,7 @@ using TextGameRPG.Scripts.GameCore.Quests;
 using TextGameRPG.Scripts.GameCore.Quests.NextStageTriggers;
 using TextGameRPG.Scripts.GameCore.Quests.QuestStages;
 using TextGameRPG.Scripts.GameCore.Resources;
+using TextGameRPG.Scripts.GameCore.Rewards;
 using TextGameRPG.Scripts.GameCore.Services;
 using TextGameRPG.Scripts.GameCore.Services.Mobs;
 
@@ -47,9 +48,32 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
                 var questType = locationType.GetQuest();
                 var quest = questType.HasValue ? QuestsHolder.GetQuest(questType.Value) : null;
                 var hasStory = quest != null && quest.IsStarted(session) && !quest.IsCompleted(session);
-                var prefix = hasStory ? Emojis.ButtonStoryMode : Emojis.Empty;
+                if (hasStory)
+                {
+                    RegisterButton(Emojis.ButtonStoryMode + locationName, () => ShowLocation(locationType));
+                    continue;
+                }
 
-                RegisterButton(prefix + locationName, () => ShowLocation(locationType));
+                var mobsCount = locationMobsManager.isMobsReady ? locationMobsManager[mobDifficulty][locationType].Length : 0;
+                var defeatedMobsCount = session.profile.dailyData.GetLocationDefeatedMobs(locationType).Count;
+                var mobsRemaining = mobsCount - defeatedMobsCount;
+                if (mobsRemaining <= 0)
+                {
+                    RegisterButton(locationName, () => ShowLocation(locationType));
+                    continue;
+                }
+
+                var buttonText = new StringBuilder();
+                var locationRewards = locationMobsManager.GetLocationRewards(session, locationType);
+                foreach (var reward in locationRewards)
+                {
+                    if (reward is ResourceReward resourceReward)
+                    {
+                        buttonText.Append(resourceReward.resourceId.GetEmoji().ToString() + ' ');
+                    }
+                }
+                buttonText.Append(locationName);
+                RegisterButton(buttonText.ToString(), () => ShowLocation(locationType));
             }
 
             var sb = new StringBuilder();
@@ -123,7 +147,18 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
             var locationDefeatedMobs = session.profile.dailyData.GetLocationDefeatedMobs(locationType);
 
             sb.AppendLine();
-            // TODO text
+            sb.AppendLine(Localization.Get(session, "dialog_map_location_with_mobs_description"));
+            sb.AppendLine();
+            sb.AppendLine(Localization.Get(session, "dialog_map_header_special_reward"));
+            var locationRewards = locationMobsManager.GetLocationRewards(session, locationType);
+            foreach (var reward in locationRewards)
+            {
+                if (reward is ResourceReward resourceReward)
+                {
+                    var rewardView = resourceReward.resourceId.GetLocalizedView(session, resourceReward.amount);
+                    sb.AppendLine(rewardView);
+                }
+            }
             
             var mobDatas = locationMobsManager[mobDifficulty][locationType];
             for (byte i = 0; i < mobDatas.Length; i++)

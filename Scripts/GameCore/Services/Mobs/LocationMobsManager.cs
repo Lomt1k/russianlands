@@ -9,6 +9,7 @@ using TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap;
 using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Locations;
+using TextGameRPG.Scripts.GameCore.Rewards;
 using TextGameRPG.Scripts.GameCore.Services.DailyDataManagers;
 using TextGameRPG.Scripts.GameCore.Services.GameData;
 using TextGameRPG.Scripts.GameCore.Units;
@@ -97,6 +98,13 @@ namespace TextGameRPG.Scripts.GameCore.Services.Mobs
                 result[locationType] = array;
             }
             return new LocationsMobPack(result);
+        }
+
+        public IReadOnlyList<RewardBase> GetLocationRewards(GameSession session, LocationType locationType)
+        {
+            var townHall = session.player.buildings.GetBuildingLevel(Buildings.BuildingId.TownHall);
+            var locationMobSettings = gameDataHolder.locationGeneratedMobs[locationType].GetClosest(townHall);
+            return locationMobSettings.locationRewards;
         }
 
         public BattlePointData? GetMobBattlePointData(GameSession session, LocationType locationType, byte mobIndex)

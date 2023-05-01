@@ -51,6 +51,8 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
         public int resourceFruitKiwi { get; set; }
         public int resourceFruitCherry { get; set; }
         public int resourceFruitGrape { get; set; }
+        // other resources
+        public int resourceArenaTicket { get; set; }
 
         // skills
         public byte skillSword { get; set; }

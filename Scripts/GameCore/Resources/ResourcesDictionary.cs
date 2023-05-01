@@ -38,8 +38,7 @@ namespace TextGameRPG.Scripts.GameCore.Resources
                 { ResourceId.FruitKiwi, new ResourceFruitKiwi() },
                 { ResourceId.FruitCherry, new ResourceFruitCherry() },
                 { ResourceId.FruitGrape, new ResourceFruitGrape() },
-
-                //-TODO
+                { ResourceId.ArenaTicket, new ResourceArenaTicket() },
             };
         }
 

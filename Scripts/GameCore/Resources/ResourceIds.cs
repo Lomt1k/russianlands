@@ -28,6 +28,7 @@ namespace TextGameRPG.Scripts.GameCore.Resources
         FruitKiwi = 19,
         FruitCherry = 20,
         FruitGrape = 21,
+        ArenaTicket = 22,
     }
 
     public static class ResourceIdExtensions
@@ -60,6 +61,8 @@ namespace TextGameRPG.Scripts.GameCore.Resources
                 ResourceId.FruitKiwi => Emojis.ResourceFruitKiwi,
                 ResourceId.FruitCherry => Emojis.ResourceFruitCherry,
                 ResourceId.FruitGrape => Emojis.ResourceFruitGrape,
+
+                ResourceId.ArenaTicket => Emojis.ResourceArenaTicket,
 
                 _ => Emojis.Empty
             };
