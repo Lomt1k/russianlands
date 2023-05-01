@@ -38,7 +38,7 @@ namespace TextGameRPG.ViewModels.Editor.MobsEditor
             removeMobCommand = ReactiveCommand.Create(RemoveSelectedMob);
 
             mobInspector = new MobInspectorView();
-            mobInspector.DataContext = _mobInspectorVM = new MobInspectorViewModel(this);
+            mobInspector.DataContext = _mobInspectorVM = new MobInspectorViewModel();
         }
 
         public void RefreshMobsList()

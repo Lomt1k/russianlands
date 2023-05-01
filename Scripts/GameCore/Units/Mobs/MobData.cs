@@ -33,27 +33,27 @@ namespace TextGameRPG.Scripts.GameCore.Units.Mobs
     [JsonObject]
     public class MobStatsSettings
     {
-        public int level = 1;
-        public int health = 100;
-        public int physicalResist;
-        public int fireResist;
-        public int coldResist;
-        public int lightningResist;
+        public int level { get; set; } = 1;
+        public int health { get; set; } = 100;
+        public int physicalResist { get; set; }
+        public int fireResist { get; set; }
+        public int coldResist { get; set; }
+        public int lightningResist { get; set; }
     }
 
     [JsonObject]
     public class MobAttack
     {
-        public string localizationKey = "battle_action_mob_normal_attack";
-        public sbyte manaCost;
-        public int minPhysicalDamage;
-        public int maxPhysicalDamage;
-        public int minFireDamage;
-        public int maxFireDamage;
-        public int minColdDamage;
-        public int maxColdDamage;
-        public int minLightningDamage;
-        public int maxLightningDamage;
+        public string localizationKey { get; set; } = "battle_action_mob_normal_attack";
+        public sbyte manaCost { get; set; }
+        public int minPhysicalDamage { get; set; }
+        public int maxPhysicalDamage { get; set; }
+        public int minFireDamage { get; set; }
+        public int maxFireDamage { get; set; }
+        public int minColdDamage { get; set; }
+        public int maxColdDamage { get; set; }
+        public int minLightningDamage { get; set; }
+        public int maxLightningDamage { get; set; }
 
         public DamageInfo GetRandomValues(float gradeMult = 1f)
         {

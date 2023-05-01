@@ -9,7 +9,6 @@
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="400"/>
       <ColumnDefinition Width="auto"/>
-      <ColumnDefinition Width="auto"/>
     </Grid.ColumnDefinitions>
 
     <!-- Column 1: Main Settings-->
@@ -21,48 +20,52 @@
       <TextBox Text="{Binding mob.localizationKey}" AcceptsReturn="True"/>
 
       <TextBlock Text="mobType"/>
-      <ComboBox Items="{Binding mobTypes}" SelectedItem="{Binding selectedMobType}"/>     
+      <ComboBox Items="{Binding mobTypes}" SelectedItem="{Binding selectedMobType}"/>
 
+      <TextBlock Classes="h3" Text="MobStats" Margin="0,20,0,0"/>
+      <UserControl Content="{Binding statsSettingsView}"/>
+      
     </StackPanel>
 
-    <!-- Column 2: Subsettings -->
+    <!-- Column 2: Attacks -->
     <Border Grid.Column="1" Background="WhiteSmoke" Width="500" Margin="40,0">
-      <ScrollViewer Height="800" Padding="0,0,20,0"
-                    VerticalScrollBarVisibility="Visible" AllowAutoHide="False">
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="800"/>
+          <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
 
-        <StackPanel Spacing="10">
-          <TextBlock Classes="h3" Text="MobStats"/>
-          <UserControl Content="{Binding statsSettingsView}"/>
-          
-          <!-- Actions -->
-          <TextBlock Classes="h3" Text="Attacks"/>
-          <ListBox
-                 ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                 Items="{Binding attackViews}"
-                 SelectedItem="{Binding selectedAttackView}">
-            <ListBox.ItemTemplate>
-              <DataTemplate>
-                <UserControl Content="{Binding}"/>
-              </DataTemplate>
-            </ListBox.ItemTemplate>
-          </ListBox>
-
-          <StackPanel Orientation="Horizontal" Spacing="20">
-            <Button Classes="Neutral" Content="Add"
-                    Command="{Binding addAttackCommand}"/>
-            <Button Classes="Neutral" Content="Remove"
-                    Command="{Binding removeAttackCommand}"/>
-          </StackPanel>
-
+        <!-- Attacks -->
+        <Border Grid.Row="0" Margin="15">
+          <ScrollViewer Padding="0,0,20,0"
+                        VerticalScrollBarVisibility="Visible"
+                        AllowAutoHide="False">
+            <StackPanel>
+              <TextBlock Classes="h3" Text="Attacks"/>
+              <ListBox
+                     ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                     Items="{Binding attackViews}"
+                     SelectedItem="{Binding selectedAttackView}">
+                <ListBox.ItemTemplate>
+                  <DataTemplate>
+                    <UserControl Content="{Binding}"/>
+                  </DataTemplate>
+                </ListBox.ItemTemplate>
+              </ListBox>
+            </StackPanel>
+          </ScrollViewer>
+        </Border>
+        
+        <StackPanel Orientation="Horizontal" Spacing="20" Margin="10"
+                    VerticalAlignment="Bottom" Grid.Row="1">
+          <Button Classes="Neutral" Content="Add"
+                  Command="{Binding addAttackCommand}"/>
+          <Button Classes="Neutral" Content="Remove"
+                  Command="{Binding removeAttackCommand}"/>
         </StackPanel>
-      </ScrollViewer>
-    </Border>
 
-    <!-- Column 3: Subsettings -->
-    <StackPanel Grid.Column="2" Orientation="Vertical" Spacing="20" Margin="20">
-      <Button Content="    Save mob    " Classes="NeutralBig" Command="{Binding saveCommand}"/>
-      <Button Content="Reset unsaved" Classes="NeutralBig" Command="{Binding cancelCommand}"/>
-    </StackPanel>
+      </Grid>
+    </Border>
 
   </Grid>
   

@@ -41,7 +41,7 @@ namespace TextGameRPG.Scripts.GameCore.Services.Mobs
 
         public MobDataBuilder RandomizeHealthByPercents(byte percents)
         {
-            RandomizeByPercents(ref _mobData.statsSettings.health, percents, roundBy: 10);
+            _mobData.statsSettings.health = RandomizeByPercents(_mobData.statsSettings.health, percents, roundBy: 10);
             return this;
         }
 
@@ -89,19 +89,19 @@ namespace TextGameRPG.Scripts.GameCore.Services.Mobs
 
         public MobDataBuilder IncreaseResistanceByPercents(byte percents)
         {
-            IncreaseByPercents(ref _mobData.statsSettings.physicalResist, percents);
-            IncreaseByPercents(ref _mobData.statsSettings.fireResist, percents);
-            IncreaseByPercents(ref _mobData.statsSettings.coldResist, percents);
-            IncreaseByPercents(ref _mobData.statsSettings.lightningResist, percents);
+            _mobData.statsSettings.physicalResist = IncreaseByPercents(_mobData.statsSettings.physicalResist, percents);
+            _mobData.statsSettings.fireResist = IncreaseByPercents(_mobData.statsSettings.fireResist, percents);
+            _mobData.statsSettings.coldResist = IncreaseByPercents(_mobData.statsSettings.coldResist, percents);
+            _mobData.statsSettings.lightningResist = IncreaseByPercents(_mobData.statsSettings.lightningResist, percents);
             return this;
         }
 
         public MobDataBuilder RandomizeResistanceByPercents(byte percents)
         {
-            RandomizeByPercents(ref _mobData.statsSettings.physicalResist, percents, roundBy: 5);
-            RandomizeByPercents(ref _mobData.statsSettings.fireResist, percents, roundBy: 5);
-            RandomizeByPercents(ref _mobData.statsSettings.coldResist, percents, roundBy: 5);
-            RandomizeByPercents(ref _mobData.statsSettings.lightningResist, percents, roundBy: 5);
+            _mobData.statsSettings.physicalResist = RandomizeByPercents(_mobData.statsSettings.physicalResist, percents, roundBy: 5);
+            _mobData.statsSettings.fireResist = RandomizeByPercents(_mobData.statsSettings.fireResist, percents, roundBy: 5);
+            _mobData.statsSettings.coldResist = RandomizeByPercents(_mobData.statsSettings.coldResist, percents, roundBy: 5);
+            _mobData.statsSettings.lightningResist = RandomizeByPercents(_mobData.statsSettings.lightningResist, percents, roundBy: 5);
             return this;
         }
 
@@ -208,14 +208,14 @@ namespace TextGameRPG.Scripts.GameCore.Services.Mobs
         {
             foreach (var attack in _mobData.mobAttacks)
             {
-                IncreaseByPercents(ref attack.minPhysicalDamage, percents);
-                IncreaseByPercents(ref attack.maxPhysicalDamage, percents);
-                IncreaseByPercents(ref attack.minFireDamage, percents);
-                IncreaseByPercents(ref attack.maxFireDamage, percents);
-                IncreaseByPercents(ref attack.minColdDamage, percents);
-                IncreaseByPercents(ref attack.maxColdDamage, percents);
-                IncreaseByPercents(ref attack.minLightningDamage, percents);
-                IncreaseByPercents(ref attack.maxLightningDamage, percents);
+                attack.minPhysicalDamage = IncreaseByPercents(attack.minPhysicalDamage, percents);
+                attack.maxPhysicalDamage = IncreaseByPercents(attack.maxPhysicalDamage, percents);
+                attack.minFireDamage = IncreaseByPercents(attack.minFireDamage, percents);
+                attack.maxFireDamage = IncreaseByPercents(attack.maxFireDamage, percents);
+                attack.minColdDamage = IncreaseByPercents(attack.minColdDamage, percents);
+                attack.maxColdDamage = IncreaseByPercents(attack.maxColdDamage, percents);
+                attack.minLightningDamage = IncreaseByPercents(attack.minLightningDamage, percents);
+                attack.maxLightningDamage = IncreaseByPercents(attack.maxLightningDamage, percents);
             }
             return this;
         }
@@ -224,30 +224,38 @@ namespace TextGameRPG.Scripts.GameCore.Services.Mobs
         {
             foreach (var attack in _mobData.mobAttacks)
             {
-                RandomizeByPercents(ref attack.minPhysicalDamage, percents);
-                RandomizeByPercents(ref attack.maxPhysicalDamage, percents);
-                RandomizeByPercents(ref attack.minFireDamage, percents);
-                RandomizeByPercents(ref attack.maxFireDamage, percents);
-                RandomizeByPercents(ref attack.minColdDamage, percents);
-                RandomizeByPercents(ref attack.maxColdDamage, percents);
-                RandomizeByPercents(ref attack.minLightningDamage, percents);
-                RandomizeByPercents(ref attack.maxLightningDamage, percents);
+                attack.minPhysicalDamage = RandomizeByPercents(attack.minPhysicalDamage, percents);
+                attack.maxPhysicalDamage = RandomizeByPercents(attack.maxPhysicalDamage, percents);
+                attack.minFireDamage = RandomizeByPercents(attack.minFireDamage, percents);
+                attack.maxFireDamage = RandomizeByPercents(attack.maxFireDamage, percents);
+                attack.minColdDamage = RandomizeByPercents(attack.minColdDamage, percents);
+                attack.maxColdDamage = RandomizeByPercents(attack.maxColdDamage, percents);
+                attack.minLightningDamage = RandomizeByPercents(attack.minLightningDamage, percents);
+                attack.maxLightningDamage = RandomizeByPercents(attack.maxLightningDamage, percents);
 
                 if (attack.minPhysicalDamage > attack.maxPhysicalDamage)
                 {
-                    Swap(ref attack.minPhysicalDamage, ref attack.maxPhysicalDamage);
+                    var temp = attack.minPhysicalDamage;
+                    attack.minPhysicalDamage = attack.maxPhysicalDamage;
+                    attack.maxPhysicalDamage = temp;
                 }
                 if (attack.minFireDamage > attack.maxFireDamage)
                 {
-                    Swap(ref attack.minFireDamage, ref attack.maxFireDamage);
+                    var temp = attack.minFireDamage;
+                    attack.minFireDamage = attack.maxFireDamage;
+                    attack.maxFireDamage = temp;
                 }
                 if (attack.minColdDamage > attack.maxColdDamage)
                 {
-                    Swap(ref attack.minColdDamage, ref attack.maxColdDamage);
+                    var temp = attack.minColdDamage;
+                    attack.minColdDamage = attack.maxColdDamage;
+                    attack.maxColdDamage = temp;
                 }
                 if (attack.minLightningDamage > attack.maxLightningDamage)
                 {
-                    Swap(ref attack.minLightningDamage, ref attack.maxLightningDamage);
+                    var temp = attack.minLightningDamage;
+                    attack.minLightningDamage = attack.maxLightningDamage;
+                    attack.maxLightningDamage = temp;
                 }
             }
             return this;
@@ -261,17 +269,17 @@ namespace TextGameRPG.Scripts.GameCore.Services.Mobs
 
 
 
-        private void IncreaseByPercents(ref int value, byte percents)
+        private int IncreaseByPercents(int value, byte percents)
         {
             var delta = value * percents / 100;
-            value += delta;
+            return value + delta;
         }
 
-        private void RandomizeByPercents(ref int value, byte percents, int roundBy = 0)
+        private int RandomizeByPercents(int value, byte percents, int roundBy = 0)
         {
             var randomDistance = value * percents / 100;
             if (randomDistance < 0)
-                return;
+                return value;
 
             var delta = new Random().Next(randomDistance) - (randomDistance / 2);
             value += delta;
@@ -281,13 +289,7 @@ namespace TextGameRPG.Scripts.GameCore.Services.Mobs
                 var remainder = value % roundBy;
                 value = remainder < roundBy / 2 ? value - remainder : value + (roundBy - remainder);
             }
-        }
-
-        private void Swap(ref int a, ref int b)
-        {
-            var temp = a;
-            a = b;
-            b = temp;
+            return value;
         }
 
 
