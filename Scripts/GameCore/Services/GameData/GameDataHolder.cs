@@ -4,6 +4,7 @@ namespace TextGameRPG.Scripts.GameCore.Services.GameData
 {
     using Items;
     using System;
+    using TextGameRPG.Scripts.GameCore.Buildings;
     using TextGameRPG.Scripts.GameCore.Buildings.Data;
     using TextGameRPG.Scripts.GameCore.Locations;
     using TextGameRPG.Scripts.GameCore.Potions;
@@ -19,7 +20,7 @@ namespace TextGameRPG.Scripts.GameCore.Services.GameData
 
         private GameDataLoader? _loader;
 
-        public GameDataDictionary<int,BuildingData> buildings { get; private set; }
+        public GameDataDictionary<BuildingId,BuildingData> buildings { get; private set; }
         public GameDataDictionary<int,ItemData> items { get; private set; }
         public GameDataDictionary<int,MobData> mobs { get; private set; }
         public GameDataDictionary<int,PotionData> potions { get; private set; }
@@ -40,7 +41,7 @@ namespace TextGameRPG.Scripts.GameCore.Services.GameData
                 _loader?.AddNextState("'gameData' folder not found in Assets! Creating new gameData...");
             }
 
-            buildings = LoadGameDataDictionary<int,BuildingData>("buildings");
+            buildings = LoadGameDataDictionary<BuildingId,BuildingData>("buildings");
             items = LoadGameDataDictionary<int,ItemData>("items");
             mobs = LoadGameDataDictionary<int,MobData>("mobs");
             potions = LoadGameDataDictionary<int,PotionData>("potions");
@@ -65,7 +66,7 @@ namespace TextGameRPG.Scripts.GameCore.Services.GameData
         public void SaveAllData()
         {
             if (Program.appMode != AppMode.Editor)
-                return;
+                throw new InvalidOperationException("Game data can only be changed in Editor mode");
 
             buildings.Save();
             items.Save();

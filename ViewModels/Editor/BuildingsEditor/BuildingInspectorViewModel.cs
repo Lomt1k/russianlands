@@ -38,18 +38,17 @@ namespace TextGameRPG.ViewModels.Editor.BuildingsEditor
             removeLevelCommand = ReactiveCommand.Create(RemoveSelectedLevel);
         }
 
-        public void Show(BuildingId buidlingType)
+        public void Show(BuildingId buildingId)
         {
-            var id = (int)buidlingType;
-            if (!gameDataBase.buildings.ContainsKey(id))
+            if (!gameDataBase.buildings.ContainsKey(buildingId))
             {
                 var newData = new BuildingData()
                 {
-                    id = id
+                    id = buildingId
                 };
-                gameDataBase.buildings.AddData(id, newData);
+                gameDataBase.buildings.AddData(buildingId, newData);
             }
-            buildingData = gameDataBase.buildings[id];
+            buildingData = gameDataBase.buildings[buildingId];
 
             UserControlsHelper.RefillObjectEditorsCollection(levelViews, buildingData.levels);
         }
@@ -59,7 +58,7 @@ namespace TextGameRPG.ViewModels.Editor.BuildingsEditor
             if (_buildingData == null)
                 return;
 
-            var newLevel = _buildingData.buildingId.CreateNewLevelInfo();
+            var newLevel = _buildingData.id.CreateNewLevelInfo();
             _buildingData.levels.Add(newLevel);
             UserControlsHelper.RefillObjectEditorsCollection(levelViews, _buildingData.levels);
         }

@@ -6,13 +6,11 @@ using TextGameRPG.Scripts.GameCore.Services.GameData;
 namespace TextGameRPG.Scripts.GameCore.Buildings.Data
 {
     [JsonObject]
-    public class BuildingData : IGameDataWithId<int>
+    public class BuildingData : IGameDataWithId<BuildingId>
     {
-        public int id { get; set; }
+        public BuildingId id { get; set; }
         [JsonIgnore]
-        public BuildingId buildingId => (BuildingId)id;
-        [JsonIgnore]
-        public string debugName => ((BuildingId)id).ToString();
+        public string debugName => id.ToString();
 
         public List<BuildingLevelInfo> levels { get; set; } = new List<BuildingLevelInfo>();
 
