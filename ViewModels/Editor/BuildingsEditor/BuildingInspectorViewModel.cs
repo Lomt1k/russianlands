@@ -15,15 +15,15 @@ namespace TextGameRPG.ViewModels.Editor.BuildingsEditor
         private static readonly GameDataHolder gameDataBase = Services.Get<GameDataHolder>();
 
         private BuildingData? _tempBuilding;
-        private ObjectFieldsEditorView? _selectedLevelView;
+        private ObjectPropertiesEditorView? _selectedLevelView;
 
         public BuildingData? tempBuilding
         {
             get => _tempBuilding;
             set => this.RaiseAndSetIfChanged(ref _tempBuilding, value);
         }
-        public ObservableCollection<ObjectFieldsEditorView> levelViews { get; }
-        public ObjectFieldsEditorView? selectedLevelView
+        public ObservableCollection<ObjectPropertiesEditorView> levelViews { get; }
+        public ObjectPropertiesEditorView? selectedLevelView
         {
             get => _selectedLevelView;
             set => this.RaiseAndSetIfChanged(ref _selectedLevelView, value);
@@ -35,7 +35,7 @@ namespace TextGameRPG.ViewModels.Editor.BuildingsEditor
 
         public BuildingInspectorViewModel()
         {
-            levelViews = new ObservableCollection<ObjectFieldsEditorView>();
+            levelViews = new ObservableCollection<ObjectPropertiesEditorView>();
             addLevelCommand = ReactiveCommand.Create(AddNewLevel);
             removeLevelCommand = ReactiveCommand.Create(RemoveSelectedLevel);
             saveCommand = ReactiveCommand.Create(SaveChanges);
@@ -87,7 +87,7 @@ namespace TextGameRPG.ViewModels.Editor.BuildingsEditor
         {
             foreach (var levelView in levelViews)
             {
-                levelView.vm.SaveObjectChanges();
+                //levelView.vm.SaveObjectChanges();
             }
             gameDataBase.buildings.ChangeData(_tempBuilding.id, _tempBuilding);
         }

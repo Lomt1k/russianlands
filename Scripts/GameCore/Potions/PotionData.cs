@@ -6,20 +6,19 @@ using TextGameRPG.Scripts.GameCore.Services.GameData;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Services.Battles;
 using TextGameRPG.Scripts.GameCore.Units;
+using TextGameRPG.ViewModels.UserControls;
 
 namespace TextGameRPG.Scripts.GameCore.Potions
 {
-    [JsonConverter(typeof(JsonKnownTypesConverter<PotionData>))]
+    [JsonObject] [JsonConverter(typeof(JsonKnownTypesConverter<PotionData>))]    
     public abstract class PotionData : IDataWithIntegerID
     {
         public string debugName { get; set; } = "New Potion";
+        [IgnoreInEditor]
         public int id { get; set; }
-        public byte workshopLevel;
-        public string localizationKey = string.Empty;
-        public byte potionLevel;
-
-        // костыль для отображения в редакторе
-        public byte workshopLevelProperty => workshopLevel;
+        public byte workshopLevel { get; set; }
+        public string localizationKey { get; set; } = string.Empty;
+        public byte potionLevel { get; set; }
 
         public PotionData(int _id)
         {
@@ -33,7 +32,7 @@ namespace TextGameRPG.Scripts.GameCore.Potions
 
         public void OnSetupAppMode(AppMode appMode)
         {
-            //ignored
+            // ignored
         }
 
         public string GetName(GameSession session)

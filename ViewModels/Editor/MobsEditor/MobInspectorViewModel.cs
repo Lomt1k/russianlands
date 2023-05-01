@@ -20,8 +20,8 @@ namespace TextGameRPG.ViewModels.Editor.MobsEditor
         private MobData? _mob;
         private string _header = string.Empty;
         private EnumValueModel<MobType>? _selectedMobType;
-        private ObjectFieldsEditorView? _statsSettingsView;
-        private ObjectFieldsEditorView? _selectedAttackView;
+        private ObjectPropertiesEditorView? _statsSettingsView;
+        private ObjectPropertiesEditorView? _selectedAttackView;
         private MobsEditorViewModel _mobEditorVM;
 
         public MobData? mob
@@ -36,7 +36,7 @@ namespace TextGameRPG.ViewModels.Editor.MobsEditor
         }
         public ObservableCollection<EnumValueModel<MobType>> mobTypes { get; }
         public ObservableCollection<EnumValueModel<Rarity>> rarities { get; }
-        public ObservableCollection<ObjectFieldsEditorView> attackViews { get; }
+        public ObservableCollection<ObjectPropertiesEditorView> attackViews { get; }
 
         public EnumValueModel<MobType>? selectedMobType
         {
@@ -51,12 +51,12 @@ namespace TextGameRPG.ViewModels.Editor.MobsEditor
             }
         }
 
-        public ObjectFieldsEditorView? statsSettingsView
+        public ObjectPropertiesEditorView? statsSettingsView
         {
             get => _statsSettingsView;
             set => this.RaiseAndSetIfChanged(ref _statsSettingsView, value);
         }
-        public ObjectFieldsEditorView? selectedAttackView
+        public ObjectPropertiesEditorView? selectedAttackView
         {
             get => _selectedAttackView;
             set => this.RaiseAndSetIfChanged(ref _selectedAttackView, value);
@@ -72,7 +72,7 @@ namespace TextGameRPG.ViewModels.Editor.MobsEditor
             mobTypes = EnumValueModel<MobType>.CreateCollection();
             rarities = EnumValueModel<Rarity>.CreateCollection();
 
-            attackViews = new ObservableCollection<ObjectFieldsEditorView>();
+            attackViews = new ObservableCollection<ObjectPropertiesEditorView>();
             addAttackCommand = ReactiveCommand.Create(AddNewAttack);
             removeAttackCommand = ReactiveCommand.Create(RemoveSelectedAttack);
             saveCommand = ReactiveCommand.Create(SaveMobChanges);
@@ -115,10 +115,10 @@ namespace TextGameRPG.ViewModels.Editor.MobsEditor
             if (mob == null)
                 return;
 
-            _statsSettingsView?.vm.SaveObjectChanges();
+            //_statsSettingsView?.vm.SaveObjectChanges();
             foreach (var attackView in attackViews)
             {
-                attackView.vm.SaveObjectChanges();
+                //attackView.vm.SaveObjectChanges();
             }
 
             gameDataBase.mobs.ChangeData(mob.id, mob);

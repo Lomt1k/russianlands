@@ -20,11 +20,11 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
 
         private Dictionary<string, int> _mobIds = new Dictionary<string, int>();
         private string? _selectedMob;
-        private ObjectFieldsEditorView? _selectedRewardView;
+        private ObjectPropertiesEditorView? _selectedRewardView;
 
         public QuestStageWithBattlePoint stage { get; }
         public ObservableCollection<string> mobsList { get; }
-        public ObservableCollection<ObjectFieldsEditorView> rewardViews { get; }
+        public ObservableCollection<ObjectPropertiesEditorView> rewardViews { get; }
 
         public string? selectedMob
         {
@@ -38,7 +38,7 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
                 }
             }
         }
-        public ObjectFieldsEditorView? selectedRewardView
+        public ObjectPropertiesEditorView? selectedRewardView
         {
             get => _selectedRewardView;
             set => this.RaiseAndSetIfChanged(ref _selectedRewardView, value);
@@ -64,7 +64,7 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
                 }
             }
 
-            rewardViews = new ObservableCollection<ObjectFieldsEditorView>();
+            rewardViews = new ObservableCollection<ObjectPropertiesEditorView>();
             RefillRewardsCollection();
             addNewRewardCommand = ReactiveCommand.Create(AddNewReward);
             removeRewardCommand = ReactiveCommand.Create(RemoveSelectedReward);
@@ -103,7 +103,7 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
         {
             foreach (var rewardView in rewardViews)
             {
-                rewardView.vm.SaveObjectChanges();
+                //rewardView.vm.SaveObjectChanges();
             }
         }
 

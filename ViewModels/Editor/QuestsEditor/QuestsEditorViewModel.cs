@@ -154,7 +154,7 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
 
             stageInspectorVM?.SaveChanges();
             _quest.stages = questStages.OrderBy(x => x.id).ToList();
-            QuestsHolder.SaveQuest(_selectedQuest.value);
+            //QuestsHolder.SaveQuest(_selectedQuest.value);
             ReloadQuestFromData();
         }
 

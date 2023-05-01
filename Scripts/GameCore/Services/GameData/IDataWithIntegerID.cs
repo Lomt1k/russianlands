@@ -1,4 +1,6 @@
-﻿namespace TextGameRPG.Scripts.GameCore.Services.GameData
+﻿using TextGameRPG.ViewModels.UserControls;
+
+namespace TextGameRPG.Scripts.GameCore.Services.GameData
 {
     public interface IDataWithIntegerID
     {

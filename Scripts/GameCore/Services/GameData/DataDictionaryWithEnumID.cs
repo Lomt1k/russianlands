@@ -74,11 +74,7 @@ namespace TextGameRPG.Scripts.GameCore.Services.GameData
 
         private void OnDataChanged()
         {
-            Save();
-            if (onDataChanged != null)
-            {
-                onDataChanged();
-            }
+            onDataChanged?.Invoke();
         }
 
         public void ReloadAllData()
