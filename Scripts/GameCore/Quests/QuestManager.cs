@@ -53,7 +53,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests
 
                     // Если игрок закончил игру на PvE точке и в начале новой сессии нажал "в бой" - запускаем бой
                     case QuestStageWithBattlePoint stageWithBattlePoint:
-                        bool isStartBattlePressed = replyMessage.Contains(ResourceType.Food.GetEmoji().ToString());
+                        bool isStartBattlePressed = replyMessage.Contains(ResourceId.Food.GetEmoji().ToString());
                         if (isStartBattlePressed)
                         {
                             await stageWithBattlePoint.InvokeStageWithStartBattleImmediate(session).FastAwait();

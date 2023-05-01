@@ -6,8 +6,8 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Storages
 {
     public class HerbsStorageBuilding : StorageBuildingBase
     {
-        public override ResourceType resourceType => ResourceType.Herbs;
-        public override BuildingType buildingType => BuildingType.HerbsStorage;
+        public override ResourceId resourceId => ResourceId.Herbs;
+        public override BuildingId buildingId => BuildingId.HerbsStorage;
         public override int resourceLimitForZeroLevel => 10_000;
 
         public override byte GetCurrentLevel(ProfileBuildingsData data)

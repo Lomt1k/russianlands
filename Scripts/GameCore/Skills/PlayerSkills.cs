@@ -109,7 +109,7 @@ namespace TextGameRPG.Scripts.GameCore.Skills
         }
 
         /// <returns>Ресурсы, требуемые для прокачки навыка</returns>
-        public ResourceType[] GetRequiredFruits(ItemType itemType)
+        public ResourceId[] GetRequiredFruits(ItemType itemType)
         {
             return skillsDictionary[itemType].requiredFruits;
         }
@@ -117,7 +117,7 @@ namespace TextGameRPG.Scripts.GameCore.Skills
         /// <returns>Максимальный доступный уровень для всех навыков</returns>
         public byte GetSkillLimit()
         {
-            var elixirWorkshop = (ElixirWorkshopBuilding)BuildingType.ElixirWorkshop.GetBuilding();
+            var elixirWorkshop = (ElixirWorkshopBuilding)BuildingId.ElixirWorkshop.GetBuilding();
             var maxSkillLevel = elixirWorkshop.GetCurrentMaxSkillLevel(_player.session.profile.buildingsData);
             return (byte)maxSkillLevel;
         }

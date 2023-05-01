@@ -5,7 +5,7 @@ namespace TextGameRPG.Scripts.GameCore.Resources
 {
     public interface IResource
     {
-        public ResourceType resourceType { get; }
+        public ResourceId resourceId { get; }
 
         int GetValue(ProfileData profileData);
         void SetValue(ProfileData profileData, int value);

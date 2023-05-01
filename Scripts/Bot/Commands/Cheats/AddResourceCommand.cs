@@ -14,18 +14,18 @@ namespace TextGameRPG.Scripts.Bot.Commands.Cheats
         public override async Task Execute(GameSession session, string[] args)
         {
             if (args.Length != 2
-                || !Enum.TryParse(args[0], ignoreCase: true, out ResourceType resourceType)
+                || !Enum.TryParse(args[0], ignoreCase: true, out ResourceId resourceId)
                 || !int.TryParse(args[1], out int amount))
             {
                 await SendManualMessage(session);
                 return;
             }
 
-            session.player.resources.ForceAdd(resourceType, amount);
+            session.player.resources.ForceAdd(resourceId, amount);
 
             var sb = new StringBuilder();
             sb.AppendLine(Localization.Get(session, "battle_result_header_rewards"));
-            sb.AppendLine(resourceType.GetLocalizedView(session, amount));
+            sb.AppendLine(resourceId.GetLocalizedView(session, amount));
 
             await messageSender.SendTextMessage(session.chatId, sb.ToString()).FastAwait();
         }
@@ -35,9 +35,9 @@ namespace TextGameRPG.Scripts.Bot.Commands.Cheats
             var sb = new StringBuilder();
             sb.AppendLine("Usage:".Bold());
             sb.AppendLine();
-            foreach (ResourceType resourceType in Enum.GetValues(typeof(ResourceType)))
+            foreach (ResourceId resourceId in Enum.GetValues(typeof(ResourceId)))
             {
-                sb.AppendLine($"/addresource {resourceType} [amount]");
+                sb.AppendLine($"/addresource {resourceId} [amount]");
             }
             await messageSender.SendTextMessage(session.chatId, sb.ToString()).FastAwait();
         }

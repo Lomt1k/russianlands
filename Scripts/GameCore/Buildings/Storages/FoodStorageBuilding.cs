@@ -6,8 +6,8 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Storages
 {
     public class FoodStorageBuilding : StorageBuildingBase
     {
-        public override ResourceType resourceType => ResourceType.Food;
-        public override BuildingType buildingType => BuildingType.FoodStorage;
+        public override ResourceId resourceId => ResourceId.Food;
+        public override BuildingId buildingId => BuildingId.FoodStorage;
         public override int resourceLimitForZeroLevel => 2_000;
 
         public override byte GetCurrentLevel(ProfileBuildingsData data)

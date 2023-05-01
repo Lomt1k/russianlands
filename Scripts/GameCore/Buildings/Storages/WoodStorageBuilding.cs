@@ -6,8 +6,8 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Storages
 {
     public class WoodStorageBuilding : StorageBuildingBase
     {
-        public override ResourceType resourceType => ResourceType.Wood;
-        public override BuildingType buildingType => BuildingType.WoodStorage;
+        public override ResourceId resourceId => ResourceId.Wood;
+        public override BuildingId buildingId => BuildingId.WoodStorage;
         public override int resourceLimitForZeroLevel => 50_000;
 
         public override byte GetCurrentLevel(ProfileBuildingsData data)

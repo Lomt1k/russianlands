@@ -42,7 +42,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
 
             ClearButtons();
             var diamondsForBoost = GetBoostPriceInDiamonds();
-            var priceView = ResourceType.Diamond.GetEmoji().ToString() + diamondsForBoost;
+            var priceView = ResourceId.Diamond.GetEmoji().ToString() + diamondsForBoost;
             var buttonText = Localization.Get(session, "menu_item_boost_button", priceView);
             RegisterButton(buttonText, () => TryBoostCraftForDiamonds());
             RegisterBackButton(() => new BuildingsDialog(session).StartWithShowBuilding(_building));
@@ -65,7 +65,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
 
             var requiredDiamonds = GetBoostPriceInDiamonds();
             var playerResources = session.player.resources;
-            var successsPurchase = playerResources.TryPurchase(ResourceType.Diamond, requiredDiamonds, out var notEnoughDiamonds);
+            var successsPurchase = playerResources.TryPurchase(ResourceId.Diamond, requiredDiamonds, out var notEnoughDiamonds);
             if (successsPurchase)
             {
                 _building.BoostCraft(buildingsData);
@@ -76,7 +76,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
                 {
                     sb.AppendLine();
                     sb.AppendLine(Localization.Get(session, "resource_header_spent"));
-                    sb.AppendLine(ResourceType.Diamond.GetLocalizedView(session, requiredDiamonds));
+                    sb.AppendLine(ResourceId.Diamond.GetLocalizedView(session, requiredDiamonds));
                 }
 
                 ClearButtons();

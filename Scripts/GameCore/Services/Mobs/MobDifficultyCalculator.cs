@@ -19,7 +19,7 @@ namespace TextGameRPG.Scripts.GameCore.Services.Mobs
             var minDifficulty = minDifficultyByQuests > minDifficultyByItems ? minDifficultyByQuests : minDifficultyByItems;
 
             var difficulty = (int)GetDifficultyByPlayerLevel(player.level);
-            if (player.buildings.HasBuilding(BuildingType.ElixirWorkshop) || player.buildings.GetBuildingLevel(BuildingType.TownHall) > 5)
+            if (player.buildings.HasBuilding(BuildingId.ElixirWorkshop) || player.buildings.GetBuildingLevel(BuildingId.TownHall) > 5)
             {
                 var bySkill = (int)GetDifficultyByAverageSkillLevel(player);
                 if (Math.Abs(bySkill - difficulty) > MaxDifficultyChangeBySkillLevel)

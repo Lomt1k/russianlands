@@ -9,18 +9,18 @@ namespace TextGameRPG.ViewModels.Rewards
 {
     internal class EditorResourceRewardViewModel : ViewModelBase
     {
-        private EnumValueModel<ResourceType> _selectedResourceType;
+        private EnumValueModel<ResourceId> _selectedResourceId;
 
         public ResourceReward reward { get; }
 
-        public ObservableCollection<EnumValueModel<ResourceType>> resourceTypes { get; }
-        public EnumValueModel<ResourceType> selectedResourceType 
+        public ObservableCollection<EnumValueModel<ResourceId>> resourceIds { get; }
+        public EnumValueModel<ResourceId> selectedResourceId 
         {
-            get => _selectedResourceType;
+            get => _selectedResourceId;
             set
             {
-                this.RaiseAndSetIfChanged(ref _selectedResourceType, value);
-                reward.resourceType = value.value;
+                this.RaiseAndSetIfChanged(ref _selectedResourceId, value);
+                reward.resourceId = value.value;
             }
         }
         
@@ -28,8 +28,8 @@ namespace TextGameRPG.ViewModels.Rewards
         public EditorResourceRewardViewModel(ResourceReward _resourceReward)
         {
             reward = _resourceReward;
-            resourceTypes = EnumValueModel<ResourceType>.CreateCollection();
-            selectedResourceType = resourceTypes.First(x => x.value == reward.resourceType);
+            resourceIds = EnumValueModel<ResourceId>.CreateCollection();
+            selectedResourceId = resourceIds.First(x => x.value == reward.resourceId);
         }
     }
 }

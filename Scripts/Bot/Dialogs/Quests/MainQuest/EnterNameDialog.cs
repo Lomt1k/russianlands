@@ -20,9 +20,9 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Quests.MainQuest
         private const int maxLength = 16;
 
         private static readonly NotificationsManager notificationsManager = Services.Get<NotificationsManager>();
-        private static readonly Dictionary<ResourceType, int> nickChangePrice = new Dictionary<ResourceType, int>()
+        private static readonly Dictionary<ResourceId, int> nickChangePrice = new Dictionary<ResourceId, int>()
         {
-            { ResourceType.Diamond, 800 }
+            { ResourceId.Diamond, 800 }
         };
 
         private bool _isQuestReplicaStage = false;

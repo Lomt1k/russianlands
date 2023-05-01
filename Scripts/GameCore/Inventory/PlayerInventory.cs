@@ -30,7 +30,7 @@ namespace TextGameRPG.Scripts.GameCore.Inventory
         [JsonIgnore]
         public int itemsCount => items.Count;
         [JsonIgnore]
-        public int inventorySize => session.player.resources.GetResourceLimit(Resources.ResourceType.InventoryItems);
+        public int inventorySize => session.player.resources.GetResourceLimit(Resources.ResourceId.InventoryItems);
         [JsonIgnore]
         public bool hasAnyNewItem => _hasAnyNewItem;
 

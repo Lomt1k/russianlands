@@ -5,7 +5,7 @@ namespace TextGameRPG.Scripts.GameCore.Resources
 {
     public class ResourceCraftPiecesCommon : IResource
     {
-        public ResourceType resourceType => ResourceType.CraftPiecesCommon;
+        public ResourceId resourceId => ResourceId.CraftPiecesCommon;
 
         public int GetValue(ProfileData profileData)
         {

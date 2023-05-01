@@ -15,7 +15,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Craft
             ItemType.Scroll
         };
 
-        public override BuildingType buildingType => BuildingType.ScribesHouse;
+        public override BuildingId buildingId => BuildingId.ScribesHouse;
 
         public override byte GetCurrentLevel(ProfileBuildingsData data)
         {

@@ -50,12 +50,12 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Skills
             sb.AppendLine();
             sb.AppendLine(Localization.Get(session, "resource_header_ours"));
             var requiredFruits = _skills.GetRequiredFruits(_itemType);
-            var ourResources = new Dictionary<ResourceType, int>()
+            var ourResources = new Dictionary<ResourceId, int>()
             {
                 { requiredFruits[0], _resources.GetValue(requiredFruits[0]) },
                 { requiredFruits[1], _resources.GetValue(requiredFruits[1]) },
                 { requiredFruits[2], _resources.GetValue(requiredFruits[2]) },
-                { ResourceType.Herbs, session.player.resources.GetValue(ResourceType.Herbs) }
+                { ResourceId.Herbs, session.player.resources.GetValue(ResourceId.Herbs) }
             };
             sb.Append(ResourceHelper.GetResourcesView(session, ourResources));
 
@@ -76,23 +76,23 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Skills
             await SendDialogMessage(sb, GetSpecialKeyboard()).FastAwait();
         }
 
-        private Dictionary<ResourceType, int> GetRequiredResources()
+        private Dictionary<ResourceId, int> GetRequiredResources()
         {
-            var elixirWorkshop = (ElixirWorkshopBuilding)BuildingType.ElixirWorkshop.GetBuilding();
+            var elixirWorkshop = (ElixirWorkshopBuilding)BuildingId.ElixirWorkshop.GetBuilding();
             var requiredFruits = _skills.GetRequiredFruits(_itemType);
-            return new Dictionary<ResourceType, int>
+            return new Dictionary<ResourceId, int>
             {
                 { requiredFruits[0], 1 },
                 { requiredFruits[1], 1 },
                 { requiredFruits[2], 1 },
-                { ResourceType.Herbs, elixirWorkshop.GetCurrentElixirPriceInHerbs(session.profile.buildingsData) },
+                { ResourceId.Herbs, elixirWorkshop.GetCurrentElixirPriceInHerbs(session.profile.buildingsData) },
             };
         }
 
-        private Dictionary<ResourceType, int> GetRequiredFruits()
+        private Dictionary<ResourceId, int> GetRequiredFruits()
         {
             var requiredFruits = _skills.GetRequiredFruits(_itemType);
-            return new Dictionary<ResourceType, int>
+            return new Dictionary<ResourceId, int>
             {
                 { requiredFruits[0], 1 },
                 { requiredFruits[1], 1 },
@@ -111,9 +111,9 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Skills
         {
             var requiredResources = GetRequiredResources();
             var requiredReourceTypes = requiredResources.Keys.ToArray();
-            foreach (var resourceType in requiredReourceTypes)
+            foreach (var resourceId in requiredReourceTypes)
             {
-                requiredResources[resourceType] *= amount;
+                requiredResources[resourceId] *= amount;
             }
 
             var playerResources = session.player.resources;

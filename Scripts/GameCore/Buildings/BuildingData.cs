@@ -10,8 +10,8 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Data
     {
         public int id { get; set; }
         [JsonIgnore]
-        public BuildingType buildingType => (BuildingType)id;
-        public string debugName => ((BuildingType)id).ToString();
+        public BuildingId buildingId => (BuildingId)id;
+        public string debugName => ((BuildingId)id).ToString();
 
         public List<BuildingLevelInfo> levels { get; set; } = new List<BuildingLevelInfo>();
 

@@ -7,7 +7,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.General
 {
     public class TownHallBuilding : BuildingBase
     {
-        public override BuildingType buildingType => BuildingType.TownHall;
+        public override BuildingId buildingId => BuildingId.TownHall;
 
         public override byte GetCurrentLevel(ProfileBuildingsData data)
         {

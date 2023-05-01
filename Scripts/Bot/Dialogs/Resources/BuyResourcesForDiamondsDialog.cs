@@ -11,12 +11,12 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Resources
 {
     public class BuyResourcesForDiamondsDialog : DialogBase
     {
-        private Dictionary<ResourceType, int> _targetResources;
+        private Dictionary<ResourceId, int> _targetResources;
         private int _priceInDiamonds;
         private Func<Task> _onSuccess;
         private Func<Task> _onCancel;
 
-        public BuyResourcesForDiamondsDialog(GameSession _session, Dictionary<ResourceType,int> targetResources, Func<Task> onSuccess, Func<Task> onCancel) : base(_session)
+        public BuyResourcesForDiamondsDialog(GameSession _session, Dictionary<ResourceId,int> targetResources, Func<Task> onSuccess, Func<Task> onCancel) : base(_session)
         {
             _targetResources = targetResources;
             _onSuccess = onSuccess;
@@ -28,8 +28,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Resources
             }
         }
 
-        public BuyResourcesForDiamondsDialog(GameSession _session, ResourceType resourceType, int amount, Func<Task> onSuccess, Func<Task> onCancel)
-            : this(_session, new Dictionary<ResourceType, int> { { resourceType, amount } }, onSuccess, onCancel) { }
+        public BuyResourcesForDiamondsDialog(GameSession _session, ResourceId resourceId, int amount, Func<Task> onSuccess, Func<Task> onCancel)
+            : this(_session, new Dictionary<ResourceId, int> { { resourceId, amount } }, onSuccess, onCancel) { }
 
         public override async Task Start()
         {
@@ -45,7 +45,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Resources
 
             sb.AppendLine();
             sb.AppendLine(Localization.Get(session, "resource_purchase_for_diamonds"));
-            RegisterButton(ResourceType.Diamond.GetEmoji() + _priceInDiamonds.ToString(), () => TryPurchase());
+            RegisterButton(ResourceId.Diamond.GetEmoji() + _priceInDiamonds.ToString(), () => TryPurchase());
             RegisterBackButton(_onCancel);
 
             await SendDialogMessage(sb, GetMultilineKeyboard()).FastAwait();
@@ -54,7 +54,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Resources
         private async Task TryPurchase()
         {
             var playerResources = session.player.resources;
-            bool success = playerResources.TryPurchase(ResourceType.Diamond, _priceInDiamonds);
+            bool success = playerResources.TryPurchase(ResourceId.Diamond, _priceInDiamonds);
             if (success)
             {
                 playerResources.ForceAdd(_targetResources);

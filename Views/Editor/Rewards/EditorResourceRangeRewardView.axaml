@@ -11,8 +11,8 @@
 
         <TextBlock Text="Resource Range" Padding="0,5,0,15" Classes="h3"/>
         <TextBlock Text="resource type"/>
-        <ComboBox Items="{Binding resourceTypes}"
-                  SelectedItem="{Binding selectedResourceType}"/>
+        <ComboBox Items="{Binding resourceIds}"
+                  SelectedItem="{Binding selectedResourceId}"/>
         <TextBlock Text="amountMin"/>
         <TextBox Text="{Binding reward.amountMin}"/>
         <TextBlock Text="amountMax"/>

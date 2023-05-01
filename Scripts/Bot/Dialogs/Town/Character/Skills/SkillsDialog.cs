@@ -32,13 +32,13 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Skills
             {
                 var requiredFruits = _skills.GetRequiredFruits(itemType);
                 var isFirstFruit = true;
-                foreach (var resourceType in requiredFruits)
+                foreach (var resourceId in requiredFruits)
                 {
                     if (!isFirstFruit)
                     {
                         sb.Append(" +");
                     }
-                    sb.Append(' ' + resourceType.GetEmoji().ToString());
+                    sb.Append(' ' + resourceId.GetEmoji().ToString());
                     isFirstFruit = false;
                 }
                 sb.Append(Emojis.bigSpace + (itemType.GetCategoryLocalization(session)).Bold() + itemType.GetEmoji());
@@ -85,9 +85,9 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Skills
         {
             int result = int.MaxValue;
             var requiredFruits = _skills.GetRequiredFruits(itemType);
-            foreach (var resourceType in requiredFruits)
+            foreach (var resourceId in requiredFruits)
             {
-                var resourceAmount = _resources.GetValue(resourceType);
+                var resourceAmount = _resources.GetValue(resourceId);
                 if (resourceAmount < result)
                 {
                     result = resourceAmount;
@@ -96,10 +96,10 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Skills
             return result;
         }
 
-        private Dictionary<ResourceType, int> GetRequiredFruits(ItemType itemType)
+        private Dictionary<ResourceId, int> GetRequiredFruits(ItemType itemType)
         {
             var requiredFruits = _skills.GetRequiredFruits(itemType);
-            return new Dictionary<ResourceType, int>
+            return new Dictionary<ResourceId, int>
             {
                 { requiredFruits[0], 1 },
                 { requiredFruits[1], 1 },

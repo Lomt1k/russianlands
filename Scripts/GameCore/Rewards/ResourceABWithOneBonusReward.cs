@@ -10,10 +10,10 @@ namespace TextGameRPG.Scripts.GameCore.Rewards
     [JsonObject]
     public class ResourceABWithOneBonusReward : RewardBase
     {
-        public ResourceType resourceTypeA { get; set; } = ResourceType.Gold;
+        public ResourceId resourceIdA { get; set; } = ResourceId.Gold;
         public int amountA { get; set; }
 
-        public ResourceType resourceTypeB { get; set; } = ResourceType.Wood;
+        public ResourceId resourceIdB { get; set; } = ResourceId.Wood;
         public int amountB { get; set; }
 
         public int bonusA_min { get; set; }
@@ -31,25 +31,25 @@ namespace TextGameRPG.Scripts.GameCore.Rewards
         private Task<string?> AddRewardWithBonusA(GameSession session)
         {
             var amountWithBonus = amountA + new Random().Next(bonusA_min, bonusA_max + 1);
-            session.player.resources.ForceAdd(resourceTypeA, amountWithBonus);
-            session.player.resources.ForceAdd(resourceTypeB, amountB);
+            session.player.resources.ForceAdd(resourceIdA, amountWithBonus);
+            session.player.resources.ForceAdd(resourceIdB, amountB);
 
             var sb = new StringBuilder();
-            sb.AppendLine(resourceTypeA.GetLocalizedView(session, amountWithBonus));
-            sb.Append(resourceTypeB.GetLocalizedView(session, amountB));
+            sb.AppendLine(resourceIdA.GetLocalizedView(session, amountWithBonus));
+            sb.Append(resourceIdB.GetLocalizedView(session, amountB));
             
             return Task.FromResult(sb.ToString());
         }
 
         private Task<string?> AddRewardWithBonusB(GameSession session)
         {
-            session.player.resources.ForceAdd(resourceTypeA, amountA);
+            session.player.resources.ForceAdd(resourceIdA, amountA);
             var amountWithBonus = amountB + new Random().Next(bonusB_min, bonusB_max + 1);
-            session.player.resources.ForceAdd(resourceTypeB, amountWithBonus);
+            session.player.resources.ForceAdd(resourceIdB, amountWithBonus);
 
             var sb = new StringBuilder();
-            sb.AppendLine(resourceTypeA.GetLocalizedView(session, amountA));
-            sb.Append(resourceTypeB.GetLocalizedView(session, amountWithBonus));
+            sb.AppendLine(resourceIdA.GetLocalizedView(session, amountA));
+            sb.Append(resourceIdB.GetLocalizedView(session, amountWithBonus));
 
             return Task.FromResult(sb.ToString());
         }

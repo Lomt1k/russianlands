@@ -12,7 +12,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
 {
     public abstract class ProductionBuildingBase : BuildingBase
     {
-        public abstract ResourceType resourceType { get; }
+        public abstract ResourceId resourceId { get; }
         public abstract Avatar firstWorkerIcon { get; }
         public abstract Avatar secondWorkerIcon { get; }
 
@@ -20,7 +20,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
 
         public ProductionBuildingBase()
         {
-            resourcePrefix = resourceType.GetEmoji().ToString();
+            resourcePrefix = resourceId.GetEmoji().ToString();
         }
 
         public abstract byte GetFirstWorkerLevel(ProfileBuildingsData data);
@@ -128,7 +128,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
         public override string GetCurrentLevelInfo(GameSession session, ProfileBuildingsData data)
         {
             var sb = new StringBuilder();
-            sb.AppendLine(Localization.Get(session, $"building_{buildingType}_description"));
+            sb.AppendLine(Localization.Get(session, $"building_{buildingId}_description"));
 
             sb.AppendLine();
             sb.AppendLine(Localization.Get(session, "building_production_per_hour_header"));
@@ -138,9 +138,9 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             }
             else
             {
-                var firstWorker = firstWorkerIcon.GetEmoji() + Localization.Get(session, $"building_{buildingType}_first_worker") + Emojis.bigSpace;
+                var firstWorker = firstWorkerIcon.GetEmoji() + Localization.Get(session, $"building_{buildingId}_first_worker") + Emojis.bigSpace;
                 sb.AppendLine(firstWorker + resourcePrefix + $" {GetCurrentLevelFirstWorkerProductionPerHour(data).View()}");
-                var secondWorker = secondWorkerIcon.GetEmoji() + Localization.Get(session, $"building_{buildingType}_second_worker") + Emojis.bigSpace;
+                var secondWorker = secondWorkerIcon.GetEmoji() + Localization.Get(session, $"building_{buildingId}_second_worker") + Emojis.bigSpace;
                 sb.AppendLine(secondWorker + resourcePrefix + $" {GetCurrentLevelSecondWorkerProductionPerHour(data).View()}");
             }
 
@@ -155,19 +155,19 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
         public override string GetNextLevelInfo(GameSession session, ProfileBuildingsData data)
         {
             var sb = new StringBuilder();
-            sb.AppendLine(Localization.Get(session, $"building_{buildingType}_description"));
+            sb.AppendLine(Localization.Get(session, $"building_{buildingId}_description"));
 
             sb.AppendLine();
             sb.AppendLine(Localization.Get(session, "building_production_per_hour_header"));
 
             bool hideDelta = !IsBuilt(data);
-            var firstWorker = firstWorkerIcon.GetEmoji() + Localization.Get(session, $"building_{buildingType}_first_worker") + Emojis.bigSpace;
+            var firstWorker = firstWorkerIcon.GetEmoji() + Localization.Get(session, $"building_{buildingId}_first_worker") + Emojis.bigSpace;
             var currentValue = GetCurrentLevelFirstWorkerProductionPerHour(data);
             var nextValue = GetNextLevelFirstWorkerProductionPerHour(data);
             var delta = nextValue - currentValue;
             sb.AppendLine(firstWorker + resourcePrefix + $" {nextValue.View()}" + (hideDelta ? string.Empty : $" (<i>+{delta.View()}</i>)"));
 
-            var secondWorker = secondWorkerIcon.GetEmoji() + Localization.Get(session, $"building_{buildingType}_second_worker") + Emojis.bigSpace;
+            var secondWorker = secondWorkerIcon.GetEmoji() + Localization.Get(session, $"building_{buildingId}_second_worker") + Emojis.bigSpace;
             currentValue = GetCurrentLevelSecondWorkerProductionPerHour(data);
             nextValue = GetNextLevelSecondWorkerProductionPerHour(data);
             delta = nextValue - currentValue;
@@ -193,7 +193,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             if (!isFarmLimitReached)
                 return false;
 
-            var isStorageLimitReached = data.session.player.resources.IsResourceLimitReached(resourceType);
+            var isStorageLimitReached = data.session.player.resources.IsResourceLimitReached(resourceId);
             return !isStorageLimitReached;
         }
 

@@ -106,7 +106,7 @@ namespace TextGameRPG.Scripts.GameCore.Services.Mobs
 
             var difficulty = session.profile.dailyData.GetLocationMobDifficulty();
             var mobData = this[difficulty][locationType][mobIndex];
-            var townHall = session.player.buildings.GetBuildingLevel(Buildings.BuildingType.TownHall);
+            var townHall = session.player.buildings.GetBuildingLevel(Buildings.BuildingId.TownHall);
             var locationMobSettings = gameDataHolder.locationGeneratedMobs[locationType].GetClosest(townHall);
 
             return new BattlePointData
@@ -142,7 +142,7 @@ namespace TextGameRPG.Scripts.GameCore.Services.Mobs
 
         private async Task GiveLocationRewards(GameSession session, LocationType locationType)
         {
-            var townHall = session.player.buildings.GetBuildingLevel(Buildings.BuildingType.TownHall);
+            var townHall = session.player.buildings.GetBuildingLevel(Buildings.BuildingId.TownHall);
             var locationMobSettings = gameDataHolder.locationGeneratedMobs[locationType].GetClosest(townHall);
 
             var sb = new StringBuilder();

@@ -7,11 +7,11 @@ namespace TextGameRPG.Scripts.GameCore.Skills
     internal class SkillStick : ISkill
     {
         public ItemType itemType => ItemType.Stick;
-        public ResourceType[] requiredFruits => new ResourceType[]
+        public ResourceId[] requiredFruits => new ResourceId[]
         {
-            ResourceType.FruitPear,
-            ResourceType.FruitWatermelon,
-            ResourceType.FruitCherry,
+            ResourceId.FruitPear,
+            ResourceId.FruitWatermelon,
+            ResourceId.FruitCherry,
         };
 
         public byte GetValue(ProfileData profileData)

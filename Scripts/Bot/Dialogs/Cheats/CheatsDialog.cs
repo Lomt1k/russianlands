@@ -55,15 +55,15 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
         public async Task ShowResourcesGroup()
         {
             ClearButtons();
-            foreach (ResourceType resourceType in Enum.GetValues(typeof(ResourceType)))
+            foreach (ResourceId resourceId in Enum.GetValues(typeof(ResourceId)))
             {
-                if (resourceType == ResourceType.InventoryItems)
+                if (resourceId == ResourceId.InventoryItems)
                     continue;
 
-                var shortName = resourceType.IsCraftResource()
-                    ? resourceType.ToString().Replace("Pieces", string.Empty)
-                    : resourceType.ToString();
-                RegisterButton(shortName, () => SelectAmountForAddResource(resourceType));
+                var shortName = resourceId.IsCraftResource()
+                    ? resourceId.ToString().Replace("Pieces", string.Empty)
+                    : resourceId.ToString();
+                RegisterButton(shortName, () => SelectAmountForAddResource(resourceId));
             }
             RegisterBackButton("Cheats", () => Start());
             RegisterTownButton(isDoubleBack: true);
@@ -71,28 +71,28 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
             await SendDialogMessage("Resources".Bold(), GetKeyboardWithFixedRowSize(3)).FastAwait();
         }
 
-        public async Task SelectAmountForAddResource(ResourceType resourceType)
+        public async Task SelectAmountForAddResource(ResourceId resourceId)
         {
             ClearButtons();
-            RegisterButton("10", () => InvokeAddResourceCommand(resourceType, 10));
-            RegisterButton("50", () => InvokeAddResourceCommand(resourceType, 50));
-            RegisterButton("100", () => InvokeAddResourceCommand(resourceType, 100));
-            RegisterButton("1k", () => InvokeAddResourceCommand(resourceType, 1_000));
-            RegisterButton("10k", () => InvokeAddResourceCommand(resourceType, 10_000));
-            RegisterButton("100k", () => InvokeAddResourceCommand(resourceType, 100_000));
-            RegisterButton("1kk", () => InvokeAddResourceCommand(resourceType, 1_000_000));
-            RegisterButton("10kk", () => InvokeAddResourceCommand(resourceType, 10_000_000));
-            RegisterButton("MAX", () => InvokeAddResourceCommand(resourceType, int.MaxValue));
+            RegisterButton("10", () => InvokeAddResourceCommand(resourceId, 10));
+            RegisterButton("50", () => InvokeAddResourceCommand(resourceId, 50));
+            RegisterButton("100", () => InvokeAddResourceCommand(resourceId, 100));
+            RegisterButton("1k", () => InvokeAddResourceCommand(resourceId, 1_000));
+            RegisterButton("10k", () => InvokeAddResourceCommand(resourceId, 10_000));
+            RegisterButton("100k", () => InvokeAddResourceCommand(resourceId, 100_000));
+            RegisterButton("1kk", () => InvokeAddResourceCommand(resourceId, 1_000_000));
+            RegisterButton("10kk", () => InvokeAddResourceCommand(resourceId, 10_000_000));
+            RegisterButton("MAX", () => InvokeAddResourceCommand(resourceId, int.MaxValue));
             RegisterBackButton("Resources", () => ShowResourcesGroup());
             RegisterDoubleBackButton("Cheats", () => Start());
 
-            var text = $"{resourceType} | Add amount:";
+            var text = $"{resourceId} | Add amount:";
             await SendDialogMessage(text, GetKeyboardWithRowSizes(3, 3, 3, 2)).FastAwait();
         }
 
-        public async Task InvokeAddResourceCommand(ResourceType resourceType, int amount)
+        public async Task InvokeAddResourceCommand(ResourceId resourceId, int amount)
         {
-            var command = $"/addresource {resourceType} {amount}";
+            var command = $"/addresource {resourceId} {amount}";
             await messageSender.SendTextMessage(session.chatId, command).FastAwait();
             await CommandHandler.HandleCommand(session, command).FastAwait();
             await Start().FastAwait();
@@ -173,9 +173,9 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
 
             RegisterButton("All buildings", () => SelectLevelForAllBuildings());
             RegisterButton("Townhall + Storages", () => SelectLevelForTownhallAndStorages());
-            foreach (BuildingType buildingType in Enum.GetValues(typeof(BuildingType)))
+            foreach (BuildingId buildingId in Enum.GetValues(typeof(BuildingId)))
             {
-                RegisterButton(buildingType.ToString(), () => SelectLevelForBuilding(buildingType));
+                RegisterButton(buildingId.ToString(), () => SelectLevelForBuilding(buildingId));
             }
             RegisterBackButton("Cheats", () => Start());
             RegisterTownButton(isDoubleBack: true);
@@ -186,7 +186,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
         private async Task SelectLevelForTownhallAndStorages()
         {
             ClearButtons();
-            var building = BuildingType.TownHall.GetBuilding();
+            var building = BuildingId.TownHall.GetBuilding();
             var maxLevel = building.buildingData.levels.Count;
             for (byte i = 0; i <= maxLevel; i++)
             {
@@ -203,7 +203,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
         private async Task SelectLevelForAllBuildings()
         {
             ClearButtons();
-            var building = BuildingType.TownHall.GetBuilding();
+            var building = BuildingId.TownHall.GetBuilding();
             var maxLevel = building.buildingData.levels.Count;
             for (byte i = 0; i <= maxLevel; i++)
             {
@@ -217,20 +217,20 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
             await SendDialogMessage(text, GetMultilineKeyboardWithDoubleBack()).FastAwait();
         }
 
-        private async Task SelectLevelForBuilding(BuildingType buildingType)
+        private async Task SelectLevelForBuilding(BuildingId buildingId)
         {
             ClearButtons();
-            var building = buildingType.GetBuilding();
+            var building = buildingId.GetBuilding();
             var maxLevel = building.buildingData.levels.Count;
             for (byte i = 0; i <= maxLevel; i++)
             {
                 var levelForDelegate = i; // important!
-                RegisterButton(i.ToString(), () => SetBuildingLevel(buildingType, levelForDelegate));
+                RegisterButton(i.ToString(), () => SetBuildingLevel(buildingId, levelForDelegate));
             }
             RegisterBackButton("Buildings", () => ShowBuildingsGroup());
             RegisterDoubleBackButton("Cheats", () => Start());
 
-            var text = $"{buildingType} | Change level:";
+            var text = $"{buildingId} | Change level:";
             await SendDialogMessage(text, GetMultilineKeyboardWithDoubleBack()).FastAwait();
         }
 
@@ -238,8 +238,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
         {
             var sb = new StringBuilder();
             var buildingsData = session.profile.buildingsData;
-            BuildingType.TownHall.GetBuilding().Cheat_SetCurrentLevel(buildingsData, townhallLevel);
-            var text = $"{BuildingType.TownHall}:".Bold() + $" setuped level {townhallLevel}";
+            BuildingId.TownHall.GetBuilding().Cheat_SetCurrentLevel(buildingsData, townhallLevel);
+            var text = $"{BuildingId.TownHall}:".Bold() + $" setuped level {townhallLevel}";
             sb.AppendLine(text);
 
             foreach (var building in session.player.buildings.GetBuildingsByCategory(BuildingCategory.Storages))
@@ -255,7 +255,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
                     }
                 }
                 building.Cheat_SetCurrentLevel(buildingsData, maxAvailableLevel);
-                text = $"{building.buildingType}:".Bold() + $" setuped level {maxAvailableLevel}";
+                text = $"{building.buildingId}:".Bold() + $" setuped level {maxAvailableLevel}";
                 sb.AppendLine(text);
             }
 
@@ -268,13 +268,13 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
         {
             var sb = new StringBuilder();
             var buildingsData = session.profile.buildingsData;
-            BuildingType.TownHall.GetBuilding().Cheat_SetCurrentLevel(buildingsData, townhallLevel);
-            var text = $"{BuildingType.TownHall}:".Bold() + $" setuped level {townhallLevel}";
+            BuildingId.TownHall.GetBuilding().Cheat_SetCurrentLevel(buildingsData, townhallLevel);
+            var text = $"{BuildingId.TownHall}:".Bold() + $" setuped level {townhallLevel}";
             sb.AppendLine(text);
 
             foreach (var building in session.player.buildings.GetAllBuildings())
             {
-                if (building.buildingType == BuildingType.TownHall)
+                if (building.buildingId == BuildingId.TownHall)
                     continue;
 
                 byte maxAvailableLevel = 0;
@@ -290,7 +290,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
                     }
                 }
                 building.Cheat_SetCurrentLevel(buildingsData, maxAvailableLevel);
-                text = $"{building.buildingType}:".Bold() + $" setuped level {maxAvailableLevel}";
+                text = $"{building.buildingId}:".Bold() + $" setuped level {maxAvailableLevel}";
                 sb.AppendLine(text);
             }
 
@@ -299,12 +299,12 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
             await Start().FastAwait();
         }
 
-        private async Task SetBuildingLevel(BuildingType buildingType, byte level)
+        private async Task SetBuildingLevel(BuildingId buildingId, byte level)
         {
-            var building = buildingType.GetBuilding();
+            var building = buildingId.GetBuilding();
             building.Cheat_SetCurrentLevel(session.profile.buildingsData, level);
 
-            var text = $"{buildingType}:".Bold() + $" setuped level {level}";
+            var text = $"{buildingId}:".Bold() + $" setuped level {level}";
             await messageSender.SendTextMessage(session.chatId, text).FastAwait();
             await Start().FastAwait();
         }
@@ -332,7 +332,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
         private async Task SelectLevelForSkill(ItemType itemType)
         {
             ClearButtons();
-            var elixirWorkshop = (ElixirWorkshopBuilding)BuildingType.ElixirWorkshop.GetBuilding();
+            var elixirWorkshop = (ElixirWorkshopBuilding)BuildingId.ElixirWorkshop.GetBuilding();
             var buildingLevels = elixirWorkshop.buildingData.levels;
             var maxLevel = ((ElixirWorkshopLevelInfo)buildingLevels[buildingLevels.Count - 1]).skillLevelLimit;
             for (byte i = 0; i <= maxLevel; i += 5)

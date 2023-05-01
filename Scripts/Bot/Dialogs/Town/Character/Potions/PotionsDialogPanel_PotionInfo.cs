@@ -17,7 +17,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
             if (!item.IsReady())
             {
                 var diamondsForBoost = item.GetBoostPriceInDiamonds();
-                var priceView = ResourceType.Diamond.GetEmoji().ToString() + diamondsForBoost;
+                var priceView = ResourceId.Diamond.GetEmoji().ToString() + diamondsForBoost;
                 var boostButtonText = Localization.Get(session, "menu_item_boost_button", priceView);
                 RegisterButton(boostButtonText, () => TryBoostCraft(item));
                 RegisterButton(Emojis.ElementCancel + Localization.Get(session, "dialog_potions_cancel_craft_button"),
@@ -43,7 +43,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
 
             var requiredDiamonds = item.GetBoostPriceInDiamonds();
             var playerResources = session.player.resources;
-            var successsPurchase = playerResources.TryPurchase(ResourceType.Diamond, requiredDiamonds, out var notEnoughDiamonds);
+            var successsPurchase = playerResources.TryPurchase(ResourceId.Diamond, requiredDiamonds, out var notEnoughDiamonds);
             if (successsPurchase)
             {
                 item.BoostProduction();
@@ -58,7 +58,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
                 {
                     sb.AppendLine();
                     sb.AppendLine(Localization.Get(session, "resource_header_spent"));
-                    sb.AppendLine(ResourceType.Diamond.GetLocalizedView(session, requiredDiamonds));
+                    sb.AppendLine(ResourceId.Diamond.GetLocalizedView(session, requiredDiamonds));
                 }
 
                 RegisterButton(Localization.Get(session, "menu_item_continue_button"), () => ShowPotionsList());
@@ -79,7 +79,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
         private async Task CancelCraft(PotionItem item)
         {
             var alchemyLabLevel = item.GetData().workshopLevel;
-            var alchemyLab = (AlchemyLabBuilding)BuildingType.AlchemyLab.GetBuilding();
+            var alchemyLab = (AlchemyLabBuilding)BuildingId.AlchemyLab.GetBuilding();
             var resourcesToRestore = alchemyLab.GetCraftCostForBuildingLevel(alchemyLabLevel);
             session.player.resources.ForceAdd(resourcesToRestore);
             session.player.potions.Remove(item);

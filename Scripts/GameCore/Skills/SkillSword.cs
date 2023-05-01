@@ -7,11 +7,11 @@ namespace TextGameRPG.Scripts.GameCore.Skills
     internal class SkillSword : ISkill
     {
         public ItemType itemType => ItemType.Sword;
-        public ResourceType[] requiredFruits => new ResourceType[]
+        public ResourceId[] requiredFruits => new ResourceId[]
         {
-            ResourceType.FruitApple,
-            ResourceType.FruitPineapple,
-            ResourceType.FruitBlueberry,
+            ResourceId.FruitApple,
+            ResourceId.FruitPineapple,
+            ResourceId.FruitBlueberry,
         };
 
         public byte GetValue(ProfileData profileData)

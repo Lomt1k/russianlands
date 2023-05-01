@@ -9,7 +9,7 @@ namespace TextGameRPG.Scripts.GameCore.Units
     {
         private Player _player;
 
-        private static HospitalBuilding hospital => (HospitalBuilding)BuildingType.Hospital.GetBuilding();
+        private static HospitalBuilding hospital => (HospitalBuilding)BuildingId.Hospital.GetBuilding();
         private ProfileBuildingsData buildingsData => _player.session.profile.buildingsData;
 
         public HealthRegenerationController(Player player)

@@ -42,7 +42,7 @@ namespace TextGameRPG.ViewModels.Editor.BuildingsEditor
             cancelCommand = ReactiveCommand.Create(ResetChanges);
         }
 
-        public void Show(BuildingType buidlingType)
+        public void Show(BuildingId buidlingType)
         {
             var id = (int)buidlingType;
             if (!gameDataBase.buildings.ContainsKey(id))
@@ -66,7 +66,7 @@ namespace TextGameRPG.ViewModels.Editor.BuildingsEditor
 
             SaveChanges();
 
-            var newLevel = _tempBuilding.buildingType.CreateNewLevelInfo();
+            var newLevel = _tempBuilding.buildingId.CreateNewLevelInfo();
             _tempBuilding.levels.Add(newLevel);
             UserControlsHelper.RefillObjectEditorsCollection(levelViews, _tempBuilding.levels);
         }
@@ -94,7 +94,7 @@ namespace TextGameRPG.ViewModels.Editor.BuildingsEditor
 
         private void ResetChanges()
         {
-            var locationType = (BuildingType)_tempBuilding.id;
+            var locationType = (BuildingId)_tempBuilding.id;
             Show(locationType);
         }
 

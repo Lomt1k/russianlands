@@ -7,8 +7,8 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Production
 {
     public class HerbsProductionFirstBuilding : ProductionBuildingBase
     {
-        public override ResourceType resourceType => ResourceType.Herbs;
-        public override BuildingType buildingType => BuildingType.HerbsProductionFirst;
+        public override ResourceId resourceId => ResourceId.Herbs;
+        public override BuildingId buildingId => BuildingId.HerbsProductionFirst;
         public override Avatar firstWorkerIcon => Avatar.Female;
         public override Avatar secondWorkerIcon => Avatar.FemaleB;
 

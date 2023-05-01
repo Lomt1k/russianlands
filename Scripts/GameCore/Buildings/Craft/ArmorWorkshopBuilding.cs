@@ -18,7 +18,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Craft
             ItemType.Shield
         };
 
-        public override BuildingType buildingType => BuildingType.ArmorWorkshop;
+        public override BuildingId buildingId => BuildingId.ArmorWorkshop;
 
         public override byte GetCurrentLevel(ProfileBuildingsData data)
         {

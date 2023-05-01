@@ -166,7 +166,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
             var text = Emojis.ButtonBattle + mobData.mob.GetFullUnitInfoView(session);
 
             ClearButtons();
-            var priceView = mobData.foodPrice > 0 ? ResourceType.Food.GetEmoji() + mobData.foodPrice.View() : string.Empty;
+            var priceView = mobData.foodPrice > 0 ? ResourceId.Food.GetEmoji() + mobData.foodPrice.View() : string.Empty;
             var startBattleButton = Localization.Get(session, "dialog_mob_battle_point_start_battle", priceView);
             RegisterButton(startBattleButton, () => new BattlePointDialog(session, mobData).SilentStart());
             RegisterBackButton(() => ShowLocation(locationType));
@@ -186,7 +186,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
 
             ClearButtons();
             var text = Emojis.ButtonBattle + mobData.mob.GetFullUnitInfoView(session);
-            var priceView = mobData.foodPrice > 0 ? ResourceType.Food.GetEmoji() + mobData.foodPrice.View() : string.Empty;
+            var priceView = mobData.foodPrice > 0 ? ResourceId.Food.GetEmoji() + mobData.foodPrice.View() : string.Empty;
             var startBattleButton = Localization.Get(session, "dialog_mob_battle_point_start_battle", priceView);
             RegisterButton(startBattleButton, () => new BattlePointDialog(session, mobData).SilentStart());
             RegisterBackButton(() => ShowLocation(locationType));

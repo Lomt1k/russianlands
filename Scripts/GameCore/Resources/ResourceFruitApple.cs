@@ -5,7 +5,7 @@ namespace TextGameRPG.Scripts.GameCore.Resources
 {
     internal class ResourceFruitApple : IResource
     {
-        public ResourceType resourceType => ResourceType.FruitApple;
+        public ResourceId resourceId => ResourceId.FruitApple;
 
         public int GetValue(ProfileData profileData)
         {

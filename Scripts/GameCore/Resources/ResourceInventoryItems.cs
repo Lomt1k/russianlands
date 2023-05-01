@@ -8,7 +8,7 @@ namespace TextGameRPG.Scripts.GameCore.Resources
     // Псевдо-ресурс, используется для определения размера инвентаря
     public class ResourceInventoryItems : IResource
     {
-        public ResourceType resourceType => ResourceType.InventoryItems;
+        public ResourceId resourceId => ResourceId.InventoryItems;
 
         public int GetValue(ProfileData profileData)
         {
@@ -33,7 +33,7 @@ namespace TextGameRPG.Scripts.GameCore.Resources
         public int GetResourceLimit(GameSession session)
         {
             var buildingsData = session.profile.buildingsData;
-            var itemsStorage = BuildingType.ItemsStorage.GetBuilding();
+            var itemsStorage = BuildingId.ItemsStorage.GetBuilding();
             var currentLevel = itemsStorage.GetCurrentLevel(buildingsData);
             var storageLevelInfo = (StorageLevelInfo)itemsStorage.buildingData.levels[currentLevel  - 1];
             return storageLevelInfo.resourceStorageLimit;

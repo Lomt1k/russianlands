@@ -17,7 +17,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Craft
             ItemType.Stick
         };
 
-        public override BuildingType buildingType => BuildingType.WeaponsWorkshop;
+        public override BuildingId buildingId => BuildingId.WeaponsWorkshop;
 
         public override byte GetCurrentLevel(ProfileBuildingsData data)
         {

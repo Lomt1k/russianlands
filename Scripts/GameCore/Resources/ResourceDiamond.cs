@@ -5,7 +5,7 @@ namespace TextGameRPG.Scripts.GameCore.Resources
 {
     public class ResourceDiamond : IResource
     {
-        public ResourceType resourceType => ResourceType.Diamond;
+        public ResourceId resourceId => ResourceId.Diamond;
 
         public int GetValue(ProfileData profileData)
         {

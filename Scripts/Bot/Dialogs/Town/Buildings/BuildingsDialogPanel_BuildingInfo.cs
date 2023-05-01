@@ -62,7 +62,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
                     var time = building.GetEndConstructionTime(_buildingsData);
                     var secondsToEnd = (int)(time - DateTime.UtcNow).TotalSeconds;
                     var diamondsForBoost = ResourceHelper.CalculateConstructionBoostPriceInDiamonds(secondsToEnd);
-                    var priceView = ResourceType.Diamond.GetEmoji().ToString() + diamondsForBoost;
+                    var priceView = ResourceId.Diamond.GetEmoji().ToString() + diamondsForBoost;
                     var buttonText = nextLevel.isBoostAvailable
                         ? Localization.Get(session, "menu_item_boost_free_button")
                         : Localization.Get(session, "menu_item_boost_button", priceView);
@@ -70,7 +70,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
                 }
                 else
                 {
-                    var playerTownHall = BuildingType.TownHall.GetBuilding().GetCurrentLevel(_buildingsData);
+                    var playerTownHall = BuildingId.TownHall.GetBuilding().GetCurrentLevel(_buildingsData);
                     var nextLevelIcon = playerTownHall < nextLevel.requiredTownHall
                         ? Emojis.ElementLocked
                         : Emojis.ElementLevelUp;
@@ -83,7 +83,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
             {
                 RegisterButton(button.Key, () => button.Value());
             }
-            var category = building.buildingType.GetCategory();
+            var category = building.buildingId.GetCategory();
             RegisterBackButton(category.GetLocalization(session), () => ShowBuildingsList(category));
             RegisterDoubleBackButton(Localization.Get(session, "menu_item_buildings") + Emojis.ButtonBuildings, () => ShowCategories());
 
@@ -110,7 +110,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
             var requiredDiamonds = nextLevel.isBoostAvailable ? 0 : ResourceHelper.CalculateConstructionBoostPriceInDiamonds(secondsToEnd);
 
             var playerResources = session.player.resources;
-            var successsPurchase = playerResources.TryPurchase(ResourceType.Diamond, requiredDiamonds, out var notEnoughDiamonds);
+            var successsPurchase = playerResources.TryPurchase(ResourceId.Diamond, requiredDiamonds, out var notEnoughDiamonds);
             if (successsPurchase)
             {
                 building.LevelUp(_buildingsData);
@@ -123,7 +123,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
                 {
                     sb.AppendLine();
                     sb.AppendLine(Localization.Get(session, "resource_header_spent"));
-                    sb.AppendLine(ResourceType.Diamond.GetLocalizedView(session, requiredDiamonds));
+                    sb.AppendLine(ResourceId.Diamond.GetLocalizedView(session, requiredDiamonds));
                 }
 
                 RegisterButton(Localization.Get(session, "menu_item_continue_button"), () => ShowBuildingCurrentLevelInfo(building));
@@ -156,7 +156,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
             var timeSpan = (dtNow.AddSeconds(levelData.constructionTime) - dtNow);
             sb.AppendLine(timeSpan.GetView(session, withCaption: true));
 
-            var playerTownHall = BuildingType.TownHall.GetBuilding().GetCurrentLevel(_buildingsData);
+            var playerTownHall = BuildingId.TownHall.GetBuilding().GetCurrentLevel(_buildingsData);
             if (playerTownHall < levelData.requiredTownHall)
             {
                 sb.AppendLine();
@@ -183,7 +183,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
             }
             else
             {
-                var category = building.buildingType.GetCategory();
+                var category = building.buildingId.GetCategory();
                 RegisterBackButton(category.GetLocalization(session), () => ShowBuildingsList(category));
             }
             RegisterDoubleBackButton(Localization.Get(session, "menu_item_buildings") + Emojis.ButtonBuildings,
@@ -193,17 +193,17 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
             await SendPanelMessage(sb, GetMultilineKeyboardWithDoubleBack()).FastAwait();
         }
 
-        private void AppendOurResources(StringBuilder sb, Dictionary<ResourceType, int> requiredResources)
+        private void AppendOurResources(StringBuilder sb, Dictionary<ResourceId, int> requiredResources)
         {
             sb.AppendLine();
             sb.AppendLine(Localization.Get(session, "resource_header_ours"));
-            var ourResources = new Dictionary<ResourceType, int>();
+            var ourResources = new Dictionary<ResourceId, int>();
             foreach (var kvp in requiredResources)
             {
                 if (kvp.Value > 0)
                 {
-                    var resourceType = kvp.Key;
-                    ourResources.Add(resourceType, session.player.resources.GetValue(resourceType));
+                    var resourceId = kvp.Key;
+                    ourResources.Add(resourceId, session.player.resources.GetValue(resourceId));
                 }
             }
             sb.Append(ResourceHelper.GetResourcesView(session, ourResources));
@@ -300,45 +300,45 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
             await SendPanelMessage(sb, GetMultilineKeyboard()).FastAwait();
         }
 
-        private Dictionary<ResourceType, int> GetRequiredResourcesForConstruction(BuildingBase building)
+        private Dictionary<ResourceId, int> GetRequiredResourcesForConstruction(BuildingBase building)
         {
             if (building.IsMaxLevel(_buildingsData))
-                return new Dictionary<ResourceType, int>();
+                return new Dictionary<ResourceId, int>();
 
             var level = building.GetCurrentLevel(_buildingsData);
             var levelData = building.buildingData.levels[level];
-            return new Dictionary<ResourceType, int>
+            return new Dictionary<ResourceId, int>
             {
-                {ResourceType.Gold, levelData.requiredGold },
-                {ResourceType.Herbs, levelData.requiredHerbs },
-                {ResourceType.Wood, levelData.requiredWood },
+                {ResourceId.Gold, levelData.requiredGold },
+                {ResourceId.Herbs, levelData.requiredHerbs },
+                {ResourceId.Wood, levelData.requiredWood },
             };
         }
 
-        private bool IsStorageUpgradeRequired(Dictionary<ResourceType, int> requiredResources, out StorageBuildingBase storageBuilding)
+        private bool IsStorageUpgradeRequired(Dictionary<ResourceId, int> requiredResources, out StorageBuildingBase storageBuilding)
         {
             storageBuilding = null;
             var playerResources = session.player.resources;
 
             foreach (var requiredResource in requiredResources)
             {
-                var resourceType = requiredResource.Key;
+                var resourceId = requiredResource.Key;
                 var resourceAmount = requiredResource.Value;
-                if (resourceAmount > playerResources.GetResourceLimit(resourceType))
+                if (resourceAmount > playerResources.GetResourceLimit(resourceId))
                 {
-                    switch (resourceType)
+                    switch (resourceId)
                     {
-                        case ResourceType.Gold:
-                            storageBuilding = (StorageBuildingBase)BuildingType.GoldStorage.GetBuilding();
+                        case ResourceId.Gold:
+                            storageBuilding = (StorageBuildingBase)BuildingId.GoldStorage.GetBuilding();
                             return true;
-                        case ResourceType.Food:
-                            storageBuilding = (StorageBuildingBase)BuildingType.FoodStorage.GetBuilding();
+                        case ResourceId.Food:
+                            storageBuilding = (StorageBuildingBase)BuildingId.FoodStorage.GetBuilding();
                             return true;
-                        case ResourceType.Herbs:
-                            storageBuilding = (StorageBuildingBase)BuildingType.HerbsStorage.GetBuilding();
+                        case ResourceId.Herbs:
+                            storageBuilding = (StorageBuildingBase)BuildingId.HerbsStorage.GetBuilding();
                             return true;
-                        case ResourceType.Wood:
-                            storageBuilding = (StorageBuildingBase)BuildingType.WoodStorage.GetBuilding();
+                        case ResourceId.Wood:
+                            storageBuilding = (StorageBuildingBase)BuildingId.WoodStorage.GetBuilding();
                             return true;
                     }
                 }

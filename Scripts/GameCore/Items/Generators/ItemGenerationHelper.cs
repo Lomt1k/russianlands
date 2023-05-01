@@ -37,7 +37,7 @@ namespace TextGameRPG.Scripts.GameCore.Items.Generators
         static ItemGenerationHelper()
         {
             minItemLevelByTownHall = new Dictionary<int, int>();
-            var trainingBuilding = BuildingType.WarriorTraining.GetBuilding();
+            var trainingBuilding = BuildingId.WarriorTraining.GetBuilding();
             var trainingBuildingLevels = trainingBuilding.buildingData.levels;
 
             minItemLevelByTownHall.Add(1, 1);

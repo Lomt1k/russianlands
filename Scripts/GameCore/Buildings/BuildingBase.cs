@@ -14,8 +14,8 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
     {
         private static readonly GameDataHolder gameDataBase = Services.Services.Get<GameDataHolder>();
 
-        public abstract BuildingType buildingType { get; }
-        public BuildingData buildingData => gameDataBase.buildings[(int)buildingType];
+        public abstract BuildingId buildingId { get; }
+        public BuildingData buildingData => gameDataBase.buildings[(int)buildingId];
 
         public virtual Dictionary<string, Func<Task>> GetSpecialButtons(GameSession session, ProfileBuildingsData data)
         {
@@ -89,7 +89,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
         public string GetLocalizedName(GameSession session, ProfileBuildingsData data)
         {
             var currentLevel = GetCurrentLevel(data);
-            return Localization.Get(session, "building_name_" + buildingType.ToString())
+            return Localization.Get(session, "building_name_" + buildingId.ToString())
                 + (currentLevel > 0 ? Localization.Get(session, "level_suffix", currentLevel) : string.Empty );
         }
 
@@ -99,7 +99,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
                 return string.Empty;
 
             var nextLevel = GetCurrentLevel(data) + 1;
-            return Localization.Get(session, "building_name_" + buildingType.ToString())
+            return Localization.Get(session, "building_name_" + buildingId.ToString())
                 + (nextLevel > 0 ? Localization.Get(session, "level_suffix", nextLevel) : string.Empty);
         }
 

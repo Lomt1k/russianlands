@@ -43,7 +43,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
                 {
                     diamondsForBoost += potion.GetBoostPriceInDiamonds();
                 }
-                var priceView = ResourceType.Diamond.GetEmoji().ToString() + diamondsForBoost;
+                var priceView = ResourceId.Diamond.GetEmoji().ToString() + diamondsForBoost;
                 var boostButtonText = Localization.Get(session, "menu_item_boost_all_button", priceView);
                 RegisterButton(boostButtonText, () => TryBoostAllCraft());
             }
@@ -98,7 +98,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
             }
 
             var playerResources = session.player.resources;
-            var successsPurchase = playerResources.TryPurchase(ResourceType.Diamond, requiredDiamonds, out var notEnoughDiamonds);
+            var successsPurchase = playerResources.TryPurchase(ResourceId.Diamond, requiredDiamonds, out var notEnoughDiamonds);
             if (successsPurchase)
             {
                 foreach (var potion in playerPotions.GetPotionsInProduction())
@@ -113,7 +113,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
                 {
                     sb.AppendLine();
                     sb.AppendLine(Localization.Get(session, "resource_header_spent"));
-                    sb.AppendLine(ResourceType.Diamond.GetLocalizedView(session, requiredDiamonds));
+                    sb.AppendLine(ResourceId.Diamond.GetLocalizedView(session, requiredDiamonds));
                 }
 
                 RegisterButton(Localization.Get(session, "menu_item_continue_button"),

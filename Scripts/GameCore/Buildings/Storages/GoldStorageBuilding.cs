@@ -6,8 +6,8 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Storages
 {
     public class GoldStorageBuilding : StorageBuildingBase
     {
-        public override ResourceType resourceType => ResourceType.Gold;
-        public override BuildingType buildingType => BuildingType.GoldStorage;
+        public override ResourceId resourceId => ResourceId.Gold;
+        public override BuildingId buildingId => BuildingId.GoldStorage;
         public override int resourceLimitForZeroLevel => 5_000;
 
         public override byte GetCurrentLevel(ProfileBuildingsData data)

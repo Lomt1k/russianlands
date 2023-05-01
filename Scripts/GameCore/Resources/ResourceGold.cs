@@ -6,7 +6,7 @@ namespace TextGameRPG.Scripts.GameCore.Resources
 {
     public class ResourceGold : IResource
     {
-        public ResourceType resourceType => ResourceType.Gold;
+        public ResourceId resourceId => ResourceId.Gold;
 
         public int GetValue(ProfileData profileData)
         {
@@ -31,7 +31,7 @@ namespace TextGameRPG.Scripts.GameCore.Resources
         public int GetResourceLimit(GameSession session)
         {
             var buildingData = session.profile.buildingsData;
-            var storage = (StorageBuildingBase)BuildingType.GoldStorage.GetBuilding();
+            var storage = (StorageBuildingBase)BuildingId.GoldStorage.GetBuilding();
             return storage.GetCurrentLevelResourceLimit(buildingData);
         }
 

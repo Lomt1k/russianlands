@@ -12,7 +12,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Training
 {
     public class FoodTrainingBuilding : TrainingBuildingBase
     {
-        public override BuildingType buildingType => BuildingType.FoodTraining;
+        public override BuildingId buildingId => BuildingId.FoodTraining;
 
         public override byte GetCurrentLevel(ProfileBuildingsData data)
         {
@@ -36,17 +36,17 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Training
 
         public override IEnumerable<sbyte> GetAllUnits(ProfileBuildingsData data)
         {
-            if (BuildingType.FoodProductionFirst.GetBuilding().IsBuilt(data))
+            if (BuildingId.FoodProductionFirst.GetBuilding().IsBuilt(data))
             {
                 yield return 0;
                 yield return 1;
             }
-            if (BuildingType.FoodProductionSecond.GetBuilding().IsBuilt(data))
+            if (BuildingId.FoodProductionSecond.GetBuilding().IsBuilt(data))
             {
                 yield return 2;
                 yield return 3;
             }
-            if (BuildingType.FoodProductionThird.GetBuilding().IsBuilt(data))
+            if (BuildingId.FoodProductionThird.GetBuilding().IsBuilt(data))
             {
                 yield return 4;
                 yield return 5;
@@ -55,21 +55,21 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Training
 
         public override string GetUnitName(GameSession session, ProfileBuildingsData data, sbyte unitIndex)
         {
-            var buildingType = unitIndex < 2 ? BuildingType.FoodProductionFirst
-                : unitIndex < 4 ? BuildingType.FoodProductionSecond
-                : BuildingType.FoodProductionThird;
+            var buildingId = unitIndex < 2 ? BuildingId.FoodProductionFirst
+                : unitIndex < 4 ? BuildingId.FoodProductionSecond
+                : BuildingId.FoodProductionThird;
 
             var workerType = unitIndex % 2 == 0 ? "first" : "second";
-            return Localization.Get(session, $"building_{buildingType}_{workerType}_worker");
+            return Localization.Get(session, $"building_{buildingId}_{workerType}_worker");
         }
 
         public override string GetUnitIcon(ProfileBuildingsData data, sbyte unitIndex)
         {
-            var buildingType = unitIndex < 2 ? BuildingType.FoodProductionFirst
-                : unitIndex < 4 ? BuildingType.FoodProductionSecond
-                : BuildingType.FoodProductionThird;
+            var buildingId = unitIndex < 2 ? BuildingId.FoodProductionFirst
+                : unitIndex < 4 ? BuildingId.FoodProductionSecond
+                : BuildingId.FoodProductionThird;
 
-            var building = buildingType.GetBuilding() as ProductionBuildingBase;
+            var building = buildingId.GetBuilding() as ProductionBuildingBase;
             if (building == null)
                 return string.Empty;
 
@@ -80,11 +80,11 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Training
 
         public override byte GetUnitLevel(ProfileBuildingsData data, sbyte unitIndex)
         {
-            var buildingType = unitIndex < 2 ? BuildingType.FoodProductionFirst
-                : unitIndex < 4 ? BuildingType.FoodProductionSecond
-                : BuildingType.FoodProductionThird;
+            var buildingId = unitIndex < 2 ? BuildingId.FoodProductionFirst
+                : unitIndex < 4 ? BuildingId.FoodProductionSecond
+                : BuildingId.FoodProductionThird;
 
-            var building = buildingType.GetBuilding() as ProductionBuildingBase;
+            var building = buildingId.GetBuilding() as ProductionBuildingBase;
             if (building == null)
                 return 0;
 
@@ -150,10 +150,10 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Training
 
         private void LevelUpUnitByIndex(ProfileBuildingsData data, sbyte unitIndex)
         {
-            var unitBuildingType = unitIndex < 2 ? BuildingType.FoodProductionFirst
-                : unitIndex < 4 ? BuildingType.FoodProductionSecond : BuildingType.FoodProductionThird;
+            var unitBuildingId = unitIndex < 2 ? BuildingId.FoodProductionFirst
+                : unitIndex < 4 ? BuildingId.FoodProductionSecond : BuildingId.FoodProductionThird;
 
-            var productionBuilding = (ProductionBuildingBase)unitBuildingType.GetBuilding();
+            var productionBuilding = (ProductionBuildingBase)unitBuildingId.GetBuilding();
             bool isFirstUnit = unitIndex % 2 == 0;
 
             if (isFirstUnit)
@@ -176,10 +176,10 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Training
         public override string GetInfoAboutUnitTraining(GameSession session, ProfileBuildingsData data, sbyte unitIndex)
         {
             var sb = new StringBuilder();
-            var unitBuildingType = unitIndex < 2 ? BuildingType.FoodProductionFirst
-                : unitIndex < 4 ? BuildingType.FoodProductionSecond : BuildingType.FoodProductionThird;
+            var unitBuildingId = unitIndex < 2 ? BuildingId.FoodProductionFirst
+                : unitIndex < 4 ? BuildingId.FoodProductionSecond : BuildingId.FoodProductionThird;
 
-            var productionBuilding = (ProductionBuildingBase)unitBuildingType.GetBuilding();
+            var productionBuilding = (ProductionBuildingBase)unitBuildingId.GetBuilding();
             bool isFirstUnit = unitIndex % 2 == 0;
             var currentProduction = isFirstUnit
                 ? productionBuilding.GetCurrentLevelFirstWorkerProductionPerHour(data)

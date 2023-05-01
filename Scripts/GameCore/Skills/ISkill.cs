@@ -7,7 +7,7 @@ namespace TextGameRPG.Scripts.GameCore.Skills
     public interface ISkill
     {
         public ItemType itemType { get; }
-        public ResourceType[] requiredFruits { get; }
+        public ResourceId[] requiredFruits { get; }
 
         byte GetValue(ProfileData profileData);
         void SetValue(ProfileData profileData, byte value);

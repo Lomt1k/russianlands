@@ -45,13 +45,13 @@ namespace TextGameRPG.Scripts.GameCore.Resources
         private static KeyValuePair<int, int> minBoostCraftInDiamondsBySeconds;
         private static KeyValuePair<int, int> maxBoostCraftInDiamondsBySeconds;
 
-        public static Dictionary<ResourceType, float> resourceByDiamondsCoefs = new Dictionary<ResourceType, float>
+        public static Dictionary<ResourceId, float> resourceByDiamondsCoefs = new Dictionary<ResourceId, float>
         {
-            { ResourceType.Diamond, 1 },
-            { ResourceType.Food, 0.6f },
-            { ResourceType.Gold, 0.5f },
-            { ResourceType.Herbs, 1.75f },
-            { ResourceType.Wood, 0.75f },
+            { ResourceId.Diamond, 1 },
+            { ResourceId.Food, 0.6f },
+            { ResourceId.Gold, 0.5f },
+            { ResourceId.Herbs, 1.75f },
+            { ResourceId.Wood, 0.75f },
         };
 
         static ResourceHelper()
@@ -68,10 +68,10 @@ namespace TextGameRPG.Scripts.GameCore.Resources
             maxBoostTrainingInDiamondsBySeconds = boostTrainingInDiamondsBySeconds.Last();
         }
 
-        public static int CalculatePriceInDiamonds(ResourceType resourceType, int resourceAmount)
+        public static int CalculatePriceInDiamonds(ResourceId resourceId, int resourceAmount)
         {
             var standardPrice = CalculateStandardPrice(resourceAmount);
-            var coef = resourceByDiamondsCoefs[resourceType];
+            var coef = resourceByDiamondsCoefs[resourceId];
 
             var resultPrice = (int)Math.Round(standardPrice * coef);
             return Math.Max(resultPrice, 1);
@@ -107,19 +107,19 @@ namespace TextGameRPG.Scripts.GameCore.Resources
             return (int)Math.Round(progression * priceDelta) + lowerKVP.Value;
         }
 
-        public static string GetResourcesView(GameSession session, Dictionary<ResourceType, int> resources)
+        public static string GetResourcesView(GameSession session, Dictionary<ResourceId, int> resources)
         {
             var sb = new StringBuilder();
             foreach (var kvp in resources)
             {
-                var resourceType = kvp.Key;
+                var resourceId = kvp.Key;
                 var resourceAmount = kvp.Value;
-                sb.AppendLine(resourceType.GetLocalizedView(session, resourceAmount));
+                sb.AppendLine(resourceId.GetLocalizedView(session, resourceAmount));
             }
             return sb.ToString();
         }
 
-        public static string GetPriceView(GameSession session, Dictionary<ResourceType,int> resources)
+        public static string GetPriceView(GameSession session, Dictionary<ResourceId,int> resources)
         {
             var sb = new StringBuilder();
             sb.AppendLine(Localization.Get(session, "resource_header_price"));
@@ -127,13 +127,13 @@ namespace TextGameRPG.Scripts.GameCore.Resources
             bool hasAmount = false;
             foreach (var kvp in resources)
             {
-                var resourceType = kvp.Key;
+                var resourceId = kvp.Key;
                 var resourceAmount = kvp.Value;
                 if (resourceAmount < 1)
                     continue;
 
                 hasAmount = true;
-                sb.AppendLine(resourceType.GetLocalizedView(session, resourceAmount));
+                sb.AppendLine(resourceId.GetLocalizedView(session, resourceAmount));
             }
 
             if (!hasAmount)
@@ -144,7 +144,7 @@ namespace TextGameRPG.Scripts.GameCore.Resources
             return sb.ToString();
         }
 
-        public static string GetCompactResourcesView(Dictionary<ResourceType, int> resources)
+        public static string GetCompactResourcesView(Dictionary<ResourceId, int> resources)
         {
             var sb = new StringBuilder();
             int elementsInCurrentRow = 0;

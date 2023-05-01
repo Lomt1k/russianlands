@@ -9,27 +9,27 @@ namespace TextGameRPG.ViewModels.Rewards
 {
     internal class EditorResourceABWithOneBonusRewardViewModel : ViewModelBase
     {
-        private EnumValueModel<ResourceType> _selectedResourceTypeA;
-        private EnumValueModel<ResourceType> _selectedResourceTypeB;
+        private EnumValueModel<ResourceId> _selectedResourceIdA;
+        private EnumValueModel<ResourceId> _selectedResourceIdB;
 
         public ResourceABWithOneBonusReward reward { get; }
-        public ObservableCollection<EnumValueModel<ResourceType>> resourceTypes { get; }
-        public EnumValueModel<ResourceType> selectedResourceTypeA
+        public ObservableCollection<EnumValueModel<ResourceId>> resourceIds { get; }
+        public EnumValueModel<ResourceId> selectedResourceIdA
         {
-            get => _selectedResourceTypeA;
+            get => _selectedResourceIdA;
             set
             {
-                this.RaiseAndSetIfChanged(ref _selectedResourceTypeA, value);
-                reward.resourceTypeA = value.value;
+                this.RaiseAndSetIfChanged(ref _selectedResourceIdA, value);
+                reward.resourceIdA = value.value;
             }
         }
-        public EnumValueModel<ResourceType> selectedResourceTypeB
+        public EnumValueModel<ResourceId> selectedResourceIdB
         {
-            get => _selectedResourceTypeB;
+            get => _selectedResourceIdB;
             set
             {
-                this.RaiseAndSetIfChanged(ref _selectedResourceTypeB, value);
-                reward.resourceTypeB = value.value;
+                this.RaiseAndSetIfChanged(ref _selectedResourceIdB, value);
+                reward.resourceIdB = value.value;
             }
         }
 
@@ -37,9 +37,9 @@ namespace TextGameRPG.ViewModels.Rewards
         public EditorResourceABWithOneBonusRewardViewModel(ResourceABWithOneBonusReward _reward)
         {
             reward = _reward;
-            resourceTypes = EnumValueModel<ResourceType>.CreateCollection();
-            selectedResourceTypeA = resourceTypes.First(x => x.value == reward.resourceTypeA);
-            selectedResourceTypeB = resourceTypes.First(x => x.value == reward.resourceTypeB);
+            resourceIds = EnumValueModel<ResourceId>.CreateCollection();
+            selectedResourceIdA = resourceIds.First(x => x.value == reward.resourceIdA);
+            selectedResourceIdB = resourceIds.First(x => x.value == reward.resourceIdB);
         }
     }
 }

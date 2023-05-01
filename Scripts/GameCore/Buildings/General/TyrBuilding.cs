@@ -10,7 +10,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.General
 {
     public class TyrBuilding : BuildingBase
     {
-        public override BuildingType buildingType => BuildingType.Tyr;
+        public override BuildingId buildingId => BuildingId.Tyr;
 
         public override byte GetCurrentLevel(ProfileBuildingsData data)
         {
@@ -35,7 +35,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.General
         public override string GetCurrentLevelInfo(GameSession session, ProfileBuildingsData data)
         {
             var sb = new StringBuilder();
-            sb.AppendLine(Localization.Get(session, $"building_{buildingType}_description"));
+            sb.AppendLine(Localization.Get(session, $"building_{buildingId}_description"));
 
             var currentLevel = GetCurrentLevel(data);
             if (currentLevel < 1)
@@ -53,7 +53,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.General
         public override string GetNextLevelInfo(GameSession session, ProfileBuildingsData data)
         {
             var sb = new StringBuilder();
-            sb.AppendLine(Localization.Get(session, $"building_{buildingType}_description"));
+            sb.AppendLine(Localization.Get(session, $"building_{buildingId}_description"));
 
             var currentLevel = GetCurrentLevel(data);
             if (currentLevel < 1)
