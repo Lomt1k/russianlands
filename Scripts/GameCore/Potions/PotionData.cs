@@ -25,11 +25,6 @@ namespace TextGameRPG.Scripts.GameCore.Potions
             id = _id;
         }
 
-        public PotionData Clone()
-        {
-            return (PotionData)MemberwiseClone();
-        }
-
         public void OnSetupAppMode(AppMode appMode)
         {
             // ignored
