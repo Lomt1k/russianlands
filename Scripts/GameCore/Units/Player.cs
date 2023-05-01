@@ -75,7 +75,7 @@ namespace TextGameRPG.Scripts.GameCore.Units
         
         public bool IsSkillsAvailable()
         {
-            return buildings.HasBuilding(BuildingType.ElixirWorkshop);
+            return buildings.HasBuilding(BuildingId.ElixirWorkshop);
         }
 
         public async Task OnStartBattle(Battle battle)

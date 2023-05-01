@@ -12,7 +12,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Training
 {
     public class WarriorTrainingBuilding : TrainingBuildingBase
     {
-        public override BuildingType buildingType => BuildingType.WarriorTraining;
+        public override BuildingId buildingId => BuildingId.WarriorTraining;
 
         public override byte GetCurrentLevel(ProfileBuildingsData data)
         {

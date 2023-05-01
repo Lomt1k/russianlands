@@ -13,7 +13,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.General
 {
     public class ElixirWorkshopBuilding : BuildingBase
     {
-        public override BuildingType buildingType => BuildingType.ElixirWorkshop;
+        public override BuildingId buildingId => BuildingId.ElixirWorkshop;
 
         public override byte GetCurrentLevel(ProfileBuildingsData data)
         {
@@ -51,7 +51,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.General
         public override string GetCurrentLevelInfo(GameSession session, ProfileBuildingsData data)
         {
             var sb = new StringBuilder();
-            sb.AppendLine(Localization.Get(session, $"building_{buildingType}_description"));
+            sb.AppendLine(Localization.Get(session, $"building_{buildingId}_description"));
 
             var currentLevel = GetCurrentLevel(data);
             if (currentLevel < 1)
@@ -68,7 +68,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.General
         public override string GetNextLevelInfo(GameSession session, ProfileBuildingsData data)
         {
             var sb = new StringBuilder();
-            sb.AppendLine(Localization.Get(session, $"building_{buildingType}_description"));
+            sb.AppendLine(Localization.Get(session, $"building_{buildingId}_description"));
             sb.AppendLine();
 
             var currentValue = GetCurrentMaxSkillLevel(data);

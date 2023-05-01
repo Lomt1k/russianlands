@@ -176,17 +176,17 @@ namespace TextGameRPG.Scripts.GameCore.Items
             return Localizations.Localization.Get(session, $"item_{itemType}_hall_{data.requiredTownHall}_grade_{data.grade}");
         }
 
-        public Dictionary<ResourceType,int> CalculateResourcesForBreakApart()
+        public Dictionary<ResourceId,int> CalculateResourcesForBreakApart()
         {
-            var result = new Dictionary<ResourceType,int>();
-            var resourceType = data.itemRarity switch
+            var result = new Dictionary<ResourceId,int>();
+            var resourceId = data.itemRarity switch
             {
-                Rarity.Common => ResourceType.CraftPiecesCommon,
-                Rarity.Rare => ResourceType.CraftPiecesRare,
-                Rarity.Epic => ResourceType.CraftPiecesEpic,
-                _ => ResourceType.CraftPiecesLegendary
+                Rarity.Common => ResourceId.CraftPiecesCommon,
+                Rarity.Rare => ResourceId.CraftPiecesRare,
+                Rarity.Epic => ResourceId.CraftPiecesEpic,
+                _ => ResourceId.CraftPiecesLegendary
             };
-            result.Add(resourceType, 1);
+            result.Add(resourceId, 1);
             return result;
         }
 

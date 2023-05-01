@@ -20,7 +20,7 @@ namespace TextGameRPG.Scripts.GameCore.Services.Battles
         private static readonly BattleManager battleManager = Services.Get<BattleManager>();
         private static readonly MessageSender messageSender = Services.Get<MessageSender>();
 
-        private List<RewardBase>? _rewards;
+        private IReadOnlyList<RewardBase>? _rewards;
         private Func<Player, BattleResult, Task>? _onBattleEndFunc;
         private Func<Player, BattleResult, Task>? _onContinueButtonFunc;
         private Func<Player, BattleResult, bool>? _isAvailableReturnToTownFunc;
@@ -103,7 +103,7 @@ namespace TextGameRPG.Scripts.GameCore.Services.Battles
 
         private async void HandleBattleAsync()
         {
-            var battleTurnTimeInSeconds = isPVE ? 180 : 80;
+            var battleTurnTimeInSeconds = isPVE ? 120 : 80;
             while (!HasDefeatedUnits())
             {
                 currentTurn = new BattleTurn(this, firstUnit, battleTurnTimeInSeconds);

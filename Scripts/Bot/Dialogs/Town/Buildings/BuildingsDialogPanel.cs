@@ -65,7 +65,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
         private void AppendProductionInfo(StringBuilder sb)
         {
             bool neeedToShowLimitWarning = false;
-            var resourcesToShow = new Dictionary<ResourceType, int>();
+            var resourcesToShow = new Dictionary<ResourceId, int>();
             var productionBuildings = session.player.buildings.GetBuildingsByCategory(BuildingCategory.Production);
             foreach (ProductionBuildingBase building in productionBuildings)
             {
@@ -73,14 +73,14 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
                     continue;
 
                 var farmedAmount = building.GetFarmedResourceAmount(_buildingsData);
-                AddToShow(building.resourceType, farmedAmount);
+                AddToShow(building.resourceId, farmedAmount);
 
                 var limit = building.GetCurrentLevelResourceLimit(_buildingsData);
                 var isFarmedLimitReached = farmedAmount >= limit;
                 
                 if (isFarmedLimitReached)
                 {
-                    var isStorageLimitReached = session.player.resources.IsResourceLimitReached(building.resourceType);
+                    var isStorageLimitReached = session.player.resources.IsResourceLimitReached(building.resourceId);
                     if (!isStorageLimitReached)
                     {
                         neeedToShowLimitWarning = true;
@@ -97,12 +97,12 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
                 sb.AppendLine(Emojis.ElementWarningRed.ToString() + Localization.Get(session, "building_production_is_full"));
             }
 
-            void AddToShow(ResourceType resourceType, int value)
+            void AddToShow(ResourceId resourceId, int value)
             {
-                if (resourcesToShow.ContainsKey(resourceType))
-                    resourcesToShow[resourceType] += value;
+                if (resourcesToShow.ContainsKey(resourceId))
+                    resourcesToShow[resourceId] += value;
                 else
-                    resourcesToShow.Add(resourceType, value);
+                    resourcesToShow.Add(resourceId, value);
             }
         }
 

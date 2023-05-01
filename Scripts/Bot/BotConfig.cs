@@ -1,5 +1,9 @@
 ﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization;
+using System.Text;
 using TextGameRPG.Scripts.GameCore.Localizations;
 
 namespace TextGameRPG.Scripts.Bot
@@ -8,16 +12,23 @@ namespace TextGameRPG.Scripts.Bot
     public class BotConfig
     {
         public string token = "ENTER_TOKEN_HERE";
-        public string defaultLanguage = "RU";
+        public string[] languages = { "RU" };
         public bool cheatsForAll = true;
         public int sessionTimeoutInMinutes = 30;
         public int periodicSaveDatabaseInMinutes = 15;
 
-        [JsonIgnore] public LanguageCode defaultLanguageCode { get; private set; }
-
         public SendingLimits sendingLimits = new SendingLimits();
         public PerformanceSettings performanceSettings = new PerformanceSettings();
         public LogSettings logSettings = new LogSettings();
+
+        [JsonIgnore] public LanguageCode[] languageCodes { get; private set; } = { LanguageCode.RU };
+        [JsonIgnore] public LanguageCode defaultLanguageCode { get; private set; }
+
+        [OnDeserialized]
+        private void OnDeserialized(StreamingContext context)
+        {
+            ParseLanguageCodes();
+        }
 
         [JsonObject]
         public class SendingLimits
@@ -46,15 +57,35 @@ namespace TextGameRPG.Scripts.Bot
             public bool logDailyNotifications = true;
         }
 
-        [OnDeserialized]
-        private void OnDeserialized(StreamingContext context)
+        private void ParseLanguageCodes()
         {
-            if (!System.Enum.TryParse(defaultLanguage.ToUpper(), out LanguageCode parsedLanguage))
+            var allNames = Enum.GetNames(typeof(LanguageCode));
+            var sb = new StringBuilder();
+            foreach (var name in allNames)
             {
-                parsedLanguage = LanguageCode.EN;
-                Program.logger.Error($"Incorrect language code in config field 'defaultLanguage'. Setuped {parsedLanguage} by default");
+                sb.Append(name + " ");
             }
-            defaultLanguageCode = parsedLanguage;
+
+            HashSet<LanguageCode> languagesSet = new HashSet<LanguageCode>();
+            foreach (var language in languages)
+            {
+                if (!Enum.TryParse(language.ToUpper(), out LanguageCode parsedLanguage))
+                {
+                    Program.logger.Fatal($"CONFIG ERROR: Unknown language code '{language}' in field 'languages'.\nAvailable languages: {sb}");
+                    Environment.Exit(1);
+                    return;
+                }
+                languagesSet.Add(parsedLanguage);
+            }
+            if (languagesSet.Count < 1)
+            {
+                Program.logger.Fatal($"CONFIG ERROR: Field 'languages' is empty.\nPlease add any language: {sb}");
+                Environment.Exit(1);
+                return;
+            }
+
+            languageCodes = languagesSet.ToArray();
+            defaultLanguageCode = languageCodes[0];
         }
 
     }

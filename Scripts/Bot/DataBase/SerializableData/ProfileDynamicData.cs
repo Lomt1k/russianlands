@@ -4,16 +4,22 @@ using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Potions;
 using System.Collections.Generic;
 using TextGameRPG.Scripts.GameCore.Items;
+using Newtonsoft.Json;
 
 namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
 {
     public class ProfileDynamicData : DataWithSession
     {
-        public long dbid;
+        public long dbid { get; }
         public PlayerInventory inventory { get; } = new PlayerInventory();
         public List<PotionItem> potions { get; } = new List<PotionItem>();
         public PlayerQuestsProgress quests { get; } = new PlayerQuestsProgress();
         public List<ItemType> lastGeneratedItemTypes { get; } = new List<ItemType>();
+
+        public ProfileDynamicData(long _dbid)
+        {
+            dbid = _dbid;
+        }
 
         public ProfileDynamicData(long _dbid, PlayerInventory _inventory, List<PotionItem> _potions, PlayerQuestsProgress _quests, List<ItemType> _lastGeneratedItemTypes)
         {
@@ -28,6 +34,15 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
         {
             base.SetupSession(_session);
             inventory.SetupSession(_session);
+        }
+
+        public static ProfileDynamicData Deserialize(RawProfileDynamicData rawData)
+        {
+            return new ProfileDynamicData(rawData.dbid,
+                JsonConvert.DeserializeObject<PlayerInventory>(rawData.inventory),
+                JsonConvert.DeserializeObject<List<PotionItem>>(rawData.potions),
+                JsonConvert.DeserializeObject<PlayerQuestsProgress>(rawData.quests),
+                JsonConvert.DeserializeObject<List<ItemType>>(rawData.lastGeneratedItemTypes));
         }
     }
 }

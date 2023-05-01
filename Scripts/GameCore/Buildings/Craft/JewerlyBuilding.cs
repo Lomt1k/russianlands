@@ -16,7 +16,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Craft
             ItemType.Amulet
         };
 
-        public override BuildingType buildingType => BuildingType.Jewerly;
+        public override BuildingId buildingId => BuildingId.Jewerly;
 
         public override byte GetCurrentLevel(ProfileBuildingsData data)
         {

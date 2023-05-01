@@ -19,7 +19,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.General
     {
         private static readonly GameDataHolder gameDataBase = Services.Services.Get<GameDataHolder>();
 
-        public override BuildingType buildingType => BuildingType.AlchemyLab;
+        public override BuildingId buildingId => BuildingId.AlchemyLab;
 
         public override byte GetCurrentLevel(ProfileBuildingsData data)
         {
@@ -44,7 +44,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.General
         public override string GetCurrentLevelInfo(GameSession session, ProfileBuildingsData data)
         {
             var sb = new StringBuilder();
-            sb.Append(Localization.Get(session, $"building_{buildingType}_description"));
+            sb.Append(Localization.Get(session, $"building_{buildingId}_description"));
 
             var currentLevel = GetCurrentLevel(data);
             if (currentLevel < 1)
@@ -69,7 +69,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.General
         public override string GetNextLevelInfo(GameSession session, ProfileBuildingsData data)
         {
             var sb = new StringBuilder();
-            sb.Append(Localization.Get(session, $"building_{buildingType}_description"));
+            sb.Append(Localization.Get(session, $"building_{buildingId}_description"));
 
             var currentLevel = GetCurrentLevel(data);
             if (currentLevel < 1)
@@ -141,16 +141,16 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.General
             return result;
         }
 
-        public Dictionary<ResourceType,int> GetCurrentCraftCost(ProfileBuildingsData data)
+        public Dictionary<ResourceId,int> GetCurrentCraftCost(ProfileBuildingsData data)
         {
-            var result = new Dictionary<ResourceType,int>();
+            var result = new Dictionary<ResourceId,int>();
 
             var level = GetCurrentLevel(data);
             if (level < 1)
                 return result;
 
             var levelInfo = (AlchemyLabLevelInfo)buildingData.levels[level - 1];
-            result.Add(ResourceType.Herbs, levelInfo.craftCostInHerbs);
+            result.Add(ResourceId.Herbs, levelInfo.craftCostInHerbs);
             return result;
         }
 
@@ -164,14 +164,14 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.General
             return levelInfo.craftTime;
         }
 
-        public Dictionary<ResourceType, int> GetCraftCostForBuildingLevel(int level)
+        public Dictionary<ResourceId, int> GetCraftCostForBuildingLevel(int level)
         {
-            var result = new Dictionary<ResourceType, int>();
+            var result = new Dictionary<ResourceId, int>();
             if (level < 1)
                 return result;
 
             var levelInfo = (AlchemyLabLevelInfo)buildingData.levels[level - 1];
-            result.Add(ResourceType.Herbs, levelInfo.craftCostInHerbs);
+            result.Add(ResourceId.Herbs, levelInfo.craftCostInHerbs);
             return result;
         }
 

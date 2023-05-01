@@ -6,8 +6,8 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.Storages
 {
     public class ItemsStorageBuilding : StorageBuildingBase
     {
-        public override ResourceType resourceType => ResourceType.InventoryItems;
-        public override BuildingType buildingType => BuildingType.ItemsStorage;
+        public override ResourceId resourceId => ResourceId.InventoryItems;
+        public override BuildingId buildingId => BuildingId.ItemsStorage;
         public override int resourceLimitForZeroLevel => 50;
 
         public override byte GetCurrentLevel(ProfileBuildingsData data)

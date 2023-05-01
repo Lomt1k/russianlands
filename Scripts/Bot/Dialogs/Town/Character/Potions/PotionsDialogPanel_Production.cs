@@ -18,7 +18,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
         {
             ClearButtons();
             var header = Localization.Get(session, "dialog_potions_produce_button").Bold();
-            var alchemyLab = (AlchemyLabBuilding)BuildingType.AlchemyLab.GetBuilding();
+            var alchemyLab = (AlchemyLabBuilding)BuildingId.AlchemyLab.GetBuilding();
             var potionsList = alchemyLab.GetPotionsForCurrentLevel(session.profile.buildingsData);
             foreach (var potionData in potionsList)
             {
@@ -55,9 +55,9 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
 
             sb.AppendLine();
             sb.AppendLine(Localization.Get(session, "resource_header_ours"));
-            var ourResources = new Dictionary<ResourceType, int>()
+            var ourResources = new Dictionary<ResourceId, int>()
             {
-                { ResourceType.Herbs, session.player.resources.GetValue(ResourceType.Herbs) }
+                { ResourceId.Herbs, session.player.resources.GetValue(ResourceId.Herbs) }
             };
             sb.Append(ResourceHelper.GetResourcesView(session, ourResources));
 
@@ -72,15 +72,15 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
             return playerPotions.GetFreeSlotsCount(session);
         }
 
-        private Dictionary<ResourceType, int> GetCraftCost()
+        private Dictionary<ResourceId, int> GetCraftCost()
         {
-            var alchemyLab = (AlchemyLabBuilding)BuildingType.AlchemyLab.GetBuilding();
+            var alchemyLab = (AlchemyLabBuilding)BuildingId.AlchemyLab.GetBuilding();
             return alchemyLab.GetCurrentCraftCost(session.profile.buildingsData);
         }
 
         private int GetCraftTimeInSeconds()
         {
-            var alchemyLab = (AlchemyLabBuilding)BuildingType.AlchemyLab.GetBuilding();
+            var alchemyLab = (AlchemyLabBuilding)BuildingId.AlchemyLab.GetBuilding();
             return alchemyLab.GetCurrentCraftTimeInSeconds(session.profile.buildingsData);
         }
 
@@ -94,7 +94,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
             var requiredResources = GetCraftCost();
             if (amount > 1)
             {
-                requiredResources[ResourceType.Herbs] *= amount;
+                requiredResources[ResourceId.Herbs] *= amount;
             }
 
             var playerResources = session.player.resources;

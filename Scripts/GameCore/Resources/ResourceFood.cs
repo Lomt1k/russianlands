@@ -6,7 +6,7 @@ namespace TextGameRPG.Scripts.GameCore.Resources
 {
     public class ResourceFood : IResource
     {
-        public ResourceType resourceType => ResourceType.Food;
+        public ResourceId resourceId => ResourceId.Food;
 
         public int GetValue(ProfileData profileData)
         {
@@ -31,7 +31,7 @@ namespace TextGameRPG.Scripts.GameCore.Resources
         public int GetResourceLimit(GameSession session)
         {
             var buildingData = session.profile.buildingsData;
-            var storage = (StorageBuildingBase)BuildingType.FoodStorage.GetBuilding();
+            var storage = (StorageBuildingBase)BuildingId.FoodStorage.GetBuilding();
             return storage.GetCurrentLevelResourceLimit(buildingData);
         }
 

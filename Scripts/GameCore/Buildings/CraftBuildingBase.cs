@@ -43,25 +43,25 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
         }
 
         /// <returns>Время изготовления предмета в зависимости от его редкости</returns>
-        public Dictionary<ResourceType,int> GetCraftPrice(ProfileBuildingsData data, Rarity rarity)
+        public Dictionary<ResourceId,int> GetCraftPrice(ProfileBuildingsData data, Rarity rarity)
         {
-            var result = new Dictionary<ResourceType, int>();
+            var result = new Dictionary<ResourceId, int>();
 
             var currentLevel = GetCurrentLevel(data);
             var levelInfo = (CraftLevelInfo)buildingData.levels[currentLevel - 1];
             switch (rarity)
             {
                 case Rarity.Rare:
-                    result.Add(ResourceType.CraftPiecesCommon, levelInfo.rareCraft_MaterialsCost);
-                    result.Add(ResourceType.Wood, levelInfo.rareCraft_WoodCost);
+                    result.Add(ResourceId.CraftPiecesCommon, levelInfo.rareCraft_MaterialsCost);
+                    result.Add(ResourceId.Wood, levelInfo.rareCraft_WoodCost);
                     break;
                 case Rarity.Epic:
-                    result.Add(ResourceType.CraftPiecesRare, levelInfo.epicCraft_MaterialsCost);
-                    result.Add(ResourceType.Wood, levelInfo.epicCraft_WoodCost);
+                    result.Add(ResourceId.CraftPiecesRare, levelInfo.epicCraft_MaterialsCost);
+                    result.Add(ResourceId.Wood, levelInfo.epicCraft_WoodCost);
                     break;
                 case Rarity.Legendary:
-                    result.Add(ResourceType.CraftPiecesEpic, levelInfo.legendaryCraft_MaterialsCost);
-                    result.Add(ResourceType.Wood, levelInfo.legendaryCraft_WoodCost);
+                    result.Add(ResourceId.CraftPiecesEpic, levelInfo.legendaryCraft_MaterialsCost);
+                    result.Add(ResourceId.Wood, levelInfo.legendaryCraft_WoodCost);
                     break;
             }
             return result;

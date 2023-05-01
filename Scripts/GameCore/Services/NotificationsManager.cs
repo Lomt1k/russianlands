@@ -82,7 +82,7 @@ namespace TextGameRPG.Scripts.GameCore.Services
 
                 if (isFarmedLimitReached)
                 {
-                    var isStorageLimitReached = session.player.resources.IsResourceLimitReached(building.resourceType);
+                    var isStorageLimitReached = session.player.resources.IsResourceLimitReached(building.resourceId);
                     if (!isStorageLimitReached)
                     {
                         return true;

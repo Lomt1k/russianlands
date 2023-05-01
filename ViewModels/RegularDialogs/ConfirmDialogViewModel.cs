@@ -15,8 +15,8 @@ namespace TextGameRPG.ViewModels.RegularDialogs
         public ConfirmDialogViewModel(Window dialogView, string _description, Action onConfirm, Action? onDecline)
         {
             description = _description;
-            confirmCommand = ReactiveCommand.Create(dialogView.Close + onConfirm);
-            declineCommand = ReactiveCommand.Create(dialogView.Close + onDecline);
+            confirmCommand = ReactiveCommand.Create(onConfirm + dialogView.Close);
+            declineCommand = ReactiveCommand.Create(onDecline + dialogView.Close);
         }
 
     }

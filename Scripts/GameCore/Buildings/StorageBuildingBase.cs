@@ -9,14 +9,14 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
 {
     public abstract class StorageBuildingBase : BuildingBase
     {
-        public abstract ResourceType resourceType { get; }
+        public abstract ResourceId resourceId { get; }
         public abstract int resourceLimitForZeroLevel { get; }
 
         public string resourcePrefix;
 
         public StorageBuildingBase()
         {
-            resourcePrefix = resourceType.GetEmoji().ToString();
+            resourcePrefix = resourceId.GetEmoji().ToString();
         }
 
         public int GetCurrentLevelResourceLimit(ProfileBuildingsData data)
@@ -39,12 +39,12 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
         public override string GetCurrentLevelInfo(GameSession session, ProfileBuildingsData data)
         {
             var sb = new StringBuilder();
-            sb.AppendLine(Localization.Get(session, $"building_{buildingType}_description"));
+            sb.AppendLine(Localization.Get(session, $"building_{buildingId}_description"));
 
             sb.AppendLine();
             sb.AppendLine(Localization.Get(session, "building_storage_capacity_header"));
             var playerResources = session.player.resources;
-            var currentValue = playerResources.GetValue(resourceType).View();
+            var currentValue = playerResources.GetValue(resourceId).View();
             var limitValue = GetCurrentLevelResourceLimit(data).View();
             var capacity = $"{resourcePrefix} {currentValue} / {limitValue}";
             sb.Append(capacity);
@@ -55,7 +55,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
         public override string GetNextLevelInfo(GameSession session, ProfileBuildingsData data)
         {
             var sb = new StringBuilder();
-            sb.AppendLine(Localization.Get(session, $"building_{buildingType}_description"));
+            sb.AppendLine(Localization.Get(session, $"building_{buildingId}_description"));
 
             sb.AppendLine();
             sb.AppendLine(Localization.Get(session, "building_storage_capacity_header"));

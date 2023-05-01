@@ -1,5 +1,6 @@
 ﻿using SQLite;
 using System;
+using Telegram.Bot.Types;
 using TextGameRPG.Scripts.GameCore.Localizations;
 
 namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
@@ -10,12 +11,12 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
         [PrimaryKey, AutoIncrement]
         public long dbid { get; set; }
         public long telegram_id { get; set; }
-        [MaxLength(32)] public string username { get; set; }
+        [MaxLength(32)] public string? username { get; set; }
         public LanguageCode language { get; set; } = LanguageCode.RU;
         [MaxLength(16)] public string nickname { get; set; }
         [MaxLength(24)] public string regDate { get; set; }
         [MaxLength(16)] public string regVersion { get; set; }
-        [MaxLength(24)] public string lastDate { get; set; }
+        [MaxLength(24)] public string lastActivityTime { get; set; }
         [MaxLength(16)] public string lastVersion { get; set; }
 
         public int adminStatus { get; set; }
@@ -50,6 +51,8 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
         public int resourceFruitKiwi { get; set; }
         public int resourceFruitCherry { get; set; }
         public int resourceFruitGrape { get; set; }
+        // other resources
+        public int resourceArenaTicket { get; set; }
 
         // skills
         public byte skillSword { get; set; }
@@ -61,6 +64,18 @@ namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
         public byte skillBoots { get; set; }
         public byte skillShield { get; set; }
 
+
+        public ProfileData SetupNewProfile(User user)
+        {
+            telegram_id = user.Id;
+            regDate = DateTime.UtcNow.AsDateString();
+            regVersion = ProjectVersion.Current.ToString();
+            lastVersion = regVersion;
+            nickname = user.FirstName.IsCorrectNickname() ? user.FirstName : "Player_" + (new Random().Next(8999) + 1000);
+            username = user.Username;
+
+            return this;
+        }
 
         public bool IsPremiumActive()
         {

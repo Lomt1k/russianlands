@@ -14,10 +14,10 @@ namespace TextGameRPG.Scripts.GameCore.Localizations
         private static Dictionary<LanguageCode, Dictionary<string, string>> data = new Dictionary<LanguageCode, Dictionary<string, string>>();
         private static HashSet<string> allKeys = new HashSet<string>();
 
-        public static void LoadAll(IGameDataLoader loaderVM, string gamedataPath)
+        public static void LoadAll(GameDataLoader? loader, string gamedataPath)
         {
             allKeys.Clear();
-            loaderVM.AddNextState("Loading localization...");
+            loader?.AddNextState("Loading localization...");
             string localizationFolder = Path.Combine(gamedataPath, "Localization");
             if (!Directory.Exists(localizationFolder))
             {
@@ -27,7 +27,7 @@ namespace TextGameRPG.Scripts.GameCore.Localizations
             foreach (var element in Enum.GetValues(typeof(LanguageCode)))
             {
                 var code = (LanguageCode)element;
-                loaderVM.AddInfoToCurrentState(code.ToString());
+                loader?.AddInfoToCurrentState(code.ToString());
                 var filePath = Path.Combine(localizationFolder, $"localization_{code.ToString().ToLower()}.json");
                 data[code] = LoadLocalization(filePath);
             }
@@ -89,7 +89,7 @@ namespace TextGameRPG.Scripts.GameCore.Localizations
             }
         }
 
-        private static void AlertMissingKeys(GameDataLoaderViewModel loaderVM)
+        private static void AlertMissingKeys(GameDataLoader? loader)
         {
             foreach (var localization in data)
             {
@@ -98,7 +98,7 @@ namespace TextGameRPG.Scripts.GameCore.Localizations
                     if (!localization.Value.ContainsKey(key))
                     {
                         string message = $"Localiation {localization.Key} not contains key: {key}";
-                        loaderVM.AddNextState(message);
+                        loader?.AddNextState(message);
                     }
                 }
             }

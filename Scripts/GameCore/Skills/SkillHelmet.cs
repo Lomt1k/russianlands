@@ -7,11 +7,11 @@ namespace TextGameRPG.Scripts.GameCore.Skills
     internal class SkillHelmet : ISkill
     {
         public ItemType itemType => ItemType.Helmet;
-        public ResourceType[] requiredFruits => new ResourceType[]
+        public ResourceId[] requiredFruits => new ResourceId[]
         {
-            ResourceType.FruitCoconut,
-            ResourceType.FruitBanana,
-            ResourceType.FruitGrape,
+            ResourceId.FruitCoconut,
+            ResourceId.FruitBanana,
+            ResourceId.FruitGrape,
         };
 
         public byte GetValue(ProfileData profileData)

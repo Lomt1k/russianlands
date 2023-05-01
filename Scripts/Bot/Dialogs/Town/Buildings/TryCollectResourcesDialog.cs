@@ -29,8 +29,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
 
         public static string StartLogicAndGetResultMessage(GameSession session)
         {
-            var collectedResources = new Dictionary<ResourceType, int>();
-            var notCollectedResources = new Dictionary<ResourceType, int>();
+            var collectedResources = new Dictionary<ResourceId, int>();
+            var notCollectedResources = new Dictionary<ResourceId, int>();
 
             var playerResources = session.player.resources;
             var productionBuildings = session.player.buildings.GetBuildingsByCategory(BuildingCategory.Production);
@@ -41,11 +41,11 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
                 if (farmedAmout < 1)
                     continue;
 
-                var reallyAdded = playerResources.Add(building.resourceType, farmedAmout);
+                var reallyAdded = playerResources.Add(building.resourceId, farmedAmout);
                 if (reallyAdded > 0)
                 {
-                    collectedResources.TryGetValue(building.resourceType, out var prevValue);
-                    collectedResources[building.resourceType] = prevValue + reallyAdded;
+                    collectedResources.TryGetValue(building.resourceId, out var prevValue);
+                    collectedResources[building.resourceId] = prevValue + reallyAdded;
                 }
 
                 if (reallyAdded == farmedAmout)
@@ -62,8 +62,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
                     building.SetStartFarmTime(buildingsData, newStartFarmDt);
 
                     var notCollectedAmount = farmedAmout - reallyAdded;
-                    notCollectedResources.TryGetValue(building.resourceType, out var prevValue);
-                    notCollectedResources[building.resourceType] = prevValue + notCollectedAmount;
+                    notCollectedResources.TryGetValue(building.resourceId, out var prevValue);
+                    notCollectedResources[building.resourceId] = prevValue + notCollectedAmount;
                 }
             }
 

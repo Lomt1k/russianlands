@@ -7,11 +7,11 @@ namespace TextGameRPG.Scripts.GameCore.Skills
     internal class SkillScroll : ISkill
     {
         public ItemType itemType => ItemType.Scroll;
-        public ResourceType[] requiredFruits => new ResourceType[]
+        public ResourceId[] requiredFruits => new ResourceId[]
         {
-            ResourceType.FruitPear,
-            ResourceType.FruitStrawberry,
-            ResourceType.FruitKiwi,
+            ResourceId.FruitPear,
+            ResourceId.FruitStrawberry,
+            ResourceId.FruitKiwi,
         };
 
         public byte GetValue(ProfileData profileData)

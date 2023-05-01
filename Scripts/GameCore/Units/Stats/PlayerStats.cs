@@ -38,13 +38,13 @@ namespace TextGameRPG.Scripts.GameCore.Units.Stats
         private void SetupArrowsAmount()
         {
             var buildingsData = _player.session.profile.buildingsData;
-            var tyrBuilding = (TyrBuilding)BuildingType.Tyr.GetBuilding();
+            var tyrBuilding = (TyrBuilding)BuildingId.Tyr.GetBuilding();
             currentArrows = tyrBuilding.GetArrowsAmount(_player.session, buildingsData);
         }
 
         public void SetupPotionsAmount()
         {
-            var alchemyLab = (AlchemyLabBuilding)BuildingType.AlchemyLab.GetBuilding();
+            var alchemyLab = (AlchemyLabBuilding)BuildingId.AlchemyLab.GetBuilding();
             var maxPotionsInBattle = alchemyLab.GetCurrentPotionsInBattle(_player.session.profile.buildingsData);
             var dtNow = DateTime.UtcNow.Ticks;
             var totalPotions = _player.potions.Where(x => x.preparationTime < dtNow).Count();

@@ -73,7 +73,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
         public override string GetCurrentLevelInfo(GameSession session, ProfileBuildingsData data)
         {
             var sb = new StringBuilder();
-            sb.AppendLine(Localization.Get(session, $"building_{buildingType}_description"));
+            sb.AppendLine(Localization.Get(session, $"building_{buildingId}_description"));
             sb.AppendLine();
 
             var maxUnitLevel = GetCurrentMaxUnitLevel(data);
@@ -85,7 +85,7 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
         public override string GetNextLevelInfo(GameSession session, ProfileBuildingsData data)
         {
             var sb = new StringBuilder();
-            sb.AppendLine(Localization.Get(session, $"building_{buildingType}_description"));
+            sb.AppendLine(Localization.Get(session, $"building_{buildingId}_description"));
             sb.AppendLine();
 
             var currentValue = GetCurrentMaxUnitLevel(data);

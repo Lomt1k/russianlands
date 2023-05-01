@@ -5,7 +5,7 @@ namespace TextGameRPG.Scripts.GameCore.Resources
 {
     internal class ResourceFruitKiwi : IResource
     {
-        public ResourceType resourceType => ResourceType.FruitKiwi;
+        public ResourceId resourceId => ResourceId.FruitKiwi;
 
         public int GetValue(ProfileData profileData)
         {

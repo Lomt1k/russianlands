@@ -9,10 +9,9 @@ namespace TextGameRPG.Scripts.GameCore.Rewards
     [JsonObject]
     public class ItemWithCodeReward : RewardBase
     {
-        [JsonProperty]
-        public string itemCode = string.Empty;
+        public string itemCode { get; set; } = string.Empty;
 
-        public override async Task<string> AddReward(GameSession session)
+        public override async Task<string?> AddReward(GameSession session)
         {
             try
             {
@@ -23,7 +22,7 @@ namespace TextGameRPG.Scripts.GameCore.Rewards
             catch (Exception ex)
             {
                 await messageSender.SendErrorMessage(session.chatId, ex.Message);
-                return string.Empty;
+                return null;
             }
         }
 

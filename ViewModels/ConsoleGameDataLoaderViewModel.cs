@@ -4,15 +4,19 @@ using TextGameRPG.Scripts.GameCore.Services.GameData;
 
 namespace TextGameRPG.ViewModels
 {
-    public class ConsoleGameDataLoaderViewModel : IGameDataLoader
+    public class GameDataLoader
     {
         private static readonly GameDataHolder gameDataBase = Services.Get<GameDataHolder>();
 
         public bool isCompleted { get; private set; } = false;
 
-        public ConsoleGameDataLoaderViewModel()
+        public GameDataLoader()
         {
-            AddNextState("Application started with console mode");
+        }
+
+        public void Load()
+        {
+            AddNextState("Start loading game data...");
             gameDataBase.LoadAllData(this);
         }
 

@@ -2,7 +2,6 @@
 using TextGameRPG.Views.RegularDialogs;
 using ReactiveUI;
 using System.Reactive;
-using TextGameRPG.Scripts.Utils;
 
 namespace TextGameRPG.ViewModels.RegularDialogs
 {

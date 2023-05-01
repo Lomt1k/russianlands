@@ -99,10 +99,10 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
 
             sb.AppendLine();
             sb.AppendLine(Localization.Get(session, "resource_header_ours"));
-            var playerResources = new Dictionary<ResourceType, int>();
-            foreach (var resourceType in craftPrice.Keys)
+            var playerResources = new Dictionary<ResourceId, int>();
+            foreach (var resourceId in craftPrice.Keys)
             {
-                playerResources[resourceType] = session.player.resources.GetValue(resourceType);
+                playerResources[resourceId] = session.player.resources.GetValue(resourceId);
             }
             sb.Append(ResourceHelper.GetResourcesView(session, playerResources));
 

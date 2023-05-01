@@ -1,24 +1,25 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Linq;
+using System.Text;
 
 namespace TextGameRPG.Scripts.GameCore.Services.GameData
 {
-    public class DataDictionaryWithIntegerID<T> where T : IDataWithIntegerID
+    public class DataDictionaryWithEnumID<TEnum, TData> where TEnum : Enum where TData : IDataWithEnumID<TEnum>
     {
         public readonly string dataPath;
 
-        public System.Action onDataChanged;
+        public Action onDataChanged;
 
-        private Dictionary<int, T> _dictionary;
+        private Dictionary<TEnum, TData> _dictionary;
 
         public int count => _dictionary.Count;
 
-        public T this[int id] => _dictionary[id];
+        public TData this[TEnum id] => _dictionary[id];
 
-        public DataDictionaryWithIntegerID(Dictionary<int, T> dictionary, string path)
+        public DataDictionaryWithEnumID(Dictionary<TEnum, TData> dictionary, string path)
         {
             _dictionary = dictionary;
             dataPath = path;
@@ -26,7 +27,7 @@ namespace TextGameRPG.Scripts.GameCore.Services.GameData
             Program.onSetupAppMode += OnSetupAppMode;
         }
 
-        public static DataDictionaryWithIntegerID<Type> LoadFromJSON<Type>(string path) where Type : IDataWithIntegerID
+        public static DataDictionaryWithEnumID<TEnum, TData> LoadFromJSON<TEnum, TData>(string path) where TEnum : Enum where TData : IDataWithEnumID<TEnum>
         {
             if (!File.Exists(path))
             {
@@ -38,34 +39,34 @@ namespace TextGameRPG.Scripts.GameCore.Services.GameData
             using (StreamReader reader = new StreamReader(path, Encoding.UTF8))
             {
                 var jsonStr = reader.ReadToEnd();
-                var dictionary = JsonConvert.DeserializeObject<IEnumerable<Type>>(jsonStr).ToDictionary(x => x.id);
-                return new DataDictionaryWithIntegerID<Type>(dictionary, path);
+                var dictionary = JsonConvert.DeserializeObject<IEnumerable<TData>>(jsonStr).ToDictionary(x => x.id);
+                return new DataDictionaryWithEnumID<TEnum, TData>(dictionary, path);
             }
         }
 
-        public bool ContainsKey(int id)
+        public bool ContainsKey(TEnum id)
         {
             return _dictionary.ContainsKey(id);
         }
 
-        public IEnumerable<T> GetAllData()
+        public IEnumerable<TData> GetAllData()
         {
             return _dictionary.Values;
         }
 
-        public void AddData(int id, T data)
+        public void AddData(TEnum id, TData data)
         {
             _dictionary.Add(id, data);
             OnDataChanged();
         }
 
-        public void ChangeData(int id, T data)
+        public void ChangeData(TEnum id, TData data)
         {
             _dictionary[id] = data;
             OnDataChanged();
         }
 
-        public void RemoveData(int id)
+        public void RemoveData(TEnum id)
         {
             _dictionary.Remove(id);
             OnDataChanged();
@@ -86,7 +87,7 @@ namespace TextGameRPG.Scripts.GameCore.Services.GameData
             using (StreamReader reader = new StreamReader(dataPath, Encoding.UTF8))
             {
                 var jsonStr = reader.ReadToEnd();
-                _dictionary = JsonConvert.DeserializeObject<IEnumerable<T>>(jsonStr).ToDictionary(x => x.id);
+                _dictionary = JsonConvert.DeserializeObject<IEnumerable<TData>>(jsonStr).ToDictionary(x => x.id);
             }
         }
 
@@ -104,7 +105,7 @@ namespace TextGameRPG.Scripts.GameCore.Services.GameData
 
         private void OnSetupAppMode(AppMode appMode)
         {
-            if (appMode != AppMode.Bot)
+            if (appMode != AppMode.PlayMode)
                 return;
 
             foreach (var item in _dictionary.Values)
@@ -112,6 +113,7 @@ namespace TextGameRPG.Scripts.GameCore.Services.GameData
                 item.OnSetupAppMode(appMode);
             }
         }
+
 
     }
 }

@@ -70,7 +70,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character
 
         private bool IsPotionsDialogAvailable()
         {
-            return session.player.buildings.HasBuilding(BuildingType.AlchemyLab);
+            return session.player.buildings.HasBuilding(BuildingId.AlchemyLab);
         }
 
         private async Task TryShowSkillsDialog()

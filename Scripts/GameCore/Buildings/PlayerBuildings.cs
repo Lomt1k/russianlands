@@ -30,9 +30,9 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
 
         public IEnumerable<BuildingBase> GetAllBuildings()
         {
-            foreach (BuildingType buildingType in System.Enum.GetValues(typeof(BuildingType)))
+            foreach (BuildingId buildingId in System.Enum.GetValues(typeof(BuildingId)))
             {
-                yield return buildingType.GetBuilding();
+                yield return buildingId.GetBuilding();
             }
         }
 
@@ -41,52 +41,57 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
             switch (category)
             {
                 case BuildingCategory.General:
-                    yield return BuildingType.TownHall.GetBuilding();
-                    yield return BuildingType.Tyr.GetBuilding();
-                    yield return BuildingType.Hospital.GetBuilding();
-                    yield return BuildingType.AlchemyLab.GetBuilding();
-                    yield return BuildingType.ElixirWorkshop.GetBuilding();
-                    yield return BuildingType.WeaponsWorkshop.GetBuilding();
-                    yield return BuildingType.ArmorWorkshop.GetBuilding();
-                    yield return BuildingType.Jewerly.GetBuilding();
-                    yield return BuildingType.ScribesHouse.GetBuilding();
+                    yield return BuildingId.TownHall.GetBuilding();
+                    yield return BuildingId.Tyr.GetBuilding();
+                    yield return BuildingId.Hospital.GetBuilding();
+                    yield return BuildingId.AlchemyLab.GetBuilding();
+                    yield return BuildingId.ElixirWorkshop.GetBuilding();
+                    yield return BuildingId.WeaponsWorkshop.GetBuilding();
+                    yield return BuildingId.ArmorWorkshop.GetBuilding();
+                    yield return BuildingId.Jewerly.GetBuilding();
+                    yield return BuildingId.ScribesHouse.GetBuilding();
                     break;
 
                 case BuildingCategory.Storages:
-                    yield return BuildingType.ItemsStorage.GetBuilding();
-                    yield return BuildingType.GoldStorage.GetBuilding();
-                    yield return BuildingType.FoodStorage.GetBuilding();
-                    yield return BuildingType.HerbsStorage.GetBuilding();
-                    yield return BuildingType.WoodStorage.GetBuilding();
+                    yield return BuildingId.ItemsStorage.GetBuilding();
+                    yield return BuildingId.GoldStorage.GetBuilding();
+                    yield return BuildingId.FoodStorage.GetBuilding();
+                    yield return BuildingId.HerbsStorage.GetBuilding();
+                    yield return BuildingId.WoodStorage.GetBuilding();
                     break;
 
                 case BuildingCategory.Production:
-                    yield return BuildingType.GoldProductionFirst.GetBuilding();
-                    yield return BuildingType.GoldProductionSecond.GetBuilding();
-                    yield return BuildingType.GoldProductionThird.GetBuilding();
-                    yield return BuildingType.FoodProductionFirst.GetBuilding();
-                    yield return BuildingType.FoodProductionSecond.GetBuilding();
-                    yield return BuildingType.FoodProductionThird.GetBuilding();
-                    yield return BuildingType.HerbsProductionFirst.GetBuilding();
-                    yield return BuildingType.HerbsProductionSecond.GetBuilding();
-                    yield return BuildingType.HerbsProductionThird.GetBuilding();
-                    yield return BuildingType.WoodProductionFirst.GetBuilding();
-                    yield return BuildingType.WoodProductionSecond.GetBuilding();
+                    yield return BuildingId.GoldProductionFirst.GetBuilding();
+                    yield return BuildingId.GoldProductionSecond.GetBuilding();
+                    yield return BuildingId.GoldProductionThird.GetBuilding();
+                    yield return BuildingId.FoodProductionFirst.GetBuilding();
+                    yield return BuildingId.FoodProductionSecond.GetBuilding();
+                    yield return BuildingId.FoodProductionThird.GetBuilding();
+                    yield return BuildingId.HerbsProductionFirst.GetBuilding();
+                    yield return BuildingId.HerbsProductionSecond.GetBuilding();
+                    yield return BuildingId.HerbsProductionThird.GetBuilding();
+                    yield return BuildingId.WoodProductionFirst.GetBuilding();
+                    yield return BuildingId.WoodProductionSecond.GetBuilding();
                     break;
 
                 case BuildingCategory.Training:
-                    yield return BuildingType.WarriorTraining.GetBuilding();
-                    yield return BuildingType.GoldTraining.GetBuilding();
-                    yield return BuildingType.FoodTraining.GetBuilding();
-                    yield return BuildingType.HerbsTraining.GetBuilding();
-                    yield return BuildingType.WoodTraining.GetBuilding();
+                    yield return BuildingId.WarriorTraining.GetBuilding();
+                    yield return BuildingId.GoldTraining.GetBuilding();
+                    yield return BuildingId.FoodTraining.GetBuilding();
+                    yield return BuildingId.HerbsTraining.GetBuilding();
+                    yield return BuildingId.WoodTraining.GetBuilding();
                     break;
             }
         }
 
-        public bool HasBuilding(BuildingType building)
+        public bool HasBuilding(BuildingId building)
         {
             return building.GetBuilding().GetCurrentLevel(_buildingsData) > 0;
+        }
+
+        public byte GetBuildingLevel(BuildingId building)
+        {
+            return building.GetBuilding().GetCurrentLevel(_buildingsData);
         }
 
     }

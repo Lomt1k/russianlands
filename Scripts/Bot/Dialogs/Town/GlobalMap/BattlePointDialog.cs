@@ -39,7 +39,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
             var text = Emojis.ButtonBattle + _data.mob.GetFullUnitInfoView(session);
 
             ClearButtons();
-            var priceView = _data.foodPrice > 0 ? ResourceType.Food.GetEmoji() + _data.foodPrice.View() : string.Empty;
+            var priceView = _data.foodPrice > 0 ? ResourceId.Food.GetEmoji() + _data.foodPrice.View() : string.Empty;
             var startBattleButton = Localization.Get(session, "dialog_mob_battle_point_start_battle", priceView);
             RegisterButton(startBattleButton, () => TryStartBattle());
             if (_data.onBackButtonFunc != null)
@@ -58,10 +58,10 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
         private async Task TryStartBattle()
         {
             var playerResources = session.player.resources;
-            var successsPurchase = playerResources.TryPurchase(ResourceType.Food, _data.foodPrice);
+            var successsPurchase = playerResources.TryPurchase(ResourceId.Food, _data.foodPrice);
             if (!successsPurchase)
             {
-                var buyResourcesDialog = new BuyResourcesForDiamondsDialog(session, ResourceType.Food, _data.foodPrice,
+                var buyResourcesDialog = new BuyResourcesForDiamondsDialog(session, ResourceId.Food, _data.foodPrice,
                 onSuccess: async () => await new BattlePointDialog(session, _data).SilentStart(),
                 onCancel: async () => await new BattlePointDialog(session, _data).Start());
                 await buyResourcesDialog.Start().FastAwait();

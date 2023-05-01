@@ -109,7 +109,7 @@ namespace TextGameRPG.Scripts.GameCore.Skills
         }
 
         /// <returns>Ресурсы, требуемые для прокачки навыка</returns>
-        public ResourceType[] GetRequiredFruits(ItemType itemType)
+        public ResourceId[] GetRequiredFruits(ItemType itemType)
         {
             return skillsDictionary[itemType].requiredFruits;
         }
@@ -117,7 +117,7 @@ namespace TextGameRPG.Scripts.GameCore.Skills
         /// <returns>Максимальный доступный уровень для всех навыков</returns>
         public byte GetSkillLimit()
         {
-            var elixirWorkshop = (ElixirWorkshopBuilding)BuildingType.ElixirWorkshop.GetBuilding();
+            var elixirWorkshop = (ElixirWorkshopBuilding)BuildingId.ElixirWorkshop.GetBuilding();
             var maxSkillLevel = elixirWorkshop.GetCurrentMaxSkillLevel(_player.session.profile.buildingsData);
             return (byte)maxSkillLevel;
         }
@@ -126,6 +126,20 @@ namespace TextGameRPG.Scripts.GameCore.Skills
         public static IEnumerable<ItemType> GetAllSkillTypes()
         {
             return skillsDictionary.GetAllSkillTypes();
+        }
+
+        /// <returns>Средний уровень навыков</returns>
+        public byte GetAverageSkillLevel()
+        {
+            int sum = 0;
+            int count = 0;
+            foreach (var skill in GetAllSkillTypes())
+            {
+                sum += GetValue(skill);
+                count++;
+            }
+            var result = Math.Round((float)sum / count);
+            return (byte)result;
         }
 
         private void RecalculateStatsAfterSkillChange()

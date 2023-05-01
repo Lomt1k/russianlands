@@ -12,9 +12,9 @@ namespace TextGameRPG.Scripts.GameCore.Quests
         private static string questFolderPath = string.Empty;
         private static Dictionary<QuestType, Quest> quests = new Dictionary<QuestType, Quest>();
 
-        public static void LoadAll(IGameDataLoader loaderVM, string gamedataPath)
+        public static void LoadAll(GameDataLoader? loader, string gamedataPath)
         {
-            loaderVM.AddNextState("Loading quests...");
+            loader?.AddNextState("Loading quests...");
             quests.Clear();
             questFolderPath = Path.Combine(gamedataPath, "Quests");
             if (!Directory.Exists(questFolderPath))
@@ -28,12 +28,12 @@ namespace TextGameRPG.Scripts.GameCore.Quests
                 if (questType == QuestType.None)
                     continue;
 
-                LoadQuest(questType, loaderVM);
+                LoadQuest(questType, loader);
             }
-            loaderVM?.AddInfoToCurrentState(quests.Count.ToString());
+            loader?.AddInfoToCurrentState(quests.Count.ToString());
         }
 
-        public static void LoadQuest(QuestType questType, IGameDataLoader? loaderVM = null)
+        public static void LoadQuest(QuestType questType, GameDataLoader? loader = null)
         {
             var fileName = $"{questType}.json";
             var filePath = Path.Combine(questFolderPath, fileName);
@@ -46,7 +46,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests
                 };
                 quests.Add(quest.questType, quest);
                 SaveQuest(questType);
-                loaderVM?.AddInfoToCurrentState($"\n[!] Created new quest file with name '{fileName}'");
+                loader?.AddInfoToCurrentState($"\n[!] Created new quest file with name '{fileName}'");
                 return;
             }
 

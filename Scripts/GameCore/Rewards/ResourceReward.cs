@@ -8,15 +8,13 @@ namespace TextGameRPG.Scripts.GameCore.Rewards
     [JsonObject]
     public class ResourceReward : RewardBase
     {
-        [JsonProperty]
-        public ResourceType resourceType = ResourceType.Gold;
-        [JsonProperty]
-        public int amount;
+        public ResourceId resourceId { get; set; } = ResourceId.Gold;
+        public int amount { get; set; }
 
         public override Task<string> AddReward(GameSession session)
         {
-            session.player.resources.ForceAdd(resourceType, amount);
-            var result = resourceType.GetLocalizedView(session, amount);
+            session.player.resources.ForceAdd(resourceId, amount);
+            var result = resourceId.GetLocalizedView(session, amount);
             return Task.FromResult(result);
         }
     }

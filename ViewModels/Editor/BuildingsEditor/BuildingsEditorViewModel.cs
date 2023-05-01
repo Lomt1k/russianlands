@@ -8,14 +8,14 @@ namespace TextGameRPG.ViewModels.Editor.BuildingsEditor
 {
     public class BuildingsEditorViewModel : ViewModelBase
     {
-        private EnumValueModel<BuildingType>? _selectedBuilding;
+        private EnumValueModel<BuildingId>? _selectedBuilding;
 
-        public ObservableCollection<EnumValueModel<BuildingType>> buildings { get; }
+        public ObservableCollection<EnumValueModel<BuildingId>> buildings { get; }
 
         public BuildingInspectorView buildingInspector { get; }
         public BuildingInspectorViewModel buildingInspectorViewModel { get; }
 
-        public EnumValueModel<BuildingType>? selectedBuilding
+        public EnumValueModel<BuildingId>? selectedBuilding
         {
             get => _selectedBuilding;
             set
@@ -30,7 +30,7 @@ namespace TextGameRPG.ViewModels.Editor.BuildingsEditor
 
         public BuildingsEditorViewModel()
         {
-            buildings = EnumValueModel<BuildingType>.CreateCollection();
+            buildings = EnumValueModel<BuildingId>.CreateCollection();
             buildingInspector = new BuildingInspectorView();
             buildingInspector.DataContext = buildingInspectorViewModel = new BuildingInspectorViewModel();
         }

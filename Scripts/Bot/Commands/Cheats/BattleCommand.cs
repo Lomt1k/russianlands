@@ -8,6 +8,7 @@ using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Services;
 using TextGameRPG.Scripts.GameCore.Services.Battles;
+using TextGameRPG.Scripts.GameCore.Services.Mobs;
 using TextGameRPG.Scripts.GameCore.Units;
 using TextGameRPG.Scripts.GameCore.Units.Mobs;
 
@@ -18,6 +19,7 @@ namespace TextGameRPG.Scripts.Bot.Commands.Cheats
         public override CommandGroup commandGroup => CommandGroup.Cheat;
 
         private static readonly BattleManager battleManager = Services.Get<BattleManager>();
+        private static readonly MobFactory mobFactory = Services.Get<MobFactory>();
 
         public override async Task Execute(GameSession session, string[] args)
         {
@@ -28,6 +30,7 @@ namespace TextGameRPG.Scripts.Bot.Commands.Cheats
             await new SimpleDialog(session, "Select an enemy", true, new Dictionary<string, Func<Task>>()
             {
                 { "Dummy", () => StartBattleWithDummy(session.player) },
+                { "Generated Mob",  () => StartBattleWithGeneratedMob(session.player) },
                 { "Shadow Copy", () => StartBattleWithShadowCopy(session.player) },
             })
             .Start().FastAwait();
@@ -39,6 +42,13 @@ namespace TextGameRPG.Scripts.Bot.Commands.Cheats
             mobData.localizationKey = "Dummy";
             mobData.statsSettings.health = 100_000;
             mobData.mobAttacks.Add(new MobAttack());
+            battleManager.StartBattleWithMob(player, mobData);
+            return Task.CompletedTask;
+        }
+
+        private Task StartBattleWithGeneratedMob(Player player)
+        {
+            var mobData = mobFactory.GenerateMobForDebugBattle(player.level);
             battleManager.StartBattleWithMob(player, mobData);
             return Task.CompletedTask;
         }

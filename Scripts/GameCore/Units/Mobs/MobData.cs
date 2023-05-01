@@ -23,7 +23,7 @@ namespace TextGameRPG.Scripts.GameCore.Units.Mobs
 
         public void OnSetupAppMode(AppMode appMode)
         {
-            if (appMode == AppMode.Bot)
+            if (appMode == AppMode.PlayMode)
             {
                 debugName = string.Empty;
             }
@@ -96,6 +96,26 @@ namespace TextGameRPG.Scripts.GameCore.Units.Mobs
                 sb.Append(Emojis.StatLightningDamage + $"{minLightningDamage} - {maxLightningDamage}");
             }
             return sb.ToString();
+        }
+
+        public MobAttack CloneForMobBuilder()
+        {
+            var localization = manaCost == 0
+                ? "battle_action_mob_normal_attack"
+                : "battle_action_mob_strong_attack";
+            return new MobAttack()
+            {
+                localizationKey = localization,
+                manaCost = manaCost,
+                minPhysicalDamage = minPhysicalDamage,
+                maxPhysicalDamage = maxPhysicalDamage,
+                minFireDamage = minFireDamage,
+                maxFireDamage = maxFireDamage,
+                minColdDamage = minColdDamage,
+                maxColdDamage = maxColdDamage,
+                minLightningDamage = minLightningDamage,
+                maxLightningDamage = maxLightningDamage,
+            };
         }
     }
 

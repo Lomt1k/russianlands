@@ -1,0 +1,23 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="180"
+             x:Class="TextGameRPG.Views.Editor.Rewards.EditorRandomItemRewardView">
+
+  <Border Background="SlateGray" Padding="5">
+    <Border Background="WhiteSmoke" Padding="5">
+      <StackPanel Background="WhiteSmoke" Margin="5">
+
+        <TextBlock Text="Random Item" Padding="0,5,0,15" Classes="h3"/>
+        <TextBlock Text="townhall level"/>
+        <TextBox Text="{Binding reward.townhallLevel}"/>
+        <TextBlock Text="rarity"/>
+        <ComboBox Items="{Binding rarities}"
+                  SelectedItem="{Binding selectedRarity}"/>
+
+      </StackPanel>
+    </Border>
+  </Border>
+  
+</UserControl>

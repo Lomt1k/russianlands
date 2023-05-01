@@ -10,54 +10,46 @@ namespace TextGameRPG.Scripts.GameCore.Rewards
     [JsonObject]
     public class ResourceABWithOneBonusReward : RewardBase
     {
-        [JsonProperty]
-        public ResourceType resourceTypeA = ResourceType.Gold;
-        [JsonProperty]
-        public int amountA;
+        public ResourceId resourceIdA { get; set; } = ResourceId.Gold;
+        public int amountA { get; set; }
 
-        [JsonProperty]
-        public ResourceType resourceTypeB = ResourceType.Wood;
-        [JsonProperty]
-        public int amountB;
+        public ResourceId resourceIdB { get; set; } = ResourceId.Wood;
+        public int amountB { get; set; }
 
-        [JsonProperty]
-        public int bonusA_min;
-        [JsonProperty]
-        public int bonusA_max;
-        [JsonProperty]
-        public int bonusB_min;
-        [JsonProperty]
-        public int bonusB_max;
+        public int bonusA_min { get; set; }
+        public int bonusA_max { get; set; }
+        public int bonusB_min { get; set; }
+        public int bonusB_max { get; set; }
 
 
-        public override Task<string> AddReward(GameSession session)
+        public override Task<string?> AddReward(GameSession session)
         {
             var isA = new Random().Next(2) == 0;
             return isA ? AddRewardWithBonusA(session) : AddRewardWithBonusB(session);
         }
 
-        private Task<string> AddRewardWithBonusA(GameSession session)
+        private Task<string?> AddRewardWithBonusA(GameSession session)
         {
             var amountWithBonus = amountA + new Random().Next(bonusA_min, bonusA_max + 1);
-            session.player.resources.ForceAdd(resourceTypeA, amountWithBonus);
-            session.player.resources.ForceAdd(resourceTypeB, amountB);
+            session.player.resources.ForceAdd(resourceIdA, amountWithBonus);
+            session.player.resources.ForceAdd(resourceIdB, amountB);
 
             var sb = new StringBuilder();
-            sb.AppendLine(resourceTypeA.GetLocalizedView(session, amountWithBonus));
-            sb.Append(resourceTypeB.GetLocalizedView(session, amountB));
+            sb.AppendLine(resourceIdA.GetLocalizedView(session, amountWithBonus));
+            sb.Append(resourceIdB.GetLocalizedView(session, amountB));
             
             return Task.FromResult(sb.ToString());
         }
 
-        private Task<string> AddRewardWithBonusB(GameSession session)
+        private Task<string?> AddRewardWithBonusB(GameSession session)
         {
-            session.player.resources.ForceAdd(resourceTypeA, amountA);
+            session.player.resources.ForceAdd(resourceIdA, amountA);
             var amountWithBonus = amountB + new Random().Next(bonusB_min, bonusB_max + 1);
-            session.player.resources.ForceAdd(resourceTypeB, amountWithBonus);
+            session.player.resources.ForceAdd(resourceIdB, amountWithBonus);
 
             var sb = new StringBuilder();
-            sb.AppendLine(resourceTypeA.GetLocalizedView(session, amountA));
-            sb.Append(resourceTypeB.GetLocalizedView(session, amountWithBonus));
+            sb.AppendLine(resourceIdA.GetLocalizedView(session, amountA));
+            sb.Append(resourceIdB.GetLocalizedView(session, amountWithBonus));
 
             return Task.FromResult(sb.ToString());
         }

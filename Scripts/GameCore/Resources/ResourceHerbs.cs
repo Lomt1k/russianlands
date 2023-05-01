@@ -6,7 +6,7 @@ namespace TextGameRPG.Scripts.GameCore.Resources
 {
     public class ResourceHerbs : IResource
     {
-        public ResourceType resourceType => ResourceType.Herbs;
+        public ResourceId resourceId => ResourceId.Herbs;
 
         public int GetValue(ProfileData profileData)
         {
@@ -26,14 +26,14 @@ namespace TextGameRPG.Scripts.GameCore.Resources
         public bool IsUnlocked(GameSession session)
         {
             var buildingsData = session.profile.buildingsData;
-            var building = BuildingType.TownHall.GetBuilding();
+            var building = BuildingId.TownHall.GetBuilding();
             return building.GetCurrentLevel(buildingsData) >= 4;
         }
 
         public int GetResourceLimit(GameSession session)
         {
             var buildingData = session.profile.buildingsData;
-            var storage = (StorageBuildingBase)BuildingType.HerbsStorage.GetBuilding();
+            var storage = (StorageBuildingBase)BuildingId.HerbsStorage.GetBuilding();
             return storage.GetCurrentLevelResourceLimit(buildingData);
         }
 
