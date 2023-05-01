@@ -13,7 +13,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests
     {
         private const int STAGE_FIRST = 100;
 
-        public QuestType questType;
+        public QuestId questId;
         public List<QuestStage> stages = new List<QuestStage>();
 
         [JsonIgnore]
@@ -36,7 +36,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests
 
         public int GetCurrentStageId(GameSession session)
         {
-            return session.profile.dynamicData.quests.GetStage(questType);
+            return session.profile.dynamicData.quests.GetStage(questId);
         }
 
         public QuestStage GetCurrentStage(GameSession session)
@@ -60,7 +60,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests
 
         public async Task SetStage(GameSession session, int stageId)
         {
-            session.profile.dynamicData.quests.SetStage(questType, stageId);
+            session.profile.dynamicData.quests.SetStage(questId, stageId);
             if (stageId <= 0)
                 return;
 
@@ -70,12 +70,12 @@ namespace TextGameRPG.Scripts.GameCore.Quests
 
         public bool IsCompleted(GameSession session)
         {
-            return session.profile.dynamicData.quests.IsCompleted(questType);
+            return session.profile.dynamicData.quests.IsCompleted(questId);
         }
 
         public bool IsStarted(GameSession session)
         {
-            return session.profile.dynamicData.quests.IsStarted(questType);
+            return session.profile.dynamicData.quests.IsStarted(questId);
         }
 
         public async Task StartQuest(GameSession session)

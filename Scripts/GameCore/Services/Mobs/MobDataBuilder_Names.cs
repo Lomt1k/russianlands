@@ -102,25 +102,25 @@ namespace TextGameRPG.Scripts.GameCore.Services.Mobs
             "mob_name_caribou",
         };
 
-        public MobDataBuilder SetRandomName(LocationType locationType = LocationType.None, List<string>? excludeNames = null)
+        public MobDataBuilder SetRandomName(LocationId locationId = LocationId.None, List<string>? excludeNames = null)
         {
             var random = new Random();
-            if (locationType == LocationType.None)
+            if (locationId == LocationId.None)
             {
-                var min = (byte)LocationType.Loc_01;
-                var max = (byte)LocationType.Loc_07;
-                locationType = (LocationType)random.Next(min, max + 1);
+                var min = (byte)LocationId.Loc_01;
+                var max = (byte)LocationId.Loc_07;
+                locationId = (LocationId)random.Next(min, max + 1);
             }
 
-            var array = locationType switch
+            var array = locationId switch
             {
-                LocationType.Loc_01 => location_1_names,
-                LocationType.Loc_02 => location_2_names,
-                LocationType.Loc_03 => location_3_names,
-                LocationType.Loc_04 => location_4_names,
-                LocationType.Loc_05 => location_5_names,
-                LocationType.Loc_06 => location_6_names,
-                LocationType.Loc_07 => location_7_names,
+                LocationId.Loc_01 => location_1_names,
+                LocationId.Loc_02 => location_2_names,
+                LocationId.Loc_03 => location_3_names,
+                LocationId.Loc_04 => location_4_names,
+                LocationId.Loc_05 => location_5_names,
+                LocationId.Loc_06 => location_6_names,
+                LocationId.Loc_07 => location_7_names,
                 _ => throw new NotImplementedException()
             };
 

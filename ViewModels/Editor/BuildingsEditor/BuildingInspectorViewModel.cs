@@ -94,8 +94,8 @@ namespace TextGameRPG.ViewModels.Editor.BuildingsEditor
 
         private void ResetChanges()
         {
-            var locationType = (BuildingId)_tempBuilding.id;
-            Show(locationType);
+            var locationId = (BuildingId)_tempBuilding.id;
+            Show(locationId);
         }
 
     }

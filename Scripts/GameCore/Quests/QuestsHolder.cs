@@ -10,7 +10,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests
     public static class QuestsHolder
     {
         private static string questFolderPath = string.Empty;
-        private static Dictionary<QuestType, Quest> quests = new Dictionary<QuestType, Quest>();
+        private static Dictionary<QuestId, Quest> quests = new Dictionary<QuestId, Quest>();
 
         public static void LoadAll(GameDataLoader? loader, string gamedataPath)
         {
@@ -22,30 +22,30 @@ namespace TextGameRPG.Scripts.GameCore.Quests
                 Directory.CreateDirectory(questFolderPath);
             }
 
-            var allQuests = Enum.GetValues(typeof(QuestType));
-            foreach (QuestType questType in allQuests)
+            var allQuests = Enum.GetValues(typeof(QuestId));
+            foreach (QuestId questId in allQuests)
             {
-                if (questType == QuestType.None)
+                if (questId == QuestId.None)
                     continue;
 
-                LoadQuest(questType, loader);
+                LoadQuest(questId, loader);
             }
             loader?.AddInfoToCurrentState(quests.Count.ToString());
         }
 
-        public static void LoadQuest(QuestType questType, GameDataLoader? loader = null)
+        public static void LoadQuest(QuestId questId, GameDataLoader? loader = null)
         {
-            var fileName = $"{questType}.json";
+            var fileName = $"{questId}.json";
             var filePath = Path.Combine(questFolderPath, fileName);
 
             if (!File.Exists(filePath))
             {
                 var quest = new Quest() 
                 {
-                    questType = questType 
+                    questId = questId 
                 };
-                quests.Add(quest.questType, quest);
-                SaveQuest(questType);
+                quests.Add(quest.questId, quest);
+                SaveQuest(questId);
                 loader?.AddInfoToCurrentState($"\n[!] Created new quest file with name '{fileName}'");
                 return;
             }
@@ -54,22 +54,22 @@ namespace TextGameRPG.Scripts.GameCore.Quests
             {
                 var jsonStr = reader.ReadToEnd();
                 var quest = JsonConvert.DeserializeObject<Quest>(jsonStr);
-                quests[questType] = quest;
+                quests[questId] = quest;
             }
         }
 
         public static void SaveQuests()
         {
-            foreach (var questType in quests.Keys)
+            foreach (var questId in quests.Keys)
             {
-                SaveQuest(questType);
+                SaveQuest(questId);
             }
         }
 
-        public static void SaveQuest(QuestType questType)
+        public static void SaveQuest(QuestId questId)
         {
-            var quest = quests[questType];
-            var filePath = Path.Combine(questFolderPath, questType + ".json");
+            var quest = quests[questId];
+            var filePath = Path.Combine(questFolderPath, questId + ".json");
             var jsonStr = JsonConvert.SerializeObject(quest, Formatting.Indented);
             using (StreamWriter writer = new StreamWriter(filePath, false, Encoding.UTF8))
             {
@@ -77,9 +77,9 @@ namespace TextGameRPG.Scripts.GameCore.Quests
             }
         }
 
-        public static Quest GetQuest(QuestType questType)
+        public static Quest GetQuest(QuestId questId)
         {
-            return quests[questType];
+            return quests[questId];
         }
 
         public static IEnumerable<Quest> GetAllQuests()

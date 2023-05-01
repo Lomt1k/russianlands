@@ -18,20 +18,20 @@ namespace TextGameRPG.Scripts.GameCore.Quests
         public static async Task HandleNewSession(GameSession session, Update update)
         {
             var playerQuestsProgress = session.profile.dynamicData.quests;
-            var focusedQuestType = playerQuestsProgress.GetFocusedQuest();
-            if (focusedQuestType == null)
+            var focusedQuestId = playerQuestsProgress.GetFocusedQuest();
+            if (focusedQuestId == null)
             {
-                if (!playerQuestsProgress.IsStarted(QuestType.MainQuest))
+                if (!playerQuestsProgress.IsStarted(QuestId.MainQuest))
                 {
-                    await QuestsHolder.GetQuest(QuestType.MainQuest).StartQuest(session).FastAwait();
+                    await QuestsHolder.GetQuest(QuestId.MainQuest).StartQuest(session).FastAwait();
                     return;
                 }
                 await notificationsManager.GetNotificationsAndEntryTown(session, TownEntryReason.StartNewSession).FastAwait();
                 return;
             }
 
-            var focusedQuest = QuestsHolder.GetQuest(focusedQuestType.Value);
-            var stageId = playerQuestsProgress.GetStage(focusedQuestType.Value);            
+            var focusedQuest = QuestsHolder.GetQuest(focusedQuestId.Value);
+            var stageId = playerQuestsProgress.GetStage(focusedQuestId.Value);            
             var stage = focusedQuest.GetCurrentStage(session);
 
             var stageIdToSetup = stage.jumpToStageIfNewSession ?? stageId;
@@ -88,12 +88,12 @@ namespace TextGameRPG.Scripts.GameCore.Quests
 
         public static async Task TryInvokeTrigger(GameSession session, TriggerType triggerType)
         {
-            var focusedQuestType = session.profile.dynamicData.quests.GetFocusedQuest();
-            if (focusedQuestType == null)
+            var focusedQuestId = session.profile.dynamicData.quests.GetFocusedQuest();
+            if (focusedQuestId == null)
                 return;
 
-            var focusedQuest = QuestsHolder.GetQuest(focusedQuestType.Value);
-            var stageId = session.profile.dynamicData.quests.GetStage(focusedQuestType.Value);            
+            var focusedQuest = QuestsHolder.GetQuest(focusedQuestId.Value);
+            var stageId = session.profile.dynamicData.quests.GetStage(focusedQuestId.Value);            
             var stage = focusedQuest.GetCurrentStage(session);
 
             if (stage is QuestStageWithTrigger stageWithTrigger)

@@ -22,7 +22,7 @@ namespace TextGameRPG.Scripts.GameCore.Services.GameData
         public DataDictionaryWithIntegerID<ItemData> items { get; private set; }
         public DataDictionaryWithIntegerID<MobData> mobs { get; private set; }
         public DataDictionaryWithIntegerID<PotionData> potions { get; private set; }
-        public DataDictionaryWithEnumID<LocationType, LocationMobData> locationGeneratedMobs { get; private set; }
+        public DataDictionaryWithEnumID<LocationId, LocationMobData> locationGeneratedMobs { get; private set; }
 
 #pragma warning restore CS8618
 
@@ -42,7 +42,7 @@ namespace TextGameRPG.Scripts.GameCore.Services.GameData
             items = LoadDataWithIntegerID<ItemData>("items");
             mobs = LoadDataWithIntegerID<MobData>("mobs");
             potions = LoadDataWithIntegerID<PotionData>("potions");
-            locationGeneratedMobs = LoadDataWithEnumID<LocationType, LocationMobData>("locationGeneratedMobs");
+            locationGeneratedMobs = LoadDataWithEnumID<LocationId, LocationMobData>("locationGeneratedMobs");
 
             Localizations.Localization.LoadAll(_loader, gameDataPath);
             Quests.QuestsHolder.LoadAll(_loader, gameDataPath);

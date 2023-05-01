@@ -7,57 +7,57 @@ namespace TextGameRPG.Scripts.GameCore.Quests
     public class PlayerQuestsProgress
     {
         [JsonProperty("focus")]
-        private QuestType? focusedQuest = null; 
+        private QuestId? focusedQuest = null; 
 
         [JsonProperty]
         private readonly Dictionary<ushort, int> stages = new Dictionary<ushort, int>();
 
-        public bool IsStarted(QuestType questType)
+        public bool IsStarted(QuestId questId)
         {
-            return stages.ContainsKey((ushort)questType);
+            return stages.ContainsKey((ushort)questId);
         }
 
-        public int GetStage(QuestType questType)
+        public int GetStage(QuestId questId)
         {
-            return IsStarted(questType) ? stages[(ushort)questType] : 0;
+            return IsStarted(questId) ? stages[(ushort)questId] : 0;
         }
 
-        public void SetStage(QuestType questType, int stage)
+        public void SetStage(QuestId questId, int stage)
         {
-            stages[(ushort)questType] = stage;
+            stages[(ushort)questId] = stage;
             if (stage > 0)
             {
-                focusedQuest = questType;
+                focusedQuest = questId;
             }
-            else if (focusedQuest == questType)
+            else if (focusedQuest == questId)
             {
                 focusedQuest = null;
             }
         }
 
-        public bool IsCompleted(QuestType questType)
+        public bool IsCompleted(QuestId questId)
         {
-            return GetStage(questType) == -1;
+            return GetStage(questId) == -1;
         }
 
-        public QuestType? GetFocusedQuest()
+        public QuestId? GetFocusedQuest()
         {
             return focusedQuest;
         }
 
-        public void Cheat_SetCurrentQuest(QuestType questType, int stageId)
+        public void Cheat_SetCurrentQuest(QuestId questId, int stageId)
         {
             stages.Clear();
-            var currentQuest = (ushort)questType;
+            var currentQuest = (ushort)questId;
 
             //setup completed quests
-            for (ushort i = (ushort)QuestType.MainQuest; i < currentQuest; i++)
+            for (ushort i = (ushort)QuestId.MainQuest; i < currentQuest; i++)
             {
                 stages.Add(i, -1);
             }
 
             stages[currentQuest] = stageId;
-            focusedQuest = questType;
+            focusedQuest = questId;
         }
 
     }

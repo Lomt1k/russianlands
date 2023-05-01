@@ -14,14 +14,14 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
 {
     public class QuestsEditorViewModel : ViewModelBase
     {
-        private EnumValueModel<QuestType>? _selectedQuest;
+        private EnumValueModel<QuestId>? _selectedQuest;
         private Quest? _quest;
         private QuestStage? _selectedStage;
 
-        public ObservableCollection<EnumValueModel<QuestType>> quests { get; }
+        public ObservableCollection<EnumValueModel<QuestId>> quests { get; }
         public ObservableCollection<QuestStage> questStages { get; } = new ObservableCollection<QuestStage>();
 
-        public EnumValueModel<QuestType>? selectedQuest
+        public EnumValueModel<QuestId>? selectedQuest
         {
             get => _selectedQuest;
             set
@@ -60,7 +60,7 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
 
         public QuestsEditorViewModel()
         {
-            quests = EnumValueModel<QuestType>.CreateCollection(excludeValue: QuestType.None);
+            quests = EnumValueModel<QuestId>.CreateCollection(excludeValue: QuestId.None);
             addStageCommand = ReactiveCommand.Create(AddNewStage);
             removeStageCommand = ReactiveCommand.Create(RemoveSelectedStage);
             saveQuestChangesCommand = ReactiveCommand.Create(SaveQuestChanges);

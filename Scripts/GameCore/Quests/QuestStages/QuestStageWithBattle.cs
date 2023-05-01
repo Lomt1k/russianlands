@@ -34,20 +34,20 @@ namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
                 {
                     var nextStage = result == BattleResult.Win ? nextStageIfWin : nextStageIfLose;
                     var questProgress = player.session.profile.dynamicData.quests;
-                    var focusedQuestType = questProgress.GetFocusedQuest();
-                    if (focusedQuestType != null)
+                    var focusedQuestId = questProgress.GetFocusedQuest();
+                    if (focusedQuestId != null)
                     {
-                        questProgress.SetStage(focusedQuestType.Value, nextStage);
+                        questProgress.SetStage(focusedQuestId.Value, nextStage);
                     }
                     return Task.CompletedTask;
                 },
                 onContinueButtonFunc: async(Player player, BattleResult battleResult) =>
                 {
                     var questProgress = player.session.profile.dynamicData.quests;
-                    var focusedQuestType = questProgress.GetFocusedQuest();
-                    if (focusedQuestType != null)
+                    var focusedQuestId = questProgress.GetFocusedQuest();
+                    if (focusedQuestId != null)
                     {
-                        var focusedQuest = QuestsHolder.GetQuest(focusedQuestType.Value);
+                        var focusedQuest = QuestsHolder.GetQuest(focusedQuestId.Value);
                         var currentStage = focusedQuest.GetCurrentStage(player.session);
                         await currentStage.InvokeStage(player.session);
                     }

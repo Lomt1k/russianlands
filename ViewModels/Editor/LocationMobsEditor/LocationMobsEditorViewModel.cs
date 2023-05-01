@@ -8,14 +8,14 @@ namespace TextGameRPG.ViewModels.Editor.LocationMobsEditor
 {
     internal class LocationMobsEditorViewModel : ViewModelBase
     {
-        private EnumValueModel<LocationType>? _selectedLocation;
+        private EnumValueModel<LocationId>? _selectedLocation;
 
-        public ObservableCollection<EnumValueModel<LocationType>> locations { get; }
+        public ObservableCollection<EnumValueModel<LocationId>> locations { get; }
 
         public LocationMobsInspectorView locationInspector { get; }
         public LocationMobsInspectorViewModel locationInspectorViewModel { get; }
 
-        public EnumValueModel<LocationType>? selectedLocation
+        public EnumValueModel<LocationId>? selectedLocation
         {
             get => _selectedLocation;
             set
@@ -30,7 +30,7 @@ namespace TextGameRPG.ViewModels.Editor.LocationMobsEditor
 
         public LocationMobsEditorViewModel()
         {
-            locations = EnumValueModel<LocationType>.CreateCollection(excludeValue: LocationType.None);
+            locations = EnumValueModel<LocationId>.CreateCollection(excludeValue: LocationId.None);
             locationInspector = new LocationMobsInspectorView();
             locationInspector.DataContext = locationInspectorViewModel = new LocationMobsInspectorViewModel();
         }

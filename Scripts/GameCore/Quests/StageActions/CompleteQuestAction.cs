@@ -8,11 +8,11 @@ namespace TextGameRPG.Scripts.GameCore.Quests.StageActions
     public class CompleteQuestAction : StageActionBase
     {
         [JsonProperty]
-        public QuestType questType;
+        public QuestId questId;
 
         public override async Task Execute(GameSession session)
         {
-            var quest = QuestsHolder.GetQuest(questType);
+            var quest = QuestsHolder.GetQuest(questId);
             if (quest == null)
                 return;
 
