@@ -173,5 +173,11 @@ namespace TextGameRPG.Scripts.GameCore.Services.Mobs
             await notificationsManager.ShowNotification(session, sb, () => notificationsManager.GetNotificationsAndEntryTown(session, TownEntryReason.BattleEnd)).FastAwait();
         }
 
+        public string GetTimerViewUntilMobsRespawn(GameSession session)
+        {
+            var timeSpan = serverDailyDataManager.GetTimeUntilNextDay();
+            return $"{Localization.Get(session, "dialog_map_time_until_mob_respawn_header")}\n{timeSpan.GetView(session)}";
+        }
+
     }
 }

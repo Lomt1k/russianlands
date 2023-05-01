@@ -43,6 +43,13 @@ namespace TextGameRPG.Scripts.GameCore.Services.DailyDataManagers
             return Task.CompletedTask;
         }
 
+        public TimeSpan GetTimeUntilNextDay()
+        {
+            var now = DateTime.UtcNow;
+            var nextDay = lastDate.AddDays(1);
+            return nextDay - now;
+        }
+
         private async void WaitNextDay(CancellationToken cancellationToken)
         {
             while (true)

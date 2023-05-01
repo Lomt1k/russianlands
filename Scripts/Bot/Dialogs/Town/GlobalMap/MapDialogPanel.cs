@@ -16,6 +16,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
     public class MapDialogPanel : DialogPanelBase
     {
         private static readonly LocationMobsManager locationMobsManager = Services.Get<LocationMobsManager>();
+        private static readonly NotificationsManager notificationsManager = Services.Get<NotificationsManager>();
 
         private MobDifficulty mobDifficulty => session.profile.dailyData.GetLocationMobDifficulty();
 
@@ -77,7 +78,22 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
             }
 
             var sb = new StringBuilder();
-            sb.Append(Localization.Get(session, "dialog_map_select_location"));
+            sb.AppendLine(Localization.Get(session, "dialog_map_select_location"));
+
+            if (!LocationType.Loc_02.IsLocked(session))
+            {
+                if (locationMobsManager.isMobsReady)
+                {
+                    sb.AppendLine();
+                    sb.AppendLine(locationMobsManager.GetTimerViewUntilMobsRespawn(session));
+                }
+                else
+                {
+                    sb.AppendLine();
+                    sb.AppendLine(Localization.Get(session, "dialog_map_mobs_generation_in_progress"));
+                }
+            }
+
             TryAppendTooltip(sb);
             await SendPanelMessage(sb, GetKeyboardWithFixedRowSize(2)).FastAwait();
         }
@@ -140,13 +156,24 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
 
         private void AppendLocationMobsContent(StringBuilder sb, LocationType locationType)
         {
+            sb.AppendLine();
             if (!locationMobsManager.isMobsReady)
-            {
+            {                
+                sb.AppendLine(Localization.Get(session, "dialog_map_mobs_generation_in_progress"));
                 return;
             }
-            var locationDefeatedMobs = session.profile.dailyData.GetLocationDefeatedMobs(locationType);
 
-            sb.AppendLine();
+            var mobDatas = locationMobsManager[mobDifficulty][locationType];
+            var defeatedMobs = session.profile.dailyData.GetLocationDefeatedMobs(locationType);
+
+            if (defeatedMobs.Count >= mobDatas.Length)
+            {
+                sb.AppendLine(Localization.Get(session, "dialog_map_location_all_enemies_defeated"));
+                sb.AppendLine();
+                sb.AppendLine(locationMobsManager.GetTimerViewUntilMobsRespawn(session));
+                return;
+            }
+
             sb.AppendLine(Localization.Get(session, "dialog_map_location_with_mobs_description"));
             sb.AppendLine();
             sb.AppendLine(Localization.Get(session, "dialog_map_header_special_reward"));
@@ -160,10 +187,9 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
                 }
             }
             
-            var mobDatas = locationMobsManager[mobDifficulty][locationType];
             for (byte i = 0; i < mobDatas.Length; i++)
             {
-                if (locationDefeatedMobs.Contains(i))
+                if (defeatedMobs.Contains(i))
                 {
                     continue;
                 }
@@ -215,7 +241,10 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
             var mobData = locationMobsManager.GetMobBattlePointData(session, locationType, mobIndex);
             if (mobData == null)
             {
-                // Клик в момент пересоздания мобов (можно здесь вывести игроку какое-то сообщение
+                // Клик в момент пересоздания мобов
+                var notification = Localization.Get(session, "dialog_map_mobs_generation_in_progress");
+                await notificationsManager.ShowNotification(session, notification,
+                    () => notificationsManager.GetNotificationsAndEntryTown(session, TownEntryReason.BackFromInnerDialog)).FastAwait();
                 return;
             }
 
