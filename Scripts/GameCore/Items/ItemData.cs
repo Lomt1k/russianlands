@@ -10,7 +10,7 @@ namespace TextGameRPG.Scripts.GameCore.Items
     using TextGameRPG.Scripts.GameCore.Items.Generators;
     using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
 
-    public class ItemData : IDataWithIntegerID
+    public class ItemData : IGameDataWithId<int>
     {
         public string debugName { get; set; }
         public int id { get; }

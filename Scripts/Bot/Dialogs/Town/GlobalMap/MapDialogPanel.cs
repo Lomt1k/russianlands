@@ -18,7 +18,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
     {
         private static readonly LocationMobsManager locationMobsManager = Services.Get<LocationMobsManager>();
 
-        private static DataDictionaryWithEnumID<QuestId,QuestData> quests => gameDataHolder.quests;
+        private static GameDataDictionary<QuestId,QuestData> quests => gameDataHolder.quests;
 
         private MobDifficulty mobDifficulty => session.profile.dailyData.GetLocationMobDifficulty();
 

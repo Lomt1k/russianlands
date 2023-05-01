@@ -19,12 +19,12 @@ namespace TextGameRPG.Scripts.GameCore.Services.GameData
 
         private GameDataLoader? _loader;
 
-        public DataDictionaryWithIntegerID<BuildingData> buildings { get; private set; }
-        public DataDictionaryWithIntegerID<ItemData> items { get; private set; }
-        public DataDictionaryWithIntegerID<MobData> mobs { get; private set; }
-        public DataDictionaryWithIntegerID<PotionData> potions { get; private set; }
-        public DataDictionaryWithEnumID<QuestId, QuestData> quests { get; private set; }
-        public DataDictionaryWithEnumID<LocationId, LocationMobData> locationGeneratedMobs { get; private set; }
+        public GameDataDictionary<int,BuildingData> buildings { get; private set; }
+        public GameDataDictionary<int,ItemData> items { get; private set; }
+        public GameDataDictionary<int,MobData> mobs { get; private set; }
+        public GameDataDictionary<int,PotionData> potions { get; private set; }
+        public GameDataDictionary<QuestId, QuestData> quests { get; private set; }
+        public GameDataDictionary<LocationId, LocationMobData> locationGeneratedMobs { get; private set; }
 
 #pragma warning restore CS8618
 
@@ -40,12 +40,12 @@ namespace TextGameRPG.Scripts.GameCore.Services.GameData
                 _loader?.AddNextState("'gameData' folder not found in Assets! Creating new gameData...");
             }
 
-            buildings = LoadDataWithIntegerID<BuildingData>("buildings");
-            items = LoadDataWithIntegerID<ItemData>("items");
-            mobs = LoadDataWithIntegerID<MobData>("mobs");
-            potions = LoadDataWithIntegerID<PotionData>("potions");
-            quests = LoadDataWithEnumID<QuestId, QuestData>("quests");
-            locationGeneratedMobs = LoadDataWithEnumID<LocationId, LocationMobData>("locationGeneratedMobs");
+            buildings = LoadGameDataDictionary<int,BuildingData>("buildings");
+            items = LoadGameDataDictionary<int,ItemData>("items");
+            mobs = LoadGameDataDictionary<int,MobData>("mobs");
+            potions = LoadGameDataDictionary<int,PotionData>("potions");
+            quests = LoadGameDataDictionary<QuestId, QuestData>("quests");
+            locationGeneratedMobs = LoadGameDataDictionary<LocationId, LocationMobData>("locationGeneratedMobs");
 
             Localizations.Localization.LoadAll(_loader, gameDataPath);
 
@@ -53,20 +53,11 @@ namespace TextGameRPG.Scripts.GameCore.Services.GameData
             onDataReloaded?.Invoke();
         }
 
-        private DataDictionaryWithIntegerID<T> LoadDataWithIntegerID<T>(string fileName) where T : IDataWithIntegerID
+        private GameDataDictionary<TId, TData> LoadGameDataDictionary<TId, TData>(string fileName) where TData : IGameDataWithId<TId>
         {
             _loader?.AddNextState($"Loading {fileName}...");
             string fullPath = Path.Combine(gameDataPath, fileName + ".json");
-            var dataBase = DataDictionaryWithIntegerID<T>.LoadFromJSON<T>(fullPath);
-            _loader?.AddInfoToCurrentState(dataBase.count.ToString());
-            return dataBase;
-        }
-
-        private DataDictionaryWithEnumID<TEnum, TData> LoadDataWithEnumID<TEnum, TData>(string fileName) where TEnum : Enum where TData : IDataWithEnumID<TEnum>
-        {
-            _loader?.AddNextState($"Loading {fileName}...");
-            string fullPath = Path.Combine(gameDataPath, fileName + ".json");
-            var dataBase = DataDictionaryWithEnumID<TEnum, TData>.LoadFromJSON<TEnum, TData>(fullPath);
+            var dataBase = GameDataDictionary<TId, TData>.LoadFromJSON<TId, TData>(fullPath);
             _loader?.AddInfoToCurrentState(dataBase.count.ToString());
             return dataBase;
         }

@@ -10,7 +10,7 @@ using TextGameRPG.Scripts.GameCore.Services.GameData;
 namespace TextGameRPG.Scripts.GameCore.Quests
 {
     [JsonObject]
-    public class QuestData : IDataWithEnumID<QuestId>
+    public class QuestData : IGameDataWithId<QuestId>
     {
         private const int STAGE_FIRST = 100;
 

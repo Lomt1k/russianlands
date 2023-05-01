@@ -11,7 +11,7 @@ using TextGameRPG.Scripts.GameCore.Localizations;
 namespace TextGameRPG.Scripts.GameCore.Units.Mobs
 {
     [JsonObject]
-    public class MobData : IDataWithIntegerID
+    public class MobData : IGameDataWithId<int>
     {
         public int id { get; set; }
         public string debugName { get; set; } = "New Mob";

@@ -6,7 +6,7 @@ using TextGameRPG.Scripts.GameCore.Services.GameData;
 namespace TextGameRPG.Scripts.GameCore.Buildings.Data
 {
     [JsonObject]
-    public class BuildingData : IDataWithIntegerID
+    public class BuildingData : IGameDataWithId<int>
     {
         public int id { get; set; }
         [JsonIgnore]

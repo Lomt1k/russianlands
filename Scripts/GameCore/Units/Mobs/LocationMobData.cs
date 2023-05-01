@@ -10,7 +10,7 @@ using TextGameRPG.Scripts.GameCore.Services.GameData;
 namespace TextGameRPG.Scripts.GameCore.Units.Mobs
 {
     [JsonObject]
-    public class LocationMobData : IDataWithEnumID<LocationId>
+    public class LocationMobData : IGameDataWithId<LocationId>
     {
         [JsonProperty] public LocationId id { get; set; }
         [JsonProperty] public int mobsCount { get; set; }

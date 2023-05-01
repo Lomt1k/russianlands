@@ -11,7 +11,7 @@ using TextGameRPG.ViewModels.UserControls;
 namespace TextGameRPG.Scripts.GameCore.Potions
 {
     [JsonObject] [JsonConverter(typeof(JsonKnownTypesConverter<PotionData>))]    
-    public abstract class PotionData : IDataWithIntegerID
+    public abstract class PotionData : IGameDataWithId<int>
     {
         public string debugName { get; set; } = "New Potion";
         [IgnoreInEditor]
