@@ -1,4 +1,5 @@
-﻿using TextGameRPG.Scripts.GameCore.Locations;
+﻿using System.Collections.Generic;
+using TextGameRPG.Scripts.GameCore.Locations;
 using TextGameRPG.Scripts.GameCore.Units.Mobs;
 using TextGameRPG.Scripts.Utils;
 
@@ -20,7 +21,7 @@ namespace TextGameRPG.Scripts.GameCore.Services.Mobs
                 .GetResult();
         }
 
-        public MobData GenerateMobForLocation(MobDifficulty mobDifficulty, LocationType locationType)
+        public MobData GenerateMobForLocation(MobDifficulty mobDifficulty, LocationType locationType, List<string>? excludeNames)
         {
             if (locationType == LocationType.Loc_01)
             {
@@ -53,7 +54,7 @@ namespace TextGameRPG.Scripts.GameCore.Services.Mobs
                 .IncreaseDamageValuesByPercents(increasePercents)
                 .RandomizeDamageValuesByPercents(10)
                 .ShuffleDamageValues()
-                .SetRandomName(locationType)
+                .SetRandomName(locationType, excludeNames)
                 .GetResult();
         }
 

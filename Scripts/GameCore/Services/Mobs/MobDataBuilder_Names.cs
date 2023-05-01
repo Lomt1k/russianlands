@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using TextGameRPG.Scripts.GameCore.Locations;
 
 namespace TextGameRPG.Scripts.GameCore.Services.Mobs
@@ -100,7 +102,7 @@ namespace TextGameRPG.Scripts.GameCore.Services.Mobs
             "mob_name_caribou",
         };
 
-        public MobDataBuilder SetRandomName(LocationType locationType = LocationType.None)
+        public MobDataBuilder SetRandomName(LocationType locationType = LocationType.None, List<string>? excludeNames = null)
         {
             var random = new Random();
             if (locationType == LocationType.None)
@@ -122,8 +124,12 @@ namespace TextGameRPG.Scripts.GameCore.Services.Mobs
                 _ => throw new NotImplementedException()
             };
 
-            var index = random.Next(array.Length);
-            _mobData.localizationKey = array[index];
+            do
+            {
+                var index = random.Next(array.Length);
+                _mobData.localizationKey = array[index];
+            } while (excludeNames != null && excludeNames.Contains(_mobData.localizationKey));
+            
             return this;
         }
 

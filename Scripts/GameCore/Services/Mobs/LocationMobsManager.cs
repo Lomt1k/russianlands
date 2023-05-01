@@ -91,9 +91,11 @@ namespace TextGameRPG.Scripts.GameCore.Services.Mobs
 
                 var mobsCount = gameDataHolder.locationGeneratedMobs[locationType].mobsCount;
                 var array = new MobData[mobsCount];
+                var excludeNames = new List<string>();
                 for (int i = 0; i < mobsCount; i++)
                 {
-                    array[i] = mobFactory.GenerateMobForLocation(difficulty, locationType);
+                    array[i] = mobFactory.GenerateMobForLocation(difficulty, locationType, excludeNames);
+                    excludeNames.Add(array[i].localizationKey);
                 }
                 result[locationType] = array;
             }
