@@ -8,12 +8,16 @@ using TextGameRPG.Models;
 using TextGameRPG.Models.RegularDialogs;
 using TextGameRPG.Scripts.GameCore.Quests;
 using TextGameRPG.Scripts.GameCore.Quests.QuestStages;
+using TextGameRPG.Scripts.GameCore.Services.GameData;
+using TextGameRPG.Scripts.GameCore.Services;
 using TextGameRPG.Views.Editor.QuestsEditor;
 
 namespace TextGameRPG.ViewModels.Editor.QuestsEditor
 {
     public class QuestsEditorViewModel : ViewModelBase
     {
+        private static readonly GameDataHolder gameDataHolder = Services.Get<GameDataHolder>();
+
         private EnumValueModel<QuestId>? _selectedQuest;
         private QuestData? _quest;
         private QuestStage? _selectedStage;
@@ -29,7 +33,7 @@ namespace TextGameRPG.ViewModels.Editor.QuestsEditor
                 this.RaiseAndSetIfChanged(ref _selectedQuest, value);
                 if (value != null)
                 {
-                    _quest = QuestsHolder.GetQuest(value.value);
+                    _quest = gameDataHolder.quests[value.value];
                     selectedStage = null;
                     questStages.Clear();
                     foreach (var stage in _quest.stages)

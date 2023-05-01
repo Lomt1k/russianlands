@@ -1,6 +1,7 @@
 ﻿using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Quests;
 using TextGameRPG.Scripts.Bot.Sessions;
+using TextGameRPG.Scripts.GameCore.Services.GameData;
 
 namespace TextGameRPG.Scripts.GameCore.Locations
 {
@@ -18,6 +19,8 @@ namespace TextGameRPG.Scripts.GameCore.Locations
 
     public static class LocationExtensions
     {
+        private static readonly GameDataHolder gameDataHolder = Services.Services.Get<GameDataHolder>();
+
         public static string GetLocalization(this LocationId locationId, GameSession session)
         {
             return Localization.Get(session, $"menu_item_location_{(int)locationId}");
@@ -44,7 +47,7 @@ namespace TextGameRPG.Scripts.GameCore.Locations
             if (questId == null)
                 return false;
 
-            var quest = QuestsHolder.GetQuest(questId.Value);
+            var quest = gameDataHolder.quests[questId.Value];
             bool isLocked = !quest.IsStarted(session);
             return isLocked;
         }

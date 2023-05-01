@@ -47,7 +47,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages
                     var focusedQuestId = questProgress.GetFocusedQuest();
                     if (focusedQuestId != null)
                     {
-                        var focusedQuest = QuestsHolder.GetQuest(focusedQuestId.Value);
+                        var focusedQuest = gameDataBase.quests[focusedQuestId.Value];
                         var currentStage = focusedQuest.GetCurrentStage(player.session);
                         await currentStage.InvokeStage(player.session);
                     }

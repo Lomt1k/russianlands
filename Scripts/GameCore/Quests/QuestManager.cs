@@ -8,11 +8,13 @@ using TextGameRPG.Scripts.Bot.Dialogs.Town;
 using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Resources;
 using TextGameRPG.Scripts.GameCore.Services;
+using TextGameRPG.Scripts.GameCore.Services.GameData;
 
 namespace TextGameRPG.Scripts.GameCore.Quests
 {
     public class QuestManager
     {
+        private static readonly GameDataHolder gameDataHolder = Services.Services.Get<GameDataHolder>();
         private static readonly NotificationsManager notificationsManager = Services.Services.Get<NotificationsManager>();
 
         public static async Task HandleNewSession(GameSession session, Update update)
@@ -23,14 +25,14 @@ namespace TextGameRPG.Scripts.GameCore.Quests
             {
                 if (!playerQuestsProgress.IsStarted(QuestId.MainQuest))
                 {
-                    await QuestsHolder.GetQuest(QuestId.MainQuest).StartQuest(session).FastAwait();
+                    await gameDataHolder.quests[QuestId.MainQuest].StartQuest(session).FastAwait();
                     return;
                 }
                 await notificationsManager.GetNotificationsAndEntryTown(session, TownEntryReason.StartNewSession).FastAwait();
                 return;
             }
 
-            var focusedQuest = QuestsHolder.GetQuest(focusedQuestId.Value);
+            var focusedQuest = gameDataHolder.quests[focusedQuestId.Value];
             var stageId = playerQuestsProgress.GetStage(focusedQuestId.Value);            
             var stage = focusedQuest.GetCurrentStage(session);
 
@@ -92,7 +94,7 @@ namespace TextGameRPG.Scripts.GameCore.Quests
             if (focusedQuestId == null)
                 return;
 
-            var focusedQuest = QuestsHolder.GetQuest(focusedQuestId.Value);
+            var focusedQuest = gameDataHolder.quests[focusedQuestId.Value];
             var stageId = session.profile.dynamicData.quests.GetStage(focusedQuestId.Value);            
             var stage = focusedQuest.GetCurrentStage(session);
 

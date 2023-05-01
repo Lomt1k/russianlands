@@ -48,6 +48,11 @@ namespace TextGameRPG.Scripts.GameCore.Services.GameData
             return _dictionary.ContainsKey(id);
         }
 
+        public bool TryGetValue(int id, out T value)
+        {
+            return _dictionary.TryGetValue(id, out value);
+        }
+
         public IEnumerable<T> GetAllData()
         {
             return _dictionary.Values;

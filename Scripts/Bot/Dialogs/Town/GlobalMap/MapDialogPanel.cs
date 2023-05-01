@@ -9,6 +9,7 @@ using TextGameRPG.Scripts.GameCore.Quests.QuestStages;
 using TextGameRPG.Scripts.GameCore.Resources;
 using TextGameRPG.Scripts.GameCore.Rewards;
 using TextGameRPG.Scripts.GameCore.Services;
+using TextGameRPG.Scripts.GameCore.Services.GameData;
 using TextGameRPG.Scripts.GameCore.Services.Mobs;
 
 namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
@@ -16,7 +17,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
     public class MapDialogPanel : DialogPanelBase
     {
         private static readonly LocationMobsManager locationMobsManager = Services.Get<LocationMobsManager>();
-        private static readonly NotificationsManager notificationsManager = Services.Get<NotificationsManager>();
+
+        private static DataDictionaryWithEnumID<QuestId,QuestData> quests => gameDataHolder.quests;
 
         private MobDifficulty mobDifficulty => session.profile.dailyData.GetLocationMobDifficulty();
 
@@ -47,13 +49,15 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
                 }
 
                 var questId = locationId.GetQuest();
-                var quest = questId.HasValue ? QuestsHolder.GetQuest(questId.Value) : null;
-                var hasStory = quest != null && quest.IsStarted(session) && !quest.IsCompleted(session);
-                if (hasStory)
+                if (questId != null && quests.TryGetValue(questId.Value, out var quest))
                 {
-                    RegisterButton(Emojis.ButtonStoryMode + locationName, () => ShowLocation(locationId));
-                    continue;
-                }
+                    var hasStory = quest.IsStarted(session) && !quest.IsCompleted(session);
+                    if (hasStory)
+                    {
+                        RegisterButton(Emojis.ButtonStoryMode + locationName, () => ShowLocation(locationId));
+                        continue;
+                    }
+                }                
 
                 var mobsCount = locationMobsManager.isMobsReady ? locationMobsManager[mobDifficulty][locationId].Length : 0;
                 var defeatedMobsCount = session.profile.dailyData.GetLocationDefeatedMobs(locationId).Count;
@@ -123,7 +127,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
             var hasActiveQuest = false;
             if (questId.HasValue)
             {
-                var quest = QuestsHolder.GetQuest(questId.Value);
+                var quest = quests[questId.Value];
                 hasActiveQuest = quest.IsStarted(session) && !quest.IsCompleted(session);
                 if (hasActiveQuest)
                 {
@@ -151,7 +155,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
             sb.AppendLine(Emojis.ButtonStoryMode + progressText);
 
             RegisterButton(Emojis.ButtonStoryMode + Localization.Get(session, "dialog_map_continue_story_mode"),
-                () => ContinueStoryMode(quest.questId.GetLocation().EnsureNotNull()));
+                () => ContinueStoryMode(quest.id.GetLocation().EnsureNotNull()));
         }
 
         private void AppendLocationMobsContent(StringBuilder sb, LocationId locationId)
@@ -206,7 +210,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
             if (questId == null)
                 return;
 
-            var quest = QuestsHolder.GetQuest(questId.Value);
+            var quest = quests[questId.Value];
             if (quest == null || !quest.IsStarted(session))
                 return;
 

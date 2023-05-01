@@ -1,7 +1,6 @@
 ﻿using System.Text;
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Localizations;
-using TextGameRPG.Scripts.GameCore.Quests;
 using TextGameRPG.Scripts.GameCore.Quests.Characters;
 using TextGameRPG.Scripts.GameCore.Quests.QuestStages;
 using TextGameRPG.Scripts.Bot.Sessions;
@@ -43,7 +42,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Quests
                 Program.logger.Error("Can`t get answer because focusedQuest is NULL!");
                 return;
             }
-            var quest = QuestsHolder.GetQuest(focusedQuest.Value);
+            var quest = gameDataHolder.quests[focusedQuest.Value];
             await quest.SetStage(session, nextStageId);
         }
 

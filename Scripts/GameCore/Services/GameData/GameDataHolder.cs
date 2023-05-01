@@ -7,6 +7,7 @@ namespace TextGameRPG.Scripts.GameCore.Services.GameData
     using TextGameRPG.Scripts.GameCore.Buildings.Data;
     using TextGameRPG.Scripts.GameCore.Locations;
     using TextGameRPG.Scripts.GameCore.Potions;
+    using TextGameRPG.Scripts.GameCore.Quests;
     using TextGameRPG.Scripts.GameCore.Units.Mobs;
     using TextGameRPG.ViewModels;
 
@@ -22,6 +23,7 @@ namespace TextGameRPG.Scripts.GameCore.Services.GameData
         public DataDictionaryWithIntegerID<ItemData> items { get; private set; }
         public DataDictionaryWithIntegerID<MobData> mobs { get; private set; }
         public DataDictionaryWithIntegerID<PotionData> potions { get; private set; }
+        public DataDictionaryWithEnumID<QuestId, QuestData> quests { get; private set; }
         public DataDictionaryWithEnumID<LocationId, LocationMobData> locationGeneratedMobs { get; private set; }
 
 #pragma warning restore CS8618
@@ -42,10 +44,10 @@ namespace TextGameRPG.Scripts.GameCore.Services.GameData
             items = LoadDataWithIntegerID<ItemData>("items");
             mobs = LoadDataWithIntegerID<MobData>("mobs");
             potions = LoadDataWithIntegerID<PotionData>("potions");
+            quests = LoadDataWithEnumID<QuestId, QuestData>("quests");
             locationGeneratedMobs = LoadDataWithEnumID<LocationId, LocationMobData>("locationGeneratedMobs");
 
             Localizations.Localization.LoadAll(_loader, gameDataPath);
-            Quests.QuestsHolder.LoadAll(_loader, gameDataPath);
 
             _loader?.OnGameDataLoaded();
             onDataReloaded?.Invoke();
@@ -78,8 +80,8 @@ namespace TextGameRPG.Scripts.GameCore.Services.GameData
             items.Save();
             mobs.Save();
             potions.Save();
+            quests.Save();
             locationGeneratedMobs.Save();
-            Quests.QuestsHolder.SaveQuests();
         }
 
     }

@@ -11,12 +11,16 @@ using System.Text;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Quests.QuestStages;
 using TextGameRPG.Scripts.GameCore.Services;
+using TextGameRPG.Scripts.GameCore.Services.GameData;
 
 namespace TextGameRPG.Scripts.Bot.Dialogs
 {
     public abstract class DialogPanelBase
     {
         protected static readonly MessageSender messageSender = Services.Get<MessageSender>();
+        protected static readonly NotificationsManager notificationsManager = Services.Get<NotificationsManager>();
+        protected static readonly GameDataHolder gameDataHolder = Services.Get<GameDataHolder>();
+
         public DialogWithPanel dialog { get; }
         public GameSession session { get; }
         public Tooltip? tooltip { get; private set; }
@@ -258,7 +262,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs
                         var focusedQuest = session.profile.dynamicData.quests.GetFocusedQuest();
                         if (focusedQuest != null)
                         {
-                            var quest = GameCore.Quests.QuestsHolder.GetQuest(focusedQuest.Value);
+                            var quest = gameDataHolder.quests[focusedQuest.Value];
                             await quest.SetStage(session, newStage).FastAwait();
                         }
                     }

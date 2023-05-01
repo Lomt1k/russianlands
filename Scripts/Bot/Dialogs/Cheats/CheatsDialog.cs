@@ -394,7 +394,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
             if (focusedQuest.HasValue)
             {
                 sb.AppendLine();
-                var quest = QuestsHolder.GetQuest(focusedQuest.Value);
+                var quest = gameDataHolder.quests[focusedQuest.Value];
                 sb.AppendLine($"Current quest: {focusedQuest}");
                 sb.AppendLine($"Current stage: {quest.GetCurrentStage(session).id}");
             }            
@@ -404,10 +404,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
 
         private async Task SelectQuestStage(QuestId questId)
         {
-            var quest = QuestsHolder.GetQuest(questId);
-            if (quest == null)
-                return;
-
+            var quest = gameDataHolder.quests[questId];
             var stages = quest.stages;
             ClearButtons();
             foreach (var stage in stages)
@@ -425,10 +422,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats
 
         private async Task SetupCurrentQuestProgress(QuestId questId, int stageId)
         {
-            var quest = QuestsHolder.GetQuest(questId);
-            if (quest == null)
-                return;
-
+            var quest = gameDataHolder.quests[questId];
             var sb = new StringBuilder();
             sb.AppendLine($"Quest progress changed".Bold());
             sb.AppendLine($"Current quest: {questId}");
