@@ -27,7 +27,7 @@ public class TownCharacterDialog : DialogBase
         var potionsButton = IsPotionsDialogAvailable()
             ? Emojis.ButtonPotions + potionsText + $" ({session.player.potions.GetReadyPotionsCount()})"
             : Emojis.ElementLocked + potionsText;
-        RegisterButton(potionsButton, () => TryShowPotionsDialog());
+        RegisterButton(potionsButton, TryShowPotionsDialog);
 
         var skillsEmoji = IsSkillsDialogAvailable() ? Emojis.ButtonSkills : Emojis.ElementLocked;
         RegisterButton(skillsEmoji + Localization.Get(session, "menu_item_skills"), () => TryShowSkillsDialog());

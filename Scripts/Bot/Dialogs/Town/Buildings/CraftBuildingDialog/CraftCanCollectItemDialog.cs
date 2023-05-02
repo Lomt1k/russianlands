@@ -36,7 +36,7 @@ public class CraftCanCollectItemDialog : DialogBase
 
         ClearButtons();
         var getButton = Localization.Get(session, "menu_item_get_button") + itemType.GetEmoji();
-        RegisterButton(getButton, () => TryToGetItem());
+        RegisterButton(getButton, TryToGetItem);
         RegisterBackButton(() => new BuildingsDialog(session).StartWithShowBuilding(_building));
         RegisterTownButton(isDoubleBack: true);
 
@@ -54,7 +54,7 @@ public class CraftCanCollectItemDialog : DialogBase
             ClearButtons();
             RegisterButton(Emojis.ButtonInventory + Localization.Get(session, "menu_item_inventory"),
                 () => new InventoryDialog(session).Start());
-            RegisterBackButton(() => Start());
+            RegisterBackButton(Start);
 
             await SendDialogMessage(text, GetMultilineKeyboard()).FastAwait();
             return;

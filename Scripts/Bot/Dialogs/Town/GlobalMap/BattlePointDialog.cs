@@ -41,7 +41,7 @@ public class BattlePointDialog : DialogBase
         ClearButtons();
         var priceView = _data.foodPrice > 0 ? ResourceId.Food.GetEmoji() + _data.foodPrice.View() : string.Empty;
         var startBattleButton = Localization.Get(session, "dialog_mob_battle_point_start_battle", priceView);
-        RegisterButton(startBattleButton, () => TryStartBattle());
+        RegisterButton(startBattleButton, TryStartBattle);
         if (_data.onBackButtonFunc != null)
         {
             RegisterBackButton(_data.onBackButtonFunc);

@@ -38,13 +38,13 @@ public class CheatsDialog : DialogBase
         sb.AppendLine($"Telegram Id: ".Bold() + session.profile.data.telegram_id);
 
         ClearButtons();
-        RegisterButton("Resources", () => ShowResourcesGroup());
-        RegisterButton("Items", () => ShowItemsGroup());
-        RegisterButton("Buildings", () => ShowBuildingsGroup());
-        RegisterButton("Skills", () => ShowSkillsGroup());
-        RegisterButton("Quest Progress", () => ShowQuestProgressGroup());
-        RegisterButton("Language", () => ShowLanguageGroup());
-        RegisterButton("Account", () => ShowAccountGroup());
+        RegisterButton("Resources", ShowResourcesGroup);
+        RegisterButton("Items", ShowItemsGroup);
+        RegisterButton("Buildings", ShowBuildingsGroup);
+        RegisterButton("Skills", ShowSkillsGroup);
+        RegisterButton("Quest Progress", ShowQuestProgressGroup);
+        RegisterButton("Language", ShowLanguageGroup);
+        RegisterButton("Account", ShowAccountGroup);
         RegisterTownButton(isDoubleBack: false);
 
         await SendDialogMessage(sb, GetKeyboardWithRowSizes(3, 2, 2, 1)).FastAwait();
@@ -65,7 +65,7 @@ public class CheatsDialog : DialogBase
                 : resourceId.ToString();
             RegisterButton(shortName, () => SelectAmountForAddResource(resourceId));
         }
-        RegisterBackButton("Cheats", () => Start());
+        RegisterBackButton("Cheats", Start);
         RegisterTownButton(isDoubleBack: true);
 
         await SendDialogMessage("Resources".Bold(), GetKeyboardWithFixedRowSize(3)).FastAwait();
@@ -83,8 +83,8 @@ public class CheatsDialog : DialogBase
         RegisterButton("1kk", () => InvokeAddResourceCommand(resourceId, 1_000_000));
         RegisterButton("10kk", () => InvokeAddResourceCommand(resourceId, 10_000_000));
         RegisterButton("MAX", () => InvokeAddResourceCommand(resourceId, int.MaxValue));
-        RegisterBackButton("Resources", () => ShowResourcesGroup());
-        RegisterDoubleBackButton("Cheats", () => Start());
+        RegisterBackButton("Resources", ShowResourcesGroup);
+        RegisterDoubleBackButton("Cheats", Start);
 
         var text = $"{resourceId} | Add amount:";
         await SendDialogMessage(text, GetKeyboardWithRowSizes(3, 3, 3, 2)).FastAwait();
@@ -112,7 +112,7 @@ public class CheatsDialog : DialogBase
 
             RegisterButton(itemType.ToString(), () => SelectRarityForItem(itemType));
         }
-        RegisterBackButton("Cheats", () => Start());
+        RegisterBackButton("Cheats", Start);
 
         await SendDialogMessage("Items".Bold(), GetKeyboardWithFixedRowSize(3)).FastAwait();
     }
@@ -124,8 +124,8 @@ public class CheatsDialog : DialogBase
         {
             RegisterButton(rarity.ToString(), () => SelectTownhallLevelForItem(itemType, rarity));
         }
-        RegisterBackButton("ItemType", () => ShowItemsGroup());
-        RegisterDoubleBackButton("Cheats", () => Start());
+        RegisterBackButton("ItemType", ShowItemsGroup);
+        RegisterDoubleBackButton("Cheats", Start);
 
         var text = $"{itemType} | Select rarity:";
         await SendDialogMessage(text, GetKeyboardWithFixedRowSize(2)).FastAwait();
@@ -140,7 +140,7 @@ public class CheatsDialog : DialogBase
             RegisterButton(levelForDelegate.ToString(), () => InvokeAddItemCommand(itemType, rarity, levelForDelegate));
         }
         RegisterBackButton("Rarity", () => SelectRarityForItem(itemType));
-        RegisterDoubleBackButton("Items", () => ShowItemsGroup());
+        RegisterDoubleBackButton("Items", ShowItemsGroup);
 
         var text = $"{itemType}, {rarity} | Select Townhall:";
         await SendDialogMessage(text, GetKeyboardWithFixedRowSize(4)).FastAwait();
@@ -155,8 +155,8 @@ public class CheatsDialog : DialogBase
 
         ClearButtons();
         RegisterButton(Emojis.ElementPlus + "Generate", () => InvokeAddItemCommand(itemType, rarity, townhallLevel));
-        RegisterBackButton("Items", () => ShowItemsGroup());
-        RegisterDoubleBackButton("Cheats", () => Start());
+        RegisterBackButton("Items", ShowItemsGroup);
+        RegisterDoubleBackButton("Cheats", Start);
 
         await SendDialogMessage(command, GetMultilineKeyboardWithDoubleBack()).FastAwait();
         await CommandHandler.HandleCommand(session, command).FastAwait();
@@ -171,13 +171,13 @@ public class CheatsDialog : DialogBase
     {
         ClearButtons();
 
-        RegisterButton("All buildings", () => SelectLevelForAllBuildings());
-        RegisterButton("Townhall + Storages", () => SelectLevelForTownhallAndStorages());
+        RegisterButton("All buildings", SelectLevelForAllBuildings);
+        RegisterButton("Townhall + Storages", SelectLevelForTownhallAndStorages);
         foreach (BuildingId buildingId in Enum.GetValues(typeof(BuildingId)))
         {
             RegisterButton(buildingId.ToString(), () => SelectLevelForBuilding(buildingId));
         }
-        RegisterBackButton("Cheats", () => Start());
+        RegisterBackButton("Cheats", Start);
         RegisterTownButton(isDoubleBack: true);
 
         await SendDialogMessage("Buildings".Bold(), GetMultilineKeyboardWithDoubleBack()).FastAwait();
@@ -193,8 +193,8 @@ public class CheatsDialog : DialogBase
             var levelForDelegate = i; // important!
             RegisterButton($"TownHall: Lvl {i}", () => SetLevelForTownhallAndStorages(levelForDelegate));
         }
-        RegisterBackButton("Buildings", () => ShowBuildingsGroup());
-        RegisterDoubleBackButton("Cheats", () => Start());
+        RegisterBackButton("Buildings", ShowBuildingsGroup);
+        RegisterDoubleBackButton("Cheats", Start);
 
         var text = $"Townhall + Storages | Change level:";
         await SendDialogMessage(text, GetMultilineKeyboardWithDoubleBack()).FastAwait();
@@ -210,8 +210,8 @@ public class CheatsDialog : DialogBase
             var levelForDelegate = i; // important!
             RegisterButton($"TownHall: Lvl {i}", () => SetLevelForAllBuildingsByTownhall(levelForDelegate));
         }
-        RegisterBackButton("Buildings", () => ShowBuildingsGroup());
-        RegisterDoubleBackButton("Cheats", () => Start());
+        RegisterBackButton("Buildings", ShowBuildingsGroup);
+        RegisterDoubleBackButton("Cheats", Start);
 
         var text = $"All buildings | Set level by townhall:";
         await SendDialogMessage(text, GetMultilineKeyboardWithDoubleBack()).FastAwait();
@@ -227,8 +227,8 @@ public class CheatsDialog : DialogBase
             var levelForDelegate = i; // important!
             RegisterButton(i.ToString(), () => SetBuildingLevel(buildingId, levelForDelegate));
         }
-        RegisterBackButton("Buildings", () => ShowBuildingsGroup());
-        RegisterDoubleBackButton("Cheats", () => Start());
+        RegisterBackButton("Buildings", ShowBuildingsGroup);
+        RegisterDoubleBackButton("Cheats", Start);
 
         var text = $"{buildingId} | Change level:";
         await SendDialogMessage(text, GetMultilineKeyboardWithDoubleBack()).FastAwait();
@@ -322,7 +322,7 @@ public class CheatsDialog : DialogBase
             RegisterButton(itemType.ToString(), () => SelectLevelForSkill(itemType));
         }
         RegisterButton("ALL", () => SelectLevelForSkill(ItemType.Any));
-        RegisterBackButton("Cheats", () => Start());
+        RegisterBackButton("Cheats", Start);
         RegisterTownButton(isDoubleBack: true);
 
         var text = "Skills\n\n".Bold() + session.player.skills.GetShortView();
@@ -340,8 +340,8 @@ public class CheatsDialog : DialogBase
             var levelForDelegate = i; // important!
             RegisterButton(i.ToString(), () => SetSkillLevel(itemType, levelForDelegate));
         }
-        RegisterBackButton("Skills", () => ShowSkillsGroup());
-        RegisterDoubleBackButton("Cheats", () => Start());
+        RegisterBackButton("Skills", ShowSkillsGroup);
+        RegisterDoubleBackButton("Cheats", Start);
 
         var text = itemType == ItemType.Any
             ? "ALL SKILLS | Change skill level:"
@@ -384,7 +384,7 @@ public class CheatsDialog : DialogBase
 
             RegisterButton(questId.ToString(), () => SelectQuestStage(questId));
         }
-        RegisterBackButton("Cheats", () => Start());
+        RegisterBackButton("Cheats", Start);
         RegisterTownButton(isDoubleBack: true);
 
         var sb = new StringBuilder();
@@ -413,8 +413,8 @@ public class CheatsDialog : DialogBase
             var stageView = $"{stage.id} - {comment}";
             RegisterButton(stageView, () => SetupCurrentQuestProgress(questId, stage.id));
         }
-        RegisterBackButton("Quest Progress", () => ShowQuestProgressGroup());
-        RegisterDoubleBackButton("Cheats", () => Start());
+        RegisterBackButton("Quest Progress", ShowQuestProgressGroup);
+        RegisterDoubleBackButton("Cheats", Start);
 
         var text = $"{questId} | Set stage:";
         await SendDialogMessage(text, GetMultilineKeyboardWithDoubleBack()).FastAwait();
@@ -445,7 +445,7 @@ public class CheatsDialog : DialogBase
         {
             RegisterButton(code.ToString(), () => InvokeLanguageCommand(code));
         }
-        RegisterBackButton("Cheats", () => Start());
+        RegisterBackButton("Cheats", Start);
         RegisterTownButton(isDoubleBack: true);
 
         var text = "Switch language".Bold() + $"\n\nCurrent language: {session.language}";
@@ -467,10 +467,10 @@ public class CheatsDialog : DialogBase
     private async Task ShowAccountGroup()
     {
         ClearButtons();
-        RegisterButton(Emojis.ElementWarning + "Reset game", () => ResetAccountConfirmation());
-        RegisterButton("Export", () => ExportAccount());
-        RegisterButton("Import", () => ImportAccount());
-        RegisterBackButton("Cheats", () => Start());
+        RegisterButton(Emojis.ElementWarning + "Reset game", ResetAccountConfirmation);
+        RegisterButton("Export", ExportAccount);
+        RegisterButton("Import", ImportAccount);
+        RegisterBackButton("Cheats", Start);
         RegisterTownButton(isDoubleBack: true);
 
         var text = "Account".Bold();
@@ -480,9 +480,9 @@ public class CheatsDialog : DialogBase
     private async Task ResetAccountConfirmation()
     {
         ClearButtons();
-        RegisterButton(Emojis.ElementWarning + "Yes, reset!", () => ResetAccount());
-        RegisterBackButton("Account", () => ShowAccountGroup());
-        RegisterDoubleBackButton("Cheats", () => Start());
+        RegisterButton(Emojis.ElementWarning + "Yes, reset!", ResetAccount);
+        RegisterBackButton("Account", ShowAccountGroup);
+        RegisterDoubleBackButton("Cheats", Start);
 
         var sb = new StringBuilder();
         sb.AppendLine("Are you sure you want to reset your progress?");
@@ -525,10 +525,10 @@ public class CheatsDialog : DialogBase
     private async Task ImportAccount()
     {
         ClearButtons();
-        RegisterBackButton("Account", () => ShowAccountGroup());
-        RegisterDoubleBackButton("Cheats", () => Start());
+        RegisterBackButton("Account", ShowAccountGroup);
+        RegisterDoubleBackButton("Cheats", Start);
 
-        _onReceivedFileFromUser = (filePath) => OnAccountStateDownloaded(filePath);
+        _onReceivedFileFromUser = OnAccountStateDownloaded;
 
         await SendDialogMessage("Send profile .dat file", GetMultilineKeyboardWithDoubleBack()).FastAwait();
     }

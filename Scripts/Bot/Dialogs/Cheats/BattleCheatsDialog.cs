@@ -8,9 +8,9 @@ public class BattleCheatsDialog : DialogBase
 {
     public BattleCheatsDialog(GameSession _session) : base(_session)
     {
-        RegisterButton("Win", () => BattleWinCommand());
-        RegisterButton("Lose", () => BattleLoseCommand());
-        RegisterButton("Draw", () => BattleDrawCommand());
+        RegisterButton("Win", BattleWinCommand);
+        RegisterButton("Lose", BattleLoseCommand);
+        RegisterButton("Draw", BattleDrawCommand);
     }
 
     public override async Task Start()

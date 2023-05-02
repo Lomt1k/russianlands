@@ -47,7 +47,7 @@ public partial class BuildingsDialogPanel : DialogPanelBase
         AppendProductionInfo(sb);
 
         ClearButtons();
-        RegisterButton(Localization.Get(session, "dialog_buildings_get_resources"), () => TryCollectResources());
+        RegisterButton(Localization.Get(session, "dialog_buildings_get_resources"), TryCollectResources);
         RegisterCategoryButton(BuildingCategory.General);
         RegisterCategoryButton(BuildingCategory.Storages);
         RegisterCategoryButton(BuildingCategory.Production);
@@ -124,7 +124,7 @@ public partial class BuildingsDialogPanel : DialogPanelBase
             var name = GetPrefix(building, _buildingsData) + building.GetLocalizedName(session, _buildingsData);
             RegisterButton(name, () => ShowBuilding(building));
         }
-        RegisterBackButton(() => ShowCategories());
+        RegisterBackButton(ShowCategories);
 
         TryAppendTooltip(sb);
         await SendPanelMessage(sb, GetListKeyboard(category)).FastAwait();
@@ -156,7 +156,7 @@ public partial class BuildingsDialogPanel : DialogPanelBase
     private async Task TryCollectResources()
     {
         ClearButtons();
-        RegisterButton(Localization.Get(session, "menu_item_continue_button"), () => ShowCategories());
+        RegisterButton(Localization.Get(session, "menu_item_continue_button"), ShowCategories);
         var message = TryCollectResourcesDialog.StartLogicAndGetResultMessage(session);
         await SendPanelMessage(message, GetOneLineKeyboard()).FastAwait();
     }

@@ -44,7 +44,7 @@ public class CraftInProgressDialog : DialogBase
         var diamondsForBoost = GetBoostPriceInDiamonds();
         var priceView = ResourceId.Diamond.GetEmoji().ToString() + diamondsForBoost;
         var buttonText = Localization.Get(session, "menu_item_boost_button", priceView);
-        RegisterButton(buttonText, () => TryBoostCraftForDiamonds());
+        RegisterButton(buttonText, TryBoostCraftForDiamonds);
         RegisterBackButton(() => new BuildingsDialog(session).StartWithShowBuilding(_building));
         RegisterTownButton(isDoubleBack: true);
 

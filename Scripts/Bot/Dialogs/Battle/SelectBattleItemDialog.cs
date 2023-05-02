@@ -130,7 +130,7 @@ public class SelectBattleItemDialog : DialogBase
         if (playerStats.availablePotions > 0)
         {
             var potionsButtonText = Emojis.ButtonPotions + Localization.Get(session, "menu_item_potions");
-            RegisterButton(potionsButtonText, () => ShowPotionsSelection());
+            RegisterButton(potionsButtonText, ShowPotionsSelection);
             multiRow.Add(potionsButtonText);
         }
         if (equipped.HasItem(ItemType.Scroll))
@@ -199,7 +199,7 @@ public class SelectBattleItemDialog : DialogBase
             sb.AppendLine(Emojis.ElementWarningGrey + Localization.Get(session, "battle_not_enough_mana"));
         }
 
-        RegisterBackButton(() => Start());
+        RegisterBackButton(Start);
         await SendDialogMessage(sb, GetMultilineKeyboard()).FastAwait();
     }
 
@@ -250,7 +250,7 @@ public class SelectBattleItemDialog : DialogBase
         sb.AppendLine(Localization.Get(session, "battle_potion_selection"));
 
         ClearButtons();
-        RegisterBackButton(() => Start());
+        RegisterBackButton(Start);
 
         var startBattleTime = _battleTurn.battle.startTime.Ticks;
         var potions = session.player.potions.Where(x => x.preparationTime < startBattleTime);

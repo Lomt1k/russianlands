@@ -170,13 +170,13 @@ public partial class InventoryInspectorDialogPanel : DialogPanelBase
             }
         }
 
-        RegisterBackButton(() => ShowCategories());
+        RegisterBackButton(ShowCategories);
         if (_pagesCount > 1)
         {
             text.AppendLine(Localization.Get(session, "dialog_inventory_current_page", _currentPage + 1, _pagesCount));
             if (_currentPage > 0)
             {
-                RegisterButton("<<", () => OnClickPreviousPage());
+                RegisterButton("<<", OnClickPreviousPage);
             }
             else
             {
@@ -185,7 +185,7 @@ public partial class InventoryInspectorDialogPanel : DialogPanelBase
 
             if (_currentPage < _pagesCount - 1)
             {
-                RegisterButton(">>", () => OnClickNextPage());
+                RegisterButton(">>", OnClickNextPage);
             }
             else
             {

@@ -23,7 +23,7 @@ public partial class PotionsDialogPanel : DialogPanelBase
         {
             RegisterButton(potionData.GetName(session), () => ShowPotionsProductionAmountSelection(potionData));
         }
-        RegisterBackButton(() => ShowPotionsList());
+        RegisterBackButton(ShowPotionsList);
 
         await SendPanelMessage(header, GetMultilineKeyboard()).FastAwait();
     }

@@ -279,7 +279,7 @@ public abstract class DialogBase
     {
         foreach (var button in buttonsToBlock)
         {
-            _registeredButtons[button] = () => TryResendDialog();
+            _registeredButtons[button] = TryResendDialog;
         }
     }
 
