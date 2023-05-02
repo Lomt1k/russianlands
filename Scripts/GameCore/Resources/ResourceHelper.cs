@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using TextGameRPG.Scripts.GameCore.Localizations;
-using TextGameRPG.Scripts.Bot;
-using TextGameRPG.Scripts.Bot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Resources
 {
@@ -68,10 +64,10 @@ namespace TextGameRPG.Scripts.GameCore.Resources
             maxBoostTrainingInDiamondsBySeconds = boostTrainingInDiamondsBySeconds.Last();
         }
 
-        public static int CalculatePriceInDiamonds(ResourceId resourceId, int resourceAmount)
+        public static int CalculatePriceInDiamonds(ResourceData resourceData)
         {
-            var standardPrice = CalculateStandardPrice(resourceAmount);
-            var coef = resourceByDiamondsCoefs[resourceId];
+            var standardPrice = CalculateStandardPrice(resourceData.amount);
+            var coef = resourceByDiamondsCoefs[resourceData.resourceId];
 
             var resultPrice = (int)Math.Round(standardPrice * coef);
             return Math.Max(resultPrice, 1);
@@ -107,75 +103,20 @@ namespace TextGameRPG.Scripts.GameCore.Resources
             return (int)Math.Round(progression * priceDelta) + lowerKVP.Value;
         }
 
-        public static string GetResourcesView(GameSession session, Dictionary<ResourceId, int> resources)
+        public static ResourceData CalculateConstructionBoostPriceInDiamonds(int seconds)
         {
-            var sb = new StringBuilder();
-            foreach (var kvp in resources)
-            {
-                var resourceId = kvp.Key;
-                var resourceAmount = kvp.Value;
-                sb.AppendLine(resourceId.GetLocalizedView(session, resourceAmount));
-            }
-            return sb.ToString();
-        }
-
-        public static string GetPriceView(GameSession session, Dictionary<ResourceId,int> resources)
-        {
-            var sb = new StringBuilder();
-            sb.AppendLine(Localization.Get(session, "resource_header_price"));
-
-            bool hasAmount = false;
-            foreach (var kvp in resources)
-            {
-                var resourceId = kvp.Key;
-                var resourceAmount = kvp.Value;
-                if (resourceAmount < 1)
-                    continue;
-
-                hasAmount = true;
-                sb.AppendLine(resourceId.GetLocalizedView(session, resourceAmount));
-            }
-
-            if (!hasAmount)
-            {
-                sb.AppendLine(Localization.Get(session, "resource_price_free"));
-            }
-
-            return sb.ToString();
-        }
-
-        public static string GetCompactResourcesView(Dictionary<ResourceId, int> resources)
-        {
-            var sb = new StringBuilder();
-            int elementsInCurrentRow = 0;
-            foreach (var resource in resources)
-            {
-                if (elementsInCurrentRow == 3)
-                {
-                    sb.AppendLine();
-                    elementsInCurrentRow = 0;
-                }
-                if (elementsInCurrentRow > 0)
-                {
-                    sb.Append(Emojis.bigSpace);
-                }
-
-                sb.Append(resource.Key.GetShortView(resource.Value));
-                elementsInCurrentRow++;
-            }
-
-            return sb.ToString();
-        }
-
-        public static int CalculateConstructionBoostPriceInDiamonds(int seconds)
-        {
+            var amount = 0;
             if (seconds <= minBoostConstructionInDiamondsBySeconds.Key)
-                return minBoostConstructionInDiamondsBySeconds.Value;
+            {
+                amount = minBoostConstructionInDiamondsBySeconds.Value;
+                return new ResourceData(ResourceId.Diamond, amount);
+            }
 
             if (seconds >= maxBoostConstructionInDiamondsBySeconds.Key)
             {
                 var mult = (float)seconds / maxBoostConstructionInDiamondsBySeconds.Key;
-                return (int)(maxBoostConstructionInDiamondsBySeconds.Value * mult);
+                amount = (int)(maxBoostConstructionInDiamondsBySeconds.Value * mult);
+                return new ResourceData(ResourceId.Diamond, amount);
             }
 
             var lowerKVP = new KeyValuePair<int, int>();
@@ -194,18 +135,24 @@ namespace TextGameRPG.Scripts.GameCore.Resources
             var priceDelta = upperKVP.Value - lowerKVP.Value;
             var progression = (float)(seconds - lowerKVP.Key) / secondsDelta;
 
-            return (int)Math.Round(progression * priceDelta) + lowerKVP.Value;
+            amount = (int)Math.Round(progression * priceDelta) + lowerKVP.Value;
+            return new ResourceData(ResourceId.Diamond, amount);
         }
 
-        public static int CalculateCraftBoostPriceInDiamonds(int seconds)
+        public static ResourceData CalculateCraftBoostPriceInDiamonds(int seconds)
         {
+            var amount = 0;
             if (seconds <= minBoostCraftInDiamondsBySeconds.Key)
-                return minBoostCraftInDiamondsBySeconds.Value;
+            {
+                amount = minBoostCraftInDiamondsBySeconds.Value;
+                return new ResourceData(ResourceId.Diamond, amount);
+            }
 
             if (seconds >= maxBoostCraftInDiamondsBySeconds.Key)
             {
                 var mult = (float)seconds / maxBoostCraftInDiamondsBySeconds.Key;
-                return (int)(maxBoostCraftInDiamondsBySeconds.Value * mult);
+                amount = (int)(maxBoostCraftInDiamondsBySeconds.Value * mult);
+                return new ResourceData(ResourceId.Diamond, amount);
             }
 
             var lowerKVP = new KeyValuePair<int, int>();
@@ -224,14 +171,16 @@ namespace TextGameRPG.Scripts.GameCore.Resources
             var priceDelta = upperKVP.Value - lowerKVP.Value;
             var progression = (float)(seconds - lowerKVP.Key) / secondsDelta;
 
-            return (int)Math.Round(progression * priceDelta) + lowerKVP.Value;
+            amount = (int)Math.Round(progression * priceDelta) + lowerKVP.Value;
+            return new ResourceData(ResourceId.Diamond, amount);
         }
 
-        public static int CalculatePotionCraftBoostPriceInDiamonds(int seconds)
+        public static ResourceData CalculatePotionCraftBoostPriceInDiamonds(int seconds)
         {
             var hours = (float)seconds / 3600;
             var price = (int)Math.Round(hours * boostPotionCraftInDiamondsPerHour);
-            return Math.Max(price, 1);
+            var amount = Math.Max(price, 1);
+            return new ResourceData(ResourceId.Diamond, amount);
         }
 
 

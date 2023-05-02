@@ -16,9 +16,10 @@ namespace TextGameRPG.Scripts.GameCore.Rewards
         public override Task<string?> AddReward(GameSession session)
         {
             var amount = new Random().Next(amountMin, amountMax + 1);
-            session.player.resources.ForceAdd(resourceId, amount);
-            var result = resourceId.GetLocalizedView(session, amount);
-            return Task.FromResult(result);
+            var resourceData = new ResourceData(resourceId, amount);
+            session.player.resources.ForceAdd(resourceData);
+            var text = resourceData.GetLocalizedView(session);
+            return Task.FromResult(text);
         }
     }
 }

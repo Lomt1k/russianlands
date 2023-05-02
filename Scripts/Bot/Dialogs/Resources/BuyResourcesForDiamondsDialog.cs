@@ -11,25 +11,25 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Resources
 {
     public class BuyResourcesForDiamondsDialog : DialogBase
     {
-        private Dictionary<ResourceId, int> _targetResources;
+        private IEnumerable<ResourceData> _targetResources;
         private int _priceInDiamonds;
         private Func<Task> _onSuccess;
         private Func<Task> _onCancel;
 
-        public BuyResourcesForDiamondsDialog(GameSession _session, Dictionary<ResourceId,int> targetResources, Func<Task> onSuccess, Func<Task> onCancel) : base(_session)
+        public BuyResourcesForDiamondsDialog(GameSession _session, IEnumerable<ResourceData> targetResources, Func<Task> onSuccess, Func<Task> onCancel) : base(_session)
         {
             _targetResources = targetResources;
             _onSuccess = onSuccess;
             _onCancel = onCancel;
 
-            foreach (var resource in _targetResources)
+            foreach (var resourceData in _targetResources)
             {
-                _priceInDiamonds += ResourceHelper.CalculatePriceInDiamonds(resource.Key, resource.Value);
+                _priceInDiamonds += ResourceHelper.CalculatePriceInDiamonds(resourceData);
             }
         }
 
-        public BuyResourcesForDiamondsDialog(GameSession _session, ResourceId resourceId, int amount, Func<Task> onSuccess, Func<Task> onCancel)
-            : this(_session, new Dictionary<ResourceId, int> { { resourceId, amount } }, onSuccess, onCancel) { }
+        public BuyResourcesForDiamondsDialog(GameSession _session, ResourceData targetResource, Func<Task> onSuccess, Func<Task> onCancel)
+            : this(_session, new ResourceData[] { targetResource }, onSuccess, onCancel) { }
 
         public override async Task Start()
         {
@@ -38,14 +38,14 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Resources
 
             sb.AppendLine();
             sb.AppendLine(Localization.Get(session, "resource_header_resources"));
-            foreach (var resource in _targetResources)
+            foreach (var resourceData in _targetResources)
             {
-                sb.AppendLine(resource.Key.GetLocalizedView(session, resource.Value));
+                sb.AppendLine(resourceData.GetLocalizedView(session));
             }
 
             sb.AppendLine();
             sb.AppendLine(Localization.Get(session, "resource_purchase_for_diamonds"));
-            RegisterButton(ResourceId.Diamond.GetEmoji() + _priceInDiamonds.ToString(), () => TryPurchase());
+            RegisterButton(ResourceId.Diamond.GetEmoji() + _priceInDiamonds.ToString(), TryPurchase);
             RegisterBackButton(_onCancel);
 
             await SendDialogMessage(sb, GetMultilineKeyboard()).FastAwait();
@@ -54,7 +54,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Resources
         private async Task TryPurchase()
         {
             var playerResources = session.player.resources;
-            bool success = playerResources.TryPurchase(ResourceId.Diamond, _priceInDiamonds);
+            bool success = playerResources.TryPurchase(new ResourceData(ResourceId.Diamond, _priceInDiamonds));
             if (success)
             {
                 playerResources.ForceAdd(_targetResources);
@@ -62,9 +62,9 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Resources
                 sb.AppendLine(Localization.Get(session, "resource_successfull_purshase_for_diamonds"));
                 sb.AppendLine();
                 sb.AppendLine(Localization.Get(session, "resource_header_resources"));
-                foreach (var resource in _targetResources)
+                foreach (var resourceData in _targetResources)
                 {
-                    sb.AppendLine(resource.Key.GetLocalizedView(session, resource.Value));
+                    sb.AppendLine(resourceData.GetLocalizedView(session));
                 }
 
                 await messageSender.SendTextMessage(session.chatId, sb.ToString()).FastAwait();

@@ -107,10 +107,11 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
 
             var time = building.GetEndConstructionTime(_buildingsData);
             var secondsToEnd = (int)(time - DateTime.UtcNow).TotalSeconds;
-            var requiredDiamonds = nextLevel.isBoostAvailable ? 0 : ResourceHelper.CalculateConstructionBoostPriceInDiamonds(secondsToEnd);
+            var requiredDiamonds = nextLevel.isBoostAvailable ? new ResourceData()
+                : ResourceHelper.CalculateConstructionBoostPriceInDiamonds(secondsToEnd);
 
             var playerResources = session.player.resources;
-            var successsPurchase = playerResources.TryPurchase(ResourceId.Diamond, requiredDiamonds, out var notEnoughDiamonds);
+            var successsPurchase = playerResources.TryPurchase(requiredDiamonds, out var notEnoughDiamonds);
             if (successsPurchase)
             {
                 building.LevelUp(_buildingsData);
@@ -119,11 +120,11 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
                 sb.AppendLine(building.GetLocalizedName(session, _buildingsData).Bold());
                 sb.AppendLine();
                 sb.AppendLine(Emojis.ElementConstruction + Localization.Get(session, "dialog_buildings_construction_boosted"));
-                if (requiredDiamonds > 0)
+                if (requiredDiamonds.amount > 0)
                 {
                     sb.AppendLine();
                     sb.AppendLine(Localization.Get(session, "resource_header_spent"));
-                    sb.AppendLine(ResourceId.Diamond.GetLocalizedView(session, requiredDiamonds));
+                    sb.AppendLine(requiredDiamonds.GetLocalizedView(session));
                 }
 
                 RegisterButton(Localization.Get(session, "menu_item_continue_button"), () => ShowBuildingCurrentLevelInfo(building));
@@ -151,7 +152,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
 
             sb.AppendLine();
             var requiredResources = GetRequiredResourcesForConstruction(building);
-            sb.Append(ResourceHelper.GetPriceView(session, requiredResources));
+            sb.Append(requiredResources.GetPriceView(session));
             var dtNow = DateTime.UtcNow;
             var timeSpan = (dtNow.AddSeconds(levelData.constructionTime) - dtNow);
             sb.AppendLine(timeSpan.GetView(session, withCaption: true));
@@ -186,27 +187,26 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
                 var category = building.buildingId.GetCategory();
                 RegisterBackButton(category.GetLocalization(session), () => ShowBuildingsList(category));
             }
-            RegisterDoubleBackButton(Localization.Get(session, "menu_item_buildings") + Emojis.ButtonBuildings,
-                () => ShowCategories());
+            RegisterDoubleBackButton(Localization.Get(session, "menu_item_buildings") + Emojis.ButtonBuildings, ShowCategories);
 
             TryAppendTooltip(sb);
             await SendPanelMessage(sb, GetMultilineKeyboardWithDoubleBack()).FastAwait();
         }
 
-        private void AppendOurResources(StringBuilder sb, Dictionary<ResourceId, int> requiredResources)
+        private void AppendOurResources(StringBuilder sb, IEnumerable<ResourceData> requiredResources)
         {
             sb.AppendLine();
             sb.AppendLine(Localization.Get(session, "resource_header_ours"));
-            var ourResources = new Dictionary<ResourceId, int>();
-            foreach (var kvp in requiredResources)
+            var ourResources = new List<ResourceData>();
+            foreach (var resourceData in requiredResources)
             {
-                if (kvp.Value > 0)
+                if (resourceData.amount > 0)
                 {
-                    var resourceId = kvp.Key;
-                    ourResources.Add(resourceId, session.player.resources.GetValue(resourceId));
+                    var ourAmount = session.player.resources.GetValue(resourceData.resourceId);
+                    ourResources.Add(resourceData with { amount = ourAmount });
                 }
             }
-            sb.Append(ResourceHelper.GetResourcesView(session, ourResources));
+            sb.Append(ourResources.GetLocalizedView(session));
         }
 
         private void AppendSpecialConstructionWarnings(StringBuilder sb, BuildingBase building)
@@ -300,31 +300,29 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
             await SendPanelMessage(sb, GetMultilineKeyboard()).FastAwait();
         }
 
-        private Dictionary<ResourceId, int> GetRequiredResourcesForConstruction(BuildingBase building)
+        private ResourceData[] GetRequiredResourcesForConstruction(BuildingBase building)
         {
             if (building.IsMaxLevel(_buildingsData))
-                return new Dictionary<ResourceId, int>();
+                return new ResourceData[0];
 
             var level = building.GetCurrentLevel(_buildingsData);
             var levelData = building.buildingData.levels[level];
-            return new Dictionary<ResourceId, int>
+            return new ResourceData[]
             {
-                {ResourceId.Gold, levelData.requiredGold },
-                {ResourceId.Herbs, levelData.requiredHerbs },
-                {ResourceId.Wood, levelData.requiredWood },
+                new ResourceData(ResourceId.Gold, levelData.requiredGold),
+                new ResourceData(ResourceId.Herbs, levelData.requiredHerbs),
+                new ResourceData(ResourceId.Wood, levelData.requiredWood),
             };
         }
 
-        private bool IsStorageUpgradeRequired(Dictionary<ResourceId, int> requiredResources, out StorageBuildingBase storageBuilding)
+        private bool IsStorageUpgradeRequired(IEnumerable<ResourceData> requiredResources, out StorageBuildingBase storageBuilding)
         {
             storageBuilding = null;
             var playerResources = session.player.resources;
 
-            foreach (var requiredResource in requiredResources)
+            foreach (var (resourceId, amount) in requiredResources)
             {
-                var resourceId = requiredResource.Key;
-                var resourceAmount = requiredResource.Value;
-                if (resourceAmount > playerResources.GetResourceLimit(resourceId))
+                if (amount > playerResources.GetResourceLimit(resourceId))
                 {
                     switch (resourceId)
                     {

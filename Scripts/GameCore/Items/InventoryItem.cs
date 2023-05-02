@@ -5,7 +5,6 @@ using TextGameRPG.Scripts.Bot.Sessions;
 
 namespace TextGameRPG.Scripts.GameCore.Items
 {
-    using System.Collections.Generic;
     using TextGameRPG.Scripts.Bot;
     using TextGameRPG.Scripts.GameCore.Items.Generators;
     using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
@@ -176,9 +175,8 @@ namespace TextGameRPG.Scripts.GameCore.Items
             return Localizations.Localization.Get(session, $"item_{itemType}_hall_{data.requiredTownHall}_grade_{data.grade}");
         }
 
-        public Dictionary<ResourceId,int> CalculateResourcesForBreakApart()
+        public ResourceData CalculateResourcesForBreakApart()
         {
-            var result = new Dictionary<ResourceId,int>();
             var resourceId = data.itemRarity switch
             {
                 Rarity.Common => ResourceId.CraftPiecesCommon,
@@ -186,8 +184,7 @@ namespace TextGameRPG.Scripts.GameCore.Items
                 Rarity.Epic => ResourceId.CraftPiecesEpic,
                 _ => ResourceId.CraftPiecesLegendary
             };
-            result.Add(resourceId, 1);
-            return result;
+            return new ResourceData(resourceId, 1);
         }
 
 

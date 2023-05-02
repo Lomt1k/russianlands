@@ -47,15 +47,16 @@ namespace TextGameRPG.Scripts.GameCore.Potions
             _preparationTime = DateTime.UtcNow.Ticks - 1;
         }
 
-        public int GetBoostPriceInDiamonds()
+        public ResourceData GetBoostPriceInDiamonds()
         {
             if (IsReady())
-                return 0;
+            {
+                return new ResourceData(ResourceId.Diamond, 0);
+            }
 
             var timeSpan = new DateTime(preparationTime) - DateTime.UtcNow;
             var seconds = (int)timeSpan.TotalSeconds;
-            var requiredDiamonds = ResourceHelper.CalculatePotionCraftBoostPriceInDiamonds(seconds);
-            return requiredDiamonds;
+            return ResourceHelper.CalculatePotionCraftBoostPriceInDiamonds(seconds);
         }
 
         public string GetName(GameSession session)

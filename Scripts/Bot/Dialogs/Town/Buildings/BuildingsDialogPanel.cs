@@ -88,8 +88,13 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
                 }
             }
 
+            var resourceDatas = new List<ResourceData>();
+            foreach (var (resourceId, amount) in resourcesToShow)
+            {
+                resourceDatas.Add(new ResourceData(resourceId, amount));
+            }
             sb.AppendLine(Localization.Get(session, "resource_header_producted"));
-            sb.AppendLine(ResourceHelper.GetCompactResourcesView(resourcesToShow));
+            sb.AppendLine(resourceDatas.GetCompactView());
 
             if (neeedToShowLimitWarning)
             {

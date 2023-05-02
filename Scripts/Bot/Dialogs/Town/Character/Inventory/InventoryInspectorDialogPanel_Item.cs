@@ -21,24 +21,21 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Inventory
             ClearButtons();
             if (_browsedItem.isEquipped)
             {
-                RegisterButton(Localization.Get(session, "menu_item_unequip_button"), () => UnequipItem());
+                RegisterButton(Localization.Get(session, "menu_item_unequip_button"), UnequipItem);
             }
             else
             {
-                RegisterButton(Localization.Get(session, "menu_item_equip_button"), () => StartEquipLogic());
+                RegisterButton(Localization.Get(session, "menu_item_equip_button"), StartEquipLogic);
             }
 
             RegisterButton(Localization.Get(session, "menu_item_compare_button"),
-                () => StartSelectItemForCompare(),
+                StartSelectItemForCompare,
                 () => Localization.Get(session, "dialog_inventory_start_compare_query"));
 
-            RegisterButton(Emojis.ElementBin + Localization.Get(session, "menu_item_break_apart_button"),
-                () => TryBreakApartItem());
+            RegisterButton(Emojis.ElementBin + Localization.Get(session, "menu_item_break_apart_button"), TryBreakApartItem);
 
-            RegisterBackButton(_browsedCategory.GetCategoryLocalization(session) + _browsedCategory.GetEmoji(),
-                () => ShowItemsPage());
-            RegisterDoubleBackButton(Localization.Get(session, "menu_item_inventory") + Emojis.ButtonInventory,
-                () => ShowCategories());
+            RegisterBackButton(_browsedCategory.GetCategoryLocalization(session) + _browsedCategory.GetEmoji(), ShowItemsPage);
+            RegisterDoubleBackButton(Localization.Get(session, "menu_item_inventory") + Emojis.ButtonInventory, ShowCategories);
 
             TryAppendTooltip(sb);
             await SendPanelMessage(sb, GetMultilineKeyboardWithDoubleBack()).FastAwait();
@@ -82,7 +79,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Inventory
                     : type.GetEmoji() + Localization.Get(session, "menu_item_empty_slot_button");
                 RegisterButton(buttonText, () => EquipMultiSlot(slotId));
             }
-            RegisterBackButton(() => ShowItemInspector());
+            RegisterBackButton(ShowItemInspector);
 
             await SendPanelMessage(text, GetMultilineKeyboard()).FastAwait();
         }
@@ -155,12 +152,11 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Inventory
             sb.AppendLine();
             sb.AppendLine(Localization.Get(session, "resource_header_you_will_get"));
             var rewardResources = _browsedItem.CalculateResourcesForBreakApart();
-            sb.Append(ResourceHelper.GetResourcesView(session, rewardResources));
+            sb.Append(rewardResources.GetLocalizedView(session));
 
             ClearButtons();
-            RegisterButton(Emojis.ElementBin + Localization.Get(session, "menu_item_break_apart_button"),
-                () => ForceBreakApart());
-            RegisterBackButton(() => ShowItemInspector());
+            RegisterButton(Emojis.ElementBin + Localization.Get(session, "menu_item_break_apart_button"), ForceBreakApart);
+            RegisterBackButton(ShowItemInspector);
 
             await SendPanelMessage(sb, GetMultilineKeyboard()).FastAwait();
         }
@@ -178,7 +174,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Inventory
         private async Task SendMessageWithBackButton(string text)
         {
             ClearButtons();
-            RegisterBackButton(() => ShowItemInspector());
+            RegisterBackButton(ShowItemInspector);
             await SendPanelMessage(text, GetOneLineKeyboard()).FastAwait();
         }
 

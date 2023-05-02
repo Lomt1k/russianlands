@@ -6,7 +6,6 @@ using TextGameRPG.Scripts.GameCore.Quests;
 using TextGameRPG.Scripts.GameCore.Quests.Characters;
 using TextGameRPG.Scripts.GameCore.Quests.NextStageTriggers;
 using TextGameRPG.Scripts.Bot.Sessions;
-using System.Collections.Generic;
 using TextGameRPG.Scripts.GameCore.Resources;
 using TextGameRPG.Scripts.Bot.Dialogs.Town.Shop;
 using TextGameRPG.Scripts.Bot.Dialogs.Town.Character;
@@ -20,10 +19,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Quests.MainQuest
         private const int maxLength = 16;
 
         private static readonly NotificationsManager notificationsManager = Services.Get<NotificationsManager>();
-        private static readonly Dictionary<ResourceId, int> nickChangePrice = new Dictionary<ResourceId, int>()
-        {
-            { ResourceId.Diamond, 800 }
-        };
+        private static readonly ResourceData nickChangePrice = new ResourceData(ResourceId.Diamond, 800);
 
         private bool _isQuestReplicaStage = false;
 
@@ -87,7 +83,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Quests.MainQuest
                 }
                 else
                 {
-                    sb.Append(ResourceHelper.GetPriceView(session, nickChangePrice));
+                    sb.Append(nickChangePrice.GetPriceView(session));
                 }
             }
 

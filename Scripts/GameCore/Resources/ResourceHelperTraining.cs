@@ -16,15 +16,20 @@ namespace TextGameRPG.Scripts.GameCore.Resources
         private static KeyValuePair<int, int> minBoostTrainingInDiamondsBySeconds;
         private static KeyValuePair<int, int> maxBoostTrainingInDiamondsBySeconds;
 
-        public static int CalculateTrainingBoostPriceInDiamonds(int seconds)
+        public static ResourceData CalculateTrainingBoostPriceInDiamonds(int seconds)
         {
+            var amount = 0;
             if (seconds <= minBoostTrainingInDiamondsBySeconds.Key)
-                return minBoostTrainingInDiamondsBySeconds.Value;
+            {
+                amount = minBoostTrainingInDiamondsBySeconds.Value;
+                return new ResourceData(ResourceId.Diamond, amount);
+            }
 
             if (seconds >= maxBoostTrainingInDiamondsBySeconds.Key)
             {
                 var mult = (float)seconds / maxBoostTrainingInDiamondsBySeconds.Key;
-                return (int)(maxBoostTrainingInDiamondsBySeconds.Value * mult);
+                amount = (int)(maxBoostTrainingInDiamondsBySeconds.Value * mult);
+                return new ResourceData(ResourceId.Diamond, amount);
             }
 
             var lowerKVP = new KeyValuePair<int, int>();
@@ -43,7 +48,8 @@ namespace TextGameRPG.Scripts.GameCore.Resources
             var priceDelta = upperKVP.Value - lowerKVP.Value;
             var progression = (float)(seconds - lowerKVP.Key) / secondsDelta;
 
-            return (int)Math.Round(progression * priceDelta) + lowerKVP.Value;
+            amount = (int)Math.Round(progression * priceDelta) + lowerKVP.Value;
+            return new ResourceData(ResourceId.Diamond, amount);
         }
 
 

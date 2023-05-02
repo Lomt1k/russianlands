@@ -41,14 +41,14 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
                 if (farmedAmout < 1)
                     continue;
 
-                var reallyAdded = playerResources.Add(building.resourceId, farmedAmout);
-                if (reallyAdded > 0)
+                var reallyAdded = playerResources.Add(new ResourceData(building.resourceId, farmedAmout));
+                if (reallyAdded.amount > 0)
                 {
                     collectedResources.TryGetValue(building.resourceId, out var prevValue);
-                    collectedResources[building.resourceId] = prevValue + reallyAdded;
+                    collectedResources[building.resourceId] = prevValue + reallyAdded.amount;
                 }
 
-                if (reallyAdded == farmedAmout)
+                if (reallyAdded.amount == farmedAmout)
                 {
                     building.SetStartFarmTime(buildingsData, DateTime.UtcNow);
                 }
@@ -56,12 +56,12 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
                 {
                     var startFarmDt = building.GetStartFarmTime(buildingsData);
                     var totalFarmSeconds = (DateTime.UtcNow - startFarmDt).TotalSeconds;
-                    var collectedPart = (float)reallyAdded / farmedAmout;
+                    var collectedPart = (float)reallyAdded.amount / farmedAmout;
                     var secondsToRemove = totalFarmSeconds * collectedPart;
                     var newStartFarmDt = startFarmDt.AddSeconds(secondsToRemove);
                     building.SetStartFarmTime(buildingsData, newStartFarmDt);
 
-                    var notCollectedAmount = farmedAmout - reallyAdded;
+                    var notCollectedAmount = farmedAmout - reallyAdded.amount;
                     notCollectedResources.TryGetValue(building.resourceId, out var prevValue);
                     notCollectedResources[building.resourceId] = prevValue + notCollectedAmount;
                 }
@@ -76,15 +76,28 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings
             {
                 if (collectedResources.Count > 0)
                 {
+                    var collectedDatas = new List<ResourceData>();
+                    foreach (var (resourceId, amount) in collectedResources)
+                    {
+                        collectedDatas.Add(new ResourceData(resourceId, amount));
+                    }
+
                     sb.AppendLine(Localization.Get(session, "dialog_buildings_collected_resources_header"));
-                    sb.AppendLine(ResourceHelper.GetCompactResourcesView(collectedResources));
+                    sb.AppendLine(collectedDatas.GetCompactView());
                     sb.AppendLine();
                 }
+
                 if (notCollectedResources.Count > 0)
                 {
+                    var notCollectedDatas = new List<ResourceData>();
+                    foreach (var (resourceId, amount) in notCollectedResources)
+                    {
+                        notCollectedDatas.Add(new ResourceData(resourceId, amount));
+                    }
+
                     sb.AppendLine(Localization.Get(session, "dialog_buildings_resources_not_collected"));
                     sb.AppendLine();
-                    sb.AppendLine(ResourceHelper.GetCompactResourcesView(notCollectedResources));
+                    sb.AppendLine(notCollectedDatas.GetCompactView());
                 }
             }
             return sb.ToString();

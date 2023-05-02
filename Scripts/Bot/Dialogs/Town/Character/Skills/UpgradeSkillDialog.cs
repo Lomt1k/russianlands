@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Telegram.Bot.Types.ReplyMarkups;
@@ -45,19 +43,19 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Skills
             sb.AppendLine(Localization.Get(session, "dialog_skills_upgrade_selected_skill_description"));
 
             sb.AppendLine();
-            sb.Append(ResourceHelper.GetPriceView(session, GetRequiredResources()));
+            sb.Append(GetRequiredResources().GetPriceView(session));
 
             sb.AppendLine();
             sb.AppendLine(Localization.Get(session, "resource_header_ours"));
             var requiredFruits = _skills.GetRequiredFruits(_itemType);
-            var ourResources = new Dictionary<ResourceId, int>()
+            var ourResources = new ResourceData[]
             {
-                { requiredFruits[0], _resources.GetValue(requiredFruits[0]) },
-                { requiredFruits[1], _resources.GetValue(requiredFruits[1]) },
-                { requiredFruits[2], _resources.GetValue(requiredFruits[2]) },
-                { ResourceId.Herbs, session.player.resources.GetValue(ResourceId.Herbs) }
+                new ResourceData(requiredFruits[0], _resources.GetValue(requiredFruits[0])),
+                new ResourceData(requiredFruits[1], _resources.GetValue(requiredFruits[1])),
+                new ResourceData(requiredFruits[2], _resources.GetValue(requiredFruits[2])),
+                new ResourceData(ResourceId.Herbs, session.player.resources.GetValue(ResourceId.Herbs)),
             };
-            sb.Append(ResourceHelper.GetResourcesView(session, ourResources));
+            sb.Append(ourResources.GetLocalizedView(session));
 
             sb.AppendLine();
             if (_skills.IsMaxLevel(_itemType))
@@ -76,27 +74,27 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Skills
             await SendDialogMessage(sb, GetSpecialKeyboard()).FastAwait();
         }
 
-        private Dictionary<ResourceId, int> GetRequiredResources()
+        private ResourceData[] GetRequiredResources()
         {
             var elixirWorkshop = (ElixirWorkshopBuilding)BuildingId.ElixirWorkshop.GetBuilding();
             var requiredFruits = _skills.GetRequiredFruits(_itemType);
-            return new Dictionary<ResourceId, int>
+            return new ResourceData[]
             {
-                { requiredFruits[0], 1 },
-                { requiredFruits[1], 1 },
-                { requiredFruits[2], 1 },
-                { ResourceId.Herbs, elixirWorkshop.GetCurrentElixirPriceInHerbs(session.profile.buildingsData) },
+                new ResourceData(requiredFruits[0], 1),
+                new ResourceData(requiredFruits[1], 1),
+                new ResourceData(requiredFruits[2], 1),
+                elixirWorkshop.GetCurrentElixirPriceInHerbs(session.profile.buildingsData),
             };
         }
 
-        private Dictionary<ResourceId, int> GetRequiredFruits()
+        private ResourceData[] GetRequiredFruits()
         {
             var requiredFruits = _skills.GetRequiredFruits(_itemType);
-            return new Dictionary<ResourceId, int>
+            return new ResourceData[]
             {
-                { requiredFruits[0], 1 },
-                { requiredFruits[1], 1 },
-                { requiredFruits[2], 1 },
+                new ResourceData(requiredFruits[0], 1),
+                new ResourceData(requiredFruits[1], 1),
+                new ResourceData(requiredFruits[2], 1),
             };
         }
 
@@ -107,25 +105,24 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Skills
                 :  GetKeyboardWithRowSizes(_upgradeButtons, 1);
         }
 
-        private async Task TryUpgrade(byte amount)
+        private async Task TryUpgrade(byte levelsCount)
         {
             var requiredResources = GetRequiredResources();
-            var requiredReourceTypes = requiredResources.Keys.ToArray();
-            foreach (var resourceId in requiredReourceTypes)
+            for (int i = 0; i < requiredResources.Length; i++)
             {
-                requiredResources[resourceId] *= amount;
+                requiredResources[i].amount *= levelsCount;
             }
 
             var playerResources = session.player.resources;
             var successfullPurchase = playerResources.TryPurchase(requiredResources, out var notEnoughResources);
             if (successfullPurchase)
             {
-                await SkillUp(amount).FastAwait();
+                await SkillUp(levelsCount).FastAwait();
                 return;
             }
 
             var buyResourcesDialog = new BuyResourcesForDiamondsDialog(session, notEnoughResources,
-                onSuccess: async () => await new UpgradeSkillDialog(session, _itemType, _upgradeButtons).TryUpgrade(amount).FastAwait(),
+                onSuccess: async () => await new UpgradeSkillDialog(session, _itemType, _upgradeButtons).TryUpgrade(levelsCount).FastAwait(),
                 onCancel: async () => await new UpgradeSkillDialog(session, _itemType, _upgradeButtons).Start().FastAwait());
             await buyResourcesDialog.Start().FastAwait();
         }

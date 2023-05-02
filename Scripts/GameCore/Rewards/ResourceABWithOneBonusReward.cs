@@ -3,7 +3,6 @@ using System;
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.GameCore.Resources;
 using TextGameRPG.Scripts.Bot.Sessions;
-using System.Text;
 
 namespace TextGameRPG.Scripts.GameCore.Rewards
 {
@@ -31,27 +30,29 @@ namespace TextGameRPG.Scripts.GameCore.Rewards
         private Task<string?> AddRewardWithBonusA(GameSession session)
         {
             var amountWithBonus = amountA + new Random().Next(bonusA_min, bonusA_max + 1);
-            session.player.resources.ForceAdd(resourceIdA, amountWithBonus);
-            session.player.resources.ForceAdd(resourceIdB, amountB);
+            var resourceDatas = new ResourceData[]
+            {
+                new ResourceData(resourceIdA, amountWithBonus),
+                new ResourceData(resourceIdB, amountB),
+            };
+            session.player.resources.ForceAdd(resourceDatas);
 
-            var sb = new StringBuilder();
-            sb.AppendLine(resourceIdA.GetLocalizedView(session, amountWithBonus));
-            sb.Append(resourceIdB.GetLocalizedView(session, amountB));
-            
-            return Task.FromResult(sb.ToString());
+            var text = resourceDatas.GetLocalizedView(session);
+            return Task.FromResult(text);
         }
 
         private Task<string?> AddRewardWithBonusB(GameSession session)
         {
-            session.player.resources.ForceAdd(resourceIdA, amountA);
             var amountWithBonus = amountB + new Random().Next(bonusB_min, bonusB_max + 1);
-            session.player.resources.ForceAdd(resourceIdB, amountWithBonus);
+            var resourceDatas = new ResourceData[]
+            {
+                new ResourceData(resourceIdA, amountA),
+                new ResourceData(resourceIdB, amountWithBonus),
+            };
+            session.player.resources.ForceAdd(resourceDatas);
 
-            var sb = new StringBuilder();
-            sb.AppendLine(resourceIdA.GetLocalizedView(session, amountA));
-            sb.Append(resourceIdB.GetLocalizedView(session, amountWithBonus));
-
-            return Task.FromResult(sb.ToString());
+            var text = resourceDatas.GetLocalizedView(session);
+            return Task.FromResult(text);
         }
 
     }

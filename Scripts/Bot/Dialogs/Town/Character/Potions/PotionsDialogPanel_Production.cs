@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Telegram.Bot.Types.ReplyMarkups;
@@ -48,18 +47,15 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
 
             sb.AppendLine();
             var requiredResources = GetCraftCost();
-            sb.Append(ResourceHelper.GetPriceView(session, requiredResources));
+            sb.Append(requiredResources.GetPriceView(session));
             var dtNow = DateTime.UtcNow;
             var timeSpan = (dtNow.AddSeconds(GetCraftTimeInSeconds()) - dtNow);
             sb.AppendLine(timeSpan.GetView(session, withCaption: true));
 
             sb.AppendLine();
             sb.AppendLine(Localization.Get(session, "resource_header_ours"));
-            var ourResources = new Dictionary<ResourceId, int>()
-            {
-                { ResourceId.Herbs, session.player.resources.GetValue(ResourceId.Herbs) }
-            };
-            sb.Append(ResourceHelper.GetResourcesView(session, ourResources));
+            var ourResources = new ResourceData(ResourceId.Herbs, session.player.resources.GetValue(ResourceId.Herbs));
+            sb.Append(ourResources.GetLocalizedView(session));
 
             sb.AppendLine();
             sb.Append(Localization.Get(session, "dialog_potions_select_potions_amount"));
@@ -72,7 +68,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
             return playerPotions.GetFreeSlotsCount(session);
         }
 
-        private Dictionary<ResourceId, int> GetCraftCost()
+        private ResourceData GetCraftCost()
         {
             var alchemyLab = (AlchemyLabBuilding)BuildingId.AlchemyLab.GetBuilding();
             return alchemyLab.GetCurrentCraftCost(session.profile.buildingsData);
@@ -89,25 +85,22 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
             return GetKeyboardWithRowSizes(buttonsCount - 1, 1);
         }
 
-        public async Task TryCraft(PotionData data, int amount)
+        public async Task TryCraft(PotionData data, int potionsAmount)
         {
             var requiredResources = GetCraftCost();
-            if (amount > 1)
-            {
-                requiredResources[ResourceId.Herbs] *= amount;
-            }
+            requiredResources.amount *= potionsAmount;
 
             var playerResources = session.player.resources;
             var successfullPurchase = playerResources.TryPurchase(requiredResources, out var notEnoughResources);
             if (successfullPurchase)
             {
-                StartCraft(data, amount);
+                StartCraft(data, potionsAmount);
                 await ShowPotionsList().FastAwait();
                 return;
             }
 
             var buyResourcesDialog = new BuyResourcesForDiamondsDialog(session, notEnoughResources,
-                onSuccess: async () => await new PotionsDialog(session).StartWithTryCraft(data, amount).FastAwait(),
+                onSuccess: async () => await new PotionsDialog(session).StartWithTryCraft(data, potionsAmount).FastAwait(),
                 onCancel: async () => await new PotionsDialog(session).StartWithSelectionAmountToCraft(data).FastAwait());
             await buyResourcesDialog.Start().FastAwait();
         }

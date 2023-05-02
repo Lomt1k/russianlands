@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -68,7 +67,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
             RegisterRarityButton(itemType, Rarity.Rare);
             RegisterRarityButton(itemType, Rarity.Epic);
             RegisterRarityButton(itemType, Rarity.Legendary);
-            RegisterBackButton(() => Start());
+            RegisterBackButton(Start);
 
             await SendDialogMessage(sb, GetKeyboardWithRowSizes(3, 1)).FastAwait();
         }
@@ -91,7 +90,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
 
             sb.AppendLine();
             var craftPrice = _building.GetCraftPrice(buildingsData, rarity);
-            sb.Append(ResourceHelper.GetPriceView(session, craftPrice));
+            sb.Append(craftPrice.GetPriceView(session));
             var craftTimeInSeconds = _building.GetCraftTimeInSeconds(buildingsData, rarity);
             var dtNow = DateTime.UtcNow;
             var timeSpan = (dtNow.AddSeconds(craftTimeInSeconds) - dtNow);
@@ -99,12 +98,13 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
 
             sb.AppendLine();
             sb.AppendLine(Localization.Get(session, "resource_header_ours"));
-            var playerResources = new Dictionary<ResourceId, int>();
-            foreach (var resourceId in craftPrice.Keys)
+            var playerResources = new ResourceData[craftPrice.Length];
+            for (int i = 0; i < playerResources.Length; i++)
             {
-                playerResources[resourceId] = session.player.resources.GetValue(resourceId);
+                var playerAmount = session.player.resources.GetValue(craftPrice[i].resourceId);
+                playerResources[i] = craftPrice[i] with { amount = playerAmount };
             }
-            sb.Append(ResourceHelper.GetResourcesView(session, playerResources));
+            sb.Append(playerResources.GetLocalizedView(session));
 
             ClearButtons();
             RegisterButton(Emojis.ButtonCraft + Localization.Get(session, "dialog_craft_start_craft_button"),
@@ -126,13 +126,13 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
                 return;
             }
 
-            var notEnoughMaterials = notEnoughResources.Where(x => x.Key.IsCraftResource()).ToDictionary(x => x.Key, x => x.Value);
-            if (notEnoughMaterials.Count > 0)
+            var notEnoughMaterials = notEnoughResources.Where(x => x.resourceId.IsCraftResource()).ToArray();
+            if (notEnoughMaterials.Length > 0)
             {
                 var sb = new StringBuilder();
                 sb.AppendLine(Localization.Get(session, "dialog_craft_not_enough_materials"));
                 sb.AppendLine();
-                sb.Append(ResourceHelper.GetResourcesView(session, notEnoughMaterials));
+                sb.Append(notEnoughMaterials.GetLocalizedView(session));
                 sb.AppendLine();
                 sb.AppendLine(Localization.Get(session, "dialog_craft_how_to_get_materials"));
 

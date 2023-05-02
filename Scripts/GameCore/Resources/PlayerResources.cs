@@ -28,16 +28,16 @@ namespace TextGameRPG.Scripts.GameCore.Resources
             sb.AppendLine(Localization.Get(_session, "resource_header_ours"));
             var generalResources = resourceDictionary.GetGeneralResourceIds();
 
-            var dictionary = new Dictionary<ResourceId,int>();
+            var resourceDatas = new List<ResourceData>();
             foreach (var resourceId in generalResources)
             {
                 if (!IsUnlocked(resourceId))
                     continue;
 
-                dictionary.Add(resourceId, GetValue(resourceId));
+                resourceDatas.Add(new ResourceData(resourceId, GetValue(resourceId)));
             }
 
-            sb.Append(ResourceHelper.GetCompactResourcesView(dictionary));
+            sb.Append(resourceDatas.GetCompactView());
             return sb.ToString();
         }
 
@@ -89,16 +89,14 @@ namespace TextGameRPG.Scripts.GameCore.Resources
         /// Попытаться произвести покупку со списанием указанных ресурсов
         /// </summary>
         /// <returns>Вернет true, если списание средств прошло успешно</returns>
-        public bool TryPurchase(Dictionary<ResourceId, int> requiredResources)
+        public bool TryPurchase(IEnumerable<ResourceData> requiredResources)
         {
             if (!HasEnough(requiredResources))
                 return false;
 
-            foreach (var resource in requiredResources)
+            foreach (var (resourceId, amount) in requiredResources)
             {
-                var resourceId = resource.Key;
-                var requiredValue = resource.Value;
-                var newValue = GetValue(resourceId) - requiredValue;
+                var newValue = GetValue(resourceId) - amount;
                 resourceDictionary[resourceId].SetValue(_profileData, newValue);
             }
             return true;
@@ -110,20 +108,18 @@ namespace TextGameRPG.Scripts.GameCore.Resources
         /// <param name="requiredResources">Требуемые ресурсы</param>
         /// <param name="notEnoughResources">Ресурсы, которых не хватило для успешной покупки</param>
         /// <returns>Вернет true, если списание средств прошло успешно</returns>
-        public bool TryPurchase(Dictionary<ResourceId, int> requiredResources, out Dictionary<ResourceId, int> notEnoughResources)
+        public bool TryPurchase(IEnumerable<ResourceData> requiredResources, out List<ResourceData> notEnoughResources)
         {
-            notEnoughResources = new Dictionary<ResourceId, int>();
+            notEnoughResources = new List<ResourceData>();
             if (!HasEnough(requiredResources))
             {
-                foreach (var resource in requiredResources)
+                foreach (var (resourceId, amount) in requiredResources)
                 {
-                    var resourceId = resource.Key;
-                    var requiredValue = resource.Value;
                     var playerValue = resourceDictionary[resourceId].GetValue(_profileData);
-                    if (playerValue < requiredValue)
+                    if (playerValue < amount)
                     {
-                        var notEnoughValue = requiredValue - playerValue;
-                        notEnoughResources.Add(resourceId, notEnoughValue);
+                        var notEnoughValue = amount - playerValue;
+                        notEnoughResources.Add(new ResourceData(resourceId, notEnoughValue));
                     }
                 }
                 return false;
@@ -136,13 +132,13 @@ namespace TextGameRPG.Scripts.GameCore.Resources
         /// Попытаться произвести покупку со списанием указанных ресурсов
         /// </summary>
         /// <returns>Вернет true, если списание средств прошло успешно</returns>
-        public bool TryPurchase(ResourceId resourceId, int requiredValue)
+        public bool TryPurchase(ResourceData requiredResource)
         {
-            bool success = HasEnough(resourceId, requiredValue);
+            bool success = HasEnough(requiredResource);
             if (success)
             {
-                var newValue = GetValue(resourceId) - requiredValue;
-                resourceDictionary[resourceId].SetValue(_profileData, newValue);
+                var newValue = GetValue(requiredResource.resourceId) - requiredResource.amount;
+                resourceDictionary[requiredResource.resourceId].SetValue(_profileData, newValue);
             }
             return success;
         }
@@ -150,31 +146,30 @@ namespace TextGameRPG.Scripts.GameCore.Resources
         /// <summary>
         /// Попытаться произвести покупку со списанием указанных ресурсов
         /// </summary>
-        /// <param name="resourceId">Тип ресурса</param>
-        /// <param name="requiredValue">Требуемое количество ресурса</param>
-        /// <param name="notEnoughValue">Количество ресурса, которого не хватило для успешной покупки</param>
+        /// <param name="requiredResource">Требуемые ресурсы</param>
+        /// <param name="notEnoughResource">Количество ресурса, которого не хватило для успешной покупки</param>
         /// <returns>Вернет true, если списание средств прошло успешно</returns>
-        public bool TryPurchase(ResourceId resourceId, int requiredValue, out int notEnoughValue)
+        public bool TryPurchase(ResourceData requiredResource, out ResourceData notEnoughResource)
         {
-            notEnoughValue = 0;
-            if (!HasEnough(resourceId, requiredValue))
+            if (!HasEnough(requiredResource))
             {
-                var playerValue = resourceDictionary[resourceId].GetValue(_profileData);
-                notEnoughValue = requiredValue - playerValue;
+                var playerValue = resourceDictionary[requiredResource.resourceId].GetValue(_profileData);
+                notEnoughResource = requiredResource with { amount = requiredResource.amount - playerValue };
                 return false;
             }
 
-            return TryPurchase(resourceId, requiredValue);
+            notEnoughResource = new();
+            return TryPurchase(requiredResource);
         }
 
         /// <summary>
         /// Есть ли у игрока нужное количество ресурсов, перечисленных в словаре
         /// </summary>
-        public bool HasEnough(Dictionary<ResourceId,int> requiredResources)
+        public bool HasEnough(IEnumerable<ResourceData> requiredResources)
         {
-            foreach (var resource in requiredResources)
+            foreach (var requiredResource in requiredResources)
             {
-                if (!HasEnough(resource.Key, resource.Value))
+                if (!HasEnough(requiredResources))
                     return false;
             }
             return true;
@@ -183,9 +178,9 @@ namespace TextGameRPG.Scripts.GameCore.Resources
         /// <summary>
         /// Есть ли у игрока нужное количество ресурсов конкретного типа
         /// </summary>
-        public bool HasEnough(ResourceId resourceId, int requiredValue)
+        public bool HasEnough(ResourceData requiredResource)
         {
-            return GetValue(resourceId) >= requiredValue;
+            return GetValue(requiredResource.resourceId) >= requiredResource.amount;
         }
 
         /// <summary>
@@ -199,24 +194,24 @@ namespace TextGameRPG.Scripts.GameCore.Resources
         /// <summary>
         /// Добавляет ресурс даже если будет превышен лимит хранилища
         /// </summary>
-        public void ForceAdd(ResourceId resourceId, int value)
+        public void ForceAdd(ResourceData resourceData)
         {
-            var resource = resourceDictionary[resourceId];
+            var resource = resourceDictionary[resourceData.resourceId];
             var currentValue = resource.GetValue(_profileData);
 
             var canBeAdded = int.MaxValue - currentValue;
-            var reallyAdded = value > canBeAdded ? canBeAdded : value;
+            var reallyAdded = resourceData.amount > canBeAdded ? canBeAdded : resourceData.amount;
             resource.AddValue(_profileData, reallyAdded);
         }
 
         /// <summary>
         /// Добавляет ресурсы даже если будет превышен лимит хранилища
         /// </summary>
-        public void ForceAdd(Dictionary<ResourceId, int> resources)
+        public void ForceAdd(IEnumerable<ResourceData> resources)
         {
             foreach (var resource in resources)
             {
-                ForceAdd(resource.Key, resource.Value);
+                ForceAdd(resource);
             }
         }
 
@@ -224,30 +219,30 @@ namespace TextGameRPG.Scripts.GameCore.Resources
         /// Добавляет ресурс, но не превышает лимит хранилища
         /// </summary>
         /// <returns>Сколько по факту было добавлено</returns>
-        public int Add(ResourceId resourceId, int value)
+        public ResourceData Add(ResourceData resourceData)
         {
-            var resource = resourceDictionary[resourceId];
+            var resource = resourceDictionary[resourceData.resourceId];
             var currentValue = resource.GetValue(_profileData);
             var maxValue = resource.GetResourceLimit(_session);
 
             var canBeAdded = currentValue > maxValue ? 0 : maxValue - currentValue;
-            var reallyAdded = value > canBeAdded ? canBeAdded : value;
+            var reallyAdded = resourceData.amount > canBeAdded ? canBeAdded : resourceData.amount;
             resource.AddValue(_profileData, reallyAdded);
 
-            return reallyAdded;
+            return resourceData with { amount = reallyAdded };
         }
 
         /// <summary>
         /// Добавляет ресурсы, но не превышает лимит хранилища
         /// </summary>
         /// <returns>Сколько по факту было добавлено</returns>
-        public Dictionary<ResourceId, int> Add(Dictionary<ResourceId, int> resources)
+        public List<ResourceData> Add(IEnumerable<ResourceData> resourceDatas)
         {
-            var reallyAdded = new Dictionary<ResourceId, int>();
-            foreach (var resource in resources)
+            var reallyAdded = new List<ResourceData>();
+            foreach (var resourceData in resourceDatas)
             {
-                var value = Add(resource.Key, resource.Value);
-                reallyAdded.Add(resource.Key, value);
+                var addedResource = Add(resourceData);
+                reallyAdded.Add(addedResource);
             }
             return reallyAdded;
         }

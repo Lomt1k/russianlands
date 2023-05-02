@@ -21,11 +21,12 @@ namespace TextGameRPG.Scripts.Bot.Commands.Cheats
                 return;
             }
 
-            session.player.resources.ForceAdd(resourceId, amount);
+            var resourceData = new ResourceData(resourceId, amount);
+            session.player.resources.ForceAdd(resourceData);
 
             var sb = new StringBuilder();
             sb.AppendLine(Localization.Get(session, "battle_result_header_rewards"));
-            sb.AppendLine(resourceId.GetLocalizedView(session, amount));
+            sb.AppendLine(resourceData.GetLocalizedView(session));
 
             await messageSender.SendTextMessage(session.chatId, sb.ToString()).FastAwait();
         }

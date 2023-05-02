@@ -186,8 +186,8 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
             {
                 if (reward is ResourceReward resourceReward)
                 {
-                    var rewardView = resourceReward.resourceId.GetLocalizedView(session, resourceReward.amount);
-                    sb.AppendLine(rewardView);
+                    var resourceData = new ResourceData(resourceReward.resourceId, resourceReward.amount);
+                    sb.AppendLine(resourceData.GetLocalizedView(session));
                 }
             }
             

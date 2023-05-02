@@ -38,19 +38,18 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
 
             if (playerPotions.HasPotionsInProduction())
             {
-                var diamondsForBoost = 0;
+                var diamondsForBoost = new ResourceData(ResourceId.Diamond, 0);
                 foreach (var potion in playerPotions.GetPotionsInProduction())
                 {
-                    diamondsForBoost += potion.GetBoostPriceInDiamonds();
+                    diamondsForBoost.amount += potion.GetBoostPriceInDiamonds().amount;
                 }
                 var priceView = ResourceId.Diamond.GetEmoji().ToString() + diamondsForBoost;
                 var boostButtonText = Localization.Get(session, "menu_item_boost_all_button", priceView);
-                RegisterButton(boostButtonText, () => TryBoostAllCraft());
+                RegisterButton(boostButtonText, TryBoostAllCraft);
             }
 
             var freeSlots = playerPotions.GetFreeSlotsCount(session);
-            RegisterButton(Emojis.ElementPlus + Localization.Get(session, "dialog_potions_produce_button") + $" ({freeSlots})",
-                () => TryOpenProductionPanel());
+            RegisterButton(Emojis.ElementPlus + Localization.Get(session, "dialog_potions_produce_button") + $" ({freeSlots})", TryOpenProductionPanel);
 
             await SendPanelMessage(sb, GetMultilineKeyboard()).FastAwait();
         }
@@ -72,7 +71,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
                     RegisterButton(Emojis.ButtonShop + Localization.Get(session, "menu_item_shop"), () => new ShopDialog(session).Start());
                 }
 
-                RegisterBackButton(() => ShowPotionsList());
+                RegisterBackButton(ShowPotionsList);
                 await SendPanelMessage(sb, GetMultilineKeyboard()).FastAwait();
                 return;
             }
@@ -86,19 +85,19 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
             {
                 var message = Localization.Get(session, "dialog_potions_craft_boost_expired");
                 ClearButtons();
-                RegisterBackButton(() => ShowPotionsList());
+                RegisterBackButton(ShowPotionsList);
                 await SendPanelMessage(message, GetOneLineKeyboard()).FastAwait();
                 return;
             }
 
-            var requiredDiamonds = 0;
+            var requiredDiamonds = new ResourceData(ResourceId.Diamond, 0);
             foreach (var potion in playerPotions.GetPotionsInProduction())
             {
-                requiredDiamonds += potion.GetBoostPriceInDiamonds();
+                requiredDiamonds.amount += potion.GetBoostPriceInDiamonds().amount;
             }
 
             var playerResources = session.player.resources;
-            var successsPurchase = playerResources.TryPurchase(ResourceId.Diamond, requiredDiamonds, out var notEnoughDiamonds);
+            var successsPurchase = playerResources.TryPurchase(requiredDiamonds, out var notEnoughDiamonds);
             if (successsPurchase)
             {
                 foreach (var potion in playerPotions.GetPotionsInProduction())
@@ -109,15 +108,14 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
                 ClearButtons();
                 var sb = new StringBuilder();
                 sb.AppendLine(Emojis.ElementClock + Localization.Get(session, "dialog_potions_craft_boosted"));
-                if (requiredDiamonds > 0)
+                if (requiredDiamonds.amount > 0)
                 {
                     sb.AppendLine();
                     sb.AppendLine(Localization.Get(session, "resource_header_spent"));
-                    sb.AppendLine(ResourceId.Diamond.GetLocalizedView(session, requiredDiamonds));
+                    sb.AppendLine(requiredDiamonds.GetLocalizedView(session));
                 }
 
-                RegisterButton(Localization.Get(session, "menu_item_continue_button"),
-                    () => ShowPotionsList());
+                RegisterButton(Localization.Get(session, "menu_item_continue_button"), ShowPotionsList);
 
                 await SendPanelMessage(sb, GetOneLineKeyboard()).FastAwait();
                 return;
@@ -127,7 +125,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions
             var text = Localization.Get(session, "resource_not_enough_diamonds", Emojis.SmileSad);
             RegisterButton(Emojis.ButtonShop + Localization.Get(session, "menu_item_shop"),
                 () => new ShopDialog(session).Start());
-            RegisterBackButton(() => ShowPotionsList());
+            RegisterBackButton(ShowPotionsList);
 
             await SendPanelMessage(text, GetMultilineKeyboard()).FastAwait();
         }

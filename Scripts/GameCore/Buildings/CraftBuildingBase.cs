@@ -43,25 +43,25 @@ namespace TextGameRPG.Scripts.GameCore.Buildings
         }
 
         /// <returns>Время изготовления предмета в зависимости от его редкости</returns>
-        public Dictionary<ResourceId,int> GetCraftPrice(ProfileBuildingsData data, Rarity rarity)
+        public ResourceData[] GetCraftPrice(ProfileBuildingsData data, Rarity rarity)
         {
-            var result = new Dictionary<ResourceId, int>();
+            var result = new ResourceData[2];
 
             var currentLevel = GetCurrentLevel(data);
             var levelInfo = (CraftLevelInfo)buildingData.levels[currentLevel - 1];
             switch (rarity)
             {
                 case Rarity.Rare:
-                    result.Add(ResourceId.CraftPiecesCommon, levelInfo.rareCraft_MaterialsCost);
-                    result.Add(ResourceId.Wood, levelInfo.rareCraft_WoodCost);
+                    result[0] = new ResourceData(ResourceId.CraftPiecesCommon, levelInfo.rareCraft_MaterialsCost);
+                    result[1] = new ResourceData(ResourceId.Wood, levelInfo.rareCraft_WoodCost);
                     break;
                 case Rarity.Epic:
-                    result.Add(ResourceId.CraftPiecesRare, levelInfo.epicCraft_MaterialsCost);
-                    result.Add(ResourceId.Wood, levelInfo.epicCraft_WoodCost);
+                    result[0] = new ResourceData(ResourceId.CraftPiecesRare, levelInfo.epicCraft_MaterialsCost);
+                    result[1] = new ResourceData(ResourceId.Wood, levelInfo.epicCraft_WoodCost);
                     break;
                 case Rarity.Legendary:
-                    result.Add(ResourceId.CraftPiecesEpic, levelInfo.legendaryCraft_MaterialsCost);
-                    result.Add(ResourceId.Wood, levelInfo.legendaryCraft_WoodCost);
+                    result[0] = new ResourceData(ResourceId.CraftPiecesEpic, levelInfo.legendaryCraft_MaterialsCost);
+                    result[1] = new ResourceData(ResourceId.Wood, levelInfo.legendaryCraft_WoodCost);
                     break;
             }
             return result;

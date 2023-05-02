@@ -65,18 +65,18 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
 
             var requiredDiamonds = GetBoostPriceInDiamonds();
             var playerResources = session.player.resources;
-            var successsPurchase = playerResources.TryPurchase(ResourceId.Diamond, requiredDiamonds, out var notEnoughDiamonds);
+            var successsPurchase = playerResources.TryPurchase(requiredDiamonds, out var notEnoughDiamonds);
             if (successsPurchase)
             {
                 _building.BoostCraft(buildingsData);
 
                 var sb = new StringBuilder();
                 sb.AppendLine(Emojis.ButtonCraft + Localization.Get(session, "dialog_craft_boosted"));
-                if (requiredDiamonds > 0)
+                if (requiredDiamonds.amount > 0)
                 {
                     sb.AppendLine();
                     sb.AppendLine(Localization.Get(session, "resource_header_spent"));
-                    sb.AppendLine(ResourceId.Diamond.GetLocalizedView(session, requiredDiamonds));
+                    sb.AppendLine(requiredDiamonds.GetLocalizedView(session));
                 }
 
                 ClearButtons();
@@ -96,10 +96,12 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog
             await SendDialogMessage(text, GetMultilineKeyboard()).FastAwait();
         }
 
-        public int GetBoostPriceInDiamonds()
+        public ResourceData GetBoostPriceInDiamonds()
         {
             if (IsCraftCanBeFinished())
-                return 0;
+            {
+                return new ResourceData(ResourceId.Diamond, 0);
+            }                
 
             var endCraftTime = _building.GetEndCraftTime(buildingsData);
             var seconds = (int)(endCraftTime - DateTime.UtcNow).TotalSeconds;

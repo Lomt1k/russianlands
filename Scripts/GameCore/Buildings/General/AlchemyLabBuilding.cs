@@ -141,17 +141,16 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.General
             return result;
         }
 
-        public Dictionary<ResourceId,int> GetCurrentCraftCost(ProfileBuildingsData data)
+        public ResourceData GetCurrentCraftCost(ProfileBuildingsData data)
         {
-            var result = new Dictionary<ResourceId,int>();
-
             var level = GetCurrentLevel(data);
             if (level < 1)
-                return result;
+            {
+                return new ResourceData();
+            }
 
             var levelInfo = (AlchemyLabLevelInfo)buildingData.levels[level - 1];
-            result.Add(ResourceId.Herbs, levelInfo.craftCostInHerbs);
-            return result;
+            return new ResourceData(ResourceId.Herbs, levelInfo.craftCostInHerbs);
         }
 
         public int GetCurrentCraftTimeInSeconds(ProfileBuildingsData data)
@@ -164,15 +163,14 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.General
             return levelInfo.craftTime;
         }
 
-        public Dictionary<ResourceId, int> GetCraftCostForBuildingLevel(int level)
+        public ResourceData GetCraftCostForBuildingLevel(int level)
         {
-            var result = new Dictionary<ResourceId, int>();
             if (level < 1)
-                return result;
-
+            {
+                return new ResourceData();
+            }
             var levelInfo = (AlchemyLabLevelInfo)buildingData.levels[level - 1];
-            result.Add(ResourceId.Herbs, levelInfo.craftCostInHerbs);
-            return result;
+            return new ResourceData(ResourceId.Herbs, levelInfo.craftCostInHerbs);
         }
 
         public int GetCurrentPotionsInBattle(ProfileBuildingsData data)

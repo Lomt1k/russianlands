@@ -142,7 +142,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.TrainingBuildingDialog
             }
             else
             {
-                RegisterBackButton(() => ShowUnitsList());
+                RegisterBackButton(ShowUnitsList);
             }
             RegisterTownButton(isDoubleBack: true);
             await SendDialogMessage(sb, GetMultilineKeyboardWithDoubleBack()).FastAwait();
@@ -203,7 +203,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.TrainingBuildingDialog
             var requiredDiamonds = ResourceHelper.CalculateTrainingBoostPriceInDiamonds(secondsToEnd);
             var playerResources = session.player.resources;
 
-            bool successsPurchase = playerResources.TryPurchase(ResourceId.Diamond, requiredDiamonds);
+            bool successsPurchase = playerResources.TryPurchase(requiredDiamonds);
             if (successsPurchase)
             {
                 if (isFirst)
@@ -215,7 +215,7 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.TrainingBuildingDialog
                 sb.AppendLine(Emojis.ElementTraining + Localization.Get(session, "dialog_training_boosted"));
                 sb.AppendLine();
                 sb.AppendLine(Localization.Get(session, "resource_header_spent"));
-                sb.AppendLine(ResourceId.Diamond.GetLocalizedView(session, requiredDiamonds));
+                sb.AppendLine(requiredDiamonds.GetLocalizedView(session));
 
                 ClearButtons();
                 RegisterButton(Localization.Get(session, "menu_item_continue_button"), () => ShowCurrentUnit(unitIndex));

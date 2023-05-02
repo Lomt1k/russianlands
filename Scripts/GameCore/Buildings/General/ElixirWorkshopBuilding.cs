@@ -8,6 +8,7 @@ using TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Skills;
 using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Buildings.Data;
 using TextGameRPG.Scripts.GameCore.Localizations;
+using TextGameRPG.Scripts.GameCore.Resources;
 
 namespace TextGameRPG.Scripts.GameCore.Buildings.General
 {
@@ -98,14 +99,16 @@ namespace TextGameRPG.Scripts.GameCore.Buildings.General
             return levelInfo.skillLevelLimit;
         }
 
-        public int GetCurrentElixirPriceInHerbs(ProfileBuildingsData data)
+        public ResourceData GetCurrentElixirPriceInHerbs(ProfileBuildingsData data)
         {
             var currentLevel = GetCurrentLevel(data);
             if (currentLevel < 1)
-                return 0;
+            {
+                return new ResourceData(ResourceId.Herbs, 0);
+            }
 
             var levelInfo = (ElixirWorkshopLevelInfo)buildingData.levels[currentLevel - 1];
-            return levelInfo.elixirPriceInHerbs;
+            return new ResourceData(ResourceId.Herbs, levelInfo.elixirPriceInHerbs);
         }
 
     }

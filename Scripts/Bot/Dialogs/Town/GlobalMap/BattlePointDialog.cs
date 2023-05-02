@@ -58,10 +58,11 @@ namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap
         private async Task TryStartBattle()
         {
             var playerResources = session.player.resources;
-            var successsPurchase = playerResources.TryPurchase(ResourceId.Food, _data.foodPrice);
+            var foodPrice = new ResourceData(ResourceId.Food, _data.foodPrice);
+            var successsPurchase = playerResources.TryPurchase(foodPrice);
             if (!successsPurchase)
             {
-                var buyResourcesDialog = new BuyResourcesForDiamondsDialog(session, ResourceId.Food, _data.foodPrice,
+                var buyResourcesDialog = new BuyResourcesForDiamondsDialog(session, foodPrice,
                 onSuccess: async () => await new BattlePointDialog(session, _data).SilentStart(),
                 onCancel: async () => await new BattlePointDialog(session, _data).Start());
                 await buyResourcesDialog.Start().FastAwait();

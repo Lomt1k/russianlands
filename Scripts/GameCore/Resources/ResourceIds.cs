@@ -1,6 +1,4 @@
-﻿using TextGameRPG.Scripts.GameCore.Localizations;
-using TextGameRPG.Scripts.Bot;
-using TextGameRPG.Scripts.Bot.Sessions;
+﻿using TextGameRPG.Scripts.Bot;
 
 namespace TextGameRPG.Scripts.GameCore.Resources
 {
@@ -66,17 +64,6 @@ namespace TextGameRPG.Scripts.GameCore.Resources
 
                 _ => Emojis.Empty
             };
-        }
-
-        public static string GetShortView(this ResourceId resourceId, int amount)
-        {
-            return GetEmoji(resourceId) + amount.ShortView();
-        }
-
-        public static string GetLocalizedView(this ResourceId resourceId, GameSession session, int amount)
-        {
-            var localizationKey = "resource_name_" + resourceId.ToString().ToLower();
-            return GetEmoji(resourceId) + Localization.Get(session, localizationKey) + $" {amount.View()}";
         }
 
         public static bool IsCraftResource(this ResourceId resourceId)
