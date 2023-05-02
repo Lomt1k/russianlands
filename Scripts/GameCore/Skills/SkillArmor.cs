@@ -2,32 +2,31 @@
 using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.GameCore.Resources;
 
-namespace TextGameRPG.Scripts.GameCore.Skills
+namespace TextGameRPG.Scripts.GameCore.Skills;
+
+internal class SkillArmor : ISkill
 {
-    internal class SkillArmor : ISkill
+    public ItemType itemType => ItemType.Armor;
+    public ResourceId[] requiredFruits => new ResourceId[]
     {
-        public ItemType itemType => ItemType.Armor;
-        public ResourceId[] requiredFruits => new ResourceId[]
-        {
-            ResourceId.FruitMandarin,
-            ResourceId.FruitPineapple,
-            ResourceId.FruitGrape,
-        };
+        ResourceId.FruitMandarin,
+        ResourceId.FruitPineapple,
+        ResourceId.FruitGrape,
+    };
 
-        public byte GetValue(ProfileData profileData)
-        {
-            return profileData.skillArmor;
-        }
-
-        public void SetValue(ProfileData profileData, byte value)
-        {
-            profileData.skillArmor = value;
-        }
-
-        public void AddValue(ProfileData profileData, byte value)
-        {
-            profileData.skillArmor += value;
-        }
-
+    public byte GetValue(ProfileData profileData)
+    {
+        return profileData.skillArmor;
     }
+
+    public void SetValue(ProfileData profileData, byte value)
+    {
+        profileData.skillArmor = value;
+    }
+
+    public void AddValue(ProfileData profileData, byte value)
+    {
+        profileData.skillArmor += value;
+    }
+
 }

@@ -1,22 +1,20 @@
-﻿namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties
+﻿namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties;
+
+public enum PropertyType : byte
 {
-    public enum PropertyType : byte
-    {
-        None = 0,
-        DamageResist = 1,
-        IncreaseMaxHealth = 2,
-    }
+    None = 0,
+    DamageResist = 1,
+    IncreaseMaxHealth = 2,
+}
 
-    public static class PropertyTypeExtensions
+public static class PropertyTypeExtensions
+{
+    public static ViewPriority GetPriority(this PropertyType type)
     {
-        public static ViewPriority GetPriority(this PropertyType type)
+        return type switch
         {
-            return type switch
-            {
-                PropertyType.DamageResist => ViewPriority.GeneralInfo,
-                _ => ViewPriority.Passive
-            };
-        }
+            PropertyType.DamageResist => ViewPriority.GeneralInfo,
+            _ => ViewPriority.Passive
+        };
     }
-
 }

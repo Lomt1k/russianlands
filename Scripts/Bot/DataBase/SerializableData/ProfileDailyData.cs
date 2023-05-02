@@ -4,70 +4,69 @@ using System.Collections.Generic;
 using TextGameRPG.Scripts.GameCore.Locations;
 using TextGameRPG.Scripts.GameCore.Services.Mobs;
 
-namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
+namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData;
+
+public class ProfileDailyData : DataWithSession
 {
-    public class ProfileDailyData : DataWithSession
+    // identification data
+    [PrimaryKey]
+    public long dbid { get; set; }
+    public long telegram_id { get; set; }
+    public string regDate { get; set; }
+    [MaxLength(16)] public string regVersion { get; set; }
+    [MaxLength(16)] public string lastVersion { get; set; }
+
+    // for stats
+    public int activityInSeconds { get; set; } = 1;
+
+    // map mobs progress
+    public MobDifficulty? locationMobsDifficulty { get; set; }
+    public Dictionary<LocationId, List<byte>> defeatedLocationMobs { get; set; } = new();
+
+
+
+    public MobDifficulty GetLocationMobDifficulty()
     {
-        // identification data
-        [PrimaryKey]
-        public long dbid { get; set; }
-        public long telegram_id { get; set; }
-        public string regDate { get; set; }
-        [MaxLength(16)] public string regVersion { get; set; }
-        [MaxLength(16)] public string lastVersion { get; set; }
+        return locationMobsDifficulty ??= MobDifficultyCalculator.GetActualDifficultyForPlayer(session.player);
+    }
 
-        // for stats
-        public int activityInSeconds { get; set; } = 1;
-
-        // map mobs progress
-        public MobDifficulty? locationMobsDifficulty { get; set; }
-        public Dictionary<LocationId, List<byte>> defeatedLocationMobs { get; set; } = new();
-
-
-
-        public MobDifficulty GetLocationMobDifficulty()
+    public List<byte> GetLocationDefeatedMobs(LocationId locationId)
+    {
+        if (defeatedLocationMobs.TryGetValue(locationId, out var result))
         {
-            return locationMobsDifficulty ??= MobDifficultyCalculator.GetActualDifficultyForPlayer(session.player);
+            return result;
         }
+        var newList = new List<byte>();
+        defeatedLocationMobs.Add(locationId, newList);
+        return newList;
+    }
 
-        public List<byte> GetLocationDefeatedMobs(LocationId locationId)
+    public static ProfileDailyData Create(ProfileData data, ProfileDynamicData dynamicData, ProfileBuildingsData buildingsData)
+    {
+        return new ProfileDailyData
         {
-            if (defeatedLocationMobs.TryGetValue(locationId, out var result))
-            {
-                return result;
-            }
-            var newList = new List<byte>();
-            defeatedLocationMobs.Add(locationId, newList);
-            return newList;
-        }
+            dbid = data.dbid,
+            telegram_id = data.telegram_id,
+            regDate = data.regDate,
+            regVersion = data.regVersion,
+            lastVersion = data.lastVersion,
+        };
+    }
 
-        public static ProfileDailyData Create(ProfileData data, ProfileDynamicData dynamicData, ProfileBuildingsData buildingsData)
+    public static ProfileDailyData Deserialize(RawProfileDailyData rawData)
+    {
+        return new ProfileDailyData
         {
-            return new ProfileDailyData
-            {
-                dbid = data.dbid,
-                telegram_id = data.telegram_id,
-                regDate = data.regDate,
-                regVersion = data.regVersion,
-                lastVersion = data.lastVersion,
-            };
-        }
+            dbid = rawData.dbid,
+            telegram_id = rawData.telegram_id,
+            regDate = rawData.regDate,
+            regVersion = rawData.regVersion,
+            lastVersion = rawData.lastVersion,
 
-        public static ProfileDailyData Deserialize(RawProfileDailyData rawData)
-        {
-            return new ProfileDailyData
-            {
-                dbid = rawData.dbid,
-                telegram_id = rawData.telegram_id,
-                regDate = rawData.regDate,
-                regVersion = rawData.regVersion,
-                lastVersion = rawData.lastVersion,
+            activityInSeconds = rawData.activityInSeconds,
 
-                activityInSeconds = rawData.activityInSeconds,
-
-                locationMobsDifficulty = rawData.locationMobsDifficulty,
-                defeatedLocationMobs = JsonConvert.DeserializeObject<Dictionary<LocationId, List<byte>>>(rawData.defeatedLocationMobs),
-            };
-        }
+            locationMobsDifficulty = rawData.locationMobsDifficulty,
+            defeatedLocationMobs = JsonConvert.DeserializeObject<Dictionary<LocationId, List<byte>>>(rawData.defeatedLocationMobs),
+        };
     }
 }

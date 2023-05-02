@@ -1,12 +1,11 @@
 using Avalonia.Controls;
 
-namespace TextGameRPG.Views.Editor.QuestsEditor
+namespace TextGameRPG.Views.Editor.QuestsEditor;
+
+public partial class StageWithDefaultReplicaView : UserControl
 {
-    public partial class StageWithDefaultReplicaView : UserControl
+    public StageWithDefaultReplicaView()
     {
-        public StageWithDefaultReplicaView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

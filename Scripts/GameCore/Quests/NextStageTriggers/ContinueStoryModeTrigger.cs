@@ -1,15 +1,14 @@
 ﻿using Newtonsoft.Json;
 
-namespace TextGameRPG.Scripts.GameCore.Quests.NextStageTriggers
-{
-    [JsonObject]
-    public class ContinueStoryModeTrigger : TriggerBase
-    {
-        public override TriggerType triggerType => TriggerType.ContinueStoryMode;
+namespace TextGameRPG.Scripts.GameCore.Quests.NextStageTriggers;
 
-        public override bool TryInvoke()
-        {
-            return true;
-        }
+[JsonObject]
+public class ContinueStoryModeTrigger : TriggerBase
+{
+    public override TriggerType triggerType => TriggerType.ContinueStoryMode;
+
+    public override bool TryInvoke()
+    {
+        return true;
     }
 }

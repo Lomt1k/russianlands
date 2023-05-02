@@ -77,13 +77,13 @@ public class CrossroadsMobsManager : Service
     private CrossroadsMobPack GenerateMobPack(MobDifficulty difficulty)
     {
         var result = new Dictionary<int, CrossroadsMobData[]>();
-        for (int setId = 0; setId < CrossroadsMobPack.MOB_SETS_IN_ONE_PACK; setId++)
+        for (var setId = 0; setId < CrossroadsMobPack.MOB_SETS_IN_ONE_PACK; setId++)
         {
             var crossId = setId + 1;
             var array = new CrossroadsMobData[3];
             var excludeNames = new List<string>();
             var excludeFruits = new List<ResourceId>();
-            for (int i = 0; i < array.Length; i++)
+            for (var i = 0; i < array.Length; i++)
             {
                 array[i] = mobFactory.GenerateMobForCrossroads(difficulty, crossId, excludeNames, excludeFruits);
                 excludeNames.Add(array[i].localizationKey);

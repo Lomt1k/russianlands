@@ -2,14 +2,13 @@
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.Bot.Sessions;
 
-namespace TextGameRPG.Scripts.GameCore.Quests.StageActions
+namespace TextGameRPG.Scripts.GameCore.Quests.StageActions;
+
+[JsonObject]
+public class RestoreFullHealthAction : StageActionBase
 {
-    [JsonObject]
-    public class RestoreFullHealthAction : StageActionBase
+    public override async Task Execute(GameSession session)
     {
-        public override async Task Execute(GameSession session)
-        {
-            session.player.unitStats.SetFullHealth();
-        }
+        session.player.unitStats.SetFullHealth();
     }
 }

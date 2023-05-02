@@ -5,31 +5,30 @@ using TextGameRPG.Models;
 using TextGameRPG.Scripts.GameCore.Resources;
 using TextGameRPG.Scripts.GameCore.Rewards;
 
-namespace TextGameRPG.ViewModels.Rewards
+namespace TextGameRPG.ViewModels.Rewards;
+
+internal class EditorResourceRewardViewModel : ViewModelBase
 {
-    internal class EditorResourceRewardViewModel : ViewModelBase
+    private EnumValueModel<ResourceId> _selectedResourceId;
+
+    public ResourceReward reward { get; }
+
+    public ObservableCollection<EnumValueModel<ResourceId>> resourceIds { get; }
+    public EnumValueModel<ResourceId> selectedResourceId
     {
-        private EnumValueModel<ResourceId> _selectedResourceId;
-
-        public ResourceReward reward { get; }
-
-        public ObservableCollection<EnumValueModel<ResourceId>> resourceIds { get; }
-        public EnumValueModel<ResourceId> selectedResourceId 
+        get => _selectedResourceId;
+        set
         {
-            get => _selectedResourceId;
-            set
-            {
-                this.RaiseAndSetIfChanged(ref _selectedResourceId, value);
-                reward.resourceId = value.value;
-            }
+            this.RaiseAndSetIfChanged(ref _selectedResourceId, value);
+            reward.resourceId = value.value;
         }
-        
+    }
 
-        public EditorResourceRewardViewModel(ResourceReward _resourceReward)
-        {
-            reward = _resourceReward;
-            resourceIds = EnumValueModel<ResourceId>.CreateCollection();
-            selectedResourceId = resourceIds.First(x => x.value == reward.resourceId);
-        }
+
+    public EditorResourceRewardViewModel(ResourceReward _resourceReward)
+    {
+        reward = _resourceReward;
+        resourceIds = EnumValueModel<ResourceId>.CreateCollection();
+        selectedResourceId = resourceIds.First(x => x.value == reward.resourceId);
     }
 }

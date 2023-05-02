@@ -1,12 +1,11 @@
 using Avalonia.Controls;
 
-namespace TextGameRPG.Views.Editor.BuildingsEditor
+namespace TextGameRPG.Views.Editor.BuildingsEditor;
+
+public partial class BuildingInspectorView : UserControl
 {
-    public partial class BuildingInspectorView : UserControl
+    public BuildingInspectorView()
     {
-        public BuildingInspectorView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

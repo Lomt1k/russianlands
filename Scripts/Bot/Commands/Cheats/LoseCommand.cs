@@ -3,21 +3,20 @@ using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Services;
 using TextGameRPG.Scripts.GameCore.Services.Battles;
 
-namespace TextGameRPG.Scripts.Bot.Commands.Cheats
+namespace TextGameRPG.Scripts.Bot.Commands.Cheats;
+
+public class LoseCommand : CommandBase
 {
-    public class LoseCommand : CommandBase
+    public override CommandGroup commandGroup => CommandGroup.Cheat;
+
+    private static readonly BattleManager battleManager = Services.Get<BattleManager>();
+
+    public override async Task Execute(GameSession session, string[] args)
     {
-        public override CommandGroup commandGroup => CommandGroup.Cheat;
-
-        private static readonly BattleManager battleManager = Services.Get<BattleManager>();
-
-        public override async Task Execute(GameSession session, string[] args)
+        var battle = battleManager.GetCurrentBattle(session.player);
+        if (battle != null)
         {
-            var battle = battleManager.GetCurrentBattle(session.player);
-            if (battle != null)
-            {
-                await battle.ForceBattleEndWithResult(session.player, Dialogs.Battle.BattleResult.Lose);
-            }
+            await battle.ForceBattleEndWithResult(session.player, Dialogs.Battle.BattleResult.Lose);
         }
     }
 }

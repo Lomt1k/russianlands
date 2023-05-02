@@ -1,13 +1,12 @@
-﻿using Newtonsoft.Json;
-using JsonKnownTypes;
+﻿using JsonKnownTypes;
+using Newtonsoft.Json;
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.Bot.Sessions;
 
-namespace TextGameRPG.Scripts.GameCore.Quests.StageActions
+namespace TextGameRPG.Scripts.GameCore.Quests.StageActions;
+
+[JsonConverter(typeof(JsonKnownTypesConverter<StageActionBase>))]
+public abstract class StageActionBase
 {
-    [JsonConverter(typeof(JsonKnownTypesConverter<StageActionBase>))]
-    public abstract class StageActionBase
-    {
-        public abstract Task Execute(GameSession session);
-    }
+    public abstract Task Execute(GameSession session);
 }

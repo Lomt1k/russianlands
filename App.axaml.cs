@@ -4,28 +4,27 @@ using Avalonia.Markup.Xaml;
 using TextGameRPG.ViewModels;
 using TextGameRPG.Views;
 
-namespace TextGameRPG
+namespace TextGameRPG;
+
+public partial class App : Application
 {
-    public partial class App : Application
+    public override void Initialize()
     {
-        public override void Initialize()
-        {
-            AvaloniaXamlLoader.Load(this);
-        }
+        AvaloniaXamlLoader.Load(this);
+    }
 
-        public override void OnFrameworkInitializationCompleted()
+    public override void OnFrameworkInitializationCompleted()
+    {
+        if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+            var mainWindow = new MainWindow
             {
-                var mainWindow = new MainWindow
-                {
-                    DataContext = new MainWindowViewModel(),
-                };
-                desktop.MainWindow = mainWindow;
-                Program.mainWindow = mainWindow;
-            }
-
-            base.OnFrameworkInitializationCompleted();
+                DataContext = new MainWindowViewModel(),
+            };
+            desktop.MainWindow = mainWindow;
+            Program.mainWindow = mainWindow;
         }
+
+        base.OnFrameworkInitializationCompleted();
     }
 }

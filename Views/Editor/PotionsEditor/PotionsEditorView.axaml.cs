@@ -1,14 +1,13 @@
 using Avalonia.Controls;
 using TextGameRPG.ViewModels.Editor.PotionsEditor;
 
-namespace TextGameRPG.Views.Editor.PotionsEditor
+namespace TextGameRPG.Views.Editor.PotionsEditor;
+
+public partial class PotionsEditorView : UserControl
 {
-    public partial class PotionsEditorView : UserControl
+    public PotionsEditorView()
     {
-        public PotionsEditorView()
-        {
-            InitializeComponent();
-            DataContext = new PotionsEditorViewModel();
-        }
+        InitializeComponent();
+        DataContext = new PotionsEditorViewModel();
     }
 }

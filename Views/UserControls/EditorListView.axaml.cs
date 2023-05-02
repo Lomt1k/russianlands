@@ -1,12 +1,11 @@
 using Avalonia.Controls;
 
-namespace TextGameRPG.Views.UserControls
+namespace TextGameRPG.Views.UserControls;
+
+public partial class EditorListView : UserControl
 {
-    public partial class EditorListView : UserControl
+    public EditorListView()
     {
-        public EditorListView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

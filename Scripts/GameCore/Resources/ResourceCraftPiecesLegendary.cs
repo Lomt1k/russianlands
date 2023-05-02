@@ -1,37 +1,36 @@
 ﻿using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
 using TextGameRPG.Scripts.Bot.Sessions;
 
-namespace TextGameRPG.Scripts.GameCore.Resources
+namespace TextGameRPG.Scripts.GameCore.Resources;
+
+public class ResourceCraftPiecesLegendary : IResource
 {
-    public class ResourceCraftPiecesLegendary : IResource
+    public ResourceId resourceId => ResourceId.CraftPiecesLegendary;
+
+    public int GetValue(ProfileData profileData)
     {
-        public ResourceId resourceId => ResourceId.CraftPiecesLegendary;
-
-        public int GetValue(ProfileData profileData)
-        {
-            return profileData.resourceCraftPiecesLegendary;
-        }
-
-        public void SetValue(ProfileData profileData, int value)
-        {
-            profileData.resourceCraftPiecesLegendary = value;
-        }
-
-        public void AddValue(ProfileData profileData, int value)
-        {
-            profileData.resourceCraftPiecesLegendary += value;
-        }
-
-        public bool IsUnlocked(GameSession session)
-        {
-            // ignored
-            return true;
-        }
-
-        public int GetResourceLimit(GameSession session)
-        {
-            return int.MaxValue;
-        }
-
+        return profileData.resourceCraftPiecesLegendary;
     }
+
+    public void SetValue(ProfileData profileData, int value)
+    {
+        profileData.resourceCraftPiecesLegendary = value;
+    }
+
+    public void AddValue(ProfileData profileData, int value)
+    {
+        profileData.resourceCraftPiecesLegendary += value;
+    }
+
+    public bool IsUnlocked(GameSession session)
+    {
+        // ignored
+        return true;
+    }
+
+    public int GetResourceLimit(GameSession session)
+    {
+        return int.MaxValue;
+    }
+
 }

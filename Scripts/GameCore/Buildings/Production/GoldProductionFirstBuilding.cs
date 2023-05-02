@@ -1,66 +1,65 @@
-﻿using TextGameRPG.Scripts.GameCore.Resources;
+﻿using System;
 using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
+using TextGameRPG.Scripts.GameCore.Resources;
 using TextGameRPG.Scripts.GameCore.Units;
-using System;
 
-namespace TextGameRPG.Scripts.GameCore.Buildings.Production
+namespace TextGameRPG.Scripts.GameCore.Buildings.Production;
+
+public class GoldProductionFirstBuilding : ProductionBuildingBase
 {
-    public class GoldProductionFirstBuilding : ProductionBuildingBase
+    public override ResourceId resourceId => ResourceId.Gold;
+    public override BuildingId buildingId => BuildingId.GoldProductionFirst;
+    public override Avatar firstWorkerIcon => Avatar.MaleB;
+    public override Avatar secondWorkerIcon => Avatar.MaleI;
+
+    public override byte GetCurrentLevel(ProfileBuildingsData data)
     {
-        public override ResourceId resourceId => ResourceId.Gold;
-        public override BuildingId buildingId => BuildingId.GoldProductionFirst;
-        public override Avatar firstWorkerIcon => Avatar.MaleB;
-        public override Avatar secondWorkerIcon => Avatar.MaleI;
-
-        public override byte GetCurrentLevel(ProfileBuildingsData data)
-        {
-            return data.goldProdFirstLevel;
-        }
-
-        protected override void SetCurrentLevel(ProfileBuildingsData data, byte level)
-        {
-            data.goldProdFirstLevel = level;
-        }
-
-        protected override DateTime GetStartConstructionTime(ProfileBuildingsData data)
-        {
-            return data.goldProdFirstStartConstructionTime;
-        }
-
-        protected override void SetStartConstructionTime(ProfileBuildingsData data, DateTime startConstructionTime)
-        {
-            data.goldProdFirstStartConstructionTime = startConstructionTime;
-        }
-
-        public override DateTime GetStartFarmTime(ProfileBuildingsData data)
-        {
-            return data.goldProdFirstStartFarmTime;
-        }
-
-        public override void SetStartFarmTime(ProfileBuildingsData data, DateTime startFarmTime)
-        {
-            data.goldProdFirstStartFarmTime = startFarmTime;
-        }
-
-        public override byte GetFirstWorkerLevel(ProfileBuildingsData data)
-        {
-            return data.goldProdFirstWorkerFirst;
-        }
-
-        public override byte GetSecondWorkerLevel(ProfileBuildingsData data)
-        {
-            return data.goldProdFirstWorkerSecond;
-        }
-
-        public override void SetFirstWorkerLevel(ProfileBuildingsData data, byte level)
-        {
-            data.goldProdFirstWorkerFirst = level;
-        }
-
-        public override void SetSecondWorkerLevel(ProfileBuildingsData data, byte level)
-        {
-            data.goldProdFirstWorkerSecond = level;
-        }
-        
+        return data.goldProdFirstLevel;
     }
+
+    protected override void SetCurrentLevel(ProfileBuildingsData data, byte level)
+    {
+        data.goldProdFirstLevel = level;
+    }
+
+    protected override DateTime GetStartConstructionTime(ProfileBuildingsData data)
+    {
+        return data.goldProdFirstStartConstructionTime;
+    }
+
+    protected override void SetStartConstructionTime(ProfileBuildingsData data, DateTime startConstructionTime)
+    {
+        data.goldProdFirstStartConstructionTime = startConstructionTime;
+    }
+
+    public override DateTime GetStartFarmTime(ProfileBuildingsData data)
+    {
+        return data.goldProdFirstStartFarmTime;
+    }
+
+    public override void SetStartFarmTime(ProfileBuildingsData data, DateTime startFarmTime)
+    {
+        data.goldProdFirstStartFarmTime = startFarmTime;
+    }
+
+    public override byte GetFirstWorkerLevel(ProfileBuildingsData data)
+    {
+        return data.goldProdFirstWorkerFirst;
+    }
+
+    public override byte GetSecondWorkerLevel(ProfileBuildingsData data)
+    {
+        return data.goldProdFirstWorkerSecond;
+    }
+
+    public override void SetFirstWorkerLevel(ProfileBuildingsData data, byte level)
+    {
+        data.goldProdFirstWorkerFirst = level;
+    }
+
+    public override void SetSecondWorkerLevel(ProfileBuildingsData data, byte level)
+    {
+        data.goldProdFirstWorkerSecond = level;
+    }
+
 }

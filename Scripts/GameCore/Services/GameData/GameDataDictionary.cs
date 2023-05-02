@@ -13,7 +13,7 @@ public class GameDataDictionary<TId, TData> where TData : IGameDataWithId<TId>
 
     public Action onDataChanged;
 
-    private Dictionary<TId, TData> _dictionary;
+    private readonly Dictionary<TId, TData> _dictionary;
 
     public int count => _dictionary.Count;
 
@@ -31,12 +31,12 @@ public class GameDataDictionary<TId, TData> where TData : IGameDataWithId<TId>
     {
         if (!File.Exists(path))
         {
-            using (StreamWriter writer = new StreamWriter(path, false, Encoding.UTF8))
+            using (var writer = new StreamWriter(path, false, Encoding.UTF8))
             {
                 writer.Write("[]");
             }
         }
-        using (StreamReader reader = new StreamReader(path, Encoding.UTF8))
+        using (var reader = new StreamReader(path, Encoding.UTF8))
         {
             var jsonStr = reader.ReadToEnd();
             var dictionary = JsonConvert.DeserializeObject<IEnumerable<TData>>(jsonStr).ToDictionary(x => x.id);
@@ -88,7 +88,7 @@ public class GameDataDictionary<TId, TData> where TData : IGameDataWithId<TId>
             return;
 
         var jsonStr = JsonConvert.SerializeObject(_dictionary.Values, Formatting.Indented);
-        using (StreamWriter writer = new StreamWriter(dataPath, false, Encoding.UTF8))
+        using (var writer = new StreamWriter(dataPath, false, Encoding.UTF8))
         {
             writer.Write(jsonStr);
         }

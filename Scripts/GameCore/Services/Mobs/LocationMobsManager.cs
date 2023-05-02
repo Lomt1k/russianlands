@@ -92,7 +92,7 @@ public class LocationMobsManager : Service
             var mobsCount = gameDataHolder.locationGeneratedMobs[locationId].mobsCount;
             var array = new SimpleMobData[mobsCount];
             var excludeNames = new List<string>();
-            for (int i = 0; i < mobsCount; i++)
+            for (var i = 0; i < mobsCount; i++)
             {
                 array[i] = mobFactory.GenerateMobForLocation(difficulty, locationId, excludeNames);
                 excludeNames.Add(array[i].localizationKey);

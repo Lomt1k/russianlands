@@ -2,8 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.Bot;
+using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Items;
 using TextGameRPG.Scripts.GameCore.Localizations;
 

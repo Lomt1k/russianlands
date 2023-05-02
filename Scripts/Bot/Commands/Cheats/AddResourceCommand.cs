@@ -5,42 +5,41 @@ using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Resources;
 
-namespace TextGameRPG.Scripts.Bot.Commands.Cheats
+namespace TextGameRPG.Scripts.Bot.Commands.Cheats;
+
+internal class AddResourceCommand : CommandBase
 {
-    internal class AddResourceCommand : CommandBase
+    public override CommandGroup commandGroup => CommandGroup.Cheat;
+
+    public override async Task Execute(GameSession session, string[] args)
     {
-        public override CommandGroup commandGroup => CommandGroup.Cheat;
-
-        public override async Task Execute(GameSession session, string[] args)
+        if (args.Length != 2
+            || !Enum.TryParse(args[0], ignoreCase: true, out ResourceId resourceId)
+            || !int.TryParse(args[1], out var amount))
         {
-            if (args.Length != 2
-                || !Enum.TryParse(args[0], ignoreCase: true, out ResourceId resourceId)
-                || !int.TryParse(args[1], out int amount))
-            {
-                await SendManualMessage(session);
-                return;
-            }
-
-            var resourceData = new ResourceData(resourceId, amount);
-            session.player.resources.ForceAdd(resourceData);
-
-            var sb = new StringBuilder();
-            sb.AppendLine(Localization.Get(session, "battle_result_header_rewards"));
-            sb.AppendLine(resourceData.GetLocalizedView(session));
-
-            await messageSender.SendTextMessage(session.chatId, sb.ToString()).FastAwait();
+            await SendManualMessage(session);
+            return;
         }
 
-        public async Task SendManualMessage(GameSession session)
+        var resourceData = new ResourceData(resourceId, amount);
+        session.player.resources.ForceAdd(resourceData);
+
+        var sb = new StringBuilder();
+        sb.AppendLine(Localization.Get(session, "battle_result_header_rewards"));
+        sb.AppendLine(resourceData.GetLocalizedView(session));
+
+        await messageSender.SendTextMessage(session.chatId, sb.ToString()).FastAwait();
+    }
+
+    public async Task SendManualMessage(GameSession session)
+    {
+        var sb = new StringBuilder();
+        sb.AppendLine("Usage:".Bold());
+        sb.AppendLine();
+        foreach (ResourceId resourceId in Enum.GetValues(typeof(ResourceId)))
         {
-            var sb = new StringBuilder();
-            sb.AppendLine("Usage:".Bold());
-            sb.AppendLine();
-            foreach (ResourceId resourceId in Enum.GetValues(typeof(ResourceId)))
-            {
-                sb.AppendLine($"/addresource {resourceId} [amount]");
-            }
-            await messageSender.SendTextMessage(session.chatId, sb.ToString()).FastAwait();
+            sb.AppendLine($"/addresource {resourceId} [amount]");
         }
+        await messageSender.SendTextMessage(session.chatId, sb.ToString()).FastAwait();
     }
 }

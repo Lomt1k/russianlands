@@ -1,43 +1,42 @@
-﻿using TextGameRPG.Scripts.GameCore.Localizations;
+﻿using System;
 using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
 using TextGameRPG.Scripts.Bot.Sessions;
-using System;
+using TextGameRPG.Scripts.GameCore.Localizations;
 
-namespace TextGameRPG.Scripts.GameCore.Buildings.General
+namespace TextGameRPG.Scripts.GameCore.Buildings.General;
+
+public class TownHallBuilding : BuildingBase
 {
-    public class TownHallBuilding : BuildingBase
+    public override BuildingId buildingId => BuildingId.TownHall;
+
+    public override byte GetCurrentLevel(ProfileBuildingsData data)
     {
-        public override BuildingId buildingId => BuildingId.TownHall;
+        return data.townHallLevel;
+    }
 
-        public override byte GetCurrentLevel(ProfileBuildingsData data)
-        {
-            return data.townHallLevel;
-        }
+    protected override void SetCurrentLevel(ProfileBuildingsData data, byte level)
+    {
+        data.townHallLevel = level;
+    }
 
-        protected override void SetCurrentLevel(ProfileBuildingsData data, byte level)
-        {
-            data.townHallLevel = level;
-        }
+    protected override DateTime GetStartConstructionTime(ProfileBuildingsData data)
+    {
+        return data.townHallStartConstructionTime;
+    }
 
-        protected override DateTime GetStartConstructionTime(ProfileBuildingsData data)
-        {
-            return data.townHallStartConstructionTime;
-        }
+    protected override void SetStartConstructionTime(ProfileBuildingsData data, DateTime startConstructionTime)
+    {
+        data.townHallStartConstructionTime = startConstructionTime;
+    }
 
-        protected override void SetStartConstructionTime(ProfileBuildingsData data, DateTime startConstructionTime)
-        {
-            data.townHallStartConstructionTime = startConstructionTime;
-        }
+    public override string GetCurrentLevelInfo(GameSession session, ProfileBuildingsData data)
+    {
+        return Localization.Get(session, "building_TownHall_description");
+    }
 
-        public override string GetCurrentLevelInfo(GameSession session, ProfileBuildingsData data)
-        {
-            return Localization.Get(session, "building_TownHall_description");
-        }
-
-        public override string GetNextLevelInfo(GameSession session, ProfileBuildingsData data)
-        {
-            // TODO: Добавить инфу о следующем уровне
-            return Localization.Get(session, "building_TownHall_description");
-        }
+    public override string GetNextLevelInfo(GameSession session, ProfileBuildingsData data)
+    {
+        // TODO: Добавить инфу о следующем уровне
+        return Localization.Get(session, "building_TownHall_description");
     }
 }

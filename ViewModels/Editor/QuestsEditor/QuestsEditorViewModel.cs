@@ -8,144 +8,143 @@ using TextGameRPG.Models;
 using TextGameRPG.Models.RegularDialogs;
 using TextGameRPG.Scripts.GameCore.Quests;
 using TextGameRPG.Scripts.GameCore.Quests.QuestStages;
-using TextGameRPG.Scripts.GameCore.Services.GameData;
 using TextGameRPG.Scripts.GameCore.Services;
+using TextGameRPG.Scripts.GameCore.Services.GameData;
 using TextGameRPG.Views.Editor.QuestsEditor;
 
-namespace TextGameRPG.ViewModels.Editor.QuestsEditor
+namespace TextGameRPG.ViewModels.Editor.QuestsEditor;
+
+public class QuestsEditorViewModel : ViewModelBase
 {
-    public class QuestsEditorViewModel : ViewModelBase
+    private static readonly GameDataHolder gameDataHolder = Services.Get<GameDataHolder>();
+
+    private EnumValueModel<QuestId>? _selectedQuest;
+    private QuestData? _quest;
+    private QuestStage? _selectedStage;
+
+    public ObservableCollection<EnumValueModel<QuestId>> quests { get; }
+    public ObservableCollection<QuestStage> questStages { get; } = new ObservableCollection<QuestStage>();
+
+    public EnumValueModel<QuestId>? selectedQuest
     {
-        private static readonly GameDataHolder gameDataHolder = Services.Get<GameDataHolder>();
-
-        private EnumValueModel<QuestId>? _selectedQuest;
-        private QuestData? _quest;
-        private QuestStage? _selectedStage;
-
-        public ObservableCollection<EnumValueModel<QuestId>> quests { get; }
-        public ObservableCollection<QuestStage> questStages { get; } = new ObservableCollection<QuestStage>();
-
-        public EnumValueModel<QuestId>? selectedQuest
+        get => _selectedQuest;
+        set
         {
-            get => _selectedQuest;
-            set
+            this.RaiseAndSetIfChanged(ref _selectedQuest, value);
+            if (value != null)
             {
-                this.RaiseAndSetIfChanged(ref _selectedQuest, value);
-                if (value != null)
+                _quest = gameDataHolder.quests[value.value];
+                selectedStage = null;
+                questStages.Clear();
+                foreach (var stage in _quest.stages)
                 {
-                    _quest = gameDataHolder.quests[value.value];
-                    selectedStage = null;
-                    questStages.Clear();
-                    foreach (var stage in _quest.stages)
-                    {
-                        questStages.Add(stage);
-                    }
+                    questStages.Add(stage);
                 }
             }
         }
-        public QuestStage? selectedStage
-        {
-            get => _selectedStage;
-            set
-            {
-                this.RaiseAndSetIfChanged(ref _selectedStage, value);
-                stageInspectorVM.ShowStage(value);
-            }
-        }
-
-        public StageInspectorView stageInspector { get; }
-        public StageInspectorViewModel stageInspectorVM { get; }
-
-        public ReactiveCommand<Unit,Unit> addStageCommand { get; }
-        public ReactiveCommand<Unit,Unit> removeStageCommand { get; }
-
-        public QuestsEditorViewModel()
-        {
-            quests = EnumValueModel<QuestId>.CreateCollection(excludeValue: QuestId.None);
-            addStageCommand = ReactiveCommand.Create(AddNewStage);
-            removeStageCommand = ReactiveCommand.Create(RemoveSelectedStage);
-
-            stageInspector = new StageInspectorView();
-            stageInspector.DataContext = stageInspectorVM = new StageInspectorViewModel();
-        }
-
-        public void AddNewStage()
-        {
-            RegularDialogHelper.ShowItemSelectionDialog("Select stage type:", new Dictionary<string, Action>()
-            {
-                { "Stage With Trigger", AddNewStageWithEndingTrigger },
-                { "Stage With Default Replica", AddNewStageWithDefaultReplica },
-                { "Stage With Replica", AddNewStageWithReplica },
-                { "Stage With Battle", AddNewStageWithBattle },
-                { "Stage With Battle Point", AddNewStageWithBattlePoint },
-            });
-        }
-
-        private void AddNewStageWithDefaultReplica()
-        {
-            var stage = new QuestStageWithDefaultReplica()
-            {
-                id = GetDefaultIdForNewStage(),
-                comment = "New Default Replica"
-            };
-            questStages.Add(stage);
-        }
-
-        private void AddNewStageWithReplica()
-        {
-            var stage = new QuestStageWithReplica()
-            {
-                id = GetDefaultIdForNewStage(),
-                comment = "New Replica"
-            };
-            questStages.Add(stage);
-        }
-
-        private void AddNewStageWithEndingTrigger()
-        {
-            var stage = new QuestStageWithTrigger()
-            {
-                id = GetDefaultIdForNewStage()
-            };
-            questStages.Add(stage);
-        }
-
-        private void AddNewStageWithBattle()
-        {
-            var stage = new QuestStageWithBattle()
-            {
-                id = GetDefaultIdForNewStage()
-            };
-            questStages.Add(stage);
-        }
-
-        private void AddNewStageWithBattlePoint()
-        {
-            var stage = new QuestStageWithBattlePoint()
-            {
-                id = GetDefaultIdForNewStage()
-            };
-            questStages.Add(stage);
-        }
-
-        private int GetDefaultIdForNewStage()
-        {
-            if (questStages.Count == 0)
-                return 100;
-
-            var maxId = questStages.Max(x => x.id);
-            return maxId / 100 * 100 + 100;
-        }
-
-        public void RemoveSelectedStage()
-        {
-            if (selectedStage == null)
-                return;
-
-            questStages.Remove(selectedStage);
-            selectedStage = null;
-        }
-
-
     }
+    public QuestStage? selectedStage
+    {
+        get => _selectedStage;
+        set
+        {
+            this.RaiseAndSetIfChanged(ref _selectedStage, value);
+            stageInspectorVM.ShowStage(value);
+        }
+    }
+
+    public StageInspectorView stageInspector { get; }
+    public StageInspectorViewModel stageInspectorVM { get; }
+
+    public ReactiveCommand<Unit, Unit> addStageCommand { get; }
+    public ReactiveCommand<Unit, Unit> removeStageCommand { get; }
+
+    public QuestsEditorViewModel()
+    {
+        quests = EnumValueModel<QuestId>.CreateCollection(excludeValue: QuestId.None);
+        addStageCommand = ReactiveCommand.Create(AddNewStage);
+        removeStageCommand = ReactiveCommand.Create(RemoveSelectedStage);
+
+        stageInspector = new StageInspectorView();
+        stageInspector.DataContext = stageInspectorVM = new StageInspectorViewModel();
+    }
+
+    public void AddNewStage()
+    {
+        RegularDialogHelper.ShowItemSelectionDialog("Select stage type:", new Dictionary<string, Action>()
+        {
+            { "Stage With Trigger", AddNewStageWithEndingTrigger },
+            { "Stage With Default Replica", AddNewStageWithDefaultReplica },
+            { "Stage With Replica", AddNewStageWithReplica },
+            { "Stage With Battle", AddNewStageWithBattle },
+            { "Stage With Battle Point", AddNewStageWithBattlePoint },
+        });
+    }
+
+    private void AddNewStageWithDefaultReplica()
+    {
+        var stage = new QuestStageWithDefaultReplica()
+        {
+            id = GetDefaultIdForNewStage(),
+            comment = "New Default Replica"
+        };
+        questStages.Add(stage);
+    }
+
+    private void AddNewStageWithReplica()
+    {
+        var stage = new QuestStageWithReplica()
+        {
+            id = GetDefaultIdForNewStage(),
+            comment = "New Replica"
+        };
+        questStages.Add(stage);
+    }
+
+    private void AddNewStageWithEndingTrigger()
+    {
+        var stage = new QuestStageWithTrigger()
+        {
+            id = GetDefaultIdForNewStage()
+        };
+        questStages.Add(stage);
+    }
+
+    private void AddNewStageWithBattle()
+    {
+        var stage = new QuestStageWithBattle()
+        {
+            id = GetDefaultIdForNewStage()
+        };
+        questStages.Add(stage);
+    }
+
+    private void AddNewStageWithBattlePoint()
+    {
+        var stage = new QuestStageWithBattlePoint()
+        {
+            id = GetDefaultIdForNewStage()
+        };
+        questStages.Add(stage);
+    }
+
+    private int GetDefaultIdForNewStage()
+    {
+        if (questStages.Count == 0)
+            return 100;
+
+        var maxId = questStages.Max(x => x.id);
+        return (maxId / 100 * 100) + 100;
+    }
+
+    public void RemoveSelectedStage()
+    {
+        if (selectedStage == null)
+            return;
+
+        questStages.Remove(selectedStage);
+        selectedStage = null;
+    }
+
+
 }

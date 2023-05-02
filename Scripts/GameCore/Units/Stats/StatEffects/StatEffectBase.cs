@@ -1,6 +1,5 @@
-﻿namespace TextGameRPG.Scripts.GameCore.Units.Stats.StatEffects
+﻿namespace TextGameRPG.Scripts.GameCore.Units.Stats.StatEffects;
+
+public abstract class StatEffectBase
 {
-    public abstract class StatEffectBase
-    {
-    }
 }

@@ -2,16 +2,15 @@
 using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Localizations;
 
-namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities.Keywords
-{
-    public class AddManaKeywordAbility : ItemAbilityBase
-    {
-        public override string debugDescription => "Даёт дополнительное очко маны";
-        public override AbilityType abilityType => AbilityType.AddManaKeyword;
+namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities.Keywords;
 
-        public override string GetView(GameSession session)
-        {
-            return Emojis.StatMana + Localization.Get(session, "ability_add_mana_percentage", chanceToSuccessPercentage);
-        }
+public class AddManaKeywordAbility : ItemAbilityBase
+{
+    public override string debugDescription => "Даёт дополнительное очко маны";
+    public override AbilityType abilityType => AbilityType.AddManaKeyword;
+
+    public override string GetView(GameSession session)
+    {
+        return Emojis.StatMana + Localization.Get(session, "ability_add_mana_percentage", chanceToSuccessPercentage);
     }
 }

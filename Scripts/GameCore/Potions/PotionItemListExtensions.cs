@@ -67,7 +67,7 @@ public static class PotionItemListExtensions
 
     public static int GetReadyPotionsCount(this List<PotionItem> potions)
     {
-        int count = 0;
+        var count = 0;
         foreach (var item in potions)
         {
             if (item.IsReady())
@@ -80,7 +80,7 @@ public static class PotionItemListExtensions
 
     public static int GetPotionsInProductionCount(this List<PotionItem> potions)
     {
-        int count = 0;
+        var count = 0;
         foreach (var item in potions)
         {
             if (!item.IsReady())

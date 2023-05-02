@@ -36,7 +36,7 @@ public static class StringExtensions
         if (input.Length < 3 || input.Length > 16)
             return false;
 
-        for (int i = 0; i < input.Length; i++)
+        for (var i = 0; i < input.Length; i++)
         {
             var symbol = input[i];
             if (!char.IsLetterOrDigit(symbol) && !char.IsWhiteSpace(symbol))
@@ -84,15 +84,15 @@ public static class StringExtensions
         if (input < 1000 && input > -1000)
             return input.ToString();
 
-        string positiveValue = Math.Abs(input).ToString();
-        int separatorsCount = (positiveValue.Length - 1) / 3;
-        int finalLength = positiveValue.Length + separatorsCount + (input < 0 ? 1 : 0);
+        var positiveValue = Math.Abs(input).ToString();
+        var separatorsCount = (positiveValue.Length - 1) / 3;
+        var finalLength = positiveValue.Length + separatorsCount + (input < 0 ? 1 : 0);
 
-        char[] result = new char[finalLength];
-        int counter = 0;
-        int charIndex = result.Length - 1;
+        var result = new char[finalLength];
+        var counter = 0;
+        var charIndex = result.Length - 1;
 
-        for (int i = positiveValue.Length - 1; i > 0; i--)
+        for (var i = positiveValue.Length - 1; i > 0; i--)
         {
             result[charIndex] = positiveValue[i];
             charIndex--;

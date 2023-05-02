@@ -1,37 +1,36 @@
 ﻿using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
 using TextGameRPG.Scripts.Bot.Sessions;
 
-namespace TextGameRPG.Scripts.GameCore.Resources
+namespace TextGameRPG.Scripts.GameCore.Resources;
+
+internal class ResourceFruitApple : IResource
 {
-    internal class ResourceFruitApple : IResource
+    public ResourceId resourceId => ResourceId.FruitApple;
+
+    public int GetValue(ProfileData profileData)
     {
-        public ResourceId resourceId => ResourceId.FruitApple;
-
-        public int GetValue(ProfileData profileData)
-        {
-            return profileData.resourceFruitApple;
-        }
-
-        public void SetValue(ProfileData profileData, int value)
-        {
-            profileData.resourceFruitApple = value;
-        }
-
-        public void AddValue(ProfileData profileData, int value)
-        {
-            profileData.resourceFruitApple += value;
-        }
-
-        public bool IsUnlocked(GameSession session)
-        {
-            // ignored
-            return true;
-        }
-
-        public int GetResourceLimit(GameSession session)
-        {
-            return int.MaxValue;
-        }
-
+        return profileData.resourceFruitApple;
     }
+
+    public void SetValue(ProfileData profileData, int value)
+    {
+        profileData.resourceFruitApple = value;
+    }
+
+    public void AddValue(ProfileData profileData, int value)
+    {
+        profileData.resourceFruitApple += value;
+    }
+
+    public bool IsUnlocked(GameSession session)
+    {
+        // ignored
+        return true;
+    }
+
+    public int GetResourceLimit(GameSession session)
+    {
+        return int.MaxValue;
+    }
+
 }

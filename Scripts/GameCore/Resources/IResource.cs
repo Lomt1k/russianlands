@@ -1,16 +1,15 @@
 ﻿using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
 using TextGameRPG.Scripts.Bot.Sessions;
 
-namespace TextGameRPG.Scripts.GameCore.Resources
-{
-    public interface IResource
-    {
-        public ResourceId resourceId { get; }
+namespace TextGameRPG.Scripts.GameCore.Resources;
 
-        int GetValue(ProfileData profileData);
-        void SetValue(ProfileData profileData, int value);
-        void AddValue(ProfileData profileData, int value);
-        bool IsUnlocked(GameSession session);
-        int GetResourceLimit(GameSession session);
-    }
+public interface IResource
+{
+    public ResourceId resourceId { get; }
+
+    int GetValue(ProfileData profileData);
+    void SetValue(ProfileData profileData, int value);
+    void AddValue(ProfileData profileData, int value);
+    bool IsUnlocked(GameSession session);
+    int GetResourceLimit(GameSession session);
 }

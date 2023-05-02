@@ -38,10 +38,6 @@
     <PackageReference Include="XamlNameReferenceGenerator" Version="1.6.1" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\BotControl\" />
-    <Folder Include="Models\Editor\LocationsEditor\" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Assets\log4net.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

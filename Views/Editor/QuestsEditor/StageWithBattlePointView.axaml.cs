@@ -1,12 +1,11 @@
 using Avalonia.Controls;
 
-namespace TextGameRPG.Views.Editor.QuestsEditor
+namespace TextGameRPG.Views.Editor.QuestsEditor;
+
+public partial class StageWithBattlePointView : UserControl
 {
-    public partial class StageWithBattlePointView : UserControl
+    public StageWithBattlePointView()
     {
-        public StageWithBattlePointView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

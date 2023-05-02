@@ -3,21 +3,20 @@ using ReactiveUI;
 using System;
 using System.Reactive;
 
-namespace TextGameRPG.ViewModels.RegularDialogs
+namespace TextGameRPG.ViewModels.RegularDialogs;
+
+public class ConfirmDialogViewModel : ViewModelBase
 {
-    public class ConfirmDialogViewModel : ViewModelBase
+    public string description { get; }
+    public ReactiveCommand<Unit, Unit> confirmCommand { get; }
+    public ReactiveCommand<Unit, Unit> declineCommand { get; }
+
+
+    public ConfirmDialogViewModel(Window dialogView, string _description, Action onConfirm, Action? onDecline)
     {
-        public string description { get; }
-        public ReactiveCommand<Unit, Unit> confirmCommand { get; }
-        public ReactiveCommand<Unit, Unit> declineCommand { get; }
-
-
-        public ConfirmDialogViewModel(Window dialogView, string _description, Action onConfirm, Action? onDecline)
-        {
-            description = _description;
-            confirmCommand = ReactiveCommand.Create(onConfirm + dialogView.Close);
-            declineCommand = ReactiveCommand.Create(onDecline + dialogView.Close);
-        }
-
+        description = _description;
+        confirmCommand = ReactiveCommand.Create(onConfirm + dialogView.Close);
+        declineCommand = ReactiveCommand.Create(onDecline + dialogView.Close);
     }
+
 }

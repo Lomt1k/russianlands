@@ -2,40 +2,39 @@
 using TextGameRPG.Scripts.GameCore.Services;
 using TextGameRPG.Scripts.GameCore.Services.GameData;
 
-namespace TextGameRPG.ViewModels
+namespace TextGameRPG.ViewModels;
+
+public class GameDataLoader
 {
-    public class GameDataLoader
+    private static readonly GameDataHolder gameDataBase = Services.Get<GameDataHolder>();
+
+    public bool isCompleted { get; private set; } = false;
+
+    public GameDataLoader()
     {
-        private static readonly GameDataHolder gameDataBase = Services.Get<GameDataHolder>();
+    }
 
-        public bool isCompleted { get; private set; } = false;
+    public void Load()
+    {
+        AddNextState("Start loading game data...");
+        gameDataBase.LoadAllData(this);
+    }
 
-        public GameDataLoader()
-        {
-        }
+    public void AddInfoToCurrentState(string text)
+    {
+        Console.Write(' ' + text);
+    }
 
-        public void Load()
-        {
-            AddNextState("Start loading game data...");
-            gameDataBase.LoadAllData(this);
-        }
+    public void AddNextState(string stateInfo)
+    {
+        Console.WriteLine();
+        Console.Write(stateInfo);
+    }
 
-        public void AddInfoToCurrentState(string text)
-        {
-            Console.Write(' ' + text);
-        }
-
-        public void AddNextState(string stateInfo)
-        {
-            Console.WriteLine();
-            Console.Write(stateInfo);
-        }
-
-        public void OnGameDataLoaded()
-        {
-            AddNextState("All Game Data successfully loaded");
-            Console.WriteLine();
-            isCompleted = true;
-        }
+    public void OnGameDataLoaded()
+    {
+        AddNextState("All Game Data successfully loaded");
+        Console.WriteLine();
+        isCompleted = true;
     }
 }

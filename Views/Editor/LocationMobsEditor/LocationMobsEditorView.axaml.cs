@@ -1,14 +1,13 @@
 using Avalonia.Controls;
 using TextGameRPG.ViewModels.Editor.LocationMobsEditor;
 
-namespace TextGameRPG.Views.Editor.LocationMobsEditor
+namespace TextGameRPG.Views.Editor.LocationMobsEditor;
+
+public partial class LocationMobsEditorView : UserControl
 {
-    public partial class LocationMobsEditorView : UserControl
+    public LocationMobsEditorView()
     {
-        public LocationMobsEditorView()
-        {
-            InitializeComponent();
-            DataContext = new LocationMobsEditorViewModel();
-        }
+        InitializeComponent();
+        DataContext = new LocationMobsEditorViewModel();
     }
 }

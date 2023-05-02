@@ -1,38 +1,36 @@
 ﻿using SQLite;
 using System;
 
-namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
+namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData;
+
+[Table("ProfileDailyStatData")]
+public class ProfileDailyStatData
 {
-    [Table("ProfileDailyStatData")]
-    public class ProfileDailyStatData
+    [PrimaryKey]
+    public string statId { get; set; }
+    public long dbid { get; set; }
+    public long telegram_id { get; set; }
+    public DateTime regDate { get; set; }
+    [MaxLength(16)] public string regVersion { get; set; }
+    [MaxLength(16)] public string lastVersion { get; set; }
+
+    public int activityInSeconds { get; set; }
+    public int daysAfterRegistration { get; set; }
+
+    public static ProfileDailyStatData Create(RawProfileDailyData data, DateTime date, string dateStr)
     {
-        [PrimaryKey]
-        public string statId { get; set; }
-        public long dbid { get; set; }
-        public long telegram_id { get; set; }
-        public DateTime regDate { get; set; }
-        [MaxLength(16)] public string regVersion { get; set; }
-        [MaxLength(16)] public string lastVersion { get; set; }
-
-        public int activityInSeconds { get; set; }
-        public int daysAfterRegistration { get; set; }
-
-        public static ProfileDailyStatData Create(RawProfileDailyData data, DateTime date, string dateStr)
+        var regDate = data.regDate.AsDate();
+        return new ProfileDailyStatData
         {
-            var now = DateTime.UtcNow;
-            var regDate = data.regDate.AsDate();
-            return new ProfileDailyStatData
-            {
-                statId = $"{dateStr} | dbid {data.dbid}",
-                dbid = data.dbid,
-                telegram_id = data.telegram_id,
-                regDate = regDate,
-                regVersion = data.regVersion,
-                lastVersion = data.lastVersion,
+            statId = $"{dateStr} | dbid {data.dbid}",
+            dbid = data.dbid,
+            telegram_id = data.telegram_id,
+            regDate = regDate,
+            regVersion = data.regVersion,
+            lastVersion = data.lastVersion,
 
-                activityInSeconds = data.activityInSeconds,
-                daysAfterRegistration = (date - regDate).Days,
-            };
-        }
+            activityInSeconds = data.activityInSeconds,
+            daysAfterRegistration = (date - regDate).Days,
+        };
     }
 }

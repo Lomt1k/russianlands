@@ -3,34 +3,33 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using TextGameRPG.Scripts.Bot.Sessions;
 
-namespace TextGameRPG.Scripts.Bot.Dialogs
+namespace TextGameRPG.Scripts.Bot.Dialogs;
+
+public class SimpleDialog : DialogBase
 {
-    public class SimpleDialog : DialogBase
+    private readonly string _text;
+
+    public SimpleDialog(GameSession _session, string text, bool withTownButton, Dictionary<string, Func<Task>> buttons) : base(_session)
     {
-        private string _text;
-
-        public SimpleDialog(GameSession _session, string text, bool withTownButton, Dictionary<string,Func<Task>> buttons) : base(_session)
+        _text = text;
+        foreach (var button in buttons)
         {
-            _text = text;
-            foreach (var button in buttons)
-            {
-                RegisterButton(button.Key, button.Value);
-            }
-            if (withTownButton)
-            {
-                RegisterTownButton(isDoubleBack: false);
-            }
+            RegisterButton(button.Key, button.Value);
         }
-
-        public SimpleDialog(GameSession _session, string text) : base(_session)
+        if (withTownButton)
         {
-            _text = text;
             RegisterTownButton(isDoubleBack: false);
         }
+    }
 
-        public override async Task Start()
-        {
-            await SendDialogMessage(_text, GetMultilineKeyboard());
-        }
+    public SimpleDialog(GameSession _session, string text) : base(_session)
+    {
+        _text = text;
+        RegisterTownButton(isDoubleBack: false);
+    }
+
+    public override async Task Start()
+    {
+        await SendDialogMessage(_text, GetMultilineKeyboard());
     }
 }

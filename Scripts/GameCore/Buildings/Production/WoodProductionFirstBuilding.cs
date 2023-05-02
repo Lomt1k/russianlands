@@ -1,66 +1,65 @@
-﻿using TextGameRPG.Scripts.GameCore.Resources;
+﻿using System;
 using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
+using TextGameRPG.Scripts.GameCore.Resources;
 using TextGameRPG.Scripts.GameCore.Units;
-using System;
 
-namespace TextGameRPG.Scripts.GameCore.Buildings.Production
+namespace TextGameRPG.Scripts.GameCore.Buildings.Production;
+
+public class WoodProductionFirstBuilding : ProductionBuildingBase
 {
-    public class WoodProductionFirstBuilding : ProductionBuildingBase
+    public override ResourceId resourceId => ResourceId.Wood;
+    public override BuildingId buildingId => BuildingId.WoodProductionFirst;
+    public override Avatar firstWorkerIcon => Avatar.MaleC;
+    public override Avatar secondWorkerIcon => Avatar.MaleB;
+
+    public override byte GetCurrentLevel(ProfileBuildingsData data)
     {
-        public override ResourceId resourceId => ResourceId.Wood;
-        public override BuildingId buildingId => BuildingId.WoodProductionFirst;
-        public override Avatar firstWorkerIcon => Avatar.MaleC;
-        public override Avatar secondWorkerIcon => Avatar.MaleB;
-
-        public override byte GetCurrentLevel(ProfileBuildingsData data)
-        {
-            return data.woodProdFirstLevel;
-        }
-
-        protected override void SetCurrentLevel(ProfileBuildingsData data, byte level)
-        {
-            data.woodProdFirstLevel = level;
-        }
-
-        protected override DateTime GetStartConstructionTime(ProfileBuildingsData data)
-        {
-            return data.woodProdFirstStartConstructionTime;
-        }
-
-        protected override void SetStartConstructionTime(ProfileBuildingsData data, DateTime startConstructionTime)
-        {
-            data.woodProdFirstStartConstructionTime = startConstructionTime;
-        }
-
-        public override DateTime GetStartFarmTime(ProfileBuildingsData data)
-        {
-            return data.woodProdFirstStartFarmTime;
-        }
-
-        public override void SetStartFarmTime(ProfileBuildingsData data, DateTime startFarmTime)
-        {
-            data.woodProdFirstStartFarmTime = startFarmTime;
-        }
-
-        public override byte GetFirstWorkerLevel(ProfileBuildingsData data)
-        {
-            return data.woodProdFirstWorkerFirst;
-        }
-
-        public override byte GetSecondWorkerLevel(ProfileBuildingsData data)
-        {
-            return data.woodProdFirstWorkerSecond;
-        }
-
-        public override void SetFirstWorkerLevel(ProfileBuildingsData data, byte level)
-        {
-            data.woodProdFirstWorkerFirst = level;
-        }
-
-        public override void SetSecondWorkerLevel(ProfileBuildingsData data, byte level)
-        {
-            data.woodProdFirstWorkerSecond = level;
-        }
-
+        return data.woodProdFirstLevel;
     }
+
+    protected override void SetCurrentLevel(ProfileBuildingsData data, byte level)
+    {
+        data.woodProdFirstLevel = level;
+    }
+
+    protected override DateTime GetStartConstructionTime(ProfileBuildingsData data)
+    {
+        return data.woodProdFirstStartConstructionTime;
+    }
+
+    protected override void SetStartConstructionTime(ProfileBuildingsData data, DateTime startConstructionTime)
+    {
+        data.woodProdFirstStartConstructionTime = startConstructionTime;
+    }
+
+    public override DateTime GetStartFarmTime(ProfileBuildingsData data)
+    {
+        return data.woodProdFirstStartFarmTime;
+    }
+
+    public override void SetStartFarmTime(ProfileBuildingsData data, DateTime startFarmTime)
+    {
+        data.woodProdFirstStartFarmTime = startFarmTime;
+    }
+
+    public override byte GetFirstWorkerLevel(ProfileBuildingsData data)
+    {
+        return data.woodProdFirstWorkerFirst;
+    }
+
+    public override byte GetSecondWorkerLevel(ProfileBuildingsData data)
+    {
+        return data.woodProdFirstWorkerSecond;
+    }
+
+    public override void SetFirstWorkerLevel(ProfileBuildingsData data, byte level)
+    {
+        data.woodProdFirstWorkerFirst = level;
+    }
+
+    public override void SetSecondWorkerLevel(ProfileBuildingsData data, byte level)
+    {
+        data.woodProdFirstWorkerSecond = level;
+    }
+
 }

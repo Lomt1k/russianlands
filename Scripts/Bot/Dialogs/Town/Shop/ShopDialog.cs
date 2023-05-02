@@ -1,21 +1,20 @@
 ﻿using System.Threading.Tasks;
-using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.Bot.Sessions;
+using TextGameRPG.Scripts.GameCore.Localizations;
 
-namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Shop
+namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Shop;
+
+public class ShopDialog : DialogBase
 {
-    public class ShopDialog : DialogBase
+    public ShopDialog(GameSession _session) : base(_session)
     {
-        public ShopDialog(GameSession _session) : base(_session)
-        {
-            RegisterTownButton(isDoubleBack: false);
-        }
+        RegisterTownButton(isDoubleBack: false);
+    }
 
-        public override async Task Start()
-        {
-            var text = Emojis.ButtonShop + Localization.Get(session, "menu_item_shop").Bold()
-                + "\n\nВ разработке...";
-            await SendDialogMessage(text, GetMultilineKeyboard()).FastAwait();
-        }
+    public override async Task Start()
+    {
+        var text = Emojis.ButtonShop + Localization.Get(session, "menu_item_shop").Bold()
+            + "\n\nВ разработке...";
+        await SendDialogMessage(text, GetMultilineKeyboard()).FastAwait();
     }
 }

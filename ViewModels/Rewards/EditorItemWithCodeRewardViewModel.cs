@@ -1,14 +1,13 @@
 ﻿using TextGameRPG.Scripts.GameCore.Rewards;
 
-namespace TextGameRPG.ViewModels.Rewards
-{
-    internal class EditorItemWithCodeRewardViewModel : ViewModelBase
-    {
-        public ItemWithCodeReward reward { get; }
+namespace TextGameRPG.ViewModels.Rewards;
 
-        public EditorItemWithCodeRewardViewModel(ItemWithCodeReward _reward)
-        {
-            reward = _reward;
-        }
+internal class EditorItemWithCodeRewardViewModel : ViewModelBase
+{
+    public ItemWithCodeReward reward { get; }
+
+    public EditorItemWithCodeRewardViewModel(ItemWithCodeReward _reward)
+    {
+        reward = _reward;
     }
 }

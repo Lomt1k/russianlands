@@ -88,7 +88,7 @@ public class MobFactory : Service
         {
             var chanceToIncreaseDifficulty = 25;
             if (mobDifficulty < MobDifficulty.END_GAME_PLUS && Randomizer.TryPercentage(chanceToIncreaseDifficulty))
-            {                    
+            {
                 IncreaseDifficulty(ref mobDifficulty, 1);
                 additionalVisualLevels++;
             }

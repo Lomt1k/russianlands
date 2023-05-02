@@ -3,14 +3,13 @@ using System.Threading.Tasks;
 using TextGameRPG.Scripts.Bot.Dialogs.Quests.MainQuest;
 using TextGameRPG.Scripts.Bot.Sessions;
 
-namespace TextGameRPG.Scripts.GameCore.Quests.StageActions
+namespace TextGameRPG.Scripts.GameCore.Quests.StageActions;
+
+[JsonObject]
+public class ShowEnterNameDialogAction : StageActionBase
 {
-    [JsonObject]
-    public class ShowEnterNameDialogAction : StageActionBase
+    public override async Task Execute(GameSession session)
     {
-        public override async Task Execute(GameSession session)
-        {
-            await new EnterNameDialog(session).StartFromQuest();
-        }
+        await new EnterNameDialog(session).StartFromQuest();
     }
 }

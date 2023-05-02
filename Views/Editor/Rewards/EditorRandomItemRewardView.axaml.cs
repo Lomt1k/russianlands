@@ -1,12 +1,11 @@
 using Avalonia.Controls;
 
-namespace TextGameRPG.Views.Editor.Rewards
+namespace TextGameRPG.Views.Editor.Rewards;
+
+public partial class EditorRandomItemRewardView : UserControl
 {
-    public partial class EditorRandomItemRewardView : UserControl
+    public EditorRandomItemRewardView()
     {
-        public EditorRandomItemRewardView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

@@ -1,16 +1,16 @@
 ﻿using System;
+using System.Globalization;
 using System.Text;
-using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.Bot;
 using TextGameRPG.Scripts.Bot.Sessions;
-using System.Globalization;
+using TextGameRPG.Scripts.GameCore.Localizations;
 
 public static class DateTimeExtensions
 {
     public static string GetView(this TimeSpan timeSpan, GameSession session, bool withCaption = false)
     {
         var sb = new StringBuilder();
-        bool spaceRequired = false;
+        var spaceRequired = false;
 
         if (timeSpan.Days > 0)
         {
@@ -48,7 +48,7 @@ public static class DateTimeExtensions
 
     public static string GetShortView(this TimeSpan timeSpan, GameSession session)
     {
-        string result = string.Empty;
+        string? result;
         if (timeSpan.TotalDays >= 1)
         {
             var days = (int)Math.Round(timeSpan.TotalDays);

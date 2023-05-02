@@ -3,12 +3,10 @@ using System.Text;
 using TextGameRPG.Scripts.Bot;
 using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Localizations;
-using TextGameRPG.Scripts.GameCore.Resources;
 
-namespace TextGameRPG.Scripts.GameCore.Resources
-{
-    public record struct ResourceData(ResourceId resourceId, int amount);
-}
+namespace TextGameRPG.Scripts.GameCore.Resources;
+
+public record struct ResourceData(ResourceId resourceId, int amount);
 
 public static class ResourceDataExtensions
 {
@@ -20,7 +18,7 @@ public static class ResourceDataExtensions
     public static string GetCompactView(this IEnumerable<ResourceData> resourceDatas)
     {
         var sb = new StringBuilder();
-        int elementsInCurrentRow = 0;
+        var elementsInCurrentRow = 0;
         foreach (var resourceData in resourceDatas)
         {
             if (elementsInCurrentRow == 3)
@@ -62,7 +60,7 @@ public static class ResourceDataExtensions
         sb.AppendLine(Localization.Get(session, "resource_header_price"));
 
         sb.AppendLine(resourceData.amount > 0
-            ? resourceData.GetLocalizedView(session) 
+            ? resourceData.GetLocalizedView(session)
             : Localization.Get(session, "resource_price_free"));
 
         return sb.ToString();
@@ -73,7 +71,7 @@ public static class ResourceDataExtensions
         var sb = new StringBuilder();
         sb.AppendLine(Localization.Get(session, "resource_header_price"));
 
-        bool hasAmount = false;
+        var hasAmount = false;
         foreach (var resourceData in resourceDatas)
         {
             if (resourceData.amount < 1)

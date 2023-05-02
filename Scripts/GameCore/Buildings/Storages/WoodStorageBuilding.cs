@@ -1,33 +1,32 @@
-﻿using TextGameRPG.Scripts.GameCore.Resources;
+﻿using System;
 using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
-using System;
+using TextGameRPG.Scripts.GameCore.Resources;
 
-namespace TextGameRPG.Scripts.GameCore.Buildings.Storages
+namespace TextGameRPG.Scripts.GameCore.Buildings.Storages;
+
+public class WoodStorageBuilding : StorageBuildingBase
 {
-    public class WoodStorageBuilding : StorageBuildingBase
+    public override ResourceId resourceId => ResourceId.Wood;
+    public override BuildingId buildingId => BuildingId.WoodStorage;
+    public override int resourceLimitForZeroLevel => 50_000;
+
+    public override byte GetCurrentLevel(ProfileBuildingsData data)
     {
-        public override ResourceId resourceId => ResourceId.Wood;
-        public override BuildingId buildingId => BuildingId.WoodStorage;
-        public override int resourceLimitForZeroLevel => 50_000;
+        return data.woodStorageLevel;
+    }
 
-        public override byte GetCurrentLevel(ProfileBuildingsData data)
-        {
-            return data.woodStorageLevel;
-        }
+    protected override DateTime GetStartConstructionTime(ProfileBuildingsData data)
+    {
+        return data.woodStorageStartConstructionTime;
+    }
 
-        protected override DateTime GetStartConstructionTime(ProfileBuildingsData data)
-        {
-            return data.woodStorageStartConstructionTime;
-        }
+    protected override void SetCurrentLevel(ProfileBuildingsData data, byte level)
+    {
+        data.woodStorageLevel = level;
+    }
 
-        protected override void SetCurrentLevel(ProfileBuildingsData data, byte level)
-        {
-            data.woodStorageLevel = level;
-        }
-
-        protected override void SetStartConstructionTime(ProfileBuildingsData data, DateTime startConstructionTime)
-        {
-            data.woodStorageStartConstructionTime = startConstructionTime;
-        }
+    protected override void SetStartConstructionTime(ProfileBuildingsData data, DateTime startConstructionTime)
+    {
+        data.woodStorageStartConstructionTime = startConstructionTime;
     }
 }

@@ -11,65 +11,64 @@ using TextGameRPG.Views.Editor.MobsEditor;
 using TextGameRPG.Views.Editor.PotionsEditor;
 using TextGameRPG.Views.Editor.QuestsEditor;
 
-namespace TextGameRPG.ViewModels.Editor
+namespace TextGameRPG.ViewModels.Editor;
+
+public class MainEditorViewModel : ViewModelBase
 {
-    public class MainEditorViewModel : ViewModelBase
+    private readonly GameDataHolder gameDataHolder = Services.Get<GameDataHolder>();
+
+    private MainEditorCategory _selectedCategory;
+
+    public ObservableCollection<MainEditorCategory> categories { get; } = new();
+    public MainEditorCategory selectedCategory
     {
-        private readonly GameDataHolder gameDataHolder = Services.Get<GameDataHolder>();
-
-        private MainEditorCategory _selectedCategory;
-
-        public ObservableCollection<MainEditorCategory> categories { get; } = new();
-        public MainEditorCategory selectedCategory
-        {
-            get => _selectedCategory;
-            set => this.RaiseAndSetIfChanged(ref _selectedCategory, value);
-        }
-
-        public ReactiveCommand<Unit, Unit> saveCommand { get; }
-        public ReactiveCommand<Unit, Unit> reloadCommand { get; }
-
-        public MainEditorViewModel()
-        {
-            RestartEditor();
-
-            saveCommand = ReactiveCommand.Create(SaveCommand);
-            reloadCommand = ReactiveCommand.Create(ReloadCommand);
-
-            gameDataHolder.onDataReloaded += OnDataReloaded;
-        }
-
-        private void RestartEditor()
-        {
-            InitializeCategories();
-        }
-
-        private void InitializeCategories()
-        {
-            categories.Clear();
-            categories.Add(new MainEditorCategory("Buildings", new BuildingsEditorView()));
-            categories.Add(new MainEditorCategory("Items", new ItemsEditorView() ));
-            categories.Add(new MainEditorCategory("Quests", new QuestsEditorView()));
-            categories.Add(new MainEditorCategory("Mobs", new MobsEditorView()));
-            categories.Add(new MainEditorCategory("LocationMobs", new LocationMobsEditorView()));
-            categories.Add(new MainEditorCategory("Potions", new PotionsEditorView()));
-        }
-
-        private void SaveCommand()
-        {
-            gameDataHolder.SaveAllData();
-        }
-
-        private void ReloadCommand()
-        {
-            gameDataHolder.LoadAllData();
-        }
-
-        private void OnDataReloaded()
-        {
-            RestartEditor();
-        }
-
-
+        get => _selectedCategory;
+        set => this.RaiseAndSetIfChanged(ref _selectedCategory, value);
     }
+
+    public ReactiveCommand<Unit, Unit> saveCommand { get; }
+    public ReactiveCommand<Unit, Unit> reloadCommand { get; }
+
+    public MainEditorViewModel()
+    {
+        RestartEditor();
+
+        saveCommand = ReactiveCommand.Create(SaveCommand);
+        reloadCommand = ReactiveCommand.Create(ReloadCommand);
+
+        gameDataHolder.onDataReloaded += OnDataReloaded;
+    }
+
+    private void RestartEditor()
+    {
+        InitializeCategories();
+    }
+
+    private void InitializeCategories()
+    {
+        categories.Clear();
+        categories.Add(new MainEditorCategory("Buildings", new BuildingsEditorView()));
+        categories.Add(new MainEditorCategory("Items", new ItemsEditorView()));
+        categories.Add(new MainEditorCategory("Quests", new QuestsEditorView()));
+        categories.Add(new MainEditorCategory("Mobs", new MobsEditorView()));
+        categories.Add(new MainEditorCategory("LocationMobs", new LocationMobsEditorView()));
+        categories.Add(new MainEditorCategory("Potions", new PotionsEditorView()));
+    }
+
+    private void SaveCommand()
+    {
+        gameDataHolder.SaveAllData();
+    }
+
+    private void ReloadCommand()
+    {
+        gameDataHolder.LoadAllData();
+    }
+
+    private void OnDataReloaded()
+    {
+        RestartEditor();
+    }
+
+
 }

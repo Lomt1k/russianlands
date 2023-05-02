@@ -1,11 +1,11 @@
-﻿using TextGameRPG.Scripts.GameCore.Units.Mobs;
-using ReactiveUI;
-using TextGameRPG.Models;
-using TextGameRPG.Scripts.GameCore.Items;
+﻿using ReactiveUI;
 using System.Collections.ObjectModel;
-using TextGameRPG.Views.UserControls;
-using TextGameRPG.Models.UserControls;
 using System.Reactive;
+using TextGameRPG.Models;
+using TextGameRPG.Models.UserControls;
+using TextGameRPG.Scripts.GameCore.Items;
+using TextGameRPG.Scripts.GameCore.Units.Mobs;
+using TextGameRPG.Views.UserControls;
 
 namespace TextGameRPG.ViewModels.Editor.MobsEditor;
 

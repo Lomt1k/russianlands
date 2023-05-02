@@ -3,47 +3,46 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TextGameRPG.Scripts.Utils
+namespace TextGameRPG.Scripts.Utils;
+
+public class TextWriterToString : TextWriter
 {
-    public class TextWriterToString : TextWriter
+    public const int _updateTime = 100;
+
+    private readonly StringBuilder _outputBuilder;
+    private bool _hasUpdates = false;
+
+    public Action<string> onUpdate;
+
+    public override Encoding Encoding => Encoding.UTF8;
+    public string output { get; private set; } = string.Empty;
+
+    public TextWriterToString(Action<string> onUpdate)
     {
-        public const int _updateTime = 100;
+        _outputBuilder = new StringBuilder();
+        this.onUpdate = onUpdate;
+        RefreshOutputAsync();
+    }
 
-        private StringBuilder _outputBuilder;
-        private bool _hasUpdates = false;
-
-        public Action<string> onUpdate;
-
-        public override Encoding Encoding => Encoding.UTF8;
-        public string output { get; private set; } = string.Empty;
-
-        public TextWriterToString(Action<string> onUpdate)
+    private async void RefreshOutputAsync()
+    {
+        while (true)
         {
-            _outputBuilder = new StringBuilder();
-            this.onUpdate = onUpdate;
-            RefreshOutputAsync();
-        }
-
-        private async void RefreshOutputAsync()
-        {
-            while (true)
+            await Task.Delay(_updateTime);
+            if (_hasUpdates)
             {
-                await Task.Delay(_updateTime);
-                if (_hasUpdates)
-                {
-                    output = _outputBuilder.ToString();
-                    _hasUpdates = false;
-                    onUpdate(output);
-                }
+                output = _outputBuilder.ToString();
+                _hasUpdates = false;
+                onUpdate(output);
             }
         }
-
-        public override void Write(char value)
-        {
-            base.Write(value);
-            _outputBuilder.Append(value);
-            _hasUpdates = true;
-        }
-        
     }
+
+    public override void Write(char value)
+    {
+        base.Write(value);
+        _outputBuilder.Append(value);
+        _hasUpdates = true;
+    }
+
 }

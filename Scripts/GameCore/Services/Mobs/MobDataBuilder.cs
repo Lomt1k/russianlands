@@ -14,7 +14,7 @@ public partial class MobDataBuilder<T> where T : IMobData, new()
     private static readonly GameDataHolder gameDataHolder = Services.Get<GameDataHolder>();
     private static IEnumerable<QuestMobData> questMobs => gameDataHolder.mobs.GetAllData();
 
-    private T _mobData = new();
+    private readonly T _mobData = new();
 
     public MobDataBuilder(int mobLevel)
     {
@@ -139,9 +139,9 @@ public partial class MobDataBuilder<T> where T : IMobData, new()
             return;
 
         var attacksForDelete = new HashSet<MobAttack>();
-        for (int i = 0; i < _mobData.mobAttacks.Count - 1; i++)
+        for (var i = 0; i < _mobData.mobAttacks.Count - 1; i++)
         {
-            for (int j = 1; j < _mobData.mobAttacks.Count; j++)
+            for (var j = 1; j < _mobData.mobAttacks.Count; j++)
             {
                 if (IsSimilarAttacks(_mobData.mobAttacks[i], _mobData.mobAttacks[j]))
                 {

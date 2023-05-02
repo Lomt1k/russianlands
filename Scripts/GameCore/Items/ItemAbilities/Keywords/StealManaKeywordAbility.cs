@@ -1,18 +1,17 @@
 ﻿using TextGameRPG.Scripts.Bot;
 using TextGameRPG.Scripts.Bot.Sessions;
 
-namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities.Keywords
+namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities.Keywords;
+
+public class StealManaKeywordAbility : ItemAbilityBase
 {
-    public class StealManaKeywordAbility : ItemAbilityBase
+    public override string debugDescription => "Кража маны: Забирает очко маны у противника";
+
+    public override AbilityType abilityType => AbilityType.StealManaKeyword;
+
+    public override string GetView(GameSession session)
     {
-        public override string debugDescription => "Кража маны: Забирает очко маны у противника";
-
-        public override AbilityType abilityType => AbilityType.StealManaKeyword;
-
-        public override string GetView(GameSession session)
-        {
-            return Emojis.StatKeywordStealMana +
-                Localizations.Localization.Get(session, "ability_steal_mana_percentage", chanceToSuccessPercentage);
-        }
+        return Emojis.StatKeywordStealMana +
+            Localizations.Localization.Get(session, "ability_steal_mana_percentage", chanceToSuccessPercentage);
     }
 }

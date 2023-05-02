@@ -1,139 +1,137 @@
 ﻿using System.Text;
+using TextGameRPG.Scripts.Bot;
 using TextGameRPG.Scripts.Bot.Sessions;
+using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
+using TextGameRPG.Scripts.GameCore.Items.ItemProperties;
+using TextGameRPG.Scripts.GameCore.Localizations;
 
-namespace TextGameRPG.Scripts.GameCore.Items
+namespace TextGameRPG.Scripts.GameCore.Items;
+
+// влияет на порядок отрисовки абилки в описании предмета
+public enum ViewPriority : byte
 {
-    using ItemProperties;
-    using ItemAbilities;
-    using TextGameRPG.Scripts.Bot;
-    using Localizations;
+    GeneralInfo = 0,
+    SecondoryInfo = 1,
+    Passive = 2,
+}
 
-    // влияет на порядок отрисовки абилки в описании предмета
-    public enum ViewPriority : byte
+public static class ItemViewBuilder
+{
+    public static string Build(GameSession session, InventoryItem item)
     {
-        GeneralInfo = 0,
-        SecondoryInfo = 1,
-        Passive = 2,
+        var sb = new StringBuilder();
+        sb.AppendLine(item.GetFullName(session).Bold());
+
+        AppendGeneralItemInfo(sb, session, item);
+        AppendPassiveBonuses(sb, session, item);
+        AppendBottomInfo(sb, session, item);
+        return sb.ToString();
     }
 
-    public static class ItemViewBuilder
+    private static void AppendGeneralItemInfo(StringBuilder sb, GameSession session, InventoryItem item)
     {
-        public static string Build(GameSession session, InventoryItem item)
-        {
-            var sb = new StringBuilder();
-            sb.AppendLine(item.GetFullName(session).Bold());
+        var data = item.data;
+        sb.Append(Localization.Get(session, "item_view_general_info", data.itemRarity.GetView(session), data.requiredLevel));
 
-            AppendGeneralItemInfo(sb, session, item);
-            AppendPassiveBonuses(sb, session, item);
-            AppendBottomInfo(sb, session, item);
-            return sb.ToString();
+        // general info
+        foreach (var ability in item.data.abilities)
+        {
+            if (ability.abilityType.GetPriority() == ViewPriority.GeneralInfo)
+            {
+                sb.AppendLine();
+                sb.AppendLine();
+                sb.Append(ability.GetView(session));
+            }
         }
-
-        private static void AppendGeneralItemInfo(StringBuilder sb, GameSession session, InventoryItem item)
+        foreach (var property in item.data.properties)
         {
-            var data = item.data;
-            sb.Append(Localization.Get(session, "item_view_general_info", data.itemRarity.GetView(session), data.requiredLevel));
-
-            // general info
-            foreach (var ability in item.data.abilities)
+            if (property.propertyType.GetPriority() == ViewPriority.GeneralInfo)
             {
-                if (ability.abilityType.GetPriority() == ViewPriority.GeneralInfo)
-                {
-                    sb.AppendLine();
-                    sb.AppendLine();
-                    sb.Append(ability.GetView(session));
-                }
-            }
-            foreach (var property in item.data.properties)
-            {
-                if (property.propertyType.GetPriority() == ViewPriority.GeneralInfo)
-                {
-                    sb.AppendLine();
-                    sb.AppendLine();
-                    sb.Append(property.GetView(session));
-                }
-            }
-
-            //secondary info
-            foreach (var ability in item.data.abilities)
-            {
-                if (ability.abilityType.GetPriority() == ViewPriority.SecondoryInfo)
-                {
-                    sb.AppendLine();
-                    sb.AppendLine();
-                    sb.Append(ability.GetView(session));
-                }
+                sb.AppendLine();
+                sb.AppendLine();
+                sb.Append(property.GetView(session));
             }
         }
 
-        private static void AppendPassiveBonuses(StringBuilder sb, GameSession session, InventoryItem item)
+        //secondary info
+        foreach (var ability in item.data.abilities)
         {
-            bool hasPassiveAbilities = false;
-            bool hasPassiveProperties = false;
+            if (ability.abilityType.GetPriority() == ViewPriority.SecondoryInfo)
+            {
+                sb.AppendLine();
+                sb.AppendLine();
+                sb.Append(ability.GetView(session));
+            }
+        }
+    }
+
+    private static void AppendPassiveBonuses(StringBuilder sb, GameSession session, InventoryItem item)
+    {
+        var hasPassiveAbilities = false;
+        var hasPassiveProperties = false;
+        foreach (var ability in item.data.abilities)
+        {
+            if (ability.abilityType.GetPriority() == ViewPriority.Passive)
+            {
+                hasPassiveAbilities = true;
+                break;
+            }
+        }
+        foreach (var property in item.data.properties)
+        {
+            if (property.propertyType.GetPriority() == ViewPriority.Passive)
+            {
+                hasPassiveProperties = true;
+                break;
+            }
+        }
+        if (!hasPassiveAbilities && !hasPassiveProperties)
+            return;
+
+        // passive header
+        sb.AppendLine();
+        sb.AppendLine();
+        sb.Append(Localization.Get(session, "item_view_properties_header"));
+
+        // passive info
+        if (hasPassiveAbilities)
+        {
             foreach (var ability in item.data.abilities)
             {
                 if (ability.abilityType.GetPriority() == ViewPriority.Passive)
                 {
-                    hasPassiveAbilities = true;
-                    break;
+                    sb.AppendLine();
+                    sb.Append(Emojis.ElementSmallBlack + ability.GetView(session));
                 }
             }
+        }
+        if (hasPassiveProperties)
+        {
             foreach (var property in item.data.properties)
             {
                 if (property.propertyType.GetPriority() == ViewPriority.Passive)
                 {
-                    hasPassiveProperties = true;
-                    break;
-                }
-            }
-            if (!hasPassiveAbilities && !hasPassiveProperties)
-                return;
-
-            // passive header
-            sb.AppendLine();
-            sb.AppendLine();
-            sb.Append(Localization.Get(session, "item_view_properties_header"));
-
-            // passive info
-            if (hasPassiveAbilities)
-            {
-                foreach (var ability in item.data.abilities)
-                {
-                    if (ability.abilityType.GetPriority() == ViewPriority.Passive)
-                    {
-                        sb.AppendLine();
-                        sb.Append(Emojis.ElementSmallBlack + ability.GetView(session));
-                    }
-                }
-            }
-            if (hasPassiveProperties)
-            {
-                foreach (var property in item.data.properties)
-                {
-                    if (property.propertyType.GetPriority() == ViewPriority.Passive)
-                    {
-                        sb.AppendLine();
-                        sb.Append(Emojis.ElementSmallBlack + property.GetView(session));
-                    }
+                    sb.AppendLine();
+                    sb.Append(Emojis.ElementSmallBlack + property.GetView(session));
                 }
             }
         }
-
-        private static void AppendBottomInfo(StringBuilder sb, GameSession session, InventoryItem item)
-        {
-            if (item.data.itemType == ItemType.Stick)
-            {
-                sb.AppendLine();
-                sb.AppendLine();
-                sb.Append(Localization.Get(session, "item_view_current_charge", InventoryItem.requiredStickCharge));
-            }
-            if (item.isEquipped)
-            {
-                sb.AppendLine();
-                sb.AppendLine();
-                sb.Append(Localization.Get(session, "dialog_inventory_equipped_state"));
-            }
-        }
-
     }
+
+    private static void AppendBottomInfo(StringBuilder sb, GameSession session, InventoryItem item)
+    {
+        if (item.data.itemType == ItemType.Stick)
+        {
+            sb.AppendLine();
+            sb.AppendLine();
+            sb.Append(Localization.Get(session, "item_view_current_charge", InventoryItem.requiredStickCharge));
+        }
+        if (item.isEquipped)
+        {
+            sb.AppendLine();
+            sb.AppendLine();
+            sb.Append(Localization.Get(session, "dialog_inventory_equipped_state"));
+        }
+    }
+
 }

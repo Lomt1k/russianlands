@@ -1,8 +1,7 @@
 ﻿
-namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData
+namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData;
+
+public abstract class RawDynamicData<T>
 {
-    public abstract class RawDynamicData<T>
-    {
-        public abstract void Fill(T data);
-    }
+    public abstract void Fill(T data);
 }

@@ -1,24 +1,23 @@
 ﻿using System;
 using System.Threading.Tasks;
-using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.Bot.Sessions;
+using TextGameRPG.Scripts.GameCore.Localizations;
 
-namespace TextGameRPG.Scripts.Bot.Commands.Cheats
+namespace TextGameRPG.Scripts.Bot.Commands.Cheats;
+
+public class LanguageCommand : CommandBase
 {
-    public class LanguageCommand : CommandBase
+    public override CommandGroup commandGroup => CommandGroup.Cheat;
+
+    public override async Task Execute(GameSession session, string[] args)
     {
-        public override CommandGroup commandGroup => CommandGroup.Cheat;
+        if (args.Length != 1)
+            return;
 
-        public override async Task Execute(GameSession session, string[] args)
-        {
-            if (args.Length != 1)
-                return;
+        if (!Enum.TryParse(args[0], ignoreCase: true, out LanguageCode language))
+            return;
 
-            if (!Enum.TryParse(args[0], ignoreCase: true, out LanguageCode language))
-                return;
-
-            session.profile.data.language = language;
-            await messageSender.SendTextMessage(session.chatId, $"Language changed to {language}");
-        }
+        session.profile.data.language = language;
+        await messageSender.SendTextMessage(session.chatId, $"Language changed to {language}");
     }
 }

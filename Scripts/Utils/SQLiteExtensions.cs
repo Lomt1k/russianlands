@@ -10,7 +10,7 @@ public static class SQLiteExtensions
         {
             return await db.GetAsync<T>(pk).FastAwait();
         }
-        catch (InvalidOperationException ex)
+        catch (InvalidOperationException)
         {
             return default(T);
         }

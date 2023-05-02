@@ -1,22 +1,20 @@
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using TextGameRPG.ViewModels.UserControls;
 
-namespace TextGameRPG.Views.UserControls
+namespace TextGameRPG.Views.UserControls;
+
+public partial class ObjectPropertiesEditorView : UserControl
 {
-    public partial class ObjectPropertiesEditorView : UserControl
+    public ObjectPropertiesEditorViewModel vm => DataContext as ObjectPropertiesEditorViewModel;
+
+    public ObjectPropertiesEditorView()
     {
-        public ObjectPropertiesEditorViewModel vm => DataContext as ObjectPropertiesEditorViewModel;
+        InitializeComponent();
+    }
 
-        public ObjectPropertiesEditorView()
-        {
-            InitializeComponent();
-        }
-
-        private void InitializeComponent()
-        {
-            AvaloniaXamlLoader.Load(this);
-        }
+    private void InitializeComponent()
+    {
+        AvaloniaXamlLoader.Load(this);
     }
 }

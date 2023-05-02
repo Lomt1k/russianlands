@@ -128,7 +128,7 @@ public partial class MobDataBuilder<T>
             var index = random.Next(array.Length);
             _mobData.localizationKey = array[index];
         } while (excludeNames != null && excludeNames.Contains(_mobData.localizationKey));
-        
+
         return this;
     }
 

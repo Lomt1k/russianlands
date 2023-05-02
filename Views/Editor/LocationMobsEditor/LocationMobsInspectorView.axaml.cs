@@ -1,12 +1,11 @@
 using Avalonia.Controls;
 
-namespace TextGameRPG.Views.Editor.LocationMobsEditor
+namespace TextGameRPG.Views.Editor.LocationMobsEditor;
+
+public partial class LocationMobsInspectorView : UserControl
 {
-    public partial class LocationMobsInspectorView : UserControl
+    public LocationMobsInspectorView()
     {
-        public LocationMobsInspectorView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

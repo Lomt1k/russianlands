@@ -1,267 +1,266 @@
 ﻿using System;
 using System.Text;
 using System.Threading.Tasks;
+using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
+using TextGameRPG.Scripts.Bot.Dialogs.Town.Shop;
+using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Buildings;
 using TextGameRPG.Scripts.GameCore.Buildings.Training;
 using TextGameRPG.Scripts.GameCore.Localizations;
 using TextGameRPG.Scripts.GameCore.Resources;
-using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
-using TextGameRPG.Scripts.Bot.Dialogs.Town.Shop;
-using TextGameRPG.Scripts.Bot.Sessions;
 
-namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.TrainingBuildingDialog
+namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.TrainingBuildingDialog;
+
+public class TrainingBuildingDialog : DialogBase
 {
-    public class TrainingBuildingDialog : DialogBase
+    private readonly TrainingBuildingBase _building;
+    private readonly ProfileBuildingsData _data;
+
+    public TrainingBuildingDialog(GameSession session, TrainingBuildingBase building, ProfileBuildingsData data) : base(session)
     {
-        private TrainingBuildingBase _building;
-        private ProfileBuildingsData _data;
+        _building = building;
+        _data = data;
+    }
 
-        public TrainingBuildingDialog(GameSession session, TrainingBuildingBase building, ProfileBuildingsData data) : base(session)
+    public override async Task Start()
+    {
+        if (_building is WarriorTrainingBuilding)
         {
-            _building = building;
-            _data = data;
+            await ShowCurrentUnit(0, fromUnitsList: true).FastAwait();
+            return;
         }
+        await ShowUnitsList();
+    }
 
-        public override async Task Start()
+    private async Task ShowUnitsList()
+    {
+        ClearButtons();
+        var sb = new StringBuilder();
+        sb.AppendLine(Emojis.ElementTraining + Localization.Get(session, "dialog_training_header_" + _building.buildingId));
+        sb.AppendLine();
+
+        var updates = _building.GetUpdates(session, _data, onlyImportant: false);
+        if (updates.Count > 0)
         {
-            if (_building is WarriorTrainingBuilding)
+            foreach (var update in updates)
             {
-                await ShowCurrentUnit(0, fromUnitsList: true).FastAwait();
-                return;
+                sb.AppendLine(Emojis.ElementSmallBlack + update);
             }
-            await ShowUnitsList();
-        }
-
-        private async Task ShowUnitsList()
-        {
-            ClearButtons();
-            var sb = new StringBuilder();
-            sb.AppendLine(Emojis.ElementTraining + Localization.Get(session, "dialog_training_header_" + _building.buildingId));
             sb.AppendLine();
+        }
+        sb.AppendLine(Localization.Get(session, "dialog_training_selection_" + _building.buildingId));
 
-            var updates = _building.GetUpdates(session, _data, onlyImportant: false);
-            if (updates.Count > 0)
-            {
-                foreach (var update in updates)
-                {
-                    sb.AppendLine(Emojis.ElementSmallBlack + update);
-                }
-                sb.AppendLine();
-            }
-            sb.AppendLine(Localization.Get(session, "dialog_training_selection_" + _building.buildingId));
-
-            var units = _building.GetAllUnits(_data);
-            foreach (var unit in units)
-            {
-                var button = $"{_building.GetUnitIcon(_data, unit)} {_building.GetUnitName(session, _data, unit)}";
-                RegisterButton(button, () => ShowCurrentUnit(unit, fromUnitsList: true));
-            }
-
-            RegisterBackButton(() => new BuildingsDialog(session).StartWithShowBuilding(_building));
-            RegisterTownButton(isDoubleBack: true);
-            await SendDialogMessage(sb, GetKeyboardWithFixedRowSize(2)).FastAwait();
+        var units = _building.GetAllUnits(_data);
+        foreach (var unit in units)
+        {
+            var button = $"{_building.GetUnitIcon(_data, unit)} {_building.GetUnitName(session, _data, unit)}";
+            RegisterButton(button, () => ShowCurrentUnit(unit, fromUnitsList: true));
         }
 
-        private async Task ShowCurrentUnit(sbyte unitIndex, bool fromUnitsList = false)
-        {
-            if (fromUnitsList)
-            {
-                TrySilentFinishTrainings();
-            }
+        RegisterBackButton(() => new BuildingsDialog(session).StartWithShowBuilding(_building));
+        RegisterTownButton(isDoubleBack: true);
+        await SendDialogMessage(sb, GetKeyboardWithFixedRowSize(2)).FastAwait();
+    }
 
+    private async Task ShowCurrentUnit(sbyte unitIndex, bool fromUnitsList = false)
+    {
+        if (fromUnitsList)
+        {
+            TrySilentFinishTrainings();
+        }
+
+        ClearButtons();
+        var unitLevel = _building.GetUnitLevel(_data, unitIndex);
+        var maxUnitLevel = _building.GetCurrentMaxUnitLevel(_data);
+        var firstTrainingUnit = _building.GetFirstTrainingUnitIndex(_data);
+        var secondTrainingUnit = _building.GetSecondTrainingUnitIndex(_data);
+        var hasFreeTrainingSlot = _building.HasFreeTrainingSlot(_data);
+        var currentUnitIsTraining = unitIndex == firstTrainingUnit || unitIndex == secondTrainingUnit;
+
+        var sb = new StringBuilder();
+        sb.Append($"<b>{_building.GetUnitIcon(_data, unitIndex)} {_building.GetUnitName(session, _data, unitIndex)}");
+        sb.AppendLine(Localization.Get(session, "level_suffix", unitLevel) + "</b>");
+
+        if (unitLevel >= maxUnitLevel)
+        {
+            // Юнит уже достиг максимального уровня
+            sb.AppendLine();
+            sb.AppendLine(Localization.Get(session, "dialog_training_max_level_reached"));
+
+            sb.AppendLine();
+            sb.AppendLine(_building.GetInfoAboutUnitTraining(session, _data, unitIndex));
+        }
+        else if (currentUnitIsTraining)
+        {
+            // В процессе тренировки
+            var endTime = unitIndex == firstTrainingUnit ? _building.GetFirstTrainingUnitEndTime(_data) : _building.GetSecondTrainingUnitEndTime(_data);
+            var timeSpan = endTime - DateTime.UtcNow;
+
+            sb.AppendLine();
+            sb.AppendLine(Localization.Get(session, "dialog_training_progress", timeSpan.GetView(session)));
+
+            sb.AppendLine();
+            sb.AppendLine(_building.GetInfoAboutUnitTraining(session, _data, unitIndex));
+
+            var diamondsForBoost = ResourceHelper.CalculateTrainingBoostPriceInDiamonds((int)timeSpan.TotalSeconds);
+            var priceView = ResourceId.Diamond.GetEmoji().ToString() + diamondsForBoost;
+            var boostButton = Localization.Get(session, "menu_item_boost_button", priceView);
+            RegisterButton(boostButton, () => TryBoostTraining(unitIndex));
+            RegisterButton(Localization.Get(session, "dialog_training_cancel_training_button"), () => CancelTraining(unitIndex));
+        }
+        else if (hasFreeTrainingSlot)
+        {
+            // Можно начать тренировку
+            var requiredSeconds = _building.GetRequiredTrainingTime(unitLevel);
+            var dtNow = DateTime.UtcNow;
+            var timeSpan = dtNow.AddSeconds(requiredSeconds) - dtNow;
+
+            sb.AppendLine();
+            sb.AppendLine(Localization.Get(session, "dialog_training_next_level_available", unitLevel + 1));
+
+            sb.AppendLine();
+            sb.AppendLine(_building.GetInfoAboutUnitTraining(session, _data, unitIndex));
+
+            sb.AppendLine();
+            sb.AppendLine(Localization.Get(session, "dialog_training_required_time_header"));
+            sb.AppendLine(timeSpan.GetView(session));
+            RegisterButton(Localization.Get(session, "dialog_training_start_training_button"), () => StartTraining(unitIndex));
+        }
+        else
+        {
+            // Нет доступных слотов для тренировки
+            sb.AppendLine();
+            sb.AppendLine(Localization.Get(session, "dialog_training_no_slots_available"));
+
+            sb.AppendLine();
+            sb.AppendLine(_building.GetInfoAboutUnitTraining(session, _data, unitIndex));
+        }
+
+        if (_building is WarriorTrainingBuilding)
+        {
+            RegisterBackButton(() => new BuildingsDialog(session).StartWithShowBuilding(_building));
+        }
+        else
+        {
+            RegisterBackButton(ShowUnitsList);
+        }
+        RegisterTownButton(isDoubleBack: true);
+        await SendDialogMessage(sb, GetMultilineKeyboardWithDoubleBack()).FastAwait();
+    }
+
+    private void TrySilentFinishTrainings()
+    {
+        _building.IsTrainingCanBeFinished(_data, out var isFirstTrainingCanBeFinished, out var isSecondTrainingCanBeFinished);
+        if (isFirstTrainingCanBeFinished)
+        {
+            _building.LevelUpFirst(session, _data);
+        }
+        if (isSecondTrainingCanBeFinished)
+        {
+            _building.LevelUpSecond(session, _data);
+        }
+    }
+
+    private async Task StartTraining(sbyte unitIndex)
+    {
+        if (!_building.HasFirstTrainingUnit(_data))
+        {
+            _building.SetFirstTrainingUnitIndex(_data, unitIndex);
+            _building.SetFirstTrainingUnitStartTime(_data, DateTime.UtcNow);
+        }
+        else if (!_building.HasSecondTrainingUnit(_data))
+        {
+            _building.SetSecondTrainingUnitIndex(_data, unitIndex);
+            _building.SetSecondTrainingUnitStartTime(_data, DateTime.UtcNow);
+        }
+        await ShowCurrentUnit(unitIndex).FastAwait();
+    }
+
+    private async Task TryBoostTraining(sbyte unitIndex)
+    {
+        _building.IsTrainingCanBeFinished(_data, out var isFirstTrainingCanBeFinished, out var isSecondTrainingCanBeFinished);
+        var firstTrainingUnit = _building.GetFirstTrainingUnitIndex(_data);
+        var secondTrainingUnit = _building.GetSecondTrainingUnitIndex(_data);
+        var isFirst = unitIndex == firstTrainingUnit;
+
+        if (isFirstTrainingCanBeFinished || isSecondTrainingCanBeFinished)
+        {
+            if (isFirst)
+                _building.LevelUpFirst(session, _data);
+            else
+                _building.LevelUpSecond(session, _data);
+
+            var message = Emojis.ElementTraining + Localization.Get(session, "dialog_training_boost_expired");
             ClearButtons();
-            var unitLevel = _building.GetUnitLevel(_data, unitIndex);
-            var maxUnitLevel = _building.GetCurrentMaxUnitLevel(_data);
-            var firstTrainingUnit = _building.GetFirstTrainingUnitIndex(_data);
-            var secondTrainingUnit = _building.GetSecondTrainingUnitIndex(_data);
-            bool hasFreeTrainingSlot = _building.HasFreeTrainingSlot(_data);
-            bool currentUnitIsTraining = unitIndex == firstTrainingUnit || unitIndex == secondTrainingUnit;
+            RegisterButton(Localization.Get(session, "menu_item_continue_button"), () => ShowCurrentUnit(unitIndex));
+
+            await SendDialogMessage(message, GetOneLineKeyboard()).FastAwait();
+            return;
+        }
+
+        var endTime = isFirst ? _building.GetFirstTrainingUnitEndTime(_data) : _building.GetSecondTrainingUnitEndTime(_data);
+        var secondsToEnd = (int)(endTime - DateTime.UtcNow).TotalSeconds;
+        var requiredDiamonds = ResourceHelper.CalculateTrainingBoostPriceInDiamonds(secondsToEnd);
+        var playerResources = session.player.resources;
+
+        var successsPurchase = playerResources.TryPurchase(requiredDiamonds);
+        if (successsPurchase)
+        {
+            if (isFirst)
+                _building.LevelUpFirst(session, _data);
+            else
+                _building.LevelUpSecond(session, _data);
 
             var sb = new StringBuilder();
-            sb.Append($"<b>{_building.GetUnitIcon(_data, unitIndex)} {_building.GetUnitName(session, _data, unitIndex)}");
-            sb.AppendLine(Localization.Get(session, "level_suffix", unitLevel) + "</b>");
+            sb.AppendLine(Emojis.ElementTraining + Localization.Get(session, "dialog_training_boosted"));
+            sb.AppendLine();
+            sb.AppendLine(Localization.Get(session, "resource_header_spent"));
+            sb.AppendLine(requiredDiamonds.GetLocalizedView(session));
 
-            if (unitLevel >= maxUnitLevel)
-            {
-                // Юнит уже достиг максимального уровня
-                sb.AppendLine();
-                sb.AppendLine(Localization.Get(session, "dialog_training_max_level_reached"));
+            ClearButtons();
+            RegisterButton(Localization.Get(session, "menu_item_continue_button"), () => ShowCurrentUnit(unitIndex));
 
-                sb.AppendLine();
-                sb.AppendLine(_building.GetInfoAboutUnitTraining(session, _data, unitIndex));
-            }
-            else if (currentUnitIsTraining)
-            {
-                // В процессе тренировки
-                var endTime = unitIndex == firstTrainingUnit ? _building.GetFirstTrainingUnitEndTime(_data) : _building.GetSecondTrainingUnitEndTime(_data);
-                var timeSpan = endTime - DateTime.UtcNow;
-
-                sb.AppendLine();
-                sb.AppendLine(Localization.Get(session, "dialog_training_progress", timeSpan.GetView(session)));
-
-                sb.AppendLine();
-                sb.AppendLine(_building.GetInfoAboutUnitTraining(session, _data, unitIndex));
-
-                var diamondsForBoost = ResourceHelper.CalculateTrainingBoostPriceInDiamonds((int)timeSpan.TotalSeconds);
-                var priceView = ResourceId.Diamond.GetEmoji().ToString() + diamondsForBoost;
-                var boostButton = Localization.Get(session, "menu_item_boost_button", priceView);
-                RegisterButton(boostButton, () => TryBoostTraining(unitIndex));
-                RegisterButton(Localization.Get(session, "dialog_training_cancel_training_button"), () => CancelTraining(unitIndex));
-            }
-            else if (hasFreeTrainingSlot)
-            {
-                // Можно начать тренировку
-                var requiredSeconds = _building.GetRequiredTrainingTime(unitLevel);
-                var dtNow = DateTime.UtcNow;
-                var timeSpan = dtNow.AddSeconds(requiredSeconds) - dtNow;
-
-                sb.AppendLine();
-                sb.AppendLine(Localization.Get(session, "dialog_training_next_level_available", unitLevel + 1));
-
-                sb.AppendLine();
-                sb.AppendLine(_building.GetInfoAboutUnitTraining(session, _data, unitIndex));
-
-                sb.AppendLine();
-                sb.AppendLine(Localization.Get(session, "dialog_training_required_time_header"));
-                sb.AppendLine(timeSpan.GetView(session));
-                RegisterButton(Localization.Get(session, "dialog_training_start_training_button"), () => StartTraining(unitIndex));
-            }
-            else
-            {
-                // Нет доступных слотов для тренировки
-                sb.AppendLine();
-                sb.AppendLine(Localization.Get(session, "dialog_training_no_slots_available"));
-
-                sb.AppendLine();
-                sb.AppendLine(_building.GetInfoAboutUnitTraining(session, _data, unitIndex));
-            }
-
-            if (_building is WarriorTrainingBuilding)
-            {
-                RegisterBackButton(() => new BuildingsDialog(session).StartWithShowBuilding(_building));
-            }
-            else
-            {
-                RegisterBackButton(ShowUnitsList);
-            }
-            RegisterTownButton(isDoubleBack: true);
-            await SendDialogMessage(sb, GetMultilineKeyboardWithDoubleBack()).FastAwait();
+            await SendDialogMessage(sb, GetOneLineKeyboard()).FastAwait();
+            return;
         }
 
-        private void TrySilentFinishTrainings()
+        ClearButtons();
+        var text = Localization.Get(session, "resource_not_enough_diamonds", Emojis.SmileSad);
+        RegisterButton(Emojis.ButtonShop + Localization.Get(session, "menu_item_shop"), () => new ShopDialog(session).Start());
+        RegisterBackButton(() => ShowCurrentUnit(unitIndex));
+        await SendDialogMessage(text, GetMultilineKeyboard()).FastAwait();
+    }
+
+    private async Task CancelTraining(sbyte unitIndex)
+    {
+        _building.IsTrainingCanBeFinished(_data, out var isFirstTrainingCanBeFinished, out var isSecondTrainingCanBeFinished);
+
+        if (unitIndex == _building.GetFirstTrainingUnitIndex(_data))
         {
-            _building.IsTrainingCanBeFinished(_data, out var isFirstTrainingCanBeFinished, out var isSecondTrainingCanBeFinished);
             if (isFirstTrainingCanBeFinished)
             {
                 _building.LevelUpFirst(session, _data);
             }
+            else
+            {
+                _building.SetFirstTrainingUnitIndex(_data, -1);
+                _building.SetFirstTrainingUnitStartTime(_data, DateTime.MinValue);
+            }
+        }
+        else if (unitIndex == _building.GetSecondTrainingUnitIndex(_data))
+        {
             if (isSecondTrainingCanBeFinished)
             {
                 _building.LevelUpSecond(session, _data);
             }
+            else
+            {
+                _building.SetSecondTrainingUnitIndex(_data, -1);
+                _building.SetSecondTrainingUnitStartTime(_data, DateTime.MinValue);
+            }
         }
 
-        private async Task StartTraining(sbyte unitIndex)
-        {
-            if (!_building.HasFirstTrainingUnit(_data))
-            {
-                _building.SetFirstTrainingUnitIndex(_data, unitIndex);
-                _building.SetFirstTrainingUnitStartTime(_data, DateTime.UtcNow);
-            }
-            else if (!_building.HasSecondTrainingUnit(_data))
-            {
-                _building.SetSecondTrainingUnitIndex(_data, unitIndex);
-                _building.SetSecondTrainingUnitStartTime(_data, DateTime.UtcNow);
-            }
-            await ShowCurrentUnit(unitIndex).FastAwait();
-        }
-
-        private async Task TryBoostTraining(sbyte unitIndex)
-        {
-            _building.IsTrainingCanBeFinished(_data, out var isFirstTrainingCanBeFinished, out var isSecondTrainingCanBeFinished);
-            var firstTrainingUnit = _building.GetFirstTrainingUnitIndex(_data);
-            var secondTrainingUnit = _building.GetSecondTrainingUnitIndex(_data);
-            var isFirst = unitIndex == firstTrainingUnit;
-
-            if (isFirstTrainingCanBeFinished || isSecondTrainingCanBeFinished)
-            {
-                if (isFirst)
-                    _building.LevelUpFirst(session, _data);
-                else
-                    _building.LevelUpSecond(session, _data);
-
-                var message = Emojis.ElementTraining + Localization.Get(session, "dialog_training_boost_expired");
-                ClearButtons();
-                RegisterButton(Localization.Get(session, "menu_item_continue_button"), () => ShowCurrentUnit(unitIndex));
-
-                await SendDialogMessage(message, GetOneLineKeyboard()).FastAwait();
-                return;
-            }
-
-            var endTime = isFirst ? _building.GetFirstTrainingUnitEndTime(_data) : _building.GetSecondTrainingUnitEndTime(_data);
-            var secondsToEnd = (int)(endTime - DateTime.UtcNow).TotalSeconds;
-            var requiredDiamonds = ResourceHelper.CalculateTrainingBoostPriceInDiamonds(secondsToEnd);
-            var playerResources = session.player.resources;
-
-            bool successsPurchase = playerResources.TryPurchase(requiredDiamonds);
-            if (successsPurchase)
-            {
-                if (isFirst)
-                    _building.LevelUpFirst(session, _data);
-                else
-                    _building.LevelUpSecond(session, _data);
-
-                var sb = new StringBuilder();
-                sb.AppendLine(Emojis.ElementTraining + Localization.Get(session, "dialog_training_boosted"));
-                sb.AppendLine();
-                sb.AppendLine(Localization.Get(session, "resource_header_spent"));
-                sb.AppendLine(requiredDiamonds.GetLocalizedView(session));
-
-                ClearButtons();
-                RegisterButton(Localization.Get(session, "menu_item_continue_button"), () => ShowCurrentUnit(unitIndex));
-
-                await SendDialogMessage(sb, GetOneLineKeyboard()).FastAwait();
-                return;
-            }
-
-            ClearButtons();
-            var text = Localization.Get(session, "resource_not_enough_diamonds", Emojis.SmileSad);
-            RegisterButton(Emojis.ButtonShop + Localization.Get(session, "menu_item_shop"), () => new ShopDialog(session).Start());
-            RegisterBackButton(() => ShowCurrentUnit(unitIndex));
-            await SendDialogMessage(text, GetMultilineKeyboard()).FastAwait();
-        }
-
-        private async Task CancelTraining(sbyte unitIndex)
-        {
-            _building.IsTrainingCanBeFinished(_data, out var isFirstTrainingCanBeFinished, out var isSecondTrainingCanBeFinished);
-
-            if (unitIndex == _building.GetFirstTrainingUnitIndex(_data))
-            {
-                if (isFirstTrainingCanBeFinished)
-                {
-                    _building.LevelUpFirst(session, _data);
-                }
-                else
-                {
-                    _building.SetFirstTrainingUnitIndex(_data, -1);
-                    _building.SetFirstTrainingUnitStartTime(_data, DateTime.MinValue);
-                }
-            }
-            else if (unitIndex == _building.GetSecondTrainingUnitIndex(_data))
-            {
-                if (isSecondTrainingCanBeFinished)
-                {
-                    _building.LevelUpSecond(session, _data);
-                }
-                else
-                {
-                    _building.SetSecondTrainingUnitIndex(_data, -1);
-                    _building.SetSecondTrainingUnitStartTime(_data, DateTime.MinValue);
-                }
-            }
-
-            await ShowCurrentUnit(unitIndex).FastAwait();
-        }
-
+        await ShowCurrentUnit(unitIndex).FastAwait();
     }
+
 }

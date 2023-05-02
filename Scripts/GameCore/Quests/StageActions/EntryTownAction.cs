@@ -4,20 +4,19 @@ using TextGameRPG.Scripts.Bot.Dialogs.Town;
 using TextGameRPG.Scripts.Bot.Sessions;
 using TextGameRPG.Scripts.GameCore.Services;
 
-namespace TextGameRPG.Scripts.GameCore.Quests.StageActions
+namespace TextGameRPG.Scripts.GameCore.Quests.StageActions;
+
+[JsonObject]
+public class EntryTownAction : StageActionBase
 {
-    [JsonObject]
-    public class EntryTownAction : StageActionBase
+    private static readonly NotificationsManager notificationsManager = Services.Services.Get<NotificationsManager>();
+
+    public override async Task Execute(GameSession session)
     {
-        private static readonly NotificationsManager notificationsManager = Services.Services.Get<NotificationsManager>();
+        var alreadyInTown = session.currentDialog is TownDialog;
+        if (alreadyInTown)
+            return;
 
-        public override async Task Execute(GameSession session)
-        {
-            bool alreadyInTown = session.currentDialog is TownDialog;
-            if (alreadyInTown)
-                return;
-
-            await notificationsManager.GetNotificationsAndEntryTown(session, TownEntryReason.FromQuestAction).FastAwait();
-        }
+        await notificationsManager.GetNotificationsAndEntryTown(session, TownEntryReason.FromQuestAction).FastAwait();
     }
 }

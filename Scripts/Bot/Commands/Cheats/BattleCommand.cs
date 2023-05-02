@@ -98,7 +98,7 @@ public class BattleCommand : CommandBase
             mobData.mobAttacks.Add(CreateMobAttackFromItem(player, stick));
         }
 
-        for (int i = 0; i < ItemType.Scroll.GetSlotsCount(); i++)
+        for (var i = 0; i < ItemType.Scroll.GetSlotsCount(); i++)
         {
             var scroll = equipped[ItemType.Scroll, i];
             if (scroll != null)
