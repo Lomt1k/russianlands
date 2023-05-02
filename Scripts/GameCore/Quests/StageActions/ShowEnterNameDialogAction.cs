@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Threading.Tasks;
-using MarkOne.Scripts.Bot.Dialogs.Quests.MainQuest;
-using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Sessions;
+using MarkOne.Scripts.GameCore.Dialogs.Quests.MainQuest;
 
 namespace MarkOne.Scripts.GameCore.Quests.StageActions;
 

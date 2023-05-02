@@ -1,12 +1,12 @@
 ﻿using JsonKnownTypes;
 using Newtonsoft.Json;
 using MarkOne.Scripts.Bot;
-using MarkOne.Scripts.Bot.Sessions;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Services.Battles;
 using MarkOne.Scripts.GameCore.Services.GameData;
 using MarkOne.Scripts.GameCore.Units;
 using MarkOne.ViewModels.UserControls;
+using MarkOne.Scripts.GameCore.Sessions;
 
 namespace MarkOne.Scripts.GameCore.Potions;
 

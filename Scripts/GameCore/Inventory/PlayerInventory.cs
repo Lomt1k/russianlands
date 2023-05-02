@@ -3,8 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
-using MarkOne.Scripts.Bot.Sessions;
 using MarkOne.Scripts.GameCore.Items;
+using MarkOne.Scripts.GameCore.Sessions;
 
 namespace MarkOne.Scripts.GameCore.Inventory;
 

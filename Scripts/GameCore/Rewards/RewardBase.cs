@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using System.Threading.Tasks;
 using MarkOne.Scripts.Bot;
-using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Sessions;
 
 namespace MarkOne.Scripts.GameCore.Rewards;
 
@@ -11,7 +11,7 @@ namespace MarkOne.Scripts.GameCore.Rewards;
 public abstract class RewardBase
 {
     [JsonIgnore]
-    protected static readonly MessageSender messageSender = Services.Services.Get<MessageSender>();
+    protected static readonly MessageSender messageSender = Services.ServiceLocator.Get<MessageSender>();
 
     public abstract Task<string?> AddReward(GameSession session);
 }

@@ -13,7 +13,7 @@ namespace MarkOne.Scripts.Bot;
 
 public class MessageSender : Service
 {
-    private static readonly MessageSequencer sequencer = Services.Get<MessageSequencer>();
+    private static readonly MessageSequencer sequencer = ServiceLocator.Get<MessageSequencer>();
 
     private TelegramBotClient _botClient;
     private RequestExceptionHandler _requestExceptionHandler;

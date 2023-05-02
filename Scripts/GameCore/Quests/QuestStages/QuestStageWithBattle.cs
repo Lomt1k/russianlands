@@ -1,20 +1,20 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using MarkOne.Scripts.Bot.Dialogs.Battle;
-using MarkOne.Scripts.Bot.Sessions;
 using MarkOne.Scripts.GameCore.Rewards;
 using MarkOne.Scripts.GameCore.Services.Battles;
 using MarkOne.Scripts.GameCore.Services.GameData;
 using MarkOne.Scripts.GameCore.Units;
+using MarkOne.Scripts.GameCore.Dialogs.Battle;
+using MarkOne.Scripts.GameCore.Sessions;
 
 namespace MarkOne.Scripts.GameCore.Quests.QuestStages;
 
 [JsonObject]
 public class QuestStageWithBattle : QuestStage
 {
-    private static readonly BattleManager battleManager = Services.Services.Get<BattleManager>();
-    private static readonly GameDataHolder gameDataBase = Services.Services.Get<GameDataHolder>();
+    private static readonly BattleManager battleManager = Services.ServiceLocator.Get<BattleManager>();
+    private static readonly GameDataHolder gameDataBase = Services.ServiceLocator.Get<GameDataHolder>();
 
     public int mobId { get; set; }
     public int nextStageIfWin { get; set; }

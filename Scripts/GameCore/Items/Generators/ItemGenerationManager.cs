@@ -1,6 +1,6 @@
 ﻿using System;
-using MarkOne.Scripts.Bot.Sessions;
 using MarkOne.Scripts.GameCore.Items.Generators.CodeGenerators;
+using MarkOne.Scripts.GameCore.Sessions;
 
 namespace MarkOne.Scripts.GameCore.Items.Generators;
 

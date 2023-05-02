@@ -14,7 +14,7 @@ public class BattleTurn
 {
     public const int MOB_TURN_MILISECONDS_DELAY = 3_000;
 
-    private static readonly MessageSender messageSender = Services.Get<MessageSender>();
+    private static readonly MessageSender messageSender = ServiceLocator.Get<MessageSender>();
 
     private List<IBattleAction>? _battleActions = null;
     private readonly Dictionary<Player, List<BattleTooltipType>> _queryTooltipsToIgnoreByPlayers = new Dictionary<Player, List<BattleTooltipType>>();

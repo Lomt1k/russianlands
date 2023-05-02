@@ -15,7 +15,7 @@ namespace MarkOne.ViewModels.Editor.PotionsEditor;
 
 public class PotionsEditorViewModel : ViewModelBase
 {
-    private static readonly GameDataHolder gameDataBase = Services.Get<GameDataHolder>();
+    private static readonly GameDataHolder gameDataBase = ServiceLocator.Get<GameDataHolder>();
 
 
     private PotionData? _selectedPotion;

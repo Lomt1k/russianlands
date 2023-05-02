@@ -4,8 +4,6 @@ using System.Threading.Tasks;
 using Telegram.Bot.Types.ReplyMarkups;
 using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.Bot.CallbackData;
-using MarkOne.Scripts.Bot.Dialogs.Battle;
-using MarkOne.Scripts.Bot.Sessions;
 using MarkOne.Scripts.GameCore.Buildings;
 using MarkOne.Scripts.GameCore.Inventory;
 using MarkOne.Scripts.GameCore.Localizations;
@@ -15,12 +13,14 @@ using MarkOne.Scripts.GameCore.Services.Battles;
 using MarkOne.Scripts.GameCore.Skills;
 using MarkOne.Scripts.GameCore.Units.ActionHandlers;
 using MarkOne.Scripts.GameCore.Units.Stats;
+using MarkOne.Scripts.GameCore.Dialogs.Battle;
+using MarkOne.Scripts.GameCore.Sessions;
 
 namespace MarkOne.Scripts.GameCore.Units;
 
 public class Player : IBattleUnit
 {
-    private static readonly MessageSender messageSender = Services.Services.Get<MessageSender>();
+    private static readonly MessageSender messageSender = Services.ServiceLocator.Get<MessageSender>();
 
     public GameSession session { get; }
     public UnitStats unitStats { get; }

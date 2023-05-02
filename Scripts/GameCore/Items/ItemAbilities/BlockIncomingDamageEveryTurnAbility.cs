@@ -1,5 +1,5 @@
 ﻿using System.Text;
-using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Sessions;
 
 namespace MarkOne.Scripts.GameCore.Items.ItemAbilities;
 

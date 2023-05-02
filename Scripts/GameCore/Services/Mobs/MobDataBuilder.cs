@@ -11,7 +11,7 @@ public partial class MobDataBuilder<T> where T : IMobData, new()
 {
     private const float healthByPlayerHealthQuotient = 1.5f;
 
-    private static readonly GameDataHolder gameDataHolder = Services.Get<GameDataHolder>();
+    private static readonly GameDataHolder gameDataHolder = ServiceLocator.Get<GameDataHolder>();
     private static IEnumerable<QuestMobData> questMobs => gameDataHolder.mobs.GetAllData();
 
     private readonly T _mobData = new();

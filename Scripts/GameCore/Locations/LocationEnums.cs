@@ -1,7 +1,7 @@
-﻿using MarkOne.Scripts.Bot.Sessions;
-using MarkOne.Scripts.GameCore.Localizations;
+﻿using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Quests;
 using MarkOne.Scripts.GameCore.Services.GameData;
+using MarkOne.Scripts.GameCore.Sessions;
 
 namespace MarkOne.Scripts.GameCore.Locations;
 
@@ -19,7 +19,7 @@ public enum LocationId : byte
 
 public static class LocationExtensions
 {
-    private static readonly GameDataHolder gameDataHolder = Services.Services.Get<GameDataHolder>();
+    private static readonly GameDataHolder gameDataHolder = Services.ServiceLocator.Get<GameDataHolder>();
 
     public static string GetLocalization(this LocationId locationId, GameSession session)
     {

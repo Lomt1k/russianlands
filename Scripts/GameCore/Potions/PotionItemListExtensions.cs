@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using MarkOne.Scripts.Bot.Sessions;
 using MarkOne.Scripts.GameCore.Potions;
+using MarkOne.Scripts.GameCore.Sessions;
 
 public static class PotionItemListExtensions
 {

@@ -2,14 +2,14 @@
 using System.Threading.Tasks;
 using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.Bot.DataBase.SerializableData;
-using MarkOne.Scripts.Bot.Sessions;
 using MarkOne.Scripts.GameCore.Services;
+using MarkOne.Scripts.GameCore.Sessions;
 
 namespace MarkOne.Scripts.GameCore.Profiles;
 
 public class Profile
 {
-    private static readonly DailyRemindersManager remindersManager = Services.Services.Get<DailyRemindersManager>();
+    private static readonly DailyRemindersManager remindersManager = Services.ServiceLocator.Get<DailyRemindersManager>();
 
     public GameSession session { get; }
     public ProfileData data { get; private set; }

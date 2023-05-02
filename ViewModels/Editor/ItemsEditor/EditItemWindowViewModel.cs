@@ -13,7 +13,7 @@ namespace MarkOne.ViewModels.Editor.ItemsEditor;
 
 public class EditItemWindowViewModel : ViewModelBase
 {
-    private static readonly GameDataHolder gameDataBase = Services.Get<GameDataHolder>();
+    private static readonly GameDataHolder gameDataBase = ServiceLocator.Get<GameDataHolder>();
 
 
     private readonly EditItemWindow _window;

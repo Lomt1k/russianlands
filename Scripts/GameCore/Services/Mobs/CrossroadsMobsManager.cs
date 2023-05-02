@@ -9,9 +9,9 @@ namespace MarkOne.Scripts.GameCore.Services.Mobs;
 
 public class CrossroadsMobsManager : Service
 {
-    private static readonly ServerDailyDataManager serverDailyDataManager = Services.Get<ServerDailyDataManager>();
-    private static readonly NotificationsManager notificationsManager = Services.Get<NotificationsManager>();
-    private static readonly MobFactory mobFactory = Services.Get<MobFactory>();
+    private static readonly ServerDailyDataManager serverDailyDataManager = ServiceLocator.Get<ServerDailyDataManager>();
+    private static readonly NotificationsManager notificationsManager = ServiceLocator.Get<NotificationsManager>();
+    private static readonly MobFactory mobFactory = ServiceLocator.Get<MobFactory>();
 
     private Dictionary<MobDifficulty, CrossroadsMobPack> _mobPacks = new();
 

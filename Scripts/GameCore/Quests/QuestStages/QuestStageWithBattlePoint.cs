@@ -1,20 +1,20 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using MarkOne.Scripts.Bot.Dialogs.Battle;
-using MarkOne.Scripts.Bot.Dialogs.Town;
-using MarkOne.Scripts.Bot.Dialogs.Town.Map;
-using MarkOne.Scripts.Bot.Sessions;
 using MarkOne.Scripts.GameCore.Rewards;
 using MarkOne.Scripts.GameCore.Services.GameData;
 using MarkOne.Scripts.GameCore.Units;
+using MarkOne.Scripts.GameCore.Dialogs.Battle;
+using MarkOne.Scripts.GameCore.Dialogs.Town.Map;
+using MarkOne.Scripts.GameCore.Dialogs.Town;
+using MarkOne.Scripts.GameCore.Sessions;
 
 namespace MarkOne.Scripts.GameCore.Quests.QuestStages;
 
 [JsonObject]
 public class QuestStageWithBattlePoint : QuestStage
 {
-    private static readonly GameDataHolder gameDataBase = Services.Services.Get<GameDataHolder>();
+    private static readonly GameDataHolder gameDataBase = Services.ServiceLocator.Get<GameDataHolder>();
 
     public int mobId { get; set; }
     public int foodPrice { get; set; }

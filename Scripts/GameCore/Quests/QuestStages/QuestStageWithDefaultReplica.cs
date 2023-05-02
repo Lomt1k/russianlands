@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
-using MarkOne.Scripts.Bot.Dialogs.Quests;
-using MarkOne.Scripts.Bot.Sessions;
 using MarkOne.Scripts.GameCore.Quests.Characters;
+using MarkOne.Scripts.GameCore.Sessions;
+using MarkOne.Scripts.GameCore.Dialogs.Quests;
 
 namespace MarkOne.Scripts.GameCore.Quests.QuestStages;
 

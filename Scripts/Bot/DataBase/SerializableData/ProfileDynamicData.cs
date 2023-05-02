@@ -1,10 +1,10 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
-using MarkOne.Scripts.Bot.Sessions;
 using MarkOne.Scripts.GameCore.Inventory;
 using MarkOne.Scripts.GameCore.Items;
 using MarkOne.Scripts.GameCore.Potions;
 using MarkOne.Scripts.GameCore.Quests;
+using MarkOne.Scripts.GameCore.Sessions;
 
 namespace MarkOne.Scripts.Bot.DataBase.SerializableData;
 

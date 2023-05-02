@@ -1,21 +1,21 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
-using MarkOne.Scripts.Bot.Dialogs.Town;
-using MarkOne.Scripts.Bot.Sessions;
 using MarkOne.Scripts.GameCore.Quests.NextStageTriggers;
 using MarkOne.Scripts.GameCore.Quests.QuestStages;
 using MarkOne.Scripts.GameCore.Quests.StageActions;
 using MarkOne.Scripts.GameCore.Resources;
 using MarkOne.Scripts.GameCore.Services;
 using MarkOne.Scripts.GameCore.Services.GameData;
+using MarkOne.Scripts.GameCore.Dialogs.Town;
+using MarkOne.Scripts.GameCore.Sessions;
 
 namespace MarkOne.Scripts.GameCore.Quests;
 
 public class QuestManager
 {
-    private static readonly GameDataHolder gameDataHolder = Services.Services.Get<GameDataHolder>();
-    private static readonly NotificationsManager notificationsManager = Services.Services.Get<NotificationsManager>();
+    private static readonly GameDataHolder gameDataHolder = Services.ServiceLocator.Get<GameDataHolder>();
+    private static readonly NotificationsManager notificationsManager = Services.ServiceLocator.Get<NotificationsManager>();
 
     public static async Task HandleNewSession(GameSession session, Update update)
     {

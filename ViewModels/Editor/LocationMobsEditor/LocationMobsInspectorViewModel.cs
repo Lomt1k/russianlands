@@ -13,7 +13,7 @@ namespace MarkOne.ViewModels.Editor.LocationMobsEditor;
 
 internal class LocationMobsInspectorViewModel : ViewModelBase
 {
-    private static readonly GameDataHolder gameDataHolder = Services.Get<GameDataHolder>();
+    private static readonly GameDataHolder gameDataHolder = ServiceLocator.Get<GameDataHolder>();
 
     private readonly EditorRewardsListViewModel _battleRewardsViewModel = new();
     private readonly EditorRewardsListViewModel _locationRewardsViewModel = new();

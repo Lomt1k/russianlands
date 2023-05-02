@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Threading.Tasks;
-using MarkOne.Scripts.Bot.Sessions;
 using MarkOne.Scripts.GameCore.Resources;
+using MarkOne.Scripts.GameCore.Sessions;
 
 namespace MarkOne.Scripts.GameCore.Rewards;
 

@@ -4,19 +4,19 @@ using System.Text;
 using System.Threading.Tasks;
 using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.Bot.DataBase.SerializableData;
-using MarkOne.Scripts.Bot.Dialogs.Town.Character.Potions;
-using MarkOne.Scripts.Bot.Sessions;
 using MarkOne.Scripts.GameCore.Buildings.Data;
+using MarkOne.Scripts.GameCore.Dialogs.Town.Character.Potions;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Potions;
 using MarkOne.Scripts.GameCore.Resources;
 using MarkOne.Scripts.GameCore.Services.GameData;
+using MarkOne.Scripts.GameCore.Sessions;
 
 namespace MarkOne.Scripts.GameCore.Buildings.General;
 
 public class AlchemyLabBuilding : BuildingBase
 {
-    private static readonly GameDataHolder gameDataBase = Services.Services.Get<GameDataHolder>();
+    private static readonly GameDataHolder gameDataBase = Services.ServiceLocator.Get<GameDataHolder>();
 
     public override BuildingId buildingId => BuildingId.AlchemyLab;
 

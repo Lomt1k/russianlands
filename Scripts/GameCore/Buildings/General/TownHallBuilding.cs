@@ -1,7 +1,7 @@
 ﻿using System;
 using MarkOne.Scripts.Bot.DataBase.SerializableData;
-using MarkOne.Scripts.Bot.Sessions;
 using MarkOne.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.GameCore.Sessions;
 
 namespace MarkOne.Scripts.GameCore.Buildings.General;
 

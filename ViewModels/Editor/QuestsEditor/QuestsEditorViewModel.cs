@@ -16,7 +16,7 @@ namespace MarkOne.ViewModels.Editor.QuestsEditor;
 
 public class QuestsEditorViewModel : ViewModelBase
 {
-    private static readonly GameDataHolder gameDataHolder = Services.Get<GameDataHolder>();
+    private static readonly GameDataHolder gameDataHolder = ServiceLocator.Get<GameDataHolder>();
 
     private EnumValueModel<QuestId>? _selectedQuest;
     private QuestData? _quest;

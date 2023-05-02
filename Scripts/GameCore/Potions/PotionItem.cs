@@ -2,17 +2,17 @@
 using System;
 using System.Text;
 using MarkOne.Scripts.Bot;
-using MarkOne.Scripts.Bot.Sessions;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Resources;
 using MarkOne.Scripts.GameCore.Services.GameData;
+using MarkOne.Scripts.GameCore.Sessions;
 
 namespace MarkOne.Scripts.GameCore.Potions;
 
 [JsonObject]
 public class PotionItem
 {
-    private static readonly GameDataHolder gameDataBase = Services.Services.Get<GameDataHolder>();
+    private static readonly GameDataHolder gameDataBase = Services.ServiceLocator.Get<GameDataHolder>();
 
 
     [JsonProperty("id")]

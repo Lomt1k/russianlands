@@ -10,7 +10,7 @@ namespace MarkOne.Scripts.GameCore.Services;
 
 public class DailyRemindersManager : Service
 {
-    private static readonly MessageSender messageSender = Services.Get<MessageSender>();
+    private static readonly MessageSender messageSender = ServiceLocator.Get<MessageSender>();
 
     private static readonly string[] localizationKeys =
     {

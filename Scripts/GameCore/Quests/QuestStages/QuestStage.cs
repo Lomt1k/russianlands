@@ -1,7 +1,7 @@
 ﻿using JsonKnownTypes;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
-using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Sessions;
 
 namespace MarkOne.Scripts.GameCore.Quests.QuestStages;
 

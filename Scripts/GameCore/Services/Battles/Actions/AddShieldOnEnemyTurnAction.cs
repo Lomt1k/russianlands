@@ -1,7 +1,7 @@
 ﻿using System.Text;
-using MarkOne.Scripts.Bot.Sessions;
 using MarkOne.Scripts.GameCore.Items;
 using MarkOne.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.GameCore.Sessions;
 using MarkOne.Scripts.GameCore.Units;
 using MarkOne.Scripts.GameCore.Units.Stats;
 

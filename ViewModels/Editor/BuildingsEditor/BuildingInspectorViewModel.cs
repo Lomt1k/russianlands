@@ -12,7 +12,7 @@ namespace MarkOne.ViewModels.Editor.BuildingsEditor;
 
 public class BuildingInspectorViewModel : ViewModelBase
 {
-    private static readonly GameDataHolder gameDataBase = Services.Get<GameDataHolder>();
+    private static readonly GameDataHolder gameDataBase = ServiceLocator.Get<GameDataHolder>();
 
     private BuildingData? _buildingData;
     private ObjectPropertiesEditorView? _selectedLevelView;

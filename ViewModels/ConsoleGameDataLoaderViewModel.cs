@@ -6,7 +6,7 @@ namespace MarkOne.ViewModels;
 
 public class GameDataLoader
 {
-    private static readonly GameDataHolder gameDataBase = Services.Get<GameDataHolder>();
+    private static readonly GameDataHolder gameDataBase = ServiceLocator.Get<GameDataHolder>();
 
     public bool isCompleted { get; private set; } = false;
 

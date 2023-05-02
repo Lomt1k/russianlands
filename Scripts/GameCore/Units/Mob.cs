@@ -1,8 +1,8 @@
 ﻿using System.Text;
 using System.Threading.Tasks;
-using MarkOne.Scripts.Bot.Sessions;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Services.Battles;
+using MarkOne.Scripts.GameCore.Sessions;
 using MarkOne.Scripts.GameCore.Units.ActionHandlers;
 using MarkOne.Scripts.GameCore.Units.Mobs;
 using MarkOne.Scripts.GameCore.Units.Stats;

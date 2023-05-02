@@ -5,16 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using Telegram.Bot;
 using MarkOne.Scripts.Bot.DataBase;
-using MarkOne.Scripts.Bot.Sessions;
 using MarkOne.Scripts.GameCore.Quests.Characters;
 using MarkOne.Scripts.GameCore.Services;
 using MarkOne.Scripts.GameCore.Services.Battles;
+using MarkOne.Scripts.GameCore.Sessions;
 
 namespace MarkOne.Scripts.Bot;
 public static class BotController
 {
-    private static readonly SessionManager sessionManager = Services.Get<SessionManager>();
-    private static readonly PerformanceManager performanceManager = Services.Get<PerformanceManager>();
+    private static readonly SessionManager sessionManager = ServiceLocator.Get<SessionManager>();
+    private static readonly PerformanceManager performanceManager = ServiceLocator.Get<PerformanceManager>();
 
     private static bool _isInited;
     private static TelegramBotReceiving _botReceiving;
@@ -96,7 +96,7 @@ public static class BotController
 
         await WaitForNetworkConnection().FastAwait();
         SubcribeEvents();
-        await Services.OnBotStarted().FastAwait();
+        await ServiceLocator.OnBotStarted().FastAwait();
         await CharacterStickersHolder.StickersUpdate().FastAwait();
         await _botReceiving.StartReceiving().FastAwait();
 
@@ -111,7 +111,7 @@ public static class BotController
         _botReceiving.StopReceiving();
         await sessionManager.CloseAllSessions().FastAwait();
         await dataBase.CloseAsync().FastAwait();
-        await Services.OnBotStopped().FastAwait();
+        await ServiceLocator.OnBotStopped().FastAwait();
         UnsubscribeEvents();
     }
 
@@ -122,7 +122,7 @@ public static class BotController
 
         Program.logger.Info("Reconnection starts...");
         _botReceiving.StopReceiving();
-        var battleManager = Services.Get<BattleManager>();
+        var battleManager = ServiceLocator.Get<BattleManager>();
         var playersInBattle = battleManager.GetAllPlayers();
         battleManager.UnregisterAllBattles(); //специально вызываем перед закрытием сессий!
         foreach (var player in playersInBattle)

@@ -7,9 +7,9 @@ using Telegram.Bot.Polling;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
-using MarkOne.Scripts.Bot.Sessions;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Services;
+using MarkOne.Scripts.GameCore.Sessions;
 
 namespace MarkOne.Scripts.Bot;
 public class TelegramBotUpdateHandler : IUpdateHandler
@@ -17,9 +17,9 @@ public class TelegramBotUpdateHandler : IUpdateHandler
     private readonly string accountIsBusyText = Emojis.ElementWarning + Localization.GetDefault("account_is_busy_message");
     private readonly ReplyKeyboardMarkup restartButton = new ReplyKeyboardMarkup(Localization.GetDefault("restart_button"));
 
-    private static readonly SessionManager sessionManager = Services.Get<SessionManager>();
-    private static readonly PerformanceManager performanceManager = Services.Get<PerformanceManager>();
-    private static readonly MessageSender messageSender = Services.Get<MessageSender>();
+    private static readonly SessionManager sessionManager = ServiceLocator.Get<SessionManager>();
+    private static readonly PerformanceManager performanceManager = ServiceLocator.Get<PerformanceManager>();
+    private static readonly MessageSender messageSender = ServiceLocator.Get<MessageSender>();
 
     public async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
     {

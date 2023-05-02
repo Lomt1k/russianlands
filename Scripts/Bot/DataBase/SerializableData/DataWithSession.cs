@@ -1,5 +1,5 @@
 ﻿using SQLite;
-using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Sessions;
 
 namespace MarkOne.Scripts.Bot.DataBase.SerializableData;
 

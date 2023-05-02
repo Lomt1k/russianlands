@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using MarkOne.Scripts.Bot;
-using MarkOne.Scripts.Bot.Sessions;
 using MarkOne.Scripts.GameCore.Services;
+using MarkOne.Scripts.GameCore.Sessions;
 
 namespace MarkOne.ConsoleMode;
 
@@ -13,8 +13,8 @@ public class ConsoleHandler
 {
     public static readonly string botDataFolder = Path.Combine("Assets", "botData");
 
-    private static readonly SessionManager sessionManager = Services.Get<SessionManager>();
-    private static readonly PerformanceManager pm = Services.Get<PerformanceManager>();
+    private static readonly SessionManager sessionManager = ServiceLocator.Get<SessionManager>();
+    private static readonly PerformanceManager pm = ServiceLocator.Get<PerformanceManager>();
 
     private static readonly Dictionary<string, Action<string[]>> commands = new Dictionary<string, Action<string[]>>
     {
@@ -27,8 +27,6 @@ public class ConsoleHandler
 
     public void Start(string[] args)
     {
-        Console.WriteLine("Started with console...");
-
         if (args.Length > 0)
         {
             var botDataInput = args[0].TrimStart('-');

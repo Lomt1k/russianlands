@@ -2,8 +2,8 @@
 using System.Globalization;
 using System.Text;
 using MarkOne.Scripts.Bot;
-using MarkOne.Scripts.Bot.Sessions;
 using MarkOne.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.GameCore.Sessions;
 
 public static class DateTimeExtensions
 {

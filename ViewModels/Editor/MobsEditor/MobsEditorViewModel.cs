@@ -14,7 +14,7 @@ public class MobsEditorViewModel : ViewModelBase
     private QuestMobData? _selectedMob;
     private readonly MobInspectorViewModel _mobInspectorVM;
 
-    private static readonly GameDataHolder gameDataBase = Services.Get<GameDataHolder>();
+    private static readonly GameDataHolder gameDataBase = ServiceLocator.Get<GameDataHolder>();
 
     public ObservableCollection<QuestMobData> mobsList { get; } = new ObservableCollection<QuestMobData>();
     public QuestMobData? selectedMob

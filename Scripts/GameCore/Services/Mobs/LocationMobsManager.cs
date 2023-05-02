@@ -3,10 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using MarkOne.Scripts.Bot.Dialogs.Battle;
-using MarkOne.Scripts.Bot.Dialogs.Town;
-using MarkOne.Scripts.Bot.Dialogs.Town.Map;
-using MarkOne.Scripts.Bot.Sessions;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Locations;
 using MarkOne.Scripts.GameCore.Rewards;
@@ -14,15 +10,19 @@ using MarkOne.Scripts.GameCore.Services.DailyDataManagers;
 using MarkOne.Scripts.GameCore.Services.GameData;
 using MarkOne.Scripts.GameCore.Units;
 using MarkOne.Scripts.GameCore.Units.Mobs;
+using MarkOne.Scripts.GameCore.Dialogs.Battle;
+using MarkOne.Scripts.GameCore.Dialogs.Town.Map;
+using MarkOne.Scripts.GameCore.Dialogs.Town;
+using MarkOne.Scripts.GameCore.Sessions;
 
 namespace MarkOne.Scripts.GameCore.Services.Mobs;
 
 public class LocationMobsManager : Service
 {
-    private static readonly ServerDailyDataManager serverDailyDataManager = Services.Get<ServerDailyDataManager>();
-    private static readonly NotificationsManager notificationsManager = Services.Get<NotificationsManager>();
-    private static readonly GameDataHolder gameDataHolder = Services.Get<GameDataHolder>();
-    private static readonly MobFactory mobFactory = Services.Get<MobFactory>();
+    private static readonly ServerDailyDataManager serverDailyDataManager = ServiceLocator.Get<ServerDailyDataManager>();
+    private static readonly NotificationsManager notificationsManager = ServiceLocator.Get<NotificationsManager>();
+    private static readonly GameDataHolder gameDataHolder = ServiceLocator.Get<GameDataHolder>();
+    private static readonly MobFactory mobFactory = ServiceLocator.Get<MobFactory>();
 
     private Dictionary<MobDifficulty, LocationsMobPack> _mobPacks = new();
 

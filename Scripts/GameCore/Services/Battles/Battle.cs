@@ -5,10 +5,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.Bot.CallbackData;
-using MarkOne.Scripts.Bot.Dialogs.Battle;
-using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Dialogs.Battle;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Rewards;
+using MarkOne.Scripts.GameCore.Sessions;
 using MarkOne.Scripts.GameCore.Units;
 
 namespace MarkOne.Scripts.GameCore.Services.Battles;
@@ -17,8 +17,8 @@ public enum BattleType { PVE, PVP }
 
 public class Battle
 {
-    private static readonly BattleManager battleManager = Services.Get<BattleManager>();
-    private static readonly MessageSender messageSender = Services.Get<MessageSender>();
+    private static readonly BattleManager battleManager = ServiceLocator.Get<BattleManager>();
+    private static readonly MessageSender messageSender = ServiceLocator.Get<MessageSender>();
 
     private readonly IReadOnlyList<RewardBase>? _rewards;
     private readonly Func<Player, BattleResult, Task>? _onBattleEndFunc;

@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
-using MarkOne.Scripts.Bot.Sessions;
 using MarkOne.Scripts.GameCore.Buildings.Craft;
 using MarkOne.Scripts.GameCore.Buildings.Data;
 using MarkOne.Scripts.GameCore.Buildings.General;
 using MarkOne.Scripts.GameCore.Buildings.Production;
 using MarkOne.Scripts.GameCore.Buildings.Storages;
 using MarkOne.Scripts.GameCore.Buildings.Training;
+using MarkOne.Scripts.GameCore.Sessions;
 
 namespace MarkOne.Scripts.GameCore.Buildings;
 

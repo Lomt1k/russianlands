@@ -4,15 +4,15 @@ using System.Collections.Generic;
 using System.IO;
 using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.Bot.DataBase.SerializableData;
-using MarkOne.Scripts.Bot.Sessions;
 using MarkOne.Scripts.GameCore.Services.DailyDataManagers;
+using MarkOne.Scripts.GameCore.Sessions;
 
 namespace MarkOne.Scripts.GameCore.Services.DailyDataManager;
 
 public class ProfileDailyDataManager : Service
 {
-    private static readonly ServerDailyDataManager serverDailyDataManager = Services.Get<ServerDailyDataManager>();
-    private static readonly SessionManager sessionManager = Services.Get<SessionManager>();
+    private static readonly ServerDailyDataManager serverDailyDataManager = ServiceLocator.Get<ServerDailyDataManager>();
+    private static readonly SessionManager sessionManager = ServiceLocator.Get<SessionManager>();
 
     private static SQLiteAsyncConnection db => BotController.dataBase.db;
 

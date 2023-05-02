@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using MarkOne.Scripts.Bot.DataBase.SerializableData;
-using MarkOne.Scripts.Bot.Sessions;
 using MarkOne.Scripts.GameCore.Buildings.Data;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Services.GameData;
+using MarkOne.Scripts.GameCore.Sessions;
 
 namespace MarkOne.Scripts.GameCore.Buildings;
 
 public abstract class BuildingBase
 {
-    private static readonly GameDataHolder gameDataBase = Services.Services.Get<GameDataHolder>();
+    private static readonly GameDataHolder gameDataBase = Services.ServiceLocator.Get<GameDataHolder>();
 
     public abstract BuildingId buildingId { get; }
     public BuildingData buildingData => gameDataBase.buildings[buildingId];

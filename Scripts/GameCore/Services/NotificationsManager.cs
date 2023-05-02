@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using MarkOne.Scripts.Bot;
-using MarkOne.Scripts.Bot.Dialogs;
-using MarkOne.Scripts.Bot.Dialogs.Town;
-using MarkOne.Scripts.Bot.Dialogs.Town.Buildings;
-using MarkOne.Scripts.Bot.Sessions;
 using MarkOne.Scripts.GameCore.Buildings;
+using MarkOne.Scripts.GameCore.Dialogs;
+using MarkOne.Scripts.GameCore.Dialogs.Town;
+using MarkOne.Scripts.GameCore.Dialogs.Town.Buildings;
 using MarkOne.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.GameCore.Sessions;
 
 namespace MarkOne.Scripts.GameCore.Services;
 

@@ -2,12 +2,12 @@
 using System.Runtime.Serialization;
 using System.Text;
 using MarkOne.Scripts.Bot;
-using MarkOne.Scripts.Bot.Sessions;
 using MarkOne.Scripts.GameCore.Items.Generators;
 using MarkOne.Scripts.GameCore.Items.ItemAbilities;
 using MarkOne.Scripts.GameCore.Resources;
 using MarkOne.Scripts.GameCore.Services.GameData;
 using MarkOne.Scripts.GameCore.Skills;
+using MarkOne.Scripts.GameCore.Sessions;
 
 namespace MarkOne.Scripts.GameCore.Items;
 
@@ -15,7 +15,7 @@ public enum ItemState : byte { IsNewAndNotEquipped = 0, IsNotEquipped = 1, IsEqu
 
 public class InventoryItem
 {
-    private static readonly GameDataHolder gameDataBase = Services.Services.Get<GameDataHolder>();
+    private static readonly GameDataHolder gameDataBase = Services.ServiceLocator.Get<GameDataHolder>();
 
     public static byte requiredStickCharge = 3;
 

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.Bot.DataBase.SerializableData;
-using MarkOne.Scripts.Bot.Sessions;
 using MarkOne.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.GameCore.Sessions;
 
 namespace MarkOne.Scripts.GameCore.Resources;
 

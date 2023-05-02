@@ -15,7 +15,7 @@ namespace MarkOne.ViewModels.Editor;
 
 public class MainEditorViewModel : ViewModelBase
 {
-    private readonly GameDataHolder gameDataHolder = Services.Get<GameDataHolder>();
+    private readonly GameDataHolder gameDataHolder = ServiceLocator.Get<GameDataHolder>();
 
     private MainEditorCategory _selectedCategory;
 

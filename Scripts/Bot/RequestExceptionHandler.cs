@@ -2,14 +2,14 @@
 using System.Threading.Tasks;
 using Telegram.Bot.Exceptions;
 using Telegram.Bot.Types;
-using MarkOne.Scripts.Bot.Sessions;
 using MarkOne.Scripts.GameCore.Services;
+using MarkOne.Scripts.GameCore.Sessions;
 
 namespace MarkOne.Scripts.Bot;
 
 public class RequestExceptionHandler
 {
-    private static readonly SessionManager sessionManager = Services.Get<SessionManager>();
+    private static readonly SessionManager sessionManager = ServiceLocator.Get<SessionManager>();
 
     public async Task HandleException(ChatId id, RequestException ex)
     {

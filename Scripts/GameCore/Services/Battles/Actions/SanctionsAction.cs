@@ -1,6 +1,6 @@
 ﻿using MarkOne.Scripts.Bot;
-using MarkOne.Scripts.Bot.Sessions;
 using MarkOne.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.GameCore.Sessions;
 using MarkOne.Scripts.GameCore.Units.Stats;
 using MarkOne.Scripts.Utils;
 
