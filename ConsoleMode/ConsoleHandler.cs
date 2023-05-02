@@ -18,11 +18,11 @@ public class ConsoleHandler
 
     private static readonly Dictionary<string, Action<string[]>> commands = new Dictionary<string, Action<string[]>>
     {
-        {"start", (args) => StartBotCommand(args) },
-        {"stop", (args) => StopBotCommand(args) },
-        {"exit", (args) => Shutdown(args) },
-        {"status", (args) => StatusCommand(args) },
-        {"collect", (args) => CollectCommand(args) }
+        {"start", StartBotCommand },
+        {"stop", StopBotCommand },
+        {"exit", Shutdown },
+        {"status", StatusCommand },
+        {"collect", CollectCommand }
     };
 
     public void Start(string[] args)
