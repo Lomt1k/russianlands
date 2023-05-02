@@ -22,10 +22,10 @@ namespace TextGameRPG.Scripts.GameCore.Services.GameData
 
         public GameDataDictionary<BuildingId,BuildingData> buildings { get; private set; }
         public GameDataDictionary<int,ItemData> items { get; private set; }
-        public GameDataDictionary<int,MobData> mobs { get; private set; }
+        public GameDataDictionary<int,QuestMobData> mobs { get; private set; }
         public GameDataDictionary<int,PotionData> potions { get; private set; }
         public GameDataDictionary<QuestId, QuestData> quests { get; private set; }
-        public GameDataDictionary<LocationId, LocationMobData> locationGeneratedMobs { get; private set; }
+        public GameDataDictionary<LocationId, LocationMobSettingsData> locationGeneratedMobs { get; private set; }
 
 #pragma warning restore CS8618
 
@@ -43,10 +43,10 @@ namespace TextGameRPG.Scripts.GameCore.Services.GameData
 
             buildings = LoadGameDataDictionary<BuildingId,BuildingData>("buildings");
             items = LoadGameDataDictionary<int,ItemData>("items");
-            mobs = LoadGameDataDictionary<int,MobData>("mobs");
+            mobs = LoadGameDataDictionary<int,QuestMobData>("mobs");
             potions = LoadGameDataDictionary<int,PotionData>("potions");
             quests = LoadGameDataDictionary<QuestId, QuestData>("quests");
-            locationGeneratedMobs = LoadGameDataDictionary<LocationId, LocationMobData>("locationGeneratedMobs");
+            locationGeneratedMobs = LoadGameDataDictionary<LocationId, LocationMobSettingsData>("locationGeneratedMobs");
 
             Localizations.Localization.LoadAll(_loader, gameDataPath);
 

@@ -11,13 +11,13 @@ namespace TextGameRPG.ViewModels.Editor.MobsEditor
 {
     public class MobsEditorViewModel : ViewModelBase
     {
-        private MobData? _selectedMob;
+        private QuestMobData? _selectedMob;
         private MobInspectorViewModel _mobInspectorVM;
 
         private static readonly GameDataHolder gameDataBase = Services.Get<GameDataHolder>();
 
-        public ObservableCollection<MobData> mobsList { get; } = new ObservableCollection<MobData>();
-        public MobData? selectedMob
+        public ObservableCollection<QuestMobData> mobsList { get; } = new ObservableCollection<QuestMobData>();
+        public QuestMobData? selectedMob
         {
             get => _selectedMob;
             set
@@ -54,7 +54,7 @@ namespace TextGameRPG.ViewModels.Editor.MobsEditor
         {
             var allMobs = gameDataBase.mobs.GetAllData();
             var id = gameDataBase.mobs.count > 0 ? allMobs.Max(x => x.id) + 1 : 1;
-            var mobData = new MobData()
+            var mobData = new QuestMobData()
             {
                 id = id,
             };
@@ -72,7 +72,7 @@ namespace TextGameRPG.ViewModels.Editor.MobsEditor
             RefreshMobsList();
         }
 
-        private void ShowMob(MobData? mobData)
+        private void ShowMob(QuestMobData? mobData)
         {
             if (mobData == null)
                 return;

@@ -3,19 +3,18 @@ using System.Collections.Generic;
 using TextGameRPG.Scripts.GameCore.Locations;
 using TextGameRPG.Scripts.GameCore.Units.Mobs;
 
-namespace TextGameRPG.Scripts.GameCore.Services.Mobs
+namespace TextGameRPG.Scripts.GameCore.Services.Mobs;
+
+[JsonObject]
+public class LocationsMobPack
 {
-    [JsonObject]
-    public class LocationsMobPack
+    [JsonProperty]
+    private Dictionary<LocationId, SimpleMobData[]> mobsByLocation { get; } = new();
+
+    public SimpleMobData[] this[LocationId locationId] => mobsByLocation[locationId];
+
+    public LocationsMobPack(Dictionary<LocationId, SimpleMobData[]> _mobsByLocation)
     {
-        [JsonProperty]
-        private Dictionary<LocationId, MobData[]> mobsByLocation { get; } = new();
-
-        public MobData[] this[LocationId locationId] => mobsByLocation[locationId];
-
-        public LocationsMobPack(Dictionary<LocationId, MobData[]> _mobsByLocation)
-        {
-            mobsByLocation = _mobsByLocation;
-        }
+        mobsByLocation = _mobsByLocation;
     }
 }

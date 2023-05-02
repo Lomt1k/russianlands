@@ -18,13 +18,13 @@ namespace TextGameRPG.ViewModels.Editor.LocationMobsEditor
         private readonly EditorRewardsListViewModel _battleRewardsViewModel = new();
         private readonly EditorRewardsListViewModel _locationRewardsViewModel = new();
 
-        private LocationMobData? _locationMobData;
+        private LocationMobSettingsData? _locationMobData;
         private byte? _selectedTownHall;
-        private LocationMobDataByTownHall? _townHallData;
+        private LocationMobSettingsDataByTownHall? _townHallData;
 
         public ObservableCollection<byte> townHallsList { get; } = new();
 
-        public LocationMobData? locationMobData
+        public LocationMobSettingsData? locationMobData
         {
             get => _locationMobData;
             set => this.RaiseAndSetIfChanged(ref _locationMobData, value);
@@ -44,7 +44,7 @@ namespace TextGameRPG.ViewModels.Editor.LocationMobsEditor
                 }
             }
         }
-        public LocationMobDataByTownHall? townHallData
+        public LocationMobSettingsDataByTownHall? townHallData
         {
             get => _townHallData;
             set => this.RaiseAndSetIfChanged(ref _townHallData, value);
@@ -70,7 +70,7 @@ namespace TextGameRPG.ViewModels.Editor.LocationMobsEditor
             var locationMobs = gameDataHolder.locationGeneratedMobs;
             if (!locationMobs.ContainsKey(locationId))
             {
-                locationMobs.AddData(locationId, new LocationMobData() { id = locationId });
+                locationMobs.AddData(locationId, new LocationMobSettingsData() { id = locationId });
             }
             locationMobData = locationMobs[locationId];
             townHallsList.Clear();

@@ -10,11 +10,11 @@ using TextGameRPG.Scripts.GameCore.Services.GameData;
 namespace TextGameRPG.Scripts.GameCore.Units.Mobs
 {
     [JsonObject]
-    public class LocationMobData : IGameDataWithId<LocationId>
+    public class LocationMobSettingsData : IGameDataWithId<LocationId>
     {
         [JsonProperty] public LocationId id { get; set; }
         [JsonProperty] public int mobsCount { get; set; }
-        [JsonProperty] public Dictionary<byte, LocationMobDataByTownHall> dataByTownhall { get; set; } = new();
+        [JsonProperty] public Dictionary<byte, LocationMobSettingsDataByTownHall> dataByTownhall { get; set; } = new();
 
         [JsonIgnore] public byte minTownHall { get; private set; }
         [JsonIgnore] public byte maxTownHall { get; private set; }
@@ -30,7 +30,7 @@ namespace TextGameRPG.Scripts.GameCore.Units.Mobs
             // ignored
         }
 
-        public LocationMobDataByTownHall GetClosest(byte townhHallLevel)
+        public LocationMobSettingsDataByTownHall GetClosest(byte townhHallLevel)
         {
             if (dataByTownhall.TryGetValue(townhHallLevel, out var value))
             {
@@ -49,7 +49,7 @@ namespace TextGameRPG.Scripts.GameCore.Units.Mobs
 
 
 
-            dataByTownhall.Add(newTownHall, new LocationMobDataByTownHall());
+            dataByTownhall.Add(newTownHall, new LocationMobSettingsDataByTownHall());
             OnUpdateDictionary();
             return newTownHall;
         }
@@ -72,7 +72,7 @@ namespace TextGameRPG.Scripts.GameCore.Units.Mobs
     }
 
     [JsonObject]
-    public class LocationMobDataByTownHall
+    public class LocationMobSettingsDataByTownHall
     {
         public int foodPrice { get; set; }
         public List<RewardBase> battleRewards { get; set; } = new List<RewardBase>();

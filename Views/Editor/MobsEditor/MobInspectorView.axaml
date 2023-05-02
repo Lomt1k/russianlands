@@ -19,9 +19,6 @@
       <TextBlock Text="localizationKey"/>
       <TextBox Text="{Binding mob.localizationKey}" AcceptsReturn="True"/>
 
-      <TextBlock Text="mobType"/>
-      <ComboBox Items="{Binding mobTypes}" SelectedItem="{Binding selectedMobType}"/>
-
       <TextBlock Classes="h3" Text="MobStats" Margin="0,20,0,0"/>
       <UserControl Content="{Binding statsSettingsView}"/>
       

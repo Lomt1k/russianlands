@@ -14,11 +14,11 @@ namespace TextGameRPG.Scripts.GameCore.Units
         public GameSession session { get; }
         public UnitStats unitStats { get; }
         public IBattleActionHandler actionHandler { get; }
-        public MobData mobData { get; }
+        public IMobData mobData { get; }
 
         public string nickname => Localization.Get(session, mobData.localizationKey);
 
-        public Mob(GameSession _session, MobData _data)
+        public Mob(GameSession _session, IMobData _data)
         {
             session = _session;
             mobData = _data;

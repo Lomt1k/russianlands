@@ -30,7 +30,7 @@ namespace TextGameRPG.Scripts.GameCore.Services.Battles
             return battle;
         }
 
-        public Battle StartBattleWithMob(Player player, MobData mobData,
+        public Battle StartBattleWithMob(Player player, IMobData mobData,
             List<RewardBase>? rewards = null,
             Func<Player, BattleResult, Task>? onBattleEndFunc = null,
             Func<Player, BattleResult, Task>? onContinueButtonFunc = null,

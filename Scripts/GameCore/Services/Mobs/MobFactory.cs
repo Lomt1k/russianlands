@@ -6,148 +6,146 @@ using TextGameRPG.Scripts.GameCore.Resources;
 using TextGameRPG.Scripts.GameCore.Units.Mobs;
 using TextGameRPG.Scripts.Utils;
 
-namespace TextGameRPG.Scripts.GameCore.Services.Mobs
+namespace TextGameRPG.Scripts.GameCore.Services.Mobs;
+
+public class MobFactory : Service
 {
-    public class MobFactory : Service
+    private static readonly LocationId[] crossroadLocationNames =
     {
-        private static readonly LocationId[] crossroadLocationNames =
+        LocationId.Loc_01,
+        LocationId.Loc_02,
+        LocationId.Loc_03,
+        LocationId.Loc_04,
+    };
+
+    private static readonly ResourceId[] crossroadFruits = ResourcesDictionary.GetFruitTypes().ToArray();
+
+    public SimpleMobData GenerateMobForDebugBattle(byte playerLevel)
+    {
+        return new MobDataBuilder<SimpleMobData>(playerLevel)
+            .RandomizeHealthByPercents(10)
+            .CopyResistanceFromQuestMob(playerLevel - 1, playerLevel + 1)
+            .RandomizeResistanceByPercents(10)
+            .ShuffleResistanceValues()
+            .CopyAttacksFromQuestMob(playerLevel - 1, playerLevel + 1)
+            .RandomizeDamageValuesByPercents(10)
+            .ShuffleDamageValues()
+            .SetRandomName()
+            .GetResult();
+    }
+
+    public SimpleMobData GenerateMobForLocation(MobDifficulty mobDifficulty, LocationId locationId, List<string> excludeNames)
+    {
+        if (locationId == LocationId.Loc_01)
         {
-            LocationId.Loc_01,
-            LocationId.Loc_02,
-            LocationId.Loc_03,
-            LocationId.Loc_04,
+            DecreaseDifficulty(ref mobDifficulty, 1);
+        }
+        else if (locationId >= LocationId.Loc_05 && locationId <= LocationId.Loc_07)
+        {
+            var chanceToIncreaseDifficulty = 50;
+            if (Randomizer.TryPercentage(chanceToIncreaseDifficulty))
+            {
+                IncreaseDifficulty(ref mobDifficulty, 1);
+            }
+        }
+
+        byte increasePercents = mobDifficulty switch
+        {
+            MobDifficulty.END_GAME => 15,
+            MobDifficulty.END_GAME_PLUS => 30,
+            _ => 0
         };
 
-        private static readonly ResourceId[] crossroadFruits = ResourcesDictionary.GetFruitTypes().ToArray();
+        var levelRange = mobDifficulty.GetMobLevelRange();
+        var mobLevel = new Random().Next(levelRange.minLevel, levelRange.maxLevel + 1);
+        var visualLevel = mobDifficulty < MobDifficulty.END_GAME ? mobLevel : 35;
+        return new MobDataBuilder<SimpleMobData>(mobLevel)
+            .RandomizeHealthByPercents(10)
+            .CopyResistanceFromQuestMob(levelRange.minLevel, levelRange.maxLevel)
+            .IncreaseResistanceByPercents(increasePercents)
+            .RandomizeResistanceByPercents(10)
+            .ShuffleResistanceValues()
+            .CopyAttacksFromQuestMob(levelRange.minLevel, levelRange.maxLevel)
+            .IncreaseDamageValuesByPercents(increasePercents)
+            .RandomizeDamageValuesByPercents(10)
+            .ShuffleDamageValues()
+            .SetRandomName(locationId, excludeNames)
+            .SetVisualLevel(visualLevel)
+            .GetResult();
+    }
 
-        public MobData GenerateMobForDebugBattle(byte playerLevel)
+    public CrossroadsMobData GenerateMobForCrossroads(MobDifficulty mobDifficulty, int crossId, List<string> excludeNames, List<ResourceId> excludeFruits)
+    {
+        byte increasePercents = mobDifficulty switch
         {
-            return new MobDataBuilder(playerLevel)
-                .RandomizeHealthByPercents(10)
-                .CopyResistanceFromQuestMob(playerLevel - 1, playerLevel + 1)
-                .RandomizeResistanceByPercents(10)
-                .ShuffleResistanceValues()
-                .CopyAttacksFromQuestMob(playerLevel - 1, playerLevel + 1)
-                .RandomizeDamageValuesByPercents(10)
-                .ShuffleDamageValues()
-                .SetRandomName()
-                .GetResult();
-        }
+            MobDifficulty.END_GAME => 15,
+            MobDifficulty.END_GAME_PLUS => 30,
+            _ => 0
+        };
 
-        public MobData GenerateMobForLocation(MobDifficulty mobDifficulty, LocationId locationId, List<string> excludeNames)
+        var additionalVisualLevels = 0;
+        if (crossId >= 4)
         {
-            if (locationId == LocationId.Loc_01)
-            {
-                DecreaseDifficulty(ref mobDifficulty, 1);
+            var chanceToIncreaseDifficulty = 25;
+            if (mobDifficulty < MobDifficulty.END_GAME_PLUS && Randomizer.TryPercentage(chanceToIncreaseDifficulty))
+            {                    
+                IncreaseDifficulty(ref mobDifficulty, 1);
+                additionalVisualLevels++;
             }
-            else if (locationId >= LocationId.Loc_05 && locationId <= LocationId.Loc_07)
+            if (crossId >= 6)
             {
-                var chanceToIncreaseDifficulty = 50;
-                if (Randomizer.TryPercentage(chanceToIncreaseDifficulty))
+                var chanceToIncreasePower = 35;
+                if (Randomizer.TryPercentage(chanceToIncreasePower))
                 {
-                    IncreaseDifficulty(ref mobDifficulty, 1);
-                }
-            }
-
-            byte increasePercents = mobDifficulty switch
-            {
-                MobDifficulty.END_GAME => 15,
-                MobDifficulty.END_GAME_PLUS => 30,
-                _ => 0
-            };
-
-            var levelRange = mobDifficulty.GetMobLevelRange();
-            var mobLevel = new Random().Next(levelRange.minLevel, levelRange.maxLevel + 1);
-            var visualLevel = mobDifficulty < MobDifficulty.END_GAME ? mobLevel : 35;
-            return new MobDataBuilder(mobLevel)
-                .RandomizeHealthByPercents(10)
-                .CopyResistanceFromQuestMob(levelRange.minLevel, levelRange.maxLevel)
-                .IncreaseResistanceByPercents(increasePercents)
-                .RandomizeResistanceByPercents(10)
-                .ShuffleResistanceValues()
-                .CopyAttacksFromQuestMob(levelRange.minLevel, levelRange.maxLevel)
-                .IncreaseDamageValuesByPercents(increasePercents)
-                .RandomizeDamageValuesByPercents(10)
-                .ShuffleDamageValues()
-                .SetRandomName(locationId, excludeNames)
-                .SetVisualLevel(visualLevel)
-                .GetResult();
-        }
-
-        public CrossroadsMobData GenerateMobForCrossroads(MobDifficulty mobDifficulty, int crossId, List<string> excludeNames, List<ResourceId> excludeFruits)
-        {
-            byte increasePercents = mobDifficulty switch
-            {
-                MobDifficulty.END_GAME => 15,
-                MobDifficulty.END_GAME_PLUS => 30,
-                _ => 0
-            };
-
-            var additionalVisualLevels = 0;
-            if (crossId >= 4)
-            {
-                var chanceToIncreaseDifficulty = 25;
-                if (mobDifficulty < MobDifficulty.END_GAME_PLUS && Randomizer.TryPercentage(chanceToIncreaseDifficulty))
-                {                    
-                    IncreaseDifficulty(ref mobDifficulty, 1);
+                    increasePercents += 15;
                     additionalVisualLevels++;
                 }
-                if (crossId >= 6)
-                {
-                    var chanceToIncreasePower = 35;
-                    if (Randomizer.TryPercentage(chanceToIncreasePower))
-                    {
-                        increasePercents += 15;
-                        additionalVisualLevels++;
-                    }
-                }
             }
-
-            var index = new Random().Next(crossroadLocationNames.Length);
-            var locationForName = crossroadLocationNames[index];
-            var levelRange = mobDifficulty.GetMobLevelRange();
-            var mobLevel = new Random().Next(levelRange.minLevel, levelRange.maxLevel + 1);
-            var visualLevel = mobDifficulty < MobDifficulty.END_GAME ? mobLevel : 35;
-            visualLevel += additionalVisualLevels;
-            var mobData = new MobDataBuilder(mobLevel)
-                .RandomizeHealthByPercents(10)
-                .CopyResistanceFromQuestMob(levelRange.minLevel, levelRange.maxLevel)
-                .IncreaseResistanceByPercents(increasePercents)
-                .RandomizeResistanceByPercents(10)
-                .ShuffleResistanceValues()
-                .CopyAttacksFromQuestMob(levelRange.minLevel, levelRange.maxLevel)
-                .IncreaseDamageValuesByPercents(increasePercents)
-                .RandomizeDamageValuesByPercents(10)
-                .ShuffleDamageValues()
-                .SetRandomName(locationForName, excludeNames)
-                .SetVisualLevel(visualLevel)
-                .GetResult();
-
-            var crossroadsMobData = (CrossroadsMobData)mobData;
-            do
-            {
-                var fruitTypeIndex = new Random().Next(crossroadFruits.Length);
-                crossroadsMobData.fruitId = crossroadFruits[fruitTypeIndex];
-            } while (excludeFruits.Contains(crossroadsMobData.fruitId));
-
-            return crossroadsMobData;
         }
 
+        var index = new Random().Next(crossroadLocationNames.Length);
+        var locationForName = crossroadLocationNames[index];
+        var levelRange = mobDifficulty.GetMobLevelRange();
+        var mobLevel = new Random().Next(levelRange.minLevel, levelRange.maxLevel + 1);
+        var visualLevel = mobDifficulty < MobDifficulty.END_GAME ? mobLevel : 35;
+        visualLevel += additionalVisualLevels;
+        var mobData = new MobDataBuilder<CrossroadsMobData>(mobLevel)
+            .RandomizeHealthByPercents(10)
+            .CopyResistanceFromQuestMob(levelRange.minLevel, levelRange.maxLevel)
+            .IncreaseResistanceByPercents(increasePercents)
+            .RandomizeResistanceByPercents(10)
+            .ShuffleResistanceValues()
+            .CopyAttacksFromQuestMob(levelRange.minLevel, levelRange.maxLevel)
+            .IncreaseDamageValuesByPercents(increasePercents)
+            .RandomizeDamageValuesByPercents(10)
+            .ShuffleDamageValues()
+            .SetRandomName(locationForName, excludeNames)
+            .SetVisualLevel(visualLevel)
+            .GetResult();
 
-
-        private void DecreaseDifficulty(ref MobDifficulty mobDifficulty, int grades)
+        do
         {
-            var difficulty = (int)mobDifficulty;
-            difficulty -= grades;
-            mobDifficulty = difficulty < 0 ? MobDifficulty.HALL_3_START : (MobDifficulty)difficulty;
-        }
+            var fruitTypeIndex = new Random().Next(crossroadFruits.Length);
+            mobData.fruitId = crossroadFruits[fruitTypeIndex];
+        } while (excludeFruits.Contains(mobData.fruitId));
 
-        private void IncreaseDifficulty(ref MobDifficulty mobDifficulty, int grades)
-        {
-            var difficulty = (int)mobDifficulty;
-            difficulty += grades;
-            mobDifficulty = difficulty > (int)MobDifficulty.END_GAME_PLUS ? MobDifficulty.END_GAME_PLUS : (MobDifficulty)difficulty;
-        }
-
+        return mobData;
     }
+
+
+
+    private void DecreaseDifficulty(ref MobDifficulty mobDifficulty, int grades)
+    {
+        var difficulty = (int)mobDifficulty;
+        difficulty -= grades;
+        mobDifficulty = difficulty < 0 ? MobDifficulty.HALL_3_START : (MobDifficulty)difficulty;
+    }
+
+    private void IncreaseDifficulty(ref MobDifficulty mobDifficulty, int grades)
+    {
+        var difficulty = (int)mobDifficulty;
+        difficulty += grades;
+        mobDifficulty = difficulty > (int)MobDifficulty.END_GAME_PLUS ? MobDifficulty.END_GAME_PLUS : (MobDifficulty)difficulty;
+    }
+
 }
