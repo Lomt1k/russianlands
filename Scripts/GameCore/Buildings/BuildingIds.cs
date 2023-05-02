@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Buildings.Craft;
-using TextGameRPG.Scripts.GameCore.Buildings.Data;
-using TextGameRPG.Scripts.GameCore.Buildings.General;
-using TextGameRPG.Scripts.GameCore.Buildings.Production;
-using TextGameRPG.Scripts.GameCore.Buildings.Storages;
-using TextGameRPG.Scripts.GameCore.Buildings.Training;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Buildings.Craft;
+using MarkOne.Scripts.GameCore.Buildings.Data;
+using MarkOne.Scripts.GameCore.Buildings.General;
+using MarkOne.Scripts.GameCore.Buildings.Production;
+using MarkOne.Scripts.GameCore.Buildings.Storages;
+using MarkOne.Scripts.GameCore.Buildings.Training;
 
-namespace TextGameRPG.Scripts.GameCore.Buildings;
+namespace MarkOne.Scripts.GameCore.Buildings;
 
 public enum BuildingCategory
 {

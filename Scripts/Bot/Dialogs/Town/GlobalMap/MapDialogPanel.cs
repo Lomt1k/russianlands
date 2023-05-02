@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Text;
 using System.Threading.Tasks;
-using TextGameRPG.Scripts.GameCore.Localizations;
-using TextGameRPG.Scripts.GameCore.Locations;
-using TextGameRPG.Scripts.GameCore.Quests;
-using TextGameRPG.Scripts.GameCore.Quests.NextStageTriggers;
-using TextGameRPG.Scripts.GameCore.Quests.QuestStages;
-using TextGameRPG.Scripts.GameCore.Resources;
-using TextGameRPG.Scripts.GameCore.Rewards;
-using TextGameRPG.Scripts.GameCore.Services;
-using TextGameRPG.Scripts.GameCore.Services.GameData;
-using TextGameRPG.Scripts.GameCore.Services.Mobs;
+using MarkOne.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.GameCore.Locations;
+using MarkOne.Scripts.GameCore.Quests;
+using MarkOne.Scripts.GameCore.Quests.NextStageTriggers;
+using MarkOne.Scripts.GameCore.Quests.QuestStages;
+using MarkOne.Scripts.GameCore.Resources;
+using MarkOne.Scripts.GameCore.Rewards;
+using MarkOne.Scripts.GameCore.Services;
+using MarkOne.Scripts.GameCore.Services.GameData;
+using MarkOne.Scripts.GameCore.Services.Mobs;
 
-namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap;
+namespace MarkOne.Scripts.Bot.Dialogs.Town.Map;
 
 public class MapDialogPanel : DialogPanelBase
 {

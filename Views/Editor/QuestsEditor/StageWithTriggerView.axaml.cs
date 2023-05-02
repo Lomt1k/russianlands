@@ -1,7 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
-namespace TextGameRPG.Views.Editor.QuestsEditor;
+namespace MarkOne.Views.Editor.QuestsEditor;
 
 public partial class StageWithTriggerView : UserControl
 {

@@ -1,9 +1,9 @@
 ﻿using JsonKnownTypes;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
-using TextGameRPG.Scripts.Bot.Sessions;
+using MarkOne.Scripts.Bot.Sessions;
 
-namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages;
+namespace MarkOne.Scripts.GameCore.Quests.QuestStages;
 
 [JsonObject]
 [JsonConverter(typeof(JsonKnownTypesConverter<QuestStage>))]

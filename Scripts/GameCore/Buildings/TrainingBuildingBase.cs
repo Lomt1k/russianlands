@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using TextGameRPG.Scripts.Bot;
-using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
-using TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.TrainingBuildingDialog;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Buildings.Data;
-using TextGameRPG.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.Bot;
+using MarkOne.Scripts.Bot.DataBase.SerializableData;
+using MarkOne.Scripts.Bot.Dialogs.Town.Buildings.TrainingBuildingDialog;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Buildings.Data;
+using MarkOne.Scripts.GameCore.Localizations;
 
-namespace TextGameRPG.Scripts.GameCore.Buildings;
+namespace MarkOne.Scripts.GameCore.Buildings;
 
 public abstract class TrainingBuildingBase : BuildingBase
 {

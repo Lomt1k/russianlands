@@ -1,7 +1,7 @@
 using Avalonia.Controls;
-using TextGameRPG.ViewModels.Editor.LocationMobsEditor;
+using MarkOne.ViewModels.Editor.LocationMobsEditor;
 
-namespace TextGameRPG.Views.Editor.LocationMobsEditor;
+namespace MarkOne.Views.Editor.LocationMobsEditor;
 
 public partial class LocationMobsEditorView : UserControl
 {

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using TextGameRPG.Scripts.Bot;
+using MarkOne.Scripts.Bot;
 
-namespace TextGameRPG.Scripts.GameCore.Services;
+namespace MarkOne.Scripts.GameCore.Services;
 
 public enum PerformanceState { Normal, Highload, ShutdownRequired }
 

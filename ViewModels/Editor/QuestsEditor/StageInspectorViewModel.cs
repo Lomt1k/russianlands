@@ -1,9 +1,9 @@
 ﻿using Avalonia.Controls;
 using ReactiveUI;
-using TextGameRPG.Scripts.GameCore.Quests.QuestStages;
-using TextGameRPG.Views.Editor.QuestsEditor;
+using MarkOne.Scripts.GameCore.Quests.QuestStages;
+using MarkOne.Views.Editor.QuestsEditor;
 
-namespace TextGameRPG.ViewModels.Editor.QuestsEditor;
+namespace MarkOne.ViewModels.Editor.QuestsEditor;
 
 public class StageInspectorViewModel : ViewModelBase
 {

@@ -1,9 +1,9 @@
 ﻿using System;
-using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.Bot.DataBase.SerializableData;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Localizations;
 
-namespace TextGameRPG.Scripts.GameCore.Buildings.General;
+namespace MarkOne.Scripts.GameCore.Buildings.General;
 
 public class TownHallBuilding : BuildingBase
 {

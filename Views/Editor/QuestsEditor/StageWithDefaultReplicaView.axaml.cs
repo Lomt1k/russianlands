@@ -1,6 +1,6 @@
 using Avalonia.Controls;
 
-namespace TextGameRPG.Views.Editor.QuestsEditor;
+namespace MarkOne.Views.Editor.QuestsEditor;
 
 public partial class StageWithDefaultReplicaView : UserControl
 {

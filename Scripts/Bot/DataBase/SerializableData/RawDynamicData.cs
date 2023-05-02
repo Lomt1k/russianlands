@@ -1,5 +1,5 @@
 ﻿
-namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData;
+namespace MarkOne.Scripts.Bot.DataBase.SerializableData;
 
 public abstract class RawDynamicData<T>
 {

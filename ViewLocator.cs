@@ -1,9 +1,9 @@
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
 using System;
-using TextGameRPG.ViewModels;
+using MarkOne.ViewModels;
 
-namespace TextGameRPG;
+namespace MarkOne;
 
 public class ViewLocator : IDataTemplate
 {

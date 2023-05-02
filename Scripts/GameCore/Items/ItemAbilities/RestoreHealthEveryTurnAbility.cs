@@ -1,6 +1,6 @@
-﻿using TextGameRPG.Scripts.Bot.Sessions;
+﻿using MarkOne.Scripts.Bot.Sessions;
 
-namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
+namespace MarkOne.Scripts.GameCore.Items.ItemAbilities;
 
 public class RestoreHealthEveryTurnAbility : ItemAbilityBase
 {

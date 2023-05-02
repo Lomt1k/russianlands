@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace TextGameRPG;
+namespace MarkOne;
 
 public enum AppMode { None, Editor, PlayMode };
 

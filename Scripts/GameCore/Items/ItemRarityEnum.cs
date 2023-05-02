@@ -1,6 +1,6 @@
-﻿using TextGameRPG.Scripts.Bot.Sessions;
+﻿using MarkOne.Scripts.Bot.Sessions;
 
-namespace TextGameRPG.Scripts.GameCore.Items;
+namespace MarkOne.Scripts.GameCore.Items;
 
 public enum Rarity : byte
 {

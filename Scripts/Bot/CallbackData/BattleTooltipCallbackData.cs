@@ -1,10 +1,10 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 using Telegram.Bot.Types.ReplyMarkups;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Localizations;
 
-namespace TextGameRPG.Scripts.Bot.CallbackData;
+namespace MarkOne.Scripts.Bot.CallbackData;
 
 public enum BattleTooltipType : byte
 {

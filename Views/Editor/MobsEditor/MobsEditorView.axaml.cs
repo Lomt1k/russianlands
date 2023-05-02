@@ -1,8 +1,8 @@
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
-using TextGameRPG.ViewModels.Editor.MobsEditor;
+using MarkOne.ViewModels.Editor.MobsEditor;
 
-namespace TextGameRPG.Views.Editor.MobsEditor;
+namespace MarkOne.Views.Editor.MobsEditor;
 
 public partial class MobsEditorView : UserControl
 {

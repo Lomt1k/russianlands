@@ -1,8 +1,8 @@
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
-using TextGameRPG.ViewModels.Editor.ItemsEditor;
+using MarkOne.ViewModels.Editor.ItemsEditor;
 
-namespace TextGameRPG.Views.Editor.ItemsEditor;
+namespace MarkOne.Views.Editor.ItemsEditor;
 
 public partial class ItemsEditorView : UserControl
 {

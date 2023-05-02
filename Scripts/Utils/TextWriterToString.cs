@@ -3,7 +3,7 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TextGameRPG.Scripts.Utils;
+namespace MarkOne.Scripts.Utils;
 
 public class TextWriterToString : TextWriter
 {

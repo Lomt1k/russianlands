@@ -1,7 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
-namespace TextGameRPG.Views.Editor;
+namespace MarkOne.Views.Editor;
 
 public partial class MainEditorView : UserControl
 {

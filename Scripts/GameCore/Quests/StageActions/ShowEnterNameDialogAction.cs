@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
 using System.Threading.Tasks;
-using TextGameRPG.Scripts.Bot.Dialogs.Quests.MainQuest;
-using TextGameRPG.Scripts.Bot.Sessions;
+using MarkOne.Scripts.Bot.Dialogs.Quests.MainQuest;
+using MarkOne.Scripts.Bot.Sessions;
 
-namespace TextGameRPG.Scripts.GameCore.Quests.StageActions;
+namespace MarkOne.Scripts.GameCore.Quests.StageActions;
 
 [JsonObject]
 public class ShowEnterNameDialogAction : StageActionBase

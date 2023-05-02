@@ -3,19 +3,19 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using TextGameRPG.Scripts.Bot.Dialogs.Battle;
-using TextGameRPG.Scripts.Bot.Dialogs.Town;
-using TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Localizations;
-using TextGameRPG.Scripts.GameCore.Locations;
-using TextGameRPG.Scripts.GameCore.Rewards;
-using TextGameRPG.Scripts.GameCore.Services.DailyDataManagers;
-using TextGameRPG.Scripts.GameCore.Services.GameData;
-using TextGameRPG.Scripts.GameCore.Units;
-using TextGameRPG.Scripts.GameCore.Units.Mobs;
+using MarkOne.Scripts.Bot.Dialogs.Battle;
+using MarkOne.Scripts.Bot.Dialogs.Town;
+using MarkOne.Scripts.Bot.Dialogs.Town.Map;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.GameCore.Locations;
+using MarkOne.Scripts.GameCore.Rewards;
+using MarkOne.Scripts.GameCore.Services.DailyDataManagers;
+using MarkOne.Scripts.GameCore.Services.GameData;
+using MarkOne.Scripts.GameCore.Units;
+using MarkOne.Scripts.GameCore.Units.Mobs;
 
-namespace TextGameRPG.Scripts.GameCore.Services.Mobs;
+namespace MarkOne.Scripts.GameCore.Services.Mobs;
 
 public class LocationMobsManager : Service
 {

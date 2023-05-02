@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
 using System.Threading.Tasks;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Items;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Items;
 
-namespace TextGameRPG.Scripts.GameCore.Quests.StageActions;
+namespace MarkOne.Scripts.GameCore.Quests.StageActions;
 
 [JsonObject]
 public class AddItemToInventoryAction : StageActionBase

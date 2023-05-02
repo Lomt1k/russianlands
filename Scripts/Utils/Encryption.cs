@@ -2,7 +2,7 @@
 using System.IO;
 using System.Security.Cryptography;
 
-namespace TextGameRPG.Scripts.Utils;
+namespace MarkOne.Scripts.Utils;
 
 public static class Encryption
 {

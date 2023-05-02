@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace TextGameRPG.Scripts.GameCore.Quests.NextStageTriggers;
+namespace MarkOne.Scripts.GameCore.Quests.NextStageTriggers;
 
 [JsonObject]
 public class StartNextStageImmediateTrigger : TriggerBase

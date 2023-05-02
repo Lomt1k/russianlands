@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using TextGameRPG.Scripts.GameCore.Items;
-using TextGameRPG.Scripts.GameCore.Services.Battles;
-using TextGameRPG.Scripts.GameCore.Services.Battles.Actions;
+using MarkOne.Scripts.GameCore.Items;
+using MarkOne.Scripts.GameCore.Services.Battles;
+using MarkOne.Scripts.GameCore.Services.Battles.Actions;
 
-namespace TextGameRPG.Scripts.GameCore.Units.ActionHandlers;
+namespace MarkOne.Scripts.GameCore.Units.ActionHandlers;
 
 public interface IBattleActionHandler
 {

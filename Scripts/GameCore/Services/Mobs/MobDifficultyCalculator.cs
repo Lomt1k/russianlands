@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using TextGameRPG.Scripts.GameCore.Buildings;
-using TextGameRPG.Scripts.GameCore.Items;
-using TextGameRPG.Scripts.GameCore.Quests;
-using TextGameRPG.Scripts.GameCore.Units;
+using MarkOne.Scripts.GameCore.Buildings;
+using MarkOne.Scripts.GameCore.Items;
+using MarkOne.Scripts.GameCore.Quests;
+using MarkOne.Scripts.GameCore.Units;
 
-namespace TextGameRPG.Scripts.GameCore.Services.Mobs;
+namespace MarkOne.Scripts.GameCore.Services.Mobs;
 
 public static class MobDifficultyCalculator
 {

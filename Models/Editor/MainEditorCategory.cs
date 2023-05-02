@@ -1,6 +1,6 @@
 ﻿using Avalonia.Controls;
 
-namespace TextGameRPG.Models.Editor;
+namespace MarkOne.Models.Editor;
 
 public class MainEditorCategory
 {

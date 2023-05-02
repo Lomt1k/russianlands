@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace TextGameRPG.ConsoleMode;
+namespace MarkOne.ConsoleMode;
 
 public static class ConsoleHelper
 {

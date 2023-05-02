@@ -1,8 +1,8 @@
 using Avalonia.Controls;
 using ReactiveUI;
-using TextGameRPG.Views;
+using MarkOne.Views;
 
-namespace TextGameRPG.ViewModels;
+namespace MarkOne.ViewModels;
 
 public class MainWindowViewModel : ViewModelBase
 {

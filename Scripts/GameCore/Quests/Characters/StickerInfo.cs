@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Telegram.Bot;
 
-namespace TextGameRPG.Scripts.GameCore.Quests.Characters;
+namespace MarkOne.Scripts.GameCore.Quests.Characters;
 
 public class StickerInfo
 {

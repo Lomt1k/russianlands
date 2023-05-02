@@ -1,6 +1,6 @@
 using Avalonia.Controls;
 
-namespace TextGameRPG.Views.Editor.BuildingsEditor;
+namespace MarkOne.Views.Editor.BuildingsEditor;
 
 public partial class BuildingInspectorView : UserControl
 {

@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
-using TextGameRPG.Scripts.GameCore.Items.Generators;
-using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
-using TextGameRPG.Scripts.GameCore.Items.ItemProperties;
-using TextGameRPG.Scripts.GameCore.Services.GameData;
+using MarkOne.Scripts.GameCore.Items.Generators;
+using MarkOne.Scripts.GameCore.Items.ItemAbilities;
+using MarkOne.Scripts.GameCore.Items.ItemProperties;
+using MarkOne.Scripts.GameCore.Services.GameData;
 
-namespace TextGameRPG.Scripts.GameCore.Items;
+namespace MarkOne.Scripts.GameCore.Items;
 
 public class ItemData : IGameDataWithId<int>
 {

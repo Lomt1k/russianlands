@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using TextGameRPG.Scripts.Bot;
-using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
-using TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Buildings.Data;
-using TextGameRPG.Scripts.GameCore.Localizations;
-using TextGameRPG.Scripts.GameCore.Potions;
-using TextGameRPG.Scripts.GameCore.Resources;
-using TextGameRPG.Scripts.GameCore.Services.GameData;
+using MarkOne.Scripts.Bot;
+using MarkOne.Scripts.Bot.DataBase.SerializableData;
+using MarkOne.Scripts.Bot.Dialogs.Town.Character.Potions;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Buildings.Data;
+using MarkOne.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.GameCore.Potions;
+using MarkOne.Scripts.GameCore.Resources;
+using MarkOne.Scripts.GameCore.Services.GameData;
 
-namespace TextGameRPG.Scripts.GameCore.Buildings.General;
+namespace MarkOne.Scripts.GameCore.Buildings.General;
 
 public class AlchemyLabBuilding : BuildingBase
 {

@@ -2,10 +2,10 @@
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Services;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Services;
 
-namespace TextGameRPG.Scripts.Bot.Commands.Admin;
+namespace MarkOne.Scripts.Bot.Commands.Admin;
 
 public class StatusCommand : CommandBase
 {

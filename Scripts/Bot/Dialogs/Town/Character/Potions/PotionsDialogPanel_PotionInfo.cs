@@ -1,13 +1,13 @@
 ﻿using System.Text;
 using System.Threading.Tasks;
-using TextGameRPG.Scripts.Bot.Dialogs.Town.Shop;
-using TextGameRPG.Scripts.GameCore.Buildings;
-using TextGameRPG.Scripts.GameCore.Buildings.General;
-using TextGameRPG.Scripts.GameCore.Localizations;
-using TextGameRPG.Scripts.GameCore.Potions;
-using TextGameRPG.Scripts.GameCore.Resources;
+using MarkOne.Scripts.Bot.Dialogs.Town.Shop;
+using MarkOne.Scripts.GameCore.Buildings;
+using MarkOne.Scripts.GameCore.Buildings.General;
+using MarkOne.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.GameCore.Potions;
+using MarkOne.Scripts.GameCore.Resources;
 
-namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions;
+namespace MarkOne.Scripts.Bot.Dialogs.Town.Character.Potions;
 
 public partial class PotionsDialogPanel : DialogPanelBase
 {

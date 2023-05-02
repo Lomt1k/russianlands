@@ -1,11 +1,11 @@
 ﻿using System.Text;
 using System.Threading.Tasks;
-using TextGameRPG.Scripts.GameCore.Inventory;
-using TextGameRPG.Scripts.GameCore.Items;
-using TextGameRPG.Scripts.GameCore.Localizations;
-using TextGameRPG.Scripts.GameCore.Resources;
+using MarkOne.Scripts.GameCore.Inventory;
+using MarkOne.Scripts.GameCore.Items;
+using MarkOne.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.GameCore.Resources;
 
-namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Inventory;
+namespace MarkOne.Scripts.Bot.Dialogs.Town.Character.Inventory;
 
 public partial class InventoryInspectorDialogPanel : DialogPanelBase
 {

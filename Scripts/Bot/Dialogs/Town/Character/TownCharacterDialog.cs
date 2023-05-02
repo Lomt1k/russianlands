@@ -1,14 +1,14 @@
 ﻿using System.Text;
 using System.Threading.Tasks;
-using TextGameRPG.Scripts.Bot.Dialogs.Quests.MainQuest;
-using TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Inventory;
-using TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions;
-using TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Skills;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Buildings;
-using TextGameRPG.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.Bot.Dialogs.Quests.MainQuest;
+using MarkOne.Scripts.Bot.Dialogs.Town.Character.Inventory;
+using MarkOne.Scripts.Bot.Dialogs.Town.Character.Potions;
+using MarkOne.Scripts.Bot.Dialogs.Town.Character.Skills;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Buildings;
+using MarkOne.Scripts.GameCore.Localizations;
 
-namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character;
+namespace MarkOne.Scripts.Bot.Dialogs.Town.Character;
 
 public class TownCharacterDialog : DialogBase
 {

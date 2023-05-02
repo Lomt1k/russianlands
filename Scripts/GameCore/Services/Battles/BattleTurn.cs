@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using TextGameRPG.Scripts.Bot;
-using TextGameRPG.Scripts.Bot.CallbackData;
-using TextGameRPG.Scripts.GameCore.Localizations;
-using TextGameRPG.Scripts.GameCore.Services.Battles.Actions;
-using TextGameRPG.Scripts.GameCore.Units;
+using MarkOne.Scripts.Bot;
+using MarkOne.Scripts.Bot.CallbackData;
+using MarkOne.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.GameCore.Services.Battles.Actions;
+using MarkOne.Scripts.GameCore.Units;
 
-namespace TextGameRPG.Scripts.GameCore.Services.Battles;
+namespace MarkOne.Scripts.GameCore.Services.Battles;
 
 public class BattleTurn
 {

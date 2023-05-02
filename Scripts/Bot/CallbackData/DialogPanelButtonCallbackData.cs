@@ -1,5 +1,5 @@
 ﻿
-namespace TextGameRPG.Scripts.Bot.CallbackData;
+namespace MarkOne.Scripts.Bot.CallbackData;
 
 public class DialogPanelButtonCallbackData : CallbackDataBase
 {

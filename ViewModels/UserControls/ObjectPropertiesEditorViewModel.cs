@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
-using TextGameRPG.Models.Editor.ItemsEditor;
+using MarkOne.Models.Editor.ItemsEditor;
 
-namespace TextGameRPG.ViewModels.UserControls;
+namespace MarkOne.ViewModels.UserControls;
 
 public class ObjectPropertiesEditorViewModel : ViewModelBase
 {

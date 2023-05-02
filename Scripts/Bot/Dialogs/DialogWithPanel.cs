@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
-using TextGameRPG.Scripts.Bot.CallbackData;
-using TextGameRPG.Scripts.Bot.Sessions;
+using MarkOne.Scripts.Bot.CallbackData;
+using MarkOne.Scripts.Bot.Sessions;
 
-namespace TextGameRPG.Scripts.Bot.Dialogs;
+namespace MarkOne.Scripts.Bot.Dialogs;
 
 public abstract class DialogWithPanel : DialogBase
 {

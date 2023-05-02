@@ -2,9 +2,9 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
-using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
+using MarkOne.Scripts.Bot.DataBase.SerializableData;
 
-namespace TextGameRPG.Scripts.Bot.DataBase;
+namespace MarkOne.Scripts.Bot.DataBase;
 
 public class BotDataBase
 {

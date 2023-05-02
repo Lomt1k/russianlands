@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using TextGameRPG.Scripts.GameCore.Items;
+using MarkOne.Scripts.GameCore.Items;
 
-namespace TextGameRPG.Scripts.GameCore.Inventory;
+namespace MarkOne.Scripts.GameCore.Inventory;
 
 public class EquippedItems
 {

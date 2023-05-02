@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using TextGameRPG.Scripts.Bot;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Items;
-using TextGameRPG.Scripts.GameCore.Localizations;
-using TextGameRPG.Scripts.GameCore.Units.Stats.StatEffects;
+using MarkOne.Scripts.Bot;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Items;
+using MarkOne.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.GameCore.Units.Stats.StatEffects;
 
-namespace TextGameRPG.Scripts.GameCore.Units.Stats;
+namespace MarkOne.Scripts.GameCore.Units.Stats;
 
 public abstract class UnitStats
 {

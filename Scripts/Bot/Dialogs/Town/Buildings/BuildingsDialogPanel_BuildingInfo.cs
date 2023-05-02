@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TextGameRPG.Scripts.Bot.Dialogs.Resources;
-using TextGameRPG.Scripts.Bot.Dialogs.Town.Shop;
-using TextGameRPG.Scripts.GameCore.Buildings;
-using TextGameRPG.Scripts.GameCore.Localizations;
-using TextGameRPG.Scripts.GameCore.Resources;
-using TextGameRPG.Scripts.GameCore.Units;
+using MarkOne.Scripts.Bot.Dialogs.Resources;
+using MarkOne.Scripts.Bot.Dialogs.Town.Shop;
+using MarkOne.Scripts.GameCore.Buildings;
+using MarkOne.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.GameCore.Resources;
+using MarkOne.Scripts.GameCore.Units;
 
-namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings;
+namespace MarkOne.Scripts.Bot.Dialogs.Town.Buildings;
 
 public partial class BuildingsDialogPanel : DialogPanelBase
 {

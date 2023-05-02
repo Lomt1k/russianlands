@@ -1,8 +1,8 @@
 ﻿using SQLite;
 using System;
-using TextGameRPG.Scripts.GameCore.Items;
+using MarkOne.Scripts.GameCore.Items;
 
-namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData;
+namespace MarkOne.Scripts.Bot.DataBase.SerializableData;
 
 [Table("Buildings")]
 public class ProfileBuildingsData : DataWithSession

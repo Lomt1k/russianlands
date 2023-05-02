@@ -1,6 +1,6 @@
-﻿using TextGameRPG.Scripts.GameCore.Rewards;
+﻿using MarkOne.Scripts.GameCore.Rewards;
 
-namespace TextGameRPG.ViewModels.Rewards;
+namespace MarkOne.ViewModels.Rewards;
 
 internal class EditorItemWithCodeRewardViewModel : ViewModelBase
 {

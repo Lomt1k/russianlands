@@ -3,11 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
-using TextGameRPG.Scripts.GameCore.Locations;
-using TextGameRPG.Scripts.GameCore.Rewards;
-using TextGameRPG.Scripts.GameCore.Services.GameData;
+using MarkOne.Scripts.GameCore.Locations;
+using MarkOne.Scripts.GameCore.Rewards;
+using MarkOne.Scripts.GameCore.Services.GameData;
 
-namespace TextGameRPG.Scripts.GameCore.Units.Mobs;
+namespace MarkOne.Scripts.GameCore.Units.Mobs;
 
 [JsonObject]
 public class LocationMobSettingsData : IGameDataWithId<LocationId>

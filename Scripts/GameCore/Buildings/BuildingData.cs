@@ -1,9 +1,9 @@
 ﻿using JsonKnownTypes;
 using Newtonsoft.Json;
 using System.Collections.Generic;
-using TextGameRPG.Scripts.GameCore.Services.GameData;
+using MarkOne.Scripts.GameCore.Services.GameData;
 
-namespace TextGameRPG.Scripts.GameCore.Buildings.Data;
+namespace MarkOne.Scripts.GameCore.Buildings.Data;
 
 [JsonObject]
 public class BuildingData : IGameDataWithId<BuildingId>

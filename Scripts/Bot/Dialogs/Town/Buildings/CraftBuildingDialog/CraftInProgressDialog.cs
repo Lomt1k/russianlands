@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Text;
 using System.Threading.Tasks;
-using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
-using TextGameRPG.Scripts.Bot.Dialogs.Town.Shop;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Buildings;
-using TextGameRPG.Scripts.GameCore.Items;
-using TextGameRPG.Scripts.GameCore.Localizations;
-using TextGameRPG.Scripts.GameCore.Resources;
+using MarkOne.Scripts.Bot.DataBase.SerializableData;
+using MarkOne.Scripts.Bot.Dialogs.Town.Shop;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Buildings;
+using MarkOne.Scripts.GameCore.Items;
+using MarkOne.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.GameCore.Resources;
 
-namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog;
+namespace MarkOne.Scripts.Bot.Dialogs.Town.Buildings.CraftBuildingDialog;
 
 public class CraftInProgressDialog : DialogBase
 {

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
-using TextGameRPG.Scripts.GameCore.Items.ItemProperties;
+using MarkOne.Scripts.GameCore.Items.ItemAbilities;
+using MarkOne.Scripts.GameCore.Items.ItemProperties;
 
-namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators;
+namespace MarkOne.Scripts.GameCore.Items.Generators.CodeGenerators;
 
 public class RingCodeGenerator : ItemCodeGeneratorBase
 {

@@ -1,17 +1,17 @@
 ﻿using System.Text;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
-using TextGameRPG.Scripts.Bot.Dialogs.Town.Character;
-using TextGameRPG.Scripts.Bot.Dialogs.Town.Shop;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Localizations;
-using TextGameRPG.Scripts.GameCore.Quests;
-using TextGameRPG.Scripts.GameCore.Quests.Characters;
-using TextGameRPG.Scripts.GameCore.Quests.NextStageTriggers;
-using TextGameRPG.Scripts.GameCore.Resources;
-using TextGameRPG.Scripts.GameCore.Services;
+using MarkOne.Scripts.Bot.Dialogs.Town.Character;
+using MarkOne.Scripts.Bot.Dialogs.Town.Shop;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.GameCore.Quests;
+using MarkOne.Scripts.GameCore.Quests.Characters;
+using MarkOne.Scripts.GameCore.Quests.NextStageTriggers;
+using MarkOne.Scripts.GameCore.Resources;
+using MarkOne.Scripts.GameCore.Services;
 
-namespace TextGameRPG.Scripts.Bot.Dialogs.Quests.MainQuest;
+namespace MarkOne.Scripts.Bot.Dialogs.Quests.MainQuest;
 
 public class EnterNameDialog : DialogBase
 {

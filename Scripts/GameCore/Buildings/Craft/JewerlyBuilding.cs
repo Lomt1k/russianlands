@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Items;
-using TextGameRPG.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.Bot.DataBase.SerializableData;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Items;
+using MarkOne.Scripts.GameCore.Localizations;
 
-namespace TextGameRPG.Scripts.GameCore.Buildings.Craft;
+namespace MarkOne.Scripts.GameCore.Buildings.Craft;
 
 public class JewerlyBuilding : CraftBuildingBase
 {

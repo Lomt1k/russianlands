@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using TextGameRPG.Scripts.Bot.Sessions;
+using MarkOne.Scripts.Bot.Sessions;
 
-namespace TextGameRPG.Scripts.Bot.Dialogs;
+namespace MarkOne.Scripts.Bot.Dialogs;
 
 public class SimpleDialog : DialogBase
 {

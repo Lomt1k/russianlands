@@ -1,7 +1,7 @@
-﻿using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
-using TextGameRPG.Scripts.GameCore.Items.ItemAbilities.Keywords;
+﻿using MarkOne.Scripts.GameCore.Items.ItemAbilities;
+using MarkOne.Scripts.GameCore.Items.ItemAbilities.Keywords;
 
-namespace TextGameRPG.Scripts.GameCore.Items.Generators;
+namespace MarkOne.Scripts.GameCore.Items.Generators;
 
 /* 
  * Keywords от обычных абилок отличаются тем, что мы точно уверены,

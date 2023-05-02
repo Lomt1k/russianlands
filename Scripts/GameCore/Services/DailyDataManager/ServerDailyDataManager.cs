@@ -2,10 +2,10 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using TextGameRPG.Scripts.Bot;
-using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
+using MarkOne.Scripts.Bot;
+using MarkOne.Scripts.Bot.DataBase.SerializableData;
 
-namespace TextGameRPG.Scripts.GameCore.Services.DailyDataManagers;
+namespace MarkOne.Scripts.GameCore.Services.DailyDataManagers;
 
 public class ServerDailyDataManager : Service
 {

@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
-using TextGameRPG.Scripts.GameCore.Services.GameData;
+using MarkOne.Scripts.GameCore.Services.GameData;
 
-namespace TextGameRPG.Scripts.GameCore.Units.Mobs;
+namespace MarkOne.Scripts.GameCore.Units.Mobs;
 
 [JsonObject]
 public class QuestMobData : IMobData, IGameDataWithId<int>

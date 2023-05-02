@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using TextGameRPG.Scripts.Bot;
+using MarkOne.Scripts.Bot;
 
-namespace TextGameRPG.Scripts.GameCore.Services.Sending;
+namespace MarkOne.Scripts.GameCore.Services.Sending;
 
 public class MessageSequencer : Service
 {

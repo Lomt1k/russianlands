@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators;
+namespace MarkOne.Scripts.GameCore.Items.Generators.CodeGenerators;
 
 /// <summary>
 /// For armor, boots and helmet

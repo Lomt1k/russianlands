@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using TextGameRPG.Scripts.Bot;
-using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
-using TextGameRPG.Scripts.GameCore.Buildings;
-using TextGameRPG.Scripts.GameCore.Buildings.General;
-using TextGameRPG.Scripts.GameCore.Items;
-using TextGameRPG.Scripts.GameCore.Localizations;
-using TextGameRPG.Scripts.GameCore.Resources;
-using TextGameRPG.Scripts.GameCore.Units;
-using TextGameRPG.Scripts.GameCore.Units.Stats;
+using MarkOne.Scripts.Bot;
+using MarkOne.Scripts.Bot.DataBase.SerializableData;
+using MarkOne.Scripts.GameCore.Buildings;
+using MarkOne.Scripts.GameCore.Buildings.General;
+using MarkOne.Scripts.GameCore.Items;
+using MarkOne.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.GameCore.Resources;
+using MarkOne.Scripts.GameCore.Units;
+using MarkOne.Scripts.GameCore.Units.Stats;
 
-namespace TextGameRPG.Scripts.GameCore.Skills;
+namespace MarkOne.Scripts.GameCore.Skills;
 
 public class PlayerSkills
 {

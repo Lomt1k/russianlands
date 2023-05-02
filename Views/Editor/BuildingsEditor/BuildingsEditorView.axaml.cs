@@ -1,7 +1,7 @@
 using Avalonia.Controls;
-using TextGameRPG.ViewModels.Editor.BuildingsEditor;
+using MarkOne.ViewModels.Editor.BuildingsEditor;
 
-namespace TextGameRPG.Views.Editor.BuildingsEditor;
+namespace MarkOne.Views.Editor.BuildingsEditor;
 
 public partial class BuildingsEditorView : UserControl
 {

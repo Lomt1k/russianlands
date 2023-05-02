@@ -1,9 +1,9 @@
-﻿using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Localizations;
-using TextGameRPG.Scripts.GameCore.Quests;
-using TextGameRPG.Scripts.GameCore.Services.GameData;
+﻿using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.GameCore.Quests;
+using MarkOne.Scripts.GameCore.Services.GameData;
 
-namespace TextGameRPG.Scripts.GameCore.Locations;
+namespace MarkOne.Scripts.GameCore.Locations;
 
 public enum LocationId : byte
 {

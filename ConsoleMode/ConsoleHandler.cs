@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using TextGameRPG.Scripts.Bot;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Services;
+using MarkOne.Scripts.Bot;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Services;
 
-namespace TextGameRPG.ConsoleMode;
+namespace MarkOne.ConsoleMode;
 
 // Для запуска приложения в консольном режиме
 public class ConsoleHandler

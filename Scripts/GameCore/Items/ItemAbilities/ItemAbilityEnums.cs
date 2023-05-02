@@ -1,4 +1,4 @@
-﻿namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
+﻿namespace MarkOne.Scripts.GameCore.Items.ItemAbilities;
 
 public enum AbilityType : short
 {

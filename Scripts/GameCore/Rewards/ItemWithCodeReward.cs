@@ -1,10 +1,10 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Threading.Tasks;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Items;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Items;
 
-namespace TextGameRPG.Scripts.GameCore.Rewards;
+namespace MarkOne.Scripts.GameCore.Rewards;
 
 [JsonObject]
 public class ItemWithCodeReward : RewardBase

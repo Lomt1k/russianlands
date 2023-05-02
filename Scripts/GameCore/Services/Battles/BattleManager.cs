@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TextGameRPG.Scripts.Bot.Dialogs.Battle;
-using TextGameRPG.Scripts.GameCore.Rewards;
-using TextGameRPG.Scripts.GameCore.Units;
-using TextGameRPG.Scripts.GameCore.Units.Mobs;
+using MarkOne.Scripts.Bot.Dialogs.Battle;
+using MarkOne.Scripts.GameCore.Rewards;
+using MarkOne.Scripts.GameCore.Units;
+using MarkOne.Scripts.GameCore.Units.Mobs;
 
-namespace TextGameRPG.Scripts.GameCore.Services.Battles;
+namespace MarkOne.Scripts.GameCore.Services.Battles;
 
 public class BattleManager : Service
 {

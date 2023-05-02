@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
-using TextGameRPG.Scripts.Utils;
+using MarkOne.Scripts.Utils;
 
-namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats;
+namespace MarkOne.Scripts.Bot.Dialogs.Cheats;
 
 internal static class ProfileStateConverter
 {

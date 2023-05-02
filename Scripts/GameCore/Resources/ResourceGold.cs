@@ -1,8 +1,8 @@
-﻿using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Buildings;
+﻿using MarkOne.Scripts.Bot.DataBase.SerializableData;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Buildings;
 
-namespace TextGameRPG.Scripts.GameCore.Resources;
+namespace MarkOne.Scripts.GameCore.Resources;
 
 public class ResourceGold : IResource
 {

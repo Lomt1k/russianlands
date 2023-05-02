@@ -4,7 +4,7 @@ using Telegram.Bot;
 using Telegram.Bot.Polling;
 using Telegram.Bot.Types.Enums;
 
-namespace TextGameRPG.Scripts.Bot;
+namespace MarkOne.Scripts.Bot;
 
 public class TelegramBotReceiving
 {

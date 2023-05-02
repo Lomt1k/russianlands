@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
-using TextGameRPG.Scripts.Bot;
-using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Services;
+using MarkOne.Scripts.Bot;
+using MarkOne.Scripts.Bot.DataBase.SerializableData;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Services;
 
-namespace TextGameRPG.Scripts.GameCore.Profiles;
+namespace MarkOne.Scripts.GameCore.Profiles;
 
 public class Profile
 {

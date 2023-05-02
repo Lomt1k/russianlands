@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TextGameRPG.Scripts.GameCore.Items.Generators;
+namespace MarkOne.Scripts.GameCore.Items.Generators;
 
 public class HelmetDataGenerator : ItemDataGeneratorBase
 {

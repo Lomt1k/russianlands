@@ -5,7 +5,7 @@ using System.Collections.ObjectModel;
 using System.Reactive;
 using System.Threading.Tasks;
 
-namespace TextGameRPG.ViewModels.UserControls;
+namespace MarkOne.ViewModels.UserControls;
 
 internal abstract class EditorListViewModel<T> : ViewModelBase
 {

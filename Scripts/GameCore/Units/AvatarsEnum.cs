@@ -1,6 +1,6 @@
-﻿using TextGameRPG.Scripts.Bot;
+﻿using MarkOne.Scripts.Bot;
 
-namespace TextGameRPG.Scripts.GameCore.Units;
+namespace MarkOne.Scripts.GameCore.Units;
 
 public enum Avatar : short
 {

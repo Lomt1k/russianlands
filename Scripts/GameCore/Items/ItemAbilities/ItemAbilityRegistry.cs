@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using TextGameRPG.Scripts.GameCore.Items.ItemAbilities.Keywords;
+using MarkOne.Scripts.GameCore.Items.ItemAbilities.Keywords;
 
-namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
+namespace MarkOne.Scripts.GameCore.Items.ItemAbilities;
 
 public class ItemAbilityRegistry
 {

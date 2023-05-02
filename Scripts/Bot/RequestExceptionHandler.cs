@@ -2,10 +2,10 @@
 using System.Threading.Tasks;
 using Telegram.Bot.Exceptions;
 using Telegram.Bot.Types;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Services;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Services;
 
-namespace TextGameRPG.Scripts.Bot;
+namespace MarkOne.Scripts.Bot;
 
 public class RequestExceptionHandler
 {

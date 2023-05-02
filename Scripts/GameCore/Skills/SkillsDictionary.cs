@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using TextGameRPG.Scripts.GameCore.Items;
+using MarkOne.Scripts.GameCore.Items;
 
-namespace TextGameRPG.Scripts.GameCore.Skills;
+namespace MarkOne.Scripts.GameCore.Skills;
 
 public class SkillsDictionary
 {

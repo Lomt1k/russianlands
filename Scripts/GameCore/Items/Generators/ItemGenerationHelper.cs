@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using TextGameRPG.Scripts.GameCore.Buildings;
+using MarkOne.Scripts.GameCore.Buildings;
 
-namespace TextGameRPG.Scripts.GameCore.Items.Generators;
+namespace MarkOne.Scripts.GameCore.Items.Generators;
 
 public static class ItemGenerationHelper
 {

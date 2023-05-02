@@ -1,7 +1,7 @@
 ﻿using SQLite;
-using TextGameRPG.Scripts.Bot.Sessions;
+using MarkOne.Scripts.Bot.Sessions;
 
-namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData;
+namespace MarkOne.Scripts.Bot.DataBase.SerializableData;
 
 public abstract class DataWithSession
 {

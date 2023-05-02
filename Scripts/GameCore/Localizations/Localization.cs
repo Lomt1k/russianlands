@@ -3,11 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using TextGameRPG.Scripts.Bot;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.ViewModels;
+using MarkOne.Scripts.Bot;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.ViewModels;
 
-namespace TextGameRPG.Scripts.GameCore.Localizations;
+namespace MarkOne.Scripts.GameCore.Localizations;
 
 public static class Localization
 {

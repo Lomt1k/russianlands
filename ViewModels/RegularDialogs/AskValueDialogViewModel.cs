@@ -1,9 +1,9 @@
 ﻿using ReactiveUI;
 using System;
 using System.Reactive;
-using TextGameRPG.Views.RegularDialogs;
+using MarkOne.Views.RegularDialogs;
 
-namespace TextGameRPG.ViewModels.RegularDialogs;
+namespace MarkOne.ViewModels.RegularDialogs;
 
 public class AskValueDialogViewModel<T> : ViewModelBase
 {

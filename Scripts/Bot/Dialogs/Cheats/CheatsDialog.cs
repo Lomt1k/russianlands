@@ -3,20 +3,20 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using Telegram.Bot.Types.InputFiles;
-using TextGameRPG.Scripts.Bot.Commands;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Buildings;
-using TextGameRPG.Scripts.GameCore.Buildings.Data;
-using TextGameRPG.Scripts.GameCore.Buildings.General;
-using TextGameRPG.Scripts.GameCore.Items;
-using TextGameRPG.Scripts.GameCore.Items.Generators;
-using TextGameRPG.Scripts.GameCore.Localizations;
-using TextGameRPG.Scripts.GameCore.Quests;
-using TextGameRPG.Scripts.GameCore.Resources;
-using TextGameRPG.Scripts.GameCore.Services;
-using TextGameRPG.Scripts.GameCore.Skills;
+using MarkOne.Scripts.Bot.Commands;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Buildings;
+using MarkOne.Scripts.GameCore.Buildings.Data;
+using MarkOne.Scripts.GameCore.Buildings.General;
+using MarkOne.Scripts.GameCore.Items;
+using MarkOne.Scripts.GameCore.Items.Generators;
+using MarkOne.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.GameCore.Quests;
+using MarkOne.Scripts.GameCore.Resources;
+using MarkOne.Scripts.GameCore.Services;
+using MarkOne.Scripts.GameCore.Skills;
 
-namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats;
+namespace MarkOne.Scripts.Bot.Dialogs.Cheats;
 
 public class CheatsDialog : DialogBase
 {

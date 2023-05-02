@@ -1,6 +1,6 @@
 using Avalonia.Controls;
 
-namespace TextGameRPG.Views.UserControls;
+namespace MarkOne.Views.UserControls;
 
 public partial class EditorListView : UserControl
 {

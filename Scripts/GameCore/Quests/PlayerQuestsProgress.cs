@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace TextGameRPG.Scripts.GameCore.Quests;
+namespace MarkOne.Scripts.GameCore.Quests;
 
 [JsonObject]
 public class PlayerQuestsProgress

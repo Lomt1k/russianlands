@@ -1,4 +1,4 @@
-﻿namespace TextGameRPG.Scripts.GameCore.Services.GameData;
+﻿namespace MarkOne.Scripts.GameCore.Services.GameData;
 
 public interface IGameDataWithId<T>
 {

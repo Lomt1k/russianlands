@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using TextGameRPG.Scripts.GameCore.Locations;
-using TextGameRPG.Scripts.GameCore.Resources;
-using TextGameRPG.Scripts.GameCore.Units.Mobs;
-using TextGameRPG.Scripts.Utils;
+using MarkOne.Scripts.GameCore.Locations;
+using MarkOne.Scripts.GameCore.Resources;
+using MarkOne.Scripts.GameCore.Units.Mobs;
+using MarkOne.Scripts.Utils;
 
-namespace TextGameRPG.Scripts.GameCore.Services.Mobs;
+namespace MarkOne.Scripts.GameCore.Services.Mobs;
 
 public class MobFactory : Service
 {

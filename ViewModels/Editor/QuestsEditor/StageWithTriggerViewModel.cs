@@ -3,14 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Reactive;
-using TextGameRPG.Models.RegularDialogs;
-using TextGameRPG.Models.UserControls;
-using TextGameRPG.Scripts.GameCore.Quests.NextStageTriggers;
-using TextGameRPG.Scripts.GameCore.Quests.QuestStages;
-using TextGameRPG.Scripts.GameCore.Quests.StageActions;
-using TextGameRPG.Views.UserControls;
+using MarkOne.Models.RegularDialogs;
+using MarkOne.Models.UserControls;
+using MarkOne.Scripts.GameCore.Quests.NextStageTriggers;
+using MarkOne.Scripts.GameCore.Quests.QuestStages;
+using MarkOne.Scripts.GameCore.Quests.StageActions;
+using MarkOne.Views.UserControls;
 
-namespace TextGameRPG.ViewModels.Editor.QuestsEditor;
+namespace MarkOne.ViewModels.Editor.QuestsEditor;
 
 public class StageWithTriggerViewModel : ViewModelBase
 {

@@ -1,10 +1,10 @@
 ﻿using JsonKnownTypes;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
-using TextGameRPG.Scripts.Bot;
-using TextGameRPG.Scripts.Bot.Sessions;
+using MarkOne.Scripts.Bot;
+using MarkOne.Scripts.Bot.Sessions;
 
-namespace TextGameRPG.Scripts.GameCore.Rewards;
+namespace MarkOne.Scripts.GameCore.Rewards;
 
 [JsonObject]
 [JsonConverter(typeof(JsonKnownTypesConverter<RewardBase>))]

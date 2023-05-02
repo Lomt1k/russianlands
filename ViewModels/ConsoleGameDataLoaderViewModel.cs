@@ -1,8 +1,8 @@
 ﻿using System;
-using TextGameRPG.Scripts.GameCore.Services;
-using TextGameRPG.Scripts.GameCore.Services.GameData;
+using MarkOne.Scripts.GameCore.Services;
+using MarkOne.Scripts.GameCore.Services.GameData;
 
-namespace TextGameRPG.ViewModels;
+namespace MarkOne.ViewModels;
 
 public class GameDataLoader
 {

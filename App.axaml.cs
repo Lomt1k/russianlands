@@ -1,10 +1,10 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-using TextGameRPG.ViewModels;
-using TextGameRPG.Views;
+using MarkOne.ViewModels;
+using MarkOne.Views;
 
-namespace TextGameRPG;
+namespace MarkOne;
 
 public partial class App : Application
 {

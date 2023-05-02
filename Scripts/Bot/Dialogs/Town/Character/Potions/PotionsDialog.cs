@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Localizations;
-using TextGameRPG.Scripts.GameCore.Potions;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.GameCore.Potions;
 
-namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Potions;
+namespace MarkOne.Scripts.Bot.Dialogs.Town.Character.Potions;
 
 public class PotionsDialog : DialogWithPanel
 {

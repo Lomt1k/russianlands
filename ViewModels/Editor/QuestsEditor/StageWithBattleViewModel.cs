@@ -1,13 +1,13 @@
 ﻿using ReactiveUI;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using TextGameRPG.Scripts.GameCore.Quests.QuestStages;
-using TextGameRPG.Scripts.GameCore.Services;
-using TextGameRPG.Scripts.GameCore.Services.GameData;
-using TextGameRPG.ViewModels.Rewards;
-using TextGameRPG.Views.UserControls;
+using MarkOne.Scripts.GameCore.Quests.QuestStages;
+using MarkOne.Scripts.GameCore.Services;
+using MarkOne.Scripts.GameCore.Services.GameData;
+using MarkOne.ViewModels.Rewards;
+using MarkOne.Views.UserControls;
 
-namespace TextGameRPG.ViewModels.Editor.QuestsEditor;
+namespace MarkOne.ViewModels.Editor.QuestsEditor;
 
 public class StageWithBattleViewModel : ViewModelBase
 {

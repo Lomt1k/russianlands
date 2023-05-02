@@ -1,6 +1,6 @@
 using ReactiveUI;
 
-namespace TextGameRPG.ViewModels;
+namespace MarkOne.ViewModels;
 
 public class ViewModelBase : ReactiveObject
 {

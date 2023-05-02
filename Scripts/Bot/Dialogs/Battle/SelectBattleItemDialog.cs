@@ -4,17 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Telegram.Bot.Types.ReplyMarkups;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Inventory;
-using TextGameRPG.Scripts.GameCore.Items;
-using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
-using TextGameRPG.Scripts.GameCore.Localizations;
-using TextGameRPG.Scripts.GameCore.Potions;
-using TextGameRPG.Scripts.GameCore.Services.Battles;
-using TextGameRPG.Scripts.GameCore.Units;
-using TextGameRPG.Scripts.GameCore.Units.Stats;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Inventory;
+using MarkOne.Scripts.GameCore.Items;
+using MarkOne.Scripts.GameCore.Items.ItemAbilities;
+using MarkOne.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.GameCore.Potions;
+using MarkOne.Scripts.GameCore.Services.Battles;
+using MarkOne.Scripts.GameCore.Units;
+using MarkOne.Scripts.GameCore.Units.Stats;
 
-namespace TextGameRPG.Scripts.Bot.Dialogs.Battle;
+namespace MarkOne.Scripts.Bot.Dialogs.Battle;
 
 public class SelectBattleItemDialog : DialogBase
 {

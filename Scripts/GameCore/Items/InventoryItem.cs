@@ -1,15 +1,15 @@
 ﻿using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
-using TextGameRPG.Scripts.Bot;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Items.Generators;
-using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
-using TextGameRPG.Scripts.GameCore.Resources;
-using TextGameRPG.Scripts.GameCore.Services.GameData;
-using TextGameRPG.Scripts.GameCore.Skills;
+using MarkOne.Scripts.Bot;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Items.Generators;
+using MarkOne.Scripts.GameCore.Items.ItemAbilities;
+using MarkOne.Scripts.GameCore.Resources;
+using MarkOne.Scripts.GameCore.Services.GameData;
+using MarkOne.Scripts.GameCore.Skills;
 
-namespace TextGameRPG.Scripts.GameCore.Items;
+namespace MarkOne.Scripts.GameCore.Items;
 
 public enum ItemState : byte { IsNewAndNotEquipped = 0, IsNotEquipped = 1, IsEquipped = 2 }
 

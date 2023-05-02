@@ -1,10 +1,10 @@
 ﻿using JsonKnownTypes;
 using Newtonsoft.Json;
 using System;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.Utils;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.Utils;
 
-namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
+namespace MarkOne.Scripts.GameCore.Items.ItemAbilities;
 
 [JsonConverter(typeof(JsonKnownTypesConverter<ItemAbilityBase>))]
 public abstract class ItemAbilityBase

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
+using MarkOne.Scripts.GameCore.Items.ItemAbilities;
 
-namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators;
+namespace MarkOne.Scripts.GameCore.Items.Generators.CodeGenerators;
 
 public class BowCodeGenerator : ItemCodeGeneratorBase
 {

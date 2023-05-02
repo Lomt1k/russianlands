@@ -1,10 +1,10 @@
 ﻿using ReactiveUI;
 using System.Collections.ObjectModel;
-using TextGameRPG.Models;
-using TextGameRPG.Scripts.GameCore.Buildings;
-using TextGameRPG.Views.Editor.BuildingsEditor;
+using MarkOne.Models;
+using MarkOne.Scripts.GameCore.Buildings;
+using MarkOne.Views.Editor.BuildingsEditor;
 
-namespace TextGameRPG.ViewModels.Editor.BuildingsEditor;
+namespace MarkOne.ViewModels.Editor.BuildingsEditor;
 
 public class BuildingsEditorViewModel : ViewModelBase
 {

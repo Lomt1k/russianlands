@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Items;
-using TextGameRPG.Scripts.GameCore.Localizations;
-using TextGameRPG.Scripts.GameCore.Resources;
-using TextGameRPG.Scripts.GameCore.Skills;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Items;
+using MarkOne.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.GameCore.Resources;
+using MarkOne.Scripts.GameCore.Skills;
 
-namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Character.Skills;
+namespace MarkOne.Scripts.Bot.Dialogs.Town.Character.Skills;
 
 internal class SkillsDialog : DialogBase
 {

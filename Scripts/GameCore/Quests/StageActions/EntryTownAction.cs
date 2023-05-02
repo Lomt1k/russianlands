@@ -1,10 +1,10 @@
 ﻿using Newtonsoft.Json;
 using System.Threading.Tasks;
-using TextGameRPG.Scripts.Bot.Dialogs.Town;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Services;
+using MarkOne.Scripts.Bot.Dialogs.Town;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Services;
 
-namespace TextGameRPG.Scripts.GameCore.Quests.StageActions;
+namespace MarkOne.Scripts.GameCore.Quests.StageActions;
 
 [JsonObject]
 public class EntryTownAction : StageActionBase

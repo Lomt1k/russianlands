@@ -1,4 +1,4 @@
-﻿namespace TextGameRPG.Scripts.GameCore.Units.Stats;
+﻿namespace MarkOne.Scripts.GameCore.Units.Stats;
 
 public static class PlayerHealthByLevel
 {

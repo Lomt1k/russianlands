@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 using SQLite;
-using TextGameRPG.Scripts.GameCore.Services.Mobs;
+using MarkOne.Scripts.GameCore.Services.Mobs;
 
-namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData;
+namespace MarkOne.Scripts.Bot.DataBase.SerializableData;
 
 [Table("ProfileDailyData")]
 public class RawProfileDailyData : RawDynamicData<ProfileDailyData>

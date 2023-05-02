@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace TextGameRPG.Scripts.GameCore.Quests.Characters;
+namespace MarkOne.Scripts.GameCore.Quests.Characters;
 
 public static class CharacterStickersHolder
 {

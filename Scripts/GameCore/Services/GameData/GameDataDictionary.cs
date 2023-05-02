@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace TextGameRPG.Scripts.GameCore.Services.GameData;
+namespace MarkOne.Scripts.GameCore.Services.GameData;
 
 public class GameDataDictionary<TId, TData> where TData : IGameDataWithId<TId>
 {

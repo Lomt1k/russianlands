@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
-using TextGameRPG.Scripts.GameCore.Locations;
-using TextGameRPG.Scripts.GameCore.Units.Mobs;
+using MarkOne.Scripts.GameCore.Locations;
+using MarkOne.Scripts.GameCore.Units.Mobs;
 
-namespace TextGameRPG.Scripts.GameCore.Services.Mobs;
+namespace MarkOne.Scripts.GameCore.Services.Mobs;
 
 [JsonObject]
 public class LocationsMobPack

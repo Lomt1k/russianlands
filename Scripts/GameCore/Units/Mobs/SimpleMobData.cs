@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace TextGameRPG.Scripts.GameCore.Units.Mobs;
+namespace MarkOne.Scripts.GameCore.Units.Mobs;
 
 [JsonObject]
 public class SimpleMobData : IMobData

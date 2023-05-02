@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
-using TextGameRPG.Scripts.GameCore.Items.ItemProperties;
+using MarkOne.Scripts.GameCore.Items.ItemAbilities;
+using MarkOne.Scripts.GameCore.Items.ItemProperties;
 
-namespace TextGameRPG.Scripts.GameCore.Items.Generators;
+namespace MarkOne.Scripts.GameCore.Items.Generators;
 
 public struct ItemDataSeed
 {

@@ -1,11 +1,11 @@
 ﻿using System.Threading.Tasks;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Localizations;
-using TextGameRPG.Scripts.GameCore.Quests;
-using TextGameRPG.Scripts.GameCore.Quests.NextStageTriggers;
-using TextGameRPG.Scripts.GameCore.Services;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.GameCore.Quests;
+using MarkOne.Scripts.GameCore.Quests.NextStageTriggers;
+using MarkOne.Scripts.GameCore.Services;
 
-namespace TextGameRPG.Scripts.Bot.Dialogs.Quests.MainQuest;
+namespace MarkOne.Scripts.Bot.Dialogs.Quests.MainQuest;
 
 public class SelectLanguageDialog : DialogBase
 {

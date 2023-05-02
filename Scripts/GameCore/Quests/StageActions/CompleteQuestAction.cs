@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
 using System.Threading.Tasks;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Services.GameData;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Services.GameData;
 
-namespace TextGameRPG.Scripts.GameCore.Quests.StageActions;
+namespace MarkOne.Scripts.GameCore.Quests.StageActions;
 
 [JsonObject]
 public class CompleteQuestAction : StageActionBase

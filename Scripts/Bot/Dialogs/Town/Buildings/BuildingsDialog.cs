@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Buildings;
-using TextGameRPG.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Buildings;
+using MarkOne.Scripts.GameCore.Localizations;
 
-namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings;
+namespace MarkOne.Scripts.Bot.Dialogs.Town.Buildings;
 
 public class BuildingsDialog : DialogWithPanel
 {

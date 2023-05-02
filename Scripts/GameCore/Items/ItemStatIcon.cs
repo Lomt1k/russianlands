@@ -1,6 +1,6 @@
-﻿using TextGameRPG.Scripts.Bot;
+﻿using MarkOne.Scripts.Bot;
 
-namespace TextGameRPG.Scripts.GameCore.Items;
+namespace MarkOne.Scripts.GameCore.Items;
 
 public enum ItemStatIcon : byte
 {

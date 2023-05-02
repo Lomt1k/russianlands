@@ -1,12 +1,12 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Inventory;
-using TextGameRPG.Scripts.GameCore.Items;
-using TextGameRPG.Scripts.GameCore.Potions;
-using TextGameRPG.Scripts.GameCore.Quests;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Inventory;
+using MarkOne.Scripts.GameCore.Items;
+using MarkOne.Scripts.GameCore.Potions;
+using MarkOne.Scripts.GameCore.Quests;
 
-namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData;
+namespace MarkOne.Scripts.Bot.DataBase.SerializableData;
 
 public class ProfileDynamicData : DataWithSession
 {

@@ -3,7 +3,7 @@ using ReactiveUI;
 using System;
 using System.Reactive;
 
-namespace TextGameRPG.ViewModels.RegularDialogs;
+namespace MarkOne.ViewModels.RegularDialogs;
 
 public class ConfirmDialogViewModel : ViewModelBase
 {

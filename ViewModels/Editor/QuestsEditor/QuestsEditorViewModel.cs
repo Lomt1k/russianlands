@@ -4,15 +4,15 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
-using TextGameRPG.Models;
-using TextGameRPG.Models.RegularDialogs;
-using TextGameRPG.Scripts.GameCore.Quests;
-using TextGameRPG.Scripts.GameCore.Quests.QuestStages;
-using TextGameRPG.Scripts.GameCore.Services;
-using TextGameRPG.Scripts.GameCore.Services.GameData;
-using TextGameRPG.Views.Editor.QuestsEditor;
+using MarkOne.Models;
+using MarkOne.Models.RegularDialogs;
+using MarkOne.Scripts.GameCore.Quests;
+using MarkOne.Scripts.GameCore.Quests.QuestStages;
+using MarkOne.Scripts.GameCore.Services;
+using MarkOne.Scripts.GameCore.Services.GameData;
+using MarkOne.Views.Editor.QuestsEditor;
 
-namespace TextGameRPG.ViewModels.Editor.QuestsEditor;
+namespace MarkOne.ViewModels.Editor.QuestsEditor;
 
 public class QuestsEditorViewModel : ViewModelBase
 {

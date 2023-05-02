@@ -1,6 +1,6 @@
-﻿using TextGameRPG.Scripts.Bot;
+﻿using MarkOne.Scripts.Bot;
 
-namespace TextGameRPG.Scripts.GameCore.Localizations;
+namespace MarkOne.Scripts.GameCore.Localizations;
 
 [SQLite.StoreAsText]
 public enum LanguageCode

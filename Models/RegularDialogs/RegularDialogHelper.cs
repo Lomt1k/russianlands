@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using TextGameRPG.ViewModels.RegularDialogs;
-using TextGameRPG.Views.RegularDialogs;
+using MarkOne.ViewModels.RegularDialogs;
+using MarkOne.Views.RegularDialogs;
 
-namespace TextGameRPG.Models.RegularDialogs;
+namespace MarkOne.Models.RegularDialogs;
 
 public static class RegularDialogHelper
 {

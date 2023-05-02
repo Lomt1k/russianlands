@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
-using TextGameRPG.Scripts.GameCore.Items;
-using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
-using TextGameRPG.Scripts.GameCore.Items.ItemAbilities.Keywords;
-using TextGameRPG.Scripts.GameCore.Services.Battles;
-using TextGameRPG.Scripts.GameCore.Services.Battles.Actions;
-using TextGameRPG.Scripts.GameCore.Units.Stats;
+using MarkOne.Scripts.GameCore.Items;
+using MarkOne.Scripts.GameCore.Items.ItemAbilities;
+using MarkOne.Scripts.GameCore.Items.ItemAbilities.Keywords;
+using MarkOne.Scripts.GameCore.Services.Battles;
+using MarkOne.Scripts.GameCore.Services.Battles.Actions;
+using MarkOne.Scripts.GameCore.Units.Stats;
 
-namespace TextGameRPG.Scripts.GameCore.Units.ActionHandlers;
+namespace MarkOne.Scripts.GameCore.Units.ActionHandlers;
 
 public static class ItemKeywordActionsHandler
 {

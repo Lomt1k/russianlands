@@ -1,11 +1,11 @@
 ﻿using System.Text;
 using System.Threading.Tasks;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Localizations;
-using TextGameRPG.Scripts.GameCore.Quests.Characters;
-using TextGameRPG.Scripts.GameCore.Quests.QuestStages;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.GameCore.Quests.Characters;
+using MarkOne.Scripts.GameCore.Quests.QuestStages;
 
-namespace TextGameRPG.Scripts.Bot.Dialogs.Quests;
+namespace MarkOne.Scripts.Bot.Dialogs.Quests;
 
 public class QuestReplicaDialog : DialogBase
 {

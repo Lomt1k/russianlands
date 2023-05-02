@@ -2,12 +2,12 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
-using TextGameRPG.Scripts.GameCore.Services;
-using TextGameRPG.Scripts.GameCore.Services.GameData;
-using TextGameRPG.Scripts.GameCore.Units.Mobs;
-using TextGameRPG.Views.Editor.MobsEditor;
+using MarkOne.Scripts.GameCore.Services;
+using MarkOne.Scripts.GameCore.Services.GameData;
+using MarkOne.Scripts.GameCore.Units.Mobs;
+using MarkOne.Views.Editor.MobsEditor;
 
-namespace TextGameRPG.ViewModels.Editor.MobsEditor;
+namespace MarkOne.ViewModels.Editor.MobsEditor;
 
 public class MobsEditorViewModel : ViewModelBase
 {

@@ -1,13 +1,13 @@
 ﻿using System.Text;
 using System.Threading.Tasks;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Localizations;
-using TextGameRPG.Scripts.GameCore.Services.Battles;
-using TextGameRPG.Scripts.GameCore.Units.ActionHandlers;
-using TextGameRPG.Scripts.GameCore.Units.Mobs;
-using TextGameRPG.Scripts.GameCore.Units.Stats;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.GameCore.Services.Battles;
+using MarkOne.Scripts.GameCore.Units.ActionHandlers;
+using MarkOne.Scripts.GameCore.Units.Mobs;
+using MarkOne.Scripts.GameCore.Units.Stats;
 
-namespace TextGameRPG.Scripts.GameCore.Units;
+namespace MarkOne.Scripts.GameCore.Units;
 
 public class Mob : IBattleUnit
 {

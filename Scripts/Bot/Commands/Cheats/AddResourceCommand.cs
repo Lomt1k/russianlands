@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Text;
 using System.Threading.Tasks;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Localizations;
-using TextGameRPG.Scripts.GameCore.Resources;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.GameCore.Resources;
 
-namespace TextGameRPG.Scripts.Bot.Commands.Cheats;
+namespace MarkOne.Scripts.Bot.Commands.Cheats;
 
 internal class AddResourceCommand : CommandBase
 {

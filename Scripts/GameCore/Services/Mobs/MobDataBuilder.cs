@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using TextGameRPG.Scripts.GameCore.Services.GameData;
-using TextGameRPG.Scripts.GameCore.Units.Mobs;
-using TextGameRPG.Scripts.GameCore.Units.Stats;
+using MarkOne.Scripts.GameCore.Services.GameData;
+using MarkOne.Scripts.GameCore.Units.Mobs;
+using MarkOne.Scripts.GameCore.Units.Stats;
 
-namespace TextGameRPG.Scripts.GameCore.Services.Mobs;
+namespace MarkOne.Scripts.GameCore.Services.Mobs;
 
 public partial class MobDataBuilder<T> where T : IMobData, new()
 {

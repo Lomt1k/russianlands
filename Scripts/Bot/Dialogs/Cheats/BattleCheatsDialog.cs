@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
-using TextGameRPG.Scripts.Bot.Commands;
-using TextGameRPG.Scripts.Bot.Sessions;
+using MarkOne.Scripts.Bot.Commands;
+using MarkOne.Scripts.Bot.Sessions;
 
-namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats;
+namespace MarkOne.Scripts.Bot.Dialogs.Cheats;
 
 public class BattleCheatsDialog : DialogBase
 {

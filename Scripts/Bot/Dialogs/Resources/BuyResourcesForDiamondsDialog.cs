@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using TextGameRPG.Scripts.Bot.Dialogs.Town.Shop;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Localizations;
-using TextGameRPG.Scripts.GameCore.Resources;
+using MarkOne.Scripts.Bot.Dialogs.Town.Shop;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.GameCore.Resources;
 
-namespace TextGameRPG.Scripts.Bot.Dialogs.Resources;
+namespace MarkOne.Scripts.Bot.Dialogs.Resources;
 
 public class BuyResourcesForDiamondsDialog : DialogBase
 {

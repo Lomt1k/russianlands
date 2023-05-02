@@ -1,12 +1,12 @@
 ﻿using Newtonsoft.Json;
 using System.Text;
-using TextGameRPG.Scripts.Bot;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Localizations;
-using TextGameRPG.Scripts.GameCore.Services.Battles;
-using TextGameRPG.Scripts.GameCore.Units;
+using MarkOne.Scripts.Bot;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.GameCore.Services.Battles;
+using MarkOne.Scripts.GameCore.Units;
 
-namespace TextGameRPG.Scripts.GameCore.Potions;
+namespace MarkOne.Scripts.GameCore.Potions;
 
 [JsonObject]
 public class HealthRestorePotionData : PotionData

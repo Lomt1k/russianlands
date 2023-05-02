@@ -1,6 +1,6 @@
-﻿using TextGameRPG.Scripts.Bot.Sessions;
+﻿using MarkOne.Scripts.Bot.Sessions;
 
-namespace TextGameRPG.Scripts.GameCore.Quests.Characters;
+namespace MarkOne.Scripts.GameCore.Quests.Characters;
 
 public enum CharacterType : int
 {

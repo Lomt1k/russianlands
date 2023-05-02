@@ -1,11 +1,11 @@
 ﻿using System.Text;
-using TextGameRPG.Scripts.Bot;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
-using TextGameRPG.Scripts.GameCore.Items.ItemProperties;
-using TextGameRPG.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.Bot;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Items.ItemAbilities;
+using MarkOne.Scripts.GameCore.Items.ItemProperties;
+using MarkOne.Scripts.GameCore.Localizations;
 
-namespace TextGameRPG.Scripts.GameCore.Items;
+namespace MarkOne.Scripts.GameCore.Items;
 
 // влияет на порядок отрисовки абилки в описании предмета
 public enum ViewPriority : byte

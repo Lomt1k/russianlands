@@ -1,6 +1,6 @@
 using Avalonia.Controls;
 
-namespace TextGameRPG.Views;
+namespace MarkOne.Views;
 
 public partial class MainWindow : Window
 {

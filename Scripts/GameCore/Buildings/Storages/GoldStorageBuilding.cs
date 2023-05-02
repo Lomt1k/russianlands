@@ -1,8 +1,8 @@
 ﻿using System;
-using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
-using TextGameRPG.Scripts.GameCore.Resources;
+using MarkOne.Scripts.Bot.DataBase.SerializableData;
+using MarkOne.Scripts.GameCore.Resources;
 
-namespace TextGameRPG.Scripts.GameCore.Buildings.Storages;
+namespace MarkOne.Scripts.GameCore.Buildings.Storages;
 
 public class GoldStorageBuilding : StorageBuildingBase
 {

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using TextGameRPG.Scripts.GameCore.Rewards;
-using TextGameRPG.Scripts.GameCore.Units;
+using MarkOne.Scripts.GameCore.Rewards;
+using MarkOne.Scripts.GameCore.Units;
 
-namespace TextGameRPG.Scripts.Bot.Dialogs.Battle;
+namespace MarkOne.Scripts.Bot.Dialogs.Battle;
 
 public enum BattleResult
 {

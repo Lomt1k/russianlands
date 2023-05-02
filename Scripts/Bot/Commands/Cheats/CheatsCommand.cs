@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
-using TextGameRPG.Scripts.Bot.Dialogs.Cheats;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Services;
-using TextGameRPG.Scripts.GameCore.Services.Battles;
+using MarkOne.Scripts.Bot.Dialogs.Cheats;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Services;
+using MarkOne.Scripts.GameCore.Services.Battles;
 
-namespace TextGameRPG.Scripts.Bot.Commands.Cheats;
+namespace MarkOne.Scripts.Bot.Commands.Cheats;
 
 public class CheatsCommand : CommandBase
 {

@@ -1,7 +1,7 @@
 ﻿using JsonKnownTypes;
 using Newtonsoft.Json;
 
-namespace TextGameRPG.Scripts.GameCore.Quests.NextStageTriggers;
+namespace MarkOne.Scripts.GameCore.Quests.NextStageTriggers;
 
 [JsonConverter(typeof(JsonKnownTypesConverter<TriggerBase>))]
 public abstract class TriggerBase

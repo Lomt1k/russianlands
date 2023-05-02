@@ -1,7 +1,7 @@
-﻿using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
-using TextGameRPG.Scripts.Bot.Sessions;
+﻿using MarkOne.Scripts.Bot.DataBase.SerializableData;
+using MarkOne.Scripts.Bot.Sessions;
 
-namespace TextGameRPG.Scripts.GameCore.Resources;
+namespace MarkOne.Scripts.GameCore.Resources;
 
 internal class ResourceFruitWatermelon : IResource
 {

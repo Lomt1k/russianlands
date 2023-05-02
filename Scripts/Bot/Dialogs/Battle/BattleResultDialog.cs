@@ -1,11 +1,11 @@
 ﻿using System.Text;
 using System.Threading.Tasks;
-using TextGameRPG.Scripts.Bot.Dialogs.Town;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Localizations;
-using TextGameRPG.Scripts.GameCore.Services;
+using MarkOne.Scripts.Bot.Dialogs.Town;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.GameCore.Services;
 
-namespace TextGameRPG.Scripts.Bot.Dialogs.Battle;
+namespace MarkOne.Scripts.Bot.Dialogs.Battle;
 
 public class BattleResultDialog : DialogBase
 {

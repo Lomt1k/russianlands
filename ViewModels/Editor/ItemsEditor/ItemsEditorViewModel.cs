@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
-using TextGameRPG.Models.Editor.ItemsEditor;
-using TextGameRPG.Scripts.GameCore.Items;
-using TextGameRPG.Scripts.GameCore.Services;
-using TextGameRPG.Scripts.GameCore.Services.GameData;
-using TextGameRPG.Views.Editor.ItemsEditor;
+using MarkOne.Models.Editor.ItemsEditor;
+using MarkOne.Scripts.GameCore.Items;
+using MarkOne.Scripts.GameCore.Services;
+using MarkOne.Scripts.GameCore.Services.GameData;
+using MarkOne.Views.Editor.ItemsEditor;
 
-namespace TextGameRPG.ViewModels.Editor.ItemsEditor;
+namespace MarkOne.ViewModels.Editor.ItemsEditor;
 
 public class ItemsEditorViewModel : ViewModelBase
 {

@@ -1,10 +1,10 @@
-﻿using TextGameRPG.Scripts.Bot;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Localizations;
-using TextGameRPG.Scripts.GameCore.Units.Stats;
-using TextGameRPG.Scripts.Utils;
+﻿using MarkOne.Scripts.Bot;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.GameCore.Units.Stats;
+using MarkOne.Scripts.Utils;
 
-namespace TextGameRPG.Scripts.GameCore.Services.Battles.Actions;
+namespace MarkOne.Scripts.GameCore.Services.Battles.Actions;
 
 public enum SanctionType : byte
 {

@@ -1,13 +1,13 @@
 ﻿using Newtonsoft.Json;
 using System.Text;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Items;
-using TextGameRPG.Scripts.GameCore.Localizations;
-using TextGameRPG.Scripts.GameCore.Services.Battles;
-using TextGameRPG.Scripts.GameCore.Units;
-using TextGameRPG.Scripts.GameCore.Units.Stats.StatEffects;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Items;
+using MarkOne.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.GameCore.Services.Battles;
+using MarkOne.Scripts.GameCore.Units;
+using MarkOne.Scripts.GameCore.Units.Stats.StatEffects;
 
-namespace TextGameRPG.Scripts.GameCore.Potions;
+namespace MarkOne.Scripts.GameCore.Potions;
 
 [JsonObject]
 public class AddResistancePotionData : PotionData

@@ -1,11 +1,11 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Threading.Tasks;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Items;
-using TextGameRPG.Scripts.GameCore.Items.Generators;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Items;
+using MarkOne.Scripts.GameCore.Items.Generators;
 
-namespace TextGameRPG.Scripts.GameCore.Rewards;
+namespace MarkOne.Scripts.GameCore.Rewards;
 
 [JsonObject]
 public class RandomItemReward : RewardBase

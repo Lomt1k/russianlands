@@ -1,7 +1,7 @@
 using Avalonia.Controls;
-using TextGameRPG.ViewModels.Editor.PotionsEditor;
+using MarkOne.ViewModels.Editor.PotionsEditor;
 
-namespace TextGameRPG.Views.Editor.PotionsEditor;
+namespace MarkOne.Views.Editor.PotionsEditor;
 
 public partial class PotionsEditorView : UserControl
 {

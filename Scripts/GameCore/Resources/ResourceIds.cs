@@ -1,6 +1,6 @@
-﻿using TextGameRPG.Scripts.Bot;
+﻿using MarkOne.Scripts.Bot;
 
-namespace TextGameRPG.Scripts.GameCore.Resources;
+namespace MarkOne.Scripts.GameCore.Resources;
 
 public enum ResourceId : byte
 {

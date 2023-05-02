@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using TextGameRPG.Scripts.Bot;
-using TextGameRPG.Scripts.Bot.Dialogs;
-using TextGameRPG.Scripts.Bot.Dialogs.Town;
-using TextGameRPG.Scripts.Bot.Dialogs.Town.Buildings;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Buildings;
-using TextGameRPG.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.Bot;
+using MarkOne.Scripts.Bot.Dialogs;
+using MarkOne.Scripts.Bot.Dialogs.Town;
+using MarkOne.Scripts.Bot.Dialogs.Town.Buildings;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Buildings;
+using MarkOne.Scripts.GameCore.Localizations;
 
-namespace TextGameRPG.Scripts.GameCore.Services;
+namespace MarkOne.Scripts.GameCore.Services;
 
 public class NotificationsManager : Service
 {

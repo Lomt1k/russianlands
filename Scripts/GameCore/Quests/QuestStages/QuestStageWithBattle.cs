@@ -1,14 +1,14 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using TextGameRPG.Scripts.Bot.Dialogs.Battle;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Rewards;
-using TextGameRPG.Scripts.GameCore.Services.Battles;
-using TextGameRPG.Scripts.GameCore.Services.GameData;
-using TextGameRPG.Scripts.GameCore.Units;
+using MarkOne.Scripts.Bot.Dialogs.Battle;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Rewards;
+using MarkOne.Scripts.GameCore.Services.Battles;
+using MarkOne.Scripts.GameCore.Services.GameData;
+using MarkOne.Scripts.GameCore.Units;
 
-namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages;
+namespace MarkOne.Scripts.GameCore.Quests.QuestStages;
 
 [JsonObject]
 public class QuestStageWithBattle : QuestStage

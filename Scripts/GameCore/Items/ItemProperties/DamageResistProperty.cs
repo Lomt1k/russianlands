@@ -1,7 +1,7 @@
 ﻿using System.Text;
-using TextGameRPG.Scripts.Bot.Sessions;
+using MarkOne.Scripts.Bot.Sessions;
 
-namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties;
+namespace MarkOne.Scripts.GameCore.Items.ItemProperties;
 
 public class DamageResistProperty : ItemPropertyBase
 {

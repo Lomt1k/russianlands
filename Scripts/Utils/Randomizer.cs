@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TextGameRPG.Scripts.Utils;
+namespace MarkOne.Scripts.Utils;
 
 public static class Randomizer
 {

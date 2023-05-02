@@ -1,10 +1,10 @@
 ﻿using Newtonsoft.Json;
 using SQLite;
 using System.Collections.Generic;
-using TextGameRPG.Scripts.GameCore.Locations;
-using TextGameRPG.Scripts.GameCore.Services.Mobs;
+using MarkOne.Scripts.GameCore.Locations;
+using MarkOne.Scripts.GameCore.Services.Mobs;
 
-namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData;
+namespace MarkOne.Scripts.Bot.DataBase.SerializableData;
 
 public class ProfileDailyData : DataWithSession
 {

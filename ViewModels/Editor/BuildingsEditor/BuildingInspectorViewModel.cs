@@ -1,14 +1,14 @@
 ﻿using ReactiveUI;
 using System.Collections.ObjectModel;
 using System.Reactive;
-using TextGameRPG.Models.UserControls;
-using TextGameRPG.Scripts.GameCore.Buildings;
-using TextGameRPG.Scripts.GameCore.Buildings.Data;
-using TextGameRPG.Scripts.GameCore.Services;
-using TextGameRPG.Scripts.GameCore.Services.GameData;
-using TextGameRPG.Views.UserControls;
+using MarkOne.Models.UserControls;
+using MarkOne.Scripts.GameCore.Buildings;
+using MarkOne.Scripts.GameCore.Buildings.Data;
+using MarkOne.Scripts.GameCore.Services;
+using MarkOne.Scripts.GameCore.Services.GameData;
+using MarkOne.Views.UserControls;
 
-namespace TextGameRPG.ViewModels.Editor.BuildingsEditor;
+namespace MarkOne.ViewModels.Editor.BuildingsEditor;
 
 public class BuildingInspectorViewModel : ViewModelBase
 {

@@ -2,12 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using TextGameRPG.Scripts.Bot;
-using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Services.DailyDataManagers;
+using MarkOne.Scripts.Bot;
+using MarkOne.Scripts.Bot.DataBase.SerializableData;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Services.DailyDataManagers;
 
-namespace TextGameRPG.Scripts.GameCore.Services.DailyDataManager;
+namespace MarkOne.Scripts.GameCore.Services.DailyDataManager;
 
 public class ProfileDailyDataManager : Service
 {

@@ -2,9 +2,9 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
-using TextGameRPG.ViewModels.UserControls;
+using MarkOne.ViewModels.UserControls;
 
-namespace TextGameRPG.Models.Editor.ItemsEditor;
+namespace MarkOne.Models.Editor.ItemsEditor;
 
 public class ObjectPropertyModel
 {

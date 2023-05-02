@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
 using System.Threading.Tasks;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Resources;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Resources;
 
-namespace TextGameRPG.Scripts.GameCore.Rewards;
+namespace MarkOne.Scripts.GameCore.Rewards;
 
 [JsonObject]
 public class ResourceReward : RewardBase

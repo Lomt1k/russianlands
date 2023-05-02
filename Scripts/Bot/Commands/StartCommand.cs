@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using TextGameRPG.Scripts.Bot.Sessions;
+using MarkOne.Scripts.Bot.Sessions;
 
-namespace TextGameRPG.Scripts.Bot.Commands;
+namespace MarkOne.Scripts.Bot.Commands;
 
 // ввод команды /start при запущенной(!) сессии
 public class StartCommand : CommandBase

@@ -6,10 +6,10 @@ using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.InputFiles;
 using Telegram.Bot.Types.ReplyMarkups;
-using TextGameRPG.Scripts.GameCore.Services;
-using TextGameRPG.Scripts.GameCore.Services.Sending;
+using MarkOne.Scripts.GameCore.Services;
+using MarkOne.Scripts.GameCore.Services.Sending;
 
-namespace TextGameRPG.Scripts.Bot;
+namespace MarkOne.Scripts.Bot;
 
 public class MessageSender : Service
 {

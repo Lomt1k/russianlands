@@ -1,7 +1,7 @@
-﻿using TextGameRPG.Scripts.Bot;
-using TextGameRPG.Scripts.Bot.Sessions;
+﻿using MarkOne.Scripts.Bot;
+using MarkOne.Scripts.Bot.Sessions;
 
-namespace TextGameRPG.Scripts.GameCore.Items;
+namespace MarkOne.Scripts.GameCore.Items;
 
 public enum ItemType : sbyte
 {

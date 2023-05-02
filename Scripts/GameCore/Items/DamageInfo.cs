@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using TextGameRPG.Scripts.Bot;
+using MarkOne.Scripts.Bot;
 
-namespace TextGameRPG.Scripts.GameCore.Items;
+namespace MarkOne.Scripts.GameCore.Items;
 
 public enum DamageType { Physical, Fire, Cold, Lightning }
 

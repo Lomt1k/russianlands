@@ -1,17 +1,17 @@
 ﻿using ReactiveUI;
 using System.Collections.ObjectModel;
 using System.Reactive;
-using TextGameRPG.Models.Editor;
-using TextGameRPG.Scripts.GameCore.Services;
-using TextGameRPG.Scripts.GameCore.Services.GameData;
-using TextGameRPG.Views.Editor.BuildingsEditor;
-using TextGameRPG.Views.Editor.ItemsEditor;
-using TextGameRPG.Views.Editor.LocationMobsEditor;
-using TextGameRPG.Views.Editor.MobsEditor;
-using TextGameRPG.Views.Editor.PotionsEditor;
-using TextGameRPG.Views.Editor.QuestsEditor;
+using MarkOne.Models.Editor;
+using MarkOne.Scripts.GameCore.Services;
+using MarkOne.Scripts.GameCore.Services.GameData;
+using MarkOne.Views.Editor.BuildingsEditor;
+using MarkOne.Views.Editor.ItemsEditor;
+using MarkOne.Views.Editor.LocationMobsEditor;
+using MarkOne.Views.Editor.MobsEditor;
+using MarkOne.Views.Editor.PotionsEditor;
+using MarkOne.Views.Editor.QuestsEditor;
 
-namespace TextGameRPG.ViewModels.Editor;
+namespace MarkOne.ViewModels.Editor;
 
 public class MainEditorViewModel : ViewModelBase
 {

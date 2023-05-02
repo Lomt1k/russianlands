@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace TextGameRPG.Scripts.GameCore.Services;
+namespace MarkOne.Scripts.GameCore.Services;
 
 public abstract class Service
 {

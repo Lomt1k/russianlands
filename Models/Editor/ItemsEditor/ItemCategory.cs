@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using TextGameRPG.Scripts.GameCore.Items;
+using MarkOne.Scripts.GameCore.Items;
 
-namespace TextGameRPG.Models.Editor.ItemsEditor;
+namespace MarkOne.Models.Editor.ItemsEditor;
 
 public class ItemCategory
 {

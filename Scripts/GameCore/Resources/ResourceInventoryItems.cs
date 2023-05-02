@@ -1,9 +1,9 @@
-﻿using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Buildings;
-using TextGameRPG.Scripts.GameCore.Buildings.Data;
+﻿using MarkOne.Scripts.Bot.DataBase.SerializableData;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Buildings;
+using MarkOne.Scripts.GameCore.Buildings.Data;
 
-namespace TextGameRPG.Scripts.GameCore.Resources;
+namespace MarkOne.Scripts.GameCore.Resources;
 
 // Псевдо-ресурс, используется для определения размера инвентаря
 public class ResourceInventoryItems : IResource

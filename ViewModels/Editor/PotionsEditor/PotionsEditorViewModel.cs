@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
-using TextGameRPG.Models.RegularDialogs;
-using TextGameRPG.Models.UserControls;
-using TextGameRPG.Scripts.GameCore.Potions;
-using TextGameRPG.Scripts.GameCore.Services;
-using TextGameRPG.Scripts.GameCore.Services.GameData;
-using TextGameRPG.Views.UserControls;
+using MarkOne.Models.RegularDialogs;
+using MarkOne.Models.UserControls;
+using MarkOne.Scripts.GameCore.Potions;
+using MarkOne.Scripts.GameCore.Services;
+using MarkOne.Scripts.GameCore.Services.GameData;
+using MarkOne.Views.UserControls;
 
-namespace TextGameRPG.ViewModels.Editor.PotionsEditor;
+namespace MarkOne.ViewModels.Editor.PotionsEditor;
 
 public class PotionsEditorViewModel : ViewModelBase
 {

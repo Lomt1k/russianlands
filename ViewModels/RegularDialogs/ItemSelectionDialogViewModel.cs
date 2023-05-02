@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Reactive;
 
-namespace TextGameRPG.ViewModels.RegularDialogs;
+namespace MarkOne.ViewModels.RegularDialogs;
 
 public class ItemSelectionDialogViewModel : ViewModelBase
 {

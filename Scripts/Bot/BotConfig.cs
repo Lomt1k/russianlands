@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
-using TextGameRPG.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.GameCore.Localizations;
 
-namespace TextGameRPG.Scripts.Bot;
+namespace MarkOne.Scripts.Bot;
 
 [JsonObject]
 public class BotConfig

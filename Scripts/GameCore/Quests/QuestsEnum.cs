@@ -1,6 +1,6 @@
-﻿using TextGameRPG.Scripts.GameCore.Locations;
+﻿using MarkOne.Scripts.GameCore.Locations;
 
-namespace TextGameRPG.Scripts.GameCore.Quests;
+namespace MarkOne.Scripts.GameCore.Quests;
 
 public enum QuestId : ushort
 {

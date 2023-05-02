@@ -1,4 +1,4 @@
-﻿namespace TextGameRPG;
+﻿namespace MarkOne;
 
 /*
  * Version format can be "x.y" or "x.y.z" where:

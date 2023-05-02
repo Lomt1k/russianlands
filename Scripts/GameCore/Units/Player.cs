@@ -2,21 +2,21 @@
 using System.Text;
 using System.Threading.Tasks;
 using Telegram.Bot.Types.ReplyMarkups;
-using TextGameRPG.Scripts.Bot;
-using TextGameRPG.Scripts.Bot.CallbackData;
-using TextGameRPG.Scripts.Bot.Dialogs.Battle;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Buildings;
-using TextGameRPG.Scripts.GameCore.Inventory;
-using TextGameRPG.Scripts.GameCore.Localizations;
-using TextGameRPG.Scripts.GameCore.Potions;
-using TextGameRPG.Scripts.GameCore.Resources;
-using TextGameRPG.Scripts.GameCore.Services.Battles;
-using TextGameRPG.Scripts.GameCore.Skills;
-using TextGameRPG.Scripts.GameCore.Units.ActionHandlers;
-using TextGameRPG.Scripts.GameCore.Units.Stats;
+using MarkOne.Scripts.Bot;
+using MarkOne.Scripts.Bot.CallbackData;
+using MarkOne.Scripts.Bot.Dialogs.Battle;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Buildings;
+using MarkOne.Scripts.GameCore.Inventory;
+using MarkOne.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.GameCore.Potions;
+using MarkOne.Scripts.GameCore.Resources;
+using MarkOne.Scripts.GameCore.Services.Battles;
+using MarkOne.Scripts.GameCore.Skills;
+using MarkOne.Scripts.GameCore.Units.ActionHandlers;
+using MarkOne.Scripts.GameCore.Units.Stats;
 
-namespace TextGameRPG.Scripts.GameCore.Units;
+namespace MarkOne.Scripts.GameCore.Units;
 
 public class Player : IBattleUnit
 {

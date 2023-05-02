@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using TextGameRPG.Scripts.Bot.Dialogs;
-using TextGameRPG.Scripts.GameCore.Quests.QuestStages;
+using MarkOne.Scripts.Bot.Dialogs;
+using MarkOne.Scripts.GameCore.Quests.QuestStages;
 
-namespace TextGameRPG.Scripts.Bot.Sessions;
+namespace MarkOne.Scripts.Bot.Sessions;
 
 public class TooltipController
 {

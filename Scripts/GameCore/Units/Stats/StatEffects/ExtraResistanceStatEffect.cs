@@ -1,6 +1,6 @@
-﻿using TextGameRPG.Scripts.GameCore.Items;
+﻿using MarkOne.Scripts.GameCore.Items;
 
-namespace TextGameRPG.Scripts.GameCore.Units.Stats.StatEffects;
+namespace MarkOne.Scripts.GameCore.Units.Stats.StatEffects;
 
 public class ExtraResistanceStatEffect : StatEffectBase
 {

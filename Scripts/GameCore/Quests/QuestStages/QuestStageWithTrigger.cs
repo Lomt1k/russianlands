@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Quests.NextStageTriggers;
-using TextGameRPG.Scripts.GameCore.Quests.StageActions;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Quests.NextStageTriggers;
+using MarkOne.Scripts.GameCore.Quests.StageActions;
 
-namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages;
+namespace MarkOne.Scripts.GameCore.Quests.QuestStages;
 
 [JsonObject]
 public class QuestStageWithTrigger : QuestStage

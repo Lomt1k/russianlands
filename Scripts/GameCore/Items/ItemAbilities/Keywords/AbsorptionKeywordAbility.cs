@@ -1,7 +1,7 @@
-﻿using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Localizations;
+﻿using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Localizations;
 
-namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities.Keywords;
+namespace MarkOne.Scripts.GameCore.Items.ItemAbilities.Keywords;
 
 public class AbsorptionKeywordAbility : ItemAbilityBase
 {

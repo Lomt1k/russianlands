@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using TextGameRPG.Scripts.Bot;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Services.Battles;
-using TextGameRPG.Scripts.GameCore.Services.DailyDataManager;
-using TextGameRPG.Scripts.GameCore.Services.DailyDataManagers;
-using TextGameRPG.Scripts.GameCore.Services.Mobs;
-using TextGameRPG.Scripts.GameCore.Services.Sending;
+using MarkOne.Scripts.Bot;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Services.Battles;
+using MarkOne.Scripts.GameCore.Services.DailyDataManager;
+using MarkOne.Scripts.GameCore.Services.DailyDataManagers;
+using MarkOne.Scripts.GameCore.Services.Mobs;
+using MarkOne.Scripts.GameCore.Services.Sending;
 
-namespace TextGameRPG.Scripts.GameCore.Services;
+namespace MarkOne.Scripts.GameCore.Services;
 
 public static class Services
 {

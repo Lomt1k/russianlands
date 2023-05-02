@@ -1,9 +1,9 @@
 ﻿using System.Text;
 using System.Threading.Tasks;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Services;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Services;
 
-namespace TextGameRPG.Scripts.Bot.Commands;
+namespace MarkOne.Scripts.Bot.Commands;
 
 internal class FakeIdCommand : CommandBase
 {

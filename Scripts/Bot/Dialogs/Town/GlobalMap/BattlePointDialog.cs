@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using TextGameRPG.Scripts.Bot.Dialogs.Battle;
-using TextGameRPG.Scripts.Bot.Dialogs.Resources;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Localizations;
-using TextGameRPG.Scripts.GameCore.Resources;
-using TextGameRPG.Scripts.GameCore.Rewards;
-using TextGameRPG.Scripts.GameCore.Services;
-using TextGameRPG.Scripts.GameCore.Services.Battles;
-using TextGameRPG.Scripts.GameCore.Units;
+using MarkOne.Scripts.Bot.Dialogs.Battle;
+using MarkOne.Scripts.Bot.Dialogs.Resources;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.GameCore.Resources;
+using MarkOne.Scripts.GameCore.Rewards;
+using MarkOne.Scripts.GameCore.Services;
+using MarkOne.Scripts.GameCore.Services.Battles;
+using MarkOne.Scripts.GameCore.Units;
 
-namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap;
+namespace MarkOne.Scripts.Bot.Dialogs.Town.Map;
 
 public class BattlePointData
 {

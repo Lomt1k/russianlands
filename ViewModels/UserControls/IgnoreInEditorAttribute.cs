@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TextGameRPG.ViewModels.UserControls;
+namespace MarkOne.ViewModels.UserControls;
 
 [AttributeUsage(AttributeTargets.Property)]
 internal class IgnoreInEditorAttribute : Attribute

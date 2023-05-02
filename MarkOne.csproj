@@ -8,7 +8,7 @@
     <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
     <UseWPF>False</UseWPF>
     <AssemblyName>MarkOne</AssemblyName>
-    <RootNamespace>TextGameRPG</RootNamespace>
+    <RootNamespace>MarkOne</RootNamespace>
     <BaseOutputPath>bin\</BaseOutputPath>
   </PropertyGroup>
   <ItemGroup>

@@ -1,4 +1,4 @@
-﻿namespace TextGameRPG.Scripts.GameCore.Services.Mobs;
+﻿namespace MarkOne.Scripts.GameCore.Services.Mobs;
 
 public enum MobDifficulty : byte
 {

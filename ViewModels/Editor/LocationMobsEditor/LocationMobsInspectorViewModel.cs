@@ -2,14 +2,14 @@
 using ReactiveUI;
 using System.Collections.ObjectModel;
 using System.Reactive;
-using TextGameRPG.Scripts.GameCore.Locations;
-using TextGameRPG.Scripts.GameCore.Services;
-using TextGameRPG.Scripts.GameCore.Services.GameData;
-using TextGameRPG.Scripts.GameCore.Units.Mobs;
-using TextGameRPG.ViewModels.Rewards;
-using TextGameRPG.Views.UserControls;
+using MarkOne.Scripts.GameCore.Locations;
+using MarkOne.Scripts.GameCore.Services;
+using MarkOne.Scripts.GameCore.Services.GameData;
+using MarkOne.Scripts.GameCore.Units.Mobs;
+using MarkOne.ViewModels.Rewards;
+using MarkOne.Views.UserControls;
 
-namespace TextGameRPG.ViewModels.Editor.LocationMobsEditor;
+namespace MarkOne.ViewModels.Editor.LocationMobsEditor;
 
 internal class LocationMobsInspectorViewModel : ViewModelBase
 {

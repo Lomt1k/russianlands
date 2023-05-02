@@ -1,4 +1,4 @@
-﻿namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties;
+﻿namespace MarkOne.Scripts.GameCore.Items.ItemProperties;
 
 public enum PropertyType : byte
 {

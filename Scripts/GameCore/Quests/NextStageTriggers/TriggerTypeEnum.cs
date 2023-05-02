@@ -1,5 +1,5 @@
 ﻿
-namespace TextGameRPG.Scripts.GameCore.Quests.NextStageTriggers;
+namespace MarkOne.Scripts.GameCore.Quests.NextStageTriggers;
 
 public enum TriggerType : ushort
 {

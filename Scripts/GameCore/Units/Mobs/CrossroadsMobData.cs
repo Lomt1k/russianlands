@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
-using TextGameRPG.Scripts.GameCore.Resources;
+using MarkOne.Scripts.GameCore.Resources;
 
-namespace TextGameRPG.Scripts.GameCore.Units.Mobs;
+namespace MarkOne.Scripts.GameCore.Units.Mobs;
 
 [JsonObject]
 public class CrossroadsMobData : IMobData

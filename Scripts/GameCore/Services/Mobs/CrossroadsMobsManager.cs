@@ -1,11 +1,11 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using TextGameRPG.Scripts.GameCore.Resources;
-using TextGameRPG.Scripts.GameCore.Services.DailyDataManagers;
-using TextGameRPG.Scripts.GameCore.Units.Mobs;
+using MarkOne.Scripts.GameCore.Resources;
+using MarkOne.Scripts.GameCore.Services.DailyDataManagers;
+using MarkOne.Scripts.GameCore.Units.Mobs;
 
-namespace TextGameRPG.Scripts.GameCore.Services.Mobs;
+namespace MarkOne.Scripts.GameCore.Services.Mobs;
 
 public class CrossroadsMobsManager : Service
 {

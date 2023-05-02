@@ -2,11 +2,11 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
-using TextGameRPG.Models;
-using TextGameRPG.Scripts.GameCore.Quests.Characters;
-using TextGameRPG.Scripts.GameCore.Quests.QuestStages;
+using MarkOne.Models;
+using MarkOne.Scripts.GameCore.Quests.Characters;
+using MarkOne.Scripts.GameCore.Quests.QuestStages;
 
-namespace TextGameRPG.ViewModels.Editor.QuestsEditor;
+namespace MarkOne.ViewModels.Editor.QuestsEditor;
 
 public class StageWithReplicaViewModel : ViewModelBase
 {

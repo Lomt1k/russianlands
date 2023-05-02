@@ -3,7 +3,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" Width="400" MinHeight="700"
-        x:Class="TextGameRPG.Views.Editor.ItemsEditor.EditItemWindow"
+        x:Class="MarkOne.Views.Editor.ItemsEditor.EditItemWindow"
         Title="EditItemWindow"
         WindowStartupLocation="CenterOwner">
 

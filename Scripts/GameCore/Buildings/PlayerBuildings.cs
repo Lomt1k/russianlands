@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
-using TextGameRPG.Scripts.Bot.Sessions;
+using MarkOne.Scripts.Bot.DataBase.SerializableData;
+using MarkOne.Scripts.Bot.Sessions;
 
-namespace TextGameRPG.Scripts.GameCore.Buildings;
+namespace MarkOne.Scripts.GameCore.Buildings;
 
 public class PlayerBuildings
 {

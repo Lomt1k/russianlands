@@ -1,9 +1,9 @@
 ﻿using System;
-using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
-using TextGameRPG.Scripts.GameCore.Resources;
-using TextGameRPG.Scripts.GameCore.Units;
+using MarkOne.Scripts.Bot.DataBase.SerializableData;
+using MarkOne.Scripts.GameCore.Resources;
+using MarkOne.Scripts.GameCore.Units;
 
-namespace TextGameRPG.Scripts.GameCore.Buildings.Production;
+namespace MarkOne.Scripts.GameCore.Buildings.Production;
 
 public class FoodProductionThirdBuilding : ProductionBuildingBase
 {

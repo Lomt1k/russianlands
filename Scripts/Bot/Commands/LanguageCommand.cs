@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Localizations;
 
-namespace TextGameRPG.Scripts.Bot.Commands.Cheats;
+namespace MarkOne.Scripts.Bot.Commands.Cheats;
 
 public class LanguageCommand : CommandBase
 {

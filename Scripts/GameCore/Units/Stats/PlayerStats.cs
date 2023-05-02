@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
-using TextGameRPG.Scripts.GameCore.Buildings;
-using TextGameRPG.Scripts.GameCore.Buildings.General;
-using TextGameRPG.Scripts.GameCore.Items;
-using TextGameRPG.Scripts.GameCore.Items.ItemProperties;
+using MarkOne.Scripts.GameCore.Buildings;
+using MarkOne.Scripts.GameCore.Buildings.General;
+using MarkOne.Scripts.GameCore.Items;
+using MarkOne.Scripts.GameCore.Items.ItemProperties;
 
-namespace TextGameRPG.Scripts.GameCore.Units.Stats;
+namespace MarkOne.Scripts.GameCore.Units.Stats;
 
 public class PlayerStats : UnitStats
 {

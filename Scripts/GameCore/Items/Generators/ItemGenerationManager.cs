@@ -1,8 +1,8 @@
 ﻿using System;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Items.Generators.CodeGenerators;
 
-namespace TextGameRPG.Scripts.GameCore.Items.Generators;
+namespace MarkOne.Scripts.GameCore.Items.Generators;
 
 /// <summary>
 /// Основной класс, который управляет логикой генерации предметов

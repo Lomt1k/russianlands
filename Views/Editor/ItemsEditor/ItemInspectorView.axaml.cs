@@ -1,7 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
-namespace TextGameRPG.Views.Editor.ItemsEditor;
+namespace MarkOne.Views.Editor.ItemsEditor;
 
 public partial class ItemInspectorView : UserControl
 {

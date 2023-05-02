@@ -2,12 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using TextGameRPG.Models.RegularDialogs;
-using TextGameRPG.Scripts.GameCore.Rewards;
-using TextGameRPG.ViewModels.UserControls;
-using TextGameRPG.Views.Editor.Rewards;
+using MarkOne.Models.RegularDialogs;
+using MarkOne.Scripts.GameCore.Rewards;
+using MarkOne.ViewModels.UserControls;
+using MarkOne.Views.Editor.Rewards;
 
-namespace TextGameRPG.ViewModels.Rewards;
+namespace MarkOne.ViewModels.Rewards;
 
 internal sealed class EditorRewardsListViewModel : EditorListViewModel<RewardBase>
 {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace TextGameRPG.Scripts.GameCore.Items.ItemProperties;
+namespace MarkOne.Scripts.GameCore.Items.ItemProperties;
 
 public static class ItemPropertyRegistry
 {

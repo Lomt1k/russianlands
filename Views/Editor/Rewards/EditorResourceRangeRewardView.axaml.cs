@@ -1,6 +1,6 @@
 using Avalonia.Controls;
 
-namespace TextGameRPG.Views.Editor.Rewards;
+namespace MarkOne.Views.Editor.Rewards;
 
 public partial class EditorResourceRangeRewardView : UserControl
 {

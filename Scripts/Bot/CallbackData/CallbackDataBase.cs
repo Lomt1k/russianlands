@@ -1,7 +1,7 @@
 ﻿using JsonKnownTypes;
 using Newtonsoft.Json;
 
-namespace TextGameRPG.Scripts.Bot.CallbackData;
+namespace MarkOne.Scripts.Bot.CallbackData;
 
 /// <summary>
 /// ATTENTION: Max Callback Data Length (in JSON): 128 symbols!

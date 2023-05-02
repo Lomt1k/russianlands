@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TextGameRPG.Scripts.GameCore.Items.Generators.CodeGenerators;
+namespace MarkOne.Scripts.GameCore.Items.Generators.CodeGenerators;
 
 public class ScrollCodeGenerator : ItemCodeGeneratorBase
 {

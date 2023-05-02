@@ -3,12 +3,12 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
-using TextGameRPG.Models;
-using TextGameRPG.Models.Editor.ItemsEditor;
-using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
-using TextGameRPG.Views.Editor.ItemsEditor;
+using MarkOne.Models;
+using MarkOne.Models.Editor.ItemsEditor;
+using MarkOne.Scripts.GameCore.Items.ItemAbilities;
+using MarkOne.Views.Editor.ItemsEditor;
 
-namespace TextGameRPG.ViewModels.Editor.ItemsEditor;
+namespace MarkOne.ViewModels.Editor.ItemsEditor;
 
 public class EditItemAbilityWindowViewModel : ViewModelBase
 {

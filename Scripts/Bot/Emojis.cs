@@ -1,4 +1,4 @@
-﻿namespace TextGameRPG.Scripts.Bot;
+﻿namespace MarkOne.Scripts.Bot;
 
 /* Important info:
  * text + emoji => "text [emoji]"

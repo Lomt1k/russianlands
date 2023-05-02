@@ -4,13 +4,13 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Telegram.Bot;
-using TextGameRPG.Scripts.Bot.DataBase;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Quests.Characters;
-using TextGameRPG.Scripts.GameCore.Services;
-using TextGameRPG.Scripts.GameCore.Services.Battles;
+using MarkOne.Scripts.Bot.DataBase;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Quests.Characters;
+using MarkOne.Scripts.GameCore.Services;
+using MarkOne.Scripts.GameCore.Services.Battles;
 
-namespace TextGameRPG.Scripts.Bot;
+namespace MarkOne.Scripts.Bot;
 public static class BotController
 {
     private static readonly SessionManager sessionManager = Services.Get<SessionManager>();

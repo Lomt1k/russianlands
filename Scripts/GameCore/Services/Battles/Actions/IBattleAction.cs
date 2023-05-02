@@ -1,7 +1,7 @@
-﻿using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Units.Stats;
+﻿using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Units.Stats;
 
-namespace TextGameRPG.Scripts.GameCore.Services.Battles.Actions;
+namespace MarkOne.Scripts.GameCore.Services.Battles.Actions;
 
 public interface IBattleAction
 {

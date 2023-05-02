@@ -1,9 +1,9 @@
 ﻿using SQLite;
 using System;
 using Telegram.Bot.Types;
-using TextGameRPG.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.GameCore.Localizations;
 
-namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData;
+namespace MarkOne.Scripts.Bot.DataBase.SerializableData;
 
 [Table("Profiles")]
 public class ProfileData : DataWithSession

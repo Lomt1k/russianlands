@@ -1,8 +1,8 @@
-﻿using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
-using TextGameRPG.Scripts.GameCore.Items;
-using TextGameRPG.Scripts.GameCore.Resources;
+﻿using MarkOne.Scripts.Bot.DataBase.SerializableData;
+using MarkOne.Scripts.GameCore.Items;
+using MarkOne.Scripts.GameCore.Resources;
 
-namespace TextGameRPG.Scripts.GameCore.Skills;
+namespace MarkOne.Scripts.GameCore.Skills;
 
 internal class SkillSword : ISkill
 {

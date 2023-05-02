@@ -1,6 +1,6 @@
 ﻿using SQLite;
 
-namespace TextGameRPG.Scripts.Bot.DataBase.SerializableData;
+namespace MarkOne.Scripts.Bot.DataBase.SerializableData;
 
 [Table("ServerDailyData")]
 public class ServerDailyData

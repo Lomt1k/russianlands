@@ -5,10 +5,10 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
-using TextGameRPG.Scripts.GameCore.Profiles;
+using MarkOne.Scripts.Bot.DataBase.SerializableData;
+using MarkOne.Scripts.GameCore.Profiles;
 
-namespace TextGameRPG.Scripts.Bot.Dialogs.Cheats;
+namespace MarkOne.Scripts.Bot.Dialogs.Cheats;
 
 [JsonObject]
 internal class ProfileState

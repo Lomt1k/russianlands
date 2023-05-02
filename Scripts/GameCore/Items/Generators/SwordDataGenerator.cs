@@ -1,7 +1,7 @@
 ﻿using System;
-using TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
+using MarkOne.Scripts.GameCore.Items.ItemAbilities;
 
-namespace TextGameRPG.Scripts.GameCore.Items.Generators;
+namespace MarkOne.Scripts.GameCore.Items.Generators;
 
 public class SwordDataGenerator : ItemDataGeneratorBase
 {

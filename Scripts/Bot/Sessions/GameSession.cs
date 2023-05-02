@@ -4,16 +4,16 @@ using System.Threading;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
-using TextGameRPG.Scripts.Bot.CallbackData;
-using TextGameRPG.Scripts.Bot.Dialogs;
-using TextGameRPG.Scripts.GameCore.Localizations;
-using TextGameRPG.Scripts.GameCore.Profiles;
-using TextGameRPG.Scripts.GameCore.Quests;
-using TextGameRPG.Scripts.GameCore.Services;
-using TextGameRPG.Scripts.GameCore.Services.Battles;
-using TextGameRPG.Scripts.GameCore.Units;
+using MarkOne.Scripts.Bot.CallbackData;
+using MarkOne.Scripts.Bot.Dialogs;
+using MarkOne.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.GameCore.Profiles;
+using MarkOne.Scripts.GameCore.Quests;
+using MarkOne.Scripts.GameCore.Services;
+using MarkOne.Scripts.GameCore.Services.Battles;
+using MarkOne.Scripts.GameCore.Units;
 
-namespace TextGameRPG.Scripts.Bot.Sessions;
+namespace MarkOne.Scripts.Bot.Sessions;
 
 public class GameSession
 {

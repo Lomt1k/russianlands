@@ -1,15 +1,15 @@
 ﻿using System;
 using System.IO;
-using TextGameRPG.Scripts.GameCore.Buildings;
-using TextGameRPG.Scripts.GameCore.Buildings.Data;
-using TextGameRPG.Scripts.GameCore.Items;
-using TextGameRPG.Scripts.GameCore.Locations;
-using TextGameRPG.Scripts.GameCore.Potions;
-using TextGameRPG.Scripts.GameCore.Quests;
-using TextGameRPG.Scripts.GameCore.Units.Mobs;
-using TextGameRPG.ViewModels;
+using MarkOne.Scripts.GameCore.Buildings;
+using MarkOne.Scripts.GameCore.Buildings.Data;
+using MarkOne.Scripts.GameCore.Items;
+using MarkOne.Scripts.GameCore.Locations;
+using MarkOne.Scripts.GameCore.Potions;
+using MarkOne.Scripts.GameCore.Quests;
+using MarkOne.Scripts.GameCore.Units.Mobs;
+using MarkOne.ViewModels;
 
-namespace TextGameRPG.Scripts.GameCore.Services.GameData;
+namespace MarkOne.Scripts.GameCore.Services.GameData;
 
 public class GameDataHolder : Service
 {

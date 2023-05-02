@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using TextGameRPG.Scripts.GameCore.Items;
-using TextGameRPG.Scripts.GameCore.Units.Stats.StatEffects;
+using MarkOne.Scripts.GameCore.Items;
+using MarkOne.Scripts.GameCore.Units.Stats.StatEffects;
 
 public static class StatEffectsListExtensions
 {

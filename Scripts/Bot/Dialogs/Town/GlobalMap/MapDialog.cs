@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Localizations;
-using TextGameRPG.Scripts.GameCore.Locations;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.GameCore.Locations;
 
-namespace TextGameRPG.Scripts.Bot.Dialogs.Town.GlobalMap;
+namespace MarkOne.Scripts.Bot.Dialogs.Town.Map;
 
 public class MapDialog : DialogWithPanel
 {

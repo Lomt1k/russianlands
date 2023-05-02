@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Text;
 using System.Threading.Tasks;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Items;
-using TextGameRPG.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Items;
+using MarkOne.Scripts.GameCore.Localizations;
 
-namespace TextGameRPG.Scripts.Bot.Commands.Cheats;
+namespace MarkOne.Scripts.Bot.Commands.Cheats;
 
 public class AddItemCommand : CommandBase
 {

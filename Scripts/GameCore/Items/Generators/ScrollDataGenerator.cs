@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace TextGameRPG.Scripts.GameCore.Items.Generators;
+namespace MarkOne.Scripts.GameCore.Items.Generators;
 
 public class ScrollDataGenerator : ItemDataGeneratorBase
 {

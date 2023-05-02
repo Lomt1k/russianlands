@@ -1,9 +1,9 @@
 ﻿using System;
-using TextGameRPG.Scripts.Bot.DataBase.SerializableData;
-using TextGameRPG.Scripts.GameCore.Buildings;
-using TextGameRPG.Scripts.GameCore.Buildings.General;
+using MarkOne.Scripts.Bot.DataBase.SerializableData;
+using MarkOne.Scripts.GameCore.Buildings;
+using MarkOne.Scripts.GameCore.Buildings.General;
 
-namespace TextGameRPG.Scripts.GameCore.Units;
+namespace MarkOne.Scripts.GameCore.Units;
 
 public class HealthRegenerationController
 {

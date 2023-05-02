@@ -1,14 +1,14 @@
 ﻿using JsonKnownTypes;
 using Newtonsoft.Json;
-using TextGameRPG.Scripts.Bot;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Localizations;
-using TextGameRPG.Scripts.GameCore.Services.Battles;
-using TextGameRPG.Scripts.GameCore.Services.GameData;
-using TextGameRPG.Scripts.GameCore.Units;
-using TextGameRPG.ViewModels.UserControls;
+using MarkOne.Scripts.Bot;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.GameCore.Services.Battles;
+using MarkOne.Scripts.GameCore.Services.GameData;
+using MarkOne.Scripts.GameCore.Units;
+using MarkOne.ViewModels.UserControls;
 
-namespace TextGameRPG.Scripts.GameCore.Potions;
+namespace MarkOne.Scripts.GameCore.Potions;
 
 [JsonObject]
 [JsonConverter(typeof(JsonKnownTypesConverter<PotionData>))]

@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Localizations;
 
-namespace TextGameRPG.Scripts.Bot.Dialogs.Town.Shop;
+namespace MarkOne.Scripts.Bot.Dialogs.Town.Shop;
 
 public class ShopDialog : DialogBase
 {

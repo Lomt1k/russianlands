@@ -1,11 +1,11 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using TextGameRPG.Scripts.Bot.Dialogs.Quests;
-using TextGameRPG.Scripts.Bot.Sessions;
-using TextGameRPG.Scripts.GameCore.Quests.Characters;
+using MarkOne.Scripts.Bot.Dialogs.Quests;
+using MarkOne.Scripts.Bot.Sessions;
+using MarkOne.Scripts.GameCore.Quests.Characters;
 
-namespace TextGameRPG.Scripts.GameCore.Quests.QuestStages;
+namespace MarkOne.Scripts.GameCore.Quests.QuestStages;
 
 [JsonObject]
 public class QuestStageWithReplica : QuestStage

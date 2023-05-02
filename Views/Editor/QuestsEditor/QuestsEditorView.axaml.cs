@@ -1,8 +1,8 @@
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
-using TextGameRPG.ViewModels.Editor.QuestsEditor;
+using MarkOne.ViewModels.Editor.QuestsEditor;
 
-namespace TextGameRPG.Views.Editor.QuestsEditor;
+namespace MarkOne.Views.Editor.QuestsEditor;
 
 public partial class QuestsEditorView : UserControl
 {

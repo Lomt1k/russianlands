@@ -1,7 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
-namespace TextGameRPG.Views.Editor.MobsEditor;
+namespace MarkOne.Views.Editor.MobsEditor;
 
 public partial class MobInspectorView : UserControl
 {

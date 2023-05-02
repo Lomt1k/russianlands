@@ -1,10 +1,10 @@
 ﻿using ReactiveUI;
 using System.Collections.ObjectModel;
-using TextGameRPG.Models;
-using TextGameRPG.Scripts.GameCore.Locations;
-using TextGameRPG.Views.Editor.LocationMobsEditor;
+using MarkOne.Models;
+using MarkOne.Scripts.GameCore.Locations;
+using MarkOne.Views.Editor.LocationMobsEditor;
 
-namespace TextGameRPG.ViewModels.Editor.LocationMobsEditor;
+namespace MarkOne.ViewModels.Editor.LocationMobsEditor;
 
 internal class LocationMobsEditorViewModel : ViewModelBase
 {

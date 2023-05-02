@@ -1,5 +1,5 @@
 ﻿
-namespace TextGameRPG.Scripts.GameCore.Units.Stats;
+namespace MarkOne.Scripts.GameCore.Units.Stats;
 
 public class MobStats : UnitStats
 {

@@ -3,7 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="1920" d:DesignHeight="1080"
-             x:Class="TextGameRPG.Views.Editor.QuestsEditor.StageWithTriggerView">
+             x:Class="MarkOne.Views.Editor.QuestsEditor.StageWithTriggerView">
 
   <Border Background="WhiteSmoke" Padding="20,0,0,0" Width="500">
     <ScrollViewer Height="800" Padding="0,0,20,0" VerticalScrollBarVisibility="Visible" AllowAutoHide="False">

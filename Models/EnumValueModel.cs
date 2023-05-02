@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace TextGameRPG.Models;
+namespace MarkOne.Models;
 
 public class EnumValueModel<T> where T : Enum
 {

@@ -1,11 +1,11 @@
 ﻿using ReactiveUI;
 using System.Collections.ObjectModel;
 using System.Linq;
-using TextGameRPG.Models;
-using TextGameRPG.Scripts.GameCore.Items;
-using TextGameRPG.Scripts.GameCore.Rewards;
+using MarkOne.Models;
+using MarkOne.Scripts.GameCore.Items;
+using MarkOne.Scripts.GameCore.Rewards;
 
-namespace TextGameRPG.ViewModels.Rewards;
+namespace MarkOne.ViewModels.Rewards;
 
 internal class EditorRandomItemRewardViewModel : ViewModelBase
 {

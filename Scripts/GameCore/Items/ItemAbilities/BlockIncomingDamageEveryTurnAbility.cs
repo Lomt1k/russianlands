@@ -1,7 +1,7 @@
 ﻿using System.Text;
-using TextGameRPG.Scripts.Bot.Sessions;
+using MarkOne.Scripts.Bot.Sessions;
 
-namespace TextGameRPG.Scripts.GameCore.Items.ItemAbilities;
+namespace MarkOne.Scripts.GameCore.Items.ItemAbilities;
 
 public class BlockIncomingDamageEveryTurnAbility : ItemAbilityBase
 {

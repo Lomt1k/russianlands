@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 
-namespace TextGameRPG;
+namespace MarkOne;
 
 public struct PerformanceInfo
 {
