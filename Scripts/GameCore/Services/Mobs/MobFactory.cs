@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using TextGameRPG.Scripts.GameCore.Locations;
 using TextGameRPG.Scripts.GameCore.Units.Mobs;
 using TextGameRPG.Scripts.Utils;
@@ -7,6 +8,14 @@ namespace TextGameRPG.Scripts.GameCore.Services.Mobs
 {
     public class MobFactory : Service
     {
+        private static readonly LocationId[] crossRoadLocationNames =
+        {
+            LocationId.Loc_01,
+            LocationId.Loc_02,
+            LocationId.Loc_03,
+            LocationId.Loc_04,
+        };
+
         public MobData GenerateMobForDebugBattle(byte playerLevel)
         {
             return new MobDataBuilder(playerLevel)
@@ -43,18 +52,71 @@ namespace TextGameRPG.Scripts.GameCore.Services.Mobs
                 _ => 0
             };
 
-            var mobLevels = mobDifficulty.GetMobLevelRange();
-            return new MobDataBuilder(mobLevels.minLevel, mobLevels.maxLevel)
+            var levelRange = mobDifficulty.GetMobLevelRange();
+            var mobLevel = new Random().Next(levelRange.minLevel, levelRange.maxLevel + 1);
+            var visualLevel = mobDifficulty < MobDifficulty.END_GAME ? mobLevel : 35;
+            return new MobDataBuilder(mobLevel)
                 .RandomizeHealthByPercents(10)
-                .CopyResistanceFromQuestMob(mobLevels.minLevel, mobLevels.maxLevel)
+                .CopyResistanceFromQuestMob(levelRange.minLevel, levelRange.maxLevel)
                 .IncreaseResistanceByPercents(increasePercents)
                 .RandomizeResistanceByPercents(10)
                 .ShuffleResistanceValues()
-                .CopyAttacksFromQuestMob(mobLevels.minLevel, mobLevels.maxLevel)
+                .CopyAttacksFromQuestMob(levelRange.minLevel, levelRange.maxLevel)
                 .IncreaseDamageValuesByPercents(increasePercents)
                 .RandomizeDamageValuesByPercents(10)
                 .ShuffleDamageValues()
                 .SetRandomName(locationId, excludeNames)
+                .SetVisualLevel(visualLevel)
+                .GetResult();
+        }
+
+        public MobData GenerateMobForCrossroads(MobDifficulty mobDifficulty, int crossId, List<string>? excludeNames)
+        {
+            byte increasePercents = mobDifficulty switch
+            {
+                MobDifficulty.END_GAME => 15,
+                MobDifficulty.END_GAME_PLUS => 30,
+                _ => 0
+            };
+
+            var additionalVisualLevels = 0;
+            if (crossId >= 4)
+            {
+                var chanceToIncreaseDifficulty = 25;
+                if (mobDifficulty < MobDifficulty.END_GAME_PLUS && Randomizer.TryPercentage(chanceToIncreaseDifficulty))
+                {                    
+                    IncreaseDifficulty(ref mobDifficulty, 1);
+                    additionalVisualLevels++;
+                }
+                if (crossId >= 6)
+                {
+                    var chanceToIncreasePower = 35;
+                    if (Randomizer.TryPercentage(chanceToIncreasePower))
+                    {
+                        increasePercents += 15;
+                        additionalVisualLevels++;
+                    }
+                }
+            }
+
+            var index = new Random().Next(crossRoadLocationNames.Length);
+            var locationForName = crossRoadLocationNames[index];
+            var levelRange = mobDifficulty.GetMobLevelRange();
+            var mobLevel = new Random().Next(levelRange.minLevel, levelRange.maxLevel + 1);
+            var visualLevel = mobDifficulty < MobDifficulty.END_GAME ? mobLevel : 35;
+            visualLevel += additionalVisualLevels;
+            return new MobDataBuilder(mobLevel)
+                .RandomizeHealthByPercents(10)
+                .CopyResistanceFromQuestMob(levelRange.minLevel, levelRange.maxLevel)
+                .IncreaseResistanceByPercents(increasePercents)
+                .RandomizeResistanceByPercents(10)
+                .ShuffleResistanceValues()
+                .CopyAttacksFromQuestMob(levelRange.minLevel, levelRange.maxLevel)
+                .IncreaseDamageValuesByPercents(increasePercents)
+                .RandomizeDamageValuesByPercents(10)
+                .ShuffleDamageValues()
+                .SetRandomName(locationForName, excludeNames)
+                .SetVisualLevel(visualLevel)
                 .GetResult();
         }
 

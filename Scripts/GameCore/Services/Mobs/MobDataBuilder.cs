@@ -21,12 +21,6 @@ namespace TextGameRPG.Scripts.GameCore.Services.Mobs
             CreateDefaultMobData(mobLevel);
         }
 
-        public MobDataBuilder(int minLevel, int maxLevel)
-        {
-            var mobLevel = new Random().Next(minLevel, maxLevel + 1);
-            CreateDefaultMobData(mobLevel);
-        }
-
         private void CreateDefaultMobData(int mobLevel)
         {
             _mobData = new MobData()
@@ -45,9 +39,9 @@ namespace TextGameRPG.Scripts.GameCore.Services.Mobs
             return this;
         }
 
-        public MobDataBuilder SetRandomVisualLevel(int minLevel, int maxLevel)
+        public MobDataBuilder SetVisualLevel(int level)
         {
-            _mobData.statsSettings.level = new Random().Next(minLevel, maxLevel + 1);
+            _mobData.statsSettings.level = level;
             return this;
         }
 
