@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using TextGameRPG.Scripts.GameCore.Locations;
+using TextGameRPG.Scripts.GameCore.Resources;
 using TextGameRPG.Scripts.GameCore.Units.Mobs;
 using TextGameRPG.Scripts.Utils;
 
@@ -8,13 +10,15 @@ namespace TextGameRPG.Scripts.GameCore.Services.Mobs
 {
     public class MobFactory : Service
     {
-        private static readonly LocationId[] crossRoadLocationNames =
+        private static readonly LocationId[] crossroadLocationNames =
         {
             LocationId.Loc_01,
             LocationId.Loc_02,
             LocationId.Loc_03,
             LocationId.Loc_04,
         };
+
+        private static readonly ResourceId[] crossroadFruits = ResourcesDictionary.GetFruitTypes().ToArray();
 
         public MobData GenerateMobForDebugBattle(byte playerLevel)
         {
@@ -30,7 +34,7 @@ namespace TextGameRPG.Scripts.GameCore.Services.Mobs
                 .GetResult();
         }
 
-        public MobData GenerateMobForLocation(MobDifficulty mobDifficulty, LocationId locationId, List<string>? excludeNames)
+        public MobData GenerateMobForLocation(MobDifficulty mobDifficulty, LocationId locationId, List<string> excludeNames)
         {
             if (locationId == LocationId.Loc_01)
             {
@@ -70,7 +74,7 @@ namespace TextGameRPG.Scripts.GameCore.Services.Mobs
                 .GetResult();
         }
 
-        public MobData GenerateMobForCrossroads(MobDifficulty mobDifficulty, int crossId, List<string>? excludeNames)
+        public CrossroadsMobData GenerateMobForCrossroads(MobDifficulty mobDifficulty, int crossId, List<string> excludeNames, List<ResourceId> excludeFruits)
         {
             byte increasePercents = mobDifficulty switch
             {
@@ -99,13 +103,13 @@ namespace TextGameRPG.Scripts.GameCore.Services.Mobs
                 }
             }
 
-            var index = new Random().Next(crossRoadLocationNames.Length);
-            var locationForName = crossRoadLocationNames[index];
+            var index = new Random().Next(crossroadLocationNames.Length);
+            var locationForName = crossroadLocationNames[index];
             var levelRange = mobDifficulty.GetMobLevelRange();
             var mobLevel = new Random().Next(levelRange.minLevel, levelRange.maxLevel + 1);
             var visualLevel = mobDifficulty < MobDifficulty.END_GAME ? mobLevel : 35;
             visualLevel += additionalVisualLevels;
-            return new MobDataBuilder(mobLevel)
+            var mobData = new MobDataBuilder(mobLevel)
                 .RandomizeHealthByPercents(10)
                 .CopyResistanceFromQuestMob(levelRange.minLevel, levelRange.maxLevel)
                 .IncreaseResistanceByPercents(increasePercents)
@@ -118,6 +122,15 @@ namespace TextGameRPG.Scripts.GameCore.Services.Mobs
                 .SetRandomName(locationForName, excludeNames)
                 .SetVisualLevel(visualLevel)
                 .GetResult();
+
+            var crossroadsMobData = (CrossroadsMobData)mobData;
+            do
+            {
+                var fruitTypeIndex = new Random().Next(crossroadFruits.Length);
+                crossroadsMobData.fruitId = crossroadFruits[fruitTypeIndex];
+            } while (excludeFruits.Contains(crossroadsMobData.fruitId));
+
+            return crossroadsMobData;
         }
 
 

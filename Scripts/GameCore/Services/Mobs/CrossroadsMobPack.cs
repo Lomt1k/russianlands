@@ -10,7 +10,7 @@ namespace TextGameRPG.Scripts.GameCore.Services.Mobs
         public const int MOB_SETS_IN_ONE_PACK = 50;
 
         [JsonProperty]
-        private Dictionary<int, MobData[]> mobsByCrossId { get; } = new();
+        private Dictionary<int, CrossroadsMobData[]> mobsByCrossId { get; } = new();
 
         public MobData[] this[int crossId]
         {
@@ -21,7 +21,7 @@ namespace TextGameRPG.Scripts.GameCore.Services.Mobs
             }
         }
 
-        public CrossroadsMobPack(Dictionary<int, MobData[]> _mobsByLocation)
+        public CrossroadsMobPack(Dictionary<int, CrossroadsMobData[]> _mobsByLocation)
         {
             mobsByCrossId = _mobsByLocation;
         }

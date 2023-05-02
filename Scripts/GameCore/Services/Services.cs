@@ -31,6 +31,7 @@
             Register(new MobFactory());
             Register(new LocationMobsManager());
             Register(new ProfileDailyDataManager());
+            Register(new CrossroadsMobsManager());
         }
 
         private static void Register<T>(T instance) where T : Service, new()

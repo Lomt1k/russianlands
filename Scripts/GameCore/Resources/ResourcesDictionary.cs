@@ -2,14 +2,11 @@
 
 namespace TextGameRPG.Scripts.GameCore.Resources
 {
-    public class ResourcesDictionary
+    public static class ResourcesDictionary
     {
-        private Dictionary<ResourceId, IResource> _dictionary;
+        private static Dictionary<ResourceId, IResource> _dictionary;
 
-        public IResource this[ResourceId resourceId] => _dictionary[resourceId];
-
-
-        public ResourcesDictionary()
+        static ResourcesDictionary()
         {
             _dictionary = new Dictionary<ResourceId, IResource>
             {
@@ -42,7 +39,12 @@ namespace TextGameRPG.Scripts.GameCore.Resources
             };
         }
 
-        public IEnumerable<ResourceId> GetGeneralResourceIds()
+        public static IResource Get(ResourceId resourceId)
+        {
+            return _dictionary[resourceId];
+        }
+
+        public static IEnumerable<ResourceId> GetGeneralResourceIds()
         {
             yield return ResourceId.Gold;
             yield return ResourceId.Food;
@@ -51,7 +53,7 @@ namespace TextGameRPG.Scripts.GameCore.Resources
             yield return ResourceId.Wood;
         }
 
-        public IEnumerable<ResourceId> GetCraftResourceIds()
+        public static IEnumerable<ResourceId> GetCraftResourceIds()
         {
             yield return ResourceId.CraftPiecesCommon;
             yield return ResourceId.CraftPiecesRare;
@@ -59,7 +61,7 @@ namespace TextGameRPG.Scripts.GameCore.Resources
             yield return ResourceId.CraftPiecesLegendary;
         }
 
-        public IEnumerable<ResourceId> GetFruitTypes()
+        public static IEnumerable<ResourceId> GetFruitTypes()
         {
             yield return ResourceId.FruitApple;
             yield return ResourceId.FruitPear;

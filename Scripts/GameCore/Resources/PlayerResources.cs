@@ -10,8 +10,6 @@ namespace TextGameRPG.Scripts.GameCore.Resources
 {
     public class PlayerResources
     {
-        private static ResourcesDictionary resourceDictionary = new ResourcesDictionary();
-
         private GameSession _session;
         private ProfileData _profileData;
 
@@ -26,7 +24,7 @@ namespace TextGameRPG.Scripts.GameCore.Resources
         {
             var sb = new StringBuilder();
             sb.AppendLine(Localization.Get(_session, "resource_header_ours"));
-            var generalResources = resourceDictionary.GetGeneralResourceIds();
+            var generalResources = ResourcesDictionary.GetGeneralResourceIds();
 
             var resourceDatas = new List<ResourceData>();
             foreach (var resourceId in generalResources)
@@ -46,7 +44,7 @@ namespace TextGameRPG.Scripts.GameCore.Resources
         {
             var sb = new StringBuilder();
             sb.Append(ResourceId.CraftPiecesCommon.GetEmoji() + Localization.Get(_session, "resource_header_our_materials"));
-            var craftResources = resourceDictionary.GetCraftResourceIds();
+            var craftResources = ResourcesDictionary.GetCraftResourceIds();
 
             foreach (var resourceId in craftResources)
             {
@@ -63,7 +61,7 @@ namespace TextGameRPG.Scripts.GameCore.Resources
         {
             var sb = new StringBuilder();
             sb.AppendLine(Localization.Get(_session, "resource_header_our_fruits"));
-            var fruitTypes = resourceDictionary.GetFruitTypes();
+            var fruitTypes = ResourcesDictionary.GetFruitTypes();
 
             int i = 0;
             foreach (var resourceId in fruitTypes)
@@ -82,7 +80,7 @@ namespace TextGameRPG.Scripts.GameCore.Resources
         /// <returns>Количество имеющихся у игрока ресурсов указанного типа</returns>
         public int GetValue(ResourceId resourceId)
         {
-            return resourceDictionary[resourceId].GetValue(_profileData);
+            return ResourcesDictionary.Get(resourceId).GetValue(_profileData);
         }
 
         /// <summary>
@@ -97,7 +95,7 @@ namespace TextGameRPG.Scripts.GameCore.Resources
             foreach (var (resourceId, amount) in requiredResources)
             {
                 var newValue = GetValue(resourceId) - amount;
-                resourceDictionary[resourceId].SetValue(_profileData, newValue);
+                ResourcesDictionary.Get(resourceId).SetValue(_profileData, newValue);
             }
             return true;
         }
@@ -115,7 +113,7 @@ namespace TextGameRPG.Scripts.GameCore.Resources
             {
                 foreach (var (resourceId, amount) in requiredResources)
                 {
-                    var playerValue = resourceDictionary[resourceId].GetValue(_profileData);
+                    var playerValue = ResourcesDictionary.Get(resourceId).GetValue(_profileData);
                     if (playerValue < amount)
                     {
                         var notEnoughValue = amount - playerValue;
@@ -138,7 +136,7 @@ namespace TextGameRPG.Scripts.GameCore.Resources
             if (success)
             {
                 var newValue = GetValue(requiredResource.resourceId) - requiredResource.amount;
-                resourceDictionary[requiredResource.resourceId].SetValue(_profileData, newValue);
+                ResourcesDictionary.Get(requiredResource.resourceId).SetValue(_profileData, newValue);
             }
             return success;
         }
@@ -153,7 +151,7 @@ namespace TextGameRPG.Scripts.GameCore.Resources
         {
             if (!HasEnough(requiredResource))
             {
-                var playerValue = resourceDictionary[requiredResource.resourceId].GetValue(_profileData);
+                var playerValue = ResourcesDictionary.Get(requiredResource.resourceId).GetValue(_profileData);
                 notEnoughResource = requiredResource with { amount = requiredResource.amount - playerValue };
                 return false;
             }
@@ -188,7 +186,7 @@ namespace TextGameRPG.Scripts.GameCore.Resources
         /// </summary>
         public bool IsUnlocked(ResourceId resourceId)
         {
-            return resourceDictionary[resourceId].IsUnlocked(_session);
+            return ResourcesDictionary.Get(resourceId).IsUnlocked(_session);
         }
 
         /// <summary>
@@ -196,7 +194,7 @@ namespace TextGameRPG.Scripts.GameCore.Resources
         /// </summary>
         public void ForceAdd(ResourceData resourceData)
         {
-            var resource = resourceDictionary[resourceData.resourceId];
+            var resource = ResourcesDictionary.Get(resourceData.resourceId);
             var currentValue = resource.GetValue(_profileData);
 
             var canBeAdded = int.MaxValue - currentValue;
@@ -221,7 +219,7 @@ namespace TextGameRPG.Scripts.GameCore.Resources
         /// <returns>Сколько по факту было добавлено</returns>
         public ResourceData Add(ResourceData resourceData)
         {
-            var resource = resourceDictionary[resourceData.resourceId];
+            var resource = ResourcesDictionary.Get(resourceData.resourceId);
             var currentValue = resource.GetValue(_profileData);
             var maxValue = resource.GetResourceLimit(_session);
 
@@ -250,7 +248,7 @@ namespace TextGameRPG.Scripts.GameCore.Resources
         /// <returns>Максимальное количество ресурсов (лимит хранилища)</returns>
         public int GetResourceLimit(ResourceId resourceId)
         {
-            return resourceDictionary[resourceId].GetResourceLimit(_session);
+            return ResourcesDictionary.Get(resourceId).GetResourceLimit(_session);
         }
 
         /// <returns>Достигнут ли лимит ресурсов в хранилище</returns>

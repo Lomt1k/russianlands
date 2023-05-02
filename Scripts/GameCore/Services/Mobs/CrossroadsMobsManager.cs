@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using TextGameRPG.Scripts.GameCore.Resources;
 using TextGameRPG.Scripts.GameCore.Services.DailyDataManagers;
 using TextGameRPG.Scripts.GameCore.Units.Mobs;
 
@@ -71,16 +72,18 @@ namespace TextGameRPG.Scripts.GameCore.Services.Mobs
 
         private CrossroadsMobPack GenerateMobPack(MobDifficulty difficulty)
         {
-            var result = new Dictionary<int, MobData[]>();
+            var result = new Dictionary<int, CrossroadsMobData[]>();
             for (int setId = 0; setId < CrossroadsMobPack.MOB_SETS_IN_ONE_PACK; setId++)
             {
                 var crossId = setId + 1;
-                var array = new MobData[3];
+                var array = new CrossroadsMobData[3];
                 var excludeNames = new List<string>();
+                var excludeFruits = new List<ResourceId>();
                 for (int i = 0; i < array.Length; i++)
                 {
-                    array[i] = mobFactory.GenerateMobForCrossroads(difficulty, crossId, excludeNames);
+                    array[i] = mobFactory.GenerateMobForCrossroads(difficulty, crossId, excludeNames, excludeFruits);
                     excludeNames.Add(array[i].localizationKey);
+                    excludeFruits.Add(array[i].fruitId);
                 }
                 result[setId] = array;
             }
