@@ -2,7 +2,7 @@
 using System;
 using MarkOne.Scripts.GameCore.Localizations;
 
-namespace MarkOne.Scripts.Bot.DataBase.SerializableData;
+namespace MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
 
 [Table("DailyReminders")]
 public class DailyReminderData

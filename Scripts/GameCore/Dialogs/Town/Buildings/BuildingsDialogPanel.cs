@@ -3,12 +3,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Telegram.Bot.Types.ReplyMarkups;
-using MarkOne.Scripts.Bot.DataBase.SerializableData;
 using MarkOne.Scripts.GameCore.Buildings;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Resources;
 using MarkOne.Scripts.GameCore.Dialogs.Town.Buildings;
 using MarkOne.Scripts.GameCore.Dialogs;
+using MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
 
 namespace MarkOne.Scripts.Bot.Dialogs.Town.Buildings;
 

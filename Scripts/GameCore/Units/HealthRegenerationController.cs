@@ -1,7 +1,7 @@
 ﻿using System;
-using MarkOne.Scripts.Bot.DataBase.SerializableData;
 using MarkOne.Scripts.GameCore.Buildings;
 using MarkOne.Scripts.GameCore.Buildings.General;
+using MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
 
 namespace MarkOne.Scripts.GameCore.Units;
 

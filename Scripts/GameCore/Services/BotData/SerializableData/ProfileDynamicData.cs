@@ -6,7 +6,7 @@ using MarkOne.Scripts.GameCore.Potions;
 using MarkOne.Scripts.GameCore.Quests;
 using MarkOne.Scripts.GameCore.Sessions;
 
-namespace MarkOne.Scripts.Bot.DataBase.SerializableData;
+namespace MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
 
 public class ProfileDynamicData : DataWithSession
 {

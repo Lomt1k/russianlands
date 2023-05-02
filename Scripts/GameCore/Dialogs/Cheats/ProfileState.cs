@@ -5,9 +5,9 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using MarkOne.Scripts.Bot.DataBase.SerializableData;
 using MarkOne.Scripts.GameCore.Profiles;
 using MarkOne.Scripts.Bot;
+using MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
 
 namespace MarkOne.Scripts.GameCore.Dialogs.Cheats;
 

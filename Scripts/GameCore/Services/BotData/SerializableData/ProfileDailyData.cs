@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using MarkOne.Scripts.GameCore.Locations;
 using MarkOne.Scripts.GameCore.Services.Mobs;
 
-namespace MarkOne.Scripts.Bot.DataBase.SerializableData;
+namespace MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
 
 public class ProfileDailyData : DataWithSession
 {

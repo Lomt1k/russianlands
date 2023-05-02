@@ -1,5 +1,4 @@
-﻿
-namespace MarkOne.Scripts.Bot.DataBase.SerializableData;
+﻿namespace MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
 
 public abstract class RawDynamicData<T>
 {

@@ -1,7 +1,7 @@
 ﻿using SQLite;
 using System;
 
-namespace MarkOne.Scripts.Bot.DataBase.SerializableData;
+namespace MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
 
 [Table("ProfileDailyStatData")]
 public class ProfileDailyStatData

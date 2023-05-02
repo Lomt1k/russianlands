@@ -1,6 +1,6 @@
-﻿using MarkOne.Scripts.Bot.DataBase.SerializableData;
-using MarkOne.Scripts.GameCore.Items;
+﻿using MarkOne.Scripts.GameCore.Items;
 using MarkOne.Scripts.GameCore.Resources;
+using MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
 
 namespace MarkOne.Scripts.GameCore.Skills;
 

@@ -2,7 +2,7 @@
 using System;
 using MarkOne.Scripts.GameCore.Items;
 
-namespace MarkOne.Scripts.Bot.DataBase.SerializableData;
+namespace MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
 
 [Table("Buildings")]
 public class ProfileBuildingsData : DataWithSession

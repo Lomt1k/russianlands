@@ -4,11 +4,11 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Telegram.Bot;
-using MarkOne.Scripts.Bot.DataBase;
 using MarkOne.Scripts.GameCore.Quests.Characters;
 using MarkOne.Scripts.GameCore.Services;
 using MarkOne.Scripts.GameCore.Services.Battles;
 using MarkOne.Scripts.GameCore.Sessions;
+using MarkOne.Scripts.GameCore.Services.BotData;
 
 namespace MarkOne.Scripts.Bot;
 public static class BotController

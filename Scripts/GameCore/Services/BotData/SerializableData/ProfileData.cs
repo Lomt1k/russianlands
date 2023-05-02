@@ -3,7 +3,7 @@ using System;
 using Telegram.Bot.Types;
 using MarkOne.Scripts.GameCore.Localizations;
 
-namespace MarkOne.Scripts.Bot.DataBase.SerializableData;
+namespace MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
 
 [Table("Profiles")]
 public class ProfileData : DataWithSession

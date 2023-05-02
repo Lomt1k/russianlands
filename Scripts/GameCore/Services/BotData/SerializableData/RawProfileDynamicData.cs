@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using SQLite;
 
-namespace MarkOne.Scripts.Bot.DataBase.SerializableData;
+namespace MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
 
 [Table("ProfilesDynamic")]
 public class RawProfileDynamicData : RawDynamicData<ProfileDynamicData>

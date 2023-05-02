@@ -2,12 +2,12 @@
 using System.Text;
 using System.Threading.Tasks;
 using MarkOne.Scripts.Bot;
-using MarkOne.Scripts.Bot.DataBase.SerializableData;
 using MarkOne.Scripts.GameCore.Buildings;
 using MarkOne.Scripts.GameCore.Buildings.Training;
 using MarkOne.Scripts.GameCore.Dialogs.Town.Shop;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Resources;
+using MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
 using MarkOne.Scripts.GameCore.Sessions;
 
 namespace MarkOne.Scripts.GameCore.Dialogs.Town.Buildings.TrainingBuildingDialog;

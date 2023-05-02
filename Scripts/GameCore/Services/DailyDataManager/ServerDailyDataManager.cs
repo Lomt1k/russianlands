@@ -3,7 +3,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using MarkOne.Scripts.Bot;
-using MarkOne.Scripts.Bot.DataBase.SerializableData;
+using MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
 
 namespace MarkOne.Scripts.GameCore.Services.DailyDataManagers;
 

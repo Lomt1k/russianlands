@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using MarkOne.Scripts.Bot;
-using MarkOne.Scripts.Bot.DataBase.SerializableData;
 using MarkOne.Scripts.GameCore.Services.DailyDataManagers;
 using MarkOne.Scripts.GameCore.Sessions;
+using MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
 
 namespace MarkOne.Scripts.GameCore.Services.DailyDataManager;
 

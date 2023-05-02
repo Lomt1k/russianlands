@@ -2,7 +2,7 @@
 using SQLite;
 using MarkOne.Scripts.GameCore.Services.Mobs;
 
-namespace MarkOne.Scripts.Bot.DataBase.SerializableData;
+namespace MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
 
 [Table("ProfileDailyData")]
 public class RawProfileDailyData : RawDynamicData<ProfileDailyData>

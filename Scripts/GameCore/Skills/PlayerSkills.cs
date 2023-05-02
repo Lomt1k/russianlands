@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 using MarkOne.Scripts.Bot;
-using MarkOne.Scripts.Bot.DataBase.SerializableData;
 using MarkOne.Scripts.GameCore.Buildings;
 using MarkOne.Scripts.GameCore.Buildings.General;
 using MarkOne.Scripts.GameCore.Items;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Resources;
+using MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
 using MarkOne.Scripts.GameCore.Units;
 using MarkOne.Scripts.GameCore.Units.Stats;
 

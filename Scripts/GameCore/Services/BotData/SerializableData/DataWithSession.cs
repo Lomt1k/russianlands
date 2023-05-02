@@ -1,7 +1,7 @@
 ﻿using SQLite;
 using MarkOne.Scripts.GameCore.Sessions;
 
-namespace MarkOne.Scripts.Bot.DataBase.SerializableData;
+namespace MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
 
 public abstract class DataWithSession
 {
