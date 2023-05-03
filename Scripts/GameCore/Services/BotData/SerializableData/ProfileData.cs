@@ -52,6 +52,8 @@ public class ProfileData : DataWithSession
     public int resourceFruitCherry { get; set; }
     public int resourceFruitGrape { get; set; }
     // other resources
+    public int resourceCrossroadsEnergy { get; set; } = 5;
+    public DateTime lastCrossroadsResourceUpdate { get; set; } = DateTime.UtcNow;
     public int resourceArenaTicket { get; set; }
 
     // skills

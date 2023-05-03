@@ -19,9 +19,10 @@ public class ProfileDailyData : DataWithSession
     // for stats
     public int activityInSeconds { get; set; } = 1;
 
-    // map mobs progress
+    // game data
     public MobDifficulty? locationMobsDifficulty { get; set; }
     public Dictionary<LocationId, List<byte>> defeatedLocationMobs { get; set; } = new();
+    public int lastCrossroadId { get; set; }
 
 
 

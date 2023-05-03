@@ -9,7 +9,7 @@ namespace MarkOne.Scripts.GameCore.Services.Mobs;
 public class LocationsMobPack
 {
     [JsonProperty]
-    private Dictionary<LocationId, SimpleMobData[]> mobsByLocation { get; } = new();
+    private Dictionary<LocationId, SimpleMobData[]> mobsByLocation { get; set; } = new();
 
     public SimpleMobData[] this[LocationId locationId] => mobsByLocation[locationId];
 

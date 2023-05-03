@@ -83,6 +83,12 @@ public class PlayerResources
         return ResourcesDictionary.Get(resourceId).GetValue(_profileData);
     }
 
+    /// <returns>Количество имеющихся у игрока ресурсов в виде ResourceData</returns>
+    public ResourceData GetResourceData(ResourceId resourceId)
+    {
+        return new ResourceData(resourceId, GetValue(resourceId));
+    }
+
     /// <summary>
     /// Попытаться произвести покупку со списанием указанных ресурсов
     /// </summary>

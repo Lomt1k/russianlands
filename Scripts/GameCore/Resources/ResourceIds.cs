@@ -26,7 +26,8 @@ public enum ResourceId : byte
     FruitKiwi = 19,
     FruitCherry = 20,
     FruitGrape = 21,
-    ArenaTicket = 22,
+    CrossroadsEnergy = 22,
+    ArenaTicket = 23,
 }
 
 public static class ResourceIdExtensions
@@ -60,6 +61,7 @@ public static class ResourceIdExtensions
             ResourceId.FruitCherry => Emojis.ResourceFruitCherry,
             ResourceId.FruitGrape => Emojis.ResourceFruitGrape,
 
+            ResourceId.CrossroadsEnergy => Emojis.ResourceCrossroadsEnergy,
             ResourceId.ArenaTicket => Emojis.ResourceArenaTicket,
 
             _ => Emojis.Empty

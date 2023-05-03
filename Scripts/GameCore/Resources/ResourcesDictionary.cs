@@ -35,6 +35,7 @@ public static class ResourcesDictionary
             { ResourceId.FruitKiwi, new ResourceFruitKiwi() },
             { ResourceId.FruitCherry, new ResourceFruitCherry() },
             { ResourceId.FruitGrape, new ResourceFruitGrape() },
+            { ResourceId.CrossroadsEnergy, new ResourceCrossroadsEnergy() },
             { ResourceId.ArenaTicket, new ResourceArenaTicket() },
         };
     }

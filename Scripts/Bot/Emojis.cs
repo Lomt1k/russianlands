@@ -120,6 +120,7 @@ public static class Emojis
     public static readonly Emoji ResourceFruitCherry = new Emoji("\ud83c\udf52");
     public static readonly Emoji ResourceFruitGrape = new Emoji("\ud83c\udf47");
 
+    public static readonly Emoji ResourceCrossroadsEnergy = new Emoji("\ud83d\udd0b");
     public static readonly Emoji ResourceArenaTicket = new Emoji("\ud83d\udd16");
 
     // --- Characters
@@ -201,6 +202,9 @@ public static class Emojis
     public static readonly Emoji ElementTraining = new Emoji("\ud83c\udf93");
     public static readonly Emoji ElementCancel = new Emoji("\ud83d\udeab");
     public static readonly Emoji ElementBin = new Emoji("\ud83d\uddd1");
+    public static readonly Emoji ElementArrowLeft = new Emoji("\u2b05\ufe0f");
+    public static readonly Emoji ElementArrowUp = new Emoji("\u2b06\ufe0f");
+    public static readonly Emoji ElementArrowRight = new Emoji("\u27a1\ufe0f");
 
     public static Emoji GetNumeric(int value)
     {

@@ -10,7 +10,7 @@ public class CrossroadsMobPack
     public const int MOB_SETS_IN_ONE_PACK = 50;
 
     [JsonProperty]
-    private Dictionary<int, CrossroadsMobData[]> mobsByCrossId { get; } = new();
+    private Dictionary<int, CrossroadsMobData[]> mobsByCrossId { get; set; } = new();
 
     public CrossroadsMobData[] this[int crossId]
     {
