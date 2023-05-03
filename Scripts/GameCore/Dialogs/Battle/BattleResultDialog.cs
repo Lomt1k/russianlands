@@ -28,7 +28,7 @@ public class BattleResultDialog : DialogBase
         sb.AppendLine();
         sb.AppendLine(Localization.Get(session, descriptionLocalization));
 
-        if (_data.battleResult == BattleResult.Win && _data.rewards != null && _data.rewards.Count > 0)
+        if (_data.battleResult == BattleResult.Win && _data.rewards != null)
         {
             sb.AppendLine();
             sb.AppendLine(Localization.Get(session, "battle_result_header_rewards"));

@@ -18,8 +18,7 @@ public class BattleManager : Service
     {
     }
 
-    public Battle StartBattlePVP(Player opponentA, Player opponentB,
-        List<RewardBase>? rewards = null,
+    public Battle StartBattlePVP(Player opponentA, Player opponentB, IEnumerable<RewardBase>? rewards = null,
         Func<Player, BattleResult, Task>? onBattleEndFunc = null,
         Func<Player, BattleResult, Task>? onContinueButtonFunc = null,
         Func<Player, BattleResult, bool>? isAvailableReturnToTownFunc = null)
@@ -30,8 +29,7 @@ public class BattleManager : Service
         return battle;
     }
 
-    public Battle StartBattleWithMob(Player player, IMobData mobData,
-        List<RewardBase>? rewards = null,
+    public Battle StartBattleWithMob(Player player, IMobData mobData, IEnumerable<RewardBase>? rewards = null,
         Func<Player, BattleResult, Task>? onBattleEndFunc = null,
         Func<Player, BattleResult, Task>? onContinueButtonFunc = null,
         Func<Player, BattleResult, bool>? isAvailableReturnToTownFunc = null)
@@ -40,8 +38,7 @@ public class BattleManager : Service
         return StartBattleWithMob(player, mob, rewards, onBattleEndFunc, onContinueButtonFunc, isAvailableReturnToTownFunc);
     }
 
-    public Battle StartBattleWithMob(Player player, Mob mob,
-        List<RewardBase>? rewards = null,
+    public Battle StartBattleWithMob(Player player, Mob mob, IEnumerable<RewardBase>? rewards = null,
         Func<Player, BattleResult, Task>? onBattleEndFunc = null,
         Func<Player, BattleResult, Task>? onContinueButtonFunc = null,
         Func<Player, BattleResult, bool>? isAvailableReturnToTownFunc = null)

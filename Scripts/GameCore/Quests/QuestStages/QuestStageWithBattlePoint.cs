@@ -8,6 +8,7 @@ using MarkOne.Scripts.GameCore.Dialogs.Battle;
 using MarkOne.Scripts.GameCore.Dialogs.Town.Map;
 using MarkOne.Scripts.GameCore.Dialogs.Town;
 using MarkOne.Scripts.GameCore.Sessions;
+using MarkOne.Scripts.GameCore.Resources;
 
 namespace MarkOne.Scripts.GameCore.Quests.QuestStages;
 
@@ -46,7 +47,7 @@ public class QuestStageWithBattlePoint : QuestStage
         var battlePointData = new BattlePointData
         {
             mob = new Mob(session, mobData),
-            foodPrice = foodPrice,
+            price = new ResourceData(ResourceId.Food, foodPrice),
             rewards = rewards,
             onBackButtonFunc = () => BackToMap(session),
             onBattleEndFunc = (Player player, BattleResult result) =>

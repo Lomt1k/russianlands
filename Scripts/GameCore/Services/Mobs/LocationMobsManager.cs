@@ -14,6 +14,7 @@ using MarkOne.Scripts.GameCore.Dialogs.Battle;
 using MarkOne.Scripts.GameCore.Dialogs.Town.Map;
 using MarkOne.Scripts.GameCore.Dialogs.Town;
 using MarkOne.Scripts.GameCore.Sessions;
+using MarkOne.Scripts.GameCore.Resources;
 
 namespace MarkOne.Scripts.GameCore.Services.Mobs;
 
@@ -122,7 +123,7 @@ public class LocationMobsManager : Service
         return new BattlePointData
         {
             mob = new Mob(session, mobData),
-            foodPrice = locationMobSettings.foodPrice,
+            price = new ResourceData(ResourceId.Food, locationMobSettings.foodPrice),
             rewards = locationMobSettings.battleRewards,
             onBackButtonFunc = () => new MapDialog(session).StartWithLocation(locationId),
             onBattleEndFunc = (Player player, BattleResult result) =>

@@ -232,7 +232,7 @@ public class MapDialogPanel : DialogPanelBase
         var text = Emojis.ButtonBattle + mobData.mob.GetFullUnitInfoView(session);
 
         ClearButtons();
-        var priceView = mobData.foodPrice > 0 ? ResourceId.Food.GetEmoji() + mobData.foodPrice.View() : string.Empty;
+        var priceView = mobData.price.amount > 0 ? mobData.price.resourceId.GetEmoji() + mobData.price.amount.View() : string.Empty;
         var startBattleButton = Localization.Get(session, "dialog_mob_battle_point_start_battle", priceView);
         RegisterButton(startBattleButton, () => new BattlePointDialog(session, mobData).SilentStart());
         RegisterBackButton(() => ShowLocation(locationId));
@@ -255,7 +255,7 @@ public class MapDialogPanel : DialogPanelBase
 
         ClearButtons();
         var text = Emojis.ButtonBattle + mobData.mob.GetFullUnitInfoView(session);
-        var priceView = mobData.foodPrice > 0 ? ResourceId.Food.GetEmoji() + mobData.foodPrice.View() : string.Empty;
+        var priceView = mobData.price.amount > 0 ? mobData.price.resourceId.GetEmoji() + mobData.price.amount.View() : string.Empty;
         var startBattleButton = Localization.Get(session, "dialog_mob_battle_point_start_battle", priceView);
         RegisterButton(startBattleButton, () => new BattlePointDialog(session, mobData).SilentStart());
         RegisterBackButton(() => ShowLocation(locationId));

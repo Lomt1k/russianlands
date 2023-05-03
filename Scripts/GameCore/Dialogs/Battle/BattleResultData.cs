@@ -16,7 +16,7 @@ public enum BattleResult
 public struct BattleResultData
 {
     public BattleResult battleResult;
-    public IReadOnlyList<RewardBase>? rewards;
+    public IEnumerable<RewardBase>? rewards;
     public Func<Player, BattleResult, Task>? onContinueButtonFunc;
     public bool isReturnToTownAvailable;
 }

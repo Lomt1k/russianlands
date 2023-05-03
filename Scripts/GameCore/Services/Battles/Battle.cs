@@ -20,7 +20,7 @@ public class Battle
     private static readonly BattleManager battleManager = ServiceLocator.Get<BattleManager>();
     private static readonly MessageSender messageSender = ServiceLocator.Get<MessageSender>();
 
-    private readonly IReadOnlyList<RewardBase>? _rewards;
+    private readonly IEnumerable<RewardBase>? _rewards;
     private readonly Func<Player, BattleResult, Task>? _onBattleEndFunc;
     private readonly Func<Player, BattleResult, Task>? _onContinueButtonFunc;
     private readonly Func<Player, BattleResult, bool>? _isAvailableReturnToTownFunc;
@@ -34,8 +34,7 @@ public class Battle
     public bool isPVE { get; private set; }
     public DateTime startTime { get; private set; }
 
-    public Battle(Player opponentA, IBattleUnit opponentB,
-        List<RewardBase>? rewards = null,
+    public Battle(Player opponentA, IBattleUnit opponentB, IEnumerable<RewardBase>? rewards = null,
         Func<Player, BattleResult, Task>? onBattleEndFunc = null,
         Func<Player, BattleResult, Task>? onContinueButtonFunc = null,
         Func<Player, BattleResult, bool>? isAvailableReturnToTownFunc = null)

@@ -1,9 +1,12 @@
 ﻿using MarkOne.Scripts.Bot;
+using MarkOne.Scripts.GameCore.Dialogs.Battle;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Resources;
+using MarkOne.Scripts.GameCore.Rewards;
 using MarkOne.Scripts.GameCore.Services;
 using MarkOne.Scripts.GameCore.Services.Mobs;
 using MarkOne.Scripts.GameCore.Sessions;
+using MarkOne.Scripts.GameCore.Units;
 using MarkOne.Scripts.GameCore.Units.Mobs;
 using System;
 using System.Text;
@@ -23,6 +26,14 @@ public class CrossroadsDialog : DialogBase
 
     public override async Task Start()
     {
+        if (!crossroadsMobsManager.isMobsReady)
+        {
+            var notification = Localization.Get(session, "dialog_map_mobs_generation_in_progress");
+            await notificationsManager.ShowNotification(session, notification,
+                () => notificationsManager.GetNotificationsAndEntryTown(session, TownEntryReason.BackFromInnerDialog)).FastAwait();
+            return;
+        }
+
         var difficulty = MobDifficultyCalculator.GetActualDifficultyForPlayer(session.player);
         var crossId = session.profile.dailyData.lastCrossroadId + 1;
         var mobs = crossroadsMobsManager[difficulty][crossId];
@@ -97,7 +108,30 @@ public class CrossroadsDialog : DialogBase
 
     private async Task ShowMobPoint(CrossroadsMobData mobData)
     {
+        var battlePointData = GetMobBattlePointData(mobData);
+        await new BattlePointDialog(session, battlePointData).Start().FastAwait();
+    }
 
+    public BattlePointData GetMobBattlePointData(CrossroadsMobData mobData)
+    {
+        var reward = new ResourceReward() { resourceId = mobData.fruitId, amount = 1 };
+
+        return new BattlePointData
+        {
+            mob = new Mob(session, mobData),
+            price = new ResourceData(ResourceId.CrossroadsEnergy, 1),
+            rewards = new RewardBase[] { reward },
+            onBackButtonFunc = () => new CrossroadsDialog(session).Start(),
+            onBattleEndFunc = (Player player, BattleResult result) =>
+            {
+                player.session.profile.dailyData.lastCrossroadId++;
+                return Task.CompletedTask;
+            },
+            onContinueButtonFunc = async (Player player, BattleResult result) =>
+            {
+                await notificationsManager.GetNotificationsAndEntryTown(session, TownEntryReason.BattleEnd).FastAwait();
+            },
+        };
     }
 
 }

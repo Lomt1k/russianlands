@@ -16,8 +16,8 @@ namespace MarkOne.Scripts.GameCore.Dialogs.Town.Map;
 public class BattlePointData
 {
     public Mob mob;
-    public int foodPrice;
-    public List<RewardBase>? rewards;
+    public ResourceData price;
+    public IEnumerable<RewardBase>? rewards;
     public Func<Task>? onBackButtonFunc;
     public Func<Player, BattleResult, Task>? onBattleEndFunc;
     public Func<Player, BattleResult, Task>? onContinueButtonFunc;
@@ -39,7 +39,7 @@ public class BattlePointDialog : DialogBase
         var text = Emojis.ButtonBattle + _data.mob.GetFullUnitInfoView(session);
 
         ClearButtons();
-        var priceView = _data.foodPrice > 0 ? ResourceId.Food.GetEmoji() + _data.foodPrice.View() : string.Empty;
+        var priceView = _data.price.amount > 0 ? _data.price.resourceId.GetEmoji() + _data.price.amount.View() : string.Empty;
         var startBattleButton = Localization.Get(session, "dialog_mob_battle_point_start_battle", priceView);
         RegisterButton(startBattleButton, TryStartBattle);
         if (_data.onBackButtonFunc != null)
@@ -57,12 +57,11 @@ public class BattlePointDialog : DialogBase
 
     private async Task TryStartBattle()
     {
-        var playerResources = session.player.resources;
-        var foodPrice = new ResourceData(ResourceId.Food, _data.foodPrice);
-        var successsPurchase = playerResources.TryPurchase(foodPrice);
+        var playerResources = session.player.resources;;
+        var successsPurchase = playerResources.TryPurchase(_data.price);
         if (!successsPurchase)
         {
-            var buyResourcesDialog = new BuyResourcesForDiamondsDialog(session, foodPrice,
+            var buyResourcesDialog = new BuyResourcesForDiamondsDialog(session, _data.price,
             onSuccess: async () => await new BattlePointDialog(session, _data).SilentStart(),
             onCancel: async () => await new BattlePointDialog(session, _data).Start());
             await buyResourcesDialog.Start().FastAwait();
