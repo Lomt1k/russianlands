@@ -13,7 +13,7 @@ namespace MarkOne.Scripts.GameCore.Dialogs.Resources;
 public class BuyResourcesForDiamondsDialog : DialogBase
 {
     private readonly IEnumerable<ResourceData> _targetResources;
-    private readonly int _priceInDiamonds;
+    private readonly ResourceData _priceInDiamonds;
     private readonly Func<Task> _onSuccess;
     private readonly Func<Task> _onCancel;
 
@@ -23,9 +23,10 @@ public class BuyResourcesForDiamondsDialog : DialogBase
         _onSuccess = onSuccess;
         _onCancel = onCancel;
 
+        _priceInDiamonds = new ResourceData(ResourceId.Diamond, 0);
         foreach (var resourceData in _targetResources)
         {
-            _priceInDiamonds += ResourceHelper.CalculatePriceInDiamonds(resourceData);
+            _priceInDiamonds.amount += ResourceHelper.CalculatePriceInDiamonds(resourceData);
         }
     }
 
@@ -46,7 +47,8 @@ public class BuyResourcesForDiamondsDialog : DialogBase
 
         sb.AppendLine();
         sb.AppendLine(Localization.Get(session, "resource_purchase_for_diamonds"));
-        RegisterButton(ResourceId.Diamond.GetEmoji() + _priceInDiamonds.ToString(), TryPurchase);
+        var fullPriceView = ResourceId.Diamond.GetEmoji() + _priceInDiamonds.amount.View();
+        RegisterButton(fullPriceView, TryPurchase);
         RegisterBackButton(_onCancel);
 
         await SendDialogMessage(sb, GetMultilineKeyboard()).FastAwait();
@@ -55,12 +57,13 @@ public class BuyResourcesForDiamondsDialog : DialogBase
     private async Task TryPurchase()
     {
         var playerResources = session.player.resources;
-        var success = playerResources.TryPurchase(new ResourceData(ResourceId.Diamond, _priceInDiamonds));
+        var success = playerResources.TryPurchase(_priceInDiamonds);
         if (success)
         {
             playerResources.ForceAdd(_targetResources);
             var sb = new StringBuilder();
-            sb.AppendLine(Localization.Get(session, "resource_successfull_purshase_for_diamonds"));
+            var fullPriceView = ResourceId.Diamond.GetEmoji() + _priceInDiamonds.amount.View();
+            sb.AppendLine(Localization.Get(session, "resource_successfull_purshase_for_diamonds", fullPriceView));
             sb.AppendLine();
             sb.AppendLine(Localization.Get(session, "resource_header_resources"));
             foreach (var resourceData in _targetResources)
@@ -68,8 +71,7 @@ public class BuyResourcesForDiamondsDialog : DialogBase
                 sb.AppendLine(resourceData.GetLocalizedView(session));
             }
 
-            await messageSender.SendTextMessage(session.chatId, sb.ToString()).FastAwait();
-            await _onSuccess().FastAwait();
+            await notificationsManager.ShowNotification(session, sb, _onSuccess).FastAwait();
             return;
         }
 

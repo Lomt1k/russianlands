@@ -26,8 +26,8 @@ public class BattlePointData
 
 public class BattlePointDialog : DialogBase
 {
-    private readonly BattlePointData _data;
-    private readonly BattleManager _battleManager = Services.ServiceLocator.Get<BattleManager>();
+    protected readonly BattlePointData _data;
+    protected readonly BattleManager _battleManager = Services.ServiceLocator.Get<BattleManager>();
 
     public BattlePointDialog(GameSession session, BattlePointData data) : base(session)
     {
@@ -55,9 +55,9 @@ public class BattlePointDialog : DialogBase
         await TryStartBattle().FastAwait();
     }
 
-    private async Task TryStartBattle()
+    protected virtual async Task TryStartBattle()
     {
-        var playerResources = session.player.resources;;
+        var playerResources = session.player.resources;
         var successsPurchase = playerResources.TryPurchase(_data.price);
         if (!successsPurchase)
         {

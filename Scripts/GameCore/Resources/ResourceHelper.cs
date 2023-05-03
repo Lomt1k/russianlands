@@ -59,9 +59,13 @@ public static partial class ResourceHelper
         minBoostCraftInDiamondsBySeconds = boostCraftInDiamondsBySeconds.First();
         maxBoostCraftInDiamondsBySeconds = boostCraftInDiamondsBySeconds.Last();
 
-        //ResourceHelperTraining.cs
+        //ResourceHelper_Training.cs
         minBoostTrainingInDiamondsBySeconds = boostTrainingInDiamondsBySeconds.First();
         maxBoostTrainingInDiamondsBySeconds = boostTrainingInDiamondsBySeconds.Last();
+
+        //ResourceHelper_CrossroadsEnergy.cs
+        minEnergyPriceInDiamondsBySeconds = energyPriceInDiamondsBySeconds.First();
+        maxEnergyPriceInDiamondsBySeconds = energyPriceInDiamondsBySeconds.Last();
     }
 
     public static int CalculatePriceInDiamonds(ResourceData resourceData)

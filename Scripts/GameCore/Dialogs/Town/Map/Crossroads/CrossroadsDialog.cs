@@ -16,8 +16,6 @@ namespace MarkOne.Scripts.GameCore.Dialogs.Town.Map.Crossroads;
 
 public class CrossroadsDialog : DialogBase
 {
-    private const int SECONDS_FOR_ENERGY = 7200;
-
     private static readonly CrossroadsMobsManager crossroadsMobsManager = ServiceLocator.Get<CrossroadsMobsManager>();
 
     public CrossroadsDialog(GameSession _session) : base(_session)
@@ -37,7 +35,7 @@ public class CrossroadsDialog : DialogBase
         var difficulty = MobDifficultyCalculator.GetActualDifficultyForPlayer(session.player);
         var crossId = session.profile.dailyData.lastCrossroadId + 1;
         var mobs = crossroadsMobsManager[difficulty][crossId];
-        var energyInfo = RefreshEnergyInfo();
+        var energyInfo = ResourceHelper.RefreshCrossroadsEnergy(session);
 
         var sb = new StringBuilder()
             .AppendLine(Localization.Get(session, "menu_item_crossroads").Bold())
@@ -83,33 +81,10 @@ public class CrossroadsDialog : DialogBase
             .ToString();
     }
 
-    private (ResourceData resourceData, int resourceLimit, TimeSpan timeUntilNextEnergy) RefreshEnergyInfo()
-    {
-        var playerResources = session.player.resources;
-        var now = DateTime.UtcNow;
-        var lastUpdateTime = session.profile.data.lastCrossroadsResourceUpdate;
-        var nextTime = lastUpdateTime;
-        int energyToAdd = 0;
-        while (nextTime <= now)
-        {
-            nextTime = lastUpdateTime.AddSeconds(SECONDS_FOR_ENERGY);
-            if (nextTime <= now)
-            {
-                energyToAdd++;
-                lastUpdateTime = nextTime;
-            }
-        }
-        session.profile.data.lastCrossroadsResourceUpdate = lastUpdateTime;
-        playerResources.Add(new ResourceData(ResourceId.CrossroadsEnergy, energyToAdd));
-        var resourceData = playerResources.GetResourceData(ResourceId.CrossroadsEnergy);
-        var resourceLimit = playerResources.GetResourceLimit(ResourceId.CrossroadsEnergy);
-        return (resourceData, resourceLimit, nextTime - now);
-    }
-
     private async Task ShowMobPoint(CrossroadsMobData mobData)
     {
         var battlePointData = GetMobBattlePointData(mobData);
-        await new BattlePointDialog(session, battlePointData).Start().FastAwait();
+        await new CrossroadsBattlePointDialog(session, battlePointData).Start().FastAwait();
     }
 
     public BattlePointData GetMobBattlePointData(CrossroadsMobData mobData)
