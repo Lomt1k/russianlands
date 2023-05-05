@@ -17,7 +17,7 @@ public class BattleTurn
     private static readonly MessageSender messageSender = ServiceLocator.Get<MessageSender>();
 
     private List<IBattleAction>? _battleActions = null;
-    private readonly Dictionary<Player, List<BattleTooltipType>> _queryTooltipsToIgnoreByPlayers = new Dictionary<Player, List<BattleTooltipType>>();
+    private readonly Dictionary<Player, HashSet<BattleTooltipType>> _queryTooltipsToIgnoreByPlayers = new();
 
     public Action? onBattleTurnEnd;
 
@@ -120,41 +120,55 @@ public class BattleTurn
         if (_battleActions == null)
             return;
 
-        var mineStringBuilder = unit is Player ? new StringBuilder() : null;
-        var enemyStringBuilder = enemy is Player ? new StringBuilder() : null;
+        var mineStringBuilder = new StringBuilder();
+        var enemyStringBuilder = new StringBuilder();
 
-        mineStringBuilder?.AppendLine(Localization.Get(unit.session, "battle_mine_turn_maded"));
-        enemyStringBuilder?.AppendLine(Localization.Get(enemy.session, "battle_enemy_turn_maded", unit.nickname));
+        var minePlayer = unit is Player ? unit as Player : null;
+        var enemyPlayer = enemy is Player ? enemy as Player : null;
+
+        if (minePlayer is not null)
+        {
+            mineStringBuilder.AppendLine(Localization.Get(minePlayer.session, "battle_mine_turn_maded"));
+        }
+        if (enemyPlayer is not null)
+        {
+            enemyStringBuilder.AppendLine(Localization.Get(enemyPlayer.session, "battle_enemy_turn_maded", unit.nickname));
+        }
 
         foreach (var action in _battleActions)
         {
             action.ApplyActionWithMineStats(unit.unitStats);
             action.ApplyActionWithEnemyStats(enemy.unitStats);
 
-            mineStringBuilder?.AppendLine();
-            mineStringBuilder?.AppendLine(action.GetHeader(unit.session));
-            mineStringBuilder?.AppendLine(action.GetDescription(unit.session));
-
-            enemyStringBuilder?.AppendLine();
-            enemyStringBuilder?.AppendLine(action.GetHeader(enemy.session));
-            enemyStringBuilder?.AppendLine(action.GetDescription(enemy.session));
+            if (minePlayer is not null)
+            {
+                mineStringBuilder.AppendLine();
+                mineStringBuilder.AppendLine(action.GetHeader(minePlayer.session));
+                mineStringBuilder.AppendLine(action.GetDescription(minePlayer.session));
+            }
+            if (enemyPlayer is not null)
+            {
+                enemyStringBuilder.AppendLine();
+                enemyStringBuilder.AppendLine(action.GetHeader(enemyPlayer.session));
+                enemyStringBuilder.AppendLine(action.GetDescription(enemyPlayer.session));
+            }            
         }
 
-        if (mineStringBuilder != null)
+        if (minePlayer is not null)
         {
             mineStringBuilder.AppendLine();
-            mineStringBuilder.AppendLine(battle.GetStatsView(unit.session));
-            var keyboard = BattleToolipHelper.GetStatsKeyboard(unit.session);
-            await messageSender.SendTextMessage(unit.session.chatId, mineStringBuilder.ToString(), keyboard,
-                cancellationToken: unit.session.cancellationToken).FastAwait();
+            mineStringBuilder.AppendLine(battle.GetStatsView(minePlayer.session));
+            var keyboard = BattleToolipHelper.GetStatsKeyboard(minePlayer.session);
+            await messageSender.SendTextMessage(minePlayer.session.chatId, mineStringBuilder.ToString(), keyboard,
+                cancellationToken: minePlayer.session.cancellationToken).FastAwait();
         }
-        if (enemyStringBuilder != null)
+        if (enemyPlayer is not null)
         {
             enemyStringBuilder.AppendLine();
-            enemyStringBuilder.AppendLine(battle.GetStatsView(enemy.session));
-            var keyboard = BattleToolipHelper.GetStatsKeyboard(enemy.session);
-            await messageSender.SendTextMessage(enemy.session.chatId, enemyStringBuilder.ToString(), keyboard,
-                cancellationToken: enemy.session.cancellationToken).FastAwait();
+            enemyStringBuilder.AppendLine(battle.GetStatsView(enemyPlayer.session));
+            var keyboard = BattleToolipHelper.GetStatsKeyboard(enemyPlayer.session);
+            await messageSender.SendTextMessage(enemyPlayer.session.chatId, enemyStringBuilder.ToString(), keyboard,
+                cancellationToken: enemyPlayer.session.cancellationToken).FastAwait();
         }
     }
 
@@ -168,7 +182,7 @@ public class BattleTurn
     {
         if (!_queryTooltipsToIgnoreByPlayers.ContainsKey(player))
         {
-            _queryTooltipsToIgnoreByPlayers[player] = new List<BattleTooltipType>();
+            _queryTooltipsToIgnoreByPlayers[player] = new();
         }
         var ingoreList = _queryTooltipsToIgnoreByPlayers[player];
         if (ingoreList.Contains(callback.tooltip))

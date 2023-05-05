@@ -11,7 +11,6 @@ public interface IBattleUnit
     public string nickname { get; }
     public UnitStats unitStats { get; }
     public IBattleActionHandler actionHandler { get; }
-    public GameSession session { get; }
 
     public string GetGeneralUnitInfoView(GameSession sessionToSend);
     public string GetFullUnitInfoView(GameSession sessionToSend, bool withHealth = true);

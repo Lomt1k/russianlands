@@ -21,9 +21,8 @@ public class AddDamagePotionData : PotionData
     {
     }
 
-    public DamageInfo GetValues(GameSession session)
+    public DamageInfo GetValues()
     {
-        //TODO: Учитывать атакующие навыки игрока?
         return new DamageInfo(physicalDamage, fireDamage, coldDamage, lightningDamage);
     }
 
@@ -33,13 +32,13 @@ public class AddDamagePotionData : PotionData
         sb.AppendLine(Localization.Get(sessionForView, "potion_add_damage_description"));
         sb.AppendLine();
         sb.AppendLine(Localization.Get(sessionForView, "potion_description_damage_header"));
-        sb.Append(GetValues(sessionForValues).GetCompactView());
+        sb.Append(GetValues().GetCompactView());
         return sb.ToString();
     }
 
     public override void Apply(BattleTurn battleTurn, IBattleUnit unit)
     {
-        var statEffect = new ExtraDamageStatEffect(GetValues(unit.session));
+        var statEffect = new ExtraDamageStatEffect(GetValues());
         unit.unitStats.statEffects.Add(statEffect);
     }
 }

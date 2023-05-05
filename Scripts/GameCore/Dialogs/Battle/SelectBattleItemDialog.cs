@@ -295,11 +295,10 @@ public class SelectBattleItemDialog : DialogBase
     private async void SendPotionMessageForEnemy(PotionData potionData)
     {
         var enemy = _battleTurn.enemy;
-        var isPlayer = enemy is Player;
-        if (!isPlayer)
+        if (!(enemy is Player enemyPlayer))
             return;
 
-        var enemySession = enemy.session;
+        var enemySession = enemyPlayer.session;
         var sb = new StringBuilder();
         sb.AppendLine(Localization.Get(enemySession, "battle_potion_enemy_usage", session.player.nickname));
         sb.AppendLine(potionData.GetName(enemySession).Bold());

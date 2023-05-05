@@ -22,9 +22,8 @@ public class AddResistancePotionData : PotionData
     {
     }
 
-    public DamageInfo GetValues(GameSession session)
+    public DamageInfo GetValues()
     {
-        //TODO: Учитывать защитные навыки игрока?
         return new DamageInfo(physicalDamage, fireDamage, coldDamage, lightningDamage);
     }
 
@@ -34,13 +33,13 @@ public class AddResistancePotionData : PotionData
         sb.AppendLine(Localization.Get(sessionForView, "potion_resistance_description", turnsCount));
         sb.AppendLine();
         sb.AppendLine(Localization.Get(sessionForView, "potion_description_protection_header"));
-        sb.Append(GetValues(sessionForValues).GetCompactView());
+        sb.Append(GetValues().GetCompactView());
         return sb.ToString();
     }
 
     public override void Apply(BattleTurn battleTurn, IBattleUnit unit)
     {
-        var statEffect = new ExtraResistanceStatEffect(GetValues(unit.session), (byte)turnsCount);
+        var statEffect = new ExtraResistanceStatEffect(GetValues(), (byte)turnsCount);
         unit.unitStats.statEffects.Add(statEffect);
     }
 }
