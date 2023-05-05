@@ -21,12 +21,13 @@ public class FakePlayer : IBattleUnit
     public byte level { get; }
     public byte townhallLevel { get; }
     public string nickname { get; }
-    public bool isPremium { get; }
-    public Emoji avatar { get; } = Emojis.AvatarMale;
     public UnitStats unitStats { get; }
     public IBattleActionHandler actionHandler { get; }
+    public bool isPremium { get; }
+    public Emoji avatar { get; }
 
-    public FakePlayer(IEnumerable<InventoryItem> _items, Dictionary<ItemType, byte> _skills, byte _level, string _nickname)
+    public FakePlayer(IEnumerable<InventoryItem> _items, Dictionary<ItemType, byte> _skills, byte _level, string _nickname,
+        bool _isPremium = false, Emoji? _avatar = null)
     {
         equippedItems = new EquippedItems(_items);
         skills = new FakePlayerSkills(this, _skills); // before unitStats!
@@ -35,6 +36,8 @@ public class FakePlayer : IBattleUnit
         nickname = _nickname;
         unitStats = new FakePlayerStats(this);
         actionHandler = new FakePlayerActionHandler(this);
+        isPremium = _isPremium;
+        avatar = _avatar ?? Emojis.AvatarMale;
     }
 
     private byte GetPlayerTownhallLevel(byte playerLevel)

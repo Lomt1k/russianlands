@@ -7,12 +7,12 @@ using MarkOne.Scripts.GameCore.Items.ItemProperties;
 
 namespace MarkOne.Scripts.GameCore.Units.Stats;
 
-public class PlayerStats : UnitStats
+public class PlayerStats : UnitStats, IStatsForUnitWithItems
 {
-    public byte rageAbilityCounter;
-    public byte availablePotions;
-
     private readonly Player _player;
+
+    public byte rageAbilityCounter { get; set; }
+    public byte availablePotions { get; set; }
 
     public PlayerStats(Player player)
     {

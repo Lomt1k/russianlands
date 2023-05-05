@@ -6,11 +6,11 @@ using MarkOne.Scripts.GameCore.Items.ItemProperties;
 
 namespace MarkOne.Scripts.GameCore.Units.Stats;
 
-public class FakePlayerStats : UnitStats
+public class FakePlayerStats : UnitStats, IStatsForUnitWithItems
 {
-    public byte rageAbilityCounter;
-
     private readonly FakePlayer _fakePlayer;
+
+    public byte rageAbilityCounter { get; set; }
 
     public FakePlayerStats(FakePlayer fakePlayer)
     {

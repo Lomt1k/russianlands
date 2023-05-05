@@ -24,7 +24,7 @@ public static class ItemKeywordActionsHandler
         ref PlayerAttackAction generalAttack, ref List<IBattleAction> resultActionsList)
     {
         var unit = battleTurn.unit;
-        var playerStats = (PlayerStats)unit.unitStats;
+        var statsByItems = (IStatsForUnitWithItems)unit.unitStats;
         var abilitiesDict = selectedItem.data.ablitityByType;
         // --- Абилки, которые приплюсовывают урон
         // Additional Fire Damage
@@ -72,10 +72,10 @@ public static class ItemKeywordActionsHandler
         // Rage
         if (abilitiesDict.TryGetValue(AbilityType.RageKeyword, out _))
         {
-            playerStats.rageAbilityCounter++;
-            if (playerStats.rageAbilityCounter == 3)
+            statsByItems.rageAbilityCounter++;
+            if (statsByItems.rageAbilityCounter == 3)
             {
-                playerStats.rageAbilityCounter = 0;
+                statsByItems.rageAbilityCounter = 0;
                 generalAttack.damageInfo *= 2;
                 resultActionsList.Add(new RageAction());
             }
