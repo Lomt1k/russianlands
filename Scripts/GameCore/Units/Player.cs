@@ -48,25 +48,24 @@ public class Player : IBattleUnit
 
     public string GetGeneralUnitInfoView(GameSession sessionToSend)
     {
-        var sb = new StringBuilder();
         var isPremium = session.profile.data.IsPremiumActive();
-        sb.AppendLine(Emojis.AvatarMale + nickname.Bold() + (isPremium ? Emojis.StatPremium : Emojis.Empty));
-        sb.AppendLine(Localization.Get(sessionToSend, "unit_view_level", level));
-        return sb.ToString();
+        return new StringBuilder()
+            .AppendLine(Emojis.AvatarMale + nickname.Bold() + (isPremium ? Emojis.StatPremium : Emojis.Empty))
+            .AppendLine(Localization.Get(sessionToSend, "unit_view_level", level))
+            .ToString();
     }
 
     public string GetFullUnitInfoView(GameSession sessionToSend, bool withHealth = true)
     {
-        var sb = new StringBuilder();
-        sb.Append(GetGeneralUnitInfoView(sessionToSend));
-
-        sb.AppendLine();
-        sb.AppendLine(unitStats.GetView(sessionToSend, withHealth));
+        var sb = new StringBuilder()
+            .Append(GetGeneralUnitInfoView(sessionToSend))
+            .AppendLine()
+            .AppendLine(unitStats.GetView(sessionToSend, withHealth));
 
         if (IsSkillsAvailable())
         {
             sb.AppendLine();
-            sb.AppendLine(skills.GetShortView());
+            sb.AppendLine(skills.GetShortView(sessionToSend));
         }
 
         return sb.ToString();

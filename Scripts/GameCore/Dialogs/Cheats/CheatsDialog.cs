@@ -326,7 +326,7 @@ public class CheatsDialog : DialogBase
         RegisterBackButton("Cheats", Start);
         RegisterTownButton(isDoubleBack: true);
 
-        var text = "Skills\n\n".Bold() + session.player.skills.GetShortView();
+        var text = "Skills\n\n".Bold() + session.player.skills.GetShortView(session);
         await SendDialogMessage(text, GetKeyboardWithRowSizes(3, 3, 3, 2)).FastAwait();
     }
 

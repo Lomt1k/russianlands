@@ -8,6 +8,7 @@ using MarkOne.Scripts.GameCore.Items;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Resources;
 using MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
+using MarkOne.Scripts.GameCore.Sessions;
 using MarkOne.Scripts.GameCore.Units;
 using MarkOne.Scripts.GameCore.Units.Stats;
 
@@ -40,10 +41,10 @@ public class PlayerSkills
     }
 
     /// <returns>Уровень прокачки всех навыков в компактном отображении</returns>
-    public string GetShortView()
+    public string GetShortView(GameSession sessionToSend)
     {
         var sb = new StringBuilder();
-        sb.AppendLine(Localization.Get(_player.session, "unit_view_skills_header"));
+        sb.AppendLine(Localization.Get(sessionToSend, "unit_view_skills_header"));
         var i = 0;
         foreach (var itemType in GetAllSkillTypes())
         {

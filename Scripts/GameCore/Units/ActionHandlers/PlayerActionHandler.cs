@@ -14,9 +14,9 @@ public class PlayerActionHandler : IBattleActionHandler
 {
     public Player player { get; }
 
-    public PlayerActionHandler(Player player)
+    public PlayerActionHandler(Player _player)
     {
-        this.player = player;
+        player = _player;
     }
 
     public async Task<List<IBattleAction>> GetActionsBySelectedItem(BattleTurn battleTurn)

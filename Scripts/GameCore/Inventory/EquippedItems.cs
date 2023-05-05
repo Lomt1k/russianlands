@@ -43,6 +43,14 @@ public class EquippedItems
         }
     }
 
+    public EquippedItems(IEnumerable<InventoryItem> items)
+    {
+        foreach (var item in items)
+        {
+            TrySetupAsEquipped(item);
+        }
+    }
+
     // в том числе исправляет "лишние" экипированные предметы в случае некорректной даты
     private void TrySetupAsEquipped(InventoryItem item)
     {

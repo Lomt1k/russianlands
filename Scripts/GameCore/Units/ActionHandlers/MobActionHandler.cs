@@ -12,9 +12,9 @@ public class MobActionHandler : IBattleActionHandler
 {
     private Mob mob { get; }
 
-    public MobActionHandler(Mob mob)
+    public MobActionHandler(Mob _mob)
     {
-        this.mob = mob;
+        mob = _mob;
     }
 
     public async Task<List<IBattleAction>> GetActionsBySelectedItem(BattleTurn battleTurn)
