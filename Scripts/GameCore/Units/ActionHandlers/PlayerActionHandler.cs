@@ -27,7 +27,7 @@ public class PlayerActionHandler : IBattleActionHandler
         var dialog = new SelectBattleItemDialog(player.session, battleTurn, (item) =>
         {
             player.unitStats.OnUseItemInBattle(item);
-            var generalAttackAction = new PlayerAttackAction(player, item);
+            var generalAttackAction = new PlayerAttackAction(item);
             result.Add(generalAttackAction);
             ItemKeywordActionsHandler.HandleKeywords(battleTurn, item, ref generalAttackAction, ref result);
             generalAttackAction.damageInfo += player.unitStats.statEffects.GetExtraDamageAndRemoveEffects();

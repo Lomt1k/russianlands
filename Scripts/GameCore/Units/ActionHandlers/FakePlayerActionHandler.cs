@@ -4,7 +4,6 @@ using MarkOne.Scripts.GameCore.Items.ItemAbilities.Keywords;
 using MarkOne.Scripts.GameCore.Services.Battles;
 using MarkOne.Scripts.GameCore.Services.Battles.Actions;
 using MarkOne.Scripts.Utils;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -23,7 +22,9 @@ public class FakePlayerActionHandler : IBattleActionHandler
 
     public async Task<List<IBattleAction>> GetActionsBySelectedItem(BattleTurn battleTurn)
     {
-        throw new NotImplementedException();
+        var selectedActions = FakePlayerActionSelector.SelectAction(battleTurn);
+        await Task.Delay(3000); // for test
+        return selectedActions;
     }
 
     public bool TryAddShieldOnEnemyTurn(out DamageInfo damageInfo)

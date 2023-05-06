@@ -4,7 +4,6 @@ using MarkOne.Scripts.GameCore.Items;
 using MarkOne.Scripts.GameCore.Items.ItemAbilities;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Sessions;
-using MarkOne.Scripts.GameCore.Units;
 using MarkOne.Scripts.GameCore.Units.Stats;
 
 namespace MarkOne.Scripts.GameCore.Services.Battles.Actions;
@@ -20,7 +19,7 @@ public class PlayerAttackAction : IBattleAction
     /// Конструктор для атаки мечом / луком / посохом / свитком
     /// если item == null, то это атака кулаком
     /// </summary>
-    public PlayerAttackAction(Player attacker, InventoryItem? item)
+    public PlayerAttackAction(InventoryItem? item)
     {
         _item = item;
         damageInfo = item != null && item.data.ablitityByType.TryGetValue(AbilityType.DealDamage, out var dealDamageAbility)
