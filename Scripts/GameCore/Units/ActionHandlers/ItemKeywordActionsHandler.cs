@@ -65,7 +65,8 @@ public static class ItemKeywordActionsHandler
         var hasLastShot = abilitiesDict.TryGetValue(AbilityType.BowLastShotKeyword, out _);
         if (hasLastShot && unit.unitStats.currentArrows == 0)
         {
-            generalAttack.damageInfo *= 2;
+            battleTurn.enemy.unitStats.PredictDealDamageResult(generalAttack.damageInfo, out var predictedDamage, out _);
+            generalAttack.damageInfo += predictedDamage;
             resultActionsList.Add(new BowLastShotAction());
         }
 
@@ -76,7 +77,8 @@ public static class ItemKeywordActionsHandler
             if (statsByItems.rageAbilityCounter == 3)
             {
                 statsByItems.rageAbilityCounter = 0;
-                generalAttack.damageInfo *= 2;
+                battleTurn.enemy.unitStats.PredictDealDamageResult(generalAttack.damageInfo, out var predictedDamage, out _);
+                generalAttack.damageInfo += predictedDamage;
                 resultActionsList.Add(new RageAction());
             }
         }
@@ -86,11 +88,13 @@ public static class ItemKeywordActionsHandler
         {
             var ability = (FinishingKeywordAbility)finishingAbility;
             var multiplicator = ((float)ability.damageBonusPercentage / 100) + 1f;
-            var damageWithFinishing = generalAttack.damageInfo * multiplicator;
-            battleTurn.enemy.unitStats.PredictDealDamageResult(damageWithFinishing, out _, out var resultHealth);
+            battleTurn.enemy.unitStats.PredictDealDamageResult(generalAttack.damageInfo, out var predictedDamage, out var _);
+            var bonusDamageIfFinishing = predictedDamage * multiplicator;
+            battleTurn.enemy.unitStats.PredictDealDamageResult(generalAttack.damageInfo + bonusDamageIfFinishing, out _, out var resultHealth);
+
             if (resultHealth < 1)
             {
-                generalAttack.damageInfo *= multiplicator;
+                generalAttack.damageInfo += bonusDamageIfFinishing;
                 resultActionsList.Add(new FinishingAction(ability.damageBonusPercentage));
             }
         }
