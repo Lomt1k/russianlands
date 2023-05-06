@@ -27,7 +27,7 @@ public class QuestStageWithBattle : QuestStage
 
         // stage у квеста меняем сразу по окончанию боя, но вызываем его только после нажатия кнопки continue в окне наград
 
-        battleManager.StartBattleWithMob(session.player, mobData,
+        battleManager.StartBattle(session.player, mobData,
             rewards: rewards.Count > 0 ? rewards : null,
             onBattleEndFunc: (Player player, BattleResult result) =>
             {

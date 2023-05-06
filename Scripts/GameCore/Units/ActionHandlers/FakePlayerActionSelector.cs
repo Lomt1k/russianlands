@@ -13,8 +13,7 @@ public struct PredictedAttackData
     public PlayerAttackAction generalAttack { get; init; }
     public bool isAvailable { get; init; }
     public bool isLethalDamage { get; init; }
-
-    public int totalDamage => generalAttack.damageInfo.GetTotalValue();
+    public int predictedDamage { get ; init; }
 }
 
 public static class FakePlayerActionSelector
@@ -71,7 +70,7 @@ public static class FakePlayerActionSelector
         {
             var scroll = equipped[ItemType.Scroll, i];
             if (scroll != null)
-            {
+            {         
                 yield return scroll;
             }
         }
@@ -91,7 +90,9 @@ public static class FakePlayerActionSelector
             ItemType.Scroll => fakePlayer.unitStats.currentMana >= item.manaCost,
             _ => true
         };
-        var isLethalDamage = generalAttackAction.damageInfo.GetTotalValue() >= enemy.unitStats.currentHP;
+        enemy.unitStats.PredictDealDamageResult(generalAttackAction.damageInfo, out var predictedDamage, out int _);
+
+        var isLethalDamage = predictedDamage.GetTotalValue() >= enemy.unitStats.currentHP;
 
         return new PredictedAttackData
         {
@@ -100,6 +101,7 @@ public static class FakePlayerActionSelector
             generalAttack = generalAttackAction,
             isAvailable = isAvailable,
             isLethalDamage = isLethalDamage,
+            predictedDamage = predictedDamage.GetTotalValue(),
         };
     }
 
@@ -108,11 +110,11 @@ public static class FakePlayerActionSelector
         var hasAvailableLethalDamage = predictedAttacks.Any(x => x.isLethalDamage && x.isAvailable);
         if (hasAvailableLethalDamage)
         {
-            return predictedAttacks.Where(x => x.isLethalDamage && x.isAvailable).OrderByDescending(x => x.totalDamage).First().item;
+            return predictedAttacks.Where(x => x.isLethalDamage && x.isAvailable).OrderByDescending(x => x.predictedDamage).First().item;
         }
 
-        var bestAttack = predictedAttacks.OrderByDescending(x => x.totalDamage).First();
-        var bestAvailableAttack = predictedAttacks.Where(x => x.isAvailable).OrderByDescending(x => x.totalDamage).First();
+        var bestAttack = predictedAttacks.OrderByDescending(x => x.predictedDamage).First();
+        var bestAvailableAttack = predictedAttacks.Where(x => x.isAvailable).OrderByDescending(x => x.predictedDamage).First();
         var hasAvailableStick = predictedAttacks.Any(x => x.item.data.itemType == ItemType.Stick && x.isAvailable);
 
         if (bestAttack.item == bestAvailableAttack.item)
@@ -120,8 +122,8 @@ public static class FakePlayerActionSelector
             if (hasAvailableStick && bestAttack.item.data.itemType != ItemType.Stick)
             {
                 var stickAttack = predictedAttacks.Where(x => x.item.data.itemType == ItemType.Stick).First();
-                var damageRate = (float)stickAttack.totalDamage / bestAttack.totalDamage;
-                return damageRate > 0.75 ? stickAttack.item : bestAttack.item;
+                var damageRate = (float)stickAttack.predictedDamage / bestAttack.predictedDamage;
+                return damageRate > 0.5 ? stickAttack.item : bestAttack.item;
             }
             return bestAttack.item;
         }

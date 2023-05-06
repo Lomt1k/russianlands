@@ -64,8 +64,7 @@ public abstract class UnitStats
 
     public void RecalculateCurrentHP()
     {
-        var hp = _maxHP - _damagedHP;
-        _currentHP = Math.Max(hp, 1);
+        _currentHP = _maxHP - _damagedHP;
     }
 
     public void SetFullHealth()

@@ -18,7 +18,16 @@ public class BattleManager : Service
     {
     }
 
-    public Battle StartBattlePVP(Player opponentA, Player opponentB, IEnumerable<RewardBase>? rewards = null,
+    public Battle StartBattle(Player player, IMobData mobData, IEnumerable<RewardBase>? rewards = null,
+        Func<Player, BattleResult, Task>? onBattleEndFunc = null,
+        Func<Player, BattleResult, Task>? onContinueButtonFunc = null,
+        Func<Player, BattleResult, bool>? isAvailableReturnToTownFunc = null)
+    {
+        var mob = new Mob(player.session, mobData);
+        return StartBattle(player, mob, rewards, onBattleEndFunc, onContinueButtonFunc, isAvailableReturnToTownFunc);
+    }
+
+    public Battle StartBattle(Player opponentA, IBattleUnit opponentB, IEnumerable<RewardBase>? rewards = null,
         Func<Player, BattleResult, Task>? onBattleEndFunc = null,
         Func<Player, BattleResult, Task>? onContinueButtonFunc = null,
         Func<Player, BattleResult, bool>? isAvailableReturnToTownFunc = null)
@@ -28,26 +37,7 @@ public class BattleManager : Service
         battle.StartBattle();
         return battle;
     }
-
-    public Battle StartBattleWithMob(Player player, IMobData mobData, IEnumerable<RewardBase>? rewards = null,
-        Func<Player, BattleResult, Task>? onBattleEndFunc = null,
-        Func<Player, BattleResult, Task>? onContinueButtonFunc = null,
-        Func<Player, BattleResult, bool>? isAvailableReturnToTownFunc = null)
-    {
-        var mob = new Mob(player.session, mobData);
-        return StartBattleWithMob(player, mob, rewards, onBattleEndFunc, onContinueButtonFunc, isAvailableReturnToTownFunc);
-    }
-
-    public Battle StartBattleWithMob(Player player, Mob mob, IEnumerable<RewardBase>? rewards = null,
-        Func<Player, BattleResult, Task>? onBattleEndFunc = null,
-        Func<Player, BattleResult, Task>? onContinueButtonFunc = null,
-        Func<Player, BattleResult, bool>? isAvailableReturnToTownFunc = null)
-    {
-        var battle = new Battle(player, mob, rewards, onBattleEndFunc, onContinueButtonFunc, isAvailableReturnToTownFunc);
-        RegisterBattle(battle);
-        battle.StartBattle();
-        return battle;
-    }
+    
 
     private void RegisterBattle(Battle battle)
     {

@@ -35,11 +35,18 @@ public class AddShieldOnEnemyTurnAction : IBattleAction
         switch (shieldOwner)
         {
             case Player player:
-                var shield = player.inventory.equipped[ItemType.Shield];
-                if (shield == null)
+                var playerShield = player.inventory.equipped[ItemType.Shield];
+                if (playerShield == null)
                     break;
 
-                header = shield.GetFullName(session).Bold();
+                header = playerShield.GetFullName(session).Bold();
+                break;
+            case FakePlayer fakePlayer:
+                var fakePlayerShield = fakePlayer.equippedItems[ItemType.Shield];
+                if (fakePlayerShield == null)
+                    break;
+
+                header = fakePlayerShield.GetFullName(session).Bold();
                 break;
             default:
                 header = ItemType.Shield.GetEmoji() + Localization.Get(session, "battle_shield_default_header").Bold();

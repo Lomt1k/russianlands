@@ -43,72 +43,23 @@ public class BattleCommand : CommandBase
         mobData.localizationKey = "Dummy";
         mobData.statsSettings.health = 100_000;
         mobData.mobAttacks.Add(new MobAttack());
-        battleManager.StartBattleWithMob(player, mobData);
+        battleManager.StartBattle(player, mobData);
         return Task.CompletedTask;
     }
 
     private Task StartBattleWithGeneratedMob(Player player)
     {
         var mobData = mobFactory.GenerateMobForDebugBattle(player.level);
-        battleManager.StartBattleWithMob(player, mobData);
+        battleManager.StartBattle(player, mobData);
         return Task.CompletedTask;
     }
 
     private Task StartBattleWithShadowCopy(Player player)
     {
-        var playerStats = player.unitStats;
-        var equipped = player.inventory.equipped;
-
-        var mobData = new QuestMobData();
-        mobData.localizationKey = "Shadow";
-        mobData.statsSettings = new MobStatsSettings()
-        {
-            level = player.level,
-            health = playerStats.maxHP,
-            physicalResist = playerStats.resistance[DamageType.Physical],
-            fireResist = playerStats.resistance[DamageType.Fire],
-            coldResist = playerStats.resistance[DamageType.Cold],
-            lightningResist = playerStats.resistance[DamageType.Lightning],
-        };
-
-        var sword = equipped[ItemType.Sword];
-        if (sword != null)
-        {
-            mobData.mobAttacks.Add(CreateMobAttackFromItem(player, sword));
-        }
-        else
-        {
-            var fistsAttack = new MobAttack()
-            {
-                localizationKey = Emojis.StatPhysicalDamage + Localization.Get(player.session, "battle_attack_fists"),
-                minPhysicalDamage = 10,
-                maxPhysicalDamage = 10,
-            };
-            mobData.mobAttacks.Add(fistsAttack);
-        }
-
-        var bow = equipped[ItemType.Bow];
-        if (bow != null)
-        {
-            mobData.mobAttacks.Add(CreateMobAttackFromItem(player, bow));
-        }
-
-        var stick = equipped[ItemType.Stick];
-        if (stick != null)
-        {
-            mobData.mobAttacks.Add(CreateMobAttackFromItem(player, stick));
-        }
-
-        for (var i = 0; i < ItemType.Scroll.GetSlotsCount(); i++)
-        {
-            var scroll = equipped[ItemType.Scroll, i];
-            if (scroll != null)
-            {
-                mobData.mobAttacks.Add(CreateMobAttackFromItem(player, scroll));
-            }
-        }
-
-        battleManager.StartBattleWithMob(player, mobData);
+        var items = player.inventory.equipped.allEquipped;
+        var skills = player.skills.GetAllSkills();
+        var fakePlayer = new FakePlayer(items, skills, player.level, "Shadow Copy", player.session.profile.data.IsPremiumActive());
+        battleManager.StartBattle(player, fakePlayer);
         return Task.CompletedTask;
     }
 

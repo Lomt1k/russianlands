@@ -68,7 +68,7 @@ public class BattlePointDialog : DialogBase
             return;
         }
 
-        _battleManager.StartBattleWithMob(session.player, _data.mob, _data.rewards,
+        _battleManager.StartBattle(session.player, _data.mob, _data.rewards,
             _data.onBattleEndFunc, _data.onContinueButtonFunc, _data.isAvailableReturnToTownFunc);
     }
 

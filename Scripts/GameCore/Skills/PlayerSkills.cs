@@ -143,6 +143,16 @@ public class PlayerSkills
         return (byte)result;
     }
 
+    public Dictionary<ItemType,byte> GetAllSkills()
+    {
+        var result = new Dictionary<ItemType,byte>();
+        foreach (var itemType in GetAllSkillTypes())
+        {
+            result[itemType] = GetValue(itemType);
+        }
+        return result;
+    }
+
     private void RecalculateStatsAfterSkillChange()
     {
         var playerStats = (PlayerStats)_player.unitStats;
