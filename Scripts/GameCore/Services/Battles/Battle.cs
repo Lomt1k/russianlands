@@ -103,11 +103,13 @@ public class Battle
     private async void HandleBattleAsync()
     {
         var battleTurnTimeInSeconds = isPVE ? 120 : 80;
+        int turnNumber = 0;
         while (!HasDefeatedUnits())
         {
-            currentTurn = new BattleTurn(this, firstUnit, battleTurnTimeInSeconds);
+            turnNumber++;
+            currentTurn = new BattleTurn(this, firstUnit, battleTurnTimeInSeconds, _isFirstUnit: true, turnNumber);
             await currentTurn.HandleTurn().FastAwait();
-            currentTurn = new BattleTurn(this, secondUnit, battleTurnTimeInSeconds);
+            currentTurn = new BattleTurn(this, secondUnit, battleTurnTimeInSeconds, _isFirstUnit: false, turnNumber);
             await currentTurn.HandleTurn().FastAwait();
         }
         currentTurn = null;

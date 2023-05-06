@@ -18,7 +18,7 @@ public struct PredictedAttackData
 
 public static class FakePlayerActionSelector
 {
-    public static List<IBattleAction> SelectAction(BattleTurn battleTurn)
+    public static (List<IBattleAction> battleActions, InventoryItem selectedItem) SelectAction(BattleTurn battleTurn)
     {
         var fakePlayer = (FakePlayer)battleTurn.unit;
         var enemy = battleTurn.enemy;
@@ -31,7 +31,7 @@ public static class FakePlayerActionSelector
         var generalAttackAction = new PlayerAttackAction(item);
         var result = new List<IBattleAction> { generalAttackAction };
         ItemKeywordActionsHandler.HandleKeywords(battleTurn, item, ref generalAttackAction, ref result);
-        return result;
+        return (result, item);
     }
 
     private static List<PredictedAttackData> PredictAllAttacks(BattleTurn battleTurn, FakePlayer fakePlayer, IBattleUnit enemy)

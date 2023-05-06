@@ -26,16 +26,20 @@ public class BattleTurn
     public IBattleUnit enemy { get; }
     public int millisecondsLeft { get; private set; }
     public bool isLastChance { get; }
+    public bool isFirstUnit { get; }
+    public int turnNumber { get; }
 
     public bool isWaitingForActions => _battleActions == null && millisecondsLeft > 0 && !battle.IsCancellationRequested();
 
-    public BattleTurn(Battle _battle, IBattleUnit _unit, int _secondsLimit)
+    public BattleTurn(Battle _battle, IBattleUnit _unit, int _secondsLimit, bool _isFirstUnit, int _turnNumber)
     {
         battle = _battle;
         unit = _unit;
         enemy = battle.GetEnemy(unit);
         millisecondsLeft = _secondsLimit * 1_000;
         isLastChance = unit.unitStats.currentHP <= 0;
+        isFirstUnit = _isFirstUnit;
+        turnNumber = _turnNumber;
     }
 
     public async Task HandleTurn()

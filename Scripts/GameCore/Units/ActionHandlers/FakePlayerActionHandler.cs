@@ -4,6 +4,7 @@ using MarkOne.Scripts.GameCore.Items.ItemAbilities.Keywords;
 using MarkOne.Scripts.GameCore.Services.Battles;
 using MarkOne.Scripts.GameCore.Services.Battles.Actions;
 using MarkOne.Scripts.Utils;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -22,9 +23,34 @@ public class FakePlayerActionHandler : IBattleActionHandler
 
     public async Task<List<IBattleAction>> GetActionsBySelectedItem(BattleTurn battleTurn)
     {
-        var selectedActions = FakePlayerActionSelector.SelectAction(battleTurn);
-        await Task.Delay(3000); // for test
-        return selectedActions;
+        var (battleActions, selectedItem) = FakePlayerActionSelector.SelectAction(battleTurn);
+
+        var random = new Random();
+        var delay = random.Next(3000, 5000);
+        // Дополнительная задержка в начале битвы, когда настоящий игрок ходит вторым
+        if (battleTurn.isFirstUnit && battleTurn.turnNumber == 1)
+        {
+            delay += random.Next(2000, 5000);
+        }
+        // Симуляция АФК на старте битвы
+        if (battleTurn.turnNumber == 1 && Randomizer.TryPercentage(15))
+        {
+            var quotient = random.NextSingle();
+            delay += 5_000 + (int)(10_000 * quotient);
+        }
+        // Дополнительная задержка при выборе свитка
+        if (selectedItem.data.itemType == ItemType.Scroll)
+        {
+            delay += random.Next(1500, 2500);
+        }
+        // Рандомная задержка начиная с 4-го хода (на 3-м ходу игрок использовал посох, дальше он типа тратит больше времени на обдумывание - как походить)
+        if (battleTurn.turnNumber >=  4 && Randomizer.TryPercentage(25))
+        {
+            delay += random.Next(3000, 6000);
+        }
+
+        await Task.Delay(delay).FastAwait();
+        return battleActions;
     }
 
     public bool TryAddShieldOnEnemyTurn(out DamageInfo damageInfo)
