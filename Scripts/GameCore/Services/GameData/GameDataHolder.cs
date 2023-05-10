@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using MarkOne.Scripts.GameCore.Arena;
 using MarkOne.Scripts.GameCore.Buildings;
 using MarkOne.Scripts.GameCore.Buildings.Data;
 using MarkOne.Scripts.GameCore.Items;
@@ -25,6 +26,7 @@ public class GameDataHolder : Service
     public GameDataDictionary<int, PotionData> potions { get; private set; }
     public GameDataDictionary<QuestId, QuestData> quests { get; private set; }
     public GameDataDictionary<LocationId, LocationMobSettingsData> locationGeneratedMobs { get; private set; }
+    public GameDataDictionary<LeagueId, ArenaLeagueSettings> arenaLeagueSettings { get; private set; }
 
 #pragma warning restore CS8618
 
@@ -46,6 +48,7 @@ public class GameDataHolder : Service
         potions = LoadGameDataDictionary<int, PotionData>("potions");
         quests = LoadGameDataDictionary<QuestId, QuestData>("quests");
         locationGeneratedMobs = LoadGameDataDictionary<LocationId, LocationMobSettingsData>("locationGeneratedMobs");
+        arenaLeagueSettings = LoadGameDataDictionary<LeagueId, ArenaLeagueSettings>("arenaLeagueSettings");
 
         Localizations.Localization.LoadAll(_loader, gameDataPath);
 
@@ -73,6 +76,7 @@ public class GameDataHolder : Service
         potions.Save();
         quests.Save();
         locationGeneratedMobs.Save();
+        arenaLeagueSettings.Save();
     }
 
 }

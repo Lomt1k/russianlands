@@ -5,7 +5,7 @@
              mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="600"
              x:Class="MarkOne.Views.Editor.ItemsEditor.ItemsEditorView">
 
-  <Grid Margin="40">
+  <Grid Margin="40,0">
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="160"/>
       <ColumnDefinition Width="auto"/>

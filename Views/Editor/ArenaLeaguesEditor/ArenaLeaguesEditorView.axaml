@@ -2,8 +2,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="600"
-             x:Class="MarkOne.Views.Editor.BuildingsEditor.BuildingsEditorView">
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="MarkOne.Views.Editor.ArenaLeaguesEditor.ArenaLeaguesEditorView">
 
   <Grid Margin="40,0">
     <Grid.ColumnDefinitions>
@@ -16,13 +16,13 @@
       <RowDefinition Height="auto"/>
     </Grid.RowDefinitions>
 
-    <!-- Column 1: Buildings -->
-    <TextBlock Text="Buildings" Grid.Column="0" Grid.Row="0" Classes="h3"/>
+    <!-- Column 1: Leagues -->
+    <TextBlock Text="Leagues" Grid.Column="0" Grid.Row="0" Classes="h3"/>
     <ListBox Grid.Column="0" Grid.Row="1" VerticalAlignment="Top"
              MaxHeight="600"
              ScrollViewer.VerticalScrollBarVisibility="Disabled"
-             Items="{Binding buildings}"
-             SelectedItem="{Binding selectedBuilding}">
+             Items="{Binding leagues}"
+             SelectedItem="{Binding selectedLeague}">
       <ListBox.ItemTemplate>
 
         <DataTemplate>
@@ -32,10 +32,10 @@
       </ListBox.ItemTemplate>
     </ListBox>
 
-    <!-- Column 2: Building Inspector -->
+    <!-- Column 2: League Inspector -->
     <UserControl Grid.Column="1" Grid.Row="1" Margin="40,0" VerticalAlignment="Top"
-                 Content="{Binding buildingInspector}"
-                 IsVisible="{Binding selectedBuilding, Converter={x:Static ObjectConverters.IsNotNull}}"/>
+                 Content="{Binding leagueInspectorView}"
+                 IsVisible="{Binding selectedLeague, Converter={x:Static ObjectConverters.IsNotNull}}"/>
 
   </Grid>
   

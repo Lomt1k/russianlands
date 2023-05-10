@@ -1,6 +1,10 @@
-﻿
-namespace MarkOne.Scripts.GameCore.Services.Arena;
-public enum ArenaLeague
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+
+namespace MarkOne.Scripts.GameCore.Arena;
+
+[JsonConverter(typeof(StringEnumConverter))]
+public enum LeagueId
 {
     HALL_3,
     HALL_4,
