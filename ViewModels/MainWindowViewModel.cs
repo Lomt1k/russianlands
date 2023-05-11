@@ -23,7 +23,7 @@ public class MainWindowViewModel : ViewModelBase
     {
         mainContentView = new Views.Editor.MainEditorView();
         mainContentView.DataContext = new Editor.MainEditorViewModel();
-        MainWindow.instance.WindowState = WindowState.Maximized;
+        //MainWindow.instance.WindowState = WindowState.Maximized;
     }
 
 

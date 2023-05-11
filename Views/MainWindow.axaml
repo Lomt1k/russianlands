@@ -3,12 +3,13 @@
         xmlns:vm="using:MarkOne.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
+        mc:Ignorable="d" d:DesignWidth="1920" d:DesignHeight="1080"
         x:Class="MarkOne.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
         Title="MarkOne"
-        Width="700" Height="600"
-        WindowStartupLocation="CenterScreen">
+        Width="1920" Height="1080"
+        WindowStartupLocation="CenterScreen"        
+        WindowState="Maximized">
 
     <Design.DataContext>
         <vm:MainWindowViewModel/>
