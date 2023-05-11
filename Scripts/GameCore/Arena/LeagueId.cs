@@ -3,6 +3,7 @@ using Newtonsoft.Json.Converters;
 
 namespace MarkOne.Scripts.GameCore.Arena;
 
+[SQLite.StoreAsText]
 [JsonConverter(typeof(StringEnumConverter))]
 public enum LeagueId
 {
