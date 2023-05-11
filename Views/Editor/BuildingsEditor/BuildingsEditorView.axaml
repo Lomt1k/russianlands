@@ -5,7 +5,7 @@
              mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="600"
              x:Class="MarkOne.Views.Editor.BuildingsEditor.BuildingsEditorView">
 
-  <Grid Margin="40,0">
+  <Grid>
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="auto"/>
       <ColumnDefinition Width="auto"/>
@@ -19,7 +19,7 @@
     <!-- Column 1: Buildings -->
     <TextBlock Text="Buildings" Grid.Column="0" Grid.Row="0" Classes="h3"/>
     <ListBox Grid.Column="0" Grid.Row="1" VerticalAlignment="Top"
-             MaxHeight="600"
+             MaxHeight="800"
              ScrollViewer.VerticalScrollBarVisibility="Disabled"
              Items="{Binding buildings}"
              SelectedItem="{Binding selectedBuilding}">

@@ -5,7 +5,7 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="MarkOne.Views.Editor.QuestsEditor.QuestsEditorView">
 
-  <Grid Margin="40,0">
+  <Grid>
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="160"/>
       <ColumnDefinition Width="300"/>
@@ -20,7 +20,7 @@
     <!-- Column 1: Quests -->
     <TextBlock Text="Quests" Grid.Column="0" Grid.Row="0" Classes="h3"/>
     <ListBox Grid.Column="0" Grid.Row="1" VerticalAlignment="Top"
-             MaxHeight="600"
+             MaxHeight="800"
              ScrollViewer.VerticalScrollBarVisibility="Disabled"
              Items="{Binding quests}"
              SelectedItem="{Binding selectedQuest}">
@@ -37,7 +37,7 @@
     <TextBlock Text="Stages" Grid.Column="1" Grid.Row="0" Classes="h3" Margin="40,0"/>   
     <StackPanel Grid.Column="1" Grid.Row="1">
       <ListBox Grid.Column="1" Grid.Row="1" VerticalAlignment="Top" Margin="40,0"
-             Height="700"
+             MaxHeight="800"
              ScrollViewer.VerticalScrollBarVisibility="Disabled"
              Items="{Binding questStages}"
              SelectedItem="{Binding selectedStage}">

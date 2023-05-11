@@ -43,7 +43,7 @@
         </StackPanel>
       </Grid>
 
-      <UserControl Grid.Column="1" 
+      <UserControl Grid.Column="1" Margin="40,10"
                    Content="{Binding selectedCategory.view, Mode=TwoWay}"/>
       
     </Grid>

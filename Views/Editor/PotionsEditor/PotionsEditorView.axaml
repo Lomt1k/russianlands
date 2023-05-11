@@ -5,7 +5,7 @@
              mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="600"
              x:Class="MarkOne.Views.Editor.PotionsEditor.PotionsEditorView">
 
-  <Grid Margin="40,0">
+  <Grid>
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="auto"/>
       <ColumnDefinition Width="auto"/>

@@ -5,7 +5,7 @@
              mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="600"
              x:Class="MarkOne.Views.Editor.ItemsEditor.ItemsEditorView">
 
-  <Grid Margin="40,0">
+  <Grid>
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="160"/>
       <ColumnDefinition Width="auto"/>
@@ -20,7 +20,7 @@
     <!-- Column 1: Category -->
     <TextBlock Text="Category" Grid.Column="0" Grid.Row="0" Classes="h3"/>
     <ListBox Grid.Column="0" Grid.Row="1" VerticalAlignment="Top"
-             MaxHeight="600"
+             MaxHeight="800"
              ScrollViewer.VerticalScrollBarVisibility="Disabled"
              Items="{Binding categories}"
              SelectedItem="{Binding selectedCategory}">
@@ -45,7 +45,7 @@
     <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical"
                 Margin="40,0" VerticalAlignment="Top">
 
-      <ListBox MaxHeight="600" 
+      <ListBox MaxHeight="800" 
                Items="{Binding showedItems}" 
                SelectedItem="{Binding selectedItem}">
         <ListBox.ItemTemplate>
