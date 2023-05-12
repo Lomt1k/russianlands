@@ -13,6 +13,8 @@
       <TextBox Text="{Binding league.maxPlayerLevel}"/>
       <TextBlock Text="Max Skill Level"/>
       <TextBox Text="{Binding league.maxSkillLevel}"/>
+      <TextBlock Text="Target Wins"/>
+      <TextBox Text="{Binding league.targetWins}"/>
     </StackPanel>
 
   </Grid>

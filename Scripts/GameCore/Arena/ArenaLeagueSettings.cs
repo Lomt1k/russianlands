@@ -9,6 +9,7 @@ public class ArenaLeagueSettings : IGameDataWithId<LeagueId>
     public LeagueId id { get; set; }
     public byte maxPlayerLevel { get; set; }
     public byte maxSkillLevel { get; set; }
+    public byte targetWins { get; set; }
 
     public void OnSetupAppMode(AppMode appMode)
     {
