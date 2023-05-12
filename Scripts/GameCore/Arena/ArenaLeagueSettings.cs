@@ -10,6 +10,8 @@ public class ArenaLeagueSettings : IGameDataWithId<LeagueId>
     public byte maxPlayerLevel { get; set; }
     public byte maxSkillLevel { get; set; }
     public byte targetWins { get; set; }
+    public byte generalMatchMakingTime { get; set; }
+    public byte additionalMatchMakingTime { get; set; }
 
     public void OnSetupAppMode(AppMode appMode)
     {

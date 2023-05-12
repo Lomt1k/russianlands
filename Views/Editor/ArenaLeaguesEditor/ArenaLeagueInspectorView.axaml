@@ -15,6 +15,13 @@
       <TextBox Text="{Binding league.maxSkillLevel}"/>
       <TextBlock Text="Target Wins"/>
       <TextBox Text="{Binding league.targetWins}"/>
+
+      <Line Height="20"/>
+      <TextBlock Text="Time until start fake PVP" Classes="h3"/>
+      <TextBlock Text="General MatchMaking Time"/>
+      <TextBox Text="{Binding league.generalMatchMakingTime}"/>
+      <TextBlock Text="Additional MatchMaking Time"/>
+      <TextBox Text="{Binding league.additionalMatchMakingTime}"/>
     </StackPanel>
 
   </Grid>
