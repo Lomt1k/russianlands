@@ -1,5 +1,6 @@
 ﻿using MarkOne.Scripts.GameCore.Services.GameData;
 using Newtonsoft.Json;
+using System;
 
 namespace MarkOne.Scripts.GameCore.Arena;
 
@@ -12,9 +13,17 @@ public class ArenaLeagueSettings : IGameDataWithId<LeagueId>
     public byte targetWins { get; set; }
     public byte generalMatchMakingTime { get; set; }
     public byte additionalMatchMakingTime { get; set; }
+    public FakePlayerGenerationSettings defaultPlayerGenerationSettings { get; set; } = new();
+    public FakePlayerGenerationSettings weakPlayerGenerationSettings { get; set; } = new();
 
     public void OnSetupAppMode(AppMode appMode)
     {
         // ignored
+    }
+
+    public TimeSpan GetRandomMatchmakingTime()
+    {
+        var seconds = generalMatchMakingTime + new Random().Next(additionalMatchMakingTime + 1);
+        return TimeSpan.FromSeconds(seconds);
     }
 }

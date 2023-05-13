@@ -1,6 +1,7 @@
 ﻿using MarkOne.Scripts.GameCore.Arena;
 using MarkOne.Scripts.GameCore.Services;
 using MarkOne.Scripts.GameCore.Services.GameData;
+using MarkOne.Views.Editor.ArenaLeaguesEditor;
 using ReactiveUI;
 
 namespace MarkOne.ViewModels.Editor.ArenaLeaguesEdittor;
@@ -15,6 +16,8 @@ public class ArenaLeagueInspectorViewModel : ViewModelBase
         get => _league;
         set => this.RaiseAndSetIfChanged(ref _league, value);
     }
+    public FakePlayerGenerationSettingsView defaultPlayerView { get; } = new();
+    public FakePlayerGenerationSettingsView weakPlayerView { get; } = new();
 
     public void SetModel(LeagueId leagueId)
     {
@@ -23,5 +26,7 @@ public class ArenaLeagueInspectorViewModel : ViewModelBase
             gameDataHolder.arenaLeagueSettings.AddData(leagueId, new ArenaLeagueSettings() { id = leagueId });
         }
         league = gameDataHolder.arenaLeagueSettings[leagueId];
+        defaultPlayerView.vm.SetModel(league.defaultPlayerGenerationSettings, "Default Player");
+        weakPlayerView.vm.SetModel(league.weakPlayerGenerationSettings, "Weak Player");
     }
 }

@@ -1,0 +1,58 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="MarkOne.Views.Editor.ArenaLeaguesEditor.FakePlayerGenerationSettingsView">
+
+  <Grid Margin="40,0" Width="300">
+
+    <Grid.RowDefinitions>
+      <RowDefinition Height="auto"/>
+      <RowDefinition/>
+    </Grid.RowDefinitions>
+
+    <TextBlock Text="{Binding header}" Classes="h3" Grid.Row="0"/>
+    <Border Background="WhiteSmoke" Padding="20" Grid.Row="1">
+      <StackPanel>        
+        <TextBlock Text="Min Player Level"/>
+        <TextBox Text="{Binding settings.minPlayerLevel}"/>
+        <TextBlock Text="Max Player Level"/>
+        <TextBox Text="{Binding settings.maxPlayerLevel}"/>
+        <TextBlock Text="Min Skill Level"/>
+        <TextBox Text="{Binding settings.minSkillLevel}"/>
+        <TextBlock Text="Max Skill Level"/>
+        <TextBox Text="{Binding settings.maxSkillLevel}"/>
+        <TextBlock Text="Min Item Level"/>
+        <TextBox Text="{Binding settings.minItemLevel}"/>
+        
+        <Line Height="20"/>
+        <TextBlock Text="Item Rarities"/>
+        <ListBox Items="{Binding itemRarities}"
+                 SelectedItem="{Binding selectedItemRarity}"
+                 Padding="10">
+          <ListBox.ItemTemplate>
+            <DataTemplate>
+              <StackPanel Orientation="Horizontal" Spacing="10">
+                <TextBox Text="{Binding weight}"/>
+                <ComboBox Items="{Binding allRarities}"
+                          SelectedItem="{Binding rarity}"/>
+              </StackPanel>
+            </DataTemplate>
+          </ListBox.ItemTemplate>
+        </ListBox>
+
+        <StackPanel Orientation="Horizontal" Spacing="20">
+          <Button Classes="Neutral" Content="Add"
+                  Command="{Binding addItemRarityCommand}"/>
+          <Button Classes="Neutral" Content="Remove"
+                  Command="{Binding removeItemRarityCommand}"
+                  IsEnabled="{Binding selectedItemRarity, Converter={x:Static ObjectConverters.IsNotNull}}"/>
+        </StackPanel>
+        
+      </StackPanel>
+    </Border>
+
+  </Grid>
+  
+</UserControl>

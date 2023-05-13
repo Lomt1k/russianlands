@@ -1,4 +1,6 @@
 ﻿using MarkOne.Scripts.GameCore.Sessions;
+using MarkOne.Scripts.Utils;
+using System.Collections.ObjectModel;
 
 namespace MarkOne.Scripts.GameCore.Items;
 
@@ -10,7 +12,15 @@ public enum Rarity : byte
     Legendary = 3
 }
 
-public static class ItemRarityExtensions
+public class WeightedRarity : IWeightedItem
+{
+    public int weight { get; init; }
+    public Rarity rarity { get; init; }
+
+    public static ObservableCollection<Rarity> allRarities { get; } = new ObservableCollection<Rarity>(System.Enum.GetValues<Rarity>());
+}
+
+public static class RarityExtensions
 {
     public static string GetView(this Rarity rarity, GameSession session)
     {
