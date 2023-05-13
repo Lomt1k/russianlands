@@ -1,0 +1,74 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="450"
+             x:Class="MarkOne.Views.Editor.ArenaSettingsEditor.ArenaSettingsEditorView">
+
+  <Grid>
+
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="auto"/>
+      <ColumnDefinition Width="300"/>
+    </Grid.ColumnDefinitions>
+
+    <StackPanel Grid.Column="0">
+      <TextBlock Text="Arena settings" Classes="h3"/>
+      
+      <Line Height="10"/>
+      <TextBlock Text="Required Townhall"/>
+      <TextBox Text="{Binding settings.requiredTownhall}"/>
+      <TextBlock Text="Battles in Match"/>
+      <TextBox Text="{Binding settings.battlesInMatch}"/>
+
+      <Line Height="20"/>
+      <TextBlock Text="Battle Rewards (Food)" Classes="h3"/>
+      <UserControl Content="{Binding rewardsForFoodView}"/>
+
+      <Line Height="20"/>
+      <TextBlock Text="Battle Rewards (Ticket)" Classes="h3"/>
+      <UserControl Content="{Binding rewardsForTicketView}"/>
+    </StackPanel>
+
+    <Panel Grid.Column="1" Margin="40,0">
+      <ScrollViewer>
+        
+        <StackPanel>
+          <TextBlock Text="Townhall Settings" Classes="h3"/>
+          <ListBox Items="{Binding townhallSettingsList}"
+                   SelectedItem="{Binding selectedTownhallSettings}"
+                   Padding="10"
+                   MaxHeight="800">
+            <ListBox.ItemTemplate>
+              <DataTemplate>
+                <Border Background="SlateGray" Padding="5">
+                  <Border Background="WhiteSmoke" Padding="15">
+                    <StackPanel Spacing="10" Background="WhiteSmoke">
+                      <TextBlock Text="Townhall"/>
+                      <TextBox Text="{Binding townhall}"/>
+                      <TextBlock Text="Everyday Free Chips"/>
+                      <TextBox Text="{Binding everydayFreeChips}"/>
+                      <TextBlock Text="Food Price"/>
+                      <TextBox Text="{Binding foodPrice}"/>
+                    </StackPanel>
+                  </Border>
+                </Border>
+              </DataTemplate>
+            </ListBox.ItemTemplate>
+          </ListBox>
+
+          <StackPanel Orientation="Horizontal" Spacing="20">
+            <Button Classes="Neutral" Content="Add"
+                    Command="{Binding addTownhallSettingsCommand}"/>
+            <Button Classes="Neutral" Content="Remove"
+                    Command="{Binding removeTownhallSettingsCommand}"
+                    IsEnabled="{Binding selectedTownhallSettings, Converter={x:Static ObjectConverters.IsNotNull}}"/>
+          </StackPanel>
+        </StackPanel>
+        
+      </ScrollViewer>
+    </Panel>    
+    
+  </Grid>
+  
+</UserControl>

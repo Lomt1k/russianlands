@@ -11,6 +11,7 @@ using MarkOne.Views.Editor.MobsEditor;
 using MarkOne.Views.Editor.PotionsEditor;
 using MarkOne.Views.Editor.QuestsEditor;
 using MarkOne.Views.Editor.ArenaLeaguesEditor;
+using MarkOne.Views.Editor.ArenaSettingsEditor;
 
 namespace MarkOne.ViewModels.Editor;
 
@@ -54,6 +55,7 @@ public class MainEditorViewModel : ViewModelBase
         categories.Add(new MainEditorCategory("Mobs", new MobsEditorView()));
         categories.Add(new MainEditorCategory("Location Mobs", new LocationMobsEditorView()));
         categories.Add(new MainEditorCategory("Potions", new PotionsEditorView()));
+        categories.Add(new MainEditorCategory("Arena Settings", new ArenaSettingsEditorView()));
         categories.Add(new MainEditorCategory("Arena Leagues", new ArenaLeaguesEditorView()));
     }
 

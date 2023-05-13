@@ -1,5 +1,4 @@
 ﻿using DynamicData;
-using MarkOne.Models;
 using MarkOne.Scripts.GameCore.Arena;
 using MarkOne.Scripts.GameCore.Items;
 using ReactiveUI;
