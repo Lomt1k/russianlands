@@ -55,6 +55,7 @@ public class ProfileData : DataWithSession
     public int resourceCrossroadsEnergy { get; set; } = 5;
     public DateTime lastCrossroadsResourceUpdate { get; set; } = DateTime.UtcNow;
     public int resourceArenaTicket { get; set; }
+    public int resourceArenaChip { get; set; }
 
     // skills
     public byte skillSword { get; set; }

@@ -26,6 +26,7 @@ public class GameDataHolder : Service
     public GameDataDictionary<int, PotionData> potions { get; private set; }
     public GameDataDictionary<QuestId, QuestData> quests { get; private set; }
     public GameDataDictionary<LocationId, LocationMobSettingsData> locationGeneratedMobs { get; private set; }
+    public ArenaSettings arenaSettings { get; private set; }
     public GameDataDictionary<LeagueId, ArenaLeagueSettings> arenaLeagueSettings { get; private set; }
 
 #pragma warning restore CS8618
@@ -48,6 +49,7 @@ public class GameDataHolder : Service
         potions = LoadGameDataDictionary<int, PotionData>("potions");
         quests = LoadGameDataDictionary<QuestId, QuestData>("quests");
         locationGeneratedMobs = LoadGameDataDictionary<LocationId, LocationMobSettingsData>("locationGeneratedMobs");
+        arenaSettings = LoadGameData<ArenaSettings>("arenaSettings");
         arenaLeagueSettings = LoadGameDataDictionary<LeagueId, ArenaLeagueSettings>("arenaLeagueSettings");
 
         Localizations.Localization.LoadAll(_loader, gameDataPath);
@@ -65,6 +67,14 @@ public class GameDataHolder : Service
         return dataBase;
     }
 
+    private T LoadGameData<T>(string fileName) where T : GameData
+    {
+        _loader?.AddNextState($"Loading {fileName}...");
+        var fullPath = Path.Combine(gameDataPath, fileName + ".json");
+        var loadedObject = GameData.LoadFromJSON<T>(fullPath);
+        return loadedObject;
+    }
+
     public void SaveAllData()
     {
         if (Program.appMode != AppMode.Editor)
@@ -76,6 +86,7 @@ public class GameDataHolder : Service
         potions.Save();
         quests.Save();
         locationGeneratedMobs.Save();
+        arenaSettings.Save();
         arenaLeagueSettings.Save();
     }
 

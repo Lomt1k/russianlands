@@ -37,6 +37,7 @@ public static class ResourcesDictionary
             { ResourceId.FruitGrape, new ResourceFruitGrape() },
             { ResourceId.CrossroadsEnergy, new ResourceCrossroadsEnergy() },
             { ResourceId.ArenaTicket, new ResourceArenaTicket() },
+            { ResourceId.ArenaChip, new ResourceArenaChip() },
         };
     }
 

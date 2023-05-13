@@ -122,6 +122,7 @@ public static class Emojis
 
     public static readonly Emoji ResourceCrossroadsEnergy = new Emoji("\ud83d\udd0b");
     public static readonly Emoji ResourceArenaTicket = new Emoji("\ud83d\udd16");
+    public static readonly Emoji ResourceArenaChip = new Emoji("\ud83c\udff5");
 
     // --- Characters
     public static readonly Emoji AvatarMale = new Emoji("\ud83e\uddd1\ud83c\udffb\u200d\ud83e\uddb1");
