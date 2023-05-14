@@ -1,7 +1,9 @@
 ﻿using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Arena;
+using MarkOne.Scripts.GameCore.Buildings;
 using MarkOne.Scripts.GameCore.Dialogs.Battle;
 using MarkOne.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.GameCore.Resources;
 using MarkOne.Scripts.GameCore.Sessions;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,11 +11,13 @@ using System.Threading.Tasks;
 namespace MarkOne.Scripts.GameCore.Dialogs.Town.Map.Arena;
 public class ArenaDialog : DialogBase
 {
+    private static readonly ResourceData ticketPrice = new ResourceData(ResourceId.ArenaTicket, 1);
+
     public ArenaDialog(GameSession _session) : base(_session)
     {
     }
 
-    public override Task Start()
+    public override async Task Start()
     {
         var sb = new StringBuilder()
             .AppendLine(Emojis.ButtonArena + Localization.Get(session, "menu_item_arena").Bold())
@@ -32,13 +36,33 @@ public class ArenaDialog : DialogBase
             sb.AppendLine(GetBattlesProgressView(arenaProgress, targetBattlesCount));
             sb.AppendLine();
             sb.AppendLine(Localization.Get(session, "dialog_arena_battles_to_end", targetBattlesCount - arenaProgress.results.Count));
-            // TODO: next battle button
+
+            RegisterButton(Localization.Get(session, "dialog_arena_next_battle_button"), StartNextBattle);
         }
         else
         {
-            // TODO
+            sb.AppendLine(Localization.Get(session, "dialog_arena_not_in_progress"));
+            sb.AppendLine();
+            sb.AppendLine(Localization.Get(session, "resource_header_ours"));
+            var resources = new ResourceData[]
+            {
+                session.player.resources.GetResourceData(ResourceId.Food),
+                session.player.resources.GetResourceData(ResourceId.ArenaTicket),
+            };
+            sb.AppendLine(resources.GetLocalizedView(session));
+            sb.Append(Localization.Get(session, "dialog_arena_bonus_for_ticket"));
+
+            RegisterButton(GetFoodPrice().GetCompactView(shortView: false), TryStartWithFood);
+            RegisterButton(ticketPrice.GetCompactView(shortView: false), TryStartWithTicket);
         }
-        // TODO
+
+        RegisterButton(Emojis.ButtonMarket + Localization.Get(session, "dialog_arena_shop_button"), null);
+        RegisterBackButton(Localization.Get(session, "menu_item_map") + Emojis.ButtonMap, () => new MapDialog(session).Start());
+        RegisterTownButton(isDoubleBack: true);
+
+        await SendDialogMessage(sb, hasArenaProgress 
+            ? GetMultilineKeyboardWithDoubleBack()
+            : GetKeyboardWithRowSizes(2,1,2)).FastAwait();
     }
 
     private string GetBattlesProgressView(PlayerArenaProgress playerArenaProgress, byte battlesCount)
@@ -64,6 +88,28 @@ public class ArenaDialog : DialogBase
         }
 
         return sb.ToString();
+    }
+
+    private ResourceData GetFoodPrice()
+    {
+        var townhallLevel = session.player.buildings.GetBuildingLevel(BuildingId.TownHall);
+        var arenaLevelSettings = gameDataHolder.arenaSettings.GetTownhallSettings(townhallLevel);
+        return new ResourceData(ResourceId.Food, arenaLevelSettings.foodPrice);
+    }
+
+    private async Task TryStartWithFood()
+    {
+        // TODO
+    }
+
+    private async Task TryStartWithTicket()
+    {
+        //TODO
+    }
+
+    private async Task StartNextBattle()
+    {
+        // TODO
     }
 
 }

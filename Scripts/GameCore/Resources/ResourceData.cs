@@ -10,12 +10,13 @@ public record struct ResourceData(ResourceId resourceId, int amount);
 
 public static class ResourceDataExtensions
 {
-    public static string GetCompactView(this ResourceData resourceData)
+    public static string GetCompactView(this ResourceData resourceData, bool shortView = true)
     {
-        return resourceData.resourceId.GetEmoji() + resourceData.amount.ShortView();
+        return shortView ? resourceData.resourceId.GetEmoji() + resourceData.amount.ShortView()
+            : resourceData.resourceId.GetEmoji() + resourceData.amount.View();
     }
 
-    public static string GetCompactView(this IEnumerable<ResourceData> resourceDatas)
+    public static string GetCompactView(this IEnumerable<ResourceData> resourceDatas, bool shortView = true)
     {
         var sb = new StringBuilder();
         var elementsInCurrentRow = 0;
@@ -31,7 +32,7 @@ public static class ResourceDataExtensions
                 sb.Append(Emojis.bigSpace);
             }
 
-            sb.Append(resourceData.GetCompactView());
+            sb.Append(resourceData.GetCompactView(shortView));
             elementsInCurrentRow++;
         }
 

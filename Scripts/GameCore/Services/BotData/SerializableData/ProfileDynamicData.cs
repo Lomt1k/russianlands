@@ -37,7 +37,7 @@ public class ProfileDynamicData : DataWithSession
             potions = JsonConvert.DeserializeObject<List<PotionItem>>(rawData.potions),
             quests = JsonConvert.DeserializeObject<PlayerQuestsProgress>(rawData.quests),
             lastGeneratedItemTypes = JsonConvert.DeserializeObject<List<ItemType>>(rawData.lastGeneratedItemTypes),
-            arenaProgress = JsonConvert.DeserializeObject<PlayerArenaProgress>(rawData.arenaProgress),
+            arenaProgress = rawData.arenaProgress != null ? JsonConvert.DeserializeObject<PlayerArenaProgress>(rawData.arenaProgress) : null,
         };
     }
 

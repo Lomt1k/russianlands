@@ -57,6 +57,7 @@ public static class Emojis
     public static readonly Emoji ButtonStoryMode = new Emoji("\ud83d\udea9");
     public static readonly Emoji ButtonArena = new Emoji("\ud83c\udfdf");
     public static readonly Emoji ButtonCrossroads = new Emoji("\ud83e\udea8");
+    public static readonly Emoji ButtonMarket = new Emoji("\u2696\ufe0f");
 
 
     // --- Stats

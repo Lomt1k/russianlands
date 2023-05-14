@@ -12,7 +12,7 @@ public class RawProfileDynamicData : RawDynamicData<ProfileDynamicData>
     public string potions { get; set; } = "[]";
     public string quests { get; set; } = "{}";
     public string lastGeneratedItemTypes { get; set; } = "[]";
-    public string arenaProgress { get; set; } = "{}";
+    public string? arenaProgress { get; set; } = null;
 
     public override void Fill(ProfileDynamicData data)
     {
