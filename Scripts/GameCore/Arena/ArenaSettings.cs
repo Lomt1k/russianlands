@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 
 namespace MarkOne.Scripts.GameCore.Arena;
 [JsonObject]
@@ -13,9 +14,18 @@ public class ArenaSettings : GameData
     public ArenaBattleRewardSettings battleRewardsForTicket { get; set; } = new();
     public List<ArenaTownhallSettings> townhallSettings { get; set; } = new();
 
+    [JsonIgnore]
+    private Dictionary<byte, ArenaTownhallSettings> townhallSettingsByLevel { get; set; } = new();
+
+    [OnDeserialized]
+    private void OnDeserialized(StreamingContext context)
+    {
+        townhallSettingsByLevel = townhallSettings.ToDictionary(x => x.townhall);
+    }
+
     public ArenaTownhallSettings GetTownhallSettings(byte townhallLevel)
     {
-        return townhallSettings.First(x => x.townhall == townhallLevel);
+        return townhallSettingsByLevel[townhallLevel];
     }
 
     protected override void OnSetupAppMode(AppMode appMode)
