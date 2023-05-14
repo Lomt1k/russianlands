@@ -8,7 +8,6 @@ using MarkOne.Scripts.GameCore.Services.Mobs;
 using MarkOne.Scripts.GameCore.Sessions;
 using MarkOne.Scripts.GameCore.Units;
 using MarkOne.Scripts.GameCore.Units.Mobs;
-using System;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -38,7 +37,7 @@ public class CrossroadsDialog : DialogBase
         var energyInfo = ResourceHelper.RefreshCrossroadsEnergy(session);
 
         var sb = new StringBuilder()
-            .AppendLine(Localization.Get(session, "menu_item_crossroads").Bold())
+            .AppendLine(Emojis.ButtonCrossRoads + Localization.Get(session, "menu_item_crossroads").Bold())
             .AppendLine()
             .AppendLine(Localization.Get(session, "dialog_crossroads_description"))
             .AppendLine()
