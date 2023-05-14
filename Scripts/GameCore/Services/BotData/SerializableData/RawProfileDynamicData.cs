@@ -12,6 +12,7 @@ public class RawProfileDynamicData : RawDynamicData<ProfileDynamicData>
     public string potions { get; set; } = "[]";
     public string quests { get; set; } = "{}";
     public string lastGeneratedItemTypes { get; set; } = "[]";
+    public string arenaProgress { get; set; } = "{}";
 
     public override void Fill(ProfileDynamicData data)
     {
@@ -20,6 +21,7 @@ public class RawProfileDynamicData : RawDynamicData<ProfileDynamicData>
         potions = JsonConvert.SerializeObject(data.potions);
         quests = JsonConvert.SerializeObject(data.quests);
         lastGeneratedItemTypes = JsonConvert.SerializeObject(data.lastGeneratedItemTypes);
+        arenaProgress = JsonConvert.SerializeObject(data.arenaProgress);
     }
 
 }

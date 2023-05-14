@@ -37,7 +37,7 @@ public class CrossroadsDialog : DialogBase
         var energyInfo = ResourceHelper.RefreshCrossroadsEnergy(session);
 
         var sb = new StringBuilder()
-            .AppendLine(Emojis.ButtonCrossRoads + Localization.Get(session, "menu_item_crossroads").Bold())
+            .AppendLine(Emojis.ButtonCrossroads + Localization.Get(session, "menu_item_crossroads").Bold())
             .AppendLine()
             .AppendLine(Localization.Get(session, "dialog_crossroads_description"))
             .AppendLine()

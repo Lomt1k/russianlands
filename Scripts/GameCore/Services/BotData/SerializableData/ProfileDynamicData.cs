@@ -5,29 +5,22 @@ using MarkOne.Scripts.GameCore.Items;
 using MarkOne.Scripts.GameCore.Potions;
 using MarkOne.Scripts.GameCore.Quests;
 using MarkOne.Scripts.GameCore.Sessions;
+using MarkOne.Scripts.GameCore.Arena;
 
 namespace MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
 
 public class ProfileDynamicData : DataWithSession
 {
-    public long dbid { get; }
-    public PlayerInventory inventory { get; } = new PlayerInventory();
-    public List<PotionItem> potions { get; } = new List<PotionItem>();
-    public PlayerQuestsProgress quests { get; } = new PlayerQuestsProgress();
-    public List<ItemType> lastGeneratedItemTypes { get; } = new List<ItemType>();
+    public long dbid { get; init; }
+    public PlayerInventory inventory { get; init; } = new PlayerInventory();
+    public List<PotionItem> potions { get; init; } = new List<PotionItem>();
+    public PlayerQuestsProgress quests { get; init; } = new PlayerQuestsProgress();
+    public List<ItemType> lastGeneratedItemTypes { get; init; } = new List<ItemType>();
+    public PlayerArenaProgress? arenaProgress { get; init; }
 
     public ProfileDynamicData(long _dbid)
     {
         dbid = _dbid;
-    }
-
-    public ProfileDynamicData(long _dbid, PlayerInventory _inventory, List<PotionItem> _potions, PlayerQuestsProgress _quests, List<ItemType> _lastGeneratedItemTypes)
-    {
-        dbid = _dbid;
-        inventory = _inventory;
-        potions = _potions;
-        quests = _quests;
-        lastGeneratedItemTypes = _lastGeneratedItemTypes;
     }
 
     public override void SetupSession(GameSession _session)
@@ -38,10 +31,18 @@ public class ProfileDynamicData : DataWithSession
 
     public static ProfileDynamicData Deserialize(RawProfileDynamicData rawData)
     {
-        return new ProfileDynamicData(rawData.dbid,
-            JsonConvert.DeserializeObject<PlayerInventory>(rawData.inventory),
-            JsonConvert.DeserializeObject<List<PotionItem>>(rawData.potions),
-            JsonConvert.DeserializeObject<PlayerQuestsProgress>(rawData.quests),
-            JsonConvert.DeserializeObject<List<ItemType>>(rawData.lastGeneratedItemTypes));
+        return new ProfileDynamicData(rawData.dbid)
+        {
+            inventory = JsonConvert.DeserializeObject<PlayerInventory>(rawData.inventory),
+            potions = JsonConvert.DeserializeObject<List<PotionItem>>(rawData.potions),
+            quests = JsonConvert.DeserializeObject<PlayerQuestsProgress>(rawData.quests),
+            lastGeneratedItemTypes = JsonConvert.DeserializeObject<List<ItemType>>(rawData.lastGeneratedItemTypes),
+            arenaProgress = JsonConvert.DeserializeObject<PlayerArenaProgress>(rawData.arenaProgress),
+        };
+    }
+
+    public bool HasArenaProgress()
+    {
+        return arenaProgress != null;
     }
 }

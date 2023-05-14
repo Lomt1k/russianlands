@@ -56,7 +56,7 @@ public static class Emojis
     public static readonly Emoji ButtonBattle = new Emoji("\u2694\ufe0f");
     public static readonly Emoji ButtonStoryMode = new Emoji("\ud83d\udea9");
     public static readonly Emoji ButtonArena = new Emoji("\ud83c\udfdf");
-    public static readonly Emoji ButtonCrossRoads = new Emoji("\ud83e\udea8");
+    public static readonly Emoji ButtonCrossroads = new Emoji("\ud83e\udea8");
 
 
     // --- Stats
@@ -166,6 +166,13 @@ public static class Emojis
     public static readonly Emoji Number9 = new Emoji("9\ufe0f\u20e3");
     public static readonly Emoji Number10 = new Emoji("\ud83d\udd1f");
     public static readonly Emoji NumberOver10 = new Emoji("*\ufe0f\u20e3");
+
+    // --- Progress Bar
+    public static readonly Emoji ProgressBarEmpty = new Emoji("\u2b1c\ufe0f");
+    public static readonly Emoji ProgressBarPositive = new Emoji("\ud83d\udfe9");
+    public static readonly Emoji ProgressBarNegative = new Emoji("\ud83d\udfe5");
+    public static readonly Emoji ProgressBarNeutral = new Emoji("\ud83d\udfe8");
+
 
     // --- Other elements
     public static readonly Emoji ElementSmallBlack = new Emoji("\u25aa\ufe0f");

@@ -6,7 +6,7 @@ using MarkOne.Scripts.GameCore.Units;
 
 namespace MarkOne.Scripts.GameCore.Dialogs.Battle;
 
-public enum BattleResult
+public enum BattleResult : byte
 {
     Draw = 0,
     Win = 1,

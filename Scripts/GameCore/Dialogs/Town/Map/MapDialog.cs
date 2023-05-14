@@ -10,6 +10,7 @@ namespace MarkOne.Scripts.GameCore.Dialogs.Town.Map;
 public class MapDialog : DialogWithPanel
 {
     private static readonly int crossroadRequiredTownhall = BuildingId.ElixirWorkshop.GetBuilding().buildingData.levels[0].requiredTownHall;
+    private static readonly int arenaRequiredTownhall = gameDataHolder.arenaSettings.requiredTownhall;
 
     private readonly MapDialogPanel _mapPanel;
     public override DialogPanelBase DialogPanel => _mapPanel;
@@ -20,7 +21,7 @@ public class MapDialog : DialogWithPanel
         _mapPanel = new MapDialogPanel(this);
 
         RegisterButton(Emojis.ButtonArena + Localization.Get(session, "menu_item_arena"), TryOpenArena);
-        RegisterButton(Emojis.ButtonCrossRoads + Localization.Get(session, "menu_item_crossroads"), TryOpenCrossroads);
+        RegisterButton(Emojis.ButtonCrossroads + Localization.Get(session, "menu_item_crossroads"), TryOpenCrossroads);
         RegisterTownButton(isDoubleBack: false);
     }
 
@@ -42,8 +43,14 @@ public class MapDialog : DialogWithPanel
 
     private async Task TryOpenArena()
     {
-        var notification = "Арена недоступна в текущей версии игры"; // заглушка
-        await notificationsManager.ShowNotification(session, notification, () => new MapDialog(session).Start()).FastAwait();
+        var townhallLevel = session.player.buildings.GetBuildingLevel(BuildingId.TownHall);
+        if (townhallLevel < arenaRequiredTownhall)
+        {
+            var notification = Emojis.ButtonArena + Localization.Get(session, "dialog_map_arena_is_locked", arenaRequiredTownhall);
+            await notificationsManager.ShowNotification(session, notification, () => new MapDialog(session).Start()).FastAwait();
+            return;
+        }
+        await new Arena.ArenaDialog(session).Start().FastAwait();
     }
 
     private async Task TryOpenCrossroads()
@@ -51,7 +58,7 @@ public class MapDialog : DialogWithPanel
         var townhallLevel = session.player.buildings.GetBuildingLevel(BuildingId.TownHall);
         if (townhallLevel < crossroadRequiredTownhall)
         {
-            var notification = Localization.Get(session, "dialog_map_crossroads_is_locked", crossroadRequiredTownhall);
+            var notification = Emojis.ButtonCrossroads + Localization.Get(session, "dialog_map_crossroads_is_locked", crossroadRequiredTownhall);
             await notificationsManager.ShowNotification(session, notification, () => new MapDialog(session).Start()).FastAwait();
             return;
         }
