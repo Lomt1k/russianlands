@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MarkOne.Scripts.GameCore.Sessions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -6,7 +7,7 @@ namespace MarkOne.Scripts.GameCore.Resources;
 
 public static partial class ResourceHelper
 {
-    private static readonly Dictionary<int, int> priceInDiamondsByResourceAmount = new Dictionary<int, int>
+    private static readonly Dictionary<int, int> priceInDiamondsByResourceAmount = new()
     {
         { 100, 1 },
         { 1_000, 5 },
@@ -17,7 +18,7 @@ public static partial class ResourceHelper
         { 100_000_000, 15_000 },
     };
 
-    private static readonly Dictionary<int, int> boostConstructionInDiamondsBySeconds = new Dictionary<int, int>
+    private static readonly Dictionary<int, int> boostConstructionInDiamondsBySeconds = new()
     {
         { 60, 1 },
         { 3_600, 35 },
@@ -25,7 +26,7 @@ public static partial class ResourceHelper
         { 604_800, 1_950 },
     };
 
-    private static readonly Dictionary<int, int> boostCraftInDiamondsBySeconds = new Dictionary<int, int>
+    private static readonly Dictionary<int, int> boostCraftInDiamondsBySeconds = new()
     {
         { 60, 1 },
         { 43_200, 95 },
@@ -41,13 +42,27 @@ public static partial class ResourceHelper
     private static readonly KeyValuePair<int, int> minBoostCraftInDiamondsBySeconds;
     private static readonly KeyValuePair<int, int> maxBoostCraftInDiamondsBySeconds;
 
-    public static Dictionary<ResourceId, float> resourceByDiamondsCoefs = new Dictionary<ResourceId, float>
+    private static Dictionary<ResourceId, float> resourceByDiamondsCoefs = new()
     {
         { ResourceId.Diamond, 1 },
         { ResourceId.Food, 0.6f },
         { ResourceId.Gold, 0.5f },
         { ResourceId.Herbs, 1.75f },
         { ResourceId.Wood, 0.75f },
+    };
+
+    private static Dictionary<byte, int> ticketPriceInDiamondsByTownhall = new()
+    {
+        { 1, 5 },
+        { 2, 5 },
+        { 3, 5 },
+        { 4, 5 },
+        { 5, 9 },
+        { 6, 19 },
+        { 7, 19 },
+        { 8, 29 },
+        { 9, 39 },
+        { 10, 49 },
     };
 
     static ResourceHelper()
@@ -68,8 +83,14 @@ public static partial class ResourceHelper
         maxEnergyPriceInDiamondsBySeconds = energyPriceInDiamondsBySeconds.Last();
     }
 
-    public static int CalculatePriceInDiamonds(ResourceData resourceData)
+    public static int CalculatePriceInDiamonds(GameSession session, ResourceData resourceData)
     {
+        if (resourceData.resourceId == ResourceId.ArenaTicket)
+        {
+            var townhallLevel = session.player.buildings.GetBuildingLevel(Buildings.BuildingId.TownHall);
+            return ticketPriceInDiamondsByTownhall[townhallLevel];
+        }
+
         var standardPrice = CalculateStandardPrice(resourceData.amount);
         var coef = resourceByDiamondsCoefs[resourceData.resourceId];
 

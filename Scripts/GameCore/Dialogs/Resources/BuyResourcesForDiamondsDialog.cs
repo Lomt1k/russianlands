@@ -26,7 +26,7 @@ public class BuyResourcesForDiamondsDialog : DialogBase
         _priceInDiamonds = new ResourceData(ResourceId.Diamond, 0);
         foreach (var resourceData in _targetResources)
         {
-            _priceInDiamonds.amount += ResourceHelper.CalculatePriceInDiamonds(resourceData);
+            _priceInDiamonds.amount += ResourceHelper.CalculatePriceInDiamonds(session, resourceData);
         }
     }
 

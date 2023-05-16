@@ -2,6 +2,7 @@
 using MarkOne.Scripts.GameCore.Arena;
 using MarkOne.Scripts.GameCore.Buildings;
 using MarkOne.Scripts.GameCore.Dialogs.Battle;
+using MarkOne.Scripts.GameCore.Dialogs.Resources;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Resources;
 using MarkOne.Scripts.GameCore.Sessions;
@@ -52,8 +53,8 @@ public class ArenaDialog : DialogBase
             sb.AppendLine(resources.GetLocalizedView(session));
             sb.Append(Localization.Get(session, "dialog_arena_bonus_for_ticket"));
 
-            RegisterButton(GetFoodPrice().GetCompactView(shortView: false), TryStartWithFood);
-            RegisterButton(ticketPrice.GetCompactView(shortView: false), TryStartWithTicket);
+            RegisterButton(GetFoodPrice().GetCompactView(shortView: false), () => TryStartNewMatch(byTicket: false));
+            RegisterButton(ticketPrice.GetCompactView(shortView: false), () => TryStartNewMatch(byTicket: true));
         }
 
         RegisterButton(Emojis.ButtonMarket + Localization.Get(session, "dialog_arena_shop_button"), null);
@@ -90,6 +91,21 @@ public class ArenaDialog : DialogBase
         return sb.ToString();
     }
 
+    private async Task TryStartNewMatch(bool byTicket)
+    {
+        var price = byTicket ? ticketPrice : GetFoodPrice();
+        var playerResources = session.player.resources;
+        if (playerResources.TryPurchase(price, out var notEnoughResources))
+        {
+            await StartNewMatch(byTicket).FastAwait();
+            return;
+        }
+        await new BuyResourcesForDiamondsDialog(session, notEnoughResources,
+            onSuccess: () => new ArenaDialog(session).TryStartNewMatch(byTicket),
+            onCancel: () => new ArenaDialog(session).Start())
+            .Start().FastAwait();
+    }
+
     private ResourceData GetFoodPrice()
     {
         var townhallLevel = session.player.buildings.GetBuildingLevel(BuildingId.TownHall);
@@ -97,14 +113,10 @@ public class ArenaDialog : DialogBase
         return new ResourceData(ResourceId.Food, arenaLevelSettings.foodPrice);
     }
 
-    private async Task TryStartWithFood()
+    private async Task StartNewMatch(bool byTicket)
     {
-        // TODO
-    }
-
-    private async Task TryStartWithTicket()
-    {
-        //TODO
+        session.profile.dynamicData.arenaProgress = new PlayerArenaProgress() { byTicket = byTicket };
+        await StartNextBattle().FastAwait();
     }
 
     private async Task StartNextBattle()

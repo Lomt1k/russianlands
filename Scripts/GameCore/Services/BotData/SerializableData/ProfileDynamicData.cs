@@ -16,7 +16,7 @@ public class ProfileDynamicData : DataWithSession
     public List<PotionItem> potions { get; init; } = new List<PotionItem>();
     public PlayerQuestsProgress quests { get; init; } = new PlayerQuestsProgress();
     public List<ItemType> lastGeneratedItemTypes { get; init; } = new List<ItemType>();
-    public PlayerArenaProgress? arenaProgress { get; init; }
+    public PlayerArenaProgress? arenaProgress { get; set; }
 
     public ProfileDynamicData(long _dbid)
     {
