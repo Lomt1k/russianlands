@@ -32,6 +32,7 @@ public static class ServiceLocator
         Register(new LocationMobsManager());
         Register(new ProfileDailyDataManager());
         Register(new CrossroadsMobsManager());
+        Register(new Arena.ArenaMatchMaker());
     }
 
     private static void Register<T>(T instance) where T : Service, new()

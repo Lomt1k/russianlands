@@ -5,6 +5,7 @@ using MarkOne.Scripts.GameCore.Dialogs.Battle;
 using MarkOne.Scripts.GameCore.Dialogs.Resources;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Resources;
+using MarkOne.Scripts.GameCore.Services;
 using MarkOne.Scripts.GameCore.Sessions;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,8 @@ public class ArenaDialog : DialogBase
 {
     private static readonly ResourceData ticketPrice = new ResourceData(ResourceId.ArenaTicket, 1);
     private static readonly byte targetBattlesCount = gameDataHolder.arenaSettings.battlesInMatch;
+
+    private static readonly ArenaMatchMaker arenaMatchMaker = ServiceLocator.Get<ArenaMatchMaker>();
 
     public ArenaDialog(GameSession _session) : base(_session)
     {
@@ -125,13 +128,20 @@ public class ArenaDialog : DialogBase
 
     private async Task StartNextBattle()
     {
+        var isRegistered = arenaMatchMaker.TryRegisterPlayer(session.player, out var estimatedTime);
+        if (!isRegistered)
+        {
+            // TODO
+            return;
+        }
+
         var arenaProgress = session.profile.dynamicData.arenaProgress.EnsureNotNull();
         var canWinAllBattles = arenaProgress.results.Count(x => x.result != BattleResult.Win) == 0;
 
         var sb = new StringBuilder()
             .AppendLine(Localization.Get(session, "dialog_arena_match_making_description"))
             .AppendLine()
-            .AppendLine(Localization.Get(session, "dialog_arena_match_making_approximate_time", 180)); // заглушка
+            .AppendLine(Localization.Get(session, "dialog_arena_match_making_approximate_time", estimatedTime.GetView(session)));
 
         if (canWinAllBattles)
         {
@@ -143,7 +153,6 @@ public class ArenaDialog : DialogBase
         ClearButtons();
         RegisterButton(Emojis.ElementCancel + Localization.Get(session, "dialog_arena_cancel_match_making_button"), TryCancelNextBattle);
         await SendDialogMessage(sb, GetOneLineKeyboard()).FastAwait();
-        // TODO: Register player in match making
     }
 
     private IEnumerable<ResourceData> GetRewardsForWinAllBattles(bool byTicket)
@@ -164,8 +173,11 @@ public class ArenaDialog : DialogBase
 
     private async Task TryCancelNextBattle()
     {
-        // TODO: Check cancel available
-        await Start().FastAwait();
+        var success = arenaMatchMaker.TryUnregisterPlayer(session.player);
+        if (success)
+        {
+            await Start().FastAwait();
+        }
     }
 
 }
