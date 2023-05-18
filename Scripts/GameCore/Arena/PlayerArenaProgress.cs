@@ -14,5 +14,5 @@ public class PlayerArenaProgress
 public class ArenaBattleResult
 {
     public BattleResult result { get; set; }
-    public string name { get; set; } = string.Empty;
+    public long dbid { get; set; }
 }

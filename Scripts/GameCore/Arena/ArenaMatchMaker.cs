@@ -3,6 +3,7 @@ using MarkOne.Scripts.GameCore.Services.GameData;
 using MarkOne.Scripts.GameCore.Units;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MarkOne.Scripts.GameCore.Arena;
@@ -10,45 +11,44 @@ public class ArenaMatchMaker : Service
 {
     private static readonly GameDataHolder gameDataHolder = ServiceLocator.Get<GameDataHolder>();
 
-    Dictionary<LeagueId, ArenaLeagueMatchMaker> _leagueMatchMakers = new();
+    private Dictionary<LeagueId, ArenaLeagueMatchMaker> _leagueMatchMakers = new();
+    private CancellationTokenSource _cts = new CancellationTokenSource();
 
     public override Task OnBotStarted()
     {
+        _cts = new CancellationTokenSource();
         _leagueMatchMakers.Clear();
         foreach (var arenaLeagueSettings in gameDataHolder.arenaLeagueSettings.GetAllData())
         {
-            _leagueMatchMakers[arenaLeagueSettings.id] = new ArenaLeagueMatchMaker(arenaLeagueSettings);
+            _leagueMatchMakers[arenaLeagueSettings.id] = new ArenaLeagueMatchMaker(arenaLeagueSettings, _cts.Token);
         }
         return Task.CompletedTask;
     }
 
     public override Task OnBotStopped()
     {
-        foreach (var leagueMatchMaker in _leagueMatchMakers.Values)
-        {
-            leagueMatchMaker.OnBotStopped();
-        }
+        _cts.Cancel();
         _leagueMatchMakers.Clear();
         return Task.CompletedTask;
     }
 
-    public bool TryRegisterPlayer(Player player, out TimeSpan estimatedTime)
+    /// <returns>estimated time (or null if registration failed)</returns>
+    public async Task<TimeSpan?> TryRegisterPlayer(Player player)
     {
-        estimatedTime = TimeSpan.Zero;
         var leagueId = ArenaHelper.GetActualLeagueForPlayer(player);
         if (_leagueMatchMakers.TryGetValue(leagueId, out var leagueMatchMaker))
         {
-            return leagueMatchMaker.TryRegisterPlayer(player, out estimatedTime);
+            return await leagueMatchMaker.TryRegisterPlayer(player).FastAwait();
         }
-        return false;
+        return null;
     }
 
-    public bool TryUnregisterPlayer(Player player)
+    public async Task<bool> TryUnregisterPlayer(Player player)
     {
         var leagueId = ArenaHelper.GetActualLeagueForPlayer(player);
         if (_leagueMatchMakers.TryGetValue(leagueId, out var leagueMatchMaker))
         {
-            return leagueMatchMaker.TryUnregisterPlayer(player);
+            return await leagueMatchMaker.TryUnregisterPlayer(player).FastAwait();
         }
         return false;
     }

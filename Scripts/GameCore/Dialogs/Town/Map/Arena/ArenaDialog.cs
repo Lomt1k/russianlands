@@ -128,8 +128,8 @@ public class ArenaDialog : DialogBase
 
     private async Task StartNextBattle()
     {
-        var isRegistered = arenaMatchMaker.TryRegisterPlayer(session.player, out var estimatedTime);
-        if (!isRegistered)
+        var estimatedTime = await arenaMatchMaker.TryRegisterPlayer(session.player).FastAwait();
+        if (!estimatedTime.HasValue)
         {
             // TODO
             return;
@@ -141,7 +141,7 @@ public class ArenaDialog : DialogBase
         var sb = new StringBuilder()
             .AppendLine(Localization.Get(session, "dialog_arena_match_making_description"))
             .AppendLine()
-            .AppendLine(Localization.Get(session, "dialog_arena_match_making_approximate_time", estimatedTime.GetView(session)));
+            .AppendLine(Localization.Get(session, "dialog_arena_match_making_approximate_time", estimatedTime.Value.GetView(session)));
 
         if (canWinAllBattles)
         {
@@ -173,7 +173,7 @@ public class ArenaDialog : DialogBase
 
     private async Task TryCancelNextBattle()
     {
-        var success = arenaMatchMaker.TryUnregisterPlayer(session.player);
+        var success = await arenaMatchMaker.TryUnregisterPlayer(session.player).FastAwait();
         if (success)
         {
             await Start().FastAwait();

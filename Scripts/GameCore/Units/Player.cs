@@ -15,6 +15,7 @@ using MarkOne.Scripts.GameCore.Units.ActionHandlers;
 using MarkOne.Scripts.GameCore.Units.Stats;
 using MarkOne.Scripts.GameCore.Dialogs.Battle;
 using MarkOne.Scripts.GameCore.Sessions;
+using MarkOne.Scripts.GameCore.Profiles;
 
 namespace MarkOne.Scripts.GameCore.Units;
 
@@ -29,10 +30,12 @@ public class Player : IBattleUnit
     public PlayerBuildings buildings { get; }
     public PlayerSkills skills { get; }
     public HealthRegenerationController healhRegenerationController { get; }
-    public PlayerInventory inventory => session.profile.dynamicData.inventory;
-    public List<PotionItem> potions => session.profile.dynamicData.potions;
-    public string nickname => session.profile.data.nickname;
-    public byte level => session.profile.data.level;
+    public Profile profile => session.profile;
+    public PlayerInventory inventory => profile.dynamicData.inventory;
+    public List<PotionItem> potions => profile.dynamicData.potions;
+    public string nickname => profile.data.nickname;
+    public byte level => profile.data.level;
+    public long dbid => profile.data.dbid;
 
     public Player(GameSession _session)
     {
