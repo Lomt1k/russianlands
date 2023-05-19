@@ -15,4 +15,10 @@ public class ArenaBattleResult
 {
     public BattleResult result { get; set; }
     public long dbid { get; set; }
+
+    public ArenaBattleResult(BattleResult _result, long _dbid = 0)
+    {
+        result = _result;
+        dbid = _dbid;
+    }
 }

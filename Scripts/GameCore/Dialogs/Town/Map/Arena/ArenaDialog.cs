@@ -90,6 +90,7 @@ public class ArenaDialog : DialogBase
                     _ => Emojis.ProgressBarNeutral
                 };
                 sb.Append(emoji);
+                continue;
             }
             sb.Append(Emojis.ProgressBarEmpty);
         }
@@ -178,6 +179,90 @@ public class ArenaDialog : DialogBase
         {
             await Start().FastAwait();
         }
+    }
+
+    public async Task StartAfterBattleEnd()
+    {
+        var arenaProgress = session.profile.dynamicData.arenaProgress.EnsureNotNull();
+        var battlesCount = arenaProgress.results.Count;
+        if (battlesCount < targetBattlesCount)
+        {
+            await Start().FastAwait();
+            return;
+        }
+
+        var rewardSetiings = arenaProgress.byTicket
+            ? gameDataHolder.arenaSettings.battleRewardsForTicket
+            : gameDataHolder.arenaSettings.battleRewardsForFood;
+
+        var sb = new StringBuilder()
+            .AppendLine(Localization.Get(session, "dialog_arena_results_description", battlesCount))
+            .AppendLine()
+            .AppendLine(Localization.Get(session, "battle_result_header_rewards"));
+
+        var totalRewards = new Dictionary<ResourceId, int>()
+        {
+            { ResourceId.ArenaChip, 0 },
+            { ResourceId.ArenaTicket, 0 },
+        };
+
+        var winsCount = arenaProgress.results.Count(x => x.result == BattleResult.Win);
+        if (winsCount > 0)
+        {
+            var chipsCount = winsCount * rewardSetiings.chipsForBattleWin;
+            var winsReward = new ResourceData(ResourceId.ArenaChip, chipsCount);
+            totalRewards[ResourceId.ArenaChip] += chipsCount;
+            sb.AppendLine(Localization.Get(session, "dialog_arena_results_for_victory", winsReward.GetCompactView()));
+        }
+
+        var drawsCount = arenaProgress.results.Count(x => x.result == BattleResult.Draw);
+        if (drawsCount > 0)
+        {
+            var chipsCount = drawsCount * rewardSetiings.chipsForBattleDraw;
+            var chipsReward = new ResourceData(ResourceId.ArenaChip, chipsCount);
+            totalRewards[ResourceId.ArenaChip] += chipsCount;
+            sb.AppendLine(Localization.Get(session, "dialog_arena_results_for_draw", chipsReward.GetCompactView()));
+        }
+
+        if (rewardSetiings.chipsForMatchEnd > 0)
+        {
+            var chipsReward = new ResourceData(ResourceId.ArenaChip, rewardSetiings.chipsForMatchEnd);
+            totalRewards[ResourceId.ArenaChip] += chipsReward.amount;
+            sb.AppendLine(Localization.Get(session, "dialog_arena_results_for_participation", chipsReward.GetCompactView()));
+        }
+
+        var isWinAllBattles = winsCount == arenaProgress.results.Count;
+        if (isWinAllBattles)
+        {
+            if (rewardSetiings.ticketsForWinAllBattles > 0)
+            {
+                var ticketsReward = new ResourceData(ResourceId.ArenaTicket, rewardSetiings.ticketsForWinAllBattles);
+                totalRewards[ResourceId.ArenaTicket] += ticketsReward.amount;
+                sb.AppendLine(Localization.Get(session, "dialog_arena_results_special_reward", ticketsReward.GetCompactView()));
+            }
+            if (rewardSetiings.chipsForWinAllBattles > 0)
+            {
+                var chipsReward = new ResourceData(ResourceId.ArenaChip, rewardSetiings.chipsForWinAllBattles);
+                totalRewards[ResourceId.ArenaChip] += chipsReward.amount;
+                sb.AppendLine(Localization.Get(session, "dialog_arena_results_special_reward", chipsReward.GetCompactView()));
+            }
+        }
+
+        var totalRewardsList = new List<ResourceData>();
+        if (totalRewards[ResourceId.ArenaChip] > 0)
+        {
+            totalRewardsList.Add(new ResourceData(ResourceId.ArenaChip, totalRewards[ResourceId.ArenaChip]));
+        }
+        if (totalRewards[ResourceId.ArenaTicket] > 0)
+        {
+            totalRewardsList.Add(new ResourceData(ResourceId.ArenaTicket, totalRewards[ResourceId.ArenaTicket]));
+        }
+        sb.AppendLine();
+        sb.AppendLine(Localization.Get(session, "dialog_arena_results_total_header"));
+        sb.AppendLine(totalRewardsList.GetLocalizedView(session));
+
+        RegisterButton(Localization.Get(session, "menu_item_continue_button"), Start);
+        await SendDialogMessage(sb, GetOneLineKeyboard()).FastAwait();
     }
 
 }

@@ -14,10 +14,6 @@ public class BattleManager : Service
     private readonly List<Battle> _battles = new List<Battle>();
     private readonly Dictionary<Player, Battle> _battlesByPlayers = new Dictionary<Player, Battle>();
 
-    public BattleManager()
-    {
-    }
-
     public Battle StartBattle(Player player, IMobData mobData, IEnumerable<RewardBase>? rewards = null,
         Func<Player, BattleResult, Task>? onBattleEndFunc = null,
         Func<Player, BattleResult, Task>? onContinueButtonFunc = null,
