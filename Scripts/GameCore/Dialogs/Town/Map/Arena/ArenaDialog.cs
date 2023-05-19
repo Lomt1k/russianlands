@@ -261,6 +261,9 @@ public class ArenaDialog : DialogBase
         sb.AppendLine(Localization.Get(session, "dialog_arena_results_total_header"));
         sb.AppendLine(totalRewardsList.GetLocalizedView(session));
 
+        session.player.resources.Add(totalRewardsList);
+        session.profile.dynamicData.arenaProgress = null;
+
         RegisterButton(Localization.Get(session, "menu_item_continue_button"), Start);
         await SendDialogMessage(sb, GetOneLineKeyboard()).FastAwait();
     }
