@@ -64,12 +64,12 @@ public class FakePlayer : IBattleUnit
             .ToString();
     }
 
-    public string GetFullUnitInfoView(GameSession sessionToSend, bool withHealth = true)
+    public string GetFullUnitInfoView(GameSession sessionToSend)
     {
         var sb = new StringBuilder()
             .Append(GetGeneralUnitInfoView(sessionToSend))
             .AppendLine()
-            .AppendLine(unitStats.GetView(sessionToSend, withHealth));
+            .AppendLine(unitStats.GetView(sessionToSend));
 
         if (IsSkillsAvailable())
         {

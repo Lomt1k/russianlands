@@ -31,7 +31,7 @@ public class TownCharacterDialog : DialogBase
         RegisterButton(potionsButton, TryShowPotionsDialog);
 
         var skillsEmoji = IsSkillsDialogAvailable() ? Emojis.ButtonSkills : Emojis.ElementLocked;
-        RegisterButton(skillsEmoji + Localization.Get(session, "menu_item_skills"), () => TryShowSkillsDialog());
+        RegisterButton(skillsEmoji + Localization.Get(session, "menu_item_skills"), TryShowSkillsDialog);
 
         RegisterButton(Emojis.AvatarMale + Localization.Get(session, "menu_item_avatar"), null);
         RegisterButton(Emojis.ButtonNameChange + Localization.Get(session, "menu_item_namechange"),
@@ -44,16 +44,10 @@ public class TownCharacterDialog : DialogBase
         session.player.healhRegenerationController.InvokeRegen();
 
         var sb = new StringBuilder();
-        var isFullHealth = session.player.unitStats.isFullHealth;
-        sb.AppendLine(session.player.GetFullUnitInfoView(session, isFullHealth));
+        sb.AppendLine(session.player.GetFullUnitInfoView(session));
         TryAppendTooltip(sb);
 
         await SendDialogMessage(sb, GetKeyboardWithRowSizes(1, 2, 2, 1)).FastAwait();
-
-        if (!isFullHealth)
-        {
-            await SendHealthRegenMessage().FastAwait();
-        }
     }
 
     private async Task TryShowPotionsDialog()
@@ -90,56 +84,6 @@ public class TownCharacterDialog : DialogBase
     private bool IsSkillsDialogAvailable()
     {
         return session.player.IsSkillsAvailable();
-    }
-
-    private async Task SendHealthRegenMessage()
-    {
-        try
-        {
-            var sb = new StringBuilder();
-            var stats = session.player.unitStats;
-            if (_regenHealthMessageId.HasValue)
-            {
-                if (session.currentDialog != this)
-                {
-                    await messageSender.DeleteMessage(session.chatId, _regenHealthMessageId.Value).FastAwait();
-                    return;
-                }
-                else if (stats.currentHP >= stats.maxHP)
-                {
-                    sb.AppendLine(Localization.Get(session, "unit_view_health"));
-                    sb.AppendLine(Emojis.StatHealth + $"{stats.currentHP} / {stats.maxHP}");
-                    await messageSender.EditTextMessage(session.chatId, _regenHealthMessageId.Value, sb.ToString(), cancellationToken: session.cancellationToken).FastAwait();
-                    return;
-                }
-            }
-
-            sb.AppendLine();
-            sb.AppendLine(Localization.Get(session, "unit_view_health_regen"));
-            sb.AppendLine(Emojis.StatHealth + $"{stats.currentHP} / {stats.maxHP}");
-
-            var message = _regenHealthMessageId == null
-                ? await messageSender.SendTextMessage(session.chatId, sb.ToString(), silent: true, cancellationToken: session.cancellationToken).FastAwait()
-                : await messageSender.EditTextMessage(session.chatId, _regenHealthMessageId.Value, sb.ToString(), cancellationToken: session.cancellationToken).FastAwait();
-            _regenHealthMessageId = message?.MessageId;
-
-            WaitOneSecondAndInvokeHealthRegen();
-        }
-        catch (System.Exception) { } //ignored
-    }
-
-    private async void WaitOneSecondAndInvokeHealthRegen()
-    {
-        try
-        {
-            await Task.Delay(1_000).FastAwait();
-            if (session.cancellationToken.IsCancellationRequested)
-                return;
-
-            session.player.healhRegenerationController.InvokeRegen();
-            await SendHealthRegenMessage().FastAwait();
-        }
-        catch (System.Exception) { } //ignored
     }
 
 }

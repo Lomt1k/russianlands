@@ -35,7 +35,7 @@ public class Mob : IBattleUnit
         sb.AppendLine(levelStr);
         return sb.ToString();
     }
-    public string GetFullUnitInfoView(GameSession sessionToSend, bool withHealth = true)
+    public string GetFullUnitInfoView(GameSession sessionToSend)
     {
         var sb = new StringBuilder();
         sb.Append(GetGeneralUnitInfoView(sessionToSend));
@@ -44,7 +44,7 @@ public class Mob : IBattleUnit
         sb.Append(GetAttacksView());
 
         sb.AppendLine();
-        sb.AppendLine(unitStats.GetView(sessionToSend, withHealth));
+        sb.AppendLine(unitStats.GetView(sessionToSend));
 
         return sb.ToString();
     }

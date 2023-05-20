@@ -140,15 +140,12 @@ public abstract class UnitStats
         return resultDamage;
     }
 
-    public string GetView(GameSession sessionToSend, bool withHealth = true)
+    public string GetView(GameSession sessionToSend)
     {
-        var sb = new StringBuilder();
-        if (withHealth)
-        {
-            sb.AppendLine(Localization.Get(sessionToSend, "unit_view_health"));
-            sb.AppendLine(Emojis.StatHealth + $"{currentHP} / {maxHP}");
-            sb.AppendLine();
-        }
+        var sb = new StringBuilder()
+            .AppendLine(Localization.Get(sessionToSend, "unit_view_health"))
+            .AppendLine(Emojis.StatHealth + $"{currentHP} / {maxHP}")
+            .AppendLine();
         AppendResistsCompactView(sb, sessionToSend);
 
         return sb.ToString();

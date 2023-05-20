@@ -13,7 +13,7 @@ public interface IBattleUnit
     public IBattleActionHandler actionHandler { get; }
 
     public string GetGeneralUnitInfoView(GameSession sessionToSend);
-    public string GetFullUnitInfoView(GameSession sessionToSend, bool withHealth = true);
+    public string GetFullUnitInfoView(GameSession sessionToSend);
 
     public Task OnStartBattle(Battle battle);
     public Task OnStartEnemyTurn(BattleTurn battleTurn);
