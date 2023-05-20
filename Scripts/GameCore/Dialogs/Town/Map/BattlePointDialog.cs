@@ -58,10 +58,10 @@ public class BattlePointDialog : DialogBase
     protected virtual async Task TryStartBattle()
     {
         var playerResources = session.player.resources;
-        var successsPurchase = playerResources.TryPurchase(_data.price);
+        var successsPurchase = playerResources.TryPurchase(_data.price, out var notEnoughResource);
         if (!successsPurchase)
         {
-            var buyResourcesDialog = new BuyResourcesForDiamondsDialog(session, _data.price,
+            var buyResourcesDialog = new BuyResourcesForDiamondsDialog(session, notEnoughResource,
             onSuccess: async () => await new BattlePointDialog(session, _data).SilentStart(),
             onCancel: async () => await new BattlePointDialog(session, _data).Start());
             await buyResourcesDialog.Start().FastAwait();
