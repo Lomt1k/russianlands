@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using MarkOne.Scripts.GameCore.Arena;
 using MarkOne.Scripts.GameCore.Buildings;
@@ -28,6 +29,7 @@ public class GameDataHolder : Service
     public GameDataDictionary<LocationId, LocationMobSettingsData> locationGeneratedMobs { get; private set; }
     public ArenaSettings arenaSettings { get; private set; }
     public GameDataDictionary<LeagueId, ArenaLeagueSettings> arenaLeagueSettings { get; private set; }
+    public IReadOnlyList<string> botnames { get; private set; }
 
 #pragma warning restore CS8618
 
@@ -53,6 +55,7 @@ public class GameDataHolder : Service
         arenaLeagueSettings = LoadGameDataDictionary<LeagueId, ArenaLeagueSettings>("arenaLeagueSettings");
 
         Localizations.Localization.LoadAll(_loader, gameDataPath);
+        botnames = File.ReadAllLines(Path.Combine(gameDataPath, "botnames.txt"));
 
         _loader?.OnGameDataLoaded();
         onDataReloaded?.Invoke();

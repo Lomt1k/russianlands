@@ -1,6 +1,7 @@
 ﻿using MarkOne.Scripts.GameCore.Arena;
 using MarkOne.Scripts.GameCore.Items;
 using MarkOne.Scripts.GameCore.Items.Generators;
+using MarkOne.Scripts.GameCore.Services.GameData;
 using MarkOne.Scripts.GameCore.Skills;
 using MarkOne.Scripts.GameCore.Units;
 using MarkOne.Scripts.Utils;
@@ -12,13 +13,15 @@ namespace MarkOne.Scripts.GameCore.Services.FakePlayers;
 
 public sealed class FakePlayersFactory : Service
 {
+    private static readonly GameDataHolder gameDataHolder = ServiceLocator.Get<GameDataHolder>();
+
     public FakePlayer Generate(FakePlayerGenerationSettings settings)
     {
         var random = new Random();
         var playerLevel = GeneratePlayerLevel(random, settings);
         var items = GeneratePlayerItems(random, settings, playerLevel);
         var skills = GeneratePlayerSkillls(random, settings);
-        var nickname = "FakePlayer";
+        var nickname = GenerateRandomName(random);
         var isPremium = false;
         return new FakePlayer(items, skills, playerLevel, nickname, isPremium);
     }
@@ -61,6 +64,12 @@ public sealed class FakePlayersFactory : Service
             skills[skillType] = (byte)random.Next(settings.minSkillLevel, settings.maxSkillLevel + 1);
         }
         return skills;
+    }
+
+    private string GenerateRandomName(Random random)
+    {
+        var botnames = gameDataHolder.botnames;
+        return botnames[random.Next(botnames.Count)];
     }
 
 }
