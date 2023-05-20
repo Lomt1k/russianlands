@@ -35,7 +35,7 @@ public class TownDialog : DialogBase
 
         var characterButton = Emojis.AvatarMale + Localization.Get(session, "menu_item_character")
             + (player.inventory.hasAnyNewItem && !hasTooltip ? Emojis.ElementWarningRed.ToString() : string.Empty);
-        RegisterButton(characterButton, () => new Character.TownCharacterDialog(session).Start());
+        RegisterButton(characterButton, () => new Character.CharacterDialog(session).Start());
 
         RegisterButton(Emojis.ButtonQuests + Localization.Get(session, "menu_item_quests"),
             () => messageSender.SendTextMessage(session.chatId, "Задания недоступны в текущей версии игры")); //заглушка

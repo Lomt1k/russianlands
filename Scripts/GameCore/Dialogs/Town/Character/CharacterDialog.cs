@@ -11,11 +11,9 @@ using MarkOne.Scripts.GameCore.Sessions;
 
 namespace MarkOne.Scripts.GameCore.Dialogs.Town.Character;
 
-public class TownCharacterDialog : DialogBase
+public class CharacterDialog : DialogBase
 {
-    private int? _regenHealthMessageId;
-
-    public TownCharacterDialog(GameSession _session) : base(_session)
+    public CharacterDialog(GameSession _session) : base(_session)
     {
         var player = session.player;
         var hasTooltip = session.tooltipController.HasTooltipToAppend(this);
@@ -56,7 +54,7 @@ public class TownCharacterDialog : DialogBase
         {
             ClearButtons();
             var text = Localization.Get(session, "building_potions_alchemy_required");
-            RegisterBackButton(() => new TownCharacterDialog(session).Start());
+            RegisterBackButton(() => new CharacterDialog(session).Start());
             await SendDialogMessage(text, GetOneLineKeyboard());
             return;
         }
@@ -74,7 +72,7 @@ public class TownCharacterDialog : DialogBase
         {
             ClearButtons();
             var text = Localization.Get(session, "building_skills_elixir_workshop_required");
-            RegisterBackButton(() => new TownCharacterDialog(session).Start());
+            RegisterBackButton(() => new CharacterDialog(session).Start());
             await SendDialogMessage(text, GetOneLineKeyboard());
             return;
         }

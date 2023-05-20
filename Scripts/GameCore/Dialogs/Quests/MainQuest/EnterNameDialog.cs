@@ -142,7 +142,7 @@ public class EnterNameDialog : DialogBase
 
         if (currentNickname.Equals(newNickname))
         {
-            await new TownCharacterDialog(session).Start().FastAwait();
+            await new CharacterDialog(session).Start().FastAwait();
             return;
         }
 
@@ -155,14 +155,14 @@ public class EnterNameDialog : DialogBase
             ClearButtons();
             var text = Localization.Get(session, "resource_not_enough_diamonds", Emojis.SmileSad);
             RegisterButton(Emojis.ButtonShop + Localization.Get(session, "menu_item_shop"), () => new ShopDialog(session).Start());
-            RegisterBackButton(() => new TownCharacterDialog(session).Start());
+            RegisterBackButton(() => new CharacterDialog(session).Start());
             await SendDialogMessage(text, GetMultilineKeyboard()).FastAwait();
             return;
         }
 
         currentNickname = newNickname;
         var notification = Localization.Get(session, "dialog_entry_name_name_changed", newNickname);
-        await notificationsManager.ShowNotification(session, notification, () => new TownCharacterDialog(session).Start()).FastAwait();
+        await notificationsManager.ShowNotification(session, notification, () => new CharacterDialog(session).Start()).FastAwait();
     }
 
 }

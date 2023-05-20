@@ -16,7 +16,7 @@ public class InventoryDialog : DialogWithPanel
     {
         _inspectorPanel = new InventoryInspectorDialogPanel(this);
         RegisterBackButton(Localization.Get(session, "menu_item_character") + Emojis.AvatarMale,
-            () => new TownCharacterDialog(session).Start());
+            () => new CharacterDialog(session).Start());
         RegisterTownButton(isDoubleBack: true);
     }
 

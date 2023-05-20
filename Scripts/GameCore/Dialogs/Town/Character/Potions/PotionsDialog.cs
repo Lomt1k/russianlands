@@ -17,7 +17,7 @@ public class PotionsDialog : DialogWithPanel
     {
         _potionsPanel = new PotionsDialogPanel(this);
         RegisterBackButton(Localization.Get(session, "menu_item_character") + Emojis.AvatarMale,
-            () => new TownCharacterDialog(session).Start());
+            () => new CharacterDialog(session).Start());
         RegisterTownButton(isDoubleBack: true);
     }
 

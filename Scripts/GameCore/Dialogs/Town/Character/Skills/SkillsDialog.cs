@@ -49,7 +49,7 @@ internal class SkillsDialog : DialogBase
         ClearButtons();
         RegisterSkillButtons();
         RegisterBackButton(Localization.Get(session, "menu_item_character") + Emojis.AvatarMale,
-            () => new TownCharacterDialog(session).Start());
+            () => new CharacterDialog(session).Start());
         RegisterTownButton(isDoubleBack: true);
 
         sb.AppendLine();
