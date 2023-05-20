@@ -143,6 +143,7 @@ public class ArenaLeagueMatchMaker
         battleManager.StartBattle(playerA, playerB,
             onBattleEndFunc: (player, battleResult) =>
             {
+                player.unitStats.SetFullHealth();
                 var enemyDbid = player == playerA ? playerB.dbid : playerA.dbid;
                 var result = new ArenaBattleResult(battleResult, enemyDbid);
                 player.profile.dynamicData.arenaProgress?.results.Add(result);
@@ -171,6 +172,7 @@ public class ArenaLeagueMatchMaker
         battleManager.StartBattle(player, fakePlayer,
             onBattleEndFunc: (player, battleResult) =>
             {
+                player.unitStats.SetFullHealth();
                 var result = new ArenaBattleResult(battleResult);
                 player.profile.dynamicData.arenaProgress?.results.Add(result);
                 return Task.CompletedTask;
@@ -192,6 +194,7 @@ public class ArenaLeagueMatchMaker
         var generationSettings = needWeakEnemy
             ? _arenaLeagueSettings.weakPlayerGenerationSettings
             : _arenaLeagueSettings.defaultPlayerGenerationSettings;
+        Program.logger.Debug("generate player... isWeak: " + needWeakEnemy);
         return fakePlayersFactory.Generate(generationSettings);
     }
 
