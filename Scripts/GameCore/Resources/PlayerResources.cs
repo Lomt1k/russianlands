@@ -173,7 +173,7 @@ public class PlayerResources
     {
         foreach (var requiredResource in requiredResources)
         {
-            if (!HasEnough(requiredResources))
+            if (!HasEnough(requiredResource))
                 return false;
         }
         return true;
