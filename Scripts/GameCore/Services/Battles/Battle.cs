@@ -58,12 +58,12 @@ public class Battle
             return true;
         if (firstUnit is Player firstPlayer)
         {
-            if (firstPlayer.session.IsTasksCancelled())
+            if (firstPlayer.session.cancellationToken.IsCancellationRequested)
                 return true;
         }
         if (secondUnit is Player secondPlayer)
         {
-            if (secondPlayer.session.IsTasksCancelled())
+            if (secondPlayer.session.cancellationToken.IsCancellationRequested)
                 return true;
         }
         return false;
@@ -192,7 +192,7 @@ public class Battle
         battleManager.UnregisterBattle(this);
         _forceBattleCTS.Cancel();
 
-        if (!player.session.IsTasksCancelled())
+        if (!player.session.cancellationToken.IsCancellationRequested)
         {
             await HandleBattleEndForPlayer(player, battleResult).FastAwait();
         }
@@ -200,7 +200,7 @@ public class Battle
         var enemy = GetEnemy(player);
         if (enemy is Player anotherPlayer)
         {
-            if (!anotherPlayer.session.IsTasksCancelled())
+            if (!anotherPlayer.session.cancellationToken.IsCancellationRequested)
             {
                 if (battleResult == BattleResult.Win) battleResult = BattleResult.Lose;
                 else if (battleResult == BattleResult.Lose) battleResult = BattleResult.Win;

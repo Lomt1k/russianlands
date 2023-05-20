@@ -133,7 +133,7 @@ public class TownCharacterDialog : DialogBase
         try
         {
             await Task.Delay(1_000).FastAwait();
-            if (session.IsTasksCancelled())
+            if (session.cancellationToken.IsCancellationRequested)
                 return;
 
             session.player.healhRegenerationController.InvokeRegen();

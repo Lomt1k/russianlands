@@ -37,15 +37,17 @@ public class GameSession
     public LanguageCode language => profile?.data.language ?? BotController.config.defaultLanguageCode;
     public DialogBase? currentDialog { get; private set; }
     public TooltipController tooltipController { get; } = new TooltipController();
+    public CancellationToken cancellationToken { get; }
     public bool isAdmin => profile.data.adminStatus > 0;
-    public CancellationToken cancellationToken => _sessionTasksCTS.Token;
 
     public GameSession(User user, ChatId? _fakeChatId = null)
     {
         chatId = user.Id;
         fakeChatId = _fakeChatId;
-        startTime = DateTime.UtcNow;
-        lastActivityTime = DateTime.UtcNow;
+        var now = DateTime.UtcNow;
+        startTime = now;
+        lastActivityTime = now;
+        cancellationToken = CancellationTokenSource.CreateLinkedTokenSource(_sessionTasksCTS.Token, sessionManager.allSessionsTasksCTS.Token).Token;
 
         Program.logger.Info($"Started a new session for {user}"
             + (fakeChatId?.Identifier != null ? $" with fakeId: {fakeChatId}" : string.Empty));
@@ -184,14 +186,6 @@ public class GameSession
         {
             await profile.SaveProfileIfNeed(lastActivityTime).FastAwait();
         }
-    }
-
-    public bool IsTasksCancelled()
-    {
-        if (_sessionTasksCTS.IsCancellationRequested)
-            return true;
-
-        return sessionManager.allSessionsTasksCTS.IsCancellationRequested;
     }
 
 }

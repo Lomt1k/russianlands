@@ -132,7 +132,8 @@ public class ArenaDialog : DialogBase
         var estimatedTime = await arenaMatchMaker.TryRegisterPlayer(session.player).FastAwait();
         if (!estimatedTime.HasValue)
         {
-            // TODO
+            var notification = Localization.Get(session, "dialog_arena_registration_error");
+            await notificationsManager.ShowNotification(session, notification, () => new ArenaDialog(session).Start()).FastAwait();
             return;
         }
 
