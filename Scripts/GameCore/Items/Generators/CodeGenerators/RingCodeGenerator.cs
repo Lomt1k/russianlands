@@ -20,7 +20,7 @@ public class RingCodeGenerator : ItemCodeGeneratorBase
         () => ForceAppendAbility(AbilityType.AddManaEveryTurn),
     };
 
-    public RingCodeGenerator(ItemType _type, Rarity _rarity, int _townHallLevel) : base(_type, _rarity, _townHallLevel)
+    public RingCodeGenerator(ItemType _type, Rarity _rarity, byte _townHallLevel, byte? grade = null) : base(_type, _rarity, _townHallLevel, grade)
     {
         if (type != ItemType.Ring)
         {

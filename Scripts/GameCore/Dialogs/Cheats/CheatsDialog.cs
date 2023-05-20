@@ -135,7 +135,7 @@ public class CheatsDialog : DialogBase
     public async Task SelectTownhallLevelForItem(ItemType itemType, Rarity rarity)
     {
         ClearButtons();
-        for (var i = 1; i <= 8; i++)
+        for (byte i = 1; i <= 8; i++)
         {
             var levelForDelegate = i;
             RegisterButton(levelForDelegate.ToString(), () => InvokeAddItemCommand(itemType, rarity, levelForDelegate));
@@ -147,7 +147,7 @@ public class CheatsDialog : DialogBase
         await SendDialogMessage(text, GetKeyboardWithFixedRowSize(4)).FastAwait();
     }
 
-    public async Task InvokeAddItemCommand(ItemType itemType, Rarity rarity, int townhallLevel)
+    public async Task InvokeAddItemCommand(ItemType itemType, Rarity rarity, byte townhallLevel)
     {
         var item = itemType == ItemType.Any
             ? ItemGenerationManager.GenerateItemWithSmartRandom(session, townhallLevel, rarity)

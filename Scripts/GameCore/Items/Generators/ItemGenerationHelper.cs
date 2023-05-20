@@ -4,11 +4,13 @@ using MarkOne.Scripts.GameCore.Buildings;
 
 namespace MarkOne.Scripts.GameCore.Items.Generators;
 
+public record HallGradePair(byte townhall, byte grade);
+
 public static class ItemGenerationHelper
 {
-    private static readonly Dictionary<int, int> minItemLevelByTownHall;
+    private static readonly Dictionary<byte, byte> minItemLevelByTownHall;
 
-    private static readonly Dictionary<int, int> basisPointsByTownHall = new Dictionary<int, int>
+    private static readonly Dictionary<byte, int> basisPointsByTownHall = new()
     {
         { 1, 20 },
         { 2, 20 },
@@ -22,21 +24,21 @@ public static class ItemGenerationHelper
         { 10, 220 },
     };
 
-    private static readonly Dictionary<int, int[]> itemGradesByTownHall = new Dictionary<int, int[]>
+    private static readonly Dictionary<byte, byte[]> itemGradesByTownHall = new()
     {
-        { 1, new [] { 5 } },
-        { 2, new [] { 3, 7 } },
-        { 3, new [] { 2, 2, 2, 5, 5, 8 } },
-        { 4, new [] { 1, 1, 1, 4, 4, 7, 7, 10 } },
-        { 5, new [] { 1, 1, 1, 3, 3, 3, 5, 5, 7, 10 } },
-        { 6, new [] { 1, 1, 1, 3, 3, 4, 4, 6, 6, 8, 10 } },
-        { 7, new [] { 1, 1, 1, 2, 2, 3, 3, 4, 4, 6, 8, 10 } },
-        { 8, new [] { 1, 1, 1, 2, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 8, 9, 10 } },
+        { 1, new byte[] { 5 } },
+        { 2, new byte[] { 3, 7 } },
+        { 3, new byte[] { 2, 2, 2, 5, 5, 8 } },
+        { 4, new byte[] { 1, 1, 1, 4, 4, 7, 7, 10 } },
+        { 5, new byte[] { 1, 1, 1, 3, 3, 3, 5, 5, 7, 10 } },
+        { 6, new byte[] { 1, 1, 1, 3, 3, 4, 4, 6, 6, 8, 10 } },
+        { 7, new byte[] { 1, 1, 1, 2, 2, 3, 3, 4, 4, 6, 8, 10 } },
+        { 8, new byte[] { 1, 1, 1, 2, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 8, 9, 10 } },
     };
 
     static ItemGenerationHelper()
     {
-        minItemLevelByTownHall = new Dictionary<int, int>();
+        minItemLevelByTownHall = new Dictionary<byte, byte>();
         var trainingBuilding = BuildingId.WarriorTraining.GetBuilding();
         var trainingBuildingLevels = trainingBuilding.buildingData.levels;
 
@@ -47,7 +49,7 @@ public static class ItemGenerationHelper
             var trainingLevel = (Buildings.Data.TrainingLevelInfo)level;
             var townHallLevel = trainingLevel.requiredTownHall + 1;
             var requiredLevel = trainingLevel.maxUnitLevel + 1;
-            minItemLevelByTownHall.Add(townHallLevel, requiredLevel);
+            minItemLevelByTownHall.Add((byte)townHallLevel, (byte)requiredLevel);
         }
     }
 
@@ -58,7 +60,7 @@ public static class ItemGenerationHelper
         return grades[index];
     }
 
-    public static int GetBasisPoint(int townHallLevel)
+    public static int GetBasisPoint(byte townHallLevel)
     {
         if (basisPointsByTownHall.TryGetValue(townHallLevel, out var basisPoint))
         {
@@ -67,14 +69,14 @@ public static class ItemGenerationHelper
         return townHallLevel < 1 ? basisPointsByTownHall[1] : basisPointsByTownHall[10];
     }
 
-    public static int CalculateRequiredLevel(int townHallLevel, int grade)
+    public static int CalculateRequiredLevel(byte townHallLevel, byte grade)
     {
         var byTownHall = minItemLevelByTownHall[townHallLevel];
         var byGrade = GetAdditionalLevelsByGrade(townHallLevel, grade);
         return byTownHall + byGrade;
     }
 
-    private static int GetAdditionalLevelsByGrade(int townHallLevel, int grade)
+    private static int GetAdditionalLevelsByGrade(byte townHallLevel, byte grade)
     {
         switch (townHallLevel)
         {
@@ -105,6 +107,21 @@ public static class ItemGenerationHelper
         }
 
         return 0;
+    }
+
+    public static IEnumerable<HallGradePair> CalculateAvailableHallGradePairs(byte minItemLevel, byte maxItemLevel)
+    {
+        foreach (var (townHall, grades) in itemGradesByTownHall)
+        {
+            foreach (var grade in grades)
+            {
+                var requiredLevel = CalculateRequiredLevel(townHall, grade);
+                if (requiredLevel >= minItemLevel && requiredLevel <= maxItemLevel)
+                {
+                    yield return new HallGradePair((byte)townHall, (byte)grade);
+                }
+            }
+        }
     }
 
 }

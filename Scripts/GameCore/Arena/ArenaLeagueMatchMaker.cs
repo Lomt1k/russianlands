@@ -3,6 +3,8 @@ using MarkOne.Scripts.GameCore.Dialogs.Town.Map.Arena;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Services;
 using MarkOne.Scripts.GameCore.Services.Battles;
+using MarkOne.Scripts.GameCore.Services.FakePlayers;
+using MarkOne.Scripts.GameCore.Services.GameData;
 using MarkOne.Scripts.GameCore.Units;
 using System;
 using System.Collections.Generic;
@@ -17,6 +19,8 @@ public class ArenaLeagueMatchMaker
 {
     private static readonly BattleManager battleManager = ServiceLocator.Get<BattleManager>();
     private static readonly MessageSender messageSender = ServiceLocator.Get<MessageSender>();
+    private static readonly GameDataHolder gameDataHolder = ServiceLocator.Get<GameDataHolder>();
+    private static readonly FakePlayersFactory fakePlayersFactory = ServiceLocator.Get<FakePlayersFactory>();
 
     private readonly ArenaLeagueSettings _arenaLeagueSettings;
     private readonly CancellationToken _cancellationToken;
@@ -156,10 +160,7 @@ public class ArenaLeagueMatchMaker
         if (linkedCancellationToken.IsCancellationRequested)
             return;
 
-        // fake player generation logic (debug version!)
-        var items = player.inventory.equipped.allEquipped;
-        var skills = player.skills.GetAllSkills();
-        var fakePlayer = new FakePlayer(items, skills, player.level, "Shadow Copy", player.session.profile.data.IsPremiumActive());
+        var fakePlayer = CreateFakePlayerOpponent(player);        
 
         await SendStartBattleMessage(player, fakePlayer).FastAwait();
         await Task.Delay(5000).FastAwait();
@@ -178,6 +179,20 @@ public class ArenaLeagueMatchMaker
             {
                 await new ArenaDialog(player.session).StartAfterBattleEnd().FastAwait();
             });
+    }
+
+    private FakePlayer CreateFakePlayerOpponent(Player player)
+    {
+        var battleResults = player.profile.dynamicData.arenaProgress.EnsureNotNull().results;
+
+        var battlesLeft = gameDataHolder.arenaSettings.battlesInMatch - battleResults.Count;
+        var requiredWins = _arenaLeagueSettings.targetWins - battleResults.Count(x => x.result == Dialogs.Battle.BattleResult.Win);
+        var needWeakEnemy = new Random().Next(battlesLeft) < requiredWins;
+
+        var generationSettings = needWeakEnemy
+            ? _arenaLeagueSettings.weakPlayerGenerationSettings
+            : _arenaLeagueSettings.defaultPlayerGenerationSettings;
+        return fakePlayersFactory.Generate(generationSettings);
     }
 
     private static async Task SendStartBattleMessage(Player player, IBattleUnit enemyForInfo)

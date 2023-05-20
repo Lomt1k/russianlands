@@ -10,10 +10,10 @@ public interface IWeightedItem
 
 public static class WeightedItemExtensions
 {
-    public static IWeightedItem GetRandom(this IEnumerable<IWeightedItem> items)
+    public static IWeightedItem GetRandom(this IEnumerable<IWeightedItem> items, Random random)
     {
         var sumWeights = items.Sum(x => x.weight);
-        var resultWeight = new Random().Next(sumWeights);
+        var resultWeight = random.Next(sumWeights);
         var iterationWeight = 0;
         foreach (var item in items)
         {

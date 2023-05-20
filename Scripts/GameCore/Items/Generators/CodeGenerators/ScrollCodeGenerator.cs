@@ -6,7 +6,7 @@ public class ScrollCodeGenerator : ItemCodeGeneratorBase
 {
     private readonly string[] _mainOption = new[] { "DF", "DC", "DL" };
 
-    public ScrollCodeGenerator(ItemType _type, Rarity _rarity, int _townHallLevel) : base(_type, _rarity, _townHallLevel)
+    public ScrollCodeGenerator(ItemType _type, Rarity _rarity, byte _townHallLevel, byte? grade = null) : base(_type, _rarity, _townHallLevel, grade)
     {
         if (type != ItemType.Scroll)
         {

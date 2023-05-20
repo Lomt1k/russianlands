@@ -18,12 +18,12 @@ public abstract class ItemCodeGeneratorBase
     protected int abilitiesCount => _abilities.Count;
     protected int propertiesCount => _properties.Count;
 
-    public ItemCodeGeneratorBase(ItemType _type, Rarity _rarity, int _townHallLevel)
+    public ItemCodeGeneratorBase(ItemType _type, Rarity _rarity, byte _townHallLevel, byte? _grade)
     {
         type = _type;
         rarity = _rarity;
         townHallLevel = (byte)_townHallLevel;
-        grade = (byte)ItemGenerationHelper.GetRandomGrade(townHallLevel);
+        grade = _grade ?? (byte)ItemGenerationHelper.GetRandomGrade(townHallLevel);
 
         sb = new StringBuilder();
 

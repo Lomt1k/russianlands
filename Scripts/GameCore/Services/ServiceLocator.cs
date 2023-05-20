@@ -33,6 +33,7 @@ public static class ServiceLocator
         Register(new ProfileDailyDataManager());
         Register(new CrossroadsMobsManager());
         Register(new Arena.ArenaMatchMaker());
+        Register(new FakePlayers.FakePlayersFactory());
     }
 
     private static void Register<T>(T instance) where T : Service, new()

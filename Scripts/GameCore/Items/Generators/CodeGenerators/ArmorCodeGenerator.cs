@@ -15,7 +15,7 @@ public class ArmorCodeGenerator : ItemCodeGeneratorBase
         () => { sb.Append("DL"); return true; }, //damage resist lightning
     };
 
-    public ArmorCodeGenerator(ItemType _type, Rarity _rarity, int _townHallLevel) : base(_type, _rarity, _townHallLevel)
+    public ArmorCodeGenerator(ItemType _type, Rarity _rarity, byte _townHallLevel, byte? grade = null) : base(_type, _rarity, _townHallLevel, grade)
     {
         if (type != ItemType.Armor && type != ItemType.Helmet && type != ItemType.Boots)
         {

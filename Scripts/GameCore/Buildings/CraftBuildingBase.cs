@@ -183,7 +183,7 @@ public abstract class CraftBuildingBase : BuildingBase
             return new CraftItemLevelsInfo() { minLevel = 0, maxLevel = 0 };
         }
 
-        var townhallLevel = buildingData.levels[currentLevel - 1].requiredTownHall;
+        var townhallLevel = (byte)buildingData.levels[currentLevel - 1].requiredTownHall;
         return new CraftItemLevelsInfo()
         {
             minLevel = ItemGenerationHelper.CalculateRequiredLevel(townhallLevel, 1),
@@ -194,7 +194,7 @@ public abstract class CraftBuildingBase : BuildingBase
     public CraftItemLevelsInfo GetNextCraftLevels(ProfileBuildingsData data)
     {
         var currentLevel = GetCurrentLevel(data);
-        var townhallLevel = buildingData.levels[currentLevel].requiredTownHall;
+        var townhallLevel = (byte)buildingData.levels[currentLevel].requiredTownHall;
 
         return new CraftItemLevelsInfo()
         {
@@ -225,14 +225,14 @@ public abstract class CraftBuildingBase : BuildingBase
         return item;
     }
 
-    public int GetCurrentTownhallLevelForCraftItem(ProfileBuildingsData data)
+    public byte GetCurrentTownhallLevelForCraftItem(ProfileBuildingsData data)
     {
         var currentLevel = GetCurrentLevel(data);
         if (currentLevel < 1)
         {
             return 1;
         }
-        return buildingData.levels[currentLevel - 1].requiredTownHall;
+        return (byte)buildingData.levels[currentLevel - 1].requiredTownHall;
     }
 
     public override bool IsStartConstructionBlocked(ProfileBuildingsData data, out string blockReasonMessage)

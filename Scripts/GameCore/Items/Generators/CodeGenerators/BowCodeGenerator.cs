@@ -21,7 +21,7 @@ public class BowCodeGenerator : ItemCodeGeneratorBase
         AbilityType.SanctionsKeyword,
     };
 
-    public BowCodeGenerator(ItemType _type, Rarity _rarity, int _townHallLevel) : base(_type, _rarity, _townHallLevel)
+    public BowCodeGenerator(ItemType _type, Rarity _rarity, byte _townHallLevel, byte? grade = null) : base(_type, _rarity, _townHallLevel, grade)
     {
         if (type != ItemType.Bow)
         {
