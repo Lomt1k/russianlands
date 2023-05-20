@@ -197,7 +197,7 @@ public class ArenaDialog : DialogBase
             : gameDataHolder.arenaSettings.battleRewardsForFood;
 
         var sb = new StringBuilder()
-            .AppendLine(Localization.Get(session, "dialog_arena_results_description", battlesCount))
+            .AppendLine(Localization.Get(session, "dialog_arena_results_description"))
             .AppendLine()
             .AppendLine(Localization.Get(session, "battle_result_header_rewards"));
 
