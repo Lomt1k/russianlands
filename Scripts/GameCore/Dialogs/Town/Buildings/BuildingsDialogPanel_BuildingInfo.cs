@@ -64,7 +64,7 @@ public partial class BuildingsDialogPanel : DialogPanelBase
                 var time = building.GetEndConstructionTime(_buildingsData);
                 var secondsToEnd = (int)(time - DateTime.UtcNow).TotalSeconds;
                 var diamondsForBoost = ResourceHelper.CalculateConstructionBoostPriceInDiamonds(secondsToEnd);
-                var priceView = ResourceId.Diamond.GetEmoji().ToString() + diamondsForBoost;
+                var priceView = diamondsForBoost.GetCompactView(shortView: false);
                 var buttonText = nextLevel.isBoostAvailable
                     ? Localization.Get(session, "menu_item_boost_free_button")
                     : Localization.Get(session, "menu_item_boost_button", priceView);

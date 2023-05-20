@@ -18,7 +18,7 @@ public partial class PotionsDialogPanel : DialogPanelBase
         if (!item.IsReady())
         {
             var diamondsForBoost = item.GetBoostPriceInDiamonds();
-            var priceView = ResourceId.Diamond.GetEmoji().ToString() + diamondsForBoost;
+            var priceView = diamondsForBoost.GetCompactView(shortView: false);
             var boostButtonText = Localization.Get(session, "menu_item_boost_button", priceView);
             RegisterButton(boostButtonText, () => TryBoostCraft(item));
             RegisterButton(Emojis.ElementCancel + Localization.Get(session, "dialog_potions_cancel_craft_button"),

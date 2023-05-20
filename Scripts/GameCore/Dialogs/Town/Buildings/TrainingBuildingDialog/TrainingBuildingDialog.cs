@@ -104,7 +104,7 @@ public class TrainingBuildingDialog : DialogBase
             sb.AppendLine(_building.GetInfoAboutUnitTraining(session, _data, unitIndex));
 
             var diamondsForBoost = ResourceHelper.CalculateTrainingBoostPriceInDiamonds((int)timeSpan.TotalSeconds);
-            var priceView = ResourceId.Diamond.GetEmoji().ToString() + diamondsForBoost;
+            var priceView = diamondsForBoost.GetCompactView(shortView: false);
             var boostButton = Localization.Get(session, "menu_item_boost_button", priceView);
             RegisterButton(boostButton, () => TryBoostTraining(unitIndex));
             RegisterButton(Localization.Get(session, "dialog_training_cancel_training_button"), () => CancelTraining(unitIndex));
