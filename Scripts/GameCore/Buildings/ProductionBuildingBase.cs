@@ -213,4 +213,9 @@ public abstract class ProductionBuildingBase : BuildingBase
         SetStartFarmTime(data, startFarmTime);
     }
 
+    public override string? GetSpecialConstructionWarning(ProfileBuildingsData data, GameSession session)
+    {
+        return Localization.Get(session, "building_production_unavailable");
+    }
+
 }

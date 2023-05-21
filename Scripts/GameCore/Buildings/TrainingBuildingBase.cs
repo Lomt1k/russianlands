@@ -216,4 +216,10 @@ public abstract class TrainingBuildingBase : BuildingBase
         SetSecondTrainingUnitStartTime(data, DateTime.MinValue);
     }
 
+    public override string? GetSpecialConstructionWarning(ProfileBuildingsData data, GameSession session)
+    {
+        var hasActiveTraining = GetFirstTrainingUnitIndex(data) != -1 || GetSecondTrainingUnitIndex(data) != -1;
+        return hasActiveTraining ? Localization.Get(session, "building_training_break_warning") : null;
+    }
+
 }

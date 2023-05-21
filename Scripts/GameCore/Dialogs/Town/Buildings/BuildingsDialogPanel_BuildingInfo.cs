@@ -213,15 +213,11 @@ public partial class BuildingsDialogPanel : DialogPanelBase
 
     private void AppendSpecialConstructionWarnings(StringBuilder sb, BuildingBase building)
     {
-        if (building is TrainingBuildingBase trainingBuilding)
+        var warningText = building.GetSpecialConstructionWarning(_buildingsData, session);
+        if (!string.IsNullOrEmpty(warningText))
         {
-            var hasActiveTraining = trainingBuilding.GetFirstTrainingUnitIndex(_buildingsData) != -1
-                || trainingBuilding.GetSecondTrainingUnitIndex(_buildingsData) != -1;
-            if (hasActiveTraining)
-            {
-                sb.AppendLine();
-                sb.AppendLine(Emojis.ElementWarningRed.ToString() + Localization.Get(session, "building_training_break_warning"));
-            }
+            sb.AppendLine();
+            sb.AppendLine(Emojis.ElementWarningRed.ToString() + warningText);
         }
     }
 

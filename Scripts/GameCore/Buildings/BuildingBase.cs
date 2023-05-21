@@ -194,6 +194,12 @@ public abstract class BuildingBase
         return false;
     }
 
+    /// <returns>Возвращает строку с предупреждением о том, что станет недоступно во время строительства</returns>
+    public virtual string? GetSpecialConstructionWarning(ProfileBuildingsData data, GameSession session)
+    {
+        return null;
+    }
+
     // Этот метод используется только для чита!
     public void Cheat_SetCurrentLevel(ProfileBuildingsData data, byte level)
     {
