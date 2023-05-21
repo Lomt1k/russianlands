@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Dialogs.Battle;
 using MarkOne.Scripts.GameCore.Dialogs.Resources;
+using MarkOne.Scripts.GameCore.Dialogs.Town.Character.Inventory;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Resources;
 using MarkOne.Scripts.GameCore.Rewards;
@@ -58,6 +60,20 @@ public class BattlePointDialog : DialogBase
     protected virtual async Task TryStartBattle()
     {
         var playerResources = session.player.resources;
+
+        var freeItemSlots = playerResources.GetResourceLimit(ResourceId.InventoryItems) - playerResources.GetValue(ResourceId.InventoryItems);
+        var itemRewardsCount = _data.rewards?.Count(x => x is RandomItemReward || x is ItemWithCodeReward) ?? 0;
+        if (itemRewardsCount > freeItemSlots)
+        {
+            var text = Localization.Get(session, "dialog_mob_battle_point_inventory_slots_required", itemRewardsCount);
+            await new SimpleDialog(session, text, withTownButton: false, new()
+            {
+                { Emojis.ButtonInventory + Localization.Get(session, "menu_item_inventory"), () => new InventoryDialog(session).Start() },
+                { Emojis.ElementBack + Localization.Get(session, "menu_item_back_button"), () => new BattlePointDialog(session, _data).Start() },
+            }).Start().FastAwait();
+            return;
+        }
+
         var successsPurchase = playerResources.TryPurchase(_data.price, out var notEnoughResource);
         if (!successsPurchase)
         {

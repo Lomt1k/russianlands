@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MarkOne.Scripts.Bot;
+using MarkOne.Scripts.GameCore.Dialogs.Town.Character.Inventory;
 using MarkOne.Scripts.GameCore.Items;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Locations;
@@ -265,11 +267,48 @@ public class MapDialogPanel : DialogPanelBase
         var text = Emojis.ButtonBattle + mobData.mob.GetFullUnitInfoView(session);
         var priceView = mobData.price.amount > 0 ? mobData.price.resourceId.GetEmoji() + mobData.price.amount.View() : string.Empty;
         var startBattleButton = Localization.Get(session, "dialog_mob_battle_point_start_battle", priceView);
-        RegisterButton(startBattleButton, () => new BattlePointDialog(session, mobData).SilentStart());
+        RegisterButton(startBattleButton, () => CheckFreeInvetorySpaceAndStartBattle(locationId, mobData));
         RegisterBackButton(() => ShowLocation(locationId));
         RegisterBackButton(Localization.Get(session, "menu_item_map") + Emojis.ButtonMap, ShowGlobalMap);
 
         await SendPanelMessage(text, GetMultilineKeyboardWithDoubleBack()).FastAwait();
+    }
+
+    private async Task CheckFreeInvetorySpaceAndStartBattle(LocationId locationId, BattlePointData battlePointData)
+    {
+        if (!locationMobsManager.isMobsReady)
+        {
+            // Клик в момент пересоздания мобов
+            var notification = Localization.Get(session, "dialog_map_mobs_generation_in_progress");
+            await notificationsManager.ShowNotification(session, notification,
+                () => notificationsManager.GetNotificationsAndEntryTown(session, TownEntryReason.BackFromInnerDialog)).FastAwait();
+            return;
+        }
+
+        var mobDatas = locationMobsManager[mobDifficulty][locationId];
+        var defeatedMobs = session.profile.dailyData.GetLocationDefeatedMobs(locationId);
+        var isLastMob = mobDatas.Length - defeatedMobs.Count == 1;
+
+        if (isLastMob)
+        {
+            var playerResources = session.player.resources;
+            var freeItemSlots = playerResources.GetResourceLimit(ResourceId.InventoryItems) - playerResources.GetValue(ResourceId.InventoryItems);
+            var locationRewards = locationMobsManager.GetLocationRewards(session, locationId);
+            var itemRewardsCount = battlePointData.rewards?.Count(x => x is RandomItemReward || x is ItemWithCodeReward) ?? 0;
+            itemRewardsCount += locationRewards.Count(x => x is RandomItemReward || x is ItemWithCodeReward);
+            if (itemRewardsCount > freeItemSlots)
+            {
+                var text = Localization.Get(session, "dialog_mob_battle_point_inventory_slots_required", itemRewardsCount);
+                await new SimpleDialog(session, text, withTownButton: false, new()
+                {
+                    { Emojis.ButtonInventory + Localization.Get(session, "menu_item_inventory"), () => new InventoryDialog(session).Start() },
+                    { Emojis.ElementBack + Localization.Get(session, "menu_item_back_button"), () => new MapDialog(session).StartWithLocation(locationId) },
+                }).Start().FastAwait();
+                return;
+            }
+        }
+
+        await new BattlePointDialog(session, battlePointData).SilentStart().FastAwait();
     }
 
 }
