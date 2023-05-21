@@ -48,7 +48,7 @@ internal class UpgradeSkillDialog : DialogBase
 
         sb.AppendLine();
         sb.AppendLine(Localization.Get(session, "resource_header_ours"));
-        var requiredFruits = _skills.GetRequiredFruits(_itemType);
+        var requiredFruits = PlayerSkills.GetRequiredFruits(_itemType);
         var ourResources = new ResourceData[]
         {
             new ResourceData(requiredFruits[0], _resources.GetValue(requiredFruits[0])),
@@ -78,7 +78,7 @@ internal class UpgradeSkillDialog : DialogBase
     private ResourceData[] GetRequiredResources()
     {
         var elixirWorkshop = (ElixirWorkshopBuilding)BuildingId.ElixirWorkshop.GetBuilding();
-        var requiredFruits = _skills.GetRequiredFruits(_itemType);
+        var requiredFruits = PlayerSkills.GetRequiredFruits(_itemType);
         return new ResourceData[]
         {
             new ResourceData(requiredFruits[0], 1),
@@ -90,7 +90,7 @@ internal class UpgradeSkillDialog : DialogBase
 
     private ResourceData[] GetRequiredFruits()
     {
-        var requiredFruits = _skills.GetRequiredFruits(_itemType);
+        var requiredFruits = PlayerSkills.GetRequiredFruits(_itemType);
         return new ResourceData[]
         {
             new ResourceData(requiredFruits[0], 1),

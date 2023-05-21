@@ -1,13 +1,17 @@
 ﻿using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Dialogs.Battle;
+using MarkOne.Scripts.GameCore.Items;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Resources;
 using MarkOne.Scripts.GameCore.Rewards;
 using MarkOne.Scripts.GameCore.Services;
 using MarkOne.Scripts.GameCore.Services.Mobs;
 using MarkOne.Scripts.GameCore.Sessions;
+using MarkOne.Scripts.GameCore.Skills;
 using MarkOne.Scripts.GameCore.Units;
 using MarkOne.Scripts.GameCore.Units.Mobs;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -67,18 +71,40 @@ public class CrossroadsDialog : DialogBase
     private string GetStoneView(CrossroadsMobData[] mobs)
     {
         var fruitViews = new string[mobs.Length];
+        var skillViews = new string[mobs.Length];
         for (int i = 0; i < fruitViews.Length; i++)
         {
             var fruitId = mobs[i].fruitId;
             fruitViews[i] = Localization.Get(session, $"dialog_crossroads_{fruitId.ToString().ToLower()}");
+            var skills = GetSkillTypes(fruitId).ToArray();
+            skillViews[i] = $"{fruitId.GetEmoji()} \t"
+                + skills[0].GetCategoryLocalization(session) + ", "
+                + skills[1].GetCategoryLocalization(session);
         }
 
         return new StringBuilder()
             .AppendLine(Localization.Get(session, "dialog_crossroads_stone_header"))
             .AppendLine(Localization.Get(session, "dialog_crossroads_left_way", fruitViews[0]))
             .AppendLine(Localization.Get(session, "dialog_crossroads_forward_way", fruitViews[1]))
-            .Append(Localization.Get(session, "dialog_crossroads_right_way", fruitViews[2]))
+            .AppendLine(Localization.Get(session, "dialog_crossroads_right_way", fruitViews[2]))
+            .AppendLine()
+            .AppendLine(Localization.Get(session, "dialog_crossroads_fruits_reminder_header"))
+            .AppendLine(skillViews[0].Bold())
+            .AppendLine(skillViews[1].Bold())
+            .Append(skillViews[2].Bold())
             .ToString();
+    }
+
+    private IEnumerable<ItemType> GetSkillTypes(ResourceId fruitId)
+    {
+        foreach (var skillType in PlayerSkills.GetAllSkillTypes())
+        {
+            var requiredFruits = PlayerSkills.GetRequiredFruits(skillType);
+            if (requiredFruits.Contains(fruitId))
+            {
+                yield return skillType;
+            }
+        }
     }
 
     private async Task ShowMobPoint(CrossroadsMobData mobData)

@@ -33,7 +33,7 @@ internal class SkillsDialog : DialogBase
         sb.AppendLine(Localization.Get(session, "building_skills_upgrade_recipes"));
         foreach (var itemType in PlayerSkills.GetAllSkillTypes())
         {
-            var requiredFruits = _skills.GetRequiredFruits(itemType);
+            var requiredFruits = PlayerSkills.GetRequiredFruits(itemType);
             var isFirstFruit = true;
             foreach (var resourceId in requiredFruits)
             {
@@ -95,7 +95,7 @@ internal class SkillsDialog : DialogBase
     private int GetAvailableSkillUpgradesByFruits(ItemType itemType)
     {
         var result = int.MaxValue;
-        var requiredFruits = _skills.GetRequiredFruits(itemType);
+        var requiredFruits = PlayerSkills.GetRequiredFruits(itemType);
         foreach (var resourceId in requiredFruits)
         {
             var resourceAmount = _resources.GetValue(resourceId);
@@ -109,7 +109,7 @@ internal class SkillsDialog : DialogBase
 
     private Dictionary<ResourceId, int> GetRequiredFruits(ItemType itemType)
     {
-        var requiredFruits = _skills.GetRequiredFruits(itemType);
+        var requiredFruits = PlayerSkills.GetRequiredFruits(itemType);
         return new Dictionary<ResourceId, int>
         {
             { requiredFruits[0], 1 },

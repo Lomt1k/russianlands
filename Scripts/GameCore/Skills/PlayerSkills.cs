@@ -110,7 +110,7 @@ public class PlayerSkills
     }
 
     /// <returns>Ресурсы, требуемые для прокачки навыка</returns>
-    public ResourceId[] GetRequiredFruits(ItemType itemType)
+    public static ResourceId[] GetRequiredFruits(ItemType itemType)
     {
         return skillsDictionary[itemType].requiredFruits;
     }
