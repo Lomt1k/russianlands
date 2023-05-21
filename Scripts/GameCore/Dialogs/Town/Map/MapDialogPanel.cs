@@ -2,6 +2,7 @@
 using System.Text;
 using System.Threading.Tasks;
 using MarkOne.Scripts.Bot;
+using MarkOne.Scripts.GameCore.Items;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Locations;
 using MarkOne.Scripts.GameCore.Quests;
@@ -185,10 +186,17 @@ public class MapDialogPanel : DialogPanelBase
         var locationRewards = locationMobsManager.GetLocationRewards(session, locationId);
         foreach (var reward in locationRewards)
         {
-            if (reward is ResourceReward resourceReward)
+            switch (reward)
             {
-                var resourceData = new ResourceData(resourceReward.resourceId, resourceReward.amount);
-                sb.AppendLine(resourceData.GetLocalizedView(session));
+                case RandomItemReward randomItemReward:
+                    sb.AppendLine(randomItemReward.rarity.GetUnknownItemView(session));
+                    break;
+                case ResourceReward resourceReward:
+                    var resourceData = new ResourceData(resourceReward.resourceId, resourceReward.amount);
+                    sb.AppendLine(resourceData.GetLocalizedView(session, showCountIfSingle: false));
+                    break;
+                default:
+                    break;
             }
         }
 

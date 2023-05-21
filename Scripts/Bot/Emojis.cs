@@ -94,6 +94,7 @@ public static class Emojis
     public static readonly Emoji ItemRing = new Emoji("\ud83d\udc8d");
     public static readonly Emoji ItemScroll = new Emoji("\ud83d\udcdc");
     public static readonly Emoji ItemEquipped = new Emoji("\ud83d\udc4b");
+    public static readonly Emoji ItemUnknown = new Emoji("\ud83d\udce6");
 
     // --- Resources
     public static readonly Emoji ResourceGold = new Emoji("\ud83d\udcb0");

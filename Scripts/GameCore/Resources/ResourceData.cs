@@ -39,18 +39,20 @@ public static class ResourceDataExtensions
         return sb.ToString();
     }
 
-    public static string GetLocalizedView(this ResourceData resourceData, GameSession session)
+    public static string GetLocalizedView(this ResourceData resourceData, GameSession session, bool showCountIfSingle = true)
     {
         var localizationKey = "resource_name_" + resourceData.resourceId.ToString().ToLower();
-        return resourceData.resourceId.GetEmoji() + Localization.Get(session, localizationKey) + $" {resourceData.amount.View()}";
+        return resourceData.amount == 1 && !showCountIfSingle
+            ? resourceData.resourceId.GetEmoji() + Localization.Get(session, localizationKey).Bold()
+            : resourceData.resourceId.GetEmoji() + (Localization.Get(session, localizationKey) + ':').Bold() + $" {resourceData.amount.View()}";
     }
 
-    public static string GetLocalizedView(this IEnumerable<ResourceData> resourceDatas, GameSession session)
+    public static string GetLocalizedView(this IEnumerable<ResourceData> resourceDatas, GameSession session, bool showCountIfSingle = true)
     {
         var sb = new StringBuilder();
         foreach (var resourceData in resourceDatas)
         {
-            sb.AppendLine(resourceData.GetLocalizedView(session));
+            sb.AppendLine(resourceData.GetLocalizedView(session, showCountIfSingle));
         }
         return sb.ToString();
     }
