@@ -32,6 +32,7 @@ public class CrossroadsDialog : DialogBase
         }
 
         var difficulty = MobDifficultyCalculator.GetActualDifficultyForPlayer(session.player);
+        difficulty = difficulty < MobDifficulty.HALL_5_START ? MobDifficulty.HALL_5_START : difficulty; // хардкод, но решил не запариваться
         var crossId = session.profile.dailyData.lastCrossroadId + 1;
         var mobs = crossroadsMobsManager[difficulty][crossId];
         var energyInfo = ResourceHelper.RefreshCrossroadsEnergy(session);
