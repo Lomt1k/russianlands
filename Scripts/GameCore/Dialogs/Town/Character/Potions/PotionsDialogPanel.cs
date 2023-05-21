@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using MarkOne.Scripts.GameCore.Buildings;
 using MarkOne.Scripts.GameCore.Dialogs;
 using MarkOne.Scripts.GameCore.Dialogs.Town.Shop;
 using MarkOne.Scripts.GameCore.Localizations;
@@ -50,13 +51,26 @@ public partial class PotionsDialogPanel : DialogPanelBase
         }
 
         var freeSlots = playerPotions.GetFreeSlotsCount(session);
-        RegisterButton(Emojis.ElementPlus + Localization.Get(session, "dialog_potions_produce_button") + $" ({freeSlots})", TryOpenProductionPanel);
+        var emoji = IsAlchemyLabUnderConstruction() ? Emojis.ElementLocked : Emojis.ElementPlus;
+        RegisterButton(emoji + Localization.Get(session, "dialog_potions_produce_button") + $" ({freeSlots})", TryOpenProductionPanel);
 
         await SendPanelMessage(sb, GetMultilineKeyboard()).FastAwait();
     }
 
     private async Task TryOpenProductionPanel()
     {
+        if (IsAlchemyLabUnderConstruction())
+        {
+            ClearButtons();
+            var sb = new StringBuilder();
+            var buildingName = (BuildingId.AlchemyLab.GetBuilding().GetNextLevelLocalizedName(session, session.profile.buildingsData) + ':').Bold();
+            sb.AppendLine(buildingName);
+            sb.AppendLine(Localization.Get(session, $"building_{BuildingId.AlchemyLab}_unavailable_under_construction"));
+            RegisterBackButton(ShowPotionsList);
+            await SendPanelMessage(sb, GetOneLineKeyboard()).FastAwait();
+            return;
+        }
+
         var isFull = session.player.potions.IsFull(session);
         if (isFull)
         {
@@ -129,6 +143,11 @@ public partial class PotionsDialogPanel : DialogPanelBase
         RegisterBackButton(ShowPotionsList);
 
         await SendPanelMessage(text, GetMultilineKeyboard()).FastAwait();
+    }
+
+    private bool IsAlchemyLabUnderConstruction()
+    {
+        return session.player.buildings.IsBuildingUnderConstruction(BuildingId.AlchemyLab);
     }
 
 }

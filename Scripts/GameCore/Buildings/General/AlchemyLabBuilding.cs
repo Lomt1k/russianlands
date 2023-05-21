@@ -182,4 +182,9 @@ public class AlchemyLabBuilding : BuildingBase
         return levelInfo.potionsInBattle;
     }
 
+    public override string? GetSpecialConstructionWarning(ProfileBuildingsData data, GameSession session)
+    {
+        return Localization.Get(session, $"building_{buildingId}_unavailable_under_construction");
+    }
+
 }
