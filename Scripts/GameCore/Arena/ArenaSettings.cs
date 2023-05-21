@@ -42,6 +42,7 @@ public class ArenaBattleRewardSettings
     public int chipsForMatchEnd { get; set; }
     public int ticketsForWinAllBattles { get; set; }
     public int chipsForWinAllBattles { get; set; }
+    public int chipsForDrawAllBattles { get; set; }
 }
 
 [JsonObject]

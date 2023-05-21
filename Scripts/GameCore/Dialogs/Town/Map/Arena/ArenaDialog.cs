@@ -148,8 +148,18 @@ public class ArenaDialog : DialogBase
         if (canWinAllBattles)
         {
             sb.AppendLine();
-            sb.AppendLine(Localization.Get(session, "dialog_arena_match_making_challenge", targetBattlesCount));
+            sb.AppendLine(Localization.Get(session, "dialog_arena_match_making_challenge_all_wins", targetBattlesCount));
             sb.AppendLine(GetRewardsForWinAllBattles(arenaProgress.byTicket).GetLocalizedView(session));
+        }
+        else
+        {
+            var canEndAllBattlesWithoutLose = arenaProgress.results.Count(x => x.result == BattleResult.Lose) == 0;
+            if (canEndAllBattlesWithoutLose)
+            {
+                sb.AppendLine();
+                sb.AppendLine(Localization.Get(session, "dialog_arena_match_making_challenge_no_lose"));
+                sb.AppendLine(GetRewardForEndAllBattlesWithoutLose(arenaProgress.byTicket).GetLocalizedView(session));
+            }
         }
 
         ClearButtons();
@@ -171,6 +181,14 @@ public class ArenaDialog : DialogBase
         {
             yield return new ResourceData(ResourceId.ArenaChip, rewardSetiings.chipsForWinAllBattles);
         }
+    }
+
+    private ResourceData GetRewardForEndAllBattlesWithoutLose(bool byTicket)
+    {
+        var rewardSetiings = byTicket
+            ? gameDataHolder.arenaSettings.battleRewardsForTicket
+            : gameDataHolder.arenaSettings.battleRewardsForFood;
+        return new ResourceData(ResourceId.ArenaChip, rewardSetiings.chipsForDrawAllBattles);
     }
 
     private async Task TryCancelNextBattle()
@@ -244,6 +262,16 @@ public class ArenaDialog : DialogBase
             if (rewardSetiings.chipsForWinAllBattles > 0)
             {
                 var chipsReward = new ResourceData(ResourceId.ArenaChip, rewardSetiings.chipsForWinAllBattles);
+                totalRewards[ResourceId.ArenaChip] += chipsReward.amount;
+                sb.AppendLine(Localization.Get(session, "dialog_arena_results_special_reward", chipsReward.GetCompactView()));
+            }
+        }
+        else
+        {
+            var isEndAllBattlesWithoutLose = arenaProgress.results.Count(x => x.result == BattleResult.Lose) == 0;
+            if (isEndAllBattlesWithoutLose)
+            {
+                var chipsReward = new ResourceData(ResourceId.ArenaChip, rewardSetiings.chipsForDrawAllBattles);
                 totalRewards[ResourceId.ArenaChip] += chipsReward.amount;
                 sb.AppendLine(Localization.Get(session, "dialog_arena_results_special_reward", chipsReward.GetCompactView()));
             }
