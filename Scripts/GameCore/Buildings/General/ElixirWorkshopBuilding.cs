@@ -111,4 +111,9 @@ public class ElixirWorkshopBuilding : BuildingBase
         return new ResourceData(ResourceId.Herbs, levelInfo.elixirPriceInHerbs);
     }
 
+    public override string? GetSpecialConstructionWarning(ProfileBuildingsData data, GameSession session)
+    {
+        return Localization.Get(session, $"building_{buildingId}_unavailable_under_construction");
+    }
+
 }

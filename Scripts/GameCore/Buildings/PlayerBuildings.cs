@@ -84,14 +84,19 @@ public class PlayerBuildings
         }
     }
 
-    public bool HasBuilding(BuildingId building)
+    public bool HasBuilding(BuildingId buildingId)
     {
-        return building.GetBuilding().GetCurrentLevel(_buildingsData) > 0;
+        return buildingId.GetBuilding().GetCurrentLevel(_buildingsData) > 0;
     }
 
-    public byte GetBuildingLevel(BuildingId building)
+    public byte GetBuildingLevel(BuildingId buildingId)
     {
-        return building.GetBuilding().GetCurrentLevel(_buildingsData);
+        return buildingId.GetBuilding().GetCurrentLevel(_buildingsData);
+    }
+
+    public bool IsBuildingUnderConstruction(BuildingId buildingId)
+    {
+        return buildingId.GetBuilding().IsUnderConstruction(_buildingsData);
     }
 
 }

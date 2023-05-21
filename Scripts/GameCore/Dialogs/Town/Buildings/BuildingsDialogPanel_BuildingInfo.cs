@@ -213,6 +213,9 @@ public partial class BuildingsDialogPanel : DialogPanelBase
 
     private void AppendSpecialConstructionWarnings(StringBuilder sb, BuildingBase building)
     {
+        if (!building.IsBuilt(_buildingsData))
+            return;
+
         var warningText = building.GetSpecialConstructionWarning(_buildingsData, session);
         if (!string.IsNullOrEmpty(warningText))
         {

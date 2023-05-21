@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using MarkOne.Scripts.Bot;
+using MarkOne.Scripts.GameCore.Buildings;
 using MarkOne.Scripts.GameCore.Items;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Resources;
 using MarkOne.Scripts.GameCore.Sessions;
 using MarkOne.Scripts.GameCore.Skills;
+using Telegram.Bot.Types.ReplyMarkups;
 
 namespace MarkOne.Scripts.GameCore.Dialogs.Town.Character.Skills;
 
@@ -57,17 +59,25 @@ internal class SkillsDialog : DialogBase
         {
             sb.AppendLine(Localization.Get(session, "dialog_skills_all_skills_has_max_level"));
         }
+        else if (IsElixirBuildingUnderConstruction())
+        {
+            var buildingName = (BuildingId.ElixirWorkshop.GetBuilding().GetNextLevelLocalizedName(session, session.profile.buildingsData) + ':').Bold();
+            sb.AppendLine(buildingName);
+            sb.AppendLine(Localization.Get(session, $"building_{BuildingId.ElixirWorkshop}_unavailable_under_construction"));
+        }
         else
         {
             sb.AppendLine(Localization.Get(session, "dialog_skills_upgrade_select_skill"));
         }
 
-        await SendDialogMessage(sb, GetKeyboardWithRowSizes(3, 3, 2, 2)).FastAwait();
+        await SendDialogMessage(sb, GetSpecialKeyboard()).FastAwait();
     }
 
     private void RegisterSkillButtons()
     {
         if (_skills.IsAllSkillsMax())
+            return;
+        if (IsElixirBuildingUnderConstruction())
             return;
 
         foreach (var itemType in PlayerSkills.GetAllSkillTypes())
@@ -106,6 +116,16 @@ internal class SkillsDialog : DialogBase
             { requiredFruits[1], 1 },
             { requiredFruits[2], 1 },
         };
+    }
+
+    private bool IsElixirBuildingUnderConstruction()
+    {
+        return session.player.buildings.IsBuildingUnderConstruction(BuildingId.ElixirWorkshop);
+    }
+
+    private ReplyKeyboardMarkup GetSpecialKeyboard()
+    {
+        return buttonsCount > 2 ? GetKeyboardWithRowSizes(3, 3, 2, 2) : GetOneLineKeyboard();
     }
 
 }
