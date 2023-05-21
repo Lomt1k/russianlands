@@ -8,6 +8,7 @@ using MarkOne.Scripts.GameCore.Resources;
 using MarkOne.Scripts.GameCore.Services.GameData;
 using MarkOne.Scripts.GameCore.Skills;
 using MarkOne.Scripts.GameCore.Sessions;
+using System.Text.RegularExpressions;
 
 namespace MarkOne.Scripts.GameCore.Items;
 
@@ -120,6 +121,14 @@ public class InventoryItem
     public string GetView(GameSession session)
     {
         return ItemViewBuilder.Build(session, this);
+    }
+
+    public string GetNameWithoutBrackets(GameSession session)
+    {
+        var fullName = GetFullName(session);
+        return data.itemType is ItemType.Amulet or ItemType.Ring
+            ? Regex.Replace(fullName, " \\(.*?\\)", string.Empty)
+            : fullName;
     }
 
     public string GetFullName(GameSession session)

@@ -32,7 +32,7 @@ public class RestoreHealthAction : IBattleAction
         return fromItems.Count switch
         {
             0 => Localization.Get(session, "battle_action_restore_health_header"),
-            1 => fromItems.First().GetFullName(session).Bold(),
+            1 => fromItems.First().GetNameWithoutBrackets(session).Bold(),
             _ => Localization.Get(session, "battle_action_multi_items_header", fromItems.Count)
         };
     }
