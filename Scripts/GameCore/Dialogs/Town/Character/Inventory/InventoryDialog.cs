@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using MarkOne.Scripts.Bot;
-using MarkOne.Scripts.Bot.Dialogs.Town.Character;
 using MarkOne.Scripts.Bot.Dialogs.Town.Character.Inventory;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Sessions;

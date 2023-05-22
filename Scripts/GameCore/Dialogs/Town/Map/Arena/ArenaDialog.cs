@@ -13,7 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace MarkOne.Scripts.GameCore.Dialogs.Town.Map.Arena;
-public class ArenaDialog : DialogBase
+public sealed class ArenaDialog : DialogBase
 {
     private static readonly ResourceData ticketPrice = new ResourceData(ResourceId.ArenaTicket, 1);
     private static readonly byte targetBattlesCount = gameDataHolder.arenaSettings.battlesInMatch;
@@ -63,7 +63,7 @@ public class ArenaDialog : DialogBase
             RegisterButton(ticketPrice.GetCompactView(shortView: false), () => TryStartNewMatch(byTicket: true));
         }
 
-        RegisterButton(Emojis.ButtonMarket + Localization.Get(session, "dialog_arena_shop_button"), null); // заглушка
+        RegisterButton(Emojis.ElementScales + Localization.Get(session, "dialog_arena_shop_button"), () => new ShopArenaDialog(session).Start());
         RegisterBackButton(Localization.Get(session, "menu_item_map") + Emojis.ButtonMap, () => new MapDialog(session).Start());
         RegisterTownButton(isDoubleBack: true);
 
