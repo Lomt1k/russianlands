@@ -14,4 +14,5 @@ public abstract class RewardBase
     protected static readonly MessageSender messageSender = Services.ServiceLocator.Get<MessageSender>();
 
     public abstract Task<string?> AddReward(GameSession session);
+    public abstract string GetPossibleRewardsView(GameSession session);
 }
