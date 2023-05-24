@@ -3,6 +3,7 @@ using System;
 using System.Threading.Tasks;
 using MarkOne.Scripts.GameCore.Resources;
 using MarkOne.Scripts.GameCore.Sessions;
+using System.Text;
 
 namespace MarkOne.Scripts.GameCore.Rewards;
 
@@ -53,6 +54,16 @@ public class ResourceABWithOneBonusReward : RewardBase
 
         var text = resourceDatas.GetLocalizedView(session);
         return Task.FromResult(text);
+    }
+
+    public override string GetPossibleRewardsView(GameSession session)
+    {
+        var sb = new StringBuilder();
+        var minResourceA = new ResourceData(resourceIdA, amountA);
+        var minResourceB = new ResourceData(resourceIdB, amountB);
+        sb.AppendLine(minResourceA.GetLocalizedView(session) + '+');
+        sb.Append(minResourceB.GetLocalizedView(session) + '+');
+        return sb.ToString();
     }
 
 }

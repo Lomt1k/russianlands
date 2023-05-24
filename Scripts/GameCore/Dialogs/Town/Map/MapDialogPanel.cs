@@ -186,21 +186,7 @@ public class MapDialogPanel : DialogPanelBase
         sb.AppendLine();
         sb.AppendLine(Localization.Get(session, "dialog_map_header_special_reward"));
         var locationRewards = locationMobsManager.GetLocationRewards(session, locationId);
-        foreach (var reward in locationRewards)
-        {
-            switch (reward)
-            {
-                case RandomItemReward randomItemReward:
-                    sb.AppendLine(randomItemReward.rarity.GetUnknownItemView(session));
-                    break;
-                case ResourceReward resourceReward:
-                    var resourceData = new ResourceData(resourceReward.resourceId, resourceReward.amount);
-                    sb.AppendLine(resourceData.GetLocalizedView(session, showCountIfSingle: false));
-                    break;
-                default:
-                    break;
-            }
-        }
+        sb.AppendLine(locationRewards.GetPossibleRewardsView(session));
 
         for (byte i = 0; i < mobDatas.Length; i++)
         {

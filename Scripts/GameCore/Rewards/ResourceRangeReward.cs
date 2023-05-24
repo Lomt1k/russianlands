@@ -21,4 +21,10 @@ public class ResourceRangeReward : RewardBase
         var text = resourceData.GetLocalizedView(session);
         return Task.FromResult(text);
     }
+
+    public override string GetPossibleRewardsView(GameSession session)
+    {
+        var minResourceData = new ResourceData(resourceId, amountMin);
+        return minResourceData.GetLocalizedView(session) + $" - {amountMax.View()}";
+    }
 }

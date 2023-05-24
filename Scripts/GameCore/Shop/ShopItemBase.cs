@@ -51,12 +51,7 @@ public abstract class ShopItemBase
 
     private string GetRewardsView(GameSession session)
     {
-        var sb = new StringBuilder();
-        foreach (var reward in rewards)
-        {
-            sb.AppendLine(reward.GetPossibleRewardsView(session));
-        }
-        return sb.ToString();
+        return rewards.GetPossibleRewardsView(session);
     }
 
     public async Task TryPurchase(GameSession session, Func<Task> onSuccess, Func<Task> onFail)

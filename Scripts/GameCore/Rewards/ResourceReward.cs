@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using MarkOne.Scripts.GameCore.Resources;
 using MarkOne.Scripts.GameCore.Sessions;
+using System.Runtime.Serialization;
 
 namespace MarkOne.Scripts.GameCore.Rewards;
 
@@ -11,11 +12,24 @@ public class ResourceReward : RewardBase
     public ResourceId resourceId { get; set; } = ResourceId.Gold;
     public int amount { get; set; }
 
+    [JsonIgnore]
+    public ResourceData resourceData { get; private set; }
+
+    [OnDeserialized]
+    private void OnDeserialized(StreamingContext context)
+    {
+        resourceData = new ResourceData(resourceId, amount);
+    }
+
     public override Task<string> AddReward(GameSession session)
     {
-        var resourceData = new ResourceData(resourceId, amount);
         session.player.resources.ForceAdd(resourceData);
         var result = resourceData.GetLocalizedView(session);
         return Task.FromResult(result);
+    }
+
+    public override string GetPossibleRewardsView(GameSession session)
+    {
+        return resourceData.GetLocalizedView(session, showCountIfSingle: false);
     }
 }

@@ -28,4 +28,8 @@ public class RandomItemReward : RewardBase
         }
     }
 
+    public override string GetPossibleRewardsView(GameSession session)
+    {
+        return rarity.GetUnknownItemView(session);
+    }
 }

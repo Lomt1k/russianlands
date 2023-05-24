@@ -3,6 +3,7 @@ using System;
 using System.Threading.Tasks;
 using MarkOne.Scripts.GameCore.Items;
 using MarkOne.Scripts.GameCore.Sessions;
+using System.Runtime.Serialization;
 
 namespace MarkOne.Scripts.GameCore.Rewards;
 
@@ -11,11 +12,44 @@ public class ItemWithCodeReward : RewardBase
 {
     public string itemCode { get; set; } = string.Empty;
 
+    [JsonIgnore]
+    public InventoryItem itemTemplate { get; private set; }
+
+    [JsonConstructor]
+    public ItemWithCodeReward()
+    {
+        
+    }
+
+    public ItemWithCodeReward(string _itemCode)
+    {
+        itemCode = _itemCode;
+        TryParseItemCode();
+    }
+
+    [OnDeserialized]
+    private void OnDeserialized(StreamingContext context)
+    {
+        TryParseItemCode();
+    }
+
+    private void TryParseItemCode()
+    {
+        try
+        {
+            itemTemplate = new InventoryItem(itemCode);
+        }
+        catch (Exception ex)
+        {
+            Program.logger.Error(ex);
+        }
+    }
+
     public override async Task<string?> AddReward(GameSession session)
     {
         try
         {
-            var item = new InventoryItem(itemCode);
+            var item = itemTemplate.Clone();
             var success = session.player.inventory.TryAddItem(item);
             return success ? item.GetFullName(session).Bold() : string.Empty;
         }
@@ -26,4 +60,8 @@ public class ItemWithCodeReward : RewardBase
         }
     }
 
+    public override string GetPossibleRewardsView(GameSession session)
+    {
+        return itemTemplate.GetFullName(session).Bold();
+    }
 }

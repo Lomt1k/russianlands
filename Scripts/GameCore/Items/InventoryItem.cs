@@ -60,9 +60,9 @@ public class InventoryItem
         RecalculateDynamicData();
     }
 
-    public InventoryItem(string _dataCode)
+    public InventoryItem(string _itemCode)
     {
-        id = _dataCode;
+        id = _itemCode;
         RecalculateDynamicData();
     }
 
