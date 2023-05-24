@@ -1,10 +1,12 @@
 ﻿using JsonKnownTypes;
 using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.GameCore.Rewards;
 using MarkOne.Scripts.GameCore.Services;
 using MarkOne.Scripts.GameCore.Sessions;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -58,7 +60,23 @@ public abstract class ShopItemBase
         }
     }
 
+    private async Task GiveAndShowRewards(GameSession session, Func<Task> onContinue)
+    {
+        var sb = new StringBuilder();
+        sb.AppendLine(Localization.Get(session, "dialog_shop_purchased_items_header"));
+        foreach (var reward in GetRewards())
+        {
+            var addedReward = await reward.AddReward(session).FastAwait();
+            if (!string.IsNullOrEmpty(addedReward))
+            {
+                sb.AppendLine(addedReward);
+            }
+        }
+        await notificationsManager.ShowNotification(session, sb, onContinue).FastAwait();
+    }
+
     protected abstract string GetTitle(GameSession session);
     protected abstract string GetPossibleRewardsView(GameSession session);
-    protected abstract Task GiveAndShowRewards(GameSession session, Func<Task> onContinue);
+    protected abstract IEnumerable<RewardBase> GetRewards();
+    
 }

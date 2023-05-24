@@ -1,11 +1,8 @@
-﻿using MarkOne.Scripts.GameCore.Items;
+﻿using MarkOne.Scripts.GameCore.Rewards;
 using MarkOne.Scripts.GameCore.Sessions;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MarkOne.Scripts.GameCore.Shop;
 [JsonObject]
@@ -23,7 +20,7 @@ public class ShopRandomInventoryItem : ShopItemBase
         throw new NotImplementedException();
     }
 
-    protected override Task GiveAndShowRewards(GameSession session, Func<Task> onContinue)
+    protected override IEnumerable<RewardBase> GetRewards()
     {
         throw new NotImplementedException();
     }

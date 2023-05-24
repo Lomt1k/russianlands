@@ -2,10 +2,7 @@
 using MarkOne.Scripts.GameCore.Rewards;
 using MarkOne.Scripts.GameCore.Sessions;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MarkOne.Scripts.GameCore.Shop;
 [JsonObject]
@@ -22,20 +19,10 @@ public class ShopLootboxItem : ShopItemBase
     protected override string GetPossibleRewardsView(GameSession session)
     {
         return rewards.GetPossibleRewardsView(session);
-    }    
+    }
 
-    protected override async Task GiveAndShowRewards(GameSession session, Func<Task> onContinue)
+    protected override IEnumerable<RewardBase> GetRewards()
     {
-        var sb = new StringBuilder();
-        sb.AppendLine(Localization.Get(session, "dialog_shop_purchased_items_header"));
-        foreach (var reward in rewards)
-        {
-            var addedReward = await reward.AddReward(session).FastAwait();
-            if (!string.IsNullOrEmpty(addedReward))
-            {
-                sb.AppendLine(addedReward);
-            }
-        }
-        await notificationsManager.ShowNotification(session, sb, onContinue).FastAwait();
+        return rewards;
     }
 }

@@ -1,11 +1,9 @@
-﻿using MarkOne.Scripts.GameCore.Localizations;
-using MarkOne.Scripts.GameCore.Resources;
+﻿using MarkOne.Scripts.GameCore.Resources;
 using MarkOne.Scripts.GameCore.Rewards;
 using MarkOne.Scripts.GameCore.Sessions;
 using Newtonsoft.Json;
-using System;
+using System.Collections.Generic;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace MarkOne.Scripts.GameCore.Shop;
 [JsonObject]
@@ -37,15 +35,8 @@ public class ShopResourceItem : ShopItemBase
         return string.Empty;
     }
 
-    protected override async Task GiveAndShowRewards(GameSession session, Func<Task> onContinue)
+    protected override IEnumerable<RewardBase> GetRewards()
     {
-        var sb = new StringBuilder();
-        sb.AppendLine(Localization.Get(session, "dialog_shop_purchased_items_header"));
-        var addedReward = await resourceReward.AddReward(session).FastAwait();
-        if (!string.IsNullOrEmpty(addedReward))
-        {
-            sb.AppendLine(addedReward);
-        }
-        await notificationsManager.ShowNotification(session, sb, onContinue).FastAwait();
+        return new[] { resourceReward };
     }
 }
