@@ -7,7 +7,7 @@ using MarkOne.Scripts.GameCore.Rewards;
 using MarkOne.ViewModels.UserControls;
 using MarkOne.Views.Editor.Rewards;
 
-namespace MarkOne.ViewModels.Rewards;
+namespace MarkOne.ViewModels.Editor.Rewards;
 
 internal sealed class EditorRewardsListViewModel : EditorListViewModel<RewardBase>
 {

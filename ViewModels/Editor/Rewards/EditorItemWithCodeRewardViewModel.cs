@@ -1,6 +1,6 @@
 ﻿using MarkOne.Scripts.GameCore.Rewards;
 
-namespace MarkOne.ViewModels.Rewards;
+namespace MarkOne.ViewModels.Editor.Rewards;
 
 internal class EditorItemWithCodeRewardViewModel : ViewModelBase
 {

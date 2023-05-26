@@ -12,6 +12,7 @@ using MarkOne.Views.Editor.PotionsEditor;
 using MarkOne.Views.Editor.QuestsEditor;
 using MarkOne.Views.Editor.ArenaLeaguesEditor;
 using MarkOne.Views.Editor.ArenaSettingsEditor;
+using MarkOne.Views.Editor.ArenaShopSettingsEditor;
 
 namespace MarkOne.ViewModels.Editor;
 
@@ -57,6 +58,7 @@ public class MainEditorViewModel : ViewModelBase
         categories.Add(new MainEditorCategory("Potions", new PotionsEditorView()));
         categories.Add(new MainEditorCategory("Arena Settings", new ArenaSettingsEditorView()));
         categories.Add(new MainEditorCategory("Arena Leagues", new ArenaLeaguesEditorView()));
+        categories.Add(new MainEditorCategory("Arena Shop Settings", new ArenaShopSettingsEditorView()));
     }
 
     private void SaveCommand()

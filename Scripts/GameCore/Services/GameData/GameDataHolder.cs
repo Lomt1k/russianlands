@@ -29,6 +29,7 @@ public class GameDataHolder : Service
     public GameDataDictionary<LocationId, LocationMobSettingsData> locationGeneratedMobs { get; private set; }
     public ArenaSettings arenaSettings { get; private set; }
     public GameDataDictionary<LeagueId, ArenaLeagueSettings> arenaLeagueSettings { get; private set; }
+    public GameDataDictionary<byte,ArenaShopSettings> arenaShopSettings { get; private set; }
     public IReadOnlyList<string> botnames { get; private set; }
 
 #pragma warning restore CS8618
@@ -53,6 +54,7 @@ public class GameDataHolder : Service
         locationGeneratedMobs = LoadGameDataDictionary<LocationId, LocationMobSettingsData>("locationGeneratedMobs");
         arenaSettings = LoadGameData<ArenaSettings>("arenaSettings");
         arenaLeagueSettings = LoadGameDataDictionary<LeagueId, ArenaLeagueSettings>("arenaLeagueSettings");
+        arenaShopSettings = LoadGameDataDictionary<byte, ArenaShopSettings>("arenaShopSettings");
 
         Localizations.Localization.LoadAll(_loader, gameDataPath);
         botnames = File.ReadAllLines(Path.Combine(gameDataPath, "botnames.txt"));
@@ -91,6 +93,7 @@ public class GameDataHolder : Service
         locationGeneratedMobs.Save();
         arenaSettings.Save();
         arenaLeagueSettings.Save();
+        arenaShopSettings.Save();
     }
 
 }

@@ -5,13 +5,13 @@ using MarkOne.Models;
 using MarkOne.Scripts.GameCore.Resources;
 using MarkOne.Scripts.GameCore.Rewards;
 
-namespace MarkOne.ViewModels.Rewards;
+namespace MarkOne.ViewModels.Editor.Rewards;
 
-internal class EditorResourceRangeRewardViewModel : ViewModelBase
+internal class EditorResourceRewardViewModel : ViewModelBase
 {
     private EnumValueModel<ResourceId> _selectedResourceId;
 
-    public ResourceRangeReward reward { get; }
+    public ResourceReward reward { get; }
 
     public ObservableCollection<EnumValueModel<ResourceId>> resourceIds { get; }
     public EnumValueModel<ResourceId> selectedResourceId
@@ -25,9 +25,9 @@ internal class EditorResourceRangeRewardViewModel : ViewModelBase
     }
 
 
-    public EditorResourceRangeRewardViewModel(ResourceRangeReward _reward)
+    public EditorResourceRewardViewModel(ResourceReward _resourceReward)
     {
-        reward = _reward;
+        reward = _resourceReward;
         resourceIds = EnumValueModel<ResourceId>.CreateCollection();
         selectedResourceId = resourceIds.First(x => x.value == reward.resourceId);
     }

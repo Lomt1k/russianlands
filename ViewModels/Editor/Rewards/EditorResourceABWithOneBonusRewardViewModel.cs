@@ -5,7 +5,7 @@ using MarkOne.Models;
 using MarkOne.Scripts.GameCore.Resources;
 using MarkOne.Scripts.GameCore.Rewards;
 
-namespace MarkOne.ViewModels.Rewards;
+namespace MarkOne.ViewModels.Editor.Rewards;
 
 internal class EditorResourceABWithOneBonusRewardViewModel : ViewModelBase
 {

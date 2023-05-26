@@ -19,7 +19,7 @@
       </ListBox.ItemTemplate>
     </ListBox>
 
-    <StackPanel Orientation="Horizontal" Spacing="20">
+    <StackPanel Orientation="Horizontal" Spacing="20" Margin="0,20">
       <Button Classes="Neutral" Content="Add"
               Command="{Binding addItemCommand}"/>
       <Button Classes="Neutral" Content="Remove"
