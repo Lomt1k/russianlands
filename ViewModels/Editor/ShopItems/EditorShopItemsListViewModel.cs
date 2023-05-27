@@ -2,6 +2,7 @@
 using MarkOne.Models.RegularDialogs;
 using MarkOne.Scripts.GameCore.Shop;
 using MarkOne.ViewModels.UserControls;
+using MarkOne.Views.Editor.ShopItems;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -24,7 +25,13 @@ internal class EditorShopItemsListViewModel : EditorListViewModel<ShopItemBase>
 
     protected override UserControl CreateViewForItem(ShopItemBase item)
     {
-        throw new NotImplementedException();
+        return item switch
+        {
+            ShopResourceItem resourceItem => new ShopResourceItemView() { DataContext = new ShopResourceItemViewModel(resourceItem) },
+        };
+
+
+
         //return item switch
         //{
         //    ResourceReward reward => new EditorResourceRewardView() { DataContext = new EditorResourceRewardViewModel(reward) },

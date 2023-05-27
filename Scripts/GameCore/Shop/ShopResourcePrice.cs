@@ -8,6 +8,8 @@ namespace MarkOne.Scripts.GameCore.Shop;
 [JsonObject]
 public class ShopResourcePrice : ShopPriceBase
 {
+    public override ShopPriceType priceType => ShopPriceType.ResourcePrice;
+
     public ResourceId resourceId { get; set; }
     public int amount { get; set; }
 
