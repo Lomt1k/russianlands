@@ -21,7 +21,7 @@ public class ShopCurrentcyPrice : ShopPriceBase
         throw new NotImplementedException();
     }
 
-    public override Task<bool> TryPurchase(GameSession session)
+    public override Task<bool> TryPurchase(GameSession session, Func<string, Task> onPurchaseError)
     {
         throw new NotImplementedException();
     }

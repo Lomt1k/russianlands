@@ -1,5 +1,4 @@
 ﻿using MarkOne.Scripts.Bot;
-using MarkOne.Scripts.GameCore.Buildings.Data;
 using MarkOne.Scripts.GameCore.Items;
 using MarkOne.Scripts.GameCore.Items.Generators;
 using MarkOne.Scripts.GameCore.Localizations;
@@ -20,13 +19,13 @@ public class ShopLootboxItem : ShopItemBase
 
     public override string GetTitle(GameSession session)
     {
-        return isSingleReward ? GetPossibleRewardsView(session) : GetEmojiForTitle() + Localization.Get(session, titleLocalizationKey);
+        return isSingleReward ? GetPossibleRewardsView(session) : GetEmojiForTitle() + Localization.Get(session, titleLocalizationKey).Bold();
     }
 
     public override string GetMessageText(GameSession session)
     {
         var sb = new StringBuilder()
-            .AppendLine(GetTitle(session).Bold());
+            .AppendLine(GetTitle(session));
 
         if (!isSingleReward)
         {

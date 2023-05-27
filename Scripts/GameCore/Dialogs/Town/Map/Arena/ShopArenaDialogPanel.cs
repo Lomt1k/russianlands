@@ -119,16 +119,16 @@ public sealed class ShopArenaDialogPanel : DialogPanelBase
     {
         await shopItem.TryPurchase(session,
             onSuccess: () => new ShopArenaDialog(session).StartWithCategory(_currentCategory),
-            onFail: () => OnPurchaseFail(shopItem))
+            onPurchaseError: (error) => OnPurchaseFail(error, shopItem))
             .FastAwait();
     }
 
-    private async Task OnPurchaseFail(ShopItemBase shopItem)
+    private async Task OnPurchaseFail(string errorText, ShopItemBase shopItem)
     {
         var sb = new StringBuilder()
             .AppendLine(shopItem.GetTitle(session))
             .AppendLine()
-            .AppendLine(Localization.Get(session, "resource_not_enough"));
+            .AppendLine(errorText);
 
         ClearButtons();
         RegisterButton(Localization.Get(session, "menu_item_continue_button"), () => ShowCategory(_currentCategory));

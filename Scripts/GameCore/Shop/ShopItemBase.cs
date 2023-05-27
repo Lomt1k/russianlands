@@ -1,6 +1,7 @@
 ﻿using JsonKnownTypes;
 using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.GameCore.Resources;
 using MarkOne.Scripts.GameCore.Rewards;
 using MarkOne.Scripts.GameCore.Services;
 using MarkOne.Scripts.GameCore.Sessions;
@@ -33,16 +34,22 @@ public abstract class ShopItemBase
         return string.Format("{0,-30}{1,20}", GetTitle(session).RemoveHtmlTags(), priceView);
     }
 
-    public async Task TryPurchase(GameSession session, Func<Task> onSuccess, Func<Task> onFail)
+    public async Task TryPurchase(GameSession session, Func<Task> onSuccess, Func<string,Task> onPurchaseError)
     {
-        var success = price == null ? true : await price.TryPurchase(session).FastAwait();
+        var playerResources = session.player.resources;
+        var freeSlots = playerResources.GetResourceLimit(ResourceId.InventoryItems) - playerResources.GetValue(ResourceId.InventoryItems);
+        var inventoryItemsCount = GetRewards().GetInventoryItemsCount();
+        if (inventoryItemsCount > freeSlots)
+        {
+            var error = Localization.Get(session, "dialog_shop_inventory_slots_required", inventoryItemsCount);
+            await onPurchaseError(error).FastAwait();
+            return;
+        }
+
+        var success = price == null ? true : await price.TryPurchase(session, onPurchaseError).FastAwait();
         if (success)
         {
             await GiveAndShowRewards(session, onSuccess).FastAwait();
-        }
-        else
-        {
-            await onFail().FastAwait();
         }
     }
 

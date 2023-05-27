@@ -2,6 +2,7 @@
 using MarkOne.Scripts.GameCore.Resources;
 using MarkOne.Scripts.GameCore.Sessions;
 using Newtonsoft.Json;
+using System;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
@@ -40,8 +41,19 @@ public class ShopResourcePrice : ShopPriceBase
         return sb.ToString();
     }
 
-    public override Task<bool> TryPurchase(GameSession session)
+    public override async Task<bool> TryPurchase(GameSession session, Func<string, Task> onPurchaseError)
     {
-        return Task.FromResult(session.player.resources.TryPurchase(resourceData));
+        var success = session.player.resources.TryPurchase(resourceData, out var notEnoughResource);
+        if (!success)
+        {
+            var purchaseError = new StringBuilder()
+                .AppendLine(Localization.Get(session, "resource_not_enough"))
+                .AppendLine()
+                .AppendLine(Localization.Get(session, "resource_header_resources"))
+                .AppendLine(notEnoughResource.GetLocalizedView(session))
+                .ToString();
+            await onPurchaseError(purchaseError).FastAwait();
+        }
+        return success;
     }
 }

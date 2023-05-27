@@ -12,7 +12,7 @@ public class ShopInventoryItem : ShopItemBase
 
     public override string GetTitle(GameSession session)
     {
-        return itemWithCodeReward.itemTemplate.GetFullName(session);
+        return itemWithCodeReward.itemTemplate.GetFullName(session).Bold();
     }
 
     public override string GetMessageText(GameSession session)
