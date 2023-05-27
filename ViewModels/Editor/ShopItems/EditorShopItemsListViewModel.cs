@@ -27,18 +27,8 @@ internal class EditorShopItemsListViewModel : EditorListViewModel<ShopItemBase>
         return item switch
         {
             ShopResourceItem resourceItem => new ShopResourceItemView() { DataContext = new ShopResourceItemViewModel(resourceItem) },
+            ShopInventoryItem inventoryItem => new ShopInventoryItemView() { DataContext = new ShopInventoryItemViewModel(inventoryItem) },
             ShopLootboxItem lootboxItem => new ShopLootboxItemView() { DataContext = new ShopLootboxItemViewModel(lootboxItem) },
         };
-
-
-
-        //return item switch
-        //{
-        //    ResourceReward reward => new EditorResourceRewardView() { DataContext = new EditorResourceRewardViewModel(reward) },
-        //    ResourceRangeReward reward => new EditorResourceRangeRewardView() { DataContext = new EditorResourceRangeRewardViewModel(reward) },
-        //    ResourceABWithOneBonusReward reward => new EditorResourceABWithOneBonusRewardView() { DataContext = new EditorResourceABWithOneBonusRewardViewModel(reward) },
-        //    ItemWithCodeReward reward => new EditorItemWithCodeRewardView() { DataContext = new EditorItemWithCodeRewardViewModel(reward) },
-        //    RandomItemReward reward => new EditorRandomItemRewardView() { DataContext = new EditorRandomItemRewardViewModel(reward) },
-        //};
     }
 }
