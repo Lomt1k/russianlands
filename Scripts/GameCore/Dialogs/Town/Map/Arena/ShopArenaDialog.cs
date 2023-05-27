@@ -22,4 +22,11 @@ public sealed class ShopArenaDialog : DialogWithPanel
         await SendDialogMessage(header, GetOneLineKeyboard()).FastAwait();
         await _shopPanel.Start().FastAwait();
     }
+
+    public async Task StartWithCategory(ShopArenaCategory category)
+    {
+        var header = Emojis.ElementScales + Localization.Get(session, "dialog_arena_shop_header");
+        await SendDialogMessage(header, GetOneLineKeyboard()).FastAwait();
+        await _shopPanel.ShowCategory(category).FastAwait();
+    }
 }

@@ -11,9 +11,9 @@ public class ShopResourceItem : ShopItemBase
 {
     public ResourceReward resourceReward { get; set; } = new();
 
-    protected override string GetTitle(GameSession session)
+    public override string GetTitle(GameSession session)
     {
-        return resourceReward.resourceData.GetCompactView(shortView: false);
+        return resourceReward.resourceData.GetLocalizedView(session, showCountIfSingle: false);
     }
 
     public override string GetMessageText(GameSession session)
@@ -23,16 +23,11 @@ public class ShopResourceItem : ShopItemBase
 
         if (price != null)
         {
-            sb.AppendLine(price.GetPriceView(session));
+            sb.AppendLine();
+            sb.AppendLine(price.GetPlayerResourcesView(session));
         }
 
         return sb.ToString();
-    }
-
-    protected override string GetPossibleRewardsView(GameSession session)
-    {
-        // not used
-        return string.Empty;
     }
 
     protected override IEnumerable<RewardBase> GetRewards()

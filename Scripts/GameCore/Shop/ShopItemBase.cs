@@ -22,29 +22,15 @@ public abstract class ShopItemBase
 
     public string GetPriceButtonView(GameSession session)
     {
-        return price?.GetCompactView() ?? Localization.Get(session, "resource_price_free");
+        return price is null
+        ? Localization.Get(session, "resource_price_free")
+        : Localization.Get(session, "menu_item_buy_button", price.GetCompactPriceView());
     }
 
-    public virtual string GetNameForList(GameSession session)
+    public string GetNameForList(GameSession session)
     {
-        var priceView = price?.GetCompactView() ?? Emojis.ElementWarningRed.ToString();
-        return priceView + "\t" + GetTitle(session);
-    }
-
-    public virtual string GetMessageText(GameSession session)
-    {
-        var sb = new StringBuilder()
-            .AppendLine(GetTitle(session).Bold())
-            .AppendLine()
-            .AppendLine(Localization.Get(session, "dialog_shop_item_view_contains_header"))
-            .AppendLine(GetPossibleRewardsView(session));
-
-        if (price != null)
-        {
-            sb.AppendLine(price.GetPriceView(session));
-        }
-
-        return sb.ToString();
+        var priceView = price?.GetCompactPriceView() ?? Emojis.ElementWarningRed.ToString();
+        return string.Format("{0,-30}{1,20}", GetTitle(session).RemoveHtmlTags(), priceView);
     }
 
     public async Task TryPurchase(GameSession session, Func<Task> onSuccess, Func<Task> onFail)
@@ -75,8 +61,8 @@ public abstract class ShopItemBase
         await notificationsManager.ShowNotification(session, sb, onContinue).FastAwait();
     }
 
-    protected abstract string GetTitle(GameSession session);
-    protected abstract string GetPossibleRewardsView(GameSession session);
+    public abstract string GetMessageText(GameSession session);
+    public abstract string GetTitle(GameSession session);
     protected abstract IEnumerable<RewardBase> GetRewards();
     
 }

@@ -10,7 +10,7 @@ public abstract class ShopPriceBase
 {
     public abstract ShopPriceType priceType { get; }
 
-    public abstract string GetCompactView();
-    public abstract string GetPriceView(GameSession session);
+    public abstract string GetCompactPriceView();
+    public abstract string GetPlayerResourcesView(GameSession session);
     public abstract Task<bool> TryPurchase(GameSession session);
 }

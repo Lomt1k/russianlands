@@ -1,7 +1,9 @@
-﻿using MarkOne.Scripts.GameCore.Resources;
+﻿using MarkOne.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.GameCore.Resources;
 using MarkOne.Scripts.GameCore.Sessions;
 using Newtonsoft.Json;
 using System.Runtime.Serialization;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace MarkOne.Scripts.GameCore.Shop;
@@ -22,14 +24,20 @@ public class ShopResourcePrice : ShopPriceBase
         resourceData = new ResourceData(resourceId, amount);
     }
 
-    public override string GetCompactView()
+    public override string GetCompactPriceView()
     {
         return resourceData.GetCompactView(shortView: false);
     }
 
-    public override string GetPriceView(GameSession session)
+    public override string GetPlayerResourcesView(GameSession session)
     {
-        return resourceData.GetPriceView(session);
+        var playerResourceData = session.player.resources.GetResourceData(resourceId);
+
+        var sb = new StringBuilder()
+            .AppendLine(Localization.Get(session, "resource_header_ours"))
+            .Append(playerResourceData.GetLocalizedView(session));
+
+        return sb.ToString();
     }
 
     public override Task<bool> TryPurchase(GameSession session)

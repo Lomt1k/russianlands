@@ -11,12 +11,12 @@ public class ShopCurrentcyPrice : ShopPriceBase
 
     public uint russianRubles { get; set; }
 
-    public override string GetCompactView()
+    public override string GetCompactPriceView()
     {
         throw new NotImplementedException();
     }
 
-    public override string GetPriceView(GameSession session)
+    public override string GetPlayerResourcesView(GameSession session)
     {
         throw new NotImplementedException();
     }

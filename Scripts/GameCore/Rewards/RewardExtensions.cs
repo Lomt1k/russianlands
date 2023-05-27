@@ -8,9 +8,18 @@ public static class RewardExtensions
     public static string GetPossibleRewardsView(this IEnumerable<RewardBase> rewards, GameSession session)
     {
         var sb = new StringBuilder();
+        bool isFirst = true;
         foreach (var reward in rewards)
         {
-            sb.AppendLine(reward.GetPossibleRewardsView(session));
+            if (isFirst)
+            {
+                isFirst = false;
+            }
+            else
+            {
+                sb.AppendLine();
+            }
+            sb.Append(reward.GetPossibleRewardsView(session));
         }
         return sb.ToString();
     }

@@ -52,7 +52,7 @@ public abstract class DialogBase
 
     protected void RegisterDoubleBackButton(string text, Func<Task> callback)
     {
-        RegisterButton(Emojis.ElementBack + text, callback);
+        RegisterButton(Emojis.ElementDoubleBack + text, callback);
     }
 
     protected void RegisterTownButton(bool isDoubleBack)

@@ -53,7 +53,7 @@ public abstract class DialogPanelBase
 
     protected void RegisterDoubleBackButton(string text, Func<Task> callback)
     {
-        RegisterButton(Emojis.ElementBack + text, callback);
+        RegisterButton(Emojis.ElementDoubleBack + text, callback);
     }
 
     protected void RegisterButton(string text, Func<Task>? callback, Func<string?>? queryAnswer = null)

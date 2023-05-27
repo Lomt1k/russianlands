@@ -10,7 +10,7 @@ public class ShopInventoryItem : ShopItemBase
 {
     public ItemWithCodeReward itemWithCodeReward { get; set; } = new();
 
-    protected override string GetTitle(GameSession session)
+    public override string GetTitle(GameSession session)
     {
         return itemWithCodeReward.itemTemplate.GetFullName(session);
     }
@@ -22,16 +22,10 @@ public class ShopInventoryItem : ShopItemBase
 
         if (price != null)
         {
-            sb.AppendLine(price.GetPriceView(session));
+            sb.AppendLine(price.GetPlayerResourcesView(session));
         }
 
         return sb.ToString();
-    }
-
-    protected override string GetPossibleRewardsView(GameSession session)
-    {
-        // not used
-        return string.Empty;
     }
 
     protected override IEnumerable<RewardBase> GetRewards()
