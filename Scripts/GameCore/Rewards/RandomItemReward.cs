@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using MarkOne.Scripts.GameCore.Items;
 using MarkOne.Scripts.GameCore.Items.Generators;
 using MarkOne.Scripts.GameCore.Sessions;
+using System.Text;
 
 namespace MarkOne.Scripts.GameCore.Rewards;
 
@@ -12,14 +13,30 @@ public class RandomItemReward : RewardBase
 {
     public byte townhallLevel { get; set; } = 1;
     public Rarity rarity { get; set; }
+    public ItemType itemType { get; set; } = ItemType.Any;
+    public int count { get; set; } = 1;
 
     public override async Task<string?> AddReward(GameSession session)
     {
         try
         {
-            var item = ItemGenerationManager.GenerateItemWithSmartRandom(session, townhallLevel, rarity);
-            var success = session.player.inventory.TryAddItem(item);
-            return success ? item.GetFullName(session).Bold() : string.Empty;
+            var sb = new StringBuilder();
+            for (int i = 0; i < count; i++)
+            {
+                var item = itemType == ItemType.Any
+                    ? ItemGenerationManager.GenerateItemWithSmartRandom(session, townhallLevel, rarity)
+                    : ItemGenerationManager.GenerateItem(townhallLevel, itemType, rarity);
+                var success = session.player.inventory.TryAddItem(item);
+                if (success)
+                {
+                    if (i > 0)
+                    {
+                        sb.AppendLine();
+                    }
+                    sb.Append(item.GetFullName(session).Bold());
+                }
+            }            
+            return sb.ToString();
         }
         catch (Exception ex)
         {
@@ -30,6 +47,6 @@ public class RandomItemReward : RewardBase
 
     public override string GetPossibleRewardsView(GameSession session)
     {
-        return rarity.GetUnknownItemView(session);
+        return rarity.GetUnknownItemView(session, itemType, count);
     }
 }

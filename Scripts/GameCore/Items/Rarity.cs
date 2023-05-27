@@ -29,12 +29,16 @@ public static class RarityExtensions
         return Localization.Get(session, $"item_rarity_{rarity.ToString().ToLower()}");
     }
 
-    public static string GetUnknownItemView(this Rarity rarity, GameSession session, int itemsCount = 1)
+    public static string GetUnknownItemView(this Rarity rarity, GameSession session, ItemType itemType = ItemType.Any, int itemsCount = 1)
     {
-        var localizationKey = $"unknown_item_view_rarity_{rarity.ToString().ToLower()}";
+        var localizationKey = itemType == ItemType.Any
+            ? $"unknown_item_view_rarity_{rarity.ToString().ToLower()}"
+            : $"unknown_item_view_rarity_{rarity.ToString().ToLower()}_type_{itemType.ToString().ToLower()}";
+        var emoji = itemType == ItemType.Any ? Emojis.ItemUnknown : itemType.GetEmoji();
+
         return itemsCount == 1
-            ? Emojis.ItemUnknown + Localization.Get(session, localizationKey).Bold()
-            : Emojis.ItemUnknown + (Localization.Get(session, localizationKey) + ':').Bold() + $" {itemsCount}";
+            ? emoji + Localization.Get(session, localizationKey).Bold()
+            : emoji + (Localization.Get(session, localizationKey) + ':').Bold() + $" {itemsCount}";
     }
 
     public static int GetKeywordsCount(this Rarity rarity)

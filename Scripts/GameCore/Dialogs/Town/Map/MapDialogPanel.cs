@@ -280,8 +280,8 @@ public class MapDialogPanel : DialogPanelBase
             var playerResources = session.player.resources;
             var freeItemSlots = playerResources.GetResourceLimit(ResourceId.InventoryItems) - playerResources.GetValue(ResourceId.InventoryItems);
             var locationRewards = locationMobsManager.GetLocationRewards(session, locationId);
-            var itemRewardsCount = battlePointData.rewards?.Count(x => x is RandomItemReward || x is ItemWithCodeReward) ?? 0;
-            itemRewardsCount += locationRewards.Count(x => x is RandomItemReward || x is ItemWithCodeReward);
+            var itemRewardsCount = battlePointData.rewards.GetInventoryItemsCount();
+            itemRewardsCount += locationRewards.GetInventoryItemsCount();
             if (itemRewardsCount > freeItemSlots)
             {
                 var text = Localization.Get(session, "dialog_mob_battle_point_inventory_slots_required", itemRewardsCount);

@@ -17,7 +17,6 @@ internal class EditorShopItemsListViewModel : EditorListViewModel<ShopItemBase>
         {
             {"Resource", () => result = new ShopResourceItem() },
             {"Inventory Item", () => result = new ShopInventoryItem() },
-            {"Random Inventory Item", () => result = new ShopRandomInventoryItem() },
             {"Lootbox", () => result = new ShopLootboxItem() },
         });
         return result;
@@ -28,6 +27,7 @@ internal class EditorShopItemsListViewModel : EditorListViewModel<ShopItemBase>
         return item switch
         {
             ShopResourceItem resourceItem => new ShopResourceItemView() { DataContext = new ShopResourceItemViewModel(resourceItem) },
+            ShopLootboxItem lootboxItem => new ShopLootboxItemView() { DataContext = new ShopLootboxItemViewModel(lootboxItem) },
         };
 
 

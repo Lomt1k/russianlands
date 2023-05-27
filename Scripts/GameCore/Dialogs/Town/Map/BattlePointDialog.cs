@@ -62,7 +62,7 @@ public class BattlePointDialog : DialogBase
         var playerResources = session.player.resources;
 
         var freeItemSlots = playerResources.GetResourceLimit(ResourceId.InventoryItems) - playerResources.GetValue(ResourceId.InventoryItems);
-        var itemRewardsCount = _data.rewards?.Count(x => x is RandomItemReward || x is ItemWithCodeReward) ?? 0;
+        var itemRewardsCount = _data.rewards.GetInventoryItemsCount();
         if (itemRewardsCount > freeItemSlots)
         {
             var text = Localization.Get(session, "dialog_mob_battle_point_inventory_slots_required", itemRewardsCount);
