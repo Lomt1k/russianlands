@@ -5,6 +5,7 @@ using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Resources;
 using MarkOne.Scripts.GameCore.Sessions;
 using MarkOne.Scripts.GameCore.Shop;
+using System;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -29,6 +30,12 @@ public sealed class ShopArenaDialogPanel : DialogPanelBase
 
     private async Task ShowCategories()
     {
+        if (CanCollectFreeChips(out var freeChipsResourceData, out var timeToCollectChips))
+        {
+            await GiveFreeChips(freeChipsResourceData).FastAwait();
+            return;
+        }
+
         ClearButtons();
         RegisterCategory(ShopArenaCategory.Temporary);
         RegisterCategory(ShopArenaCategory.Main);
@@ -44,9 +51,38 @@ public sealed class ShopArenaDialogPanel : DialogPanelBase
             .AppendLine(Localization.Get(session, "resource_header_ours"))
             .AppendLine(resourcesToShow.GetCompactView(shortView: false))
             .AppendLine()
+            .AppendLine(Localization.Get(session, "dialog_arena_shop_comeback_later_for_chips"))
+            .AppendLine(timeToCollectChips.GetView(session))
+            .AppendLine()
             .Append(Localization.Get(session, "dialog_arena_shop_select_category_header"));
 
         await SendPanelMessage(sb, GetMultilineKeyboard()).FastAwait();
+    }
+
+    private bool CanCollectFreeChips(out ResourceData resourceData, out TimeSpan timeToCollect)
+    {
+        resourceData = arenaShopSettings.freeChipsResourceData;
+        var cooldown = arenaShopSettings.freeChipsDelayInSeconds;
+        var nextCollectTime = session.profile.data.lastCollectArenaChipsTime.AddSeconds(cooldown);
+        var now = DateTime.UtcNow;
+        timeToCollect = nextCollectTime - now;
+        return now >= nextCollectTime;
+    }
+
+    private async Task GiveFreeChips(ResourceData resourceData)
+    {
+        session.player.resources.Add(resourceData);
+        session.profile.data.lastCollectArenaChipsTime = DateTime.UtcNow;
+
+        var sb = new StringBuilder()
+            .AppendLine(Localization.Get(session, "dialog_arena_shop_collected_free_chips"))
+            .AppendLine()
+            .AppendLine(Localization.Get(session, "battle_result_header_rewards"))
+            .Append(resourceData.GetLocalizedView(session));
+
+        ClearButtons();
+        RegisterButton(Localization.Get(session, "menu_item_continue_button"), ShowCategories);
+        await SendPanelMessage(sb, GetOneLineKeyboard()).FastAwait();
     }
 
     private void RegisterCategory(ShopArenaCategory category)

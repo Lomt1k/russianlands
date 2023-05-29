@@ -14,6 +14,7 @@ internal class ArenaShopSettingsEditorViewModel : ViewModelBase
     private static readonly GameDataHolder gameDataHolder = ServiceLocator.Get<GameDataHolder>();
 
     private byte? _selectedTownhall;
+    private ArenaShopSettings? _arenaShopSettings;
 
     public ObservableCollection<byte> townhallList { get; } = new();
     public byte? selectedTownhall
@@ -30,6 +31,11 @@ internal class ArenaShopSettingsEditorViewModel : ViewModelBase
     }
     public EditorListView mainCategoryListView { get; set; } = new() { DataContext = new EditorShopItemsListViewModel() };
     public EditorListView exchangeCategoryListView { get; set; } = new() { DataContext = new EditorShopItemsListViewModel() };
+    public ArenaShopSettings? arenaShopSettings
+    {
+        get => _arenaShopSettings;
+        set => this.RaiseAndSetIfChanged(ref _arenaShopSettings, value);
+    }
 
     public ReactiveCommand<Unit, Unit> addTownhallSettingsCommand { get; }
     public ReactiveCommand<Unit, Unit> removeTownhallSettingsCommand { get; }
@@ -52,9 +58,9 @@ internal class ArenaShopSettingsEditorViewModel : ViewModelBase
 
     private void SetModel(byte townhallLevel)
     {
-        var settings = gameDataHolder.arenaShopSettings[townhallLevel];
-        (mainCategoryListView.DataContext as EditorShopItemsListViewModel).SetModel(settings.mainCategoryItems);
-        (exchangeCategoryListView.DataContext as EditorShopItemsListViewModel).SetModel(settings.exchangeCategoryItems);
+        arenaShopSettings = gameDataHolder.arenaShopSettings[townhallLevel];
+        (mainCategoryListView.DataContext as EditorShopItemsListViewModel).SetModel(arenaShopSettings.mainCategoryItems);
+        (exchangeCategoryListView.DataContext as EditorShopItemsListViewModel).SetModel(arenaShopSettings.exchangeCategoryItems);
     }
 
     private void AddNewTownhall()

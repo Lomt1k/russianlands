@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Buildings;
+using MarkOne.Scripts.GameCore.Dialogs.Town.Map.Arena;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Locations;
 using MarkOne.Scripts.GameCore.Sessions;
@@ -20,12 +21,11 @@ public class MapDialog : DialogWithPanel
     {
         _mapPanel = new MapDialogPanel(this);
 
-        RegisterButton(Emojis.ButtonArena + Localization.Get(session, "menu_item_arena"), TryOpenArena);
+        RegisterButton(Emojis.ButtonArena + Localization.Get(session, "menu_item_arena")
+            + (ArenaDialog.CanCollectFreeChips(session) ? Emojis.ElementWarningRed.ToString() : string.Empty), TryOpenArena);
         RegisterButton(Emojis.ButtonCrossroads + Localization.Get(session, "menu_item_crossroads"), TryOpenCrossroads);
         RegisterTownButton(isDoubleBack: false);
     }
-
-
 
     public override async Task Start()
     {
@@ -63,6 +63,11 @@ public class MapDialog : DialogWithPanel
             return;
         }
         await new Crossroads.CrossroadsDialog(session).Start().FastAwait();
+    }
+
+    public static bool HasNewActivities(GameSession session)
+    {
+        return ArenaDialog.CanCollectFreeChips(session);
     }
 
 }

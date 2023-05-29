@@ -67,6 +67,15 @@ public class ProfileData : DataWithSession
     public byte skillBoots { get; set; }
     public byte skillShield { get; set; }
 
+    // arena shop items
+    public DateTime lastCollectArenaChipsTime { get; set; }
+    public DateTime lastArenaItemsUpdateTime { get; set; }
+    public string? arenaItemId_0 { get; set; }
+    public string? arenaItemId_1 { get; set; }
+    public string? arenaItemId_2 { get; set; }
+    public string? arenaItemId_3 { get; set; }
+    public string? arenaItemId_4 { get; set; }
+
 
     public ProfileData SetupNewProfile(User user)
     {

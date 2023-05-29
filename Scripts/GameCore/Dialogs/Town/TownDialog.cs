@@ -4,6 +4,7 @@ using Telegram.Bot.Types.ReplyMarkups;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Sessions;
+using MarkOne.Scripts.GameCore.Dialogs.Town.Map;
 
 namespace MarkOne.Scripts.GameCore.Dialogs.Town;
 
@@ -27,8 +28,9 @@ public class TownDialog : DialogBase
         var player = session.player;
         var hasTooltip = session.tooltipController.HasTooltipToAppend(this);
 
-        RegisterButton(Emojis.ButtonMap + Localization.Get(session, "menu_item_map"),
-            () => new Map.MapDialog(session).Start());
+        var mapButton = Emojis.ButtonMap + Localization.Get(session, "menu_item_map")
+            + (MapDialog.HasNewActivities(session) ? Emojis.ElementWarningRed.ToString() : string.Empty);
+        RegisterButton(mapButton, () => new MapDialog(session).Start());
 
         RegisterButton(Emojis.ButtonBuildings + Localization.Get(session, "menu_item_buildings"),
             () => notificationsManager.GetNotificationsAndOpenBuildingsDialog(session));

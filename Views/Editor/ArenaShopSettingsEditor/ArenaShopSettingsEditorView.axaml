@@ -11,6 +11,7 @@
       <ColumnDefinition Width="180"/>
       <ColumnDefinition Width="auto" MinWidth="200"/>
       <ColumnDefinition Width="auto" MinWidth="200"/>
+      <ColumnDefinition Width="auto" MinWidth="200"/>
     </Grid.ColumnDefinitions>
 
     <Grid.RowDefinitions>
@@ -49,12 +50,26 @@
     <!-- Column 2: Main Category -->
     <TextBlock Text="Main Category" Grid.Column="1" Grid.Row="0" Classes="h3" Margin="40,0,0,0"/>
     <UserControl Grid.Column="1" Grid.Row="1" VerticalAlignment="Top" Margin="40,0,0,0"
-                 Content="{Binding mainCategoryListView}"/>
+                 Content="{Binding mainCategoryListView}"
+                 IsVisible="{Binding selectedTownhall, Converter={x:Static ObjectConverters.IsNotNull}}"/>
 
     <!-- Column 3: Exchange Category -->
     <TextBlock Text="Exchange Category" Grid.Column="2" Grid.Row="0" Classes="h3" Margin="40,0,0,0"/>
     <UserControl Grid.Column="2" Grid.Row="1" VerticalAlignment="Top" Margin="40,0,0,0"
-                 Content="{Binding exchangeCategoryListView}"/>
+                 Content="{Binding exchangeCategoryListView}"
+                 IsVisible="{Binding selectedTownhall, Converter={x:Static ObjectConverters.IsNotNull}}"/>
+
+    <!-- Column 4: Other Settings -->
+    <TextBlock Text="Other Settings" Grid.Column="3" Grid.Row="0" Classes="h3" Margin="40,0,0,0"/>
+    <StackPanel Grid.Column="3" Grid.Row="1" VerticalAlignment="Top" Margin="40,0,0,0"
+                IsVisible="{Binding selectedTownhall, Converter={x:Static ObjectConverters.IsNotNull}}">
+      
+      <TextBlock Text="free chips count"/>
+      <TextBox Text="{Binding arenaShopSettings.freeChipsCount}"/>
+      <TextBlock Text="free chips delay in seconds"/>
+      <TextBox Text="{Binding arenaShopSettings.freeChipsDelayInSeconds}"/>
+
+    </StackPanel>
     
     
   </Grid>

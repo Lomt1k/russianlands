@@ -49,7 +49,6 @@ public class ArenaBattleRewardSettings
 public class ArenaTownhallSettings
 {
     public byte townhall { get; set; }
-    public int everydayFreeChips { get; set; }
     public int foodPrice { get; set; }
 }
 

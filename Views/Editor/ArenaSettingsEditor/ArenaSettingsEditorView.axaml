@@ -46,8 +46,6 @@
                     <StackPanel Spacing="10" Background="WhiteSmoke">
                       <TextBlock Text="Townhall"/>
                       <TextBox Text="{Binding townhall}"/>
-                      <TextBlock Text="Everyday Free Chips"/>
-                      <TextBox Text="{Binding everydayFreeChips}"/>
                       <TextBlock Text="Food Price"/>
                       <TextBox Text="{Binding foodPrice}"/>
                     </StackPanel>

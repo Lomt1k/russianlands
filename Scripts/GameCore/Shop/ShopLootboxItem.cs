@@ -15,6 +15,7 @@ public class ShopLootboxItem : ShopItemBase
 {
     public string titleLocalizationKey { get; set; } = string.Empty;
     public List<RandomItemReward> rewards { get; set; } = new();
+    [JsonIgnore]
     public bool isSingleReward => rewards.Count == 1 && rewards[0].count == 1;
 
     public override string GetTitle(GameSession session)

@@ -17,6 +17,7 @@ public sealed class ArenaDialog : DialogBase
 {
     private static readonly ResourceData ticketPrice = new ResourceData(ResourceId.ArenaTicket, 1);
     private static readonly byte targetBattlesCount = gameDataHolder.arenaSettings.battlesInMatch;
+    private static readonly byte requiredTownhall = gameDataHolder.arenaSettings.requiredTownhall;
 
     private static readonly ArenaMatchMaker arenaMatchMaker = ServiceLocator.Get<ArenaMatchMaker>();
 
@@ -63,7 +64,8 @@ public sealed class ArenaDialog : DialogBase
             RegisterButton(ticketPrice.GetCompactView(shortView: false), () => TryStartNewMatch(byTicket: true));
         }
 
-        RegisterButton(Emojis.ElementScales + Localization.Get(session, "dialog_arena_shop_button"), () => new ShopArenaDialog(session).Start());
+        RegisterButton(Emojis.ElementScales + Localization.Get(session, "dialog_arena_shop_button") + (CanCollectFreeChips(session) ? Emojis.ElementWarningRed.ToString() : string.Empty),
+            () => new ShopArenaDialog(session).Start());
         RegisterBackButton(Localization.Get(session, "menu_item_map") + Emojis.ButtonMap, () => new MapDialog(session).Start());
         RegisterTownButton(isDoubleBack: true);
 
@@ -295,6 +297,17 @@ public sealed class ArenaDialog : DialogBase
 
         RegisterButton(Localization.Get(session, "menu_item_continue_button"), Start);
         await SendDialogMessage(sb, GetOneLineKeyboard()).FastAwait();
+    }
+
+    public static bool CanCollectFreeChips(GameSession session)
+    {
+        var townhall = session.player.buildings.GetBuildingLevel(BuildingId.TownHall);
+        if (townhall < requiredTownhall)
+            return false;
+
+        var cooldown = gameDataHolder.arenaShopSettings[townhall].freeChipsDelayInSeconds;
+        var nextCollectTime = session.profile.data.lastCollectArenaChipsTime.AddSeconds(cooldown);
+        return System.DateTime.UtcNow >= nextCollectTime;
     }
 
 }
