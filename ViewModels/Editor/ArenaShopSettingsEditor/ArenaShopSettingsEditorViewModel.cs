@@ -31,6 +31,7 @@ internal class ArenaShopSettingsEditorViewModel : ViewModelBase
     }
     public EditorListView mainCategoryListView { get; set; } = new() { DataContext = new EditorShopItemsListViewModel() };
     public EditorListView exchangeCategoryListView { get; set; } = new() { DataContext = new EditorShopItemsListViewModel() };
+    public EditorListView itemPatternsListView { get; set; } = new() { DataContext = new ArenaShopItemPatternsListViewModel() };
     public ArenaShopSettings? arenaShopSettings
     {
         get => _arenaShopSettings;
@@ -59,8 +60,18 @@ internal class ArenaShopSettingsEditorViewModel : ViewModelBase
     private void SetModel(byte townhallLevel)
     {
         arenaShopSettings = gameDataHolder.arenaShopSettings[townhallLevel];
-        (mainCategoryListView.DataContext as EditorShopItemsListViewModel).SetModel(arenaShopSettings.mainCategoryItems);
-        (exchangeCategoryListView.DataContext as EditorShopItemsListViewModel).SetModel(arenaShopSettings.exchangeCategoryItems);
+        if (mainCategoryListView.DataContext is EditorShopItemsListViewModel mainCategoryListViewModel)
+        {
+            mainCategoryListViewModel.SetModel(arenaShopSettings.mainCategoryItems);
+        }
+        if (exchangeCategoryListView.DataContext is EditorShopItemsListViewModel exchangeCategoryListViewModel)
+        {
+            exchangeCategoryListViewModel.SetModel(arenaShopSettings.exchangeCategoryItems);
+        }
+        if (itemPatternsListView.DataContext is ArenaShopItemPatternsListViewModel itemPatternsListViewModel)
+        {
+            itemPatternsListViewModel.SetModel(arenaShopSettings.tempItemPatterns);
+        }
     }
 
     private void AddNewTownhall()

@@ -12,6 +12,7 @@
       <ColumnDefinition Width="auto" MinWidth="200"/>
       <ColumnDefinition Width="auto" MinWidth="200"/>
       <ColumnDefinition Width="auto" MinWidth="200"/>
+      <ColumnDefinition Width="auto" MinWidth="200"/>
     </Grid.ColumnDefinitions>
 
     <Grid.RowDefinitions>
@@ -59,9 +60,15 @@
                  Content="{Binding exchangeCategoryListView}"
                  IsVisible="{Binding selectedTownhall, Converter={x:Static ObjectConverters.IsNotNull}}"/>
 
-    <!-- Column 4: Other Settings -->
-    <TextBlock Text="Other Settings" Grid.Column="3" Grid.Row="0" Classes="h3" Margin="40,0,0,0"/>
-    <StackPanel Grid.Column="3" Grid.Row="1" VerticalAlignment="Top" Margin="40,0,0,0"
+    <!-- Column 4: Temp Items -->
+    <TextBlock Text="Temp Items" Grid.Column="3" Grid.Row="0" Classes="h3" Margin="40,0,0,0"/>
+    <UserControl Grid.Column="3" Grid.Row="1" VerticalAlignment="Top" Margin="40,0,0,0"
+                 Content="{Binding itemPatternsListView}"
+                 IsVisible="{Binding selectedTownhall, Converter={x:Static ObjectConverters.IsNotNull}}"/>
+
+    <!-- Column 5: Other Settings -->
+    <TextBlock Text="Other Settings" Grid.Column="4" Grid.Row="0" Classes="h3" Margin="40,0,0,0"/>
+    <StackPanel Grid.Column="4" Grid.Row="1" VerticalAlignment="Top" Margin="40,0,0,0"
                 IsVisible="{Binding selectedTownhall, Converter={x:Static ObjectConverters.IsNotNull}}">
       
       <TextBlock Text="free chips count"/>
