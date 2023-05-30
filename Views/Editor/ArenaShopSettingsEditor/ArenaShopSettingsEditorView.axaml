@@ -75,6 +75,10 @@
       <TextBox Text="{Binding arenaShopSettings.freeChipsCount}"/>
       <TextBlock Text="free chips delay in seconds"/>
       <TextBox Text="{Binding arenaShopSettings.freeChipsDelayInSeconds}"/>
+      <TextBlock Text="temp items refresh delay in seconds"/>
+      <TextBox Text="{Binding arenaShopSettings.tempItemsRefreshDelayInSeconds}"/>
+      <TextBlock Text="temp items refresh price in diamonds"/>
+      <TextBox Text="{Binding arenaShopSettings.tempItemsRefreshPriceInDiamonds}"/>
 
     </StackPanel>
     

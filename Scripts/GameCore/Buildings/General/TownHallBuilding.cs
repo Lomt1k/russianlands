@@ -39,4 +39,21 @@ public class TownHallBuilding : BuildingBase
         // TODO: Добавить инфу о следующем уровне
         return Localization.Get(session, "building_TownHall_description");
     }
+
+    protected override void OnConstructionEnd(ProfileBuildingsData data, DateTime startConstructionTime, DateTime endConstructionTime)
+    {
+        var profileData = data.session.profile.data;
+        ResetTemporaryArenaShopItems(profileData);
+    }
+
+    private void ResetTemporaryArenaShopItems(ProfileData profileData)
+    {
+        profileData.lastArenaItemsUpdateTime = DateTime.MinValue;
+        profileData.arenaItemId_0 = null;
+        profileData.arenaItemId_1 = null;
+        profileData.arenaItemId_2 = null;
+        profileData.arenaItemId_3 = null;
+        profileData.arenaItemId_4 = null;
+    }
+
 }

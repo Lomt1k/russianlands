@@ -1,4 +1,6 @@
-﻿using MarkOne.Scripts.GameCore.Rewards;
+﻿using MarkOne.Scripts.GameCore.Items;
+using MarkOne.Scripts.GameCore.Resources;
+using MarkOne.Scripts.GameCore.Rewards;
 using MarkOne.Scripts.GameCore.Sessions;
 using Newtonsoft.Json;
 using System.Collections.Generic;
@@ -9,6 +11,29 @@ namespace MarkOne.Scripts.GameCore.Shop;
 public class ShopInventoryItem : ShopItemBase
 {
     public ItemWithCodeReward itemWithCodeReward { get; set; } = new();
+
+    [JsonConstructor]
+    public ShopInventoryItem()
+    {
+    }
+
+    public ShopInventoryItem(string itemCode, ResourceData? resourcePrice = null)
+    {
+        itemWithCodeReward = new ItemWithCodeReward(itemCode);
+        if (resourcePrice.HasValue)
+        {
+            price = new ShopResourcePrice(resourcePrice.Value);
+        }
+    }
+
+    public ShopInventoryItem(InventoryItem inventoryItem, ResourceData? resourcePrice = null)
+    {
+        itemWithCodeReward = new ItemWithCodeReward(inventoryItem);
+        if (resourcePrice.HasValue)
+        {
+            price = new ShopResourcePrice(resourcePrice.Value);
+        }
+    }
 
     public override string GetTitle(GameSession session)
     {
@@ -22,6 +47,7 @@ public class ShopInventoryItem : ShopItemBase
 
         if (price != null)
         {
+            sb.AppendLine();
             sb.AppendLine(price.GetPlayerResourcesView(session));
         }
 

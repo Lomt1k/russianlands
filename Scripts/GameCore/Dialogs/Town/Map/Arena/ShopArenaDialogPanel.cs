@@ -1,11 +1,14 @@
 ﻿using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Arena;
 using MarkOne.Scripts.GameCore.Buildings;
+using MarkOne.Scripts.GameCore.Items.Generators;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Resources;
 using MarkOne.Scripts.GameCore.Sessions;
 using MarkOne.Scripts.GameCore.Shop;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,9 +18,11 @@ public enum ShopArenaCategory : byte { None = 0, Main, Exchange, Temporary }
 public sealed class ShopArenaDialogPanel : DialogPanelBase
 {
     private ShopArenaCategory _currentCategory;
+    private List<ShopItemBase> _temporaryShopItems = new();
 
     private PlayerResources playerResources => session.player.resources;
-    private ArenaShopSettings arenaShopSettings => gameDataHolder.arenaShopSettings[session.player.buildings.GetBuildingLevel(BuildingId.TownHall)];
+    private byte townhall => session.player.buildings.GetBuildingLevel(BuildingId.TownHall);
+    private ArenaShopSettings arenaShopSettings => gameDataHolder.arenaShopSettings[townhall];
 
     public ShopArenaDialogPanel(DialogWithPanel _dialog) : base(_dialog)
     {
@@ -37,7 +42,10 @@ public sealed class ShopArenaDialogPanel : DialogPanelBase
         }
 
         ClearButtons();
-        RegisterCategory(ShopArenaCategory.Temporary);
+        if (arenaShopSettings.tempItemPatterns.Count > 0)
+        {
+            RegisterCategory(ShopArenaCategory.Temporary);
+        }
         RegisterCategory(ShopArenaCategory.Main);
         RegisterCategory(ShopArenaCategory.Exchange);
 
@@ -107,7 +115,7 @@ public sealed class ShopArenaDialogPanel : DialogPanelBase
         switch (category)
         {
             case ShopArenaCategory.Temporary:
-                // TODO
+                await ShowTemporaryCategory().FastAwait();
                 return;
             case ShopArenaCategory.Main:
                 await ShowMainCategory().FastAwait();
@@ -116,6 +124,20 @@ public sealed class ShopArenaDialogPanel : DialogPanelBase
                 await ShowExchangeCategory().FastAwait();
                 return;
         }
+    }
+
+    private async Task ShowTemporaryCategory()
+    {
+        ResetTemporaryItemsIfRequired(out var timeUntilNextRefresh);
+        LoadTemporaryItemsIfNotLoaded();
+
+        ClearButtons();
+        foreach (var shopItem in _temporaryShopItems)
+        {
+            RegisterButton(shopItem.GetNameForList(session), () => ShowItem(shopItem));
+        }
+        RegisterBackButton(Localization.Get(session, "dialog_arena_shop_button") + Emojis.ElementScales, ShowCategories);
+        await SendPanelMessage(GetCategoryName(_currentCategory, session), GetMultilineKeyboard()).FastAwait();
     }
 
     private async Task ShowMainCategory()
@@ -171,5 +193,142 @@ public sealed class ShopArenaDialogPanel : DialogPanelBase
 
         await SendPanelMessage(sb, GetOneLineKeyboard()).FastAwait();
     }
+
+    #region Temp Items
+
+    private void ResetTemporaryItemsIfRequired(out TimeSpan timeUntilNextReset)
+    {
+        var now = DateTime.UtcNow;
+        timeUntilNextReset = TimeSpan.FromSeconds(arenaShopSettings.tempItemsRefreshDelayInSeconds);
+        var nextRefreshTime = session.profile.data.lastArenaItemsUpdateTime.Add(timeUntilNextReset);
+        if (nextRefreshTime > now)
+        {
+            timeUntilNextReset = nextRefreshTime - now;
+            return;
+        }
+
+        ResetTemporaryItems();
+    }
+
+    private void ResetTemporaryItems()
+    {
+        var profileData = session.profile.data;
+        profileData.lastArenaItemsUpdateTime = DateTime.UtcNow;
+        profileData.arenaItemId_0 = null;
+        profileData.arenaItemId_1 = null;
+        profileData.arenaItemId_2 = null;
+        profileData.arenaItemId_3 = null;
+        profileData.arenaItemId_4 = null;
+        _temporaryShopItems.Clear();
+    }
+
+    private void LoadTemporaryItemsIfNotLoaded()
+    {
+        if (_temporaryShopItems.Count > 0)
+        {
+            return;
+        }
+
+        var pattensArray = GetItemPatterns().ToArray();
+        var profileData = session.profile.data;
+
+        // item 0
+        if (pattensArray.Length > 0)
+        {
+            var pattern = pattensArray[0];
+            var chipPrice = new ResourceData(ResourceId.ArenaChip, pattern.chipsPrice);
+            if (profileData.arenaItemId_0 is null)
+            {
+                var tempItem = ItemGenerationManager.GenerateItem(townhall, pattern.rarity);
+                profileData.arenaItemId_0 = tempItem.id;
+                _temporaryShopItems.Add(new ShopInventoryItem(tempItem, chipPrice));
+            }
+            else
+            {
+                _temporaryShopItems.Add(new ShopInventoryItem(profileData.arenaItemId_0, chipPrice));
+            }
+        }
+
+        // item 1
+        if (pattensArray.Length > 1)
+        {
+            var pattern = pattensArray[1];
+            var chipPrice = new ResourceData(ResourceId.ArenaChip, pattern.chipsPrice);
+            if (profileData.arenaItemId_1 is null)
+            {
+                var tempItem = ItemGenerationManager.GenerateItem(townhall, pattern.rarity);
+                profileData.arenaItemId_1 = tempItem.id;
+                _temporaryShopItems.Add(new ShopInventoryItem(tempItem, chipPrice));
+            }
+            else
+            {
+                _temporaryShopItems.Add(new ShopInventoryItem(profileData.arenaItemId_1, chipPrice));
+            }
+        }
+
+        // item 2
+        if (pattensArray.Length > 2)
+        {
+            var pattern = pattensArray[2];
+            var chipPrice = new ResourceData(ResourceId.ArenaChip, pattern.chipsPrice);
+            if (profileData.arenaItemId_2 is null)
+            {
+                var tempItem = ItemGenerationManager.GenerateItem(townhall, pattern.rarity);
+                profileData.arenaItemId_2 = tempItem.id;
+                _temporaryShopItems.Add(new ShopInventoryItem(tempItem, chipPrice));
+            }
+            else
+            {
+                _temporaryShopItems.Add(new ShopInventoryItem(profileData.arenaItemId_2, chipPrice));
+            }
+        }
+
+        // item 3
+        if (pattensArray.Length > 3)
+        {
+            var pattern = pattensArray[3];
+            var chipPrice = new ResourceData(ResourceId.ArenaChip, pattern.chipsPrice);
+            if (profileData.arenaItemId_3 is null)
+            {
+                var tempItem = ItemGenerationManager.GenerateItem(townhall, pattern.rarity);
+                profileData.arenaItemId_3 = tempItem.id;
+                _temporaryShopItems.Add(new ShopInventoryItem(tempItem, chipPrice));
+            }
+            else
+            {
+                _temporaryShopItems.Add(new ShopInventoryItem(profileData.arenaItemId_3, chipPrice));
+            }
+        }
+
+        // item 4
+        if (pattensArray.Length > 4)
+        {
+            var pattern = pattensArray[4];
+            var chipPrice = new ResourceData(ResourceId.ArenaChip, pattern.chipsPrice);
+            if (profileData.arenaItemId_4 is null)
+            {
+                var tempItem = ItemGenerationManager.GenerateItem(townhall, pattern.rarity);
+                profileData.arenaItemId_4 = tempItem.id;
+                _temporaryShopItems.Add(new ShopInventoryItem(tempItem, chipPrice));
+            }
+            else
+            {
+                _temporaryShopItems.Add(new ShopInventoryItem(profileData.arenaItemId_4, chipPrice));
+            }
+        }
+    }
+
+    private IEnumerable<ArenaShopItemPattern> GetItemPatterns()
+    {
+        foreach (var pattern in arenaShopSettings.tempItemPatterns)
+        {
+            for (int i = 0; i < pattern.count; i++)
+            {
+                yield return pattern;
+            }
+        }
+    }
+
+    #endregion
 
 }

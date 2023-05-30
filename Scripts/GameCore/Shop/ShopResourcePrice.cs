@@ -19,6 +19,19 @@ public class ShopResourcePrice : ShopPriceBase
     [JsonIgnore]
     public ResourceData resourceData { get; private set; }
 
+    [JsonConstructor]
+    public ShopResourcePrice()
+    {        
+    }
+
+    public ShopResourcePrice(ResourceData _resourceData)
+    {
+        resourceId = _resourceData.resourceId;
+        amount = _resourceData.amount;
+        resourceData = _resourceData;
+    }
+
+
     [OnDeserialized]
     private void OnDeserialized(StreamingContext context)
     {

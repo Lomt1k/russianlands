@@ -27,6 +27,12 @@ public class ItemWithCodeReward : RewardBase
         TryParseItemCode();
     }
 
+    public ItemWithCodeReward(InventoryItem _itemTemplate)
+    {
+        itemTemplate = _itemTemplate;
+        itemCode = _itemTemplate.id;
+    }
+
     [OnDeserialized]
     private void OnDeserialized(StreamingContext context)
     {
