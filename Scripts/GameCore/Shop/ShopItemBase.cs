@@ -31,7 +31,7 @@ public abstract class ShopItemBase
     public string GetNameForList(GameSession session)
     {
         var priceView = price?.GetCompactPriceView() ?? Emojis.ElementWarningRed.ToString();
-        return string.Format("{0,-30}{1,20}", GetTitle(session).RemoveHtmlTags(), priceView);
+        return string.Format("{0,-30}{1,10}", GetTitle(session).RemoveHtmlTags(), priceView);
     }
 
     public async Task TryPurchase(GameSession session, Func<Task> onSuccess, Func<string,Task> onPurchaseError)

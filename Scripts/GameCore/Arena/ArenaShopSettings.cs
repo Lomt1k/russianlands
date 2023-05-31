@@ -16,7 +16,7 @@ public class ArenaShopSettings : IGameDataWithId<byte>
     public int freeChipsCount { get; set; }
     public int freeChipsDelayInSeconds { get; set; }
     public int tempItemsRefreshDelayInSeconds { get; set; }
-    public int tempItemsRefreshPriceInDiamonds { get; set; }
+
     [JsonIgnore]
     public ResourceData freeChipsResourceData { get; private set; }
 

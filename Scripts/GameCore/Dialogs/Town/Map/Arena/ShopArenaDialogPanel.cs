@@ -19,6 +19,8 @@ public sealed class ShopArenaDialogPanel : DialogPanelBase
 {
     private ShopArenaCategory _currentCategory;
     private List<ShopItemBase> _temporaryShopItems = new();
+    private bool _isTemporaryItemsInitialized;
+    private bool _isNeedCreateNewTemporaryItems;
 
     private PlayerResources playerResources => session.player.resources;
     private byte townhall => session.player.buildings.GetBuildingLevel(BuildingId.TownHall);
@@ -136,8 +138,15 @@ public sealed class ShopArenaDialogPanel : DialogPanelBase
         {
             RegisterButton(shopItem.GetNameForList(session), () => ShowItem(shopItem));
         }
+
+        var sb = new StringBuilder()
+            .AppendLine(GetCategoryName(_currentCategory, session))
+            .AppendLine()
+            .AppendLine(Localization.Get(session, "dialog_arena_shop_refresh_temp_items_header"))
+            .AppendLine(timeUntilNextRefresh.GetView(session));
+
         RegisterBackButton(Localization.Get(session, "dialog_arena_shop_button") + Emojis.ElementScales, ShowCategories);
-        await SendPanelMessage(GetCategoryName(_currentCategory, session), GetMultilineKeyboard()).FastAwait();
+        await SendPanelMessage(sb, GetMultilineKeyboard()).FastAwait();
     }
 
     private async Task ShowMainCategory()
@@ -176,9 +185,18 @@ public sealed class ShopArenaDialogPanel : DialogPanelBase
     private async Task TryPurchaseItem(ShopItemBase shopItem)
     {
         await shopItem.TryPurchase(session,
-            onSuccess: () => new ShopArenaDialog(session).StartWithCategory(_currentCategory),
+            onSuccess: () => OnSuccessPurchase(shopItem),
             onPurchaseError: (error) => OnPurchaseFail(error, shopItem))
             .FastAwait();
+    }
+
+    private async Task OnSuccessPurchase(ShopItemBase shopItem)
+    {
+        if (_currentCategory == ShopArenaCategory.Temporary)
+        {
+            RemoveTemporaryItem(shopItem);
+        }
+        await new ShopArenaDialog(session).StartWithCategory(_currentCategory).FastAwait();
     }
 
     private async Task OnPurchaseFail(string errorText, ShopItemBase shopItem)
@@ -220,11 +238,13 @@ public sealed class ShopArenaDialogPanel : DialogPanelBase
         profileData.arenaItemId_3 = null;
         profileData.arenaItemId_4 = null;
         _temporaryShopItems.Clear();
+        _isTemporaryItemsInitialized = false;
+        _isNeedCreateNewTemporaryItems = true;
     }
 
     private void LoadTemporaryItemsIfNotLoaded()
     {
-        if (_temporaryShopItems.Count > 0)
+        if (_isTemporaryItemsInitialized)
         {
             return;
         }
@@ -237,15 +257,15 @@ public sealed class ShopArenaDialogPanel : DialogPanelBase
         {
             var pattern = pattensArray[0];
             var chipPrice = new ResourceData(ResourceId.ArenaChip, pattern.chipsPrice);
-            if (profileData.arenaItemId_0 is null)
+            if (profileData.arenaItemId_0 is not null)
+            {
+                _temporaryShopItems.Add(new ShopInventoryItem(profileData.arenaItemId_0, chipPrice));
+            }
+            else if (_isNeedCreateNewTemporaryItems)
             {
                 var tempItem = ItemGenerationManager.GenerateItem(townhall, pattern.rarity);
                 profileData.arenaItemId_0 = tempItem.id;
                 _temporaryShopItems.Add(new ShopInventoryItem(tempItem, chipPrice));
-            }
-            else
-            {
-                _temporaryShopItems.Add(new ShopInventoryItem(profileData.arenaItemId_0, chipPrice));
             }
         }
 
@@ -254,15 +274,15 @@ public sealed class ShopArenaDialogPanel : DialogPanelBase
         {
             var pattern = pattensArray[1];
             var chipPrice = new ResourceData(ResourceId.ArenaChip, pattern.chipsPrice);
-            if (profileData.arenaItemId_1 is null)
+            if (profileData.arenaItemId_1 is not null)
+            {
+                _temporaryShopItems.Add(new ShopInventoryItem(profileData.arenaItemId_1, chipPrice));
+            }
+            else if (_isNeedCreateNewTemporaryItems)
             {
                 var tempItem = ItemGenerationManager.GenerateItem(townhall, pattern.rarity);
                 profileData.arenaItemId_1 = tempItem.id;
                 _temporaryShopItems.Add(new ShopInventoryItem(tempItem, chipPrice));
-            }
-            else
-            {
-                _temporaryShopItems.Add(new ShopInventoryItem(profileData.arenaItemId_1, chipPrice));
             }
         }
 
@@ -271,15 +291,15 @@ public sealed class ShopArenaDialogPanel : DialogPanelBase
         {
             var pattern = pattensArray[2];
             var chipPrice = new ResourceData(ResourceId.ArenaChip, pattern.chipsPrice);
-            if (profileData.arenaItemId_2 is null)
+            if (profileData.arenaItemId_2 is not null)
+            {
+                _temporaryShopItems.Add(new ShopInventoryItem(profileData.arenaItemId_2, chipPrice));
+            }
+            else if (_isNeedCreateNewTemporaryItems)
             {
                 var tempItem = ItemGenerationManager.GenerateItem(townhall, pattern.rarity);
                 profileData.arenaItemId_2 = tempItem.id;
                 _temporaryShopItems.Add(new ShopInventoryItem(tempItem, chipPrice));
-            }
-            else
-            {
-                _temporaryShopItems.Add(new ShopInventoryItem(profileData.arenaItemId_2, chipPrice));
             }
         }
 
@@ -288,15 +308,15 @@ public sealed class ShopArenaDialogPanel : DialogPanelBase
         {
             var pattern = pattensArray[3];
             var chipPrice = new ResourceData(ResourceId.ArenaChip, pattern.chipsPrice);
-            if (profileData.arenaItemId_3 is null)
+            if (profileData.arenaItemId_3 is not null)
+            {
+                _temporaryShopItems.Add(new ShopInventoryItem(profileData.arenaItemId_3, chipPrice));
+            }
+            else if (_isNeedCreateNewTemporaryItems)
             {
                 var tempItem = ItemGenerationManager.GenerateItem(townhall, pattern.rarity);
                 profileData.arenaItemId_3 = tempItem.id;
                 _temporaryShopItems.Add(new ShopInventoryItem(tempItem, chipPrice));
-            }
-            else
-            {
-                _temporaryShopItems.Add(new ShopInventoryItem(profileData.arenaItemId_3, chipPrice));
             }
         }
 
@@ -305,17 +325,20 @@ public sealed class ShopArenaDialogPanel : DialogPanelBase
         {
             var pattern = pattensArray[4];
             var chipPrice = new ResourceData(ResourceId.ArenaChip, pattern.chipsPrice);
-            if (profileData.arenaItemId_4 is null)
+            if (profileData.arenaItemId_4 is not null)
+            {
+                _temporaryShopItems.Add(new ShopInventoryItem(profileData.arenaItemId_4, chipPrice));
+            }
+            else if (_isNeedCreateNewTemporaryItems)
             {
                 var tempItem = ItemGenerationManager.GenerateItem(townhall, pattern.rarity);
                 profileData.arenaItemId_4 = tempItem.id;
                 _temporaryShopItems.Add(new ShopInventoryItem(tempItem, chipPrice));
             }
-            else
-            {
-                _temporaryShopItems.Add(new ShopInventoryItem(profileData.arenaItemId_4, chipPrice));
-            }
         }
+
+        _isTemporaryItemsInitialized = true;
+        _isNeedCreateNewTemporaryItems = false;
     }
 
     private IEnumerable<ArenaShopItemPattern> GetItemPatterns()
@@ -325,6 +348,41 @@ public sealed class ShopArenaDialogPanel : DialogPanelBase
             for (int i = 0; i < pattern.count; i++)
             {
                 yield return pattern;
+            }
+        }
+    }
+
+    private void RemoveTemporaryItem(ShopItemBase shopItem)
+    {
+        _temporaryShopItems.Remove(shopItem);
+        if (shopItem is ShopInventoryItem shopInventoryItem)
+        {
+            var itemCode = shopInventoryItem.itemWithCodeReward.itemCode;
+            var profileData = session.profile.data;
+            if (profileData.arenaItemId_0 != null && profileData.arenaItemId_0.Equals(itemCode))
+            {
+                profileData.arenaItemId_0 = null;
+                return;
+            }
+            if (profileData.arenaItemId_1 != null && profileData.arenaItemId_1.Equals(itemCode))
+            {
+                profileData.arenaItemId_1 = null;
+                return;
+            }
+            if (profileData.arenaItemId_2 != null && profileData.arenaItemId_2.Equals(itemCode))
+            {
+                profileData.arenaItemId_2 = null;
+                return;
+            }
+            if (profileData.arenaItemId_3 != null && profileData.arenaItemId_3.Equals(itemCode))
+            {
+                profileData.arenaItemId_3 = null;
+                return;
+            }
+            if (profileData.arenaItemId_4 != null && profileData.arenaItemId_4.Equals(itemCode))
+            {
+                profileData.arenaItemId_4 = null;
+                return;
             }
         }
     }
