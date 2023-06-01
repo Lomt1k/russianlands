@@ -18,7 +18,6 @@ public class TelegramBotUpdateHandler : IUpdateHandler
     private readonly ReplyKeyboardMarkup restartButton = new ReplyKeyboardMarkup(Localization.GetDefault("restart_button"));
 
     private static readonly SessionManager sessionManager = ServiceLocator.Get<SessionManager>();
-    private static readonly PerformanceManager performanceManager = ServiceLocator.Get<PerformanceManager>();
     private static readonly MessageSender messageSender = ServiceLocator.Get<MessageSender>();
 
     public async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)

@@ -19,6 +19,7 @@ public class BotConfig
 
     public SendingLimits sendingLimits = new SendingLimits();
     public PerformanceSettings performanceSettings = new PerformanceSettings();
+    public HttpListenerSettings httpListenerSettings = new HttpListenerSettings();
     public LogSettings logSettings = new LogSettings();
 
     [JsonIgnore] public LanguageCode[] languageCodes { get; private set; } = { LanguageCode.RU };
@@ -48,6 +49,13 @@ public class BotConfig
         public int totalRamUsageLimitInPercents = 95;
         public bool sendMaintenanceNotificationsOnStop = true;
         public int secondsLimitForSendMaintenance = 30;
+    }
+
+    [JsonObject]
+    public class HttpListenerSettings
+    {
+        public string httpPrefix = "http://localhost:1111/";
+        public byte maxConnections = 50;
     }
 
     [JsonObject]

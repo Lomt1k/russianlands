@@ -1,25 +1,20 @@
 ﻿using System.Threading;
-using System.Threading.Tasks;
 using Telegram.Bot;
 using Telegram.Bot.Polling;
 using Telegram.Bot.Types.Enums;
 
 namespace MarkOne.Scripts.Bot;
 
-public class TelegramBotReceiving
+public class TelegramUpdatesPoller
 {
     private CancellationTokenSource _cts = new CancellationTokenSource();
 
-    public bool isReceiving { get; private set; }
+    public bool isPolling { get; private set; }
 
-    public async Task StartReceiving()
+    public bool StartPolling()
     {
-        if (isReceiving)
-            return;
-
-        var mineUser = await BotController.botClient.GetMeAsync().FastAwait();
-        mineUser.CanJoinGroups = false;
-        Program.SetTitle($"{mineUser.Username} [{BotController.dataPath}]");
+        if (isPolling)
+            return false;
 
         _cts = new CancellationTokenSource();
         var receiverOptions = new ReceiverOptions
@@ -33,18 +28,19 @@ public class TelegramBotReceiving
             Offset = -1 // После рестарта бота обработает только последнее сообщение, отправленное за время офлайна (оно запустит новую сессию)
         };
         BotController.botClient.ReceiveAsync<TelegramBotUpdateHandler>(receiverOptions, _cts.Token);
-        isReceiving = true;
-        Program.logger.Info($"Start listening for @{mineUser.Username}");
+        isPolling = true;
+        Program.logger.Info($"Polling updates started");
+        return true;
     }
 
-    public void StopReceiving()
+    public void StopPolling()
     {
-        if (!isReceiving)
+        if (!isPolling)
             return;
 
         _cts.Cancel();
-        isReceiving = false;
-        Program.logger.Info($"Listening has been stopped");
+        isPolling = false;
+        Program.logger.Info($"Polling updates stopped");
     }
 
 
