@@ -2,7 +2,6 @@
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
-using Telegram.Bot.Types.InputFiles;
 using MarkOne.Scripts.GameCore.Buildings;
 using MarkOne.Scripts.GameCore.Buildings.Data;
 using MarkOne.Scripts.GameCore.Buildings.General;
@@ -16,6 +15,7 @@ using MarkOne.Scripts.GameCore.Skills;
 using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Commands;
 using MarkOne.Scripts.GameCore.Sessions;
+using Telegram.Bot.Types;
 
 namespace MarkOne.Scripts.GameCore.Dialogs.Cheats;
 
@@ -514,13 +514,13 @@ public class CheatsDialog : DialogBase
         var fileName = $"{profileState.nickname}_{DateTime.UtcNow.ToShortDateString()}_{profileState.telegramId}.dat";
         var filePath = Path.Combine(Program.cacheDirectory, fileName);
 
-        File.WriteAllText(filePath, encryptedData, Encoding.UTF8);
-        using (var stream = File.Open(filePath, FileMode.Open))
+        System.IO.File.WriteAllText(filePath, encryptedData, Encoding.UTF8);
+        using (var stream = System.IO.File.Open(filePath, FileMode.Open))
         {
-            var inputOnlineFile = new InputOnlineFile(stream, fileName);
-            await messageSender.SendDocument(session.chatId, inputOnlineFile);
+            var inputFile = InputFile.FromStream(stream, fileName);
+            await messageSender.SendDocument(session.chatId, inputFile);
         }
-        File.Delete(filePath);
+        System.IO.File.Delete(filePath);
     }
 
     private async Task ImportAccount()
@@ -536,7 +536,7 @@ public class CheatsDialog : DialogBase
 
     private async Task OnAccountStateDownloaded(string filePath)
     {
-        var encryptedData = File.ReadAllText(filePath);
+        var encryptedData = System.IO.File.ReadAllText(filePath);
         var profileState = ProfileStateConverter.Deserialize(encryptedData);
 
         if (profileState == null)
