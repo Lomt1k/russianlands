@@ -18,8 +18,8 @@ public static class BotController
     private static readonly PerformanceManager performanceManager = ServiceLocator.Get<PerformanceManager>();
 
     private static bool _isInited;
-    private static TelegramUpdatesPoller _updatesPoller = new();
     private static readonly HttpClient _httpClient = new HttpClient();
+    private static TelegramUpdatesReceiver _updatesReceiver;
 
     public static string dataPath { get; private set; }
     public static TelegramBotClient botClient { get; private set; }
@@ -42,7 +42,8 @@ public static class BotController
 
         dataBase = new BotDataBase(botDataPath);
         botClient = new TelegramBotClient(config.token);
-        httpListener = new BotHttpListener(config.httpListenerSettings.httpPrefix, config.httpListenerSettings.maxConnections);
+        httpListener = new BotHttpListener(config.httpListenerSettings);
+        _updatesReceiver = new TelegramUpdatesReceiver(httpListener);
         _isInited = true;
     }
 
@@ -105,8 +106,9 @@ public static class BotController
         mineUser.CanJoinGroups = false;
         Program.SetTitle($"{mineUser.Username} [{dataPath}]");
 
+        
         httpListener.StartListening();
-        _updatesPoller.StartPolling();
+        _updatesReceiver.StartReceiving();
         Program.logger.Info($"Start listening for @{mineUser.Username}");
         isReceiving = true;
         
@@ -118,7 +120,7 @@ public static class BotController
         if (!isReceiving)
             return;
 
-        _updatesPoller.StopPolling();
+        _updatesReceiver.StopReceiving();
         httpListener.StopListening();
         await sessionManager.CloseAllSessions().FastAwait();
         await dataBase.CloseAsync().FastAwait();
@@ -136,7 +138,7 @@ public static class BotController
         isReceiving = false;
         {
             Program.logger.Info("Reconnection starts...");
-            _updatesPoller.StopPolling();
+            _updatesReceiver.StopReceiving();
             httpListener.StopListening();
             var battleManager = ServiceLocator.Get<BattleManager>();
             var playersInBattle = battleManager.GetAllPlayers();
@@ -148,7 +150,7 @@ public static class BotController
 
             await WaitForNetworkConnection().FastAwait();
             httpListener.StopListening();
-            _updatesPoller.StartPolling();
+            _updatesReceiver.StartReceiving();
         }
         isReceiving = true;
     }

@@ -55,7 +55,16 @@ public class BotConfig
     public class HttpListenerSettings
     {
         public string httpPrefix = "http://localhost:1111/";
+        public string externalHttpPrefix = "https://localhost/";
         public byte maxConnections = 50;
+        public TelegramWebhookSettings telegramWebhookSettings = new();
+    }
+
+    [JsonObject]
+    public class TelegramWebhookSettings
+    {
+        public bool useWebhook = false;
+        public byte maxConnections = 40;
     }
 
     [JsonObject]
