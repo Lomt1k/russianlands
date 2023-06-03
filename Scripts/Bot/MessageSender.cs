@@ -4,7 +4,6 @@ using Telegram.Bot;
 using Telegram.Bot.Exceptions;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
-using Telegram.Bot.Types.InputFiles;
 using Telegram.Bot.Types.ReplyMarkups;
 using MarkOne.Scripts.GameCore.Services;
 using MarkOne.Scripts.GameCore.Services.Sending;
@@ -16,13 +15,12 @@ public class MessageSender : Service
     private static readonly MessageSequencer sequencer = ServiceLocator.Get<MessageSequencer>();
 
     private TelegramBotClient _botClient;
-    private RequestExceptionHandler _requestExceptionHandler;
+    private RequestExceptionHandler _requestExceptionHandler = new();
     private int _maxDelayForSendStickers;
 
     public override Task OnBotStarted()
     {
         _botClient = BotController.botClient;
-        _requestExceptionHandler = new RequestExceptionHandler();
         _maxDelayForSendStickers = BotController.config.sendingLimits.dontSendStickerIfDelayInSeconds * 1_000;
         return Task.CompletedTask;
     }
@@ -37,7 +35,8 @@ public class MessageSender : Service
             if (cancellationToken.IsCancellationRequested)
                 return null;
 
-            return await _botClient.SendTextMessageAsync(id, text, ParseMode.Html,
+            return await _botClient.SendTextMessageAsync(id, text,
+                parseMode: ParseMode.Html,
                 replyMarkup: inlineKeyboard,
                 disableNotification: silent,
                 disableWebPagePreview: disableWebPagePreview,
@@ -112,7 +111,8 @@ public class MessageSender : Service
             if (cancellationToken.IsCancellationRequested)
                 return null;
 
-            return await _botClient.SendTextMessageAsync(id, text, ParseMode.Html,
+            return await _botClient.SendTextMessageAsync(id, text,
+                parseMode: ParseMode.Html,
                 replyMarkup: replyKeyboard,
                 disableNotification: silent,
                 disableWebPagePreview: disableWebPagePreview,
@@ -144,7 +144,7 @@ public class MessageSender : Service
             var delay = sequencer.GetDelayForSendMessage(text);
             await Task.Delay(delay).FastAwait();
 
-            return await _botClient.SendTextMessageAsync(id, Emojis.ElementWarning + "<b>Program Error</b>\n\n" + text, ParseMode.Html)
+            return await _botClient.SendTextMessageAsync(id, Emojis.ElementWarning + "<b>Program Error</b>\n\n" + text, parseMode: ParseMode.Html)
                 .FastAwait();
         }
         catch (RequestException ex)
@@ -167,7 +167,8 @@ public class MessageSender : Service
             if (cancellationToken.IsCancellationRequested)
                 return;
 
-            await _botClient.SendStickerAsync(id, stickerFileId, cancellationToken: cancellationToken).FastAwait();
+            var sticker = InputFile.FromFileId(stickerFileId);
+            await _botClient.SendStickerAsync(id, sticker, cancellationToken: cancellationToken).FastAwait();
         }
         catch (RequestException ex)
         {
@@ -175,11 +176,13 @@ public class MessageSender : Service
         }
     }
 
-    public async Task<Message?> SendDocument(ChatId id, InputOnlineFile document, string? caption = null, CancellationToken cancellationToken = default)
+    public async Task<Message?> SendDocument(ChatId id, InputFile document, string? caption = null, CancellationToken cancellationToken = default)
     {
         try
         {
-            return await _botClient.SendDocumentAsync(id, document, caption, parseMode: ParseMode.Html,
+            return await _botClient.SendDocumentAsync(id, document,
+                caption: caption, 
+                parseMode: ParseMode.Html,
                 cancellationToken: cancellationToken).FastAwait();
         }
         catch (RequestException ex)

@@ -19,6 +19,7 @@ public class BotConfig
 
     public SendingLimits sendingLimits = new SendingLimits();
     public PerformanceSettings performanceSettings = new PerformanceSettings();
+    public HttpListenerSettings httpListenerSettings = new HttpListenerSettings();
     public LogSettings logSettings = new LogSettings();
 
     [JsonIgnore] public LanguageCode[] languageCodes { get; private set; } = { LanguageCode.RU };
@@ -51,9 +52,26 @@ public class BotConfig
     }
 
     [JsonObject]
+    public class HttpListenerSettings
+    {
+        public string httpPrefix = "http://localhost:1111/";
+        public string externalHttpPrefix = "https://localhost/";
+        public byte maxConnections = 50;
+        public bool onlyLocalRequests = true; // use something like nginx for proxy
+        public TelegramWebhookSettings telegramWebhookSettings = new();
+    }
+
+    [JsonObject]
+    public class TelegramWebhookSettings
+    {
+        public bool useWebhook = false;
+        public byte maxConnections = 40;
+    }
+
+    [JsonObject]
     public class LogSettings
     {
-        public bool logUserInput = true;
+        public bool logUpdates = true;
         public bool logDailyNotifications = true;
     }
 

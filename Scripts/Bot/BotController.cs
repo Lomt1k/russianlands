@@ -9,6 +9,7 @@ using MarkOne.Scripts.GameCore.Services;
 using MarkOne.Scripts.GameCore.Services.Battles;
 using MarkOne.Scripts.GameCore.Sessions;
 using MarkOne.Scripts.GameCore.Services.BotData;
+using MarkOne.Scripts.GameCore.Http;
 
 namespace MarkOne.Scripts.Bot;
 public static class BotController
@@ -17,15 +18,16 @@ public static class BotController
     private static readonly PerformanceManager performanceManager = ServiceLocator.Get<PerformanceManager>();
 
     private static bool _isInited;
-    private static TelegramBotReceiving _botReceiving;
     private static readonly HttpClient _httpClient = new HttpClient();
+    private static TelegramUpdatesReceiver _updatesReceiver;
 
     public static string dataPath { get; private set; }
     public static TelegramBotClient botClient { get; private set; }
     public static BotConfig config { get; private set; }
     public static BotDataBase dataBase { get; private set; }
+    public static BotHttpListener httpListener { get; private set; }
 
-    public static bool isReceiving => _botReceiving != null && _botReceiving.isReceiving;
+    public static bool isReceiving { get; private set; }
 
     public static void Init(string botDataPath)
     {
@@ -37,10 +39,11 @@ public static class BotController
 
         dataPath = botDataPath;
         config = GetConfig();
-        _botReceiving = new TelegramBotReceiving();
 
         dataBase = new BotDataBase(botDataPath);
         botClient = new TelegramBotClient(config.token);
+        httpListener = new BotHttpListener(config.httpListenerSettings);
+        _updatesReceiver = new TelegramUpdatesReceiver(httpListener);
         _isInited = true;
     }
 
@@ -98,8 +101,17 @@ public static class BotController
         SubcribeEvents();
         await ServiceLocator.OnBotStarted().FastAwait();
         await CharacterStickersHolder.StickersUpdate().FastAwait();
-        await _botReceiving.StartReceiving().FastAwait();
 
+        var mineUser = await botClient.GetMeAsync().FastAwait();
+        mineUser.CanJoinGroups = false;
+        Program.SetTitle($"{mineUser.Username} [{dataPath}]");
+
+        
+        httpListener.StartListening();
+        _updatesReceiver.StartReceiving();
+        Program.logger.Info($"Start listening for @{mineUser.Username}");
+        isReceiving = true;
+        
         return true;
     }
 
@@ -108,11 +120,14 @@ public static class BotController
         if (!isReceiving)
             return;
 
-        _botReceiving.StopReceiving();
+        _updatesReceiver.StopReceiving();
+        httpListener.StopListening();
         await sessionManager.CloseAllSessions().FastAwait();
         await dataBase.CloseAsync().FastAwait();
         await ServiceLocator.OnBotStopped().FastAwait();
         UnsubscribeEvents();
+        Program.logger.Info($"Listening has been stopped");
+        isReceiving = false;
     }
 
     public static async void Reconnect()
@@ -120,17 +135,24 @@ public static class BotController
         if (!isReceiving)
             return;
 
-        Program.logger.Info("Reconnection starts...");
-        _botReceiving.StopReceiving();
-        var battleManager = ServiceLocator.Get<BattleManager>();
-        var playersInBattle = battleManager.GetAllPlayers();
-        battleManager.UnregisterAllBattles(); //специально вызываем перед закрытием сессий!
-        foreach (var player in playersInBattle)
+        isReceiving = false;
         {
-            await sessionManager.CloseSession(player.session.chatId, onError: true);
+            Program.logger.Info("Reconnection starts...");
+            _updatesReceiver.StopReceiving();
+            httpListener.StopListening();
+            var battleManager = ServiceLocator.Get<BattleManager>();
+            var playersInBattle = battleManager.GetAllPlayers();
+            battleManager.UnregisterAllBattles(); //специально вызываем перед закрытием сессий!
+            foreach (var player in playersInBattle)
+            {
+                await sessionManager.CloseSession(player.session.chatId, onError: true);
+            }
+
+            await WaitForNetworkConnection().FastAwait();
+            httpListener.StopListening();
+            _updatesReceiver.StartReceiving();
         }
-        await WaitForNetworkConnection().FastAwait();
-        await _botReceiving.StartReceiving().FastAwait();
+        isReceiving = true;
     }
 
     private static async Task WaitForNetworkConnection()

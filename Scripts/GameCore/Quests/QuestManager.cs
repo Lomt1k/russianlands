@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using Telegram.Bot.Types;
 using MarkOne.Scripts.GameCore.Quests.NextStageTriggers;
 using MarkOne.Scripts.GameCore.Quests.QuestStages;
 using MarkOne.Scripts.GameCore.Quests.StageActions;
@@ -9,15 +8,16 @@ using MarkOne.Scripts.GameCore.Services;
 using MarkOne.Scripts.GameCore.Services.GameData;
 using MarkOne.Scripts.GameCore.Dialogs.Town;
 using MarkOne.Scripts.GameCore.Sessions;
+using MarkOne.Scripts.Bot;
 
 namespace MarkOne.Scripts.GameCore.Quests;
 
 public class QuestManager
 {
-    private static readonly GameDataHolder gameDataHolder = Services.ServiceLocator.Get<GameDataHolder>();
-    private static readonly NotificationsManager notificationsManager = Services.ServiceLocator.Get<NotificationsManager>();
+    private static readonly GameDataHolder gameDataHolder = ServiceLocator.Get<GameDataHolder>();
+    private static readonly NotificationsManager notificationsManager = ServiceLocator.Get<NotificationsManager>();
 
-    public static async Task HandleNewSession(GameSession session, Update update)
+    public static async Task HandleNewSession(GameSession session, SimpleUpdate update)
     {
         var playerQuestsProgress = session.profile.dynamicData.quests;
         var focusedQuestId = playerQuestsProgress.GetFocusedQuest();
@@ -41,7 +41,7 @@ public class QuestManager
 
         if (!isJumped && focusedQuest.TryGetStageById(stageIdToSetup, out var stageToSetup))
         {
-            var replyMessage = update.Message?.Text ?? string.Empty;
+            var replyMessage = update.message?.text ?? string.Empty;
             switch (stageToSetup)
             {
                 // Если stage имеет вход в город - сразу вводим игрока в город с TownEntryReason.StartNewSession

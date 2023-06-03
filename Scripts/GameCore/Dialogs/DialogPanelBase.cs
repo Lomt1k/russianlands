@@ -191,9 +191,9 @@ public abstract class DialogPanelBase
         if (!_registeredCallbacks.TryGetValue(buttonId, out var callback))
             return;
 
-        if (BotController.config.logSettings.logUserInput)
+        if (BotController.config.logSettings.logUpdates)
         {
-            Program.logger.Info($"Message from {session.actualUser}: {_registeredButtons[buttonId].Text}");
+            Program.logger.InfoFormat("UPDATE :: {0}: {1}", session.actualUser, _registeredButtons[buttonId].Text);
         }
 
         var generateQueryFunc = _registeredQueryAnswers[buttonId];

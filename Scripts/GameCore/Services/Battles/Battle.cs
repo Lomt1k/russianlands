@@ -143,9 +143,9 @@ public class Battle
 
     public async Task HandleBattleTooltipCallback(Player player, string queryId, BattleTooltipCallbackData callback)
     {
-        if (BotController.config.logSettings.logUserInput)
+        if (BotController.config.logSettings.logUpdates)
         {
-            Program.logger.Info($"Message from {player.session.actualUser}: {callback.tooltip}");
+            Program.logger.InfoFormat("UPDATE :: {0}: {1}", player.session.actualUser, callback.tooltip);
         }
 
         if (currentTurn == null)
