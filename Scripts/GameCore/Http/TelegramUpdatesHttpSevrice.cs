@@ -4,7 +4,6 @@ using System;
 using System.IO;
 using System.Net;
 using System.Threading.Tasks;
-using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 
 namespace MarkOne.Scripts.GameCore.Http;
@@ -24,7 +23,6 @@ public class TelegramUpdatesHttpSevrice : IHttpService
 
     public Task HandleHttpRequest(HttpListenerRequest request, HttpListenerResponse response)
     {
-        Program.logger.Debug("TelegramUpdatesHttpSevrice catched request!");
         var token = request.Headers[SECRET_TOKEN_HEADER];
         if (token is null || !token.Equals(_secretToken))
         {
@@ -36,16 +34,13 @@ public class TelegramUpdatesHttpSevrice : IHttpService
 
         var streamReader = new StreamReader(request.InputStream);
         var updateJson = streamReader.ReadToEnd();
-        Program.logger.Debug("updateJson:\n" + updateJson);
+        // Program.logger.Debug("updateJson:\n" + updateJson);
         var update = DeserializeUpdate(updateJson);
-        if (update is null)
-        {
-            response.Close();
-            return Task.CompletedTask;
-        }
-
         response.Close();
-        _updateHandler.HandleSimpleUpdate(update);
+        if (update is not null)
+        {
+            _updateHandler.HandleSimpleUpdate(update);
+        }
         return Task.CompletedTask;
     }
 
@@ -203,18 +198,21 @@ public class TelegramUpdatesHttpSevrice : IHttpService
                 var key = reader.Value.ToString();
                 switch (key)
                 {
-                    //case "id":
-                    //    user.id = long.Parse(reader.ReadAsString());
-                    //    break;
-                    //case "first_name":
-                    //    user.firstName = reader.ReadAsString() ?? "Unknown";
-                    //    break;
-                    //case "last_name":
-                    //    user.lastName = reader.ReadAsString();
-                    //    break;
-                    //case "username":
-                    //    user.username = reader.ReadAsString();
-                    //    break;
+                    case "file_size":
+                        document.fileSize = long.Parse(reader.ReadAsString() ?? "-1");
+                        break;
+                    case "file_name":
+                        document.fileName = reader.ReadAsString();
+                        break;
+                    case "file_id":
+                        document.fileId = reader.ReadAsString() ?? string.Empty;
+                        break;
+                    case "file_unique_id":
+                        document.fileUniqueId = reader.ReadAsString() ?? string.Empty;
+                        break;
+                    case "mime_type":
+                        document.mimeType = reader.ReadAsString();
+                        break;
                 }
             }
         }

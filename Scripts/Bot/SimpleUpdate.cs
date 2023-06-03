@@ -38,10 +38,21 @@ public class SimpleUser
     public string firstName { get; set; } = string.Empty;
     public string? lastName { get; set; }
     public string? username { get; set; }
+
+    public override string ToString()
+    {
+        return username is not null ? $"@{username} (ID {id})"
+            : lastName is not null ? $"{firstName} {lastName} (ID {id})"
+            : $"{firstName} (ID {id})";
+    }
 }
 
 [JsonObject]
 public class SimpleDocument
 {
     public string fileId { get; set; } = string.Empty;
+    public string fileUniqueId { get; set; } = string.Empty;
+    public string? fileName { get; set; }
+    public long? fileSize { get; set; }
+    public string? mimeType { get; set; }    
 }

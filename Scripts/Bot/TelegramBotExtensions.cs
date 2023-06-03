@@ -61,8 +61,14 @@ public static class TelegramBotExtensions
         {
             return null;
         }
-        // TODO
-        return null;
+        return new SimpleDocument
+        {
+            fileId = document.FileId,
+            fileUniqueId = document.FileUniqueId,
+            fileName = document.FileName,
+            fileSize = document.FileSize,
+            mimeType = document.MimeType,
+        };
     }
 
 

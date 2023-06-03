@@ -118,9 +118,9 @@ public class GameSession
 
     public async Task HandleMessageAsync(SimpleMessage message)
     {
-        if (BotController.config.logSettings.logUserInput && message.text != null)
+        if (BotController.config.logSettings.logUpdates && message.text != null)
         {
-            Program.logger.Info($"Message from {actualUser}: {message.text}");
+            Program.logger.InfoFormat("UPDATE :: {0}: {1}", actualUser, message.text);
         }
 
         if (message.text != null && message.text.StartsWith('/'))

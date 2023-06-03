@@ -71,7 +71,7 @@ public class BotConfig
     [JsonObject]
     public class LogSettings
     {
-        public bool logUserInput = true;
+        public bool logUpdates = true;
         public bool logDailyNotifications = true;
     }
 
