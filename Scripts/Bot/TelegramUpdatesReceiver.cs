@@ -31,27 +31,44 @@ public class TelegramUpdatesReceiver
         var webhookSettings = BotController.config.httpListenerSettings.telegramWebhookSettings;
         if (webhookSettings.useWebhook)
         {
-            return await StartWithWebhook().FastAwait();
+            return await SetWebhook().FastAwait();
         }
         else
         {
+            await DeleteWebhook().FastAwait();
             StartPollingUpdates();
             return true;
         }
     }
 
-    private async Task<bool> StartWithWebhook()
+    private async Task<bool> SetWebhook()
     {
         var webhookUrl = _botHttpListener.externalHttpListenerPrefix + "sendUpdate";
         var botClient = BotController.botClient;
         try
         {
-            _botHttpListener.RegisterHttpService("/sendUpdate", new TelegramUpdatesHttpSevrice());
-            await botClient.SetWebhookAsync(webhookUrl);
+            var secretToken = Guid.NewGuid().ToString();
+            _botHttpListener.RegisterHttpService("/sendUpdate", new TelegramUpdatesHttpSevrice(secretToken));
+            await botClient.SetWebhookAsync(webhookUrl, secretToken: secretToken);
         }
         catch (Exception ex)
         {
             Program.logger.Fatal($"Catched exception on try set telegram webhook\n{ex}");
+            return false;
+        }
+        return true;
+    }
+
+    private async Task<bool> DeleteWebhook()
+    {
+        var botClient = BotController.botClient;
+        try
+        {
+            await botClient.DeleteWebhookAsync(dropPendingUpdates: false);
+        }
+        catch (Exception ex)
+        {
+            Program.logger.Fatal($"Catched exception on try delete telegram webhook\n{ex}");
             return false;
         }
         return true;

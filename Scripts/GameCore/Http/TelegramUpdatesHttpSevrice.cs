@@ -5,9 +5,26 @@ using System.Threading.Tasks;
 namespace MarkOne.Scripts.GameCore.Http;
 public class TelegramUpdatesHttpSevrice : IHttpService
 {
-    public async Task HandleHttpRequest(HttpListenerRequest request, HttpListenerResponse response)
+    private readonly string _secretToken;
+
+    public TelegramUpdatesHttpSevrice(string secretToken)
+    {
+        _secretToken = secretToken;
+    }
+
+    public Task HandleHttpRequest(HttpListenerRequest request, HttpListenerResponse response)
     {
         Program.logger.Debug("TelegramUpdatesHttpSevrice catched request!");
+        var token = request.Headers["X-Telegram-Bot-Api-Secret-Token"];
+        if (token is null || !token.Equals(_secretToken))
+        {
+            Program.logger.Error("TelegramUpdatesHttpSevrice: Incorrect secret token!");
+            response.StatusCode = 404;
+            response.Close();
+            return Task.CompletedTask;
+        }
+        Program.logger.Debug("Secret token is OK");
+
         Program.logger.Debug("\tRawUrl: " + request.RawUrl);
         Program.logger.Debug("\tHttpMethod: " + request.HttpMethod);
         Program.logger.Debug("\tRemoteEndPoint: " + request.RemoteEndPoint);
@@ -36,5 +53,6 @@ public class TelegramUpdatesHttpSevrice : IHttpService
         }
 
         response.Close();
+        return Task.CompletedTask;
     }
 }

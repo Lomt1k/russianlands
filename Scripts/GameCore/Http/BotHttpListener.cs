@@ -13,6 +13,7 @@ public class BotHttpListener
     public string httpListenerPrefix { get; }
     public string externalHttpListenerPrefix { get; }
     public byte maxConnectionCount { get; }
+    public bool onlyLocalRequests { get; }
     public bool isListening { get; private set; }
 
     public BotHttpListener(Bot.BotConfig.HttpListenerSettings settings)
@@ -20,6 +21,7 @@ public class BotHttpListener
         httpListenerPrefix = settings.httpPrefix;
         externalHttpListenerPrefix = settings.externalHttpPrefix;
         maxConnectionCount = settings.maxConnections;
+        onlyLocalRequests = settings.onlyLocalRequests;
     }
 
     public bool StartListening()
@@ -31,7 +33,7 @@ public class BotHttpListener
 
         _cts = new CancellationTokenSource();
         HttpServer.ListenAsync(httpListenerPrefix, _cts.Token, HandleHttpRequest, maxHttpConnectionCount: maxConnectionCount);
-        Program.logger.Info($"Start http listening on {httpListenerPrefix} (max connections: {maxConnectionCount})");
+        Program.logger.Info($"Start http listening on {httpListenerPrefix}");
         isListening = true;
         return true;
     }
@@ -51,6 +53,13 @@ public class BotHttpListener
 
     private async Task HandleHttpRequest(HttpListenerRequest request, HttpListenerResponse response)
     {
+        if (onlyLocalRequests && !request.IsLocal)
+        {
+            response.StatusCode = 404;
+            response.Close();
+            return;
+        }
+
         var localPath = request.Url?.LocalPath;
         if (localPath is not null)
         {

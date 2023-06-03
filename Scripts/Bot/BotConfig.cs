@@ -57,6 +57,7 @@ public class BotConfig
         public string httpPrefix = "http://localhost:1111/";
         public string externalHttpPrefix = "https://localhost/";
         public byte maxConnections = 50;
+        public bool onlyLocalRequests = true; // use something like nginx for proxy
         public TelegramWebhookSettings telegramWebhookSettings = new();
     }
 
