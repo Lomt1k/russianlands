@@ -10,6 +10,12 @@ namespace MarkOne.Scripts.Bot;
 
 public class TelegramUpdatesReceiver
 {
+    private static readonly UpdateType[] AllowedUpdates = new UpdateType[]
+    {
+        UpdateType.Message,
+        UpdateType.CallbackQuery,
+    };
+
     private CancellationTokenSource _cts = new CancellationTokenSource();
     private readonly BotHttpListener _botHttpListener;
 
@@ -49,7 +55,7 @@ public class TelegramUpdatesReceiver
         {
             var secretToken = Guid.NewGuid().ToString();
             _botHttpListener.RegisterHttpService("/sendUpdate", new TelegramUpdatesHttpSevrice(secretToken));
-            await botClient.SetWebhookAsync(webhookUrl, secretToken: secretToken);
+            await botClient.SetWebhookAsync(webhookUrl, allowedUpdates: AllowedUpdates, secretToken: secretToken);
         }
         catch (Exception ex)
         {
@@ -79,11 +85,7 @@ public class TelegramUpdatesReceiver
         var receiverOptions = new ReceiverOptions
         {
             //AllowedUpdates = { }, // receive all update types
-            AllowedUpdates = new UpdateType[]
-            {
-                UpdateType.Message,
-                UpdateType.CallbackQuery,
-            },
+            AllowedUpdates = AllowedUpdates,
             Offset = -1 // После рестарта бота обработает только последнее сообщение, отправленное за время офлайна (оно запустит новую сессию)
         };
         BotController.botClient.ReceiveAsync<TelegramBotUpdateHandler>(receiverOptions, _cts.Token);
