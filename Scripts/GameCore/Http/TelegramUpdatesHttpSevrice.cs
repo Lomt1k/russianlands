@@ -4,7 +4,6 @@ using System;
 using System.IO;
 using System.Net;
 using System.Threading.Tasks;
-using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 
 namespace MarkOne.Scripts.GameCore.Http;
@@ -34,50 +33,16 @@ public class TelegramUpdatesHttpSevrice : IHttpService
 
         var streamReader = new StreamReader(request.InputStream);
         var updateJson = streamReader.ReadToEnd();
-        var update = JsonConvert.DeserializeObject<Update>(updateJson);
-        if (update is not null)
-        {
-            Program.logger.Debug("\t Type: " + update.Type);
-            if (update.Message?.Text is not null)
-            {
-                Program.logger.Debug("\t Message.Text: " + update.Message.Text);
-            }
-            if (update.CallbackQuery is not null)
-            {
-                Program.logger.Debug("\t CallbackQuery.Data: " + update.CallbackQuery.Data);
-            }
-        }
-
-        Program.logger.Debug("updateJson:\n" + updateJson);
-        var simpleUpdate = DeserializeUpdate(updateJson);
-        
-        if (simpleUpdate is not null)
-        {
-            Program.logger.Debug("mine deserialization:");
-            Program.logger.Debug("\t updateType: " + simpleUpdate.updateType);
-            if (simpleUpdate.message is not null)
-            {
-                Program.logger.Debug("\t message.id: " + simpleUpdate.message.id);
-                Program.logger.Debug("\t message.date: " + simpleUpdate.message.date);
-                Program.logger.Debug("\t message.text: " + simpleUpdate.message.text);
-                if (simpleUpdate.message.from is not null)
-                {
-                    Program.logger.Debug("\t message.from.id: " + simpleUpdate.message.from.id);
-                    Program.logger.Debug("\t message.from.firstName: " + simpleUpdate.message.from.firstName);
-                    Program.logger.Debug("\t message.from.lastName: " + simpleUpdate.message.from.lastName);
-                    Program.logger.Debug("\t message.from.username: " + simpleUpdate.message.from.username);
-                }
-            }
-        }
-
-
-
+        var update = DeserializeUpdate(updateJson);
+        // TODO
 
         response.Close();
         return Task.CompletedTask;
     }
 
     // Легковесная десериализация, которая читает из json только то, что нам реально нужно
+    // Message updates: в 3-4 раза быстрее, чем JsonConvert.DeserializeObject<Update>
+    // CallbackQuery updates: в 5-6 раз быстрее, чем JsonConvert.DeserializeObject<Update>
     private SimpleUpdate? DeserializeUpdate(string updateJson)
     {
         var reader = new JsonTextReader(new StringReader(updateJson));
@@ -98,6 +63,10 @@ public class TelegramUpdatesHttpSevrice : IHttpService
                         case "message":
                             update.updateType = UpdateType.Message;
                             update.message = ReadMessage(reader);
+                            break;
+                        case "callback_query":
+                            update.updateType = UpdateType.CallbackQuery;
+                            update.callbackQuery = ReadCallbackQuery(reader);
                             break;
                     }
                 }
@@ -138,6 +107,42 @@ public class TelegramUpdatesHttpSevrice : IHttpService
             }
         }
         return message;
+    }
+
+    private SimpleCallbackQuery ReadCallbackQuery(JsonTextReader reader)
+    {
+        var callbackQuery = new SimpleCallbackQuery();
+        bool isFromReaded = false;
+        while (reader.Read())
+        {
+            if (reader.TokenType == JsonToken.PropertyName)
+            {
+                var key = reader.Value.ToString();
+                switch (key)
+                {
+                    case "id":
+                        if (string.IsNullOrEmpty(callbackQuery.id))
+                        {
+                            callbackQuery.id = reader.ReadAsString() ?? string.Empty;
+                        }
+                        break;
+                    case "from":
+                        if (!isFromReaded)
+                        {
+                            callbackQuery.from = ReadUser(reader);
+                            isFromReaded = true;
+                        }                        
+                        break;
+                    case "data":
+                        if (string.IsNullOrEmpty(callbackQuery.data))
+                        {
+                            callbackQuery.data = reader.ReadAsString();
+                        }
+                        break;
+                }
+            }
+        }
+        return callbackQuery;
     }
 
     private SimpleUser ReadUser(JsonTextReader reader)

@@ -10,6 +10,7 @@ public class SimpleUpdate
     public int id { get; set; }
     public UpdateType updateType { get; set; } = UpdateType.Unknown;
     public SimpleMeesage? message { get; set; }
+    public SimpleCallbackQuery? callbackQuery { get; set; }
 }
 
 [JsonObject]
@@ -19,6 +20,14 @@ public class SimpleMeesage
     public SimpleUser from { get; set; } = new();
     public DateTime date { get; set; }
     public string? text { get; set; } = string.Empty;
+}
+
+[JsonObject]
+public class SimpleCallbackQuery
+{
+    public string id { get; set; } = string.Empty;
+    public SimpleUser from { get; set; } = new();
+    public string? data { get; set; } = string.Empty;
 }
 
 [JsonObject]
