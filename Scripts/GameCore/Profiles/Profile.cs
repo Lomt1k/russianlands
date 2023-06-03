@@ -76,7 +76,7 @@ public class Profile
     public static async Task<Profile> Load(GameSession session)
     {
         var db = BotController.dataBase.db;
-        var query = db.Table<ProfileData>().Where(x => x.telegram_id == session.actualUser.Id);
+        var query = db.Table<ProfileData>().Where(x => x.telegram_id == session.actualUser.id);
         var profileData = await query.FirstOrDefaultAsync().FastAwait();
         if (profileData == null)
         {
@@ -91,7 +91,7 @@ public class Profile
 
         profileData.lastActivityTime = DateTime.UtcNow.AsDateTimeString();
         profileData.lastVersion = ProjectVersion.Current.ToString();
-        profileData.username = session.actualUser.Username;
+        profileData.username = session.actualUser.username;
 
         var dbid = profileData.dbid;
         var rawDynamicData = await db.GetOrNullAsync<RawProfileDynamicData>(dbid).FastAwait();

@@ -4,6 +4,7 @@ using System;
 using System.IO;
 using System.Net;
 using System.Threading.Tasks;
+using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 
 namespace MarkOne.Scripts.GameCore.Http;
@@ -13,6 +14,8 @@ public class TelegramUpdatesHttpSevrice : IHttpService
 
     private readonly string _secretToken;
     private readonly DateTime _strartUtcTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+    private readonly TelegramBotUpdateHandler _updateHandler = new();
+
 
     public TelegramUpdatesHttpSevrice(string secretToken)
     {
@@ -33,10 +36,16 @@ public class TelegramUpdatesHttpSevrice : IHttpService
 
         var streamReader = new StreamReader(request.InputStream);
         var updateJson = streamReader.ReadToEnd();
+        Program.logger.Debug("updateJson:\n" + updateJson);
         var update = DeserializeUpdate(updateJson);
-        // TODO
+        if (update is null)
+        {
+            response.Close();
+            return Task.CompletedTask;
+        }
 
         response.Close();
+        _updateHandler.HandleSimpleUpdate(update);
         return Task.CompletedTask;
     }
 
@@ -80,9 +89,9 @@ public class TelegramUpdatesHttpSevrice : IHttpService
         }
     }
 
-    private SimpleMeesage ReadMessage(JsonTextReader reader)
+    private SimpleMessage ReadMessage(JsonTextReader reader)
     {
-        var message = new SimpleMeesage();
+        var message = new SimpleMessage();
         while (reader.Read())
         {
             if (reader.TokenType == JsonToken.PropertyName)
@@ -102,6 +111,9 @@ public class TelegramUpdatesHttpSevrice : IHttpService
                         break;
                     case "text":
                         message.text = reader.ReadAsString();
+                        break;
+                    case "document":
+                        message.document = ReadDocument(reader);
                         break;
                 }
             }
@@ -175,6 +187,38 @@ public class TelegramUpdatesHttpSevrice : IHttpService
             }
         }
         return user;
+    }
+
+    private SimpleDocument ReadDocument(JsonTextReader reader)
+    {
+        var document = new SimpleDocument();
+        while (reader.Read())
+        {
+            if (reader.TokenType == JsonToken.EndObject)
+            {
+                return document;
+            }
+            if (reader.TokenType == JsonToken.PropertyName)
+            {
+                var key = reader.Value.ToString();
+                switch (key)
+                {
+                    //case "id":
+                    //    user.id = long.Parse(reader.ReadAsString());
+                    //    break;
+                    //case "first_name":
+                    //    user.firstName = reader.ReadAsString() ?? "Unknown";
+                    //    break;
+                    //case "last_name":
+                    //    user.lastName = reader.ReadAsString();
+                    //    break;
+                    //case "username":
+                    //    user.username = reader.ReadAsString();
+                    //    break;
+                }
+            }
+        }
+        return document;
     }
 
 

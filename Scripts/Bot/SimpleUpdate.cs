@@ -9,17 +9,18 @@ public class SimpleUpdate
 {
     public int id { get; set; }
     public UpdateType updateType { get; set; } = UpdateType.Unknown;
-    public SimpleMeesage? message { get; set; }
+    public SimpleMessage? message { get; set; }
     public SimpleCallbackQuery? callbackQuery { get; set; }
 }
 
 [JsonObject]
-public class SimpleMeesage
+public class SimpleMessage
 {
     public int id { get; set; }
     public SimpleUser from { get; set; } = new();
     public DateTime date { get; set; }
     public string? text { get; set; } = string.Empty;
+    public SimpleDocument? document { get; set; }
 }
 
 [JsonObject]
@@ -37,4 +38,10 @@ public class SimpleUser
     public string firstName { get; set; } = string.Empty;
     public string? lastName { get; set; }
     public string? username { get; set; }
+}
+
+[JsonObject]
+public class SimpleDocument
+{
+    public string fileId { get; set; } = string.Empty;
 }

@@ -20,41 +20,52 @@ public class TelegramBotUpdateHandler : IUpdateHandler
     private static readonly SessionManager sessionManager = ServiceLocator.Get<SessionManager>();
     private static readonly MessageSender messageSender = ServiceLocator.Get<MessageSender>();
 
-    public async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
+    // Telegram updates from polling
+    public Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
     {
         //Program.logger.Debug($"Handle Update ID: {update.Id} Type: {update.Type}");
+        var simpleUpdate = update.ToSimple();
+        if (simpleUpdate is not null)
+        {
+            HandleSimpleUpdate(simpleUpdate);
+        }
+        return Task.CompletedTask;
+    }
+
+    public void HandleSimpleUpdate(SimpleUpdate update)
+    {
+        //Program.logger.Debug($"Handle Update ID: {update.id} Type: {update.updateType}");
         try
         {
-            User? fromUser = null;
-            switch (update.Type)
+            SimpleUser? fromUser = null;
+            switch (update.updateType)
             {
-                case UpdateType.Message: fromUser = update.Message?.From; break;
-                case UpdateType.CallbackQuery: fromUser = update.CallbackQuery?.From; break;
+                case UpdateType.Message: fromUser = update.message?.from; break;
+                case UpdateType.CallbackQuery: fromUser = update.callbackQuery?.from; break;
 
                 default:
-                    Program.logger.Warn($"Unhandled Update {update.Id} (unsupported type: {update.Type})");
+                    Program.logger.Warn($"Unhandled Update {update.id} (Unsupported type: {update.updateType})");
                     return;
             }
 
             if (fromUser == null)
             {
-                Program.logger.Warn($"Unhandled Update {update.Id} (Update not from user)");
+                Program.logger.Warn($"Unhandled Update {update.id} (Update not from user)");
                 return;
             }
 
             if (sessionManager.IsAccountUsedByFakeId(fromUser))
             {
-                SendAccountIsBusyMessage(fromUser.Id);
+                SendAccountIsBusyMessage(fromUser.id);
                 return;
             }
 
             var gameSession = sessionManager.GetOrCreateSession(fromUser);
-            gameSession.HandleUpdateAsync(fromUser, update);
+            Task.Run(() => gameSession.HandleUpdateAsync(fromUser, update));
         }
         catch (Exception ex)
         {
-            Program.logger.Error($"Exception on handle update with ID: {update.Id}\n{ex}\n");
-            return;
+            Program.logger.Error($"Exception on handle update with ID: {update.id}\n{ex}\n");
         }
     }
 

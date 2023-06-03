@@ -95,7 +95,7 @@ public class EnterNameDialog : DialogBase
         await SendDialogMessage(sb, GetMultilineKeyboard()).FastAwait();
     }
 
-    public override async Task HandleMessage(Message message)
+    public override async Task HandleMessage(SimpleMessage message)
     {
         if (_isQuestReplicaStage)
         {
@@ -105,15 +105,15 @@ public class EnterNameDialog : DialogBase
         await HandleMessageNotInQuest(message).FastAwait();
     }
 
-    public async Task HandleMessageInQuestStage(Message message)
+    public async Task HandleMessageInQuestStage(SimpleMessage message)
     {
-        if (message.Text == null || string.IsNullOrWhiteSpace(message.Text) || message.Text.Equals(GetQuestButtonText(session)))
+        if (message.text == null || string.IsNullOrWhiteSpace(message.text) || message.text.Equals(GetQuestButtonText(session)))
         {
             await Start().FastAwait();
             return;
         }
 
-        var newNickname = message.Text;
+        var newNickname = message.text;
         if (!newNickname.IsCorrectNickname())
         {
             await Start().FastAwait();
@@ -125,16 +125,10 @@ public class EnterNameDialog : DialogBase
         return;
     }
 
-    public async Task HandleMessageNotInQuest(Message message)
+    public async Task HandleMessageNotInQuest(SimpleMessage message)
     {
-        if (message.Text == null || string.IsNullOrWhiteSpace(message.Text))
-        {
-            await Start().FastAwait();
-            return;
-        }
-
-        var newNickname = message.Text;
-        if (!newNickname.IsCorrectNickname())
+        var newNickname = message.text;
+        if (newNickname is null || !newNickname.IsCorrectNickname())
         {
             await Start().FastAwait();
             return;

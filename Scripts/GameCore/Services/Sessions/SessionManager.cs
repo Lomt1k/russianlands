@@ -34,15 +34,15 @@ public class SessionManager : Service
         return Task.CompletedTask;
     }
 
-    public GameSession GetOrCreateSession(User user)
+    public GameSession GetOrCreateSession(SimpleUser user)
     {
-        if (!_sessions.TryGetValue(user.Id, out var session))
+        if (!_sessions.TryGetValue(user.id, out var session))
         {
-            var useFakeChatId = _fakeIdsDict.TryGetValue(user.Id, out var fakeChatId);
+            var useFakeChatId = _fakeIdsDict.TryGetValue(user.id, out var fakeChatId);
             session = useFakeChatId
                 ? new GameSession(user, fakeChatId)
                 : new GameSession(user);
-            _sessions.Add(user.Id, session);
+            _sessions.Add(user.id, session);
         }
         return session;
     }
@@ -58,11 +58,11 @@ public class SessionManager : Service
         return session;
     }
 
-    public bool IsAccountUsedByFakeId(User user)
+    public bool IsAccountUsedByFakeId(SimpleUser user)
     {
         foreach (var fakeId in _fakeIdsDict.Values)
         {
-            if (fakeId == user.Id)
+            if (fakeId == user.id)
             {
                 return true;
             }

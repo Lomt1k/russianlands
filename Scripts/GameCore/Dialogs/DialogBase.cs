@@ -178,9 +178,9 @@ public abstract class DialogBase
         lastMessage = await _resendLastMessageFunc().FastAwait();
     }
 
-    public virtual async Task HandleMessage(Message message)
+    public virtual async Task HandleMessage(SimpleMessage message)
     {
-        var text = message.Text;
+        var text = message.text;
         if (text == null)
             return;
 

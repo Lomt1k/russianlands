@@ -20,7 +20,7 @@ internal class FakeIdCommand : CommandBase
             return;
         }
 
-        var realId = session.actualUser.Id;
+        var realId = session.actualUser.id;
         await sessionManager.CloseSession(fakeId).FastAwait();
         await sessionManager.CloseSession(realId).FastAwait();
 

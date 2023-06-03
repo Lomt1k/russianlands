@@ -31,7 +31,7 @@ public class GameSession
     public ChatId? fakeChatId { get; }
     public DateTime startTime { get; }
     public DateTime lastActivityTime { get; private set; }
-    public User actualUser { get; private set; }
+    public SimpleUser actualUser { get; private set; }
     public Profile profile { get; private set; }
     public Player player { get; private set; }
     public LanguageCode language => profile?.data.language ?? BotController.config.defaultLanguageCode;
@@ -40,9 +40,9 @@ public class GameSession
     public CancellationToken cancellationToken { get; }
     public bool isAdmin => profile.data.adminStatus > 0;
 
-    public GameSession(User user, ChatId? _fakeChatId = null)
+    public GameSession(SimpleUser user, ChatId? _fakeChatId = null)
     {
-        chatId = user.Id;
+        chatId = user.id;
         fakeChatId = _fakeChatId;
         var now = DateTime.UtcNow;
         startTime = now;
@@ -60,13 +60,13 @@ public class GameSession
         currentDialog = dialog;
     }
 
-    public async void HandleUpdateAsync(User refreshedUser, Update update)
+    public async Task HandleUpdateAsync(SimpleUser refreshedUser, SimpleUpdate update)
     {
         if (_isHandlingUpdate)
         {
-            if (update.Type == UpdateType.CallbackQuery)
+            if (update.callbackQuery is not null)
             {
-                await messageSender.AnswerQuery(refreshedUser.Id, update.CallbackQuery.Id, cancellationToken: cancellationToken).FastAwait();
+                await messageSender.AnswerQuery(refreshedUser.id, update.callbackQuery.id, cancellationToken: cancellationToken).FastAwait();
             }
             return;
         }
@@ -97,13 +97,13 @@ public class GameSession
             }
 
             // Обрабатываем апдейт
-            switch (update.Type)
+            switch (update.updateType)
             {
                 case UpdateType.Message:
-                    await HandleMessageAsync(update.Message).FastAwait();
+                    await HandleMessageAsync(update.message).FastAwait();
                     break;
                 case UpdateType.CallbackQuery:
-                    await HandleQueryAsync(update.CallbackQuery).FastAwait();
+                    await HandleQueryAsync(update.callbackQuery).FastAwait();
                     break;
             }
         }
@@ -116,27 +116,27 @@ public class GameSession
     }
 
 
-    public async Task HandleMessageAsync(Message message)
+    public async Task HandleMessageAsync(SimpleMessage message)
     {
-        if (BotController.config.logSettings.logUserInput && message.Text != null)
+        if (BotController.config.logSettings.logUserInput && message.text != null)
         {
-            Program.logger.Info($"Message from {actualUser}: {message.Text}");
+            Program.logger.Info($"Message from {actualUser}: {message.text}");
         }
 
-        if (message.Text != null && message.Text.StartsWith('/'))
+        if (message.text != null && message.text.StartsWith('/'))
         {
-            await CommandHandler.HandleCommand(this, message.Text).FastAwait();
+            await CommandHandler.HandleCommand(this, message.text).FastAwait();
             return;
         }
         await currentDialog.HandleMessage(message).FastAwait();
     }
 
-    public async Task HandleQueryAsync(CallbackQuery query)
+    public async Task HandleQueryAsync(SimpleCallbackQuery query)
     {
-        if (query == null || query.Data == null)
+        if (query == null || query.data == null)
             return;
 
-        var callbackData = JsonConvert.DeserializeObject<CallbackDataBase>(query.Data);
+        var callbackData = JsonConvert.DeserializeObject<CallbackDataBase>(query.data);
         switch (callbackData)
         {
             case DialogPanelButtonCallbackData dialogPanelButtonCallback:
@@ -146,7 +146,7 @@ public class GameSession
                 }
                 if (currentDialog != null && currentDialog is DialogWithPanel dialogWithPanel)
                 {
-                    await dialogWithPanel.HandleCallbackQuery(query.Id, dialogPanelButtonCallback).FastAwait();
+                    await dialogWithPanel.HandleCallbackQuery(query.id, dialogPanelButtonCallback).FastAwait();
                 }
                 return;
 
@@ -156,12 +156,12 @@ public class GameSession
                 var currentBattle = battleManager.GetCurrentBattle(player);
                 if (currentBattle == null)
                     return;
-                await currentBattle.HandleBattleTooltipCallback(player, query.Id, battleTooltipCallback).FastAwait();
+                await currentBattle.HandleBattleTooltipCallback(player, query.id, battleTooltipCallback).FastAwait();
                 return;
         }
     }
 
-    private async Task OnStartNewSession(Update update)
+    private async Task OnStartNewSession(SimpleUpdate update)
     {
         profile = await Profile.Load(this).FastAwait();
         player = new Player(this);

@@ -496,7 +496,7 @@ public class CheatsDialog : DialogBase
 
     private async Task ResetAccount()
     {
-        var telegramId = session.actualUser.Id;
+        var telegramId = session.actualUser.id;
         await ResetAccountInDatabase().FastAwait();
         await messageSender.SendTextDialog(telegramId, "Account has been reseted", "Restart").FastAwait();
     }
@@ -547,7 +547,7 @@ public class CheatsDialog : DialogBase
 
         Program.logger.Debug($"profileState: \n{profileState.nickname} | v{profileState.lastVersion}");
 
-        var realTelegramId = session.actualUser.Id;
+        var realTelegramId = session.actualUser.id;
         var telegramId = session.profile.data.telegram_id;
         var dbid = session.profile.data.dbid;
         await ResetAccountInDatabase().FastAwait();
@@ -574,11 +574,11 @@ public class CheatsDialog : DialogBase
 
     #endregion
 
-    public override async Task HandleMessage(Telegram.Bot.Types.Message message)
+    public override async Task HandleMessage(SimpleMessage message)
     {
-        if (message.Document != null && _onReceivedFileFromUser != null)
+        if (message.document != null && _onReceivedFileFromUser != null)
         {
-            var fileId = message.Document.FileId;
+            var fileId = message.document.fileId;
             var file = await messageSender.GetFileAsync(fileId).FastAwait();
             if (file != null && !string.IsNullOrEmpty(file.FilePath))
             {
