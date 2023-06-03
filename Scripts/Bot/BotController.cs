@@ -10,6 +10,7 @@ using MarkOne.Scripts.GameCore.Services.Battles;
 using MarkOne.Scripts.GameCore.Sessions;
 using MarkOne.Scripts.GameCore.Services.BotData;
 using MarkOne.Scripts.GameCore.Http;
+using MarkOne.Scripts.GameCore.Http.AdminService;
 
 namespace MarkOne.Scripts.Bot;
 public static class BotController
@@ -108,11 +109,17 @@ public static class BotController
 
         
         httpListener.StartListening();
+        CreateHttpServices();
         _updatesReceiver.StartReceiving();
         Program.logger.Info($"Start listening for @{mineUser.Username}");
         isReceiving = true;
         
         return true;
+    }
+
+    private static void CreateHttpServices()
+    {
+        httpListener.RegisterHttpService("/admin", new HttpAdminService());
     }
 
     public static async Task StopListening()
