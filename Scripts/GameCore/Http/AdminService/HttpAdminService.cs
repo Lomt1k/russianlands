@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using Telegram.Bot.Extensions.LoginWidget;
+using static MarkOne.Scripts.Bot.BotConfig;
 using Authorization = Telegram.Bot.Extensions.LoginWidget.Authorization;
 
 namespace MarkOne.Scripts.GameCore.Http.AdminService;
@@ -15,11 +16,17 @@ public class HttpAdminService : IHttpService
 
     private Dictionary<string, HttpAdminSessionInfo> _sessionsWithLastActivityTime = new();
     private LoginWidget _loginWidget;
+    private AdminServiceSettings _settings;
+    private string _url;
+    private bool _withoutLogin;
 
-    public HttpAdminService()
+
+    public HttpAdminService(string url, AdminServiceSettings settings)
     {
-        var token = BotController.config.token;
-        _loginWidget = new LoginWidget(token);
+        _url = url;
+        _loginWidget = new LoginWidget(BotController.config.token);
+        _settings = settings;
+        _withoutLogin = settings.withoutLoginOnLocalhost && BotController.config.httpListenerSettings.externalHttpPrefix.Contains("//localhost");
     }
 
     public async Task HandleHttpRequest(HttpListenerRequest request, HttpListenerResponse response)
@@ -38,6 +45,11 @@ public class HttpAdminService : IHttpService
 
     private async Task<bool> CheckLoginStatus(HttpListenerRequest request, HttpListenerResponse response)
     {
+        if (_withoutLogin)
+        {
+            return true;
+        }
+
         var query = request.QueryString;
         var checkHash = query["hash"];
 
@@ -111,12 +123,18 @@ public class HttpAdminService : IHttpService
 
     private string GetLoginPage()
     {
+        var botname = BotController.botname;
         return "<h3>Please login with your telegram</h3>"
-            + "<script async src=\"https://telegram.org/js/telegram-widget.js?22\" data-telegram-login=\"russianlandsbot\" data-size=\"large\" data-auth-url=\"https://dev.russianlands.ru/admin\"></script>";
+            + $"<script async src=\"https://telegram.org/js/telegram-widget.js?22\" data-telegram-login=\"{botname}\" data-size=\"large\" data-auth-url=\"{_url}\"></script>";
     }
 
     private async Task<int> GetActualAdminLevel(long telegramId)
     {
+        if (_withoutLogin)
+        {
+            return 1337;
+        }
+
         var db = BotController.dataBase.db;
         var query = db.Table<ProfileData>().Where(x => x.telegram_id == telegramId);
         var profileData = await query.FirstOrDefaultAsync().FastAwait();

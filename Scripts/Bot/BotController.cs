@@ -23,6 +23,7 @@ public static class BotController
     private static TelegramUpdatesReceiver _updatesReceiver;
 
     public static string dataPath { get; private set; }
+    public static string botname { get; private set; }
     public static TelegramBotClient botClient { get; private set; }
     public static BotConfig config { get; private set; }
     public static BotDataBase dataBase { get; private set; }
@@ -105,7 +106,8 @@ public static class BotController
 
         var mineUser = await botClient.GetMeAsync().FastAwait();
         mineUser.CanJoinGroups = false;
-        Program.SetTitle($"{mineUser.Username} [{dataPath}]");
+        botname = mineUser.Username;
+        Program.SetTitle($"{botname} [{dataPath}]");
 
         
         httpListener.StartListening();
@@ -119,7 +121,14 @@ public static class BotController
 
     private static void CreateHttpServices()
     {
-        httpListener.RegisterHttpService("/admin", new HttpAdminService());
+        var httpListenerSettings = config.httpListenerSettings;
+        var adminServiceSettings = httpListenerSettings.adminServiceSettings;
+        if (adminServiceSettings.isEnabled)
+        {
+            var path = adminServiceSettings.localPath;
+            var fullUrl = httpListenerSettings.externalHttpPrefix + path.TrimStart('/');
+            httpListener.RegisterHttpService(path, new HttpAdminService(fullUrl, adminServiceSettings));
+        }
     }
 
     public static async Task StopListening()
