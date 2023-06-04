@@ -1,7 +1,6 @@
 ﻿using MarkOne.Scripts.GameCore.Services;
 using MarkOne.Scripts.GameCore.Sessions;
 using Obisoft.HSharp.Models;
-using SimpleHttp;
 using System;
 using System.Collections.Specialized;
 using System.Linq;
@@ -46,6 +45,7 @@ internal class MainAdminPage : IHtmlPage
         // top buttons
         var topButtons = new HTag("div", new HProp("style", "margin: 15px 0;"));
         topButtons.AddChild(HtmlHelper.CreateLinkButton("Show Log", localPath + "?page=showLog"));
+        topButtons.AddChild(HtmlHelper.CreateLinkButton("Show Errors", localPath + "?page=showLog&mode=errors"));
         centerScreenBlock.AddChild(topButtons);
 
         // other buttons
@@ -54,7 +54,7 @@ internal class MainAdminPage : IHtmlPage
         centerScreenBlock.AddChild(otherButtons);
 
         // send document
-        response.AsText(document.GenerateHTML());
+        response.AsTextUTF8(document.GenerateHTML());
         response.Close();
         return Task.CompletedTask;
     }

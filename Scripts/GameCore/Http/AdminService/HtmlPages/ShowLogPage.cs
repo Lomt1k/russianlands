@@ -14,19 +14,22 @@ internal class ShowLogPage : IHtmlPage
 
     public async Task ShowPage(HttpListenerResponse response, HttpAdminSessionInfo sessionInfo, NameValueCollection query, string localPath)
     {
-        var filePath = Path.Combine("Logs", "appLog.log");
-        Program.logger.Debug("Log 0");
+        var mode = query["mode"];
+        var fileName = mode switch
+        {
+            "errors" => "errors.log",
+            _ => "appLog.log"
+        };
+
+        var filePath = Path.Combine("Logs", fileName);
         var lines = File.Exists(filePath)
             ? await ReadTextFromFile(filePath).FastAwait()
             : new List<string>() { $"Log not exists :(\nPath: {filePath}" };
 
-        Program.logger.Debug("Log 1");
-        var document = HtmlHelper.CreateDocument("Show Log");
-        document["html"]["body"].AddProperties(StylesHelper.CenterScreenParent());
-        var centerScreenBlock = new HTag("div", new HProp("align", "center"), StylesHelper.CenterScreenBlock(700, 900));
-        document["html"]["body"].AddChild(centerScreenBlock);
+        var document = HtmlHelper.CreateDocument($"Show Log [{fileName}]");
+        var contentBlock = new HTag("div");
+        document["html"]["body"].AddChild(contentBlock);
 
-        var scroll = new HTag("div", new HProp("style", "overflow: auto; width:700px; height:800px;"));
         var logTable = new HTag("table", new HProp("frame", "hsides"));
         foreach (var line in lines)
         {
@@ -34,14 +37,13 @@ internal class ShowLogPage : IHtmlPage
             tableLine.AddChild("td", line);
             logTable.AddChild(tableLine);
         }
-        scroll.AddChild(logTable);
-        centerScreenBlock.AddChild(scroll);
+        contentBlock.AddChild(logTable);
 
-        var bottomPanel = new HTag("div", new HProp("style", "margin: 40px 0;"));
-        bottomPanel.AddChild(HtmlHelper.CreateLinkButton("<- Back", localPath));
-        centerScreenBlock.AddChild(bottomPanel);
+        var bottomPanel = new HTag("div", new HProp("align", "center"), new HProp("style", "margin: 40px 0;"));
+        bottomPanel.AddChild(HtmlHelper.CreateLinkButton("<< Back", localPath));
+        contentBlock.AddChild(bottomPanel);
 
-        response.AsText(document.GenerateHTML());
+        response.AsTextUTF8(document.GenerateHTML());
         response.Close();
     }
 
