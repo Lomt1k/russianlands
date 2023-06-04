@@ -31,23 +31,32 @@ public class HttpAdminService : IHttpService
 
     public async Task HandleHttpRequest(HttpListenerRequest request, HttpListenerResponse response)
     {
-        bool successLogin = await CheckLoginStatus(request, response).FastAwait();
-        if (!successLogin)
+        var sessionId = await CheckLoginStatus(request, response).FastAwait();
+        if (sessionId is null)
         {
             response.AsText(GetLoginPage());
             response.Close();
             return;
         }
 
-        response.AsText("<h3>Successfull login</h3>");
-        response.Close();
+        ShowMainAdminPage(response, sessionId);
     }
 
-    private async Task<bool> CheckLoginStatus(HttpListenerRequest request, HttpListenerResponse response)
+    private async Task<string?> CheckLoginStatus(HttpListenerRequest request, HttpListenerResponse response)
     {
-        if (_withoutLogin)
+        var sessionIdFromCookie = request.Cookies["x_admin_session"]?.Value;
+        if (sessionIdFromCookie is not null)
         {
-            return true;
+            if (_sessionsWithLastActivityTime.TryGetValue(sessionIdFromCookie, out var session))
+            {
+                var lifeTime = DateTime.UtcNow - session.lastUpdateTime;
+                if (lifeTime.TotalSeconds < SESSION_TIMEOUT)
+                {
+                    session.lastUpdateTime = DateTime.UtcNow;
+                    return sessionIdFromCookie;
+                }
+                _sessionsWithLastActivityTime.Remove(sessionIdFromCookie);
+            }
         }
 
         var query = request.QueryString;
@@ -62,13 +71,13 @@ public class HttpAdminService : IHttpService
             {
                 response.AsText("<h3>Telegram login fail.</h3>");
                 response.StatusCode = 403;
-                return false;
+                return null;
             }
 
             var telegramId = query["id"];
             if (telegramId is null)
             {
-                return false;
+                return null;
             }
             var longTelegramId = long.Parse(telegramId);
             var adminLevel = await GetActualAdminLevel(longTelegramId).FastAwait();
@@ -77,33 +86,26 @@ public class HttpAdminService : IHttpService
                 response.AsText("<h3>You dont have admin rights</h3>");
                 response.StatusCode = 403;
                 response.Close();
-                return false;
+                return null;
             }
 
             var sessionId = Guid.NewGuid().ToString();
             var sessionInfo = new HttpAdminSessionInfo(longTelegramId);
             _sessionsWithLastActivityTime.Add(sessionId, sessionInfo);
             response.SetCookie(new Cookie("x_admin_session", sessionId));
-            return true;
+            return sessionId;
         }
 
-        var sessionIdFromCookie = request.Cookies["x_admin_session"]?.Value;
-        if (sessionIdFromCookie is null)
+        if (_withoutLogin)
         {
-            return false;
-        }
-        if (_sessionsWithLastActivityTime.TryGetValue(sessionIdFromCookie, out var session))
-        {
-            var lifeTime = DateTime.UtcNow - session.lastUpdateTime;
-            if (lifeTime.TotalSeconds < SESSION_TIMEOUT)
-            {
-                session.lastUpdateTime = DateTime.UtcNow;
-                return true;
-            }
-            _sessionsWithLastActivityTime.Remove(sessionIdFromCookie);
+            var sessionId = Guid.NewGuid().ToString();
+            var sessionInfo = new HttpAdminSessionInfo(-1);
+            _sessionsWithLastActivityTime.Add(sessionId, sessionInfo);
+            response.SetCookie(new Cookie("x_admin_session", sessionId));
+            return sessionId;
         }
 
-        return false;
+        return null;
     }
 
     private Dictionary<string, string> GetInfoForCheckLogin(HttpListenerRequest request)
@@ -139,6 +141,12 @@ public class HttpAdminService : IHttpService
         var query = db.Table<ProfileData>().Where(x => x.telegram_id == telegramId);
         var profileData = await query.FirstOrDefaultAsync().FastAwait();
         return profileData is not null ? profileData.adminStatus : 0;
+    }
+
+    private void ShowMainAdminPage(HttpListenerResponse response, string sessionId)
+    {
+        response.AsText("<h3>Successfull login</h3>");
+        response.Close();
     }
 
 }
