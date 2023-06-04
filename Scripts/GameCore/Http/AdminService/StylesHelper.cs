@@ -26,4 +26,18 @@ public static class StylesHelper
             "left: 0;" +
             "margin: auto;");
     }
+
+    public static HProp Button(string color = "#4CAF50", int size = 16)
+    {
+        return new HProp("style",
+            $"background-color: {color};" +
+            "border: none;" +
+            "color: white;" +
+            "padding: 15px 32px;" +
+            "text-align: center;" +
+            "text-decoration: none;" +
+            "display: inline-block;" +
+            $"font-size: {size}px;" +
+            "border-radius: 12px;");
+    }
 }

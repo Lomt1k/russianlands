@@ -25,31 +25,36 @@ internal class MainAdminPage : IHtmlPage
         var debugInfo = pm.debugInfo;
 
         // prepare document
-        var Document = HtmlHelper.CreateDocument("Main Admin Page");
+        var document = HtmlHelper.CreateDocument("Main Admin Page");
 
-        Document["html"]["body"].AddProperties(StylesHelper.CenterScreenParent());
-        var centerScreenBlock = new HTag("div", StylesHelper.CenterScreenBlock(700, 250));
-        Document["html"]["body"].AddChild(centerScreenBlock);
+        document["html"]["body"].AddProperties(StylesHelper.CenterScreenParent());
+        var centerScreenBlock = new HTag("div", new HProp("align", "center"), StylesHelper.CenterScreenBlock(700, 250));
+        document["html"]["body"].AddChild(centerScreenBlock);
 
         // status table
-        var table = new HTag("table", new HProp("frame", "hsides"), new HProp("align", "center"));
+        centerScreenBlock.AddChild("p", "Server Stats");
+        var table = new HTag("table", new HProp("frame", "hsides"));
         table.AddChild(CreateTableRow("Sessions", allSessions.Count.ToString()));
         table.AddChild(CreateTableRow("Now playing", recentlyActive.ToString()));
         table.AddChild(CreateTableRow("&nbsp;", "&nbsp;"));
         table.AddChild(CreateTableRow("Status", pm.currentState.ToString()));
         table.AddChild(CreateTableRow("CPU", debugInfo.cpuInfo.Replace("CPU: ", string.Empty)));
         table.AddChild(CreateTableRow("RAM", debugInfo.memoryInfo.Replace("RAM: ", string.Empty)));
-        table.AddChild(CreateTableRow("Total RAM", debugInfo.totalMemoryInfo.Replace("Total RAM: ", string.Empty)));
-        
+        table.AddChild(CreateTableRow("Total RAM", debugInfo.totalMemoryInfo.Replace("Total RAM: ", string.Empty)));        
         centerScreenBlock.AddChild(table);
 
-        // TODO next div
-        var nextDiv = new HTag("div", new HProp("align", "center"));        
-        nextDiv.AddChild("p", "Hello friend");
-        centerScreenBlock.AddChild(nextDiv);
+        // top buttons
+        var topButtons = new HTag("div", new HProp("style", "margin: 15px 0;"));
+        topButtons.AddChild(HtmlHelper.CreateLinkButton("Show Log", localPath + "?page=showLog"));
+        centerScreenBlock.AddChild(topButtons);
+
+        // other buttons
+        var otherButtons = new HTag("div", new HProp("style", "margin: 50px 0;"));
+        // TODO
+        centerScreenBlock.AddChild(otherButtons);
 
         // send document
-        response.AsText(Document.GenerateHTML());
+        response.AsText(document.GenerateHTML());
         response.Close();
         return Task.CompletedTask;
     }

@@ -41,6 +41,7 @@ public class HttpAdminService : IHttpService
     {
         _mainPage = new MainAdminPage();
         RegisterPage(_mainPage);
+        RegisterPage(new ShowLogPage());
     }
 
     private void RegisterPage(IHtmlPage page)

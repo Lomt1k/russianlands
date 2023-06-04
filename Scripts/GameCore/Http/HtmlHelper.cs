@@ -1,4 +1,5 @@
-﻿using Obisoft.HSharp;
+﻿using MarkOne.Scripts.GameCore.Http.AdminService;
+using Obisoft.HSharp;
 using Obisoft.HSharp.Models;
 
 namespace MarkOne.Scripts.GameCore.Http;
@@ -16,5 +17,14 @@ public class HtmlHelper
         <body>
         </body>
         </html>");
+    }
+
+    public static HTag CreateLinkButton(string text, string url, string color = "#4CAF50", int size = 16)
+    {
+        var result = new HTag("a", new HProp("href", url));
+        var button = new HTag("button", text);
+        button.AddProperties(StylesHelper.Button(color, size));
+        result.AddChild(button);
+        return result;
     }
 }
