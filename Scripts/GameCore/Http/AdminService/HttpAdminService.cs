@@ -1,6 +1,7 @@
 ﻿using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Http.AdminService.HtmlPages;
 using MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
+using Obisoft.HSharp.Models;
 using SimpleHttp;
 using System;
 using System.Collections.Generic;
@@ -152,8 +153,17 @@ public class HttpAdminService : IHttpService
     private string GetLoginPage()
     {
         var botname = BotController.botname;
-        return "<h3>Please login with your telegram</h3>"
-            + $"<script async src=\"https://telegram.org/js/telegram-widget.js?22\" data-telegram-login=\"{botname}\" data-size=\"large\" data-auth-url=\"{_url}\"></script>";
+        var script = $"<script async src=\"https://telegram.org/js/telegram-widget.js?22\" data-telegram-login=\"{botname}\" data-size=\"large\" data-auth-url=\"{_url}\"></script>";
+
+        var document = HtmlHelper.CreateDocument("Admin Page");
+        document["html"]["body"].AddProperties(StylesHelper.CenterScreenParent());
+        var loginBlock = new HTag("div");
+        loginBlock.AddProperties(StylesHelper.CenterScreenBlock(300, 300));
+        loginBlock.AddChild("h3", "Please login with your telegram");
+        loginBlock.AddChild("div", script);
+        document.AddChild(loginBlock);
+
+        return document.GenerateHTML();
     }
 
     private async Task<int> GetActualAdminLevel(long telegramId)
