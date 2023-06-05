@@ -1,4 +1,6 @@
 ﻿using MarkOne.Scripts.GameCore.Services;
+using MarkOne.Scripts.GameCore.Services.DailyDataManager;
+using MarkOne.Scripts.GameCore.Services.DailyDataManagers;
 using MarkOne.Scripts.GameCore.Sessions;
 using Obisoft.HSharp.Models;
 using System;
@@ -12,27 +14,32 @@ internal class MainAdminPage : IHtmlPage
 {
     private static readonly SessionManager sessionManager = ServiceLocator.Get<SessionManager>();
     private static readonly PerformanceManager pm = ServiceLocator.Get<PerformanceManager>();
+    private static readonly ServerDailyDataManager serverDailyDataManager = ServiceLocator.Get<ServerDailyDataManager>();
+    private static readonly ProfileDailyDataManager profileDailyDataManager = ServiceLocator.Get<ProfileDailyDataManager>();
 
     public string page => "main";
 
-    public Task ShowPage(HttpListenerResponse response, HttpAdminSessionInfo sessionInfo, NameValueCollection query, string localPath)
+    public async Task ShowPage(HttpListenerResponse response, HttpAdminSessionInfo sessionInfo, NameValueCollection query, string localPath)
     {
         // prepare data
         var allSessions = sessionManager.GetAllSessions();
         var dtNow = DateTime.UtcNow;
         var recentlyActive = allSessions.Where(x => (dtNow - x.lastActivityTime).TotalMinutes < 5).Count();
         var debugInfo = pm.debugInfo;
+        var date = serverDailyDataManager.lastDate;
+        var dailyActiveUsers = await profileDailyDataManager.GetDailyActiveUsers().FastAwait();
 
         // prepare document
         var document = HtmlHelper.CreateDocument("Main Admin Page");
 
         document["html"]["body"].AddProperties(StylesHelper.CenterScreenParent());
-        var centerScreenBlock = new HTag("div", new HProp("align", "center"), StylesHelper.CenterScreenBlock(700, 250));
+        var centerScreenBlock = new HTag("div", new HProp("align", "center"), StylesHelper.CenterScreenBlock(700, 500));
         document["html"]["body"].AddChild(centerScreenBlock);
 
         // status table
-        centerScreenBlock.AddChild("p", "Server Stats");
+        centerScreenBlock.AddChild("p", $"Server Stats ({date.ToShortDateString()})");
         var table = new HTag("table", new HProp("frame", "hsides"));
+        table.AddChild(CreateTableRow("DAU", dailyActiveUsers.ToString()));
         table.AddChild(CreateTableRow("Sessions", allSessions.Count.ToString()));
         table.AddChild(CreateTableRow("Now playing", recentlyActive.ToString()));
         table.AddChild(CreateTableRow("&nbsp;", "&nbsp;"));
@@ -49,14 +56,13 @@ internal class MainAdminPage : IHtmlPage
         centerScreenBlock.AddChild(topButtons);
 
         // other buttons
-        var otherButtons = new HTag("div", new HProp("style", "margin: 50px 0;"));
-        // TODO
+        var otherButtons = new HTag("div", new HProp("style", "margin: 200px 0;"));
+        otherButtons.AddChild(HtmlHelper.CreateLinkButton("Player States", localPath + "?page=playerSearch", color: "#808080"));
         centerScreenBlock.AddChild(otherButtons);
 
         // send document
         response.AsTextUTF8(document.GenerateHTML());
         response.Close();
-        return Task.CompletedTask;
     }
 
     private HTag CreateTableRow(string header, params string[] args)

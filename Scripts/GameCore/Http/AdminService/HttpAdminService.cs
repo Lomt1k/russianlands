@@ -42,6 +42,7 @@ public class HttpAdminService : IHttpService
         _mainPage = new MainAdminPage();
         RegisterPage(_mainPage);
         RegisterPage(new ShowLogPage());
+        RegisterPage(new PlayerSearchPage());
     }
 
     private void RegisterPage(IHtmlPage page)
