@@ -39,12 +39,12 @@ public class TownDialog : DialogBase
             + (player.inventory.hasAnyNewItem && !hasTooltip ? Emojis.ElementWarningRed.ToString() : string.Empty);
         RegisterButton(characterButton, () => new Character.CharacterDialog(session).Start());
 
-        RegisterButton(Emojis.ButtonQuests + Localization.Get(session, "menu_item_quests"),
-            () => messageSender.SendTextMessage(session.chatId, "Задания недоступны в текущей версии игры")); //заглушка
-        RegisterButton(Emojis.ButtonMail + Localization.Get(session, "menu_item_mail"),
-            () => messageSender.SendTextMessage(session.chatId, "Почта недоступна в текущей версии игры")); //заглушка
         RegisterButton(Emojis.ButtonShop + Localization.Get(session, "menu_item_shop"),
             () => new Shop.ShopDialog(session).Start());
+        RegisterButton(Emojis.ButtonNews + Localization.Get(session, "menu_item_news"),
+            () => messageSender.SendTextMessage(session.chatId, "Новости недоступны в текущей версии игры")); //заглушка
+        RegisterButton(Emojis.ButtonSupport + Localization.Get(session, "menu_item_support"),
+            () => messageSender.SendTextMessage(session.chatId, "Поддержка недоступна в текущей версии игры")); //заглушка
 
         _keyboard = GetKeyboardWithRowSizes(1, 2, 3);
     }
