@@ -12,6 +12,8 @@ public class ProfileData : DataWithSession
     public long dbid { get; set; }
     public long telegram_id { get; set; }
     [MaxLength(32)] public string? username { get; set; }
+    [MaxLength(64)] public string firstName { get; set; }
+    [MaxLength(64)] public string? lastName { get; set; }
     public LanguageCode language { get; set; } = LanguageCode.RU;
     [MaxLength(16)] public string nickname { get; set; }
     [MaxLength(24)] public string regDate { get; set; }
@@ -85,6 +87,8 @@ public class ProfileData : DataWithSession
         lastVersion = regVersion;
         nickname = user.firstName.IsCorrectNickname() ? user.firstName : "Player_" + (new Random().Next(8999) + 1000);
         username = user.username;
+        firstName = user.firstName;
+        lastName = user.lastName;
 
         return this;
     }

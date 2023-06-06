@@ -57,7 +57,7 @@ internal class MainAdminPage : IHtmlPage
 
         // other buttons
         var otherButtons = new HTag("div", new HProp("style", "margin: 200px 0;"));
-        otherButtons.AddChild(HtmlHelper.CreateLinkButton("Player States", localPath + "?page=playerSearch", color: "#808080"));
+        otherButtons.AddChild(HtmlHelper.CreateLinkButton("Player Search", localPath + "?page=playerSearch", color: "#808080"));
         centerScreenBlock.AddChild(otherButtons);
 
         // send document
