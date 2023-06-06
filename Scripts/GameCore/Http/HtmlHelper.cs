@@ -1,9 +1,8 @@
 ﻿using MarkOne.Scripts.GameCore.Http.AdminService;
 using Obisoft.HSharp.Models;
-using System.Security.Policy;
 
 namespace MarkOne.Scripts.GameCore.Http;
-public record struct InputFieldInfo(string id, string? description, string defaultValue = "", bool isHidden = false);
+public record struct InputFieldInfo(string id, string placeholder, bool isHidden = false);
 
 public class HtmlHelper
 {
@@ -31,44 +30,50 @@ public class HtmlHelper
     {
         var form = new HTag("form", new HProp("action", url), new HProp("method", "GET"));
         form.AddChild("div");
-        form["div"].AddChild("input", new HProp("id", "page"), new HProp("name", "page"), new HProp("value", page), new HProp("type", "hidden"));
 
-        if (inputField.description is not null)
+        var div = new HTag("div")
         {
-            form["div"].AddChild("label", inputField.description);
-        }
-        form["div"].AddChild("input", new HProp("id", inputField.id), new HProp("name", inputField.id), new HProp("value", inputField.defaultValue),
-            new HProp("style", "border: 2px solid gray; border-radius: 4px; height: 50px; margin-right: 20px; font-size:28px;"));
-        form["div"].AddChild("button", buttonText);
-        form["div"]["button"].AddProperties(StylesHelper.Button("#808080", 24));
+            { "input", new HProp("id", "page"), new HProp("name", "page"), new HProp("value", page), new HProp("type", "hidden") },
+            { 
+                "input", new HProp("id", inputField.id), new HProp("name", inputField.id), new HProp("placeholder", inputField.placeholder),
+                new HProp("style", "border: 2px solid gray; border-radius: 4px; height: 50px; margin-right: 20px; font-size:28px;")
+            },
+            { "button", buttonText, StylesHelper.Button("#808080", 24) },
+        };
 
+        form.AddChild(div);
         return form;
     }
 
-    public static HTag CreateForm(string url, string page, string buttonText, InputFieldInfo[] inputFields)
+    public static HTag CreateForm(string url, string page, string header, string buttonText, params InputFieldInfo[] inputFields)
     {
         var form = new HTag("form", new HProp("action", url), new HProp("method", "GET"));
-        form.AddChild("div");
-        form["div"].AddChild("input", new HProp("id", "page"), new HProp("name", "page"), new HProp("value", page), new HProp("type", "hidden"));
+        form.Add("div").Add("h1", header);
+
+        var fieldsDiv = form.Add("div");
+        fieldsDiv.Add("input", new HProp("id", "page"), new HProp("name", "page"), new HProp("value", page), new HProp("type", "hidden"));
 
         foreach (var input in inputFields)
         {
-            var div = new HTag("div");
-            if (input.description is not null)
+            var div = new HTag("div")
             {
-                div.AddChild("label", input.description);
-            }
-            div.AddChild("input", new HProp("id", input.id), new HProp("name", input.id), new HProp("value", input.defaultValue));
+                { 
+                    "input",
+                    new HProp("id", input.id), new HProp("name", input.id), new HProp("placeholder", input.placeholder),
+                    new HProp("style", "border: 2px solid gray; border-radius: 4px; height: 50px; margin-bottom: 10px; font-size:28px;")
+                }
+            };
             if (input.isHidden)
             {
-                div["input"].AddChild("type", "hidden");
+                div["input"].AddProperties(new HProp("type", "hidden"));
             }
             form.AddChild(div);
         }
 
-        var buttonDiv = new HTag("div");
-        buttonDiv.AddChild("button", buttonText);
-        buttonDiv["button"].AddProperties(StylesHelper.Button("#808080", 24));
+        var buttonDiv = new HTag("div")
+        {
+            { "button", buttonText, StylesHelper.Button("#808080", 24) }
+        };
         form.AddChild(buttonDiv);
 
         return form;

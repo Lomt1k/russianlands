@@ -4,20 +4,6 @@ using System.Text;
 
 public static class HttpExtensions
 {
-    //
-    // Сводка:
-    //     Writes the specified data to the response.
-    //     Response is closed and can not be longer modified.
-    //
-    // Параметры:
-    //   response:
-    //     HTTP response.
-    //
-    //   txt:
-    //     Text data to write.
-    //
-    //   mime:
-    //     Mime type.
     public static void AsTextUTF8(this HttpListenerResponse response, string txt, string mime = "text/html")
     {
         if (response == null)
