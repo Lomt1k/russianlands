@@ -138,9 +138,9 @@ internal class PlayerSearchPage : IHtmlPage
     private async Task SearchByNickname(HttpListenerResponse response, HttpAdminSessionInfo sessionInfo, string localPath, string nickname)
     {
         var db = BotController.dataBase.db;
-        var query = db.Table<ProfileData>().Where(x => x.nickname == nickname);
-        var profileData = await query.FirstOrDefaultAsync().FastAwait();
-        if (profileData == null)
+        var query = db.Table<ProfileData>().Where(x => x.nickname.Contains(nickname));
+        var profileDatas  = await query.ToArrayAsync().FastAwait();
+        if (profileDatas.Length < 1)
         {
             var document = HtmlHelper.CreateDocument("Player Search");
             document["html"]["body"].AddProperties(StylesHelper.CenterScreenParent());
@@ -154,8 +154,13 @@ internal class PlayerSearchPage : IHtmlPage
             response.Close();
             return;
         }
-
-        ShowProfile(response, sessionInfo, localPath, profileData);
+        if (profileDatas.Length == 1)
+        {
+            var profile = profileDatas[0];
+            ShowProfile(response, sessionInfo, localPath, profile);
+            return;
+        }
+        ShowProfilesList(response, sessionInfo, localPath, profileDatas);
     }
 
     private async Task SearchByFirstAndLastName(HttpListenerResponse response, HttpAdminSessionInfo sessionInfo, string localPath, string firstName, string lastName)
@@ -165,8 +170,9 @@ internal class PlayerSearchPage : IHtmlPage
             ? db.Table<ProfileData>().Where(x => x.lastName != null && x.firstName.Contains(firstName) && x.lastName.Contains(lastName))
             : lastName.Length > 0 ? db.Table<ProfileData>().Where(x => x.lastName != null && x.lastName.Contains(lastName))
             : db.Table<ProfileData>().Where(x => x.firstName.Contains(firstName));
-        var profileData = await query.FirstOrDefaultAsync().FastAwait();
-        if (profileData == null)
+        var profileDatas = await query.ToArrayAsync().FastAwait();
+
+        if (profileDatas.Length < 1)
         {
             var name = (string.IsNullOrEmpty(firstName) ? string.Empty : firstName) + ' ' + (string.IsNullOrEmpty(lastName) ? string.Empty : lastName);
             var document = HtmlHelper.CreateDocument("Player Search");
@@ -182,7 +188,18 @@ internal class PlayerSearchPage : IHtmlPage
             return;
         }
 
-        ShowProfile(response, sessionInfo, localPath, profileData);
+        if (profileDatas.Length == 1)
+        {
+            var profile = profileDatas[0];
+            ShowProfile(response, sessionInfo, localPath, profile);
+            return;
+        }
+        ShowProfilesList(response, sessionInfo, localPath, profileDatas);
+    }
+
+    private void ShowProfilesList(HttpListenerResponse response, HttpAdminSessionInfo sessionInfo, string localPath, ProfileData[] profileDatas)
+    {
+        // TODO
     }
 
     private void ShowProfile(HttpListenerResponse response, HttpAdminSessionInfo sessionInfo, string localPath, ProfileData profile)
