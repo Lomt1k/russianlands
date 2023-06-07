@@ -139,7 +139,7 @@ internal class PlayerSearchPage : IHtmlPage
     {
         var db = BotController.dataBase.db;
         var query = db.Table<ProfileData>().Where(x => x.nickname.Contains(nickname));
-        var profileDatas  = await query.ToArrayAsync().FastAwait();
+        var profileDatas  = await query.Take(100).ToArrayAsync().FastAwait();
         if (profileDatas.Length < 1)
         {
             var document = HtmlHelper.CreateDocument("Player Search");
@@ -170,7 +170,7 @@ internal class PlayerSearchPage : IHtmlPage
             ? db.Table<ProfileData>().Where(x => x.lastName != null && x.firstName.Contains(firstName) && x.lastName.Contains(lastName))
             : lastName.Length > 0 ? db.Table<ProfileData>().Where(x => x.lastName != null && x.lastName.Contains(lastName))
             : db.Table<ProfileData>().Where(x => x.firstName.Contains(firstName));
-        var profileDatas = await query.ToArrayAsync().FastAwait();
+        var profileDatas = await query.Take(100).ToArrayAsync().FastAwait();
 
         if (profileDatas.Length < 1)
         {
@@ -199,7 +199,35 @@ internal class PlayerSearchPage : IHtmlPage
 
     private void ShowProfilesList(HttpListenerResponse response, HttpAdminSessionInfo sessionInfo, string localPath, ProfileData[] profileDatas)
     {
-        // TODO
+        var document = HtmlHelper.CreateDocument($"Profiles ({profileDatas.Length})");
+
+        var table = document["html"]["body"].Add("table", new HProp("cellpadding", "10"), new HProp("style", "border-collapse: collapse;"));
+        var headers = table.Add("tr", new HProp("style", "height: 50px; border-bottom: 1pt solid black; background-color: #DDDDDD"));
+        headers.Add("th", "Telegram ID", new HProp("align", "left"));
+        headers.Add("th", "Nick", new HProp("align", "left"));
+        headers.Add("th", "Level", new HProp("align", "left"));
+        headers.Add("th", "First Name", new HProp("align", "left"));
+        headers.Add("th", "Last Name", new HProp("align", "left"));
+        headers.Add("th", "Username", new HProp("align", "left"));
+        headers.Add("th", "Last Active", new HProp("align", "left"));
+        headers.Add("th", "&nbsp;");
+
+        foreach ( var profileData in profileDatas )
+        {
+            var row = table.Add("tr", new HProp("style", "height: 50px; border-bottom: 1pt solid black;"));
+            row.Add("td", $"ID {profileData.telegram_id}");
+            row.Add("td").Add("b", profileData.nickname);
+            row.Add("td", profileData.level.ToString());
+            row.Add("td", profileData.firstName);
+            row.Add("td", profileData.lastName ?? string.Empty);
+            row.Add("td", profileData.username ?? string.Empty);
+            row.Add("td", profileData.lastActivityTime);
+            row.Add("td").Add(HtmlHelper.CreateLinkButton("View", $"{localPath}?page={page}&telegramId={profileData.telegram_id}", size: 14));
+        }
+
+
+        response.AsTextUTF8(document.GenerateHTML());
+        response.Close();
     }
 
     private void ShowProfile(HttpListenerResponse response, HttpAdminSessionInfo sessionInfo, string localPath, ProfileData profile)
