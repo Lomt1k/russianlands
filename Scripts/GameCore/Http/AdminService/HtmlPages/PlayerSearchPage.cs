@@ -1,23 +1,36 @@
 ﻿using MarkOne.Scripts.Bot;
+using MarkOne.Scripts.GameCore.Services;
 using MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
+using MarkOne.Scripts.GameCore.Sessions;
 using Obisoft.HSharp.Models;
 using System.Collections.Specialized;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
 namespace MarkOne.Scripts.GameCore.Http.AdminService.HtmlPages;
 internal class PlayerSearchPage : IHtmlPage
 {
+    private static readonly SessionManager sessionManager = ServiceLocator.Get<SessionManager>();
+
     public string page => "playerSearch";
 
     public async Task ShowPage(HttpListenerResponse response, HttpAdminSessionInfo sessionInfo, NameValueCollection query, string localPath)
     {
+        var showActivePlayers = query["showActivePlayers"];
         var telegramId = query["telegramId"];
         if (telegramId is not null)
         {
-            await SearchByTelegramId(response, sessionInfo, localPath, telegramId).FastAwait();
+            var fromActivePlayers = showActivePlayers is not null;
+            await SearchByTelegramId(response, sessionInfo, localPath, telegramId, fromActivePlayers).FastAwait();
+            return;
+        }        
+        if (showActivePlayers is not null)
+        {
+            ShowActivePlayers(response, sessionInfo, localPath);
             return;
         }
+        
         var username = query["username"];
         if (username is not null)
         {
@@ -71,7 +84,13 @@ internal class PlayerSearchPage : IHtmlPage
         response.Close();
     }
 
-    private async Task SearchByTelegramId(HttpListenerResponse response, HttpAdminSessionInfo sessionInfo, string localPath, string telegramId)
+    private void ShowActivePlayers(HttpListenerResponse response, HttpAdminSessionInfo sessionInfo, string localPath)
+    {
+        var profileDatas = sessionManager.GetAllSessions().Select(x => x.profile.data).ToArray();
+        ShowProfilesList(response, sessionInfo, localPath, profileDatas, showActivePlayers: true);
+    }
+
+    private async Task SearchByTelegramId(HttpListenerResponse response, HttpAdminSessionInfo sessionInfo, string localPath, string telegramId, bool fromActivePlayers)
     {
         if (!long.TryParse(telegramId, out var longTelegramId))
         {
@@ -107,7 +126,7 @@ internal class PlayerSearchPage : IHtmlPage
             return;
         }
 
-        ShowProfile(response, sessionInfo, localPath, profileData);
+        ShowProfile(response, sessionInfo, localPath, profileData, fromActivePlayers);
     }
 
     private async Task SearchByUsername(HttpListenerResponse response, HttpAdminSessionInfo sessionInfo, string localPath, string username)
@@ -197,7 +216,7 @@ internal class PlayerSearchPage : IHtmlPage
         ShowProfilesList(response, sessionInfo, localPath, profileDatas);
     }
 
-    private void ShowProfilesList(HttpListenerResponse response, HttpAdminSessionInfo sessionInfo, string localPath, ProfileData[] profileDatas)
+    private void ShowProfilesList(HttpListenerResponse response, HttpAdminSessionInfo sessionInfo, string localPath, ProfileData[] profileDatas, bool showActivePlayers = false)
     {
         var document = HtmlHelper.CreateDocument($"Profiles ({profileDatas.Length})");
 
@@ -222,15 +241,19 @@ internal class PlayerSearchPage : IHtmlPage
             row.Add("td", profileData.lastName ?? string.Empty);
             row.Add("td", profileData.username ?? string.Empty);
             row.Add("td", profileData.lastActivityTime);
-            row.Add("td").Add(HtmlHelper.CreateLinkButton("View", $"{localPath}?page={page}&telegramId={profileData.telegram_id}", size: 14));
+            row.Add("td").Add(HtmlHelper.CreateLinkButton("View", $"{localPath}?page={page}&telegramId={profileData.telegram_id}"
+                + (showActivePlayers ? "&showActivePlayers=" : string.Empty), size: 14));
         }
 
+        var bottomPanel = new HTag("div", new HProp("style", "margin-left: 300px; margin-top: 40px;"));
+        bottomPanel.AddChild(HtmlHelper.CreateLinkButton("<< Back", localPath + (!showActivePlayers ? $"?page={page}" : string.Empty) ));
+        document["html"]["body"].Add(bottomPanel);
 
         response.AsTextUTF8(document.GenerateHTML());
         response.Close();
     }
 
-    private void ShowProfile(HttpListenerResponse response, HttpAdminSessionInfo sessionInfo, string localPath, ProfileData profile)
+    private void ShowProfile(HttpListenerResponse response, HttpAdminSessionInfo sessionInfo, string localPath, ProfileData profile, bool fromActivePlayers = false)
     {
         // TODO
         var document = HtmlHelper.CreateDocument($"[{profile.telegram_id}] {profile.nickname}");
@@ -238,7 +261,7 @@ internal class PlayerSearchPage : IHtmlPage
         var div = new HTag("div", StylesHelper.CenterScreenBlock(700, 250))
             {
                 { "h1", $"Found Player {profile.nickname}" },
-                HtmlHelper.CreateLinkButton("<< Back", localPath + $"?page={page}"),
+                HtmlHelper.CreateLinkButton("<< Back", localPath + $"?page={page}" + (fromActivePlayers ? "&showActivePlayers=" : string.Empty) ),
             };
         document["html"]["body"].Add(div);
         response.AsTextUTF8(document.GenerateHTML());
