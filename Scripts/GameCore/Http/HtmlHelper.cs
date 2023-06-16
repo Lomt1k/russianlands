@@ -4,7 +4,7 @@ using Obisoft.HSharp.Models;
 namespace MarkOne.Scripts.GameCore.Http;
 public record struct InputFieldInfo(string id, string placeholder, bool isHidden = false);
 
-public class HtmlHelper
+public static class HtmlHelper
 {
     public static HDoc CreateDocument(string title = "Example")
     {
@@ -14,6 +14,19 @@ public class HtmlHelper
         document["html"].AddChild("body");
         document["html"]["head"].AddChild("meta", new HProp("http-equiv", "content-type"), new HProp("charset", "utf-8"), new HProp("content", "text/html; charset=UTF-8;"));
         document["html"]["head"].AddChild("title", title);
+        return document;
+    }
+
+    public static HDoc CreateErrorPage(string title, string error, string backButtonUrl)
+    {
+        var document = CreateDocument(title);
+        document["html"]["body"].AddProperties(StylesHelper.CenterScreenParent());
+        var div = new HTag("div", StylesHelper.CenterScreenBlock(700, 250))
+            {
+                { "h1", error },
+                CreateLinkButton("<< Back", backButtonUrl),
+            };
+        document["html"]["body"].Add(div);
         return document;
     }
 

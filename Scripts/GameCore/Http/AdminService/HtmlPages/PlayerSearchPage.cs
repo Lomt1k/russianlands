@@ -62,7 +62,7 @@ internal class PlayerSearchPage : IHtmlPage
 
         document["html"]["body"].AddProperties(StylesHelper.CenterScreenParent());
         var centerScreenBlock = new HTag("div", new HProp("align", "center"), StylesHelper.CenterScreenBlock(700, 700));
-        document["html"]["body"].AddChild(centerScreenBlock);
+        document["html"]["body"].Add(centerScreenBlock);
 
         // seach
         centerScreenBlock.Add(HtmlHelper.CreateForm(localPath, page, "Search", new InputFieldInfo("telegramId", "Search by Telegram ID")));
@@ -78,7 +78,7 @@ internal class PlayerSearchPage : IHtmlPage
         {
             HtmlHelper.CreateLinkButton("<< Back", localPath)
         };
-        centerScreenBlock.AddChild(bottomPanel);
+        centerScreenBlock.Add(bottomPanel);
 
         response.AsTextUTF8(document.GenerateHTML());
         response.Close();
@@ -87,22 +87,14 @@ internal class PlayerSearchPage : IHtmlPage
     private void ShowActivePlayers(HttpListenerResponse response, HttpAdminSessionInfo sessionInfo, string localPath)
     {
         var profileDatas = sessionManager.GetAllSessions().Select(x => x.profile.data).ToArray();
-        ShowProfilesList(response, sessionInfo, localPath, profileDatas, showActivePlayers: true);
+        ShowProfilesList(response, localPath, profileDatas, showActivePlayers: true);
     }
 
     private async Task SearchByTelegramId(HttpListenerResponse response, HttpAdminSessionInfo sessionInfo, string localPath, string telegramId, bool fromActivePlayers)
     {
         if (!long.TryParse(telegramId, out var longTelegramId))
         {
-            var document = HtmlHelper.CreateDocument("Player Search");
-            document["html"]["body"].AddProperties(StylesHelper.CenterScreenParent());
-            var div = new HTag("div", StylesHelper.CenterScreenBlock(700, 250))
-            {
-                { "h1", "Incorrect Telegram ID" },
-                HtmlHelper.CreateLinkButton("<< Back", localPath + $"?page={page}"),
-            };
-            document["html"]["body"].Add(div);
-
+            var document = HtmlHelper.CreateErrorPage("Player Search", "Incorrect Telegram ID", localPath + $"?page={page}");
             response.AsTextUTF8(document.GenerateHTML());
             response.Close();
             return;
@@ -113,14 +105,7 @@ internal class PlayerSearchPage : IHtmlPage
         var profileData = await query.FirstOrDefaultAsync().FastAwait();
         if (profileData == null)
         {
-            var document = HtmlHelper.CreateDocument("Player Search");
-            document["html"]["body"].AddProperties(StylesHelper.CenterScreenParent());
-            var div = new HTag("div", StylesHelper.CenterScreenBlock(700, 250))
-            {
-                { "h1", $"Player with TelegramID {longTelegramId} not found" },
-                HtmlHelper.CreateLinkButton("<< Back", localPath + $"?page={page}"),
-            };
-            document["html"]["body"].Add(div);
+            var document = HtmlHelper.CreateErrorPage("Player Search", $"Player with TelegramID {longTelegramId} not found", localPath + $"?page={page}");
             response.AsTextUTF8(document.GenerateHTML());
             response.Close();
             return;
@@ -138,14 +123,7 @@ internal class PlayerSearchPage : IHtmlPage
         var profileData = await query.FirstOrDefaultAsync().FastAwait();
         if (profileData == null)
         {
-            var document = HtmlHelper.CreateDocument("Player Search");
-            document["html"]["body"].AddProperties(StylesHelper.CenterScreenParent());
-            var div = new HTag("div", StylesHelper.CenterScreenBlock(700, 250))
-            {
-                { "h1", $"Player with username @{username} not found" },
-                HtmlHelper.CreateLinkButton("<< Back", localPath + $"?page={page}"),
-            };
-            document["html"]["body"].Add(div);
+            var document = HtmlHelper.CreateErrorPage("Player Search", $"Player with username @{username} not found", localPath + $"?page={page}");
             response.AsTextUTF8(document.GenerateHTML());
             response.Close();
             return;
@@ -161,14 +139,7 @@ internal class PlayerSearchPage : IHtmlPage
         var profileDatas  = await query.Take(100).ToArrayAsync().FastAwait();
         if (profileDatas.Length < 1)
         {
-            var document = HtmlHelper.CreateDocument("Player Search");
-            document["html"]["body"].AddProperties(StylesHelper.CenterScreenParent());
-            var div = new HTag("div", StylesHelper.CenterScreenBlock(700, 250))
-            {
-                { "h1", $"Player with nickname '{nickname}' not found" },
-                HtmlHelper.CreateLinkButton("<< Back", localPath + $"?page={page}"),
-            };
-            document["html"]["body"].Add(div);
+            var document = HtmlHelper.CreateErrorPage("Player Search", $"Player with nickname '{nickname}' not found", localPath + $"?page={page}");
             response.AsTextUTF8(document.GenerateHTML());
             response.Close();
             return;
@@ -179,7 +150,7 @@ internal class PlayerSearchPage : IHtmlPage
             ShowProfile(response, sessionInfo, localPath, profile);
             return;
         }
-        ShowProfilesList(response, sessionInfo, localPath, profileDatas);
+        ShowProfilesList(response, localPath, profileDatas);
     }
 
     private async Task SearchByFirstAndLastName(HttpListenerResponse response, HttpAdminSessionInfo sessionInfo, string localPath, string firstName, string lastName)
@@ -194,14 +165,7 @@ internal class PlayerSearchPage : IHtmlPage
         if (profileDatas.Length < 1)
         {
             var name = (string.IsNullOrEmpty(firstName) ? string.Empty : firstName) + ' ' + (string.IsNullOrEmpty(lastName) ? string.Empty : lastName);
-            var document = HtmlHelper.CreateDocument("Player Search");
-            document["html"]["body"].AddProperties(StylesHelper.CenterScreenParent());
-            var div = new HTag("div", StylesHelper.CenterScreenBlock(700, 250))
-            {
-                { "h1", $"Player with name '{name}' not found" },
-                HtmlHelper.CreateLinkButton("<< Back", localPath + $"?page={page}"),
-            };
-            document["html"]["body"].Add(div);
+            var document = HtmlHelper.CreateErrorPage("Player Search", $"Player with name '{name}' not found", localPath + $"?page={page}");
             response.AsTextUTF8(document.GenerateHTML());
             response.Close();
             return;
@@ -213,10 +177,10 @@ internal class PlayerSearchPage : IHtmlPage
             ShowProfile(response, sessionInfo, localPath, profile);
             return;
         }
-        ShowProfilesList(response, sessionInfo, localPath, profileDatas);
+        ShowProfilesList(response, localPath, profileDatas);
     }
 
-    private void ShowProfilesList(HttpListenerResponse response, HttpAdminSessionInfo sessionInfo, string localPath, ProfileData[] profileDatas, bool showActivePlayers = false)
+    private void ShowProfilesList(HttpListenerResponse response, string localPath, ProfileData[] profileDatas, bool showActivePlayers = false)
     {
         var document = HtmlHelper.CreateDocument($"Profiles ({profileDatas.Length})");
 
@@ -246,7 +210,7 @@ internal class PlayerSearchPage : IHtmlPage
         }
 
         var bottomPanel = new HTag("div", new HProp("style", "margin-left: 300px; margin-top: 40px;"));
-        bottomPanel.AddChild(HtmlHelper.CreateLinkButton("<< Back", localPath + (!showActivePlayers ? $"?page={page}" : string.Empty) ));
+        bottomPanel.Add(HtmlHelper.CreateLinkButton("<< Back", localPath + (!showActivePlayers ? $"?page={page}" : string.Empty) ));
         document["html"]["body"].Add(bottomPanel);
 
         response.AsTextUTF8(document.GenerateHTML());

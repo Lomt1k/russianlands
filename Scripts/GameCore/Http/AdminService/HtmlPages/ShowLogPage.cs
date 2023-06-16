@@ -1,5 +1,4 @@
 ﻿using Obisoft.HSharp.Models;
-using SimpleHttp;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -15,11 +14,20 @@ internal class ShowLogPage : IHtmlPage
     public async Task ShowPage(HttpListenerResponse response, HttpAdminSessionInfo sessionInfo, NameValueCollection query, string localPath)
     {
         var mode = query["mode"];
-        var fileName = mode switch
+        if (mode != null && mode.Equals("list"))
         {
-            "errors" => "errors.log",
-            _ => "appLog.log"
-        };
+            ShowFilesList(response, localPath);
+            return;
+        }
+
+        var fileName = query["fileName"];
+        if (string.IsNullOrEmpty(fileName))
+        {
+            var error = HtmlHelper.CreateErrorPage("Show Log List", $"File with name '" + (fileName is null ? string.Empty : fileName) + "' not found", localPath + $"?page={page}");
+            response.AsTextUTF8(error.GenerateHTML());
+            response.Close();
+            return;
+        }
 
         var filePath = Path.Combine("Logs", fileName);
         var lines = File.Exists(filePath)
@@ -28,20 +36,47 @@ internal class ShowLogPage : IHtmlPage
 
         var document = HtmlHelper.CreateDocument($"Show Log [{fileName}]");
         var contentBlock = new HTag("div");
-        document["html"]["body"].AddChild(contentBlock);
+        document["html"]["body"].Add(contentBlock);
 
         var logTable = new HTag("table", new HProp("frame", "hsides"));
         foreach (var line in lines)
         {
-            var tableLine = new HTag("tr");
-            tableLine.AddChild("td", line);
-            logTable.AddChild(tableLine);
+            var tableLine = new HTag("tr")
+            {
+                { "td", line }
+            };
+            logTable.Add(tableLine);
         }
-        contentBlock.AddChild(logTable);
+        contentBlock.Add(logTable);
 
-        var bottomPanel = new HTag("div", new HProp("align", "center"), new HProp("style", "margin: 40px 0;"));
-        bottomPanel.AddChild(HtmlHelper.CreateLinkButton("<< Back", localPath));
-        contentBlock.AddChild(bottomPanel);
+        var bottomPanel = new HTag("div", new HProp("align", "center"), new HProp("style", "margin: 40px 0;"))
+        {
+            HtmlHelper.CreateLinkButton("<< Back", localPath)
+        };
+        contentBlock.Add(bottomPanel);
+
+        response.AsTextUTF8(document.GenerateHTML());
+        response.Close();
+    }
+
+    private void ShowFilesList(HttpListenerResponse response, string localPath)
+    {
+        var document = HtmlHelper.CreateDocument("Show Logs List");
+        foreach (var filePath in Directory.EnumerateFiles("Logs"))
+        {
+            var fileName = Path.GetFileName(filePath);
+            var div = new HTag("h2")
+            {
+                { "a", fileName, new HProp("href", localPath + $"?page={page}&fileName={fileName}")}
+            };
+            document["html"]["body"].Add(div);
+        }
+
+        var bottomPanel = new HTag("div", new HProp("align", "center"), new HProp("style", "margin: 40px 0;"))
+        {
+            HtmlHelper.CreateLinkButton("<< Back", localPath)
+        };
+        document["html"]["body"].Add(bottomPanel);
 
         response.AsTextUTF8(document.GenerateHTML());
         response.Close();
