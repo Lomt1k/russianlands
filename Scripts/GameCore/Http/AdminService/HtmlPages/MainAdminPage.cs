@@ -34,33 +34,35 @@ internal class MainAdminPage : IHtmlPage
 
         document["html"]["body"].AddProperties(StylesHelper.CenterScreenParent());
         var centerScreenBlock = new HTag("div", new HProp("align", "center"), StylesHelper.CenterScreenBlock(700, 500));
-        document["html"]["body"].AddChild(centerScreenBlock);
+        document["html"]["body"].Add(centerScreenBlock);
 
         // status table
-        centerScreenBlock.AddChild("p", $"Server Stats ({date.ToShortDateString()})");
-        var table = new HTag("table", new HProp("frame", "hsides"));
-        table.AddChild(CreateTableRow("DAU", dailyActiveUsers.ToString()));
-        table.AddChild(CreateTableRow("Sessions", allSessions.Count.ToString()));
-        table.AddChild(CreateTableRow("Now playing", recentlyActive.ToString()));
-        table.AddChild(CreateTableRow("&nbsp;", "&nbsp;"));
-        table.AddChild(CreateTableRow("Status", pm.currentState.ToString()));
-        table.AddChild(CreateTableRow("CPU", debugInfo.cpuInfo.Replace("CPU: ", string.Empty)));
-        table.AddChild(CreateTableRow("RAM", debugInfo.memoryInfo.Replace("RAM: ", string.Empty)));
-        table.AddChild(CreateTableRow("Total RAM", debugInfo.totalMemoryInfo.Replace("Total RAM: ", string.Empty)));        
-        centerScreenBlock.AddChild(table);
+        centerScreenBlock.Add("p", $"Server Stats ({date.ToShortDateString()})");
+        var table = new HTag("table", new HProp("frame", "hsides"))
+        {
+            CreateTableRow("DAU", dailyActiveUsers.ToString()),
+            CreateTableRow("Sessions", allSessions.Count.ToString()),
+            CreateTableRow("Now playing", recentlyActive.ToString()),
+            CreateTableRow("&nbsp;", "&nbsp;"),
+            CreateTableRow("Status", pm.currentState.ToString()),
+            CreateTableRow("CPU", debugInfo.cpuInfo.Replace("CPU: ", string.Empty)),
+            CreateTableRow("RAM", debugInfo.memoryInfo.Replace("RAM: ", string.Empty)),
+            CreateTableRow("Total RAM", debugInfo.totalMemoryInfo.Replace("Total RAM: ", string.Empty))
+        };
+        centerScreenBlock.Add(table);
 
         // top buttons
         var topButtons = new HTag("div", new HProp("style", "margin: 15px 0;"));
-        topButtons.AddChild(HtmlHelper.CreateLinkButton("Last Log", localPath + "?page=showLog&fileName=appLog.log"));
-        topButtons.AddChild(HtmlHelper.CreateLinkButton("Last Errors", localPath + "?page=showLog&fileName=errors.log"));
-        topButtons.AddChild(HtmlHelper.CreateLinkButton("Logs List", localPath + "?page=showLog&mode=list"));
-        centerScreenBlock.AddChild(topButtons);
+        topButtons.Add(HtmlHelper.CreateLinkButton("Last Log", localPath + "?page=showLog&fileName=appLog.log"));
+        topButtons.Add(HtmlHelper.CreateLinkButton("Last Errors", localPath + "?page=showLog&fileName=errors.log"));
+        topButtons.Add(HtmlHelper.CreateLinkButton("Logs List", localPath + "?page=showLog&mode=list"));
+        centerScreenBlock.Add(topButtons);
 
         // other buttons
         var otherButtons = new HTag("div", new HProp("style", "margin: 200px 0;"));
-        otherButtons.AddChild(HtmlHelper.CreateLinkButton("Active Players", localPath + "?page=playerSearch&showActivePlayers=", color: "#808080"));
-        otherButtons.AddChild(HtmlHelper.CreateLinkButton("Player Search", localPath + "?page=playerSearch", color: "#808080"));
-        centerScreenBlock.AddChild(otherButtons);
+        otherButtons.Add(HtmlHelper.CreateLinkButton("Active Players", localPath + "?page=playerSearch&showActivePlayers=", color: "#808080"));
+        otherButtons.Add(HtmlHelper.CreateLinkButton("Player Search", localPath + "?page=playerSearch", color: "#808080"));
+        centerScreenBlock.Add(otherButtons);
 
         // send document
         response.AsTextUTF8(document.GenerateHTML());
@@ -70,12 +72,12 @@ internal class MainAdminPage : IHtmlPage
     private HTag CreateTableRow(string header, params string[] args)
     {
         var row = new HTag("tr");
-        row.AddChild("th", header);
+        row.Add("th", header);
         foreach (var arg in args)
         {
             var record = new HTag("td", arg);
             record.AddProperties(new HProp("align", "right"));
-            row.AddChild(record);
+            row.Add(record);
         }
         return row;
     }

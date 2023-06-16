@@ -1,8 +1,11 @@
 ﻿using MarkOne.Scripts.Bot;
+using MarkOne.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.GameCore.Resources;
 using MarkOne.Scripts.GameCore.Services;
 using MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
 using MarkOne.Scripts.GameCore.Sessions;
 using Obisoft.HSharp.Models;
+using System;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Net;
@@ -111,7 +114,7 @@ internal class PlayerSearchPage : IHtmlPage
             return;
         }
 
-        ShowProfile(response, sessionInfo, localPath, profileData, fromActivePlayers);
+        await ShowProfile(response, sessionInfo, localPath, profileData, fromActivePlayers).FastAwait();
     }
 
     private async Task SearchByUsername(HttpListenerResponse response, HttpAdminSessionInfo sessionInfo, string localPath, string username)
@@ -129,7 +132,7 @@ internal class PlayerSearchPage : IHtmlPage
             return;
         }
 
-        ShowProfile(response, sessionInfo, localPath, profileData);
+        await ShowProfile(response, sessionInfo, localPath, profileData).FastAwait();
     }
 
     private async Task SearchByNickname(HttpListenerResponse response, HttpAdminSessionInfo sessionInfo, string localPath, string nickname)
@@ -147,7 +150,7 @@ internal class PlayerSearchPage : IHtmlPage
         if (profileDatas.Length == 1)
         {
             var profile = profileDatas[0];
-            ShowProfile(response, sessionInfo, localPath, profile);
+            await ShowProfile(response, sessionInfo, localPath, profile).FastAwait();
             return;
         }
         ShowProfilesList(response, localPath, profileDatas);
@@ -174,7 +177,7 @@ internal class PlayerSearchPage : IHtmlPage
         if (profileDatas.Length == 1)
         {
             var profile = profileDatas[0];
-            ShowProfile(response, sessionInfo, localPath, profile);
+            await ShowProfile(response, sessionInfo, localPath, profile).FastAwait();
             return;
         }
         ShowProfilesList(response, localPath, profileDatas);
@@ -209,27 +212,98 @@ internal class PlayerSearchPage : IHtmlPage
                 + (showActivePlayers ? "&showActivePlayers=" : string.Empty), size: 14));
         }
 
-        var bottomPanel = new HTag("div", new HProp("style", "margin-left: 300px; margin-top: 40px;"));
-        bottomPanel.Add(HtmlHelper.CreateLinkButton("<< Back", localPath + (!showActivePlayers ? $"?page={page}" : string.Empty) ));
+        var bottomPanel = new HTag("div", new HProp("style", "margin-left: 300px; margin-top: 40px;"))
+        {
+            HtmlHelper.CreateLinkButton("<< Back", localPath + (!showActivePlayers ? $"?page={page}" : string.Empty))
+        };
         document["html"]["body"].Add(bottomPanel);
 
         response.AsTextUTF8(document.GenerateHTML());
         response.Close();
     }
 
-    private void ShowProfile(HttpListenerResponse response, HttpAdminSessionInfo sessionInfo, string localPath, ProfileData profile, bool fromActivePlayers = false)
+    private async Task ShowProfile(HttpListenerResponse response, HttpAdminSessionInfo sessionInfo, string localPath, ProfileData profileDate, bool fromActivePlayers = false)
     {
-        // TODO
-        var document = HtmlHelper.CreateDocument($"[{profile.telegram_id}] {profile.nickname}");
-        document["html"]["body"].AddProperties(StylesHelper.CenterScreenParent());
-        var div = new HTag("div", StylesHelper.CenterScreenBlock(700, 250))
-            {
-                { "h1", $"Found Player {profile.nickname}" },
-                HtmlHelper.CreateLinkButton("<< Back", localPath + $"?page={page}" + (fromActivePlayers ? "&showActivePlayers=" : string.Empty) ),
-            };
+        var document = HtmlHelper.CreateDocument($"[{profileDate.telegram_id}] {profileDate.nickname}");
+        document["html"]["body"].AddProperties(StylesHelper.CenterScreenParent(), new HProp("align", "center"));
+
+        var session = sessionManager.GetSessionIfExists(profileDate.telegram_id);
+        var isOnline = session is not null;
+
+        var header = profileDate.nickname + (isOnline ? " <i>(Online)</i>" : string.Empty);
+        var generalInfo = GetGeneralProfileInfo(session?.profile.data ?? profileDate);
+        var resourceInfo = GetProfileResourcesInfo(session?.profile.data ?? profileDate);
+
+        var div = new HTag("div", StylesHelper.CenterScreenBlock(700, 900), new HProp("align", "center"))
+        {
+            { "h1", header },
+            generalInfo,
+            resourceInfo,
+            HtmlHelper.CreateLinkButton("<< Back", localPath + $"?page={page}" + (fromActivePlayers ? "&showActivePlayers=" : string.Empty) ),
+        };
         document["html"]["body"].Add(div);
         response.AsTextUTF8(document.GenerateHTML());
         response.Close();
+    }
+
+    private HTag GetGeneralProfileInfo(ProfileData profileData)
+    {
+        var endPremiumDt = new DateTime(profileData.endPremiumTime);
+        var premiumValue = profileData.IsPremiumActive() ? $"ACTIVE (until {endPremiumDt.ToLongDateString()})"
+            : profileData.IsPremiumExpired() ? $"EXPIRED {endPremiumDt.ToLongDateString()}"
+            : "NEVER BUY";
+
+        var table = new HTag("table", new HProp("frame", "hsides"), new HProp("align", "left"))
+        {
+            CreateTableRow("Telegram ID", profileData.telegram_id.ToString()),
+            CreateTableRow("First Name", profileData.firstName),
+            CreateTableRow("Last Name", profileData.lastName ?? string.Empty),
+            CreateTableRow("Username", profileData.username ?? string.Empty),
+            CreateTableRow("Level", profileData.level.ToString()),
+
+            CreateTableRow("Registration Date", profileData.regDate),
+            CreateTableRow("Registration Version", profileData.regVersion),
+            CreateTableRow("Last Version", profileData.lastVersion),
+            CreateTableRow("Last Activity Time", profileData.lastActivityTime),
+
+            CreateTableRow("Language", profileData.language.ToString()),
+            CreateTableRow("Admin Status", profileData.adminStatus.ToString()),
+            CreateTableRow("Premium", premiumValue),
+        };
+        return table;
+    }
+
+    private HTag GetProfileResourcesInfo(ProfileData profileData)
+    {
+        var table = new HTag("table", new HProp("frame", "hsides"), new HProp("align", "center"));
+        foreach (var resourceId in Enum.GetValues<ResourceId>())
+        {
+            if (resourceId == ResourceId.InventoryItems)
+            {
+                continue;
+            }
+
+            var localizationKey = "resource_name_" + resourceId.ToString().ToLower();
+            var amount = ResourcesDictionary.Get(resourceId).GetValue(profileData);
+            var resourceView = resourceId.GetEmoji() + (Localization.Get(LanguageCode.EN, localizationKey) + ':').Bold() + $" {amount.View()}";
+            table.Add(CreateTableRow(resourceView));
+        }
+        return table;
+    }
+
+    private HTag CreateTableRow(string header, params string[] args)
+    {
+        var row = new HTag("tr")
+        {
+            { "th", header, new HProp("align", "left") }
+        };
+        foreach (var arg in args)
+        {
+            var record = new HTag("td", arg);
+            record.AddProperties(new HProp("align", "right"));
+            row.AddChild(record);
+        }
+        return row;
     }
 
 }
