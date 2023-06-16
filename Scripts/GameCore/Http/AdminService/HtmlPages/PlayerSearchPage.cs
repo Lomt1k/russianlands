@@ -1,4 +1,6 @@
 ﻿using MarkOne.Scripts.Bot;
+using MarkOne.Scripts.GameCore.Buildings;
+using MarkOne.Scripts.GameCore.Items;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Resources;
 using MarkOne.Scripts.GameCore.Services;
@@ -222,60 +224,111 @@ internal class PlayerSearchPage : IHtmlPage
         response.Close();
     }
 
-    private async Task ShowProfile(HttpListenerResponse response, HttpAdminSessionInfo sessionInfo, string localPath, ProfileData profileDate, bool fromActivePlayers = false)
+    private async Task ShowProfile(HttpListenerResponse response, HttpAdminSessionInfo sessionInfo, string localPath, ProfileData profileData, bool fromActivePlayers = false)
     {
-        var document = HtmlHelper.CreateDocument($"[{profileDate.telegram_id}] {profileDate.nickname}");
+        var document = HtmlHelper.CreateDocument($"[{profileData.telegram_id}] {profileData.nickname}");
         document["html"]["body"].AddProperties(StylesHelper.CenterScreenParent(), new HProp("align", "center"));
 
-        var session = sessionManager.GetSessionIfExists(profileDate.telegram_id);
+        var session = sessionManager.GetSessionIfExists(profileData.telegram_id);
         var isOnline = session is not null;
+        var db = BotController.dataBase.db;
 
-        var header = profileDate.nickname + (isOnline ? " <i>(Online)</i>" : string.Empty);
-        var generalInfo = GetGeneralProfileInfo(session?.profile.data ?? profileDate);
-        var resourceInfo = GetProfileResourcesInfo(session?.profile.data ?? profileDate);
+        var generalInfo = GetGeneralProfileInfo(session?.profile.data ?? profileData, isOnline);
+        var equippedItemsInfo = await GetEquippedItemsInfo(session, sessionInfo, profileData).FastAwait();
+        generalInfo.Add(equippedItemsInfo);
 
-        var div = new HTag("div", StylesHelper.CenterScreenBlock(700, 900), new HProp("align", "center"))
+        var resourceInfo = GetProfileResourcesInfo(session?.profile.data ?? profileData, sessionInfo);
+
+        var buildingsData = session?.profile.buildingsData ?? await db.Table<ProfileBuildingsData>().Where(x => x.dbid == profileData.dbid).FirstAsync().FastAwait();
+        var buildingsInfo = GetProfileBuildingsInfo(buildingsData, sessionInfo);
+
+        var centerBlock = new HTag("div", StylesHelper.CenterScreenBlock(1000, 900), new HProp("align", "center"))
         {
-            { "h1", header },
-            generalInfo,
-            resourceInfo,
-            HtmlHelper.CreateLinkButton("<< Back", localPath + $"?page={page}" + (fromActivePlayers ? "&showActivePlayers=" : string.Empty) ),
+            new HTag("div")
+            {
+                generalInfo,
+                resourceInfo,
+                buildingsInfo,
+            },
+            new HTag("div", new HProp("align", "center"), new HProp("style", "clear: both;"))
+            {
+                HtmlHelper.CreateLinkButton("<< Back", localPath + $"?page={page}" + (fromActivePlayers ? "&showActivePlayers=" : string.Empty) ),
+            }
         };
-        document["html"]["body"].Add(div);
+        document["html"]["body"].Add(centerBlock);
         response.AsTextUTF8(document.GenerateHTML());
         response.Close();
     }
 
-    private HTag GetGeneralProfileInfo(ProfileData profileData)
+    private HTag GetGeneralProfileInfo(ProfileData profileData, bool isOnline)
     {
         var endPremiumDt = new DateTime(profileData.endPremiumTime);
         var premiumValue = profileData.IsPremiumActive() ? $"ACTIVE (until {endPremiumDt.ToLongDateString()})"
             : profileData.IsPremiumExpired() ? $"EXPIRED {endPremiumDt.ToLongDateString()}"
             : "NEVER BUY";
 
-        var table = new HTag("table", new HProp("frame", "hsides"), new HProp("align", "left"))
+        var generalInfo = new HTag("div", new HProp("style", "float: left; margin-left: 70px;"))
         {
-            CreateTableRow("Telegram ID", profileData.telegram_id.ToString()),
-            CreateTableRow("First Name", profileData.firstName),
-            CreateTableRow("Last Name", profileData.lastName ?? string.Empty),
-            CreateTableRow("Username", profileData.username ?? string.Empty),
-            CreateTableRow("Level", profileData.level.ToString()),
+            { "h3", "General Info" },
+            new HTag("table", new HProp("frame", "hsides"))
+            {
+                CreateTableRow("Nickname", profileData.nickname),
+                CreateTableRow("Status: ", isOnline ? "<font color=#008D00><b>Online</b></font>" : "Offline"),
+                CreateTableRow("Telegram ID", profileData.telegram_id.ToString()),
+                CreateTableRow("First Name", profileData.firstName),
+                CreateTableRow("Last Name", profileData.lastName ?? string.Empty),
+                CreateTableRow("Username", profileData.username ?? string.Empty),
+                CreateTableRow("Level", profileData.level.ToString()),
 
-            CreateTableRow("Registration Date", profileData.regDate),
-            CreateTableRow("Registration Version", profileData.regVersion),
-            CreateTableRow("Last Version", profileData.lastVersion),
-            CreateTableRow("Last Activity Time", profileData.lastActivityTime),
+                CreateTableRow("Registration Date", profileData.regDate),
+                CreateTableRow("Registration Version", profileData.regVersion),
+                CreateTableRow("Last Version", profileData.lastVersion),
+                CreateTableRow("Last Activity Time", profileData.lastActivityTime),
 
-            CreateTableRow("Language", profileData.language.ToString()),
-            CreateTableRow("Admin Status", profileData.adminStatus.ToString()),
-            CreateTableRow("Premium", premiumValue),
+                CreateTableRow("Language", profileData.language.ToString()),
+                CreateTableRow("Admin Status", profileData.adminStatus.ToString()),
+                CreateTableRow("Premium", premiumValue),
+            }
         };
-        return table;
+        return generalInfo;
     }
 
-    private HTag GetProfileResourcesInfo(ProfileData profileData)
+    private async Task<HTag> GetEquippedItemsInfo(GameSession? session, HttpAdminSessionInfo sessionInfo, ProfileData profileData)
     {
-        var table = new HTag("table", new HProp("frame", "hsides"), new HProp("align", "center"));
+        InventoryItem[]? equippedItems = null;
+        if (session is not null)
+        {
+            equippedItems = session.player.inventory.equipped.allEquipped;
+        }
+        else
+        {
+            var db = BotController.dataBase.db;
+            var rawDynamicData = await db.Table<RawProfileDynamicData>().Where(x => x.dbid == profileData.dbid).FirstAsync().FastAwait();
+            var dynamicData = ProfileDynamicData.Deserialize(rawDynamicData);
+            equippedItems = dynamicData.inventory.equipped.allEquipped;
+        }
+
+        var equippedItemsInfo = new HTag("div")
+        {
+            { "h3", "Equipped Items" },
+            { "table", new HProp("frame", "hsides") },
+        };
+        foreach (var item in equippedItems)
+        {
+            var row = CreateTableRow(item.GetFullName(sessionInfo.languageCode));
+            equippedItemsInfo["table"].Add(row);
+        }
+        return equippedItemsInfo;
+    }
+
+    private HTag GetProfileResourcesInfo(ProfileData profileData, HttpAdminSessionInfo sessionInfo)
+    {
+        var resourcesInfo = new HTag("div", new HProp("style", "float: left; margin-left:60px; margin-right: 60px;"))
+        {
+            { "h3", "Resources" },
+            { new HTag("table", new HProp("frame", "hsides")) },
+        };
+
         foreach (var resourceId in Enum.GetValues<ResourceId>())
         {
             if (resourceId == ResourceId.InventoryItems)
@@ -285,10 +338,32 @@ internal class PlayerSearchPage : IHtmlPage
 
             var localizationKey = "resource_name_" + resourceId.ToString().ToLower();
             var amount = ResourcesDictionary.Get(resourceId).GetValue(profileData);
-            var resourceView = resourceId.GetEmoji() + (Localization.Get(LanguageCode.EN, localizationKey) + ':').Bold() + $" {amount.View()}";
-            table.Add(CreateTableRow(resourceView));
+            var resourceView = resourceId.GetEmoji() + (Localization.Get(sessionInfo.languageCode, localizationKey) + ':').Bold() + $" {amount.View()}";
+            resourcesInfo["table"].Add(CreateTableRow(resourceView));
         }
-        return table;
+        return resourcesInfo;
+    }
+
+    private HTag GetProfileBuildingsInfo(ProfileBuildingsData buildingsData, HttpAdminSessionInfo sessionInfo)
+    {
+        var buildingsInfo = new HTag("div", new HProp("style", "float: left;"))
+        {
+            { "h3", "Buildings" },
+            { new HTag("table", new HProp("frame", "hsides")) },
+        };
+
+        foreach (var buildingId in Enum.GetValues<BuildingId>())
+        {
+            var building = buildingId.GetBuilding();
+            var level = building.GetCurrentLevel(buildingsData);
+            if (level < 1)
+            {
+                continue;
+            }
+            var buildingName = Emojis.ButtonBuildings + building.GetLocalizedName(sessionInfo.languageCode, buildingsData);
+            buildingsInfo["table"].Add(CreateTableRow(buildingName));
+        }
+        return buildingsInfo;
     }
 
     private HTag CreateTableRow(string header, params string[] args)
@@ -301,7 +376,7 @@ internal class PlayerSearchPage : IHtmlPage
         {
             var record = new HTag("td", arg);
             record.AddProperties(new HProp("align", "right"));
-            row.AddChild(record);
+            row.Add(record);
         }
         return row;
     }

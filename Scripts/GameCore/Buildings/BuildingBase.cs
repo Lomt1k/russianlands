@@ -92,6 +92,13 @@ public abstract class BuildingBase
             + (currentLevel > 0 ? Localization.Get(session, "level_suffix", currentLevel) : string.Empty);
     }
 
+    public string GetLocalizedName(LanguageCode languageCode, ProfileBuildingsData data)
+    {
+        var currentLevel = GetCurrentLevel(data);
+        return Localization.Get(languageCode, "building_name_" + buildingId.ToString())
+            + (currentLevel > 0 ? Localization.Get(languageCode, "level_suffix", currentLevel) : string.Empty);
+    }
+
     public string GetNextLevelLocalizedName(GameSession session, ProfileBuildingsData data)
     {
         if (IsMaxLevel(data))
