@@ -3,13 +3,11 @@ using MarkOne.Scripts.GameCore.Items;
 
 namespace MarkOne.Scripts.GameCore.Skills;
 
-public class SkillsDictionary
+public static class SkillsDictionary
 {
-    private readonly Dictionary<ItemType, ISkill> _dictionary;
+    private static readonly Dictionary<ItemType, ISkill> _dictionary;
 
-    public ISkill this[ItemType itemType] => _dictionary[itemType];
-
-    public SkillsDictionary()
+    static SkillsDictionary()
     {
         _dictionary = new Dictionary<ItemType, ISkill>
         {
@@ -24,7 +22,12 @@ public class SkillsDictionary
         };
     }
 
-    public IEnumerable<ItemType> GetAllSkillTypes()
+    public static ISkill Get(ItemType itemType)
+    {
+        return _dictionary[itemType];
+    }
+
+    public static IEnumerable<ItemType> GetAllSkillTypes()
     {
         foreach (var key in _dictionary.Keys)
         {
@@ -32,7 +35,7 @@ public class SkillsDictionary
         }
     }
 
-    public bool ContainsKey(ItemType itemType)
+    public static bool ContainsKey(ItemType itemType)
     {
         return _dictionary.ContainsKey(itemType);
     }

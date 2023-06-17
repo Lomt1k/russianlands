@@ -6,6 +6,7 @@ using MarkOne.Scripts.GameCore.Resources;
 using MarkOne.Scripts.GameCore.Services;
 using MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
 using MarkOne.Scripts.GameCore.Sessions;
+using MarkOne.Scripts.GameCore.Skills;
 using Obisoft.HSharp.Models;
 using System;
 using System.Collections.Specialized;
@@ -233,22 +234,24 @@ internal class PlayerSearchPage : IHtmlPage
         var isOnline = session is not null;
         var db = BotController.dataBase.db;
 
-        var generalInfo = GetGeneralProfileInfo(session?.profile.data ?? profileData, isOnline);
+        var firstTable = GetGeneralProfileInfo(session?.profile.data ?? profileData, isOnline);
         var equippedItemsInfo = await GetEquippedItemsInfo(session, sessionInfo, profileData).FastAwait();
-        generalInfo.Add(equippedItemsInfo);
+        firstTable.Add(equippedItemsInfo);
 
-        var resourceInfo = GetProfileResourcesInfo(session?.profile.data ?? profileData, sessionInfo);
+        var secondTable = GetProfileResourcesInfo(session?.profile.data ?? profileData, sessionInfo);
 
         var buildingsData = session?.profile.buildingsData ?? await db.Table<ProfileBuildingsData>().Where(x => x.dbid == profileData.dbid).FirstAsync().FastAwait();
-        var buildingsInfo = GetProfileBuildingsInfo(buildingsData, sessionInfo);
+        var thirdTable = GetProfileBuildingsInfo(buildingsData, sessionInfo);
+        var skillsInfo = GetProfileSkillsInfo(profileData, sessionInfo);
+        thirdTable.Add(skillsInfo);
 
         var centerBlock = new HTag("div", StylesHelper.CenterScreenBlock(1000, 900), new HProp("align", "center"))
         {
-            new HTag("div")
+            new HTag("div", new HProp("align", "left"))
             {
-                generalInfo,
-                resourceInfo,
-                buildingsInfo,
+                firstTable,
+                secondTable,
+                thirdTable,
             },
             new HTag("div", new HProp("align", "center"), new HProp("style", "clear: both;"))
             {
@@ -364,6 +367,28 @@ internal class PlayerSearchPage : IHtmlPage
             buildingsInfo["table"].Add(CreateTableRow(buildingName));
         }
         return buildingsInfo;
+    }
+
+    private HTag GetProfileSkillsInfo(ProfileData profileData, HttpAdminSessionInfo sessionInfo)
+    {
+        var skillsInfo = new HTag("div")
+        {
+            { "h3", "Skills" },
+            { new HTag("table", new HProp("frame", "hsides")) },
+        };
+
+        foreach (var itemType in SkillsDictionary.GetAllSkillTypes())
+        {
+            if (!SkillsDictionary.ContainsKey(itemType))
+            {
+                continue;
+            }
+
+            var value = SkillsDictionary.Get(itemType).GetValue(profileData);
+            var buildingName = itemType.GetEmoji() + itemType.GetLocalization(sessionInfo.languageCode) + $": {value}";
+            skillsInfo["table"].Add(CreateTableRow(buildingName));
+        }
+        return skillsInfo;
     }
 
     private HTag CreateTableRow(string header, params string[] args)

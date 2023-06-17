@@ -1,4 +1,5 @@
 ﻿using MarkOne.Scripts.Bot;
+using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Sessions;
 
 namespace MarkOne.Scripts.GameCore.Items;
@@ -71,6 +72,11 @@ static class ItemTypeExtensions
     public static string GetLocalization(this ItemType category, GameSession session)
     {
         return Localizations.Localization.Get(session, $"menu_item_{category.ToString().ToLower()}");
+    }
+
+    public static string GetLocalization(this ItemType category, LanguageCode languageCode)
+    {
+        return Localizations.Localization.Get(languageCode, $"menu_item_{category.ToString().ToLower()}");
     }
 
     public static Emoji GetEmoji(this ItemType itemType)
