@@ -2,6 +2,7 @@
 using System;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.Bot;
+using MarkOne.Scripts.GameCore.Services.BotData.SerializableData.DataTypes;
 
 namespace MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
 
@@ -21,7 +22,7 @@ public class ProfileData : DataWithSession
     [MaxLength(24)] public string lastActivityTime { get; set; }
     [MaxLength(16)] public string lastVersion { get; set; }
 
-    public int adminStatus { get; set; }
+    public AdminStatus adminStatus { get; set; }
     public byte level { get; set; } = 1;
     public byte freeNickChanges { get; set; } = 1;
     public long endPremiumTime { get; set; }

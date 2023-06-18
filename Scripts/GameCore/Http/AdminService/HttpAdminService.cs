@@ -1,7 +1,9 @@
 ﻿using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Http.AdminService.HtmlPages;
+using MarkOne.Scripts.GameCore.Http.AdminService.HtmlPages.PlayerControl;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
+using MarkOne.Scripts.GameCore.Services.BotData.SerializableData.DataTypes;
 using Obisoft.HSharp.Models;
 using SimpleHttp;
 using System;
@@ -44,6 +46,8 @@ public class HttpAdminService : IHttpService
         RegisterPage(_mainPage);
         RegisterPage(new ShowLogPage());
         RegisterPage(new PlayerSearchPage());
+
+        RegisterPage(new AddResourcePage());
     }
 
     private void RegisterPage(IHtmlPage page)
@@ -99,7 +103,7 @@ public class HttpAdminService : IHttpService
             var success = _loginWidget.CheckAuthorization(info) == Authorization.Valid;
             if (!success)
             {
-                response.AsText("<h3>Telegram login fail.</h3>");
+                response.AsTextUTF8("<h3>Telegram login fail.</h3>");
                 response.StatusCode = 403;
                 return null;
             }
@@ -110,10 +114,10 @@ public class HttpAdminService : IHttpService
                 return null;
             }
             var longTelegramId = long.Parse(telegramId);
-            var adminLevel = await GetActualAdminLevel(longTelegramId).FastAwait();
-            if (adminLevel < 1)
+            var adminStatus = await GetActualAdminStatus(longTelegramId).FastAwait();
+            if (adminStatus == AdminStatus.None)
             {
-                response.AsText("<h3>You dont have admin rights</h3>");
+                response.AsTextUTF8("<h3>You dont have admin rights</h3>");
                 response.StatusCode = 403;
                 response.Close();
                 return null;
@@ -171,17 +175,17 @@ public class HttpAdminService : IHttpService
         return document.GenerateHTML();
     }
 
-    private async Task<int> GetActualAdminLevel(long telegramId)
+    private async Task<AdminStatus> GetActualAdminStatus(long telegramId)
     {
         if (_withoutLogin)
         {
-            return 1337;
+            return AdminStatus.Root;
         }
 
         var db = BotController.dataBase.db;
         var query = db.Table<ProfileData>().Where(x => x.telegram_id == telegramId);
         var profileData = await query.FirstOrDefaultAsync().FastAwait();
-        return profileData is not null ? profileData.adminStatus : 0;
+        return profileData is not null ? profileData.adminStatus : AdminStatus.None;
     }
 
     private async Task<LanguageCode> GetLanguageCode(long telegramId)

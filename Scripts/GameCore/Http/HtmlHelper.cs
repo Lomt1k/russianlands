@@ -2,7 +2,6 @@
 using Obisoft.HSharp.Models;
 
 namespace MarkOne.Scripts.GameCore.Http;
-public record struct InputFieldInfo(string id, string placeholder, bool isHidden = false);
 
 public static class HtmlHelper
 {
@@ -22,10 +21,10 @@ public static class HtmlHelper
         var document = CreateDocument(title);
         document["html"]["body"].AddProperties(StylesHelper.CenterScreenParent());
         var div = new HTag("div", StylesHelper.CenterScreenBlock(700, 250))
-            {
-                { "h1", error },
-                CreateLinkButton("<< Back", backButtonUrl),
-            };
+        {
+            { "h1", error },
+            CreateLinkButton("<< Back", backButtonUrl),
+        };
         document["html"]["body"].Add(div);
         return document;
     }
@@ -39,7 +38,7 @@ public static class HtmlHelper
         return result;
     }
 
-    public static HTag CreateForm(string url, string page, string buttonText, InputFieldInfo inputField)
+    public static HTag CreateSimpleForm(string url, string page, string buttonText, string id, string placeholder)
     {
         var form = new HTag("form", new HProp("action", url), new HProp("method", "GET"));
         form.AddChild("div");
@@ -48,47 +47,13 @@ public static class HtmlHelper
         {
             { "input", new HProp("id", "page"), new HProp("name", "page"), new HProp("value", page), new HProp("type", "hidden") },
             { 
-                "input", new HProp("id", inputField.id), new HProp("name", inputField.id), new HProp("placeholder", inputField.placeholder),
+                "input", new HProp("id", id), new HProp("name", id), new HProp("placeholder", placeholder),
                 new HProp("style", "border: 2px solid gray; border-radius: 4px; height: 50px; margin-right: 20px; font-size:28px;")
             },
             { "button", buttonText, StylesHelper.Button("#808080", 24) },
         };
 
         form.AddChild(div);
-        return form;
-    }
-
-    public static HTag CreateForm(string url, string page, string header, string buttonText, params InputFieldInfo[] inputFields)
-    {
-        var form = new HTag("form", new HProp("action", url), new HProp("method", "GET"));
-        form.Add("div").Add("h1", header);
-
-        var fieldsDiv = form.Add("div");
-        fieldsDiv.Add("input", new HProp("id", "page"), new HProp("name", "page"), new HProp("value", page), new HProp("type", "hidden"));
-
-        foreach (var input in inputFields)
-        {
-            var div = new HTag("div")
-            {
-                { 
-                    "input",
-                    new HProp("id", input.id), new HProp("name", input.id), new HProp("placeholder", input.placeholder),
-                    new HProp("style", "border: 2px solid gray; border-radius: 4px; height: 50px; margin-bottom: 10px; font-size:28px;")
-                }
-            };
-            if (input.isHidden)
-            {
-                div["input"].AddProperties(new HProp("type", "hidden"));
-            }
-            form.AddChild(div);
-        }
-
-        var buttonDiv = new HTag("div")
-        {
-            { "button", buttonText, StylesHelper.Button("#808080", 24) }
-        };
-        form.AddChild(buttonDiv);
-
         return form;
     }
 

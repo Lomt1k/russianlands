@@ -71,14 +71,19 @@ internal class PlayerSearchPage : IHtmlPage
         document["html"]["body"].Add(centerScreenBlock);
 
         // seach
-        centerScreenBlock.Add(HtmlHelper.CreateForm(localPath, page, "Search", new InputFieldInfo("telegramId", "Search by Telegram ID")));
-        centerScreenBlock.Add(HtmlHelper.CreateForm(localPath, page, "Search", new InputFieldInfo("username", "Search by @username")));
-        centerScreenBlock.Add(HtmlHelper.CreateForm(localPath, page, "Search", new InputFieldInfo("nickname", "Search by game nickname")));
+        centerScreenBlock.Add(HtmlHelper.CreateSimpleForm(localPath, page, "Search", "telegramId", "Search by Telegram ID"));
+        centerScreenBlock.Add(HtmlHelper.CreateSimpleForm(localPath, page, "Search", "username", "Search by @username"));
+        centerScreenBlock.Add(HtmlHelper.CreateSimpleForm(localPath, page, "Search", "nickname", "Search by game nickname"));
 
-        centerScreenBlock.Add(HtmlHelper.CreateForm(localPath, page, "Search by Telegram name", "Search",
-            new InputFieldInfo("firstName", "First Name"),
-            new InputFieldInfo("lastName", "Last Name")
-            )).AddProperties(new HProp("style", "margin-top: 50px;"));
+        var searchByNameForm = new HtmlFormBuilder(localPath)
+            .AddHeader("Search by Telegram name")
+            .AddHiddenInput("page", page)
+            .AddInput("firstName", "First Name")
+            .AddInput("lastName", "Last Name")
+            .AddButton("Search")
+            .GetResult();
+        searchByNameForm.AddProperties(new HProp("style", "margin-top: 50px;"));
+        centerScreenBlock.Add(searchByNameForm);
 
         var bottomPanel = new HTag("div", new HProp("align", "center"), new HProp("style", "margin-top: 100px;"))
         {
@@ -256,7 +261,8 @@ internal class PlayerSearchPage : IHtmlPage
             new HTag("div", new HProp("align", "center"), new HProp("style", "clear: both; margin-top:60px;"))
             {
                 HtmlHelper.CreateLinkButton("<< Back", localPath + $"?page={page}" + (fromActivePlayers ? "&showActivePlayers=" : string.Empty) ),
-                HtmlHelper.CreateLinkButton("Last Logs", localPath + $"?page=showLog&mode=search&searchId={profileData.telegram_id}" + (fromActivePlayers ? "&showActivePlayers=" : string.Empty), color: "#808080")
+                HtmlHelper.CreateLinkButton("Last Logs", localPath + $"?page=showLog&mode=search&searchId={profileData.telegram_id}" + (fromActivePlayers ? "&showActivePlayers=" : string.Empty), color: "#808080"),
+                HtmlHelper.CreateLinkButton("Add Resource", localPath + $"?page=addResource&telegramId={profileData.telegram_id}" + (fromActivePlayers ? "&showActivePlayers=" : string.Empty), color: "#808080")
             }
         };
         document["html"]["body"].Add(centerBlock);
