@@ -253,9 +253,10 @@ internal class PlayerSearchPage : IHtmlPage
                 secondTable,
                 thirdTable,
             },
-            new HTag("div", new HProp("align", "center"), new HProp("style", "clear: both;"))
+            new HTag("div", new HProp("align", "center"), new HProp("style", "clear: both; margin-top:60px;"))
             {
                 HtmlHelper.CreateLinkButton("<< Back", localPath + $"?page={page}" + (fromActivePlayers ? "&showActivePlayers=" : string.Empty) ),
+                HtmlHelper.CreateLinkButton("Last Logs", localPath + $"?page=showLog&mode=search&searchId={profileData.telegram_id}" + (fromActivePlayers ? "&showActivePlayers=" : string.Empty), color: "#808080")
             }
         };
         document["html"]["body"].Add(centerBlock);

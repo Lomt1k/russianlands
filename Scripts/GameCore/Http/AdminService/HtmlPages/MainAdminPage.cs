@@ -52,16 +52,20 @@ internal class MainAdminPage : IHtmlPage
         centerScreenBlock.Add(table);
 
         // top buttons
-        var topButtons = new HTag("div", new HProp("style", "margin: 15px 0;"));
-        topButtons.Add(HtmlHelper.CreateLinkButton("Last Log", localPath + "?page=showLog&fileName=appLog.log"));
-        topButtons.Add(HtmlHelper.CreateLinkButton("Last Errors", localPath + "?page=showLog&fileName=errors.log"));
-        topButtons.Add(HtmlHelper.CreateLinkButton("Logs List", localPath + "?page=showLog&mode=list"));
+        var topButtons = new HTag("div", new HProp("style", "margin: 15px 0;"))
+        {
+            HtmlHelper.CreateLinkButton("Last Log", localPath + "?page=showLog&fileName=appLog.log"),
+            HtmlHelper.CreateLinkButton("Last Errors", localPath + "?page=showLog&fileName=errors.log"),
+            HtmlHelper.CreateLinkButton("Logs List", localPath + "?page=showLog&mode=list")
+        };
         centerScreenBlock.Add(topButtons);
 
         // other buttons
-        var otherButtons = new HTag("div", new HProp("style", "margin: 200px 0;"));
-        otherButtons.Add(HtmlHelper.CreateLinkButton("Active Players", localPath + "?page=playerSearch&showActivePlayers=", color: "#808080"));
-        otherButtons.Add(HtmlHelper.CreateLinkButton("Player Search", localPath + "?page=playerSearch", color: "#808080"));
+        var otherButtons = new HTag("div", new HProp("style", "margin: 200px 0;"))
+        {
+            HtmlHelper.CreateLinkButton("Active Players", localPath + "?page=playerSearch&showActivePlayers=", color: "#808080"),
+            HtmlHelper.CreateLinkButton("Player Search", localPath + "?page=playerSearch", color: "#808080")
+        };
         centerScreenBlock.Add(otherButtons);
 
         // send document
@@ -71,8 +75,10 @@ internal class MainAdminPage : IHtmlPage
 
     private HTag CreateTableRow(string header, params string[] args)
     {
-        var row = new HTag("tr");
-        row.Add("th", header);
+        var row = new HTag("tr")
+        {
+            { "th", header }
+        };
         foreach (var arg in args)
         {
             var record = new HTag("td", arg);
