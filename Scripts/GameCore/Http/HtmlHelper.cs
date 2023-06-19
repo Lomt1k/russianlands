@@ -16,7 +16,7 @@ public static class HtmlHelper
         return document;
     }
 
-    public static HDoc CreateErrorPage(string title, string error, string backButtonUrl)
+    public static HDoc CreateMessagePage(string title, string error, string backButtonUrl)
     {
         var document = CreateDocument(title);
         document["html"]["body"].AddProperties(StylesHelper.CenterScreenParent());

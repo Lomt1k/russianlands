@@ -105,7 +105,7 @@ internal class PlayerSearchPage : IHtmlPage
     {
         if (!long.TryParse(telegramId, out var longTelegramId))
         {
-            var document = HtmlHelper.CreateErrorPage("Player Search", "Incorrect Telegram ID", localPath + $"?page={page}");
+            var document = HtmlHelper.CreateMessagePage("Player Search", "Incorrect Telegram ID", localPath + $"?page={page}");
             response.AsTextUTF8(document.GenerateHTML());
             response.Close();
             return;
@@ -116,7 +116,7 @@ internal class PlayerSearchPage : IHtmlPage
         var profileData = await query.FirstOrDefaultAsync().FastAwait();
         if (profileData == null)
         {
-            var document = HtmlHelper.CreateErrorPage("Player Search", $"Player with TelegramID {longTelegramId} not found", localPath + $"?page={page}");
+            var document = HtmlHelper.CreateMessagePage("Player Search", $"Player with TelegramID {longTelegramId} not found", localPath + $"?page={page}");
             response.AsTextUTF8(document.GenerateHTML());
             response.Close();
             return;
@@ -134,7 +134,7 @@ internal class PlayerSearchPage : IHtmlPage
         var profileData = await query.FirstOrDefaultAsync().FastAwait();
         if (profileData == null)
         {
-            var document = HtmlHelper.CreateErrorPage("Player Search", $"Player with username @{username} not found", localPath + $"?page={page}");
+            var document = HtmlHelper.CreateMessagePage("Player Search", $"Player with username @{username} not found", localPath + $"?page={page}");
             response.AsTextUTF8(document.GenerateHTML());
             response.Close();
             return;
@@ -150,7 +150,7 @@ internal class PlayerSearchPage : IHtmlPage
         var profileDatas  = await query.Take(100).ToArrayAsync().FastAwait();
         if (profileDatas.Length < 1)
         {
-            var document = HtmlHelper.CreateErrorPage("Player Search", $"Player with nickname '{nickname}' not found", localPath + $"?page={page}");
+            var document = HtmlHelper.CreateMessagePage("Player Search", $"Player with nickname '{nickname}' not found", localPath + $"?page={page}");
             response.AsTextUTF8(document.GenerateHTML());
             response.Close();
             return;
@@ -176,7 +176,7 @@ internal class PlayerSearchPage : IHtmlPage
         if (profileDatas.Length < 1)
         {
             var name = (string.IsNullOrEmpty(firstName) ? string.Empty : firstName) + ' ' + (string.IsNullOrEmpty(lastName) ? string.Empty : lastName);
-            var document = HtmlHelper.CreateErrorPage("Player Search", $"Player with name '{name}' not found", localPath + $"?page={page}");
+            var document = HtmlHelper.CreateMessagePage("Player Search", $"Player with name '{name}' not found", localPath + $"?page={page}");
             response.AsTextUTF8(document.GenerateHTML());
             response.Close();
             return;

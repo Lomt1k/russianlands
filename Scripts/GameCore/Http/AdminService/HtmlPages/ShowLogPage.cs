@@ -32,7 +32,7 @@ internal class ShowLogPage : IHtmlPage
         var fileName = query["fileName"];
         if (string.IsNullOrEmpty(fileName))
         {
-            var error = HtmlHelper.CreateErrorPage("Show Log List", $"File with name '" + (fileName is null ? string.Empty : fileName) + "' not found", localPath + $"?page={page}");
+            var error = HtmlHelper.CreateMessagePage("Show Log List", $"File with name '" + (fileName is null ? string.Empty : fileName) + "' not found", localPath + $"?page={page}");
             response.AsTextUTF8(error.GenerateHTML());
             response.Close();
             return;

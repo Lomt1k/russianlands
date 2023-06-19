@@ -40,7 +40,7 @@ public class Profile
         }
     }
 
-    private async Task SaveProfile()
+    public async Task SaveProfile()
     {
         var db = BotController.dataBase.db;
         await db.UpdateAsync(data).FastAwait();
