@@ -123,10 +123,10 @@ public class HttpAdminService : IHttpService
                 return null;
             }
 
-            var languageCode = await GetLanguageCode(longTelegramId).FastAwait();
+            var adminData = await GetAdminData(longTelegramId).FastAwait();
 
             var sessionId = Guid.NewGuid().ToString();
-            var sessionInfo = new HttpAdminSessionInfo(longTelegramId, languageCode);
+            var sessionInfo = new HttpAdminSessionInfo(longTelegramId, adminData.languageCode, adminData.user);
             _sessions.Add(sessionId, sessionInfo);
             response.SetCookie(new Cookie("x_admin_session", sessionId));
             return sessionId;
@@ -135,7 +135,7 @@ public class HttpAdminService : IHttpService
         if (_withoutLogin)
         {
             var sessionId = Guid.NewGuid().ToString();
-            var sessionInfo = new HttpAdminSessionInfo(-1, BotController.config.defaultLanguageCode);
+            var sessionInfo = new HttpAdminSessionInfo(-1, BotController.config.defaultLanguageCode, new SimpleUser() { id = -1, firstName = "Unknown" });
             _sessions.Add(sessionId, sessionInfo);
             response.SetCookie(new Cookie("x_admin_session", sessionId));
             return sessionId;
@@ -188,12 +188,29 @@ public class HttpAdminService : IHttpService
         return profileData is not null ? profileData.adminStatus : AdminStatus.None;
     }
 
-    private async Task<LanguageCode> GetLanguageCode(long telegramId)
+
+    private record AdminData(LanguageCode languageCode, SimpleUser user);
+    private async Task<AdminData> GetAdminData(long telegramId)
     {
         var db = BotController.dataBase.db;
         var query = db.Table<ProfileData>().Where(x => x.telegram_id == telegramId);
         var profileData = await query.FirstOrDefaultAsync().FastAwait();
-        return profileData is not null ? profileData.language : BotController.config.defaultLanguageCode;
+        var languageCode = profileData is not null ? profileData.language : BotController.config.defaultLanguageCode;
+        var user = profileData is not null
+            ? new SimpleUser
+            {
+                id = profileData.telegram_id,
+                firstName = profileData.firstName,
+                lastName = profileData.lastName,
+                username = profileData.username,
+            }
+            : new SimpleUser()
+            {
+                id = -1,
+                firstName = "Unknown"
+            };
+        var firstName = profileData is not null ? profileData.firstName : "Unknown";
+        return new AdminData(languageCode, user);
     }
 
 }

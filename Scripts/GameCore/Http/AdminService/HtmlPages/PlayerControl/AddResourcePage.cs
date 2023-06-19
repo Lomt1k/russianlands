@@ -1,4 +1,5 @@
 ﻿using MarkOne.Scripts.Bot;
+using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Resources;
 using MarkOne.Scripts.GameCore.Services;
 using MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
@@ -17,6 +18,12 @@ internal class AddResourcePage : IHtmlPage
     private static readonly SessionManager sessionManager = ServiceLocator.Get<SessionManager>();
 
     public string page => "addResource";
+
+    /*
+     * TODO:
+     * - Логирование выдачи ресурсов
+     * - Отображение уведомлений у игрока
+     */
 
     public async Task ShowPage(HttpListenerResponse response, HttpAdminSessionInfo sessionInfo, NameValueCollection query, string localPath)
     {
@@ -57,7 +64,7 @@ internal class AddResourcePage : IHtmlPage
             }
             
             // apply changes
-            await AddResource(response, query, localPath, parsedTelegramId, new ResourceData(parsedResourceId, parsedAmount)).FastAwait();
+            await AddResource(response, sessionInfo, query, localPath, parsedTelegramId, new ResourceData(parsedResourceId, parsedAmount)).FastAwait();
             return;
         }
 
@@ -93,12 +100,14 @@ internal class AddResourcePage : IHtmlPage
         response.Close();
     }
 
-    private async Task AddResource(HttpListenerResponse response, NameValueCollection query, string localPath, long telegramId, ResourceData resourceData)
+    private async Task AddResource(HttpListenerResponse response, HttpAdminSessionInfo sessionInfo, NameValueCollection query, string localPath, long telegramId, ResourceData resourceData)
     {
         var session = sessionManager.GetSessionIfExists(telegramId);
         if (session is not null)
         {
             session.player.resources.ForceAdd(resourceData);
+            var notification = Localization.Get(session, "notification_admin_add_resource", sessionInfo.GetAdminView(), resourceData.GetCompactView(shortView: false));
+            session.profile.data.AddSpecialNotification(notification);
             await session.profile.SaveProfile().FastAwait();
         }
         else
@@ -113,6 +122,8 @@ internal class AddResourcePage : IHtmlPage
                 return;
             }
             ResourcesDictionary.Get(resourceData.resourceId).AddValue(profileData, resourceData.amount);
+            var notification = Localization.Get(profileData.language, "notification_admin_add_resource", sessionInfo.GetAdminView(), resourceData.GetCompactView(shortView: false));
+            profileData.AddSpecialNotification(notification);
             await db.UpdateAsync(profileData).FastAwait();
         }
 
