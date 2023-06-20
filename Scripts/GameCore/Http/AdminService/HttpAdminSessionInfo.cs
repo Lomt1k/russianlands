@@ -21,12 +21,7 @@ public class HttpAdminSessionInfo
 
     public string GetAdminView()
     {
-        return $"{user.firstName} #{telegramId % 10000}";
-    }
-
-    public string GetAdminViewForLogs()
-    {
-        return user.ToString();
+        return user.firstName + (telegramId > -1 ? $" #{telegramId % 10000}" : string.Empty);
     }
 
 }

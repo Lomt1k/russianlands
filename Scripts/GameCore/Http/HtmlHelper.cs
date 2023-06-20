@@ -22,7 +22,7 @@ public static class HtmlHelper
         document["html"]["body"].AddProperties(StylesHelper.CenterScreenParent());
         var div = new HTag("div", StylesHelper.CenterScreenBlock(700, 250))
         {
-            { "h1", error },
+            { "h3", error },
             CreateLinkButton("<< Back", backButtonUrl),
         };
         document["html"]["body"].Add(div);

@@ -19,12 +19,6 @@ internal class AddResourcePage : IHtmlPage
 
     public string page => "addResource";
 
-    /*
-     * TODO:
-     * - Логирование выдачи ресурсов
-     * - Отображение уведомлений у игрока
-     */
-
     public async Task ShowPage(HttpListenerResponse response, HttpAdminSessionInfo sessionInfo, NameValueCollection query, string localPath)
     {
         var showActivePlayers = query["showActivePlayers"];
@@ -54,7 +48,7 @@ internal class AddResourcePage : IHtmlPage
         var amount = query["amount"];
         if (resourceId is not null && amount is not null)
         {
-            // add resource id
+            // add resource
             if (!Enum.TryParse<ResourceId>(resourceId, ignoreCase: true, out var parsedResourceId) || !int.TryParse(amount, out var parsedAmount))
             {
                 var error = HtmlHelper.CreateMessagePage("Bad request", $"Incorrent 'amount' or 'resourceId'", localPath);
@@ -63,12 +57,11 @@ internal class AddResourcePage : IHtmlPage
                 return;
             }
             
-            // apply changes
             await AddResource(response, sessionInfo, query, localPath, parsedTelegramId, new ResourceData(parsedResourceId, parsedAmount)).FastAwait();
             return;
         }
 
-        // show add resource id dialog
+        // show add resource dialog
         var document = HtmlHelper.CreateDocument("Add Resource");
         document["html"]["body"].AddProperties(StylesHelper.CenterScreenParent());
 
@@ -106,9 +99,10 @@ internal class AddResourcePage : IHtmlPage
         if (session is not null)
         {
             session.player.resources.ForceAdd(resourceData);
-            var notification = Localization.Get(session, "notification_admin_add_resource", sessionInfo.GetAdminView(), resourceData.GetCompactView(shortView: false));
+            var notification = Localization.Get(session, "notification_admin_add_resource", sessionInfo.GetAdminView(), resourceData.GetLocalizedView(session));
             session.profile.data.AddSpecialNotification(notification);
             await session.profile.SaveProfile().FastAwait();
+            ShowSuccessfullAddResource(response, sessionInfo, query, localPath, session.profile.data, resourceData);
         }
         else
         {
@@ -122,12 +116,25 @@ internal class AddResourcePage : IHtmlPage
                 return;
             }
             ResourcesDictionary.Get(resourceData.resourceId).AddValue(profileData, resourceData.amount);
-            var notification = Localization.Get(profileData.language, "notification_admin_add_resource", sessionInfo.GetAdminView(), resourceData.GetCompactView(shortView: false));
+            var notification = Localization.Get(profileData.language, "notification_admin_add_resource", sessionInfo.GetAdminView(), resourceData.GetLocalizedView(profileData.language));
             profileData.AddSpecialNotification(notification);
             await db.UpdateAsync(profileData).FastAwait();
+            ShowSuccessfullAddResource(response, sessionInfo, query, localPath, profileData, resourceData);
         }
+    }
 
-        var success = HtmlHelper.CreateMessagePage("Success", $"Successfully adds {resourceData.GetCompactView(shortView: false)} for ID {telegramId}", GetBackUrl(query, localPath));
+    private void ShowSuccessfullAddResource(HttpListenerResponse response, HttpAdminSessionInfo sessionInfo, NameValueCollection query, string localPath, ProfileData profileData, ResourceData resourceData)
+    {
+        var playerUser = new SimpleUser
+        {
+            id = profileData.telegram_id,
+            firstName = profileData.firstName,
+            lastName = profileData.lastName,
+            username = profileData.username,
+        };
+        Program.logger.Info($"Administrator {sessionInfo.user} gave the player {playerUser} {resourceData.GetLocalizedView(sessionInfo.languageCode)}");
+
+        var success = HtmlHelper.CreateMessagePage("Success", $"Successfully adds\n{resourceData.GetLocalizedView(sessionInfo.languageCode)}\nfor {playerUser}", GetBackUrl(query, localPath));
         response.AsTextUTF8(success.GenerateHTML());
         response.Close();
     }
