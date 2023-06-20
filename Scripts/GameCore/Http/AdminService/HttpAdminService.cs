@@ -47,7 +47,9 @@ public class HttpAdminService : IHttpService
         RegisterPage(new ShowLogPage());
         RegisterPage(new PlayerSearchPage());
 
+        // player control
         RegisterPage(new AddResourcePage());
+        RegisterPage(new AddItemPage());
     }
 
     private void RegisterPage(IHtmlPage page)

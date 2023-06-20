@@ -262,7 +262,8 @@ internal class PlayerSearchPage : IHtmlPage
             {
                 HtmlHelper.CreateLinkButton("<< Back", localPath + $"?page={page}" + (fromActivePlayers ? "&showActivePlayers=" : string.Empty) ),
                 HtmlHelper.CreateLinkButton("Last Logs", localPath + $"?page=showLog&mode=search&searchId={profileData.telegram_id}" + (fromActivePlayers ? "&showActivePlayers=" : string.Empty), color: "#808080"),
-                HtmlHelper.CreateLinkButton("Add Resource", localPath + $"?page=addResource&telegramId={profileData.telegram_id}" + (fromActivePlayers ? "&showActivePlayers=" : string.Empty), color: "#808080")
+                HtmlHelper.CreateLinkButton("Add Resource", localPath + $"?page=addResource&telegramId={profileData.telegram_id}" + (fromActivePlayers ? "&showActivePlayers=" : string.Empty), color: "#808080"),
+                HtmlHelper.CreateLinkButton("Add Item", localPath + $"?page=addItem&telegramId={profileData.telegram_id}" + (fromActivePlayers ? "&showActivePlayers=" : string.Empty), color: "#808080"),
             }
         };
         document["html"]["body"].Add(centerBlock);
