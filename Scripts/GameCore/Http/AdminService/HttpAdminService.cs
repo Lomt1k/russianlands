@@ -50,6 +50,7 @@ public class HttpAdminService : IHttpService
         // player control
         RegisterPage(new AddResourcePage());
         RegisterPage(new AddItemPage());
+        RegisterPage(new SetBuildingLevelPage());
     }
 
     private void RegisterPage(IHtmlPage page)

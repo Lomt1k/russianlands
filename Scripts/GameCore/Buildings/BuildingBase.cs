@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using log4net.Core;
 using MarkOne.Scripts.GameCore.Buildings.Data;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
@@ -87,9 +88,7 @@ public abstract class BuildingBase
 
     public string GetLocalizedName(GameSession session, ProfileBuildingsData data)
     {
-        var currentLevel = GetCurrentLevel(data);
-        return Localization.Get(session, "building_name_" + buildingId.ToString())
-            + (currentLevel > 0 ? Localization.Get(session, "level_suffix", currentLevel) : string.Empty);
+        return GetLocalizedName(session.language, data);
     }
 
     public string GetLocalizedName(LanguageCode languageCode, ProfileBuildingsData data)
@@ -210,6 +209,7 @@ public abstract class BuildingBase
     // Этот метод используется только для чита!
     public void Cheat_SetCurrentLevel(ProfileBuildingsData data, byte level)
     {
+        level = (byte)Math.Clamp(level, 0, buildingData.levels.Count);
         SetCurrentLevel(data, level);
         SetStartConstructionTime(data, DateTime.MinValue);
     }

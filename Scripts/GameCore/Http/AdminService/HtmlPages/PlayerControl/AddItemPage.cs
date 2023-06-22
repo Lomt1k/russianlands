@@ -137,6 +137,7 @@ internal class AddItemPage : IHtmlPage
 
             var notification = Localization.Get(profileData.language, "notification_admin_add_resource", sessionInfo.GetAdminView(), item.GetFullName(profileData.language));
             profileData.AddSpecialNotification(notification);
+            await db.UpdateAsync(profileData).FastAwait();
             await db.UpdateAsync(rawDynamicData).FastAwait();
             ShowSuccessfullAddItem(response, sessionInfo, query, localPath, profileData, item);
         }
