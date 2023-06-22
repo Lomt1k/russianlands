@@ -2,9 +2,12 @@
 using MarkOne.Scripts.GameCore.Buildings;
 using MarkOne.Scripts.GameCore.Items;
 using MarkOne.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.GameCore.Quests;
+using MarkOne.Scripts.GameCore.Quests.QuestStages;
 using MarkOne.Scripts.GameCore.Resources;
 using MarkOne.Scripts.GameCore.Services;
 using MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
+using MarkOne.Scripts.GameCore.Services.GameData;
 using MarkOne.Scripts.GameCore.Sessions;
 using MarkOne.Scripts.GameCore.Skills;
 using Obisoft.HSharp.Models;
@@ -18,6 +21,7 @@ namespace MarkOne.Scripts.GameCore.Http.AdminService.HtmlPages;
 internal class PlayerSearchPage : IHtmlPage
 {
     private static readonly SessionManager sessionManager = ServiceLocator.Get<SessionManager>();
+    private static readonly GameDataHolder gameDataHolder = ServiceLocator.Get<GameDataHolder>();
 
     public string page => "playerSearch";
 
@@ -240,7 +244,7 @@ internal class PlayerSearchPage : IHtmlPage
         var db = BotController.dataBase.db;
 
         var firstTable = GetGeneralProfileInfo(session?.profile.data ?? profileData, isOnline);
-        var equippedItemsInfo = await GetEquippedItemsInfo(session, sessionInfo, profileData).FastAwait();
+        var equippedItemsInfo = await GetDynamicDataInfo(session, sessionInfo, profileData).FastAwait();
         firstTable.Add(equippedItemsInfo);
 
         var secondTable = GetProfileResourcesInfo(session?.profile.data ?? profileData, sessionInfo);
@@ -308,12 +312,14 @@ internal class PlayerSearchPage : IHtmlPage
         return generalInfo;
     }
 
-    private async Task<HTag> GetEquippedItemsInfo(GameSession? session, HttpAdminSessionInfo sessionInfo, ProfileData profileData)
+    private async Task<HTag> GetDynamicDataInfo(GameSession? session, HttpAdminSessionInfo sessionInfo, ProfileData profileData)
     {
         InventoryItem[]? equippedItems = null;
+        PlayerQuestsProgress? questsProgress = null;
         if (session is not null)
         {
             equippedItems = session.player.inventory.equipped.allEquipped;
+            questsProgress = session.profile.dynamicData.quests;
         }
         else
         {
@@ -321,19 +327,43 @@ internal class PlayerSearchPage : IHtmlPage
             var rawDynamicData = await db.Table<RawProfileDynamicData>().Where(x => x.dbid == profileData.dbid).FirstAsync().FastAwait();
             var dynamicData = ProfileDynamicData.Deserialize(rawDynamicData);
             equippedItems = dynamicData.inventory.equipped.allEquipped;
+            questsProgress = dynamicData.quests;
         }
 
-        var equippedItemsInfo = new HTag("div")
+        var dynamicInfo = new HTag("div")
         {
             { "h3", "Equipped Items" },
             { "table", new HProp("frame", "hsides") },
+            { "h3", "Quest Progress" },
         };
         foreach (var item in equippedItems)
         {
             var row = CreateTableRow(item.GetFullName(sessionInfo.languageCode));
-            equippedItemsInfo["table"].Add(row);
+            dynamicInfo["table"].Add(row);
         }
-        return equippedItemsInfo;
+
+        var focusedQuest = questsProgress.GetFocusedQuest();
+        QuestStage? questStage = null;
+        var battlePoints = string.Empty;
+        if (focusedQuest.HasValue)
+        {
+            var stageId = questsProgress.GetStage(focusedQuest.Value);
+            gameDataHolder.quests.TryGetValue(focusedQuest.Value, out var questData);            
+            questData.TryGetStageById(stageId, out questStage);
+            var completedPoints = questData.GetCompletedBattleByCurrentStageId(stageId);
+            battlePoints = $"{completedPoints} / {questData.battlePointsCount}";
+        }        
+        var questsTable = new HTag("table", new HProp("frame", "hsides"))
+        {
+            CreateTableRow("Focused Quest: " + focusedQuest.ToString()),
+            CreateTableRow("Progress: " + battlePoints),
+            CreateTableRow("Stage: " + (questStage is not null ? questStage.id : string.Empty) ),
+            //CreateTableRow(questStage is not null ? questStage.comment : string.Empty),
+        };
+        dynamicInfo.Add(questsTable);
+
+
+        return dynamicInfo;
     }
 
     private HTag GetProfileResourcesInfo(ProfileData profileData, HttpAdminSessionInfo sessionInfo)
