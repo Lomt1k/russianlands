@@ -264,7 +264,9 @@ internal class PlayerSearchPage : IHtmlPage
                 HtmlHelper.CreateLinkButton("Last Logs", localPath + $"?page=showLog&mode=search&searchId={profileData.telegram_id}" + (fromActivePlayers ? "&showActivePlayers=" : string.Empty), color: "#808080"),
                 HtmlHelper.CreateLinkButton("Add Resource", localPath + $"?page=addResource&telegramId={profileData.telegram_id}" + (fromActivePlayers ? "&showActivePlayers=" : string.Empty), color: "#808080"),
                 HtmlHelper.CreateLinkButton("Add Item", localPath + $"?page=addItem&telegramId={profileData.telegram_id}" + (fromActivePlayers ? "&showActivePlayers=" : string.Empty), color: "#808080"),
+                "br",
                 HtmlHelper.CreateLinkButton("Set Building Level", localPath + $"?page=setBuildingLevel&telegramId={profileData.telegram_id}" + (fromActivePlayers ? "&showActivePlayers=" : string.Empty), color: "#808080"),
+                HtmlHelper.CreateLinkButton("Set Skill Level", localPath + $"?page=setSkillLevel&telegramId={profileData.telegram_id}" + (fromActivePlayers ? "&showActivePlayers=" : string.Empty), color: "#808080"),
             }
         };
         document["html"]["body"].Add(centerBlock);

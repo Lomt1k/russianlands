@@ -55,28 +55,33 @@ static class ItemTypeExtensions
 
     public static string GetCategoryLocalization(this ItemType category, GameSession session)
     {
+        return category.GetCategoryLocalization(session.language);
+    }
+
+    public static string GetCategoryLocalization(this ItemType category, LanguageCode languageCode)
+    {
         switch (category)
         {
             case ItemType.Equipped:
-                return Localizations.Localization.Get(session, $"menu_item_equipped");
+                return Localization.Get(languageCode, $"menu_item_equipped");
             default:
                 var stringCategory = category.ToString().ToLower();
                 if (!stringCategory.EndsWith('s'))
                 {
                     stringCategory = stringCategory + 's';
                 }
-                return Localizations.Localization.Get(session, $"menu_item_{stringCategory}");
+                return Localization.Get(languageCode, $"menu_item_{stringCategory}");
         }
     }
 
     public static string GetLocalization(this ItemType category, GameSession session)
     {
-        return Localizations.Localization.Get(session, $"menu_item_{category.ToString().ToLower()}");
+        return category.GetLocalization(session.language);
     }
 
     public static string GetLocalization(this ItemType category, LanguageCode languageCode)
     {
-        return Localizations.Localization.Get(languageCode, $"menu_item_{category.ToString().ToLower()}");
+        return Localization.Get(languageCode, $"menu_item_{category.ToString().ToLower()}");
     }
 
     public static Emoji GetEmoji(this ItemType itemType)
