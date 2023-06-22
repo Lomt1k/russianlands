@@ -267,6 +267,7 @@ internal class PlayerSearchPage : IHtmlPage
                 "br",
                 HtmlHelper.CreateLinkButton("Set Building Level", localPath + $"?page=setBuildingLevel&telegramId={profileData.telegram_id}" + (fromActivePlayers ? "&showActivePlayers=" : string.Empty), color: "#808080"),
                 HtmlHelper.CreateLinkButton("Set Skill Level", localPath + $"?page=setSkillLevel&telegramId={profileData.telegram_id}" + (fromActivePlayers ? "&showActivePlayers=" : string.Empty), color: "#808080"),
+                HtmlHelper.CreateLinkButton("Set Admin Status", localPath + $"?page=setAdminStatus&telegramId={profileData.telegram_id}" + (fromActivePlayers ? "&showActivePlayers=" : string.Empty), color: "#808080"),
             }
         };
         document["html"]["body"].Add(centerBlock);

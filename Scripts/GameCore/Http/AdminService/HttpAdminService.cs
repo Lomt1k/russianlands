@@ -52,6 +52,7 @@ public class HttpAdminService : IHttpService
         RegisterPage(new AddItemPage());
         RegisterPage(new SetBuildingLevelPage());
         RegisterPage(new SetSkillLevelPage());
+        RegisterPage(new SetAdminStatusPage());
     }
 
     private void RegisterPage(IHtmlPage page)

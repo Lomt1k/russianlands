@@ -1,24 +1,21 @@
 ﻿using MarkOne.Scripts.Bot;
-using MarkOne.Scripts.GameCore.Items;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Services;
 using MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
 using MarkOne.Scripts.GameCore.Services.BotData.SerializableData.DataTypes;
 using MarkOne.Scripts.GameCore.Sessions;
-using MarkOne.Scripts.GameCore.Skills;
 using Obisoft.HSharp.Models;
 using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Net;
 using System.Threading.Tasks;
 
 namespace MarkOne.Scripts.GameCore.Http.AdminService.HtmlPages.PlayerControl;
-internal class SetSkillLevelPage : IHtmlPage
+internal class SetAdminStatusPage : IHtmlPage
 {
     private static readonly SessionManager sessionManager = ServiceLocator.Get<SessionManager>();
 
-    public string page => "setSkillLevel";
+    public string page => "setAdminStatus";
 
     public async Task ShowPage(HttpListenerResponse response, HttpAdminSessionInfo sessionInfo, NameValueCollection query, string localPath)
     {
@@ -36,53 +33,47 @@ internal class SetSkillLevelPage : IHtmlPage
         {
             var db = BotController.dataBase.db;
             var profileData = await db.Table<ProfileData>().Where(x => x.telegram_id == sessionInfo.telegramId).FirstOrDefaultAsync().FastAwait();
-            if (profileData is null || profileData.adminStatus < AdminStatus.Admin)
+            if (profileData is null || profileData.adminStatus < AdminStatus.Root)
             {
-                var error = HtmlHelper.CreateMessagePage("Forbidden", $"You dont have admin rights", GetBackUrl(query, localPath));
+                var error = HtmlHelper.CreateMessagePage("Forbidden", $"Required '{AdminStatus.Root}' status", GetBackUrl(query, localPath));
                 response.AsTextUTF8(error.GenerateHTML());
                 response.Close();
                 return;
             }
         }
 
-        var skillType = query["skillType"];
-        var level = query["level"];
-        if (skillType is not null && level is not null)
+        var adminStatus = query["adminStatus"];
+        if (adminStatus is not null)
         {
-            // set skill level
-            if (!Enum.TryParse<ItemType>(skillType, ignoreCase: true, out var parsedSkillType) || !byte.TryParse(level, out var parsedLevel))
+            // set admin status
+            if (!Enum.TryParse<AdminStatus>(adminStatus, ignoreCase: true, out var parsedAdminStatus))
             {
-                var error = HtmlHelper.CreateMessagePage("Bad request", $"Incorrent 'skillType' or 'level'", localPath);
+                var error = HtmlHelper.CreateMessagePage("Bad request", $"Incorrent 'adminStatus'", localPath);
                 response.AsTextUTF8(error.GenerateHTML());
                 response.Close();
                 return;
             }
 
-            await SetSkillLevel(response, sessionInfo, query, localPath, parsedTelegramId, parsedSkillType, parsedLevel).FastAwait();
+            await SetAdminStatus(response, sessionInfo, query, localPath, parsedTelegramId, parsedAdminStatus).FastAwait();
             return;
         }
 
-        // show set skill level dialog
-        var document = HtmlHelper.CreateDocument("Set Skill Level");
+        // show set admin status dialog
+        var document = HtmlHelper.CreateDocument("Set Admin Status");
         document["html"]["body"].AddProperties(StylesHelper.CenterScreenParent());
 
         var centerScreenBlock = new HTag("div", StylesHelper.CenterScreenBlock(700, 700));
         document["html"]["body"].Add(centerScreenBlock);
 
-        var skillTypes = new List<string>();
-        foreach (var id in SkillsDictionary.GetAllSkillTypes())
-        {
-            skillTypes.Add(id.ToString());
-        }
+        var statusCollection = Enum.GetNames<AdminStatus>();
 
         var form = new HtmlFormBuilder(localPath)
-            .AddHeader($"Set Skill Level (ID {parsedTelegramId})")
+            .AddHeader($"Set Admin Status (ID {parsedTelegramId})")
             .AddHiddenInput("page", page)
             .AddHiddenInput("telegramId", parsedTelegramId.ToString())
             .AddHiddenInputIfNotNull("showActivePlayers", showActivePlayers)
-            .AddComboBox("skillType", skillTypes)
-            .AddInput("level", "level")
-            .AddButton("Set Level")
+            .AddComboBox("adminStatus", statusCollection)
+            .AddButton("Apply")
             .GetResult();
 
         centerScreenBlock.Add("div").Add(form);
@@ -94,17 +85,16 @@ internal class SetSkillLevelPage : IHtmlPage
         response.Close();
     }
 
-    private async Task SetSkillLevel(HttpListenerResponse response, HttpAdminSessionInfo sessionInfo, NameValueCollection query, string localPath, long telegramId, ItemType skillType, byte level)
+    private async Task SetAdminStatus(HttpListenerResponse response, HttpAdminSessionInfo sessionInfo, NameValueCollection query, string localPath, long telegramId, AdminStatus adminStatus)
     {
         var session = sessionManager.GetSessionIfExists(telegramId);
         if (session is not null)
         {
-            session.player.skills.SetValue(skillType, level);
-            var skillView = skillType.GetEmoji() + skillType.GetCategoryLocalization(session) + $": {level}";
-            var notification = Localization.Get(session, "notification_admin_set_skill_level", sessionInfo.GetAdminView(), skillView);
+            session.profile.data.adminStatus = adminStatus;
+            var notification = Localization.Get(session, "notification_admin_set_admin_status", sessionInfo.GetAdminView(), adminStatus);
             session.profile.data.AddSpecialNotification(notification);
             await session.profile.SaveProfile().FastAwait();
-            ShowSuccess(response, sessionInfo, query, localPath, session.profile.data, skillView);
+            ShowSuccess(response, sessionInfo, query, localPath, session.profile.data, adminStatus);
         }
         else
         {
@@ -117,16 +107,15 @@ internal class SetSkillLevelPage : IHtmlPage
                 response.Close();
                 return;
             }
-            SkillsDictionary.Get(skillType).SetValue(profileData, level);
-            var skillView = skillType.GetEmoji() + skillType.GetCategoryLocalization(profileData.language) + $": {level}";
-            var notification = Localization.Get(profileData.language, "notification_admin_set_skill_level", sessionInfo.GetAdminView(), skillView);
+            profileData.adminStatus = adminStatus;
+            var notification = Localization.Get(profileData.language, "notification_admin_set_admin_status", sessionInfo.GetAdminView(), adminStatus);
             profileData.AddSpecialNotification(notification);
             await db.UpdateAsync(profileData).FastAwait();
-            ShowSuccess(response, sessionInfo, query, localPath, profileData, skillView);
+            ShowSuccess(response, sessionInfo, query, localPath, profileData, adminStatus);
         }
     }
 
-    private void ShowSuccess(HttpListenerResponse response, HttpAdminSessionInfo sessionInfo, NameValueCollection query, string localPath, ProfileData profileData, string skillView)
+    private void ShowSuccess(HttpListenerResponse response, HttpAdminSessionInfo sessionInfo, NameValueCollection query, string localPath, ProfileData profileData, AdminStatus adminStatus)
     {
         var playerUser = new SimpleUser
         {
@@ -135,9 +124,9 @@ internal class SetSkillLevelPage : IHtmlPage
             lastName = profileData.lastName,
             username = profileData.username,
         };
-        Program.logger.Info($"Administrator {sessionInfo.user} set player {playerUser} skill level: {skillView}");
+        Program.logger.Info($"Administrator {sessionInfo.user} set player {playerUser} admin status to: {adminStatus}");
 
-        var success = HtmlHelper.CreateMessagePage("Success", $"Skill level changed\n{skillView}\nfor {playerUser}", GetBackUrl(query, localPath));
+        var success = HtmlHelper.CreateMessagePage("Success", $"Admin status changed to '{adminStatus}' for {playerUser}", GetBackUrl(query, localPath));
         response.AsTextUTF8(success.GenerateHTML());
         response.Close();
     }
