@@ -9,6 +9,7 @@ using MarkOne.Scripts.GameCore.Services.GameData;
 using MarkOne.Scripts.GameCore.Skills;
 using MarkOne.Scripts.GameCore.Sessions;
 using System.Text.RegularExpressions;
+using MarkOne.Scripts.GameCore.Localizations;
 
 namespace MarkOne.Scripts.GameCore.Items;
 
@@ -133,8 +134,13 @@ public class InventoryItem
 
     public string GetFullName(GameSession session)
     {
+        return GetFullName(session.language);
+    }
+
+    public string GetFullName(LanguageCode languageCode)
+    {
         var sb = new StringBuilder();
-        sb.Append(data.itemType.GetEmoji() + GetLocalizedName(session));
+        sb.Append(data.itemType.GetEmoji() + GetLocalizedName(languageCode));
 
         var statIcons = data.statIcons;
         if (statIcons.Count > 0)
@@ -153,19 +159,19 @@ public class InventoryItem
         return sb.ToString();
     }
 
-    private string GetLocalizedName(GameSession session)
+    private string GetLocalizedName(LanguageCode languageCode)
     {
         if (!data.isGeneratedItem)
         {
-            return Localizations.Localization.Get(session, $"item_name_{id}");
+            return Localization.Get(languageCode, $"item_name_{id}");
         }
 
         if (data.itemType == ItemType.Scroll)
         {
             var grade = data.grade;
             var hall = data.requiredTownHall;
-            var prefix = Localizations.Localization.Get(session, $"item_scroll_prefix_hall_{hall}_grade_{grade}");
-            var scroll = Localizations.Localization.Get(session, "item_scroll");
+            var prefix = Localization.Get(languageCode, $"item_scroll_prefix_hall_{hall}_grade_{grade}");
+            var scroll = Localization.Get(languageCode, "item_scroll");
 
             var suffix = string.Empty;
             if (data.ablitityByType.TryGetValue(AbilityType.DealDamage, out var ability))
@@ -173,13 +179,13 @@ public class InventoryItem
                 var dealDamage = (DealDamageAbility)ability;
                 var damageType = dealDamage.GetDamageTypeForScroll().ToString().ToLower();
                 var rarity = data.itemRarity.ToString().ToLower();
-                suffix = Localizations.Localization.Get(session, $"item_scroll_name_suffix_{damageType}_rarity_{rarity}");
+                suffix = Localization.Get(languageCode, $"item_scroll_name_suffix_{damageType}_rarity_{rarity}");
             }
             return prefix + ' ' + scroll + ' ' + suffix;
         }
 
         var itemType = data.itemType.ToString().ToLower();
-        return Localizations.Localization.Get(session, $"item_{itemType}_hall_{data.requiredTownHall}_grade_{data.grade}");
+        return Localization.Get(languageCode, $"item_{itemType}_hall_{data.requiredTownHall}_grade_{data.grade}");
     }
 
     public ResourceData CalculateResourcesForBreakApart()

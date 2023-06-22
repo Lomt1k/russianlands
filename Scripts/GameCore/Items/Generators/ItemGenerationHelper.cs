@@ -10,7 +10,7 @@ public static class ItemGenerationHelper
 {
     private static readonly Dictionary<byte, byte> minItemLevelByTownHall;
 
-    private static readonly Dictionary<byte, int> basisPointsByTownHall = new()
+    public static readonly Dictionary<byte, int> basisPointsByTownHall = new()
     {
         { 1, 20 },
         { 2, 20 },
@@ -24,7 +24,7 @@ public static class ItemGenerationHelper
         { 10, 220 },
     };
 
-    private static readonly Dictionary<byte, byte[]> itemGradesByTownHall = new()
+    public static readonly Dictionary<byte, byte[]> itemGradesByTownHall = new()
     {
         { 1, new byte[] { 5 } },
         { 2, new byte[] { 3, 7 } },

@@ -40,7 +40,7 @@ public class Profile
         }
     }
 
-    private async Task SaveProfile()
+    public async Task SaveProfile()
     {
         var db = BotController.dataBase.db;
         await db.UpdateAsync(data).FastAwait();
@@ -87,6 +87,10 @@ public class Profile
         {
             // В первой сессии remindersManager срабатывает только после выбора языка
             await remindersManager.ScheduleReminder(profileData).FastAwait();
+            // обновляем firstName, lastName, username в начале сессии
+            profileData.firstName = session.actualUser.firstName;
+            profileData.lastName = session.actualUser.lastName;
+            profileData.username = session.actualUser.username;
         }
 
         profileData.lastActivityTime = DateTime.UtcNow.AsDateTimeString();

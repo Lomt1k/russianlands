@@ -16,8 +16,6 @@ namespace MarkOne.Scripts.GameCore.Skills;
 
 public class PlayerSkills
 {
-    private static readonly SkillsDictionary skillsDictionary = new SkillsDictionary();
-
     private readonly Player _player;
     private readonly ProfileData _profileData;
 
@@ -80,7 +78,7 @@ public class PlayerSkills
     /// <returns>Уровень навыка для соответствующего типа предметов</returns>
     public byte GetValue(ItemType itemType)
     {
-        return skillsDictionary.ContainsKey(itemType) ? skillsDictionary[itemType].GetValue(_profileData) : (byte)0;
+        return SkillsDictionary.ContainsKey(itemType) ? SkillsDictionary.Get(itemType).GetValue(_profileData) : (byte)0;
     }
 
     /// <summary>
@@ -88,7 +86,7 @@ public class PlayerSkills
     /// </summary>
     public void SetValue(ItemType itemType, byte value)
     {
-        skillsDictionary[itemType].SetValue(_profileData, value);
+        SkillsDictionary.Get(itemType).SetValue(_profileData, value);
         _player.inventory.ApplyPlayerSkills(itemType, value);
         RecalculateStatsAfterSkillChange();
     }
@@ -98,7 +96,7 @@ public class PlayerSkills
     /// </summary>
     public void AddValue(ItemType itemType, byte value)
     {
-        var skill = skillsDictionary[itemType];
+        var skill = SkillsDictionary.Get(itemType);
         var currentValue = skill.GetValue(_profileData);
 
         var canBeAdded = byte.MaxValue - currentValue;
@@ -112,7 +110,7 @@ public class PlayerSkills
     /// <returns>Ресурсы, требуемые для прокачки навыка</returns>
     public static ResourceId[] GetRequiredFruits(ItemType itemType)
     {
-        return skillsDictionary[itemType].requiredFruits;
+        return SkillsDictionary.Get(itemType).requiredFruits;
     }
 
     /// <returns>Максимальный доступный уровень для всех навыков</returns>
@@ -126,7 +124,7 @@ public class PlayerSkills
     /// <returns>Все виды навыков</returns>
     public static IEnumerable<ItemType> GetAllSkillTypes()
     {
-        return skillsDictionary.GetAllSkillTypes();
+        return SkillsDictionary.GetAllSkillTypes();
     }
 
     /// <returns>Средний уровень навыков</returns>

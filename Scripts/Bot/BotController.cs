@@ -10,6 +10,7 @@ using MarkOne.Scripts.GameCore.Services.Battles;
 using MarkOne.Scripts.GameCore.Sessions;
 using MarkOne.Scripts.GameCore.Services.BotData;
 using MarkOne.Scripts.GameCore.Http;
+using MarkOne.Scripts.GameCore.Http.AdminService;
 
 namespace MarkOne.Scripts.Bot;
 public static class BotController
@@ -22,6 +23,7 @@ public static class BotController
     private static TelegramUpdatesReceiver _updatesReceiver;
 
     public static string dataPath { get; private set; }
+    public static string botname { get; private set; }
     public static TelegramBotClient botClient { get; private set; }
     public static BotConfig config { get; private set; }
     public static BotDataBase dataBase { get; private set; }
@@ -104,15 +106,29 @@ public static class BotController
 
         var mineUser = await botClient.GetMeAsync().FastAwait();
         mineUser.CanJoinGroups = false;
-        Program.SetTitle($"{mineUser.Username} [{dataPath}]");
+        botname = mineUser.Username;
+        Program.SetTitle($"{botname} [{dataPath}]");
 
         
         httpListener.StartListening();
+        CreateHttpServices();
         _updatesReceiver.StartReceiving();
         Program.logger.Info($"Start listening for @{mineUser.Username}");
         isReceiving = true;
         
         return true;
+    }
+
+    private static void CreateHttpServices()
+    {
+        var httpListenerSettings = config.httpListenerSettings;
+        var adminServiceSettings = httpListenerSettings.adminServiceSettings;
+        if (adminServiceSettings.isEnabled)
+        {
+            var path = adminServiceSettings.localPath;
+            var fullUrl = httpListenerSettings.externalHttpPrefix + path.TrimStart('/');
+            httpListener.RegisterHttpService(path, new HttpAdminService(fullUrl, adminServiceSettings));
+        }
     }
 
     public static async Task StopListening()

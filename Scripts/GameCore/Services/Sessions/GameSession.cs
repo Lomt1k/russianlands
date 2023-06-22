@@ -14,6 +14,7 @@ using MarkOne.Scripts.GameCore.Units;
 using MarkOne.Scripts.GameCore.Dialogs;
 using MarkOne.Scripts.GameCore.Commands;
 using MarkOne.Scripts.Bot;
+using MarkOne.Scripts.GameCore.Services.BotData.SerializableData.DataTypes;
 
 namespace MarkOne.Scripts.GameCore.Sessions;
 
@@ -38,7 +39,7 @@ public class GameSession
     public DialogBase? currentDialog { get; private set; }
     public TooltipController tooltipController { get; } = new TooltipController();
     public CancellationToken cancellationToken { get; }
-    public bool isAdmin => profile.data.adminStatus > 0;
+    public bool isAdmin => profile.data.adminStatus >= AdminStatus.Admin;
 
     public GameSession(SimpleUser user, ChatId? _fakeChatId = null)
     {

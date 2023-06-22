@@ -6,6 +6,7 @@ using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Services.DailyDataManagers;
 using MarkOne.Scripts.GameCore.Sessions;
 using MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
+using System.Threading.Tasks;
 
 namespace MarkOne.Scripts.GameCore.Services.DailyDataManager;
 
@@ -19,6 +20,11 @@ public class ProfileDailyDataManager : Service
     public ProfileDailyDataManager()
     {
         serverDailyDataManager.onStartNewDay += OnStartNewDay;
+    }
+
+    public async Task<int> GetDailyActiveUsers()
+    {
+        return await db.Table<RawProfileDailyData>().CountAsync().FastAwait();
     }
 
     private void OnStartNewDay(DateTime oldDate, DateTime newDate)

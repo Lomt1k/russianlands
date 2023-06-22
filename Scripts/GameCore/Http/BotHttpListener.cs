@@ -1,6 +1,7 @@
 ﻿using SimpleHttp;
 using System.Collections.Generic;
 using System.Net;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -53,25 +54,35 @@ public class BotHttpListener
 
     private async Task HandleHttpRequest(HttpListenerRequest request, HttpListenerResponse response)
     {
-        if (onlyLocalRequests && !request.IsLocal)
+        try
         {
-            response.StatusCode = 404;
-            response.Close();
-            return;
-        }
-
-        var localPath = request.Url?.LocalPath;
-        if (localPath is not null)
-        {
-            if (_httpServices.TryGetValue(localPath, out var httpService))
+            response.ContentEncoding = Encoding.UTF8;
+            if (onlyLocalRequests && !request.IsLocal)
             {
-                await httpService.HandleHttpRequest(request, response).FastAwait();
+                response.StatusCode = 404;
+                response.Close();
                 return;
             }
+
+            var localPath = request.Url?.LocalPath;
+            if (localPath is not null)
+            {
+                if (_httpServices.TryGetValue(localPath, out var httpService))
+                {
+                    await httpService.HandleHttpRequest(request, response).FastAwait();
+                    return;
+                }
+            }
+
+            Program.logger.WarnFormat("Unhandled HTTP Request!\n\tRawUrl: {0}\n\tRemoteEndPoint: {1}\n\tIsLocalRequest: {2}", request.RawUrl, request.RemoteEndPoint, request.IsLocal);
+            response.StatusCode = 404;
+            response.Close();
+        }
+        catch (System.Exception ex)
+        {
+            Program.logger.ErrorFormat("Catched exception on handle HTTP Request\n\tRawUrl: {0}\n{1}", request.RawUrl, ex);
         }
 
-        Program.logger.WarnFormat("Unhandled HTTP Request!\n\tRawUrl: {0}\n\tRemoteEndPoint: {1}\n\tIsLocalRequest: {2}", request.RawUrl, request.RemoteEndPoint, request.IsLocal);
-        response.StatusCode = 404;
         response.Close();
     }
 

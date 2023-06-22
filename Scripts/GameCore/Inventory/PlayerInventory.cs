@@ -97,7 +97,11 @@ public class PlayerInventory
             _hasAnyNewItem = true;
         }
 
-        item.RecalculateDataWithPlayerSkills(session.player.skills);
+        // session can be null if item created from http admin service (player is offline)
+        if (session is not null)
+        {
+            item.RecalculateDataWithPlayerSkills(session.player.skills);
+        }
         return true;
     }
 
@@ -110,7 +114,12 @@ public class PlayerInventory
             _hasNewItemsInCategory[item.data.itemType] = true;
             _hasAnyNewItem = true;
         }
-        item.RecalculateDataWithPlayerSkills(session.player.skills);
+
+        // session can be null if item created from http admin service (player is offline)
+        if (session is not null)
+        {
+            item.RecalculateDataWithPlayerSkills(session.player.skills);
+        }
     }
 
     public void RemoveItem(InventoryItem item)

@@ -91,11 +91,16 @@ public class QuestData : IGameDataWithId<QuestId>
         if (IsCompleted(session))
             return battlePointsCount;
 
-        var currentStage = GetCurrentStageId(session);
+        var currentStageId = GetCurrentStageId(session);
+        return GetCompletedBattleByCurrentStageId(currentStageId);
+    }
+
+    public int GetCompletedBattleByCurrentStageId(int currentStageId)
+    {
         var completedPoints = 0;
         foreach (var stage in _stagesById)
         {
-            if (stage.Key >= currentStage)
+            if (stage.Key >= currentStageId)
                 break;
 
             if (stage.Value is QuestStageWithBattlePoint)

@@ -32,10 +32,12 @@
     <PackageReference Include="JsonKnownTypes" Version="0.5.5" />
     <PackageReference Include="log4net" Version="2.0.15" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Obisoft.HSharp" Version="1.1.4" />
     <PackageReference Include="Simple-HTTP" Version="1.0.6" />
     <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
     <PackageReference Include="System.Collections" Version="4.3.0" />
     <PackageReference Include="Telegram.Bot" Version="19.0.0" />
+    <PackageReference Include="Telegram.Bot.Extensions.LoginWidget" Version="1.2.0" />
     <PackageReference Include="XamlNameReferenceGenerator" Version="1.6.1" />
   </ItemGroup>
   <ItemGroup>

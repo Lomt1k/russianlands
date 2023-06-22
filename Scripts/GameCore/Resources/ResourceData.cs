@@ -41,18 +41,28 @@ public static class ResourceDataExtensions
 
     public static string GetLocalizedView(this ResourceData resourceData, GameSession session, bool showCountIfSingle = true)
     {
-        var localizationKey = "resource_name_" + resourceData.resourceId.ToString().ToLower();
-        return resourceData.amount == 1 && !showCountIfSingle
-            ? resourceData.resourceId.GetEmoji() + Localization.Get(session, localizationKey).Bold()
-            : resourceData.resourceId.GetEmoji() + (Localization.Get(session, localizationKey) + ':').Bold() + $" {resourceData.amount.View()}";
+        return resourceData.GetLocalizedView(session.language, showCountIfSingle);
     }
 
     public static string GetLocalizedView(this IEnumerable<ResourceData> resourceDatas, GameSession session, bool showCountIfSingle = true)
     {
+        return resourceDatas.GetLocalizedView(session.language, showCountIfSingle);
+    }
+
+    public static string GetLocalizedView(this ResourceData resourceData, LanguageCode languageCode, bool showCountIfSingle = true)
+    {
+        var localizationKey = "resource_name_" + resourceData.resourceId.ToString().ToLower();
+        return resourceData.amount == 1 && !showCountIfSingle
+            ? resourceData.resourceId.GetEmoji() + Localization.Get(languageCode, localizationKey).Bold()
+            : resourceData.resourceId.GetEmoji() + (Localization.Get(languageCode, localizationKey) + ':').Bold() + $" {resourceData.amount.View()}";
+    }
+
+    public static string GetLocalizedView(this IEnumerable<ResourceData> resourceDatas, LanguageCode languageCode, bool showCountIfSingle = true)
+    {
         var sb = new StringBuilder();
         foreach (var resourceData in resourceDatas)
         {
-            sb.AppendLine(resourceData.GetLocalizedView(session, showCountIfSingle));
+            sb.AppendLine(resourceData.GetLocalizedView(languageCode, showCountIfSingle));
         }
         return sb.ToString();
     }

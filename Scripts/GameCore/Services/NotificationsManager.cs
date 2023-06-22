@@ -64,6 +64,18 @@ public class NotificationsManager : Service
             return;
         }
 
+        var specialNotification = session.profile.data.specialNotification;
+        if (!string.IsNullOrEmpty(specialNotification))
+        {
+            notification
+                .AppendLine(Localization.Get(session, "special_notification_header"))
+                .AppendLine()
+                .Append(specialNotification);
+            session.profile.data.specialNotification = string.Empty;
+            await ShowNotification(session, notification, () => CommonNotificationsLogic(session, onNotificationsEnd)).FastAwait();
+            return;
+        }
+
         await onNotificationsEnd().FastAwait();
     }
 

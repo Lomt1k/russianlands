@@ -59,6 +59,7 @@ public class BotConfig
         public byte maxConnections = 50;
         public bool onlyLocalRequests = true; // use something like nginx for proxy
         public TelegramWebhookSettings telegramWebhookSettings = new();
+        public AdminServiceSettings adminServiceSettings = new();
     }
 
     [JsonObject]
@@ -67,6 +68,15 @@ public class BotConfig
         public bool useWebhook = false;
         public byte maxConnections = 40;
     }
+
+    [JsonObject]
+    public class AdminServiceSettings
+    {
+        public bool isEnabled = true;
+        public bool withoutLoginOnLocalhost = true;
+        public string localPath = "/admin";
+    }
+
 
     [JsonObject]
     public class LogSettings

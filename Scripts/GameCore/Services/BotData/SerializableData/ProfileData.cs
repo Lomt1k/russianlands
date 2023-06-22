@@ -2,6 +2,7 @@
 using System;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.Bot;
+using MarkOne.Scripts.GameCore.Services.BotData.SerializableData.DataTypes;
 
 namespace MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
 
@@ -12,14 +13,17 @@ public class ProfileData : DataWithSession
     public long dbid { get; set; }
     public long telegram_id { get; set; }
     [MaxLength(32)] public string? username { get; set; }
+    [MaxLength(64)] public string firstName { get; set; } = string.Empty;
+    [MaxLength(64)] public string? lastName { get; set; }
     public LanguageCode language { get; set; } = LanguageCode.RU;
-    [MaxLength(16)] public string nickname { get; set; }
-    [MaxLength(24)] public string regDate { get; set; }
-    [MaxLength(16)] public string regVersion { get; set; }
-    [MaxLength(24)] public string lastActivityTime { get; set; }
-    [MaxLength(16)] public string lastVersion { get; set; }
+    [MaxLength(16)] public string nickname { get; set; } = string.Empty;
+    [MaxLength(24)] public string regDate { get; set; } = string.Empty;
+    [MaxLength(16)] public string regVersion { get; set; } = string.Empty;
+    [MaxLength(24)] public string lastActivityTime { get; set; } = string.Empty;
+    [MaxLength(16)] public string lastVersion { get; set; } = string.Empty;
+    public string specialNotification { get; set; } = string.Empty;
 
-    public int adminStatus { get; set; }
+    public AdminStatus adminStatus { get; set; }
     public byte level { get; set; } = 1;
     public byte freeNickChanges { get; set; } = 1;
     public long endPremiumTime { get; set; }
@@ -85,6 +89,8 @@ public class ProfileData : DataWithSession
         lastVersion = regVersion;
         nickname = user.firstName.IsCorrectNickname() ? user.firstName : "Player_" + (new Random().Next(8999) + 1000);
         username = user.username;
+        firstName = user.firstName;
+        lastName = user.lastName;
 
         return this;
     }
@@ -97,6 +103,12 @@ public class ProfileData : DataWithSession
     public bool IsPremiumExpired()
     {
         return !IsPremiumActive() && endPremiumTime > 0;
+    }
+
+    public void AddSpecialNotification(string text)
+    {
+        var notification = $"{Emojis.ElementSmallBlack} {text}\n\n";
+        specialNotification += notification;
     }
 
 
