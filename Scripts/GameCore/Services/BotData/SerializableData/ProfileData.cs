@@ -21,12 +21,13 @@ public class ProfileData : DataWithSession
     [MaxLength(16)] public string regVersion { get; set; } = string.Empty;
     [MaxLength(24)] public string lastActivityTime { get; set; } = string.Empty;
     [MaxLength(16)] public string lastVersion { get; set; } = string.Empty;
-    public string specialNotification { get; set; } = string.Empty;
 
     public AdminStatus adminStatus { get; set; }
     public byte level { get; set; } = 1;
     public byte freeNickChanges { get; set; } = 1;
     public long endPremiumTime { get; set; }
+    public int lastNewsId { get; set; } = -1;
+    public string specialNotification { get; set; } = string.Empty;
 
 
     // resources

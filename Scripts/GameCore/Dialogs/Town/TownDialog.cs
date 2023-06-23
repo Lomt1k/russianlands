@@ -5,6 +5,8 @@ using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Sessions;
 using MarkOne.Scripts.GameCore.Dialogs.Town.Map;
+using MarkOne.Scripts.GameCore.Services.News;
+using MarkOne.Scripts.GameCore.Services;
 
 namespace MarkOne.Scripts.GameCore.Dialogs.Town;
 
@@ -18,6 +20,8 @@ public enum TownEntryReason
 
 public class TownDialog : DialogBase
 {
+    private readonly NewsService newsService = ServiceLocator.Get<NewsService>();
+
     private readonly TownEntryReason _reason;
     private readonly ReplyKeyboardMarkup _keyboard;
     private int? _regenHealthMessageId;
@@ -41,8 +45,11 @@ public class TownDialog : DialogBase
 
         RegisterButton(Emojis.ButtonShop + Localization.Get(session, "menu_item_shop"),
             () => new Shop.ShopDialog(session).Start());
-        RegisterButton(Emojis.ButtonNews + Localization.Get(session, "menu_item_news"),
-            () => messageSender.SendTextMessage(session.chatId, "Новости недоступны в текущей версии игры")); //заглушка
+
+        var newsButton = (newsService.HasNew(session) && !hasTooltip ? Emojis.ElementWarningRed.ToString() : Emojis.ButtonNews) 
+            + Localization.Get(session, "menu_item_news");
+        RegisterButton(newsButton, () => new News.NewsDialog(session).Start());
+
         RegisterButton(Emojis.ButtonSupport + Localization.Get(session, "menu_item_support"),
             () => messageSender.SendTextMessage(session.chatId, "Поддержка недоступна в текущей версии игры")); //заглушка
 

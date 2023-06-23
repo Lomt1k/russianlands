@@ -34,6 +34,7 @@ public static class ServiceLocator
         Register(new CrossroadsMobsManager());
         Register(new Arena.ArenaMatchMaker());
         Register(new FakePlayers.FakePlayersFactory());
+        Register(new News.NewsService());
     }
 
     private static void Register<T>(T instance) where T : Service, new()
