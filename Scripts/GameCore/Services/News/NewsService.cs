@@ -25,7 +25,7 @@ public class NewsService : Service
         _lastNews = await db.Table<NewsData>().OrderByDescending(x => x.id).Take(LAST_NEWS_COUNT).ToArrayAsync().FastAwait();
     }
 
-    public async Task AddNews(string title, string description, DateTime? date = null)
+    public async Task<NewsData> AddNews(string title, string description, DateTime? date = null)
     {
         var newsData = new NewsData
         {
@@ -36,6 +36,7 @@ public class NewsService : Service
         var db = BotController.dataBase.db;
         await db.InsertAsync(newsData).FastAwait();
         await RefreshLastNews();
+        return newsData;
     }
 
     public async Task RemoveNews(int newsId)
@@ -43,6 +44,30 @@ public class NewsService : Service
         var db = BotController.dataBase.db;
         await db.DeleteAsync<NewsData>(newsId).FastAwait();
         await RefreshLastNews();
+    }
+
+    public async Task<NewsData?> TreGetNewsById(int newsId)
+    {
+        var db = BotController.dataBase.db;
+        return await db.Table<NewsData>().Where(x => x.id == newsId).FirstOrDefaultAsync().FastAwait();
+    }
+
+    public async Task<bool> TryEditNews(int newsId, string title, string description)
+    {
+        var db = BotController.dataBase.db;
+        var newsData = await db.Table<NewsData>().Where(x => x.id == newsId).FirstOrDefaultAsync().FastAwait();
+        if (newsData is null)
+        {
+            return false;
+        }
+        newsData.title = title;
+        newsData.description = description;
+        var result = await db.UpdateAsync(newsData).FastAwait();
+        if (result > 0)
+        {
+            await RefreshLastNews();
+        }
+        return result > 0 ? true : false;
     }
 
     public bool HasNew(GameSession session)

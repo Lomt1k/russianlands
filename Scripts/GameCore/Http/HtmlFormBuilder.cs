@@ -33,11 +33,17 @@ public class HtmlFormBuilder
         return this;
     }    
 
-    public HtmlFormBuilder AddInput(string id, string placeholder)
+    public HtmlFormBuilder AddInput(string id, string placeholder, string defaultValue = "", bool fullWidth = false)
     {
-        _form.Add("div").Add("input",
+        var input = new HTag("input",
             new HProp("id", id), new HProp("name", id), new HProp("placeholder", placeholder),
-            new HProp("style", "border: 2px solid gray; border-radius: 4px; height: 50px; margin-bottom: 10px; font-size:28px;"));
+            new HProp("style", "border: 2px solid gray; border-radius: 4px; height: 50px; margin-bottom: 10px; font-size:28px;"
+            + (fullWidth ? " width:100%" : string.Empty)));
+        if (!string.IsNullOrEmpty(defaultValue))
+        {
+            input.AddProperties(new HProp("value", defaultValue));
+        }
+        _form.Add("div").Add(input);        
         return this;
     }
 
@@ -50,6 +56,17 @@ public class HtmlFormBuilder
             select.Add("option", option, new HProp("value", option));
         }
         _form.Add("div").Add(select);
+        return this;
+    }
+
+    public HtmlFormBuilder AddTextArea(string id, string placeholder, string defaultValue = "", int rows = 2, bool fullWidth = false)
+    {
+        var textArea = string.IsNullOrEmpty(defaultValue) ? new HTag("textarea") : new HTag("textarea", defaultValue);
+        textArea.AddProperties(
+            new HProp("name", id), new HProp("placeholder", placeholder), new HProp("rows", rows.ToString()),
+            new HProp("style", "border: 2px solid gray; border-radius: 4px; margin-bottom: 10px; font-size:20px;"
+            + (fullWidth ? " width:100%" : string.Empty) ));
+        _form.Add("div").Add(textArea);
         return this;
     }
 

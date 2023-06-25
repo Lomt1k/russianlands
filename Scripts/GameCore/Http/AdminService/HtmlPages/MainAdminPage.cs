@@ -56,7 +56,7 @@ internal class MainAdminPage : IHtmlPage
         {
             HtmlHelper.CreateLinkButton("Last Log", localPath + "?page=showLog&fileName=appLog.log"),
             HtmlHelper.CreateLinkButton("Last Errors", localPath + "?page=showLog&fileName=errors.log"),
-            HtmlHelper.CreateLinkButton("Logs List", localPath + "?page=showLog&mode=list")
+            HtmlHelper.CreateLinkButton("Logs List", localPath + "?page=showLog&mode=list"),
         };
         centerScreenBlock.Add(topButtons);
 
@@ -64,7 +64,8 @@ internal class MainAdminPage : IHtmlPage
         var otherButtons = new HTag("div", new HProp("style", "margin: 200px 0;"))
         {
             HtmlHelper.CreateLinkButton("Active Players", localPath + "?page=playerSearch&showActivePlayers=", color: "#808080"),
-            HtmlHelper.CreateLinkButton("Player Search", localPath + "?page=playerSearch", color: "#808080")
+            HtmlHelper.CreateLinkButton("Player Search", localPath + "?page=playerSearch", color: "#808080"),
+            HtmlHelper.CreateLinkButton("News Editor", localPath + "?page=newsEditor", color: "#808080"),
         };
         centerScreenBlock.Add(otherButtons);
 
