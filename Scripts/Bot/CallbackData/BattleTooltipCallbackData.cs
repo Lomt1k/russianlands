@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
-using Telegram.Bot.Types.ReplyMarkups;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Sessions;
+using FastTelegramBot.DataTypes.Keyboards;
 
 namespace MarkOne.Scripts.Bot.CallbackData;
 

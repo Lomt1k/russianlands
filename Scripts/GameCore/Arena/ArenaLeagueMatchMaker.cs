@@ -1,4 +1,5 @@
-﻿using MarkOne.Scripts.Bot;
+﻿using FastTelegramBot.DataTypes.Keyboards;
+using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Dialogs.Town.Map.Arena;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Services;
@@ -12,7 +13,6 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Telegram.Bot.Types.ReplyMarkups;
 
 namespace MarkOne.Scripts.GameCore.Arena;
 public class ArenaLeagueMatchMaker
@@ -207,7 +207,7 @@ public class ArenaLeagueMatchMaker
             .AppendLine(enemyForInfo.GetFullUnitInfoView(player.session))
             .AppendLine(footerText.Italic());
 
-        var replyKeyboard = new ReplyKeyboardMarkup(new KeyboardButton(Emojis.ElementHourgrlass + footerText));
+        var replyKeyboard = new ReplyKeyboardMarkup(Emojis.ElementHourgrlass + footerText);
         await messageSender.SendTextDialog(player.session.chatId, sb.ToString(), replyKeyboard);
     }
 

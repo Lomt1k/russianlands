@@ -1,4 +1,5 @@
-﻿using MarkOne.Scripts.Bot;
+﻿using FastTelegramBot.DataTypes;
+using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Services;
 using MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
@@ -117,12 +118,12 @@ internal class SetAdminStatusPage : IHtmlPage
 
     private void ShowSuccess(HttpListenerResponse response, HttpAdminSessionInfo sessionInfo, NameValueCollection query, string localPath, ProfileData profileData, AdminStatus adminStatus)
     {
-        var playerUser = new SimpleUser
+        var playerUser = new User
         {
-            id = profileData.telegram_id,
-            firstName = profileData.firstName,
-            lastName = profileData.lastName,
-            username = profileData.username,
+            Id = profileData.telegram_id,
+            FirstName = profileData.firstName,
+            LastName = profileData.lastName,
+            Username = profileData.username,
         };
         Program.logger.Info($"Administrator {sessionInfo.user} set player {playerUser} admin status to: {adminStatus}");
 

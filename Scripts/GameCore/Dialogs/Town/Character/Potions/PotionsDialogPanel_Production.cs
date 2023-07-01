@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Text;
 using System.Threading.Tasks;
-using Telegram.Bot.Types.ReplyMarkups;
 using MarkOne.Scripts.GameCore.Buildings;
 using MarkOne.Scripts.GameCore.Buildings.General;
 using MarkOne.Scripts.GameCore.Localizations;
@@ -10,6 +9,7 @@ using MarkOne.Scripts.GameCore.Resources;
 using MarkOne.Scripts.GameCore.Dialogs;
 using MarkOne.Scripts.GameCore.Dialogs.Resources;
 using MarkOne.Scripts.GameCore.Dialogs.Town.Character.Potions;
+using FastTelegramBot.DataTypes.Keyboards;
 
 namespace MarkOne.Scripts.Bot.Dialogs.Town.Character.Potions;
 

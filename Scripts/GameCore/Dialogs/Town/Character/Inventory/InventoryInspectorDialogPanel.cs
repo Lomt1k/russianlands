@@ -1,12 +1,12 @@
 ﻿using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Telegram.Bot.Types.ReplyMarkups;
 using MarkOne.Scripts.GameCore.Inventory;
 using MarkOne.Scripts.GameCore.Items;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Quests.QuestStages;
 using MarkOne.Scripts.GameCore.Dialogs;
+using FastTelegramBot.DataTypes.Keyboards;
 
 namespace MarkOne.Scripts.Bot.Dialogs.Town.Character.Inventory;
 

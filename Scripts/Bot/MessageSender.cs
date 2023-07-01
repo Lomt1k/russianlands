@@ -1,10 +1,10 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
-using Telegram.Bot;
-using Telegram.Bot.Exceptions;
-using Telegram.Bot.Types;
-using Telegram.Bot.Types.Enums;
-using Telegram.Bot.Types.ReplyMarkups;
+using FastTelegramBot;
+using FastTelegramBot.DataTypes;
+using FastTelegramBot.DataTypes.InputFiles;
+using FastTelegramBot.DataTypes.Keyboards;
 using MarkOne.Scripts.GameCore.Services;
 using MarkOne.Scripts.GameCore.Services.Sending;
 
@@ -15,7 +15,6 @@ public class MessageSender : Service
     private static readonly MessageSequencer sequencer = ServiceLocator.Get<MessageSequencer>();
 
     private TelegramBotClient _botClient;
-    private RequestExceptionHandler _requestExceptionHandler = new();
     private int _maxDelayForSendStickers;
 
     public override Task OnBotStarted()
@@ -25,78 +24,46 @@ public class MessageSender : Service
         return Task.CompletedTask;
     }
 
-    public async Task<Message?> SendTextMessage(ChatId id, string text, InlineKeyboardMarkup? inlineKeyboard = null,
-        bool silent = false, bool disableWebPagePreview = false, CancellationToken cancellationToken = default)
+    public async Task<MessageId> SendTextMessage(ChatId id, string text, InlineKeyboardMarkup? inlineKeyboard = null, bool silent = false, bool disableWebPagePreview = false, CancellationToken cancellationToken = default)
     {
-        try
-        {
-            var delay = sequencer.GetDelayForSendMessage(text);
-            await Task.Delay(delay).FastAwait();
-            if (cancellationToken.IsCancellationRequested)
-                return null;
+        var delay = sequencer.GetDelayForSendMessage(text);
+        await Task.Delay(delay, cancellationToken).FastAwait();
 
-            return await _botClient.SendTextMessageAsync(id, text,
-                parseMode: ParseMode.Html,
-                replyMarkup: inlineKeyboard,
-                disableNotification: silent,
-                disableWebPagePreview: disableWebPagePreview,
-                cancellationToken: cancellationToken).FastAwait();
-        }
-        catch (RequestException ex)
-        {
-            await _requestExceptionHandler.HandleException(id, ex).FastAwait();
-            return null;
-        }
+        return await _botClient.SendMessageAsync(id, text,
+            parseMode: ParseMode.HTML,
+            keyboardMarkup: inlineKeyboard,
+            disableNotification: silent,
+            disableWebPagePreview: disableWebPagePreview,
+            cancellationToken: cancellationToken).FastAwait();
     }
 
-    public async Task<Message?> EditTextMessage(ChatId id, int messageId, string text, InlineKeyboardMarkup? inlineKeyboard = null,
-        bool disableWebPagePreview = false, CancellationToken cancellationToken = default)
+    public async Task EditTextMessage(ChatId id, MessageId messageId, string text, InlineKeyboardMarkup? inlineKeyboard = null, bool disableWebPagePreview = false, CancellationToken cancellationToken = default)
     {
-        try
-        {
-            var delay = sequencer.GetDelayForEditMessage(text);
-            await Task.Delay(delay).FastAwait();
-            if (cancellationToken.IsCancellationRequested)
-                return null;
+        var delay = sequencer.GetDelayForEditMessage(text);
+        await Task.Delay(delay, cancellationToken).FastAwait();
 
-            return await _botClient.EditMessageTextAsync(id, messageId, text, ParseMode.Html,
-                replyMarkup: inlineKeyboard,
-                disableWebPagePreview: disableWebPagePreview,
-                cancellationToken: cancellationToken).FastAwait();
-        }
-        catch (RequestException ex)
-        {
-            await _requestExceptionHandler.HandleException(id, ex).FastAwait();
-            return null;
-        }
+        await _botClient.EditMessageTextAsync(id, messageId, text, ParseMode.HTML,
+            inlineKeyboardMarkup: inlineKeyboard,
+            disableWebPagePreview: disableWebPagePreview,
+            cancellationToken: cancellationToken).FastAwait();
     }
 
-    public async Task DeleteMessage(ChatId id, int messageId)
+    public async Task DeleteMessage(ChatId id, MessageId messageId)
     {
-        try
-        {
-            await _botClient.DeleteMessageAsync(id, messageId).FastAwait();
-        }
-        catch (RequestException ex)
-        {
-            await _requestExceptionHandler.HandleException(id, ex).FastAwait();
-        }
+        await _botClient.DeleteMesageAsync(id, messageId).FastAwait();
     }
 
-    public async Task<Message?> EditMessageKeyboard(ChatId id, int messageId, InlineKeyboardMarkup? inlineKeyboard, CancellationToken cancellationToken = default)
+    public async Task EditInlineKeyboardAsync(ChatId id, MessageId messageId, InlineKeyboardMarkup? inlineKeyboard, CancellationToken cancellationToken = default)
     {
-        try
-        {
-            return await _botClient.EditMessageReplyMarkupAsync(id, messageId, inlineKeyboard, cancellationToken: cancellationToken).FastAwait();
-        }
-        catch (RequestException ex)
-        {
-            await _requestExceptionHandler.HandleException(id, ex).FastAwait();
-            return null;
-        }
+        await _botClient.EditInlineKeyboardAsync(id, messageId, inlineKeyboard, cancellationToken).FastAwait();
     }
 
-    public async Task<Message?> SendTextDialog(ChatId id, string text, ReplyKeyboardMarkup? replyKeyboard = null,
+    public async Task RemoveInlineKeyboardAsync(ChatId id, MessageId messageId, CancellationToken cancellationToken = default)
+    {
+        await _botClient.RemoveInlineKeyboardAsync(id, messageId, cancellationToken).FastAwait();
+    }
+
+    public async Task<MessageId> SendTextDialog(ChatId id, string text, ReplyKeyboardMarkup? replyKeyboard = null,
         bool silent = false, bool disableWebPagePreview = false, CancellationToken cancellationToken = default)
     {
         if (replyKeyboard != null)
@@ -104,117 +71,50 @@ public class MessageSender : Service
             replyKeyboard.ResizeKeyboard = true;
         }
 
-        try
-        {
-            var delay = sequencer.GetDelayForSendMessage(text);
-            await Task.Delay(delay).FastAwait();
-            if (cancellationToken.IsCancellationRequested)
-                return null;
+        var delay = sequencer.GetDelayForSendMessage(text);
+        await Task.Delay(delay, cancellationToken).FastAwait();
 
-            return await _botClient.SendTextMessageAsync(id, text,
-                parseMode: ParseMode.Html,
-                replyMarkup: replyKeyboard,
-                disableNotification: silent,
-                disableWebPagePreview: disableWebPagePreview,
-                cancellationToken: cancellationToken).FastAwait();
-        }
-        catch (RequestException ex)
-        {
-            await _requestExceptionHandler.HandleException(id, ex).FastAwait();
-            return null;
-        }
+        return await _botClient.SendMessageAsync(id, text,
+            parseMode: ParseMode.HTML,
+            keyboardMarkup: replyKeyboard,
+            disableNotification: silent,
+            disableWebPagePreview: disableWebPagePreview,
+            cancellationToken: cancellationToken).FastAwait();
     }
 
-    public async Task AnswerQuery(ChatId id, string queryId, string? text = null, CancellationToken cancellationToken = default)
+    public async Task AnswerQuery(string queryId, string? text = null, CancellationToken cancellationToken = default)
     {
-        try
-        {
-            await _botClient.AnswerCallbackQueryAsync(queryId, text, cancellationToken: cancellationToken).FastAwait();
-        }
-        catch (RequestException ex)
-        {
-            await _requestExceptionHandler.HandleException(id, ex).FastAwait();
-        }
+        await _botClient.AnswerCallbackQueryAsync(queryId, text, cancellationToken: cancellationToken).FastAwait();
     }
 
-    public async Task<Message?> SendErrorMessage(ChatId id, string text)
+    public async Task SendErrorMessage(ChatId id, string text)
     {
         try
         {
             var delay = sequencer.GetDelayForSendMessage(text);
             await Task.Delay(delay).FastAwait();
-
-            return await _botClient.SendTextMessageAsync(id, Emojis.ElementWarning + "<b>Program Error</b>\n\n" + text, parseMode: ParseMode.Html)
-                .FastAwait();
+            await _botClient.SendMessageAsync(id, Emojis.ElementWarning + "<b>Program Error</b>\n\n" + text, parseMode: ParseMode.HTML).FastAwait();
         }
-        catch (RequestException ex)
+        catch (Exception)
         {
-            await _requestExceptionHandler.HandleException(id, ex).FastAwait();
-            return null;
-        }
+            // ignored
+        }        
     }
 
-    public async Task SendSticker(ChatId id, string stickerFileId, CancellationToken cancellationToken = default)
+    public async Task SendSticker(ChatId id, FileId stickerFileId, CancellationToken cancellationToken = default)
     {
-        try
+        var delay = sequencer.GetDelayForSendSticker(stickerFileId);
+        if (delay >= _maxDelayForSendStickers)
         {
-            var delay = sequencer.GetDelayForSendSticker(stickerFileId);
-            if (delay >= _maxDelayForSendStickers)
-            {
-                return;
-            }
-            await Task.Delay(delay).FastAwait();
-            if (cancellationToken.IsCancellationRequested)
-                return;
-
-            var sticker = InputFile.FromFileId(stickerFileId);
-            await _botClient.SendStickerAsync(id, sticker, cancellationToken: cancellationToken).FastAwait();
+            return;
         }
-        catch (RequestException ex)
-        {
-            await _requestExceptionHandler.HandleException(id, ex).FastAwait();
-        }
+        await Task.Delay(delay, cancellationToken).FastAwait();
+        await _botClient.SendStickerAsync(id, stickerFileId, cancellationToken: cancellationToken).FastAwait();
     }
 
-    public async Task<Message?> SendDocument(ChatId id, InputFile document, string? caption = null, CancellationToken cancellationToken = default)
+    public async Task<MessageId> SendDocument(ChatId id, InputFile document, string? caption = null, CancellationToken cancellationToken = default)
     {
-        try
-        {
-            return await _botClient.SendDocumentAsync(id, document,
-                caption: caption, 
-                parseMode: ParseMode.Html,
-                cancellationToken: cancellationToken).FastAwait();
-        }
-        catch (RequestException ex)
-        {
-            await _requestExceptionHandler.HandleException(id, ex).FastAwait();
-            return null;
-        }
-    }
-
-    public async Task<File?> GetFileAsync(string fileId, CancellationToken cancellationToken = default)
-    {
-        try
-        {
-            return await _botClient.GetFileAsync(fileId, cancellationToken).FastAwait();
-        }
-        catch (RequestException ex)
-        {
-            Program.logger.Error($"ApiRequestException: {ex.Message}");
-            return null;
-        }
-    }
-
-    public async Task DownloadFileAsync(string filePath, System.IO.Stream destination, CancellationToken cancellationToken = default)
-    {
-        try
-        {
-            await _botClient.DownloadFileAsync(filePath, destination, cancellationToken).FastAwait();
-        }
-        catch (RequestException ex)
-        {
-            Program.logger.Error($"ApiRequestException: {ex.Message}");
-        }
+        return await _botClient.SendDocumentAsync(id, document, caption: caption, parseMode: ParseMode.HTML, cancellationToken: cancellationToken).FastAwait();
     }
 
 }

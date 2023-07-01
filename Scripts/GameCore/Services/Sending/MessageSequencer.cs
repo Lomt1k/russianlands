@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using FastTelegramBot.DataTypes;
 using MarkOne.Scripts.Bot;
 
 namespace MarkOne.Scripts.GameCore.Services.Sending;
@@ -56,9 +57,9 @@ public class MessageSequencer : Service
         return GetDelayForSomething(_editMessagesDict, EditMessageLimit, messageText);
     }
 
-    public int GetDelayForSendSticker(string stickerFileId)
+    public int GetDelayForSendSticker(FileId stickerFileId)
     {
-        return GetDelayForSomething(_sendStickerDict, SendStickerLimit, stickerFileId);
+        return GetDelayForSomething(_sendStickerDict, SendStickerLimit, stickerFileId.ToString());
     }
 
 

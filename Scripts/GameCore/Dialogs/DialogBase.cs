@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Telegram.Bot.Types;
-using Telegram.Bot.Types.ReplyMarkups;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Quests.QuestStages;
 using MarkOne.Scripts.GameCore.Services;
@@ -12,6 +10,8 @@ using MarkOne.Scripts.GameCore.Services.GameData;
 using MarkOne.Scripts.GameCore.Dialogs.Town;
 using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Sessions;
+using FastTelegramBot.DataTypes;
+using FastTelegramBot.DataTypes.Keyboards;
 
 namespace MarkOne.Scripts.GameCore.Dialogs;
 
@@ -21,13 +21,14 @@ public abstract class DialogBase
     protected static readonly NotificationsManager notificationsManager = ServiceLocator.Get<NotificationsManager>();
     protected static readonly GameDataHolder gameDataHolder = ServiceLocator.Get<GameDataHolder>();
 
-    private readonly Dictionary<KeyboardButton, Func<Task>?> _registeredButtons = new Dictionary<KeyboardButton, Func<Task>?>();
-    private Func<Task<Message?>>? _resendLastMessageFunc;
+    private readonly Dictionary<ReplyKeyboardButton, Func<Task>?> _registeredButtons = new Dictionary<ReplyKeyboardButton, Func<Task>?>();
+    private Func<Task<MessageId>>? _resendLastMessageFunc;
 
     public GameSession session { get; }
     public Tooltip? tooltip { get; private set; }
     protected int buttonsCount => _registeredButtons.Count;
-    protected Message? lastMessage { get; private set; }
+    protected MessageId? lastMessageId { get; private set; }
+    protected DateTime lastMessageDate { get; private set; }
 
     public DialogBase(GameSession _session)
     {
@@ -37,7 +38,7 @@ public abstract class DialogBase
 
     protected void RegisterButton(string text, Func<Task>? callback)
     {
-        _registeredButtons.Add(text, callback);
+        _registeredButtons.Add(new ReplyKeyboardButton(text), callback);
     }
 
     protected void RegisterBackButton(Func<Task> callback)
@@ -74,19 +75,17 @@ public abstract class DialogBase
 
     protected ReplyKeyboardMarkup GetMultilineKeyboard()
     {
-        var linesArray = new KeyboardButton[_registeredButtons.Count][];
-        var i = 0;
+        var linesArray = new List<List<ReplyKeyboardButton>>();
         foreach (var button in _registeredButtons.Keys)
         {
-            linesArray[i] = new KeyboardButton[] { button };
-            i++;
+            linesArray.Add( new List<ReplyKeyboardButton> { button } );
         }
         return new ReplyKeyboardMarkup(linesArray);
     }
 
     protected ReplyKeyboardMarkup GetKeyboardWithRowSizes(params int[] args)
     {
-        var rows = new List<List<KeyboardButton>>();
+        var rows = new List<List<ReplyKeyboardButton>>();
         var buttons = _registeredButtons.Keys.ToList();
 
         var startIndex = 0;
@@ -105,15 +104,15 @@ public abstract class DialogBase
             return GetMultilineKeyboard();
 
         var buttons = _registeredButtons.Keys;
-        var rows = new List<List<KeyboardButton>>();
-        var currentRow = new List<KeyboardButton>();
+        var rows = new List<List<ReplyKeyboardButton>>();
+        var currentRow = new List<ReplyKeyboardButton>();
 
         foreach (var button in buttons)
         {
             if (currentRow.Count == rowSize)
             {
                 rows.Add(currentRow);
-                currentRow = new List<KeyboardButton>();
+                currentRow = new List<ReplyKeyboardButton>();
             }
             currentRow.Add(button);
         }
@@ -126,9 +125,9 @@ public abstract class DialogBase
     {
         var buttons = _registeredButtons.Keys.ToArray();
         var rowsCount = buttons.Length - 1;
-        var rows = new List<List<KeyboardButton>>(rowsCount);
+        var rows = new List<List<ReplyKeyboardButton>>(rowsCount);
 
-        var lastRow = new List<KeyboardButton>
+        var lastRow = new List<ReplyKeyboardButton>
         {
             buttons[buttonsCount - 2],
             buttons[buttonsCount - 1]
@@ -136,7 +135,7 @@ public abstract class DialogBase
 
         for (var i = 0; i < buttonsCount - 2; i++)
         {
-            var row = new List<KeyboardButton> { buttons[i] };
+            var row = new List<ReplyKeyboardButton> { buttons[i] };
             rows.Add(row);
         }
         rows.Add(lastRow);
@@ -146,25 +145,26 @@ public abstract class DialogBase
 
     public abstract Task Start();
 
-    protected async Task<Message?> SendDialogMessage(StringBuilder sb, ReplyKeyboardMarkup? replyMarkup)
+    protected async Task<MessageId> SendDialogMessage(StringBuilder sb, ReplyKeyboardMarkup? replyMarkup)
     {
         return await SendDialogMessage(sb.ToString(), replyMarkup).FastAwait();
     }
 
-    protected async Task<Message?> SendDialogMessage(string text, ReplyKeyboardMarkup? replyMarkup)
+    protected async Task<MessageId> SendDialogMessage(string text, ReplyKeyboardMarkup? replyMarkup)
     {
         _resendLastMessageFunc = async () => await messageSender.SendTextDialog(session.chatId, text, replyMarkup, cancellationToken: session.cancellationToken).FastAwait();
-        lastMessage = await _resendLastMessageFunc().FastAwait();
-        return lastMessage;
+        lastMessageId = await _resendLastMessageFunc().FastAwait();
+        lastMessageDate = DateTime.UtcNow;
+        return lastMessageId.Value;
     }
 
     public async Task TryResendDialogWithAntiFloodDelay()
     {
-        if (lastMessage == null)
+        if (lastMessageId is null)
             return;
 
-        var secondsFromPreviousSent = (DateTime.UtcNow - lastMessage.Date).TotalSeconds;
-        if (lastMessage == null || secondsFromPreviousSent < 3)
+        var secondsFromPreviousSent = (DateTime.UtcNow - lastMessageDate).TotalSeconds;
+        if (secondsFromPreviousSent < 3)
             return;
 
         await TryResendDialog().FastAwait();
@@ -175,13 +175,14 @@ public abstract class DialogBase
         if (_resendLastMessageFunc == null)
             return;
 
-        lastMessage = await _resendLastMessageFunc().FastAwait();
+        lastMessageId = await _resendLastMessageFunc().FastAwait();
+        lastMessageDate = DateTime.UtcNow;
     }
 
-    public virtual async Task HandleMessage(SimpleMessage message)
+    public virtual async Task HandleMessage(Message message)
     {
-        var text = message.text;
-        if (text == null)
+        var text = message.Text;
+        if (text is null)
             return;
 
         Func<Task>? callback = null;
@@ -211,13 +212,13 @@ public abstract class DialogBase
         if (tooltip == null)
             return false;
 
-        KeyboardButton? selectedButton = null;
+        ReplyKeyboardButton? selectedButton = null;
         if (tooltip.buttonId > -1 && tooltip.buttonId < buttonsCount)
         {
             var buttonsList = _registeredButtons.Keys.ToList();
             selectedButton = buttonsList[tooltip.buttonId];
 
-            var buttonsToBlock = new List<KeyboardButton>();
+            var buttonsToBlock = new List<ReplyKeyboardButton>();
             foreach (var button in _registeredButtons)
             {
                 if (button.Key != selectedButton)
@@ -276,7 +277,7 @@ public abstract class DialogBase
         BlockButtons(allButtons);
     }
 
-    private void BlockButtons(IEnumerable<KeyboardButton> buttonsToBlock)
+    private void BlockButtons(IEnumerable<ReplyKeyboardButton> buttonsToBlock)
     {
         foreach (var button in buttonsToBlock)
         {

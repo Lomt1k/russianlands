@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Text;
 using System.Threading.Tasks;
-using Telegram.Bot.Types.ReplyMarkups;
 using MarkOne.Scripts.GameCore.Buildings;
 using MarkOne.Scripts.GameCore.Buildings.General;
 using MarkOne.Scripts.GameCore.Items;
@@ -11,6 +10,7 @@ using MarkOne.Scripts.GameCore.Skills;
 using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Sessions;
 using MarkOne.Scripts.GameCore.Dialogs.Resources;
+using FastTelegramBot.DataTypes.Keyboards;
 
 namespace MarkOne.Scripts.GameCore.Dialogs.Town.Character.Skills;
 

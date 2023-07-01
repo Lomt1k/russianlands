@@ -1,4 +1,5 @@
-﻿using MarkOne.Scripts.Bot;
+﻿using FastTelegramBot.DataTypes;
+using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Resources;
 using MarkOne.Scripts.GameCore.Services;
@@ -125,12 +126,12 @@ internal class AddResourcePage : IHtmlPage
 
     private void ShowSuccessfullAddResource(HttpListenerResponse response, HttpAdminSessionInfo sessionInfo, NameValueCollection query, string localPath, ProfileData profileData, ResourceData resourceData)
     {
-        var playerUser = new SimpleUser
+        var playerUser = new User
         {
-            id = profileData.telegram_id,
-            firstName = profileData.firstName,
-            lastName = profileData.lastName,
-            username = profileData.username,
+            Id = profileData.telegram_id,
+            FirstName = profileData.firstName,
+            LastName = profileData.lastName,
+            Username = profileData.username,
         };
         Program.logger.Info($"Administrator {sessionInfo.user} gave the player {playerUser} {resourceData.GetLocalizedView(sessionInfo.languageCode)}");
 

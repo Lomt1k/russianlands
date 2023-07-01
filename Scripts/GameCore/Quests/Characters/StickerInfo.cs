@@ -1,5 +1,5 @@
-﻿using System.Threading.Tasks;
-using Telegram.Bot;
+﻿using FastTelegramBot.DataTypes;
+using System.Threading.Tasks;
 
 namespace MarkOne.Scripts.GameCore.Quests.Characters;
 
@@ -7,7 +7,7 @@ public class StickerInfo
 {
     public string setName { get; }
     public int setPosition { get; }
-    public string? fileId { get; private set; }
+    public FileId? fileId { get; private set; }
 
     public StickerInfo(string _stickerSetName, int _setPosition)
     {

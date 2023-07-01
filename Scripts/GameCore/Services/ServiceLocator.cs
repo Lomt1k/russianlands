@@ -22,6 +22,7 @@ public static class ServiceLocator
         Register(new ServerDailyDataManager());
 
         Register(new SessionManager());
+        Register(new SessionExceptionHandler());
         Register(new BattleManager());
         Register(new PerformanceManager());
         Register(new NotificationsManager());

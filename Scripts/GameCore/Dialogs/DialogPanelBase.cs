@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Telegram.Bot.Types;
-using Telegram.Bot.Types.ReplyMarkups;
 using MarkOne.Scripts.Bot.CallbackData;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Quests.QuestStages;
@@ -13,6 +11,8 @@ using MarkOne.Scripts.GameCore.Services;
 using MarkOne.Scripts.GameCore.Services.GameData;
 using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Sessions;
+using FastTelegramBot.DataTypes;
+using FastTelegramBot.DataTypes.Keyboards;
 
 namespace MarkOne.Scripts.GameCore.Dialogs;
 
@@ -26,12 +26,14 @@ public abstract class DialogPanelBase
     public GameSession session { get; }
     public Tooltip? tooltip { get; private set; }
 
-    protected Message? lastMessage { get; set; } // необходимо присваивать, чтобы при выходе из диалога удалялся InlineKeyboard
+    protected MessageId? lastMessageId { get; set; } // необходимо присваивать, чтобы при выходе из диалога удалялся InlineKeyboard
+    private Func<Task<MessageId>>? _resendLastMessageFunc;
 
     private readonly Dictionary<int, InlineKeyboardButton> _registeredButtons = new Dictionary<int, InlineKeyboardButton>();
     private readonly Dictionary<int, Func<Task>?> _registeredCallbacks = new Dictionary<int, Func<Task>?>();
     private readonly Dictionary<int, Func<string?>> _registeredQueryAnswers = new Dictionary<int, Func<string?>>();
     private int _freeButtonId;
+    private bool _withMarkup;
 
     protected int buttonsCount => _registeredButtons.Count;
 
@@ -86,12 +88,10 @@ public abstract class DialogPanelBase
 
     protected InlineKeyboardMarkup GetMultilineKeyboard()
     {
-        var linesArray = new InlineKeyboardButton[_registeredButtons.Count][];
-        var i = 0;
+        var linesArray = new List<List<InlineKeyboardButton>>();
         foreach (var button in _registeredButtons.Values)
         {
-            linesArray[i] = new InlineKeyboardButton[] { button };
-            i++;
+            linesArray.Add( new List<InlineKeyboardButton> { button } );
         }
         return new InlineKeyboardMarkup(linesArray);
     }
@@ -158,31 +158,38 @@ public abstract class DialogPanelBase
 
     public abstract Task Start();
 
-    protected async Task<Message> SendPanelMessage(StringBuilder sb, InlineKeyboardMarkup? inlineMarkup)
+    protected async Task<MessageId> SendPanelMessage(StringBuilder sb, InlineKeyboardMarkup? inlineMarkup)
     {
         return await SendPanelMessage(sb.ToString(), inlineMarkup).FastAwait();
     }
 
-    protected async Task<Message> SendPanelMessage(string text, InlineKeyboardMarkup? inlineMarkup)
+    protected async Task<MessageId> SendPanelMessage(string text, InlineKeyboardMarkup? inlineMarkup)
     {
-        lastMessage = lastMessage == null
-            ? await messageSender.SendTextMessage(session.chatId, text, inlineMarkup, cancellationToken: session.cancellationToken).FastAwait()
-            : await messageSender.EditTextMessage(session.chatId, lastMessage.MessageId, text, inlineMarkup, cancellationToken: session.cancellationToken).FastAwait();
-
-        return lastMessage;
+        _resendLastMessageFunc = async () => await messageSender.SendTextMessage(session.chatId, text, inlineMarkup, cancellationToken: session.cancellationToken).FastAwait();
+        if (lastMessageId is null)
+        {
+            lastMessageId = await messageSender.SendTextMessage(session.chatId, text, inlineMarkup, cancellationToken: session.cancellationToken).FastAwait();
+        }
+        else
+        {
+            await messageSender.EditTextMessage(session.chatId, lastMessageId.Value, text, inlineMarkup, cancellationToken: session.cancellationToken).FastAwait();
+        }
+        _withMarkup = inlineMarkup is not null;
+        return lastMessageId.Value;
     }
 
     public virtual void OnDialogClose()
     {
-        RemoveKeyboardFromLastMessage();
+        Task.Run(RemoveKeyboardFromLastMessage);
     }
 
     protected async Task RemoveKeyboardFromLastMessage()
     {
         ClearButtons();
-        if (lastMessage?.ReplyMarkup != null)
+        if (lastMessageId is not null && _withMarkup)
         {
-            await messageSender.EditMessageKeyboard(session.chatId, lastMessage.MessageId, null, cancellationToken: session.cancellationToken).FastAwait();
+            await messageSender.RemoveInlineKeyboardAsync(session.chatId, lastMessageId.Value, session.cancellationToken).FastAwait();
+            _withMarkup = false;
         }
     }
 
@@ -203,7 +210,7 @@ public abstract class DialogPanelBase
         {
             await callback().FastAwait();
         }
-        await messageSender.AnswerQuery(session.chatId, queryId, query, cancellationToken: session.cancellationToken).FastAwait();
+        await messageSender.AnswerQuery(queryId, query, session.cancellationToken).FastAwait();
     }
 
     protected bool TryAppendTooltip(StringBuilder sb, Tooltip? _tooltip = null)
@@ -296,12 +303,11 @@ public abstract class DialogPanelBase
 
     public async Task ResendLastMessageAsNew()
     {
-        if (lastMessage == null)
+        if (lastMessageId is null || _resendLastMessageFunc is null)
             return;
 
-        await messageSender.DeleteMessage(lastMessage.Chat.Id, lastMessage.MessageId).FastAwait();
-        lastMessage = await messageSender.SendTextMessage(session.chatId, lastMessage.Text, lastMessage.ReplyMarkup,
-            cancellationToken: session.cancellationToken).FastAwait();
+        await messageSender.RemoveInlineKeyboardAsync(session.chatId, lastMessageId.Value).FastAwait();
+        lastMessageId = await _resendLastMessageFunc().FastAwait();
     }
 
 }

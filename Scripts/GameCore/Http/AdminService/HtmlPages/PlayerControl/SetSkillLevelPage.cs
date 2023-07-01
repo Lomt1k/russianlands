@@ -1,4 +1,5 @@
-﻿using MarkOne.Scripts.Bot;
+﻿using FastTelegramBot.DataTypes;
+using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Items;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Services;
@@ -128,12 +129,12 @@ internal class SetSkillLevelPage : IHtmlPage
 
     private void ShowSuccess(HttpListenerResponse response, HttpAdminSessionInfo sessionInfo, NameValueCollection query, string localPath, ProfileData profileData, string skillView)
     {
-        var playerUser = new SimpleUser
+        var playerUser = new User
         {
-            id = profileData.telegram_id,
-            firstName = profileData.firstName,
-            lastName = profileData.lastName,
-            username = profileData.username,
+            Id = profileData.telegram_id,
+            FirstName = profileData.firstName,
+            LastName = profileData.lastName,
+            Username = profileData.username,
         };
         Program.logger.Info($"Administrator {sessionInfo.user} set player {playerUser} skill level: {skillView}");
 

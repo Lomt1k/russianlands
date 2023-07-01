@@ -3,6 +3,7 @@ using System;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Services.BotData.SerializableData.DataTypes;
+using FastTelegramBot.DataTypes;
 
 namespace MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
 
@@ -82,16 +83,16 @@ public class ProfileData : DataWithSession
     public string? arenaItemId_4 { get; set; }
 
 
-    public ProfileData SetupNewProfile(SimpleUser user)
+    public ProfileData SetupNewProfile(User user)
     {
-        telegram_id = user.id;
+        telegram_id = user.Id;
         regDate = DateTime.UtcNow.AsDateString();
         regVersion = ProjectVersion.Current.ToString();
         lastVersion = regVersion;
-        nickname = user.firstName.IsCorrectNickname() ? user.firstName : "Player_" + (new Random().Next(8999) + 1000);
-        username = user.username;
-        firstName = user.firstName;
-        lastName = user.lastName;
+        nickname = user.FirstName.IsCorrectNickname() ? user.FirstName : "Player_" + (new Random().Next(8999) + 1000);
+        username = user.Username;
+        firstName = user.FirstName;
+        lastName = user.LastName;
 
         return this;
     }
