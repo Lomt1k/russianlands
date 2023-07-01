@@ -1,4 +1,5 @@
-﻿using MarkOne.Scripts.Bot;
+﻿using FastTelegramBot.DataTypes;
+using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Http.AdminService.HtmlPages;
 using MarkOne.Scripts.GameCore.Http.AdminService.HtmlPages.PlayerControl;
 using MarkOne.Scripts.GameCore.Localizations;
@@ -142,7 +143,7 @@ public class HttpAdminService : IHttpService
         if (_withoutLogin)
         {
             var sessionId = Guid.NewGuid().ToString();
-            var sessionInfo = new HttpAdminSessionInfo(-1, BotController.config.defaultLanguageCode, new SimpleUser() { id = -1, firstName = "Unknown" });
+            var sessionInfo = new HttpAdminSessionInfo(-1, BotController.config.defaultLanguageCode, new User() { Id = -1, FirstName = "Unknown" });
             _sessions.Add(sessionId, sessionInfo);
             response.SetCookie(new Cookie("x_admin_session", sessionId));
             return sessionId;
@@ -196,7 +197,7 @@ public class HttpAdminService : IHttpService
     }
 
 
-    private record AdminData(LanguageCode languageCode, SimpleUser user);
+    private record AdminData(LanguageCode languageCode, User user);
     private async Task<AdminData> GetAdminData(long telegramId)
     {
         var db = BotController.dataBase.db;
@@ -204,17 +205,17 @@ public class HttpAdminService : IHttpService
         var profileData = await query.FirstOrDefaultAsync().FastAwait();
         var languageCode = profileData is not null ? profileData.language : BotController.config.defaultLanguageCode;
         var user = profileData is not null
-            ? new SimpleUser
+            ? new User
             {
-                id = profileData.telegram_id,
-                firstName = profileData.firstName,
-                lastName = profileData.lastName,
-                username = profileData.username,
+                Id = profileData.telegram_id,
+                FirstName = profileData.firstName,
+                LastName = profileData.lastName,
+                Username = profileData.username,
             }
-            : new SimpleUser()
+            : new User()
             {
-                id = -1,
-                firstName = "Unknown"
+                Id = -1,
+                FirstName = "Unknown"
             };
         var firstName = profileData is not null ? profileData.firstName : "Unknown";
         return new AdminData(languageCode, user);

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using FastTelegramBot.DataTypes;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace MarkOne.Scripts.GameCore.Quests.Characters;
@@ -7,7 +8,7 @@ public static class CharacterStickersHolder
 {
     private static Dictionary<CharacterType, StickerInfo> _characterStickers;
 
-    public static string? GetSticker(CharacterType characterType)
+    public static FileId? GetSticker(CharacterType characterType)
     {
         if (_characterStickers.TryGetValue(characterType, out var stickerInfo))
         {

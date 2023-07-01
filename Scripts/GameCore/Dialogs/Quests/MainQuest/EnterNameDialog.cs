@@ -1,6 +1,5 @@
 ﻿using System.Text;
 using System.Threading.Tasks;
-using Telegram.Bot.Types;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Quests;
 using MarkOne.Scripts.GameCore.Quests.Characters;
@@ -11,6 +10,7 @@ using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Sessions;
 using MarkOne.Scripts.GameCore.Dialogs.Town.Character;
 using MarkOne.Scripts.GameCore.Dialogs.Town.Shop;
+using FastTelegramBot.DataTypes;
 
 namespace MarkOne.Scripts.GameCore.Dialogs.Quests.MainQuest;
 
@@ -53,7 +53,7 @@ public class EnterNameDialog : DialogBase
         var sticker = CharacterType.Vasilisa.GetSticker();
         if (sticker != null)
         {
-            await messageSender.SendSticker(session.chatId, sticker, session.cancellationToken).FastAwait();
+            await messageSender.SendSticker(session.chatId, sticker.Value, session.cancellationToken).FastAwait();
         }
 
         var text = Localization.Get(session, "quest_main_vasilisa_encounter_replica");
@@ -95,7 +95,7 @@ public class EnterNameDialog : DialogBase
         await SendDialogMessage(sb, GetMultilineKeyboard()).FastAwait();
     }
 
-    public override async Task HandleMessage(SimpleMessage message)
+    public override async Task HandleMessage(Message message)
     {
         if (_isQuestReplicaStage)
         {
@@ -105,16 +105,10 @@ public class EnterNameDialog : DialogBase
         await HandleMessageNotInQuest(message).FastAwait();
     }
 
-    public async Task HandleMessageInQuestStage(SimpleMessage message)
+    public async Task HandleMessageInQuestStage(Message message)
     {
-        if (message.text == null || string.IsNullOrWhiteSpace(message.text) || message.text.Equals(GetQuestButtonText(session)))
-        {
-            await Start().FastAwait();
-            return;
-        }
-
-        var newNickname = message.text;
-        if (!newNickname.IsCorrectNickname())
+        var newNickname = message.Text;
+        if (string.IsNullOrWhiteSpace(newNickname) || newNickname.Equals(GetQuestButtonText(session)) || !newNickname.IsCorrectNickname())
         {
             await Start().FastAwait();
             return;
@@ -125,9 +119,9 @@ public class EnterNameDialog : DialogBase
         return;
     }
 
-    public async Task HandleMessageNotInQuest(SimpleMessage message)
+    public async Task HandleMessageNotInQuest(Message message)
     {
-        var newNickname = message.text;
+        var newNickname = message.Text;
         if (newNickname is null || !newNickname.IsCorrectNickname())
         {
             await Start().FastAwait();

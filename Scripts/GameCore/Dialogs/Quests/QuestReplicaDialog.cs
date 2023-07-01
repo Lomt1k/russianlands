@@ -51,7 +51,7 @@ public class QuestReplicaDialog : DialogBase
         var sticker = _replica.characterType.GetSticker();
         if (sticker != null)
         {
-            await messageSender.SendSticker(session.chatId, sticker, cancellationToken: session.cancellationToken);
+            await messageSender.SendSticker(session.chatId, sticker.Value, cancellationToken: session.cancellationToken);
         }
         await SendDialogMessage(GetText(), GetMultilineKeyboard()).FastAwait();
     }

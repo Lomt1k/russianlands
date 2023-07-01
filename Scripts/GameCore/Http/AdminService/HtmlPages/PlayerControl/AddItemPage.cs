@@ -2,7 +2,6 @@
 using MarkOne.Scripts.GameCore.Services.BotData.SerializableData.DataTypes;
 using MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
 using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Net;
 using System.Threading.Tasks;
@@ -14,6 +13,7 @@ using MarkOne.Scripts.GameCore.Sessions;
 using MarkOne.Scripts.GameCore.Services;
 using MarkOne.Scripts.GameCore.Items.Generators;
 using System.Linq;
+using FastTelegramBot.DataTypes;
 
 namespace MarkOne.Scripts.GameCore.Http.AdminService.HtmlPages.PlayerControl;
 internal class AddItemPage : IHtmlPage
@@ -145,12 +145,12 @@ internal class AddItemPage : IHtmlPage
 
     private void ShowSuccessfullAddItem(HttpListenerResponse response, HttpAdminSessionInfo sessionInfo, NameValueCollection query, string localPath, ProfileData profileData, InventoryItem item)
     {
-        var playerUser = new SimpleUser
+        var playerUser = new User
         {
-            id = profileData.telegram_id,
-            firstName = profileData.firstName,
-            lastName = profileData.lastName,
-            username = profileData.username,
+            Id = profileData.telegram_id,
+            FirstName = profileData.firstName,
+            LastName = profileData.lastName,
+            Username = profileData.username,
         };
         Program.logger.Info($"Administrator {sessionInfo.user} gave the player {playerUser} {item.GetFullName(sessionInfo.languageCode)}");
 

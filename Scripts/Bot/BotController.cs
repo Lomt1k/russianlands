@@ -3,7 +3,6 @@ using System.IO;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using Telegram.Bot;
 using MarkOne.Scripts.GameCore.Quests.Characters;
 using MarkOne.Scripts.GameCore.Services;
 using MarkOne.Scripts.GameCore.Services.Battles;
@@ -11,6 +10,7 @@ using MarkOne.Scripts.GameCore.Sessions;
 using MarkOne.Scripts.GameCore.Services.BotData;
 using MarkOne.Scripts.GameCore.Http;
 using MarkOne.Scripts.GameCore.Http.AdminService;
+using FastTelegramBot;
 
 namespace MarkOne.Scripts.Bot;
 public static class BotController
@@ -105,14 +105,13 @@ public static class BotController
         await CharacterStickersHolder.StickersUpdate().FastAwait();
 
         var mineUser = await botClient.GetMeAsync().FastAwait();
-        mineUser.CanJoinGroups = false;
         botname = mineUser.Username;
         Program.SetTitle($"{botname} [{dataPath}]");
 
         
         httpListener.StartListening();
         CreateHttpServices();
-        _updatesReceiver.StartReceiving();
+        await _updatesReceiver.StartReceiving().FastAwait();
         Program.logger.Info($"Start listening for @{mineUser.Username}");
         isReceiving = true;
         

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Telegram.Bot.Types.ReplyMarkups;
 using MarkOne.Scripts.GameCore.Inventory;
 using MarkOne.Scripts.GameCore.Items;
 using MarkOne.Scripts.GameCore.Items.ItemAbilities;
@@ -14,6 +13,7 @@ using MarkOne.Scripts.GameCore.Units;
 using MarkOne.Scripts.GameCore.Units.Stats;
 using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Sessions;
+using FastTelegramBot.DataTypes.Keyboards;
 
 namespace MarkOne.Scripts.GameCore.Dialogs.Battle;
 
@@ -36,7 +36,7 @@ public class SelectBattleItemDialog : DialogBase
     public override async Task Start()
     {
         ClearButtons();
-        var keyboardRows = new List<List<KeyboardButton>>();
+        var keyboardRows = new List<List<ReplyKeyboardButton>>();
         AppendSingleSlotItems(ref keyboardRows);
         AppendMultiSlotItems(ref keyboardRows);
         var keyboard = new ReplyKeyboardMarkup(keyboardRows);
@@ -99,21 +99,21 @@ public class SelectBattleItemDialog : DialogBase
         }
     }
 
-    public void AppendSingleSlotItems(ref List<List<KeyboardButton>> keyboardRows)
+    public void AppendSingleSlotItems(ref List<List<ReplyKeyboardButton>> keyboardRows)
     {
         var swordItem = equipped[ItemType.Sword];
         var swordAttackText = swordItem != null
             ? swordItem.GetFullName(session)
             : Emojis.StatPhysicalDamage + Localization.Get(session, "battle_attack_fists");
         RegisterButton(swordAttackText, () => OnCategorySelected(ItemType.Sword));
-        keyboardRows.Add(new List<KeyboardButton> { swordAttackText });
+        keyboardRows.Add(new List<ReplyKeyboardButton> { swordAttackText });
 
         var bowItem = equipped[ItemType.Bow];
         if (bowItem != null && playerStats.currentArrows > 0)
         {
             var bowAttakText = bowItem.GetFullName(session);
             RegisterButton(bowAttakText, () => OnCategorySelected(ItemType.Bow));
-            keyboardRows.Add(new List<KeyboardButton> { bowAttakText });
+            keyboardRows.Add(new List<ReplyKeyboardButton> { bowAttakText });
         }
 
         var stickItem = equipped[ItemType.Stick];
@@ -121,13 +121,13 @@ public class SelectBattleItemDialog : DialogBase
         {
             var stickAttackText = stickItem.GetFullName(session);
             RegisterButton(stickAttackText, () => OnCategorySelected(ItemType.Stick));
-            keyboardRows.Add(new List<KeyboardButton> { stickAttackText });
+            keyboardRows.Add(new List<ReplyKeyboardButton> { stickAttackText });
         }
     }
 
-    public void AppendMultiSlotItems(ref List<List<KeyboardButton>> keyboardRows)
+    public void AppendMultiSlotItems(ref List<List<ReplyKeyboardButton>> keyboardRows)
     {
-        var multiRow = new List<KeyboardButton>();
+        var multiRow = new List<ReplyKeyboardButton>();
         if (playerStats.availablePotions > 0)
         {
             var potionsButtonText = Emojis.ButtonPotions + Localization.Get(session, "menu_item_potions");

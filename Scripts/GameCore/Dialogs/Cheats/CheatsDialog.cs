@@ -15,7 +15,8 @@ using MarkOne.Scripts.GameCore.Skills;
 using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Commands;
 using MarkOne.Scripts.GameCore.Sessions;
-using Telegram.Bot.Types;
+using FastTelegramBot.DataTypes;
+using FastTelegramBot.DataTypes.InputFiles;
 
 namespace MarkOne.Scripts.GameCore.Dialogs.Cheats;
 
@@ -496,7 +497,7 @@ public class CheatsDialog : DialogBase
 
     private async Task ResetAccount()
     {
-        var telegramId = session.actualUser.id;
+        var telegramId = session.actualUser.Id;
         await ResetAccountInDatabase().FastAwait();
         await messageSender.SendTextDialog(telegramId, "Account has been reseted", "Restart").FastAwait();
     }
@@ -547,7 +548,7 @@ public class CheatsDialog : DialogBase
 
         Program.logger.Debug($"profileState: \n{profileState.nickname} | v{profileState.lastVersion}");
 
-        var realTelegramId = session.actualUser.id;
+        var realTelegramId = session.actualUser.Id;
         var telegramId = session.profile.data.telegram_id;
         var dbid = session.profile.data.dbid;
         await ResetAccountInDatabase().FastAwait();
@@ -574,18 +575,19 @@ public class CheatsDialog : DialogBase
 
     #endregion
 
-    public override async Task HandleMessage(SimpleMessage message)
+    public override async Task HandleMessage(Message message)
     {
-        if (message.document != null && _onReceivedFileFromUser != null)
+        if (message.Document != null && _onReceivedFileFromUser != null)
         {
-            var fileId = message.document.fileId;
-            var file = await messageSender.GetFileAsync(fileId).FastAwait();
+            var fileId = message.Document.FileId;
+            var botClient = BotController.botClient;
+            var file = await botClient.GetFileAsync(fileId).FastAwait();
             if (file != null && !string.IsNullOrEmpty(file.FilePath))
             {
-                var localPath = Path.Combine(Program.cacheDirectory, fileId);
+                var localPath = Path.Combine(Program.cacheDirectory, fileId.ToString());
                 using (var fileStream = new FileStream(localPath, FileMode.Create))
                 {
-                    await messageSender.DownloadFileAsync(file.FilePath, fileStream).FastAwait();
+                    await botClient.DownloadFileAsync(file.FilePath, fileStream).FastAwait();
                     fileStream.Close();
                 }
                 await _onReceivedFileFromUser.Invoke(localPath).FastAwait();

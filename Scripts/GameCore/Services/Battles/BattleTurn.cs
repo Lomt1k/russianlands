@@ -191,7 +191,7 @@ public class BattleTurn
         var ingoreList = _queryTooltipsToIgnoreByPlayers[player];
         if (ingoreList.Contains(callback.tooltip))
         {
-            await messageSender.AnswerQuery(player.session.chatId, queryId, cancellationToken: player.session.cancellationToken).FastAwait();
+            await messageSender.AnswerQuery(queryId, cancellationToken: player.session.cancellationToken).FastAwait();
             return;
         }
 
@@ -219,7 +219,7 @@ public class BattleTurn
     {
         var text = targetUnit.GetFullUnitInfoView(player.session);
         await messageSender.SendTextMessage(player.session.chatId, text, cancellationToken: player.session.cancellationToken).FastAwait();
-        await messageSender.AnswerQuery(player.session.chatId, queryId, cancellationToken: player.session.cancellationToken).FastAwait();
+        await messageSender.AnswerQuery(queryId, cancellationToken: player.session.cancellationToken).FastAwait();
     }
 
 

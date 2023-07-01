@@ -1,4 +1,5 @@
-﻿using MarkOne.Scripts.GameCore.Sessions;
+﻿using FastTelegramBot.DataTypes;
+using MarkOne.Scripts.GameCore.Sessions;
 
 namespace MarkOne.Scripts.GameCore.Quests.Characters;
 
@@ -65,7 +66,7 @@ public static class CharacterTypeExtensions
         return Localizations.Localization.Get(session, $"character_{characterType.ToString().ToLower()}_name");
     }
 
-    public static string? GetSticker(this CharacterType characterType)
+    public static FileId? GetSticker(this CharacterType characterType)
     {
         return CharacterStickersHolder.GetSticker(characterType);
     }

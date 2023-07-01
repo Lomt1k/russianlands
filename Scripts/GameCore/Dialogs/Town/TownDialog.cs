@@ -1,12 +1,13 @@
 ﻿using System.Text;
 using System.Threading.Tasks;
-using Telegram.Bot.Types.ReplyMarkups;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Sessions;
 using MarkOne.Scripts.GameCore.Dialogs.Town.Map;
 using MarkOne.Scripts.GameCore.Services.News;
 using MarkOne.Scripts.GameCore.Services;
+using FastTelegramBot.DataTypes;
+using FastTelegramBot.DataTypes.Keyboards;
 
 namespace MarkOne.Scripts.GameCore.Dialogs.Town;
 
@@ -24,7 +25,7 @@ public class TownDialog : DialogBase
 
     private readonly TownEntryReason _reason;
     private readonly ReplyKeyboardMarkup _keyboard;
-    private int? _regenHealthMessageId;
+    private MessageId? _regenHealthMessageId;
 
     public TownDialog(GameSession _session, TownEntryReason reason) : base(_session)
     {
@@ -105,10 +106,14 @@ public class TownDialog : DialogBase
             sb.AppendLine(Localization.Get(session, "unit_view_health_regen"));
             sb.AppendLine(Emojis.StatHealth + $"{stats.currentHP} / {stats.maxHP}");
 
-            var message = _regenHealthMessageId == null
-                ? await messageSender.SendTextMessage(session.chatId, sb.ToString(), silent: true, cancellationToken: session.cancellationToken).FastAwait()
-                : await messageSender.EditTextMessage(session.chatId, _regenHealthMessageId.Value, sb.ToString(), cancellationToken: session.cancellationToken).FastAwait();
-            _regenHealthMessageId = message?.MessageId;
+            if (_regenHealthMessageId is null)
+            {
+                _regenHealthMessageId = await messageSender.SendTextMessage(session.chatId, sb.ToString(), silent: true, cancellationToken: session.cancellationToken).FastAwait();
+            }
+            else
+            {
+                await messageSender.EditTextMessage(session.chatId, _regenHealthMessageId.Value, sb.ToString(), cancellationToken: session.cancellationToken).FastAwait();
+            }
 
             WaitOneSecondAndInvokeHealthRegen();
         }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Telegram.Bot.Types.ReplyMarkups;
+using FastTelegramBot.DataTypes.Keyboards;
 using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Services.BotData.SerializableData;

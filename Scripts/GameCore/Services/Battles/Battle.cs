@@ -150,7 +150,7 @@ public class Battle
 
         if (currentTurn == null)
         {
-            await messageSender.AnswerQuery(player.session.chatId, queryId, cancellationToken: player.session.cancellationToken).FastAwait();
+            await messageSender.AnswerQuery(queryId, cancellationToken: player.session.cancellationToken).FastAwait();
             return;
         }
         await currentTurn.HandleBattleTooltipCallback(player, queryId, callback).FastAwait();

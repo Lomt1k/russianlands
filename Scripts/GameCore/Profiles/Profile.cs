@@ -9,7 +9,7 @@ namespace MarkOne.Scripts.GameCore.Profiles;
 
 public class Profile
 {
-    private static readonly DailyRemindersManager remindersManager = Services.ServiceLocator.Get<DailyRemindersManager>();
+    private static readonly DailyRemindersManager remindersManager = ServiceLocator.Get<DailyRemindersManager>();
 
     public GameSession session { get; }
     public ProfileData data { get; private set; }
@@ -76,7 +76,7 @@ public class Profile
     public static async Task<Profile> Load(GameSession session)
     {
         var db = BotController.dataBase.db;
-        var query = db.Table<ProfileData>().Where(x => x.telegram_id == session.actualUser.id);
+        var query = db.Table<ProfileData>().Where(x => x.telegram_id == session.actualUser.Id);
         var profileData = await query.FirstOrDefaultAsync().FastAwait();
         if (profileData == null)
         {
@@ -88,14 +88,14 @@ public class Profile
             // В первой сессии remindersManager срабатывает только после выбора языка
             await remindersManager.ScheduleReminder(profileData).FastAwait();
             // обновляем firstName, lastName, username в начале сессии
-            profileData.firstName = session.actualUser.firstName;
-            profileData.lastName = session.actualUser.lastName;
-            profileData.username = session.actualUser.username;
+            profileData.firstName = session.actualUser.FirstName;
+            profileData.lastName = session.actualUser.LastName;
+            profileData.username = session.actualUser.Username;
         }
 
         profileData.lastActivityTime = DateTime.UtcNow.AsDateTimeString();
         profileData.lastVersion = ProjectVersion.Current.ToString();
-        profileData.username = session.actualUser.username;
+        profileData.username = session.actualUser.Username;
 
         var dbid = profileData.dbid;
         var rawDynamicData = await db.GetOrNullAsync<RawProfileDynamicData>(dbid).FastAwait();

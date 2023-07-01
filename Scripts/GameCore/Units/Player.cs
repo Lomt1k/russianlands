@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using Telegram.Bot.Types.ReplyMarkups;
 using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.Bot.CallbackData;
 using MarkOne.Scripts.GameCore.Buildings;
@@ -16,6 +15,7 @@ using MarkOne.Scripts.GameCore.Units.Stats;
 using MarkOne.Scripts.GameCore.Dialogs.Battle;
 using MarkOne.Scripts.GameCore.Sessions;
 using MarkOne.Scripts.GameCore.Profiles;
+using FastTelegramBot.DataTypes.Keyboards;
 
 namespace MarkOne.Scripts.GameCore.Units;
 

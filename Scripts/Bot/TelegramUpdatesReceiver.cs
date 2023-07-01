@@ -1,10 +1,9 @@
-﻿using MarkOne.Scripts.GameCore.Http;
+﻿using FastTelegramBot.DataTypes;
+using MarkOne.Scripts.GameCore.Http;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Telegram.Bot;
-using Telegram.Bot.Polling;
-using Telegram.Bot.Types.Enums;
 
 namespace MarkOne.Scripts.Bot;
 
@@ -17,6 +16,7 @@ public class TelegramUpdatesReceiver
     };
 
     private CancellationTokenSource _cts = new CancellationTokenSource();
+    private readonly TelegramBotUpdateHandler _telegramBotUpdateHandler = new();
     private readonly BotHttpListener _botHttpListener;
 
     public bool isReceiving { get; private set; }
@@ -82,15 +82,15 @@ public class TelegramUpdatesReceiver
 
     private void StartPollingUpdates()
     {
-        var receiverOptions = new ReceiverOptions
-        {
-            //AllowedUpdates = { }, // receive all update types
-            AllowedUpdates = AllowedUpdates,
-            Offset = -1 // После рестарта бота обработает только последнее сообщение, отправленное за время офлайна (оно запустит новую сессию)
-        };
-        BotController.botClient.ReceiveAsync<TelegramBotUpdateHandler>(receiverOptions, _cts.Token);
+        BotController.botClient.StartPollingUpdates(HandlePollingUpdates, allowedUpdates: AllowedUpdates, cancellationToken: _cts.Token);
         isReceiving = true;
         Program.logger.Info($"Polling updates started");
+    }
+
+    private Task HandlePollingUpdates(List<Update> updates)
+    {
+        _telegramBotUpdateHandler.HandleUpdates(updates);
+        return Task.CompletedTask;
     }
 
     public void StopReceiving()
@@ -102,6 +102,5 @@ public class TelegramUpdatesReceiver
         isReceiving = false;
         Program.logger.Info($"Polling updates stopped");
     }
-
 
 }

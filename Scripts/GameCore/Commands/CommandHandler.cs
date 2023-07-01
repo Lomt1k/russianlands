@@ -49,7 +49,7 @@ public static class CommandHandler
         {
             CommandGroup.ForAll => true,
             CommandGroup.Admin => session.isAdmin,
-            CommandGroup.Cheat => session.isAdmin || BotController.config.cheatsForAll || session.fakeChatId?.Identifier != null,
+            CommandGroup.Cheat => session.isAdmin || BotController.config.cheatsForAll || session.fakeChatId?.Id != null,
             _ => false
         };
         if (!access)

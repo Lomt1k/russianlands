@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Telegram.Bot.Types;
-using Telegram.Bot.Types.ReplyMarkups;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Services;
 using MarkOne.Scripts.Bot;
+using FastTelegramBot.DataTypes;
+using FastTelegramBot.DataTypes.Keyboards;
 
 namespace MarkOne.Scripts.GameCore.Sessions;
 
@@ -34,15 +34,15 @@ public class SessionManager : Service
         return Task.CompletedTask;
     }
 
-    public GameSession GetOrCreateSession(SimpleUser user)
+    public GameSession GetOrCreateSession(User user)
     {
-        if (!_sessions.TryGetValue(user.id, out var session))
+        if (!_sessions.TryGetValue(user.Id, out var session))
         {
-            var useFakeChatId = _fakeIdsDict.TryGetValue(user.id, out var fakeChatId);
+            var useFakeChatId = _fakeIdsDict.TryGetValue(user.Id, out var fakeChatId);
             session = useFakeChatId
                 ? new GameSession(user, fakeChatId)
                 : new GameSession(user);
-            _sessions.Add(user.id, session);
+            _sessions.Add(user.Id, session);
         }
         return session;
     }
@@ -58,11 +58,11 @@ public class SessionManager : Service
         return session;
     }
 
-    public bool IsAccountUsedByFakeId(SimpleUser user)
+    public bool IsAccountUsedByFakeId(User user)
     {
         foreach (var fakeId in _fakeIdsDict.Values)
         {
-            if (fakeId == user.id)
+            if (fakeId == user.Id)
             {
                 return true;
             }
