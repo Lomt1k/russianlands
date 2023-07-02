@@ -10,11 +10,16 @@
     <AssemblyName>MarkOne</AssemblyName>
     <RootNamespace>MarkOne</RootNamespace>
     <BaseOutputPath>bin\</BaseOutputPath>
+    <StartupObject>MarkOne.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <AvaloniaResource Include="Assets\**" />
     <AvaloniaResource Remove="Assets\log4net.config" />
     <None Remove=".gitignore" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Subprojects\**\bin\**" />
+    <Compile Remove="Subprojects\**\obj\**" />
   </ItemGroup>
   <ItemGroup>
     <!--This helps with theme dll-s trimming.

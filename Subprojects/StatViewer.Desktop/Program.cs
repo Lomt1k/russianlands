@@ -16,15 +16,15 @@ class Program
     public static int Main(string[] args)
     {
         var builder = BuildAvaloniaApp();
-        if(args.Contains("--drm"))
-        {
-            SilenceConsole();
+        //if(args.Contains("--drm"))
+        //{
+        //    SilenceConsole();
                 
-            // If Card0, Card1 and Card2 all don't work. You can also try:                 
-            // return builder.StartLinuxFbDev(args);
-            // return builder.StartLinuxDrm(args, "/dev/dri/card1");
-            return builder.StartLinuxDrm(args, "/dev/dri/card1", 1D);
-        }
+        //    // If Card0, Card1 and Card2 all don't work. You can also try:                 
+        //    // return builder.StartLinuxFbDev(args);
+        //    // return builder.StartLinuxDrm(args, "/dev/dri/card1");
+        //    return builder.StartLinuxDrm(args, "/dev/dri/card1", 1D);
+        //}
 
         return builder.StartWithClassicDesktopLifetime(args);
     }
@@ -34,7 +34,7 @@ class Program
     public static AppBuilder BuildAvaloniaApp()
         => AppBuilder.Configure<App>()
             .UsePlatformDetect()
-            .WithInterFont()
+            //.WithInterFont()
             .LogToTrace()
             .UseReactiveUI();
 
