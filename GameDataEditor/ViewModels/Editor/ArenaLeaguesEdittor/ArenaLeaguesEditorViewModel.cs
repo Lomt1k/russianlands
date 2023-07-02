@@ -1,5 +1,5 @@
 ﻿using GameDataEditor.Views.Editor.ArenaLeaguesEditor;
-using MarkOne.Models;
+using GameDataEditor.Models;
 using MarkOne.Scripts.GameCore.Arena;
 using ReactiveUI;
 using System.Collections.ObjectModel;

@@ -6,8 +6,8 @@ using MarkOne.Scripts.GameCore.Locations;
 using MarkOne.Scripts.GameCore.Services;
 using MarkOne.Scripts.GameCore.Services.GameData;
 using MarkOne.Scripts.GameCore.Units.Mobs;
-using MarkOne.Views.UserControls;
-using MarkOne.ViewModels.Editor.Rewards;
+using GameDataEditor.Views.UserControls;
+using GameDataEditor.ViewModels.Editor.Rewards;
 
 namespace GameDataEditor.ViewModels.Editor.LocationMobsEditor;
 

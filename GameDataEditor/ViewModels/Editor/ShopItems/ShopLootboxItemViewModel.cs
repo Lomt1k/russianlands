@@ -1,6 +1,6 @@
 ﻿using MarkOne.Scripts.GameCore.Shop;
-using MarkOne.Views.Editor.ShopItems;
-using MarkOne.Views.UserControls;
+using GameDataEditor.Views.Editor.ShopItems;
+using GameDataEditor.Views.UserControls;
 
 namespace GameDataEditor.ViewModels.Editor.ShopItems;
 internal class ShopLootboxItemViewModel

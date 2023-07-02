@@ -9,7 +9,7 @@
     </Application.Styles>-->
 
   <Application.Styles>
-    <FluentTheme Mode="Light"/>
+    <FluentTheme />
 
     <!-- Borders -->
     <Style Selector="Border.Default">

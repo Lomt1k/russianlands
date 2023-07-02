@@ -1,12 +1,12 @@
 ﻿using ReactiveUI;
 using System.Collections.ObjectModel;
 using System.Reactive;
-using MarkOne.Models.UserControls;
+using GameDataEditor.Models.UserControls;
 using MarkOne.Scripts.GameCore.Buildings;
 using MarkOne.Scripts.GameCore.Buildings.Data;
 using MarkOne.Scripts.GameCore.Services;
 using MarkOne.Scripts.GameCore.Services.GameData;
-using MarkOne.Views.UserControls;
+using GameDataEditor.Views.UserControls;
 
 namespace GameDataEditor.ViewModels.Editor.BuildingsEditor;
 

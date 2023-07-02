@@ -1,13 +1,13 @@
 ﻿using ReactiveUI;
 using System.Collections.ObjectModel;
 using System.Reactive;
-using MarkOne.Models;
+using GameDataEditor.Models;
 using MarkOne.Scripts.GameCore.Items;
 using MarkOne.Scripts.GameCore.Items.ItemAbilities;
 using MarkOne.Scripts.GameCore.Items.ItemProperties;
 using MarkOne.Scripts.GameCore.Services;
 using MarkOne.Scripts.GameCore.Services.GameData;
-using MarkOne.Views.Editor.ItemsEditor;
+using GameDataEditor.Views.Editor.ItemsEditor;
 
 namespace GameDataEditor.ViewModels.Editor.ItemsEditor;
 

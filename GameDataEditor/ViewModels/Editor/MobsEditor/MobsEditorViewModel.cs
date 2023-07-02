@@ -5,7 +5,7 @@ using System.Reactive;
 using MarkOne.Scripts.GameCore.Services;
 using MarkOne.Scripts.GameCore.Services.GameData;
 using MarkOne.Scripts.GameCore.Units.Mobs;
-using MarkOne.Views.Editor.MobsEditor;
+using GameDataEditor.Views.Editor.MobsEditor;
 
 namespace GameDataEditor.ViewModels.Editor.MobsEditor;
 

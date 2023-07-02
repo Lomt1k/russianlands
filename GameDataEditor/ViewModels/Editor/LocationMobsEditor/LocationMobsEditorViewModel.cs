@@ -1,8 +1,8 @@
 ﻿using ReactiveUI;
 using System.Collections.ObjectModel;
-using MarkOne.Models;
+using GameDataEditor.Models;
 using MarkOne.Scripts.GameCore.Locations;
-using MarkOne.Views.Editor.LocationMobsEditor;
+using GameDataEditor.Views.Editor.LocationMobsEditor;
 
 namespace GameDataEditor.ViewModels.Editor.LocationMobsEditor;
 

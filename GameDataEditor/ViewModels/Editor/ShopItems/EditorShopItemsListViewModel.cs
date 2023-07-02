@@ -1,8 +1,8 @@
 ﻿using Avalonia.Controls;
-using MarkOne.Models.RegularDialogs;
+using GameDataEditor.Models.RegularDialogs;
+using GameDataEditor.ViewModels.UserControls;
+using GameDataEditor.Views.Editor.ShopItems;
 using MarkOne.Scripts.GameCore.Shop;
-using MarkOne.ViewModels.UserControls;
-using MarkOne.Views.Editor.ShopItems;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

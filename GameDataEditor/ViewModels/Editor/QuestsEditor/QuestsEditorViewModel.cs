@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
-using MarkOne.Models;
-using MarkOne.Models.RegularDialogs;
+using GameDataEditor.Models;
+using GameDataEditor.Models.RegularDialogs;
 using MarkOne.Scripts.GameCore.Quests;
 using MarkOne.Scripts.GameCore.Quests.QuestStages;
 using MarkOne.Scripts.GameCore.Services;
 using MarkOne.Scripts.GameCore.Services.GameData;
-using MarkOne.Views.Editor.QuestsEditor;
+using GameDataEditor.Views.Editor.QuestsEditor;
 
 namespace GameDataEditor.ViewModels.Editor.QuestsEditor;
 

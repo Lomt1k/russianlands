@@ -1,8 +1,8 @@
 ﻿using Avalonia.Controls;
 using MarkOne.Scripts.GameCore.Rewards;
-using MarkOne.ViewModels.Editor.Rewards;
-using MarkOne.ViewModels.UserControls;
-using MarkOne.Views.Editor.Rewards;
+using GameDataEditor.ViewModels.Editor.Rewards;
+using GameDataEditor.ViewModels.UserControls;
+using GameDataEditor.Views.Editor.Rewards;
 using System.Threading.Tasks;
 
 namespace GameDataEditor.ViewModels.Editor.ShopItems;

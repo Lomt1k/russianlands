@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
-using MarkOne.Models;
+using GameDataEditor.Models;
 using MarkOne.Scripts.GameCore.Quests.Characters;
 using MarkOne.Scripts.GameCore.Quests.QuestStages;
 

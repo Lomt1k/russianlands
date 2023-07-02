@@ -1,6 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
-using MarkOne.ViewModels.UserControls;
+using GameDataEditor.ViewModels.UserControls;
 
 namespace GameDataEditor.Views.UserControls;
 

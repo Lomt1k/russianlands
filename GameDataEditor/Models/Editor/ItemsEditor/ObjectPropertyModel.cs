@@ -2,9 +2,9 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
-using MarkOne.ViewModels.UserControls;
+using GameDataEditor.ViewModels.UserControls;
 
-namespace MaGameDataEditorkOne.Models.Editor.ItemsEditor;
+namespace GameDataEditor.Models.Editor.ItemsEditor;
 
 public class ObjectPropertyModel
 {

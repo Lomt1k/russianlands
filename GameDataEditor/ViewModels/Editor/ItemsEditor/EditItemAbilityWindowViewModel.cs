@@ -3,10 +3,10 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
-using MarkOne.Models;
-using MarkOne.Models.Editor.ItemsEditor;
+using GameDataEditor.Models;
 using MarkOne.Scripts.GameCore.Items.ItemAbilities;
-using MarkOne.Views.Editor.ItemsEditor;
+using GameDataEditor.Views.Editor.ItemsEditor;
+using GameDataEditor.Models.Editor.ItemsEditor;
 
 namespace GameDataEditor.ViewModels.Editor.ItemsEditor;
 

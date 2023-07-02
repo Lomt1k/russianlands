@@ -1,7 +1,7 @@
 ﻿using Avalonia.Controls;
+using GameDataEditor.ViewModels.UserControls;
+using GameDataEditor.Views.Editor.ShopItems;
 using MarkOne.Scripts.GameCore.Arena;
-using MarkOne.ViewModels.UserControls;
-using MarkOne.Views.Editor.ShopItems;
 using System.Threading.Tasks;
 
 namespace GameDataEditor.ViewModels.Editor.ShopItems;

@@ -1,13 +1,13 @@
 ﻿using ReactiveUI;
 using System.Collections.ObjectModel;
 using System.Reactive;
-using MarkOne.Models.RegularDialogs;
+using GameDataEditor.Models.RegularDialogs;
 using MarkOne.Scripts.GameCore.Items;
 using MarkOne.Scripts.GameCore.Items.ItemAbilities;
 using MarkOne.Scripts.GameCore.Items.ItemProperties;
 using MarkOne.Scripts.GameCore.Services;
 using MarkOne.Scripts.GameCore.Services.GameData;
-using MarkOne.Views.Editor.ItemsEditor;
+using GameDataEditor.Views.Editor.ItemsEditor;
 
 namespace GameDataEditor.ViewModels.Editor.ItemsEditor;
 
@@ -105,7 +105,7 @@ public class ItemInspectorViewModel : ViewModelBase
     {
         var editWindow = new EditItemWindow();
         editWindow.DataContext = new EditItemWindowViewModel(editWindow, _currentItem, isNewItem);
-        editWindow.ShowDialog(Program.mainWindow);
+        editWindow.ShowDialog(App.mainWindow);
     }
 
 

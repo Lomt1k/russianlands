@@ -2,16 +2,51 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:vm="clr-namespace:GameDataEditor.ViewModels"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="GameDataEditor.Views.MainView"
-             x:DataType="vm:MainViewModel">
-  <Design.DataContext>
-    <!-- This only sets the DataContext for the previewer in an IDE,
-         to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
-    <vm:MainViewModel />
-  </Design.DataContext>
+             mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="600"
+             x:Class="GameDataEditor.Views.MainView">
 
-  <UserControl Content="{Binding mainContentView}"/>
-  
+  <Border Classes="Default">
+    <Grid>
+
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="auto"/>
+        <ColumnDefinition Width="*"/>
+      </Grid.ColumnDefinitions>
+
+      <Grid Classes="Content" MinWidth="200"
+                  Background="SlateGray">
+        <ListBox Items="{Binding categories}"
+                 SelectedItem="{Binding selectedCategory}"
+                 Background="SlateGray">
+          <ListBox.ItemTemplate>
+
+            <DataTemplate>
+              <StackPanel Orientation="Vertical">
+                <TextBlock Text="{Binding name}" VerticalAlignment="Center"
+                           FontStyle="Oblique" FontWeight="DemiBold"/>
+              </StackPanel>
+            </DataTemplate>
+
+          </ListBox.ItemTemplate>
+        </ListBox>
+
+        <StackPanel Orientation="Vertical" VerticalAlignment="Bottom"
+                    Margin="15,0" Spacing="5" Height="100">
+          <Button Content="Save" Height="45" Width="160"  Classes="Positive"
+                  VerticalContentAlignment="Center"
+                  HorizontalContentAlignment="Center"
+                  Command="{Binding saveCommand}"/>
+          <Button Content="Reload" Height="30" Width="160"
+                  VerticalContentAlignment="Center"
+                  HorizontalContentAlignment="Center"
+                  Command="{Binding reloadCommand}"/>
+        </StackPanel>
+      </Grid>
+
+      <UserControl Grid.Column="1" Margin="40,10"
+                   Content="{Binding selectedCategory.view, Mode=TwoWay}"/>
+
+    </Grid>
+  </Border>
+
 </UserControl>

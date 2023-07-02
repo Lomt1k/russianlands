@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
-using MarkOne.Models.RegularDialogs;
-using MarkOne.Models.UserControls;
+using GameDataEditor.Models.RegularDialogs;
+using GameDataEditor.Models.UserControls;
 using MarkOne.Scripts.GameCore.Potions;
 using MarkOne.Scripts.GameCore.Services;
 using MarkOne.Scripts.GameCore.Services.GameData;
-using MarkOne.Views.UserControls;
+using GameDataEditor.Views.UserControls;
 
 namespace GameDataEditor.ViewModels.Editor.PotionsEditor;
 

@@ -1,8 +1,8 @@
 ﻿using ReactiveUI;
 using System.Collections.ObjectModel;
-using MarkOne.Models;
+using GameDataEditor.Models;
 using MarkOne.Scripts.GameCore.Buildings;
-using MarkOne.Views.Editor.BuildingsEditor;
+using GameDataEditor.Views.Editor.BuildingsEditor;
 
 namespace GameDataEditor.ViewModels.Editor.BuildingsEditor;
 

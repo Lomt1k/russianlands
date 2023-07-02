@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
-using MarkOne.Models.Editor.ItemsEditor;
+using GameDataEditor.Models.Editor.ItemsEditor;
 using MarkOne.Scripts.GameCore.Items;
 using MarkOne.Scripts.GameCore.Services;
 using MarkOne.Scripts.GameCore.Services.GameData;
-using MarkOne.Views.Editor.ItemsEditor;
+using GameDataEditor.Views.Editor.ItemsEditor;
 
 namespace GameDataEditor.ViewModels.Editor.ItemsEditor;
 

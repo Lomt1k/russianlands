@@ -4,8 +4,8 @@ using System.Collections.ObjectModel;
 using MarkOne.Scripts.GameCore.Quests.QuestStages;
 using MarkOne.Scripts.GameCore.Services;
 using MarkOne.Scripts.GameCore.Services.GameData;
-using MarkOne.Views.UserControls;
-using MarkOne.ViewModels.Editor.Rewards;
+using GameDataEditor.Views.UserControls;
+using GameDataEditor.ViewModels.Editor.Rewards;
 
 namespace GameDataEditor.ViewModels.Editor.QuestsEditor;
 

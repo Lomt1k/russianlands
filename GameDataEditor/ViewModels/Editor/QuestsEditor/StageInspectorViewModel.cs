@@ -1,7 +1,7 @@
 ﻿using Avalonia.Controls;
 using ReactiveUI;
 using MarkOne.Scripts.GameCore.Quests.QuestStages;
-using MarkOne.Views.Editor.QuestsEditor;
+using GameDataEditor.Views.Editor.QuestsEditor;
 
 namespace GameDataEditor.ViewModels.Editor.QuestsEditor;
 

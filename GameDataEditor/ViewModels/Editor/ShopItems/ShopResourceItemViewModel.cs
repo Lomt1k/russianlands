@@ -1,6 +1,7 @@
 ﻿using MarkOne.Scripts.GameCore.Shop;
-using MarkOne.Views.Editor.Rewards;
-using MarkOne.Views.Editor.ShopItems;
+using GameDataEditor.Views.Editor.Rewards;
+using GameDataEditor.Views.Editor.ShopItems;
+using GameDataEditor.ViewModels.Editor.Rewards;
 
 namespace GameDataEditor.ViewModels.Editor.ShopItems;
 internal class ShopResourceItemViewModel : ViewModelBase

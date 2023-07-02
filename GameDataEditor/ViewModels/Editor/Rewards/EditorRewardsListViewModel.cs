@@ -2,10 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using MarkOne.Models.RegularDialogs;
+using GameDataEditor.Models.RegularDialogs;
 using MarkOne.Scripts.GameCore.Rewards;
-using MarkOne.ViewModels.UserControls;
-using MarkOne.Views.Editor.Rewards;
+using GameDataEditor.ViewModels.UserControls;
+using GameDataEditor.Views.Editor.Rewards;
 
 namespace GameDataEditor.ViewModels.Editor.Rewards;
 

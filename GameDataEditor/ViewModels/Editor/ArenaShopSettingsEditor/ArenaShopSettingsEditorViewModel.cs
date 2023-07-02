@@ -1,8 +1,8 @@
-﻿using MarkOne.Scripts.GameCore.Arena;
+﻿using GameDataEditor.ViewModels.Editor.ShopItems;
+using GameDataEditor.Views.UserControls;
+using MarkOne.Scripts.GameCore.Arena;
 using MarkOne.Scripts.GameCore.Services;
 using MarkOne.Scripts.GameCore.Services.GameData;
-using MarkOne.ViewModels.Editor.ShopItems;
-using MarkOne.Views.UserControls;
 using ReactiveUI;
 using System.Collections.ObjectModel;
 using System.Linq;

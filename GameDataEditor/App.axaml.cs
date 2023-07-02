@@ -1,7 +1,6 @@
 ﻿using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-
 using GameDataEditor.ViewModels;
 using GameDataEditor.Views;
 
@@ -9,6 +8,8 @@ namespace GameDataEditor;
 
 public partial class App : Application
 {
+    public static MainWindow mainWindow;
+
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
@@ -18,17 +19,15 @@ public partial class App : Application
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            desktop.MainWindow = new MainWindow
+            mainWindow = new MainWindow
             {
-                DataContext = new MainViewModel()
+                DataContext = new MainView() { DataContext = new MainViewModel() }
             };
+            desktop.MainWindow = mainWindow;
         }
-        else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
+        else
         {
-            singleViewPlatform.MainView = new MainView
-            {
-                DataContext = new MainViewModel()
-            };
+            throw new System.Exception("GameDataEditor can be started only at Desktop");
         }
 
         base.OnFrameworkInitializationCompleted();

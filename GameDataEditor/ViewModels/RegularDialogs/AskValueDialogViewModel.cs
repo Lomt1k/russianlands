@@ -1,7 +1,7 @@
 ﻿using ReactiveUI;
 using System;
 using System.Reactive;
-using MarkOne.Views.RegularDialogs;
+using GameDataEditor.Views.RegularDialogs;
 
 namespace GameDataEditor.ViewModels.RegularDialogs;
 

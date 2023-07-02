@@ -3,12 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Reactive;
-using MarkOne.Models.RegularDialogs;
-using MarkOne.Models.UserControls;
+using GameDataEditor.Models.RegularDialogs;
+using GameDataEditor.Models.UserControls;
 using MarkOne.Scripts.GameCore.Quests.NextStageTriggers;
 using MarkOne.Scripts.GameCore.Quests.QuestStages;
 using MarkOne.Scripts.GameCore.Quests.StageActions;
-using MarkOne.Views.UserControls;
+using GameDataEditor.Views.UserControls;
 
 namespace GameDataEditor.ViewModels.Editor.QuestsEditor;
 
