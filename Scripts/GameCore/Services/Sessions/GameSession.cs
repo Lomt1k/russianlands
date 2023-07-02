@@ -91,10 +91,10 @@ public class GameSession
             }
 
             // Регистрируем игровую активность для статистики
-            var secondsBeforeActivities = (lastActivityTime - previousActivity).Seconds;
-            if (secondsBeforeActivities < 120)
+            var secondsBeforeActivity = (lastActivityTime - previousActivity).Seconds;
+            if (secondsBeforeActivity < 180)
             {
-                profile.dailyData.activityInSeconds += secondsBeforeActivities;
+                profile.dailyData.activityInSeconds += secondsBeforeActivity;
             }
 
             // Обрабатываем апдейт
@@ -163,7 +163,8 @@ public class GameSession
 
     private async Task OnStartNewSession(Update update)
     {
-        profile = await Profile.Load(this).FastAwait();
+        var messageText = update?.Message?.Text ?? string.Empty;
+        profile = await Profile.Load(this, messageText).FastAwait();
         player = new Player(this);
         await QuestManager.HandleNewSession(this, update).FastAwait();
     }

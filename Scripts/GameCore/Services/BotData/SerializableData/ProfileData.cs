@@ -18,9 +18,10 @@ public class ProfileData : DataWithSession
     [MaxLength(64)] public string? lastName { get; set; }
     public LanguageCode language { get; set; } = LanguageCode.RU;
     [MaxLength(16)] public string nickname { get; set; } = string.Empty;
-    [MaxLength(24)] public string regDate { get; set; } = string.Empty;
+    [MaxLength(24)] public DateTime regDate { get; set; }
     [MaxLength(16)] public string regVersion { get; set; } = string.Empty;
-    [MaxLength(24)] public string lastActivityTime { get; set; } = string.Empty;
+    [MaxLength(32)] public string regInfo { get; set; } = string.Empty;
+    [MaxLength(24)] public DateTime lastActivityTime { get; set; }
     [MaxLength(16)] public string lastVersion { get; set; } = string.Empty;
 
     public AdminStatus adminStatus { get; set; }
@@ -83,11 +84,12 @@ public class ProfileData : DataWithSession
     public string? arenaItemId_4 { get; set; }
 
 
-    public ProfileData SetupNewProfile(User user)
+    public ProfileData SetupNewProfile(User user, string messageText = "")
     {
         telegram_id = user.Id;
-        regDate = DateTime.UtcNow.AsDateString();
+        regDate = DateTime.UtcNow;
         regVersion = ProjectVersion.Current.ToString();
+        regInfo = messageText.Contains("/start ") ? messageText.Replace("/start ", string.Empty) : string.Empty;
         lastVersion = regVersion;
         nickname = user.FirstName.IsCorrectNickname() ? user.FirstName : "Player_" + (new Random().Next(8999) + 1000);
         username = user.Username;

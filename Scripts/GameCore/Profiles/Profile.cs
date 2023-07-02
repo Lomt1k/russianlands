@@ -73,14 +73,14 @@ public class Profile
         dailyData = ProfileDailyData.Create(data, dynamicData, buildingsData);
     }
 
-    public static async Task<Profile> Load(GameSession session)
+    public static async Task<Profile> Load(GameSession session, string messageText)
     {
         var db = BotController.dataBase.db;
         var query = db.Table<ProfileData>().Where(x => x.telegram_id == session.actualUser.Id);
         var profileData = await query.FirstOrDefaultAsync().FastAwait();
         if (profileData == null)
         {
-            profileData = new ProfileData().SetupNewProfile(session.actualUser);
+            profileData = new ProfileData().SetupNewProfile(session.actualUser, messageText);
             await db.InsertAsync(profileData).FastAwait();
         }
         else
@@ -93,7 +93,7 @@ public class Profile
             profileData.username = session.actualUser.Username;
         }
 
-        profileData.lastActivityTime = DateTime.UtcNow.AsDateTimeString();
+        profileData.lastActivityTime = DateTime.UtcNow;
         profileData.lastVersion = ProjectVersion.Current.ToString();
         profileData.username = session.actualUser.Username;
 

@@ -218,8 +218,7 @@ public class Battle
         }
 
         var hasContinueButton = _onContinueButtonFunc != null;
-        var isReturnToTownAvailable = !hasContinueButton
-|| (_isAvailableReturnToTownFunc != null && _isAvailableReturnToTownFunc(player, battleResult));
+        var isReturnToTownAvailable = !hasContinueButton || (_isAvailableReturnToTownFunc != null && _isAvailableReturnToTownFunc(player, battleResult));
 
         var data = new BattleResultData
         {

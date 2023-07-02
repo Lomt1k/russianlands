@@ -97,6 +97,7 @@ public class Player : IBattleUnit
     {
         unitStats.OnBattleEnd();
         healhRegenerationController.SetLastRegenTimeAsNow();
+        profile.dailyData.battlesCount++;
     }
 
     public async Task OnStartEnemyTurn(BattleTurn battleTurn)

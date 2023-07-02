@@ -219,7 +219,7 @@ internal class PlayerSearchPage : IHtmlPage
             row.Add("td", profileData.firstName);
             row.Add("td", profileData.lastName ?? string.Empty);
             row.Add("td", profileData.username ?? string.Empty);
-            row.Add("td", profileData.lastActivityTime);
+            row.Add("td", profileData.lastActivityTime.ToShortDateString());
             row.Add("td").Add(HtmlHelper.CreateLinkButton("View", $"{localPath}?page={page}&telegramId={profileData.telegram_id}"
                 + (showActivePlayers ? "&showActivePlayers=" : string.Empty), size: 14));
         }
@@ -299,10 +299,10 @@ internal class PlayerSearchPage : IHtmlPage
                 CreateTableRow("Username", profileData.username ?? string.Empty),
                 CreateTableRow("Level", profileData.level.ToString()),
 
-                CreateTableRow("Registration Date", profileData.regDate),
+                CreateTableRow("Registration Date", profileData.regDate.ToShortDateString()),
                 CreateTableRow("Registration Version", profileData.regVersion),
                 CreateTableRow("Last Version", profileData.lastVersion),
-                CreateTableRow("Last Activity Time", profileData.lastActivityTime),
+                CreateTableRow("Last Activity Time", profileData.lastActivityTime.ToShortDateString()),
 
                 CreateTableRow("Language", profileData.language.ToString()),
                 CreateTableRow("Admin Status", profileData.adminStatus.ToString()),

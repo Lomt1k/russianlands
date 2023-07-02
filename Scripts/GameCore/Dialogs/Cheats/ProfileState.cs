@@ -34,7 +34,7 @@ internal class ProfileState
             nickname = profile.data.nickname,
             databaseId = profile.data.dbid,
             telegramId = profile.data.telegram_id,
-            lastDate = profile.data.lastActivityTime,
+            lastDate = profile.data.lastActivityTime.Ticks.ToString(),
             lastVersion = profile.data.lastVersion,
             profileQuery = CreateQueryForRestore(profile.data),
             profileDynamicQuery = CreateQueryForRestore(profile.dynamicData),
