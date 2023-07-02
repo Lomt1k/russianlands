@@ -22,10 +22,10 @@ public class ProfileDailyData : DataWithSession
     // for stats
     public int activityInSeconds { get; set; } = 1;
     public ushort battlesCount { get; set; }
-    public byte townhallLevel => session.profile.buildingsData.townHallLevel;
-    public byte playerLevel => session.profile.data.level;
-    public QuestId currentQuest => session.profile.dynamicData.quests.GetFocusedQuest() ?? QuestId.None;
-    public int currentQuestStage => session.profile.dynamicData.quests.GetStage(session.profile.dynamicData.quests.GetFocusedQuest() ?? QuestId.None);
+    public byte townhallLevel => session?.profile.buildingsData.townHallLevel ?? 1;
+    public byte playerLevel => session?.profile.data.level ?? 1;
+    public QuestId currentQuest => session?.profile.dynamicData.quests.GetFocusedQuest() ?? QuestId.None;
+    public int currentQuestStage => session?.profile.dynamicData.quests.GetStage(session.profile.dynamicData.quests.GetFocusedQuest() ?? QuestId.None) ?? 0;
 
     // game data
     public MobDifficulty? locationMobsDifficulty { get; set; }
