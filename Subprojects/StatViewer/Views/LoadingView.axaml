@@ -4,9 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:StatViewer.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="StatViewer.Views.MainView"
-             x:DataType="vm:MainViewModel">
-
-  <UserControl Content="{Binding CurrentView}"/>
-
+             x:Class="StatViewer.Views.LoadingView"
+             x:DataType="vm:LoadingViewModel">
+  
+  <TextBlock Text="{Binding LoadingText}" 
+             HorizontalAlignment="Center"
+             VerticalAlignment="Center"
+             FontSize="24"/>
+  
 </UserControl>
