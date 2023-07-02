@@ -1,0 +1,44 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="300"
+             x:Class="GameDataEditor.Views.Editor.BuildingsEditor.BuildingInspectorView">
+
+  <Grid Background="WhiteSmoke" Width="500" Margin="40,0">
+
+    <Grid.RowDefinitions>
+      <RowDefinition/>
+      <RowDefinition Height="50"/>
+    </Grid.RowDefinitions>
+    
+    <Border Grid.Row="0">
+      <ScrollViewer Height="800" Padding="0,0,20,0"
+                    VerticalScrollBarVisibility="Visible"
+                    AllowAutoHide="False">
+        <StackPanel Grid.Row="0" Spacing="10">
+          <TextBlock Classes="h3" Text="{Binding buildingData.debugName}" Margin="10"/>
+          <ListBox Items="{Binding levelViews}"
+                   SelectedItem="{Binding selectedLevelView}"
+                   ScrollViewer.VerticalScrollBarVisibility="Disabled">
+            <ListBox.ItemTemplate>
+              <DataTemplate>
+                <UserControl Content="{Binding}"/>
+              </DataTemplate>
+            </ListBox.ItemTemplate>
+          </ListBox>
+        </StackPanel>
+        
+      </ScrollViewer>
+    </Border>
+
+    <StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="20" Margin="10">
+      <Button Classes="Neutral" Content="Add"
+              Command="{Binding addLevelCommand}"/>
+      <Button Classes="Neutral" Content="Remove"
+              Command="{Binding removeLevelCommand}"/>
+    </StackPanel>
+
+  </Grid>
+  
+</UserControl>

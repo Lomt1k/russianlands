@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using MarkOne.Scripts.Bot;
-using MarkOne.ViewModels;
 using MarkOne.Scripts.GameCore.Sessions;
 
 namespace MarkOne.Scripts.GameCore.Localizations;
@@ -14,10 +13,10 @@ public static class Localization
     private static readonly Dictionary<LanguageCode, Dictionary<string, string>> data = new Dictionary<LanguageCode, Dictionary<string, string>>();
     private static readonly HashSet<string> allKeys = new HashSet<string>();
 
-    public static void LoadAll(GameDataLoader? loader, string gamedataPath)
+    public static void LoadAll(string gamedataPath)
     {
         allKeys.Clear();
-        loader?.AddNextState("Loading localization...");
+        Console.Write("Loading localization...");
         var localizationFolder = Path.Combine(gamedataPath, "Localization");
         if (!Directory.Exists(localizationFolder))
         {
@@ -27,12 +26,13 @@ public static class Localization
         foreach (var element in Enum.GetValues(typeof(LanguageCode)))
         {
             var code = (LanguageCode)element;
-            loader?.AddInfoToCurrentState(code.ToString());
+            Console.Write(" " + code);
             var filePath = Path.Combine(localizationFolder, $"localization_{code.ToString().ToLower()}.json");
             data[code] = LoadLocalization(filePath);
         }
         // Убрал AlertMissingKeys так как пока разрабатываем только для русского языка и не следим за другими локализациями
         //AlertMissingKeys(loaderVM);
+        Console.WriteLine();
     }
 
     public static string GetDefault(string key, params object[] args)
@@ -89,7 +89,7 @@ public static class Localization
         }
     }
 
-    private static void AlertMissingKeys(GameDataLoader? loader)
+    private static void AlertMissingKeys()
     {
         foreach (var localization in data)
         {
@@ -98,7 +98,7 @@ public static class Localization
                 if (!localization.Value.ContainsKey(key))
                 {
                     var message = $"Localiation {localization.Key} not contains key: {key}";
-                    loader?.AddNextState(message);
+                    Console.WriteLine(message);
                 }
             }
         }

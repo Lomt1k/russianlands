@@ -1,0 +1,32 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="600"
+             x:Class="GameDataEditor.Views.Editor.QuestsEditor.StageWithBattlePointView">
+
+  <Border Background="WhiteSmoke" Padding="20,10" Width="500">
+    <ScrollViewer Height="800" Padding="0,0,20,0" VerticalScrollBarVisibility="Visible" AllowAutoHide="False">
+      <StackPanel Spacing="10">
+        <TextBlock Classes="h3" Text="Battle Point"/>
+        <TextBlock Text="mobId"/>
+        <ComboBox Items="{Binding mobsList}"
+                  SelectedItem="{Binding selectedMob}"/>
+        <TextBlock Text="foodPrice"/>
+        <TextBox Text="{Binding stage.foodPrice}"/>
+        <CheckBox Content="backButtonAvailvable"
+          IsChecked="{Binding stage.backButtonAvailable}"/>
+        <TextBlock Text="nextStageIfWin"/>
+        <TextBox Text="{Binding stage.nextStageIfWin}"/>
+        <TextBlock Text="nextStageIfLose"/>
+        <TextBox Text="{Binding stage.nextStageIfLose}"/>
+
+        <!-- Rewards -->
+        <TextBlock Classes="h3" Text="Rewards"/>
+        <UserControl Content="{Binding rewardViews}"/>
+
+      </StackPanel>
+    </ScrollViewer>
+  </Border>
+  
+</UserControl>

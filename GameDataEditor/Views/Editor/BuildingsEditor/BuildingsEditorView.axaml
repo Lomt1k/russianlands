@@ -1,0 +1,42 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="600"
+             x:Class="GameDataEditor.Views.Editor.BuildingsEditor.BuildingsEditorView">
+
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="auto"/>
+      <ColumnDefinition Width="auto"/>
+    </Grid.ColumnDefinitions>
+
+    <Grid.RowDefinitions>
+      <RowDefinition Height="50"/>
+      <RowDefinition Height="auto"/>
+    </Grid.RowDefinitions>
+
+    <!-- Column 1: Buildings -->
+    <TextBlock Text="Buildings" Grid.Column="0" Grid.Row="0" Classes="h3"/>
+    <ListBox Grid.Column="0" Grid.Row="1" VerticalAlignment="Top"
+             MaxHeight="800"
+             ScrollViewer.VerticalScrollBarVisibility="Disabled"
+             Items="{Binding buildings}"
+             SelectedItem="{Binding selectedBuilding}">
+      <ListBox.ItemTemplate>
+
+        <DataTemplate>
+          <TextBlock Text="{Binding}"/>
+        </DataTemplate>
+
+      </ListBox.ItemTemplate>
+    </ListBox>
+
+    <!-- Column 2: Building Inspector -->
+    <UserControl Grid.Column="1" Grid.Row="1" Margin="40,0" VerticalAlignment="Top"
+                 Content="{Binding buildingInspector}"
+                 IsVisible="{Binding selectedBuilding, Converter={x:Static ObjectConverters.IsNotNull}}"/>
+
+  </Grid>
+  
+</UserControl>

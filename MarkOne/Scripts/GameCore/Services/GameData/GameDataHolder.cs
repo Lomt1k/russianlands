@@ -9,7 +9,6 @@ using MarkOne.Scripts.GameCore.Locations;
 using MarkOne.Scripts.GameCore.Potions;
 using MarkOne.Scripts.GameCore.Quests;
 using MarkOne.Scripts.GameCore.Units.Mobs;
-using MarkOne.ViewModels;
 
 namespace MarkOne.Scripts.GameCore.Services.GameData;
 
@@ -18,8 +17,6 @@ public class GameDataHolder : Service
 #pragma warning disable CS8618
 
     private static readonly string gameDataPath = Path.Combine("Assets", "gameData");
-
-    private GameDataLoader? _loader;
 
     public GameDataDictionary<BuildingId, BuildingData> buildings { get; private set; }
     public GameDataDictionary<int, ItemData> items { get; private set; }
@@ -36,14 +33,12 @@ public class GameDataHolder : Service
 
     public event Action? onDataReloaded;
 
-    public void LoadAllData(GameDataLoader? loader = null)
+    public void LoadAllData()
     {
-        _loader = loader;
-
         if (!Directory.Exists(gameDataPath))
         {
             Directory.CreateDirectory(gameDataPath);
-            _loader?.AddNextState("'gameData' folder not found in Assets! Creating new gameData...");
+            Console.WriteLine("\n'gameData' folder not found in Assets! Creating new gameData...");
         }
 
         buildings = LoadGameDataDictionary<BuildingId, BuildingData>("buildings");
@@ -56,25 +51,25 @@ public class GameDataHolder : Service
         arenaLeagueSettings = LoadGameDataDictionary<LeagueId, ArenaLeagueSettings>("arenaLeagueSettings");
         arenaShopSettings = LoadGameDataDictionary<byte, ArenaShopSettings>("arenaShopSettings");
 
-        Localizations.Localization.LoadAll(_loader, gameDataPath);
+        Localizations.Localization.LoadAll(gameDataPath);
         botnames = File.ReadAllLines(Path.Combine(gameDataPath, "botnames.txt"));
 
-        _loader?.OnGameDataLoaded();
+        Console.WriteLine("Game data loaded");
         onDataReloaded?.Invoke();
     }
 
     private GameDataDictionary<TId, TData> LoadGameDataDictionary<TId, TData>(string fileName) where TData : IGameDataWithId<TId>
     {
-        _loader?.AddNextState($"Loading {fileName}...");
+        Console.Write($"Loading {fileName}... ");
         var fullPath = Path.Combine(gameDataPath, fileName + ".json");
         var dataBase = GameDataDictionary<TId, TData>.LoadFromJSON<TId, TData>(fullPath);
-        _loader?.AddInfoToCurrentState(dataBase.count.ToString());
+        Console.WriteLine(dataBase.count);
         return dataBase;
     }
 
     private T LoadGameData<T>(string fileName) where T : GameData
     {
-        _loader?.AddNextState($"Loading {fileName}...");
+        Console.WriteLine($"Loading {fileName}... ");
         var fullPath = Path.Combine(gameDataPath, fileName + ".json");
         var loadedObject = GameData.LoadFromJSON<T>(fullPath);
         return loadedObject;

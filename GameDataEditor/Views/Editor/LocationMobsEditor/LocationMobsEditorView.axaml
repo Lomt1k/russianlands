@@ -1,0 +1,44 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="700"
+             x:Class="GameDataEditor.Views.Editor.LocationMobsEditor.LocationMobsEditorView">
+
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="80"/>
+      <ColumnDefinition Width="auto"/>
+    </Grid.ColumnDefinitions>
+
+    <Grid.RowDefinitions>
+      <RowDefinition Height="50"/>
+      <RowDefinition Height="auto"/>
+    </Grid.RowDefinitions>
+
+    <!-- Column 1: LocationsList -->
+    <TextBlock Text="Locations" Grid.Column="0" Grid.Row="0" Classes="h3"/>
+
+    <StackPanel Grid.Column="0" Grid.Row="1">
+      <ListBox VerticalAlignment="Top" MaxHeight="600"
+             ScrollViewer.VerticalScrollBarVisibility="Disabled"
+             Items="{Binding locations}"
+             SelectedItem="{Binding selectedLocation}">
+        <ListBox.ItemTemplate>
+
+          <DataTemplate>
+            <TextBlock Text="{Binding}" HorizontalAlignment="Left" Width="60"/>
+          </DataTemplate>
+
+        </ListBox.ItemTemplate>
+      </ListBox>
+    </StackPanel>
+
+    <!-- Column 2: Location Mob Data Inspector -->
+    <UserControl Grid.Column="1" Grid.Row="1" Margin="40,0" VerticalAlignment="Top"
+                 Content="{Binding locationInspector}"
+                 IsVisible="{Binding selectedLocation, Converter={x:Static ObjectConverters.IsNotNull}}"/>
+
+  </Grid>
+
+</UserControl>

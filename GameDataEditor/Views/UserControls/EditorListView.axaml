@@ -1,0 +1,32 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="400"
+             x:Class="GameDataEditor.Views.UserControls.EditorListView">
+
+  <StackPanel Orientation="Vertical">
+
+    <ListBox Items="{Binding viewsCollection}"
+             SelectedItem="{Binding selectedView}"
+             ScrollViewer.VerticalScrollBarVisibility="Disabled"
+             Padding="0,10"
+             MaxHeight="800">
+      <ListBox.ItemTemplate>
+        <DataTemplate>
+          <UserControl Content="{Binding}"/>
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
+
+    <StackPanel Orientation="Horizontal" Spacing="20" Margin="0,20">
+      <Button Classes="Neutral" Content="Add"
+              Command="{Binding addItemCommand}"/>
+      <Button Classes="Neutral" Content="Remove"
+              Command="{Binding removeItemCommand}"
+              IsEnabled="{Binding selectedView, Converter={x:Static ObjectConverters.IsNotNull}}"/>
+    </StackPanel>
+
+  </StackPanel>
+  
+</UserControl>

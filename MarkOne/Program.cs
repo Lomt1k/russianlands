@@ -1,14 +1,13 @@
-﻿using Avalonia;
-using Avalonia.Controls;
-using Avalonia.ReactiveUI;
-using log4net;
+﻿using log4net;
 using log4net.Config;
+using MarkOne.Scripts.GameCore.Services;
+using MarkOne.Scripts.GameCore.Services.GameData;
 using System;
-using System.Collections.Generic;
 using System.IO;
 
 namespace MarkOne;
 
+// TODO: избавиться от AppMode. Пережиток прошлого...
 public enum AppMode { None, Editor, PlayMode };
 
 public class Program
@@ -17,15 +16,10 @@ public class Program
 
     public static bool isUnixPlatform => Environment.OSVersion.Platform == PlatformID.Unix;
     public static AppMode appMode { get; private set; } = AppMode.None;
-    public static Window mainWindow { get; set; }
     public readonly static ILog logger = LogManager.GetLogger(typeof(Program));
 
     public static Action<AppMode>? onSetupAppMode;
 
-    // Initialization code. Don't use any Avalonia, third-party APIs or any
-    // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
-    // yet and stuff might break.
-    [STAThread]
     public static void Main(string[] args)
     {
         if (!isUnixPlatform) // на юниксе менять кодировку не надо
@@ -37,7 +31,7 @@ public class Program
         ConfigureLogger();
         PerformanceMonitor.Start();
         LoadGameData();
-        SelectAppModeAndRun(args);
+        StartInConsoleMode(args);
     }
 
     private static void PrepareCacheFolder()
@@ -57,71 +51,19 @@ public class Program
 
     private static void LoadGameData()
     {
-        new ViewModels.GameDataLoader().Load();
-    }
-
-    private static void SelectAppModeAndRun(string[] args)
-    {
-        if (args.Length > 0)
-        {
-            StartInConsoleMode(args);
-            return;
-        }
-        var appMode = ConsoleMode.ConsoleHelper.SelectFromVariants("Select run mode", new Dictionary<string, AppMode>()
-        {
-            { "Editor", AppMode.Editor },
-            { "PlayMode", AppMode.PlayMode },
-        });
-
-        SetupAppMode(appMode);
-        switch (appMode)
-        {
-            case AppMode.PlayMode:
-                StartInConsoleMode(args);
-                return;
-            default:
-                StartAvalonia(args);
-                return;
-        }
-    }
-
-    private static void StartAvalonia(string[] args)
-    {
-        Console.WriteLine("Start with Avalonia...");
-        BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
-    }
-
-
-    // Avalonia configuration, don't remove; also used by visual designer.
-    public static AppBuilder BuildAvaloniaApp()
-    {
-        return AppBuilder.Configure<App>()
-                .UsePlatformDetect()
-                .LogToTrace()
-                .UseReactiveUI();
+        var gameDataHolder = ServiceLocator.Get<GameDataHolder>();
+        gameDataHolder.LoadAllData();
     }
 
     private static void StartInConsoleMode(string[] args)
     {
-        new ConsoleMode.ConsoleHandler().Start(args);
-    }
-
-    private static void SetupAppMode(AppMode _appMode)
-    {
-        if (appMode != AppMode.None)
-            throw new InvalidOperationException("AppMode can only be installed once");
-
-        Console.WriteLine("Starting " + _appMode);
-        appMode = _appMode;
-        onSetupAppMode?.Invoke(_appMode);
+        appMode = AppMode.PlayMode;
+        onSetupAppMode?.Invoke(appMode);
+        new ConsoleInputHandler().Start(args);
     }
 
     public static void SetTitle(string title)
     {
         Console.Title = title;
-        if (mainWindow != null)
-        {
-            mainWindow.Title = title;
-        }
     }
 }

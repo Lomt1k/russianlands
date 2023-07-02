@@ -1,0 +1,54 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" Width="500" MinHeight="500"
+        x:Class="GameDataEditor.Views.Editor.ItemsEditor.EditItemAbilityWindow"
+        Title="Select Ability">
+
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="150"/>
+      <RowDefinition />
+      <RowDefinition Height="100"/>
+    </Grid.RowDefinitions>
+
+    <!-- Row 1: Ability Type Selection -->
+    <StackPanel Grid.Row="0" Orientation="Vertical" Margin="20"
+                Spacing="10" HorizontalAlignment="Left">
+      <StackPanel Margin="2" Orientation="Horizontal">
+        <TextBlock Text="Ability Type: " Width="180" VerticalAlignment="Center"/>
+        <ComboBox Items="{Binding abilityTypesList}"
+                  SelectedItem="{Binding selectedAbilityType}"/>
+      </StackPanel>
+      <StackPanel Margin="2" Orientation="Horizontal">
+        <TextBlock Text="Activation Type: " Width="180" VerticalAlignment="Center"/>
+        <TextBlock Text="{Binding tempAbility.activationType}"/>
+      </StackPanel>
+      <TextBlock Text="{Binding tempAbility.debugDescription}" Margin="0,30,0,0"/>
+    </StackPanel>
+
+    <!-- Row 2: Ability Fields -->
+    <ListBox Grid.Row="1"  Margin="20" Items="{Binding abilityFields}">
+
+      <ListBox.ItemTemplate>
+        <DataTemplate>
+          <StackPanel Orientation="Horizontal">
+            <TextBlock Text="{Binding name}" Width="200" VerticalAlignment="Center"/>
+            <TextBlock Text="{Binding typeView}" Width="80" VerticalAlignment="Center"/>
+            <TextBox Text="{Binding unparsedValue}"/>
+          </StackPanel>
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+
+    </ListBox>
+
+    <!-- Row 3: Controls -->
+    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+      <Button Content="Save" Command="{Binding saveCommand}" Classes="SecondaryBig" Margin="0,0,60,0"/>
+      <Button Content="Cancel" Command="{Binding cancelCommand}" Classes="NeutralBig"/>
+    </StackPanel>
+
+  </Grid>
+
+</Window>

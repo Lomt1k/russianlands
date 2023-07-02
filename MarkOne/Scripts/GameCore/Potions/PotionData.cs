@@ -5,7 +5,6 @@ using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Services.Battles;
 using MarkOne.Scripts.GameCore.Services.GameData;
 using MarkOne.Scripts.GameCore.Units;
-using MarkOne.ViewModels.UserControls;
 using MarkOne.Scripts.GameCore.Sessions;
 
 namespace MarkOne.Scripts.GameCore.Potions;
@@ -15,7 +14,7 @@ namespace MarkOne.Scripts.GameCore.Potions;
 public abstract class PotionData : IGameDataWithId<int>
 {
     public string debugName { get; set; } = "New Potion";
-    [IgnoreInEditor]
+    //[IgnoreInEditor]
     public int id { get; set; }
     public byte workshopLevel { get; set; }
     public string localizationKey { get; set; } = string.Empty;
