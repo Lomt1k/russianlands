@@ -13,7 +13,7 @@
 
     <ListBox VerticalAlignment="Top" Width="250" Height="400"
              ScrollViewer.VerticalScrollBarVisibility="Disabled"
-             Items="{Binding items}"
+             ItemsSource="{Binding items}"
              SelectedItem="{Binding selectedItem}"
              SelectionMode="AlwaysSelected">
       <ListBox.ItemTemplate>

@@ -28,14 +28,14 @@
         
         <Line Height="20"/>
         <TextBlock Text="Item Rarities"/>
-        <ListBox Items="{Binding itemRarities}"
+        <ListBox ItemsSource="{Binding itemRarities}"
                  SelectedItem="{Binding selectedItemRarity}"
                  Padding="10">
           <ListBox.ItemTemplate>
             <DataTemplate>
               <StackPanel Orientation="Horizontal" Spacing="10">
                 <TextBox Text="{Binding weight}"/>
-                <ComboBox Items="{Binding allRarities}"
+                <ComboBox ItemsSource="{Binding allRarities}"
                           SelectedItem="{Binding rarity}"/>
               </StackPanel>
             </DataTemplate>

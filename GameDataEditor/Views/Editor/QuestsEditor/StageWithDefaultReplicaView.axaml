@@ -10,7 +10,7 @@
       
       <TextBlock Classes="h3" Text="Default Replica"/>
       <TextBlock Text="replicaType"/>
-      <ComboBox Items="{Binding replicaTypes}"
+      <ComboBox ItemsSource="{Binding replicaTypes}"
                 SelectedItem="{Binding selectedReplicaType}"/>
       <TextBlock Text="nextStage"/>
       <TextBox Text="{Binding stage.nextStage}"/>

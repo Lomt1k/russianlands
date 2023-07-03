@@ -3,17 +3,12 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
-    <!--Avalonia doesen't support TrimMode=link currently,but we are working on that https://github.com/AvaloniaUI/Avalonia/issues/6892 -->
-    <TrimMode>copyused</TrimMode>
-    <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
     <UseWPF>False</UseWPF>
     <AssemblyName>MarkOne</AssemblyName>
     <RootNamespace>MarkOne</RootNamespace>
     <BaseOutputPath>bin\</BaseOutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <AvaloniaResource Include="Assets\**" />
-    <AvaloniaResource Remove="Assets\log4net.config" />
     <None Remove=".gitignore" />
   </ItemGroup>
   <ItemGroup>

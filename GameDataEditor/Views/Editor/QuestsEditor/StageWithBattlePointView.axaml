@@ -10,7 +10,7 @@
       <StackPanel Spacing="10">
         <TextBlock Classes="h3" Text="Battle Point"/>
         <TextBlock Text="mobId"/>
-        <ComboBox Items="{Binding mobsList}"
+        <ComboBox ItemsSource="{Binding mobsList}"
                   SelectedItem="{Binding selectedMob}"/>
         <TextBlock Text="foodPrice"/>
         <TextBox Text="{Binding stage.foodPrice}"/>

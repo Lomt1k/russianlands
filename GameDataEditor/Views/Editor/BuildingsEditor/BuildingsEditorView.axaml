@@ -21,7 +21,7 @@
     <ListBox Grid.Column="0" Grid.Row="1" VerticalAlignment="Top"
              MaxHeight="800"
              ScrollViewer.VerticalScrollBarVisibility="Disabled"
-             Items="{Binding buildings}"
+             ItemsSource="{Binding buildings}"
              SelectedItem="{Binding selectedBuilding}">
       <ListBox.ItemTemplate>
 

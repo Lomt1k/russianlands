@@ -22,7 +22,7 @@
     <ListBox Grid.Column="0" Grid.Row="1" VerticalAlignment="Top"
              MaxHeight="800"
              ScrollViewer.VerticalScrollBarVisibility="Disabled"
-             Items="{Binding categories}"
+             ItemsSource="{Binding categories}"
              SelectedItem="{Binding selectedCategory}">
       <ListBox.ItemTemplate>
 
@@ -46,7 +46,7 @@
                 Margin="40,0" VerticalAlignment="Top">
 
       <ListBox MaxHeight="800" 
-               Items="{Binding showedItems}" 
+               ItemsSource="{Binding showedItems}" 
                SelectedItem="{Binding selectedItem}">
         <ListBox.ItemTemplate>
 

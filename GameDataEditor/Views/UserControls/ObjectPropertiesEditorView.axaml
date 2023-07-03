@@ -13,7 +13,7 @@
 
         <ListBox
              ScrollViewer.VerticalScrollBarVisibility="Disabled"
-             Items="{Binding properties}">
+             ItemsSource="{Binding properties}">
           <ListBox.ItemTemplate>
             <DataTemplate>
               <StackPanel Orientation="Horizontal" Margin="-5">
@@ -27,7 +27,7 @@
                           IsVisible="{Binding isBooleanValue}"/>
                 
                 <!-- Enum -->
-                <ComboBox Items="{Binding enumNames}"
+                <ComboBox ItemsSource="{Binding enumNames}"
                           SelectedItem="{Binding selectedEnumValue}"
                           IsVisible="{Binding isEnumValue}"/>
 

@@ -11,7 +11,7 @@
 
         <TextBlock Text="Item Pattern" Padding="0,5,0,15" Classes="h3"/>
         <TextBlock Text="price type"/>
-        <ComboBox Items="{Binding allRarities}"
+        <ComboBox ItemsSource="{Binding allRarities}"
                   SelectedItem="{Binding itemPattern.rarity}"/>
         <TextBlock Text="count"/>
         <TextBox Text="{Binding itemPattern.count}"/>

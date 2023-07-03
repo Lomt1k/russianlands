@@ -35,7 +35,7 @@
         
         <StackPanel>
           <TextBlock Text="Townhall Settings" Classes="h3"/>
-          <ListBox Items="{Binding townhallSettingsList}"
+          <ListBox ItemsSource="{Binding townhallSettingsList}"
                    SelectedItem="{Binding selectedTownhallSettings}"
                    Padding="10"
                    MaxHeight="800">

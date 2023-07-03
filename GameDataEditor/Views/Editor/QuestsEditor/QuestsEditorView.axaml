@@ -22,7 +22,7 @@
     <ListBox Grid.Column="0" Grid.Row="1" VerticalAlignment="Top"
              MaxHeight="800"
              ScrollViewer.VerticalScrollBarVisibility="Disabled"
-             Items="{Binding quests}"
+             ItemsSource="{Binding quests}"
              SelectedItem="{Binding selectedQuest}">
       <ListBox.ItemTemplate>
 
@@ -39,7 +39,7 @@
       <ListBox Grid.Column="1" Grid.Row="1" VerticalAlignment="Top" Margin="40,0"
              MaxHeight="800"
              ScrollViewer.VerticalScrollBarVisibility="Disabled"
-             Items="{Binding questStages}"
+             ItemsSource="{Binding questStages}"
              SelectedItem="{Binding selectedStage}">
         <ListBox.ItemTemplate>
 

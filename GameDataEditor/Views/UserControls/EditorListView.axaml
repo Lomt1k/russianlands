@@ -7,7 +7,7 @@
 
   <StackPanel Orientation="Vertical">
 
-    <ListBox Items="{Binding viewsCollection}"
+    <ListBox ItemsSource="{Binding viewsCollection}"
              SelectedItem="{Binding selectedView}"
              ScrollViewer.VerticalScrollBarVisibility="Disabled"
              Padding="0,10"

@@ -15,7 +15,7 @@
 
       <Grid Classes="Content" MinWidth="200"
                   Background="SlateGray">
-        <ListBox Items="{Binding categories}"
+        <ListBox ItemsSource="{Binding categories}"
                  SelectedItem="{Binding selectedCategory}"
                  Background="SlateGray">
           <ListBox.ItemTemplate>

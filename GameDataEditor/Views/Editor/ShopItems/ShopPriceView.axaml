@@ -11,13 +11,13 @@
 
         <TextBlock Text="Price" Padding="0,5,0,15" Classes="h3"/>
         <TextBlock Text="price type"/>
-        <ComboBox Items="{Binding priceTypes}"
+        <ComboBox ItemsSource="{Binding priceTypes}"
                   SelectedItem="{Binding selectedPriceType}"/>
 
         <!-- Resource Price -->
         <StackPanel IsVisible="{Binding resourcePrice, Converter={x:Static ObjectConverters.IsNotNull}}">
           <TextBlock Text="resource id"/>
-          <ComboBox Items="{Binding resourceIds}"
+          <ComboBox ItemsSource="{Binding resourceIds}"
                     SelectedItem="{Binding resourcePrice.resourceId}"/>
           <TextBlock Text="amount"/>
           <TextBox Text="{Binding resourcePrice.amount}"/>

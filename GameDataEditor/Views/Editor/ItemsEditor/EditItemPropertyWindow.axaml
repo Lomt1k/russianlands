@@ -18,14 +18,14 @@
                 Spacing="10" HorizontalAlignment="Left">
       <StackPanel Margin="2" Orientation="Horizontal">
         <TextBlock Text="Property Type: " Width="180" VerticalAlignment="Center"/>
-        <ComboBox Items="{Binding propertyTypesList}"
+        <ComboBox ItemsSource="{Binding propertyTypesList}"
                   SelectedItem="{Binding selectedPropertyType}"/>
       </StackPanel>
       <TextBlock Text="{Binding tempProperty.debugDescription}"/>
     </StackPanel>
 
     <!-- Row 2: Property Fields -->
-    <ListBox Grid.Row="1"  Margin="20" Items="{Binding propertyFields}">
+    <ListBox Grid.Row="1"  Margin="20" ItemsSource="{Binding propertyFields}">
       
       <ListBox.ItemTemplate>
         <DataTemplate>

@@ -41,7 +41,7 @@
               <TextBlock Classes="h3" Text="Attacks"/>
               <ListBox
                      ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                     Items="{Binding attackViews}"
+                     ItemsSource="{Binding attackViews}"
                      SelectedItem="{Binding selectedAttackView}">
                 <ListBox.ItemTemplate>
                   <DataTemplate>

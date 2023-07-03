@@ -22,7 +22,7 @@
     <StackPanel Grid.Column="0" Grid.Row="1">
       <ListBox VerticalAlignment="Top" MaxHeight="600"
              ScrollViewer.VerticalScrollBarVisibility="Disabled"
-             Items="{Binding locations}"
+             ItemsSource="{Binding locations}"
              SelectedItem="{Binding selectedLocation}">
         <ListBox.ItemTemplate>
 

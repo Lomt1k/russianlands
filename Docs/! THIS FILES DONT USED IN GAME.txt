@@ -1,0 +1,5 @@
+Файлы в этой папке не используются игрой и могут быть удалены из неё.
+Они добавлены в проект чтобы можно было отслеживать изменения в git для удобства разработки.
+
+The files in this folder are not used by the game and can be deleted from it.
+They are added to the project so that you can track changes in git for ease of development.

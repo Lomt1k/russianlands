@@ -24,12 +24,12 @@
       </StackPanel>
       <StackPanel Orientation="Horizontal">
         <TextBlock Text="Type" Width="120" VerticalAlignment="Center"/>
-        <ComboBox Items="{Binding itemTypeList}" 
+        <ComboBox ItemsSource="{Binding itemTypeList}" 
                   SelectedItem="{Binding selectedItemType}"/>
       </StackPanel>
       <StackPanel Orientation="Horizontal">
         <TextBlock Text="Rarity" Width="120" VerticalAlignment="Center"/>
-        <ComboBox Items="{Binding itemRarityList}"
+        <ComboBox ItemsSource="{Binding itemRarityList}"
                   SelectedItem="{Binding selectedItemRarity}"/>
       </StackPanel>
       <StackPanel Orientation="Horizontal">
@@ -43,7 +43,7 @@
     <StackPanel Grid.Row="1" Orientation="Vertical" Margin="20,10">
 
       <TextBlock Text="Abilities:" Classes="h3"/>
-      <ListBox Items="{Binding itemAbilities}"
+      <ListBox ItemsSource="{Binding itemAbilities}"
                SelectedItem="{Binding selectedAbility}">
         <ListBox.ItemTemplate>
           <DataTemplate>
@@ -69,7 +69,7 @@
     <StackPanel Grid.Row="2" Orientation="Vertical" Margin="20,10">
       
       <TextBlock Text="Properties:" Classes="h3"/>
-      <ListBox Items="{Binding itemProperties}"
+      <ListBox ItemsSource="{Binding itemProperties}"
                SelectedItem="{Binding selectedProperty}">
         <ListBox.ItemTemplate>
           <DataTemplate>

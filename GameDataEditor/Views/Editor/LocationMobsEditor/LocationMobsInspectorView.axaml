@@ -28,7 +28,7 @@
           
           <!-- TownHall List -->
           <TextBlock Classes="h3" Text="TownHall Level"/>
-          <ListBox Items="{Binding townHallsList}"
+          <ListBox ItemsSource="{Binding townHallsList}"
                    SelectedItem="{Binding selectedTownHall}"
                    Padding="0,10">
             <ListBox.ItemTemplate>

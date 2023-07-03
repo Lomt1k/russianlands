@@ -22,7 +22,7 @@
     <StackPanel Grid.Column="0" Grid.Row="1">
       <ListBox VerticalAlignment="Top" MaxHeight="800"
              ScrollViewer.VerticalScrollBarVisibility="Disabled"
-             Items="{Binding mobsList}"
+             ItemsSource="{Binding mobsList}"
              SelectedItem="{Binding selectedMob}">
         <ListBox.ItemTemplate>
 

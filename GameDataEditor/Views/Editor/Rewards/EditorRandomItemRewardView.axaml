@@ -13,10 +13,10 @@
         <TextBlock Text="townhall level"/>
         <TextBox Text="{Binding reward.townhallLevel}"/>
         <TextBlock Text="rarity"/>
-        <ComboBox Items="{Binding rarities}"
+        <ComboBox ItemsSource="{Binding rarities}"
                   SelectedItem="{Binding reward.rarity}"/>
         <TextBlock Text="item type"/>
-        <ComboBox Items="{Binding itemTypes}"
+        <ComboBox ItemsSource="{Binding itemTypes}"
                   SelectedItem="{Binding reward.itemType}"/>
         <TextBlock Text="items count"/>
         <TextBox Text="{Binding reward.count}"/>

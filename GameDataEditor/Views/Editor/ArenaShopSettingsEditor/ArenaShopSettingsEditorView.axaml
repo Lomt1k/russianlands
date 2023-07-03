@@ -26,7 +26,7 @@
 
       <ListBox MaxHeight="600"
              ScrollViewer.VerticalScrollBarVisibility="Disabled"
-             Items="{Binding townhallList}"
+             ItemsSource="{Binding townhallList}"
              SelectedItem="{Binding selectedTownhall}">
         <ListBox.ItemTemplate>
 

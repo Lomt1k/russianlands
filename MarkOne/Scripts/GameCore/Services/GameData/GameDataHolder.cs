@@ -16,7 +16,7 @@ public class GameDataHolder : Service
 {
 #pragma warning disable CS8618
 
-    private static readonly string gameDataPath = Path.Combine("Assets", "gameData");
+    public static string gameDataPath { get; private set; } = string.Empty;
 
     public GameDataDictionary<BuildingId, BuildingData> buildings { get; private set; }
     public GameDataDictionary<int, ItemData> items { get; private set; }
@@ -35,6 +35,11 @@ public class GameDataHolder : Service
 
     public void LoadAllData()
     {
+        gameDataPath = FindGameDataPath();
+        if (gameDataPath is null)
+        {
+            throw new DirectoryNotFoundException("Folder 'gameData' not found");
+        }
         if (!Directory.Exists(gameDataPath))
         {
             Directory.CreateDirectory(gameDataPath);
@@ -56,6 +61,27 @@ public class GameDataHolder : Service
 
         Console.WriteLine("Game data loaded");
         onDataReloaded?.Invoke();
+    }
+
+    private string? FindGameDataPath()
+    {
+        var gameDataPostfix = "GameData";
+        if (Directory.Exists(gameDataPostfix))
+        {
+            return gameDataPostfix;
+        }
+
+        var defaultPath = string.Empty;
+        for (int i = 0; i < 10; i++)
+        {
+            defaultPath = Path.Combine(defaultPath, "..");
+            var pathWithGameData = Path.Combine(defaultPath, gameDataPostfix);
+            if (Directory.Exists(pathWithGameData))
+            {
+                return pathWithGameData;
+            }
+        }
+        return null;
     }
 
     private GameDataDictionary<TId, TData> LoadGameDataDictionary<TId, TData>(string fileName) where TData : IGameDataWithId<TId>

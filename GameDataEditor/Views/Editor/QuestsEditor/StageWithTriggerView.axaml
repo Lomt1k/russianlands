@@ -15,7 +15,7 @@
         <TextBlock Classes="h3" Text="Actions"/>
         <ListBox
                ScrollViewer.VerticalScrollBarVisibility="Disabled"
-               Items="{Binding actionViews}"
+               ItemsSource="{Binding actionViews}"
                SelectedItem="{Binding selectedActionView}">
           <ListBox.ItemTemplate>
             <DataTemplate>
@@ -35,7 +35,7 @@
         <TextBlock Classes="h3" Text="Tooltips"/>
         <ListBox
                ScrollViewer.VerticalScrollBarVisibility="Disabled"
-               Items="{Binding tooltipViews}"
+               ItemsSource="{Binding tooltipViews}"
                SelectedItem="{Binding selectedTooltipView}">
           <ListBox.ItemTemplate>
             <DataTemplate>
@@ -55,7 +55,7 @@
         <TextBlock Classes="h3" Text="Next Stage Triggers"/>
         <ListBox
                ScrollViewer.VerticalScrollBarVisibility="Disabled"
-               Items="{Binding triggerViews}"
+               ItemsSource="{Binding triggerViews}"
                SelectedItem="{Binding selectedTriggerView}">
           <ListBox.ItemTemplate>
             <DataTemplate>

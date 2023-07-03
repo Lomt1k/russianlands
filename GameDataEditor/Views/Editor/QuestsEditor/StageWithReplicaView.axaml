@@ -10,7 +10,7 @@
       <StackPanel Spacing="10">
         <TextBlock Classes="h3" Text="Replica"/>
         <TextBlock Text="characterType"/>
-        <ComboBox Items="{Binding characters}" 
+        <ComboBox ItemsSource="{Binding characters}" 
                   SelectedItem="{Binding selectedCharacter}"/>
         <TextBlock Text="localizationKey"/>
         <TextBox Text="{Binding stage.replica.localizationKey}"/>
@@ -18,7 +18,7 @@
         <TextBlock Classes="h3" Text="Answers"/>
         <ListBox MaxHeight="400"
                ScrollViewer.VerticalScrollBarVisibility="Disabled"
-               Items="{Binding answers}"
+               ItemsSource="{Binding answers}"
                SelectedItem="{Binding selectedAnswer}">
           <ListBox.ItemTemplate>
 
