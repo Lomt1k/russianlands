@@ -1,0 +1,578 @@
+﻿[
+  {
+    "id": "HALL_3",
+    "maxPlayerLevel": 7,
+    "maxSkillLevel": 0,
+    "targetWins": 4,
+    "generalMatchMakingTime": 10,
+    "additionalMatchMakingTime": 10,
+    "defaultPlayerGenerationSettings": {
+      "minPlayerLevel": 5,
+      "maxPlayerLevel": 7,
+      "minSkillLevel": 0,
+      "maxSkillLevel": 0,
+      "minItemLevel": 3,
+      "itemRarities": [
+        {
+          "weight": 85,
+          "rarity": 0
+        },
+        {
+          "weight": 15,
+          "rarity": 1
+        }
+      ]
+    },
+    "weakPlayerGenerationSettings": {
+      "minPlayerLevel": 4,
+      "maxPlayerLevel": 5,
+      "minSkillLevel": 0,
+      "maxSkillLevel": 0,
+      "minItemLevel": 3,
+      "itemRarities": [
+        {
+          "weight": 100,
+          "rarity": 0
+        }
+      ]
+    }
+  },
+  {
+    "id": "HALL_4",
+    "maxPlayerLevel": 10,
+    "maxSkillLevel": 0,
+    "targetWins": 4,
+    "generalMatchMakingTime": 15,
+    "additionalMatchMakingTime": 10,
+    "defaultPlayerGenerationSettings": {
+      "minPlayerLevel": 8,
+      "maxPlayerLevel": 10,
+      "minSkillLevel": 0,
+      "maxSkillLevel": 0,
+      "minItemLevel": 6,
+      "itemRarities": [
+        {
+          "weight": 85,
+          "rarity": 0
+        },
+        {
+          "weight": 15,
+          "rarity": 1
+        }
+      ]
+    },
+    "weakPlayerGenerationSettings": {
+      "minPlayerLevel": 8,
+      "maxPlayerLevel": 8,
+      "minSkillLevel": 0,
+      "maxSkillLevel": 0,
+      "minItemLevel": 5,
+      "itemRarities": [
+        {
+          "weight": 95,
+          "rarity": 0
+        },
+        {
+          "weight": 5,
+          "rarity": 1
+        }
+      ]
+    }
+  },
+  {
+    "id": "HALL_5_START",
+    "maxPlayerLevel": 15,
+    "maxSkillLevel": 5,
+    "targetWins": 3,
+    "generalMatchMakingTime": 15,
+    "additionalMatchMakingTime": 10,
+    "defaultPlayerGenerationSettings": {
+      "minPlayerLevel": 14,
+      "maxPlayerLevel": 15,
+      "minSkillLevel": 0,
+      "maxSkillLevel": 5,
+      "minItemLevel": 10,
+      "itemRarities": [
+        {
+          "weight": 20,
+          "rarity": 0
+        },
+        {
+          "weight": 80,
+          "rarity": 1
+        }
+      ]
+    },
+    "weakPlayerGenerationSettings": {
+      "minPlayerLevel": 11,
+      "maxPlayerLevel": 13,
+      "minSkillLevel": 0,
+      "maxSkillLevel": 0,
+      "minItemLevel": 8,
+      "itemRarities": [
+        {
+          "weight": 75,
+          "rarity": 0
+        },
+        {
+          "weight": 25,
+          "rarity": 1
+        }
+      ]
+    }
+  },
+  {
+    "id": "HALL_5_MID",
+    "maxPlayerLevel": 15,
+    "maxSkillLevel": 15,
+    "targetWins": 3,
+    "generalMatchMakingTime": 20,
+    "additionalMatchMakingTime": 10,
+    "defaultPlayerGenerationSettings": {
+      "minPlayerLevel": 15,
+      "maxPlayerLevel": 15,
+      "minSkillLevel": 6,
+      "maxSkillLevel": 15,
+      "minItemLevel": 11,
+      "itemRarities": [
+        {
+          "weight": 40,
+          "rarity": 2
+        },
+        {
+          "weight": 60,
+          "rarity": 1
+        }
+      ]
+    },
+    "weakPlayerGenerationSettings": {
+      "minPlayerLevel": 14,
+      "maxPlayerLevel": 15,
+      "minSkillLevel": 6,
+      "maxSkillLevel": 15,
+      "minItemLevel": 11,
+      "itemRarities": [
+        {
+          "weight": 15,
+          "rarity": 2
+        },
+        {
+          "weight": 85,
+          "rarity": 1
+        }
+      ]
+    }
+  },
+  {
+    "id": "HALL_5_END",
+    "maxPlayerLevel": 15,
+    "maxSkillLevel": 25,
+    "targetWins": 2,
+    "generalMatchMakingTime": 25,
+    "additionalMatchMakingTime": 15,
+    "defaultPlayerGenerationSettings": {
+      "minPlayerLevel": 15,
+      "maxPlayerLevel": 15,
+      "minSkillLevel": 16,
+      "maxSkillLevel": 25,
+      "minItemLevel": 11,
+      "itemRarities": [
+        {
+          "weight": 100,
+          "rarity": 2
+        }
+      ]
+    },
+    "weakPlayerGenerationSettings": {
+      "minPlayerLevel": 15,
+      "maxPlayerLevel": 15,
+      "minSkillLevel": 16,
+      "maxSkillLevel": 20,
+      "minItemLevel": 11,
+      "itemRarities": [
+        {
+          "weight": 70,
+          "rarity": 2
+        },
+        {
+          "weight": 30,
+          "rarity": 1
+        }
+      ]
+    }
+  },
+  {
+    "id": "HALL_6_START",
+    "maxPlayerLevel": 20,
+    "maxSkillLevel": 20,
+    "targetWins": 3,
+    "generalMatchMakingTime": 20,
+    "additionalMatchMakingTime": 10,
+    "defaultPlayerGenerationSettings": {
+      "minPlayerLevel": 19,
+      "maxPlayerLevel": 20,
+      "minSkillLevel": 10,
+      "maxSkillLevel": 20,
+      "minItemLevel": 11,
+      "itemRarities": [
+        {
+          "weight": 60,
+          "rarity": 2
+        },
+        {
+          "weight": 40,
+          "rarity": 1
+        }
+      ]
+    },
+    "weakPlayerGenerationSettings": {
+      "minPlayerLevel": 16,
+      "maxPlayerLevel": 18,
+      "minSkillLevel": 0,
+      "maxSkillLevel": 15,
+      "minItemLevel": 11,
+      "itemRarities": [
+        {
+          "weight": 25,
+          "rarity": 2
+        },
+        {
+          "weight": 75,
+          "rarity": 1
+        }
+      ]
+    }
+  },
+  {
+    "id": "HALL_6_MID",
+    "maxPlayerLevel": 20,
+    "maxSkillLevel": 35,
+    "targetWins": 3,
+    "generalMatchMakingTime": 25,
+    "additionalMatchMakingTime": 10,
+    "defaultPlayerGenerationSettings": {
+      "minPlayerLevel": 20,
+      "maxPlayerLevel": 20,
+      "minSkillLevel": 25,
+      "maxSkillLevel": 35,
+      "minItemLevel": 16,
+      "itemRarities": [
+        {
+          "weight": 25,
+          "rarity": 3
+        },
+        {
+          "weight": 75,
+          "rarity": 2
+        }
+      ]
+    },
+    "weakPlayerGenerationSettings": {
+      "minPlayerLevel": 16,
+      "maxPlayerLevel": 18,
+      "minSkillLevel": 20,
+      "maxSkillLevel": 30,
+      "minItemLevel": 11,
+      "itemRarities": [
+        {
+          "weight": 70,
+          "rarity": 2
+        },
+        {
+          "weight": 30,
+          "rarity": 1
+        }
+      ]
+    }
+  },
+  {
+    "id": "HALL_6_END",
+    "maxPlayerLevel": 20,
+    "maxSkillLevel": 50,
+    "targetWins": 2,
+    "generalMatchMakingTime": 30,
+    "additionalMatchMakingTime": 15,
+    "defaultPlayerGenerationSettings": {
+      "minPlayerLevel": 20,
+      "maxPlayerLevel": 20,
+      "minSkillLevel": 36,
+      "maxSkillLevel": 50,
+      "minItemLevel": 16,
+      "itemRarities": [
+        {
+          "weight": 60,
+          "rarity": 3
+        },
+        {
+          "weight": 40,
+          "rarity": 2
+        }
+      ]
+    },
+    "weakPlayerGenerationSettings": {
+      "minPlayerLevel": 20,
+      "maxPlayerLevel": 20,
+      "minSkillLevel": 36,
+      "maxSkillLevel": 43,
+      "minItemLevel": 16,
+      "itemRarities": [
+        {
+          "weight": 20,
+          "rarity": 3
+        },
+        {
+          "weight": 80,
+          "rarity": 2
+        }
+      ]
+    }
+  },
+  {
+    "id": "HALL_7_START",
+    "maxPlayerLevel": 25,
+    "maxSkillLevel": 45,
+    "targetWins": 3,
+    "generalMatchMakingTime": 35,
+    "additionalMatchMakingTime": 15,
+    "defaultPlayerGenerationSettings": {
+      "minPlayerLevel": 24,
+      "maxPlayerLevel": 25,
+      "minSkillLevel": 35,
+      "maxSkillLevel": 45,
+      "minItemLevel": 16,
+      "itemRarities": [
+        {
+          "weight": 20,
+          "rarity": 3
+        },
+        {
+          "weight": 80,
+          "rarity": 2
+        }
+      ]
+    },
+    "weakPlayerGenerationSettings": {
+      "minPlayerLevel": 21,
+      "maxPlayerLevel": 23,
+      "minSkillLevel": 25,
+      "maxSkillLevel": 40,
+      "minItemLevel": 16,
+      "itemRarities": [
+        {
+          "weight": 10,
+          "rarity": 3
+        },
+        {
+          "weight": 90,
+          "rarity": 2
+        }
+      ]
+    }
+  },
+  {
+    "id": "HALL_7_MID",
+    "maxPlayerLevel": 28,
+    "maxSkillLevel": 55,
+    "targetWins": 2,
+    "generalMatchMakingTime": 35,
+    "additionalMatchMakingTime": 15,
+    "defaultPlayerGenerationSettings": {
+      "minPlayerLevel": 27,
+      "maxPlayerLevel": 28,
+      "minSkillLevel": 45,
+      "maxSkillLevel": 55,
+      "minItemLevel": 21,
+      "itemRarities": [
+        {
+          "weight": 25,
+          "rarity": 3
+        },
+        {
+          "weight": 75,
+          "rarity": 2
+        }
+      ]
+    },
+    "weakPlayerGenerationSettings": {
+      "minPlayerLevel": 26,
+      "maxPlayerLevel": 28,
+      "minSkillLevel": 30,
+      "maxSkillLevel": 45,
+      "minItemLevel": 21,
+      "itemRarities": [
+        {
+          "weight": 10,
+          "rarity": 3
+        },
+        {
+          "weight": 90,
+          "rarity": 2
+        }
+      ]
+    }
+  },
+  {
+    "id": "HALL_7_END",
+    "maxPlayerLevel": 28,
+    "maxSkillLevel": 75,
+    "targetWins": 2,
+    "generalMatchMakingTime": 35,
+    "additionalMatchMakingTime": 15,
+    "defaultPlayerGenerationSettings": {
+      "minPlayerLevel": 28,
+      "maxPlayerLevel": 28,
+      "minSkillLevel": 56,
+      "maxSkillLevel": 75,
+      "minItemLevel": 21,
+      "itemRarities": [
+        {
+          "weight": 70,
+          "rarity": 3
+        },
+        {
+          "weight": 30,
+          "rarity": 2
+        }
+      ]
+    },
+    "weakPlayerGenerationSettings": {
+      "minPlayerLevel": 28,
+      "maxPlayerLevel": 28,
+      "minSkillLevel": 56,
+      "maxSkillLevel": 65,
+      "minItemLevel": 21,
+      "itemRarities": [
+        {
+          "weight": 35,
+          "rarity": 3
+        },
+        {
+          "weight": 65,
+          "rarity": 2
+        }
+      ]
+    }
+  },
+  {
+    "id": "HALL_8_START",
+    "maxPlayerLevel": 33,
+    "maxSkillLevel": 60,
+    "targetWins": 2,
+    "generalMatchMakingTime": 40,
+    "additionalMatchMakingTime": 20,
+    "defaultPlayerGenerationSettings": {
+      "minPlayerLevel": 32,
+      "maxPlayerLevel": 33,
+      "minSkillLevel": 48,
+      "maxSkillLevel": 60,
+      "minItemLevel": 21,
+      "itemRarities": [
+        {
+          "weight": 20,
+          "rarity": 3
+        },
+        {
+          "weight": 80,
+          "rarity": 2
+        }
+      ]
+    },
+    "weakPlayerGenerationSettings": {
+      "minPlayerLevel": 29,
+      "maxPlayerLevel": 31,
+      "minSkillLevel": 35,
+      "maxSkillLevel": 50,
+      "minItemLevel": 21,
+      "itemRarities": [
+        {
+          "weight": 10,
+          "rarity": 3
+        },
+        {
+          "weight": 90,
+          "rarity": 2
+        }
+      ]
+    }
+  },
+  {
+    "id": "HALL_8_MID",
+    "maxPlayerLevel": 35,
+    "maxSkillLevel": 75,
+    "targetWins": 2,
+    "generalMatchMakingTime": 40,
+    "additionalMatchMakingTime": 20,
+    "defaultPlayerGenerationSettings": {
+      "minPlayerLevel": 34,
+      "maxPlayerLevel": 35,
+      "minSkillLevel": 65,
+      "maxSkillLevel": 75,
+      "minItemLevel": 29,
+      "itemRarities": [
+        {
+          "weight": 50,
+          "rarity": 3
+        },
+        {
+          "weight": 50,
+          "rarity": 2
+        }
+      ]
+    },
+    "weakPlayerGenerationSettings": {
+      "minPlayerLevel": 33,
+      "maxPlayerLevel": 35,
+      "minSkillLevel": 50,
+      "maxSkillLevel": 65,
+      "minItemLevel": 29,
+      "itemRarities": [
+        {
+          "weight": 20,
+          "rarity": 3
+        },
+        {
+          "weight": 80,
+          "rarity": 2
+        }
+      ]
+    }
+  },
+  {
+    "id": "HALL_8_END",
+    "maxPlayerLevel": 35,
+    "maxSkillLevel": 100,
+    "targetWins": 1,
+    "generalMatchMakingTime": 45,
+    "additionalMatchMakingTime": 30,
+    "defaultPlayerGenerationSettings": {
+      "minPlayerLevel": 35,
+      "maxPlayerLevel": 35,
+      "minSkillLevel": 76,
+      "maxSkillLevel": 100,
+      "minItemLevel": 29,
+      "itemRarities": [
+        {
+          "weight": 100,
+          "rarity": 3
+        }
+      ]
+    },
+    "weakPlayerGenerationSettings": {
+      "minPlayerLevel": 35,
+      "maxPlayerLevel": 35,
+      "minSkillLevel": 76,
+      "maxSkillLevel": 85,
+      "minItemLevel": 29,
+      "itemRarities": [
+        {
+          "weight": 75,
+          "rarity": 3
+        },
+        {
+          "weight": 25,
+          "rarity": 2
+        }
+      ]
+    }
+  }
+]

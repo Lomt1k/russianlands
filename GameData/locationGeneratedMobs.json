@@ -1,0 +1,1466 @@
+﻿[
+  {
+    "id": 1,
+    "mobsCount": 5,
+    "dataByTownhall": {
+      "3": {
+        "foodPrice": 500,
+        "battleRewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 3,
+            "rarity": 0,
+            "itemType": -1,
+            "count": 1
+          },
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 0,
+            "amountMin": 1800,
+            "amountMax": 2200
+          }
+        ],
+        "locationRewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 3,
+            "rarity": 1,
+            "itemType": -1,
+            "count": 1
+          },
+          {
+            "$type": "ResourceReward",
+            "resourceId": 23,
+            "amount": 1
+          },
+          {
+            "$type": "ResourceReward",
+            "resourceId": 2,
+            "amount": 5
+          }
+        ]
+      },
+      "4": {
+        "foodPrice": 1000,
+        "battleRewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 4,
+            "rarity": 0,
+            "itemType": -1,
+            "count": 1
+          },
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 0,
+            "amountMin": 3600,
+            "amountMax": 4400
+          }
+        ],
+        "locationRewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 4,
+            "rarity": 1,
+            "itemType": -1,
+            "count": 1
+          },
+          {
+            "$type": "ResourceReward",
+            "resourceId": 23,
+            "amount": 1
+          },
+          {
+            "$type": "ResourceReward",
+            "resourceId": 2,
+            "amount": 5
+          }
+        ]
+      },
+      "5": {
+        "foodPrice": 2000,
+        "battleRewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 5,
+            "rarity": 0,
+            "itemType": -1,
+            "count": 1
+          },
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 0,
+            "amountMin": 5400,
+            "amountMax": 6600
+          }
+        ],
+        "locationRewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 5,
+            "rarity": 1,
+            "itemType": -1,
+            "count": 1
+          },
+          {
+            "$type": "ResourceReward",
+            "resourceId": 23,
+            "amount": 1
+          },
+          {
+            "$type": "ResourceReward",
+            "resourceId": 2,
+            "amount": 5
+          }
+        ]
+      },
+      "6": {
+        "foodPrice": 5000,
+        "battleRewards": [
+          {
+            "$type": "ResourceReward",
+            "resourceId": 6,
+            "amount": 1
+          },
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 0,
+            "amountMin": 7200,
+            "amountMax": 8800
+          },
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 4,
+            "amountMin": 1620,
+            "amountMax": 1980
+          }
+        ],
+        "locationRewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 6,
+            "rarity": 1,
+            "itemType": -1,
+            "count": 1
+          },
+          {
+            "$type": "ResourceReward",
+            "resourceId": 23,
+            "amount": 1
+          },
+          {
+            "$type": "ResourceReward",
+            "resourceId": 2,
+            "amount": 5
+          }
+        ]
+      },
+      "7": {
+        "foodPrice": 10000,
+        "battleRewards": [
+          {
+            "$type": "ResourceReward",
+            "resourceId": 6,
+            "amount": 1
+          },
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 0,
+            "amountMin": 12600,
+            "amountMax": 15400
+          },
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 4,
+            "amountMin": 4590,
+            "amountMax": 5610
+          }
+        ],
+        "locationRewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 7,
+            "rarity": 1,
+            "itemType": -1,
+            "count": 1
+          },
+          {
+            "$type": "ResourceReward",
+            "resourceId": 23,
+            "amount": 1
+          },
+          {
+            "$type": "ResourceReward",
+            "resourceId": 2,
+            "amount": 5
+          }
+        ]
+      },
+      "8": {
+        "foodPrice": 16000,
+        "battleRewards": [
+          {
+            "$type": "ResourceReward",
+            "resourceId": 6,
+            "amount": 1
+          },
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 0,
+            "amountMin": 21600,
+            "amountMax": 26400
+          },
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 4,
+            "amountMin": 7470,
+            "amountMax": 9130
+          }
+        ],
+        "locationRewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 8,
+            "rarity": 1,
+            "itemType": -1,
+            "count": 1
+          },
+          {
+            "$type": "ResourceReward",
+            "resourceId": 23,
+            "amount": 1
+          },
+          {
+            "$type": "ResourceReward",
+            "resourceId": 2,
+            "amount": 5
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": 2,
+    "mobsCount": 3,
+    "dataByTownhall": {
+      "3": {
+        "foodPrice": 3000,
+        "battleRewards": [
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 0,
+            "amountMin": 7200,
+            "amountMax": 8800
+          }
+        ],
+        "locationRewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 3,
+            "rarity": 1,
+            "itemType": -1,
+            "count": 1
+          },
+          {
+            "$type": "ResourceReward",
+            "resourceId": 2,
+            "amount": 5
+          }
+        ]
+      },
+      "4": {
+        "foodPrice": 6000,
+        "battleRewards": [
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 0,
+            "amountMin": 13500,
+            "amountMax": 16500
+          },
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 3,
+            "amountMin": 2700,
+            "amountMax": 3300
+          }
+        ],
+        "locationRewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 4,
+            "rarity": 1,
+            "itemType": -1,
+            "count": 1
+          },
+          {
+            "$type": "ResourceReward",
+            "resourceId": 2,
+            "amount": 5
+          }
+        ]
+      },
+      "5": {
+        "foodPrice": 9000,
+        "battleRewards": [
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 0,
+            "amountMin": 18000,
+            "amountMax": 22000
+          },
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 3,
+            "amountMin": 4950,
+            "amountMax": 6050
+          }
+        ],
+        "locationRewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 5,
+            "rarity": 1,
+            "itemType": -1,
+            "count": 1
+          },
+          {
+            "$type": "ResourceReward",
+            "resourceId": 2,
+            "amount": 5
+          }
+        ]
+      },
+      "6": {
+        "foodPrice": 12000,
+        "battleRewards": [
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 0,
+            "amountMin": 36000,
+            "amountMax": 44000
+          },
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 3,
+            "amountMin": 8100,
+            "amountMax": 9900
+          },
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 4,
+            "amountMin": 9000,
+            "amountMax": 11000
+          }
+        ],
+        "locationRewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 6,
+            "rarity": 1,
+            "itemType": -1,
+            "count": 1
+          },
+          {
+            "$type": "ResourceReward",
+            "resourceId": 2,
+            "amount": 5
+          }
+        ]
+      },
+      "7": {
+        "foodPrice": 15000,
+        "battleRewards": [
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 0,
+            "amountMin": 45000,
+            "amountMax": 55000
+          },
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 3,
+            "amountMin": 8550,
+            "amountMax": 10450
+          },
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 4,
+            "amountMin": 18000,
+            "amountMax": 22000
+          }
+        ],
+        "locationRewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 7,
+            "rarity": 1,
+            "itemType": -1,
+            "count": 1
+          },
+          {
+            "$type": "ResourceReward",
+            "resourceId": 2,
+            "amount": 5
+          }
+        ]
+      },
+      "8": {
+        "foodPrice": 18000,
+        "battleRewards": [
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 0,
+            "amountMin": 58500,
+            "amountMax": 71500
+          },
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 3,
+            "amountMin": 9000,
+            "amountMax": 11000
+          },
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 4,
+            "amountMin": 23850,
+            "amountMax": 29150
+          }
+        ],
+        "locationRewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 8,
+            "rarity": 1,
+            "itemType": -1,
+            "count": 1
+          },
+          {
+            "$type": "ResourceReward",
+            "resourceId": 2,
+            "amount": 5
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": 3,
+    "mobsCount": 3,
+    "dataByTownhall": {
+      "3": {
+        "foodPrice": 3000,
+        "battleRewards": [
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 0,
+            "amountMin": 7200,
+            "amountMax": 8800
+          }
+        ],
+        "locationRewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 3,
+            "rarity": 1,
+            "itemType": -1,
+            "count": 1
+          },
+          {
+            "$type": "ResourceReward",
+            "resourceId": 2,
+            "amount": 5
+          }
+        ]
+      },
+      "4": {
+        "foodPrice": 6000,
+        "battleRewards": [
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 0,
+            "amountMin": 13500,
+            "amountMax": 16500
+          },
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 3,
+            "amountMin": 2700,
+            "amountMax": 3300
+          }
+        ],
+        "locationRewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 4,
+            "rarity": 1,
+            "itemType": -1,
+            "count": 1
+          },
+          {
+            "$type": "ResourceReward",
+            "resourceId": 2,
+            "amount": 5
+          }
+        ]
+      },
+      "5": {
+        "foodPrice": 9000,
+        "battleRewards": [
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 0,
+            "amountMin": 18000,
+            "amountMax": 22000
+          },
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 3,
+            "amountMin": 4950,
+            "amountMax": 6050
+          }
+        ],
+        "locationRewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 5,
+            "rarity": 1,
+            "itemType": -1,
+            "count": 1
+          },
+          {
+            "$type": "ResourceReward",
+            "resourceId": 2,
+            "amount": 5
+          }
+        ]
+      },
+      "6": {
+        "foodPrice": 12000,
+        "battleRewards": [
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 0,
+            "amountMin": 36000,
+            "amountMax": 44000
+          },
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 3,
+            "amountMin": 8100,
+            "amountMax": 9900
+          },
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 4,
+            "amountMin": 9000,
+            "amountMax": 11000
+          }
+        ],
+        "locationRewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 6,
+            "rarity": 1,
+            "itemType": -1,
+            "count": 1
+          },
+          {
+            "$type": "ResourceReward",
+            "resourceId": 2,
+            "amount": 5
+          }
+        ]
+      },
+      "7": {
+        "foodPrice": 15000,
+        "battleRewards": [
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 0,
+            "amountMin": 45000,
+            "amountMax": 55000
+          },
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 3,
+            "amountMin": 8550,
+            "amountMax": 10450
+          },
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 4,
+            "amountMin": 18000,
+            "amountMax": 22000
+          }
+        ],
+        "locationRewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 7,
+            "rarity": 1,
+            "itemType": -1,
+            "count": 1
+          },
+          {
+            "$type": "ResourceReward",
+            "resourceId": 2,
+            "amount": 5
+          }
+        ]
+      },
+      "8": {
+        "foodPrice": 18000,
+        "battleRewards": [
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 0,
+            "amountMin": 58500,
+            "amountMax": 71500
+          },
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 3,
+            "amountMin": 9000,
+            "amountMax": 11000
+          },
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 4,
+            "amountMin": 23850,
+            "amountMax": 29150
+          }
+        ],
+        "locationRewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 8,
+            "rarity": 1,
+            "itemType": -1,
+            "count": 1
+          },
+          {
+            "$type": "ResourceReward",
+            "resourceId": 2,
+            "amount": 5
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": 4,
+    "mobsCount": 3,
+    "dataByTownhall": {
+      "3": {
+        "foodPrice": 3000,
+        "battleRewards": [
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 0,
+            "amountMin": 7200,
+            "amountMax": 8800
+          }
+        ],
+        "locationRewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 3,
+            "rarity": 1,
+            "itemType": -1,
+            "count": 1
+          },
+          {
+            "$type": "ResourceReward",
+            "resourceId": 2,
+            "amount": 5
+          }
+        ]
+      },
+      "4": {
+        "foodPrice": 6000,
+        "battleRewards": [
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 0,
+            "amountMin": 13500,
+            "amountMax": 16500
+          },
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 3,
+            "amountMin": 2700,
+            "amountMax": 3300
+          }
+        ],
+        "locationRewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 4,
+            "rarity": 1,
+            "itemType": -1,
+            "count": 1
+          },
+          {
+            "$type": "ResourceReward",
+            "resourceId": 2,
+            "amount": 5
+          }
+        ]
+      },
+      "5": {
+        "foodPrice": 9000,
+        "battleRewards": [
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 0,
+            "amountMin": 18000,
+            "amountMax": 22000
+          },
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 3,
+            "amountMin": 4950,
+            "amountMax": 6050
+          }
+        ],
+        "locationRewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 5,
+            "rarity": 1,
+            "itemType": -1,
+            "count": 1
+          },
+          {
+            "$type": "ResourceReward",
+            "resourceId": 2,
+            "amount": 5
+          }
+        ]
+      },
+      "6": {
+        "foodPrice": 12000,
+        "battleRewards": [
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 0,
+            "amountMin": 36000,
+            "amountMax": 44000
+          },
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 3,
+            "amountMin": 8100,
+            "amountMax": 9900
+          },
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 4,
+            "amountMin": 9000,
+            "amountMax": 11000
+          }
+        ],
+        "locationRewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 6,
+            "rarity": 1,
+            "itemType": -1,
+            "count": 1
+          },
+          {
+            "$type": "ResourceReward",
+            "resourceId": 2,
+            "amount": 5
+          }
+        ]
+      },
+      "7": {
+        "foodPrice": 15000,
+        "battleRewards": [
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 0,
+            "amountMin": 45000,
+            "amountMax": 55000
+          },
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 3,
+            "amountMin": 8550,
+            "amountMax": 10450
+          },
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 4,
+            "amountMin": 18000,
+            "amountMax": 22000
+          }
+        ],
+        "locationRewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 7,
+            "rarity": 1,
+            "itemType": -1,
+            "count": 1
+          },
+          {
+            "$type": "ResourceReward",
+            "resourceId": 2,
+            "amount": 5
+          }
+        ]
+      },
+      "8": {
+        "foodPrice": 18000,
+        "battleRewards": [
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 0,
+            "amountMin": 58500,
+            "amountMax": 71500
+          },
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 3,
+            "amountMin": 9000,
+            "amountMax": 11000
+          },
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 4,
+            "amountMin": 23850,
+            "amountMax": 29150
+          }
+        ],
+        "locationRewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 8,
+            "rarity": 1,
+            "itemType": -1,
+            "count": 1
+          },
+          {
+            "$type": "ResourceReward",
+            "resourceId": 2,
+            "amount": 5
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": 5,
+    "mobsCount": 3,
+    "dataByTownhall": {
+      "3": {
+        "foodPrice": 3000,
+        "battleRewards": [
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 0,
+            "amountMin": 7200,
+            "amountMax": 8800
+          }
+        ],
+        "locationRewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 3,
+            "rarity": 1,
+            "itemType": -1,
+            "count": 1
+          },
+          {
+            "$type": "ResourceReward",
+            "resourceId": 2,
+            "amount": 5
+          }
+        ]
+      },
+      "4": {
+        "foodPrice": 6000,
+        "battleRewards": [
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 0,
+            "amountMin": 13500,
+            "amountMax": 16500
+          },
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 3,
+            "amountMin": 2700,
+            "amountMax": 3300
+          }
+        ],
+        "locationRewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 4,
+            "rarity": 1,
+            "itemType": -1,
+            "count": 1
+          },
+          {
+            "$type": "ResourceReward",
+            "resourceId": 2,
+            "amount": 5
+          }
+        ]
+      },
+      "5": {
+        "foodPrice": 9000,
+        "battleRewards": [
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 0,
+            "amountMin": 18000,
+            "amountMax": 22000
+          },
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 3,
+            "amountMin": 4950,
+            "amountMax": 6050
+          }
+        ],
+        "locationRewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 5,
+            "rarity": 1,
+            "itemType": -1,
+            "count": 1
+          },
+          {
+            "$type": "ResourceReward",
+            "resourceId": 2,
+            "amount": 5
+          }
+        ]
+      },
+      "6": {
+        "foodPrice": 12000,
+        "battleRewards": [
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 0,
+            "amountMin": 36000,
+            "amountMax": 44000
+          },
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 3,
+            "amountMin": 8100,
+            "amountMax": 9900
+          },
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 4,
+            "amountMin": 9000,
+            "amountMax": 11000
+          }
+        ],
+        "locationRewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 6,
+            "rarity": 1,
+            "itemType": -1,
+            "count": 1
+          },
+          {
+            "$type": "ResourceReward",
+            "resourceId": 2,
+            "amount": 5
+          }
+        ]
+      },
+      "7": {
+        "foodPrice": 15000,
+        "battleRewards": [
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 0,
+            "amountMin": 45000,
+            "amountMax": 55000
+          },
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 3,
+            "amountMin": 8550,
+            "amountMax": 10450
+          },
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 4,
+            "amountMin": 18000,
+            "amountMax": 22000
+          }
+        ],
+        "locationRewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 7,
+            "rarity": 1,
+            "itemType": -1,
+            "count": 1
+          },
+          {
+            "$type": "ResourceReward",
+            "resourceId": 2,
+            "amount": 5
+          }
+        ]
+      },
+      "8": {
+        "foodPrice": 18000,
+        "battleRewards": [
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 0,
+            "amountMin": 58500,
+            "amountMax": 71500
+          },
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 3,
+            "amountMin": 9000,
+            "amountMax": 11000
+          },
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 4,
+            "amountMin": 23850,
+            "amountMax": 29150
+          }
+        ],
+        "locationRewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 8,
+            "rarity": 1,
+            "itemType": -1,
+            "count": 1
+          },
+          {
+            "$type": "ResourceReward",
+            "resourceId": 2,
+            "amount": 5
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": 6,
+    "mobsCount": 3,
+    "dataByTownhall": {
+      "3": {
+        "foodPrice": 3000,
+        "battleRewards": [
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 0,
+            "amountMin": 7200,
+            "amountMax": 8800
+          }
+        ],
+        "locationRewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 3,
+            "rarity": 1,
+            "itemType": -1,
+            "count": 1
+          },
+          {
+            "$type": "ResourceReward",
+            "resourceId": 2,
+            "amount": 5
+          }
+        ]
+      },
+      "4": {
+        "foodPrice": 6000,
+        "battleRewards": [
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 0,
+            "amountMin": 13500,
+            "amountMax": 16500
+          },
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 3,
+            "amountMin": 2700,
+            "amountMax": 3300
+          }
+        ],
+        "locationRewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 4,
+            "rarity": 1,
+            "itemType": -1,
+            "count": 1
+          },
+          {
+            "$type": "ResourceReward",
+            "resourceId": 2,
+            "amount": 5
+          }
+        ]
+      },
+      "5": {
+        "foodPrice": 9000,
+        "battleRewards": [
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 0,
+            "amountMin": 18000,
+            "amountMax": 22000
+          },
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 3,
+            "amountMin": 4950,
+            "amountMax": 6050
+          }
+        ],
+        "locationRewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 5,
+            "rarity": 1,
+            "itemType": -1,
+            "count": 1
+          },
+          {
+            "$type": "ResourceReward",
+            "resourceId": 2,
+            "amount": 5
+          }
+        ]
+      },
+      "6": {
+        "foodPrice": 12000,
+        "battleRewards": [
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 0,
+            "amountMin": 36000,
+            "amountMax": 44000
+          },
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 3,
+            "amountMin": 8100,
+            "amountMax": 9900
+          },
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 4,
+            "amountMin": 9000,
+            "amountMax": 11000
+          }
+        ],
+        "locationRewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 6,
+            "rarity": 1,
+            "itemType": -1,
+            "count": 1
+          },
+          {
+            "$type": "ResourceReward",
+            "resourceId": 2,
+            "amount": 5
+          }
+        ]
+      },
+      "7": {
+        "foodPrice": 15000,
+        "battleRewards": [
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 0,
+            "amountMin": 45000,
+            "amountMax": 55000
+          },
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 3,
+            "amountMin": 8550,
+            "amountMax": 10450
+          },
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 4,
+            "amountMin": 18000,
+            "amountMax": 22000
+          }
+        ],
+        "locationRewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 7,
+            "rarity": 1,
+            "itemType": -1,
+            "count": 1
+          },
+          {
+            "$type": "ResourceReward",
+            "resourceId": 2,
+            "amount": 5
+          }
+        ]
+      },
+      "8": {
+        "foodPrice": 18000,
+        "battleRewards": [
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 0,
+            "amountMin": 58500,
+            "amountMax": 71500
+          },
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 3,
+            "amountMin": 9000,
+            "amountMax": 11000
+          },
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 4,
+            "amountMin": 23850,
+            "amountMax": 29150
+          }
+        ],
+        "locationRewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 8,
+            "rarity": 1,
+            "itemType": -1,
+            "count": 1
+          },
+          {
+            "$type": "ResourceReward",
+            "resourceId": 2,
+            "amount": 5
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": 7,
+    "mobsCount": 3,
+    "dataByTownhall": {
+      "3": {
+        "foodPrice": 3000,
+        "battleRewards": [
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 0,
+            "amountMin": 7200,
+            "amountMax": 8800
+          }
+        ],
+        "locationRewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 3,
+            "rarity": 1,
+            "itemType": -1,
+            "count": 1
+          },
+          {
+            "$type": "ResourceReward",
+            "resourceId": 2,
+            "amount": 5
+          }
+        ]
+      },
+      "4": {
+        "foodPrice": 6000,
+        "battleRewards": [
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 0,
+            "amountMin": 13500,
+            "amountMax": 16500
+          },
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 3,
+            "amountMin": 2700,
+            "amountMax": 3300
+          }
+        ],
+        "locationRewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 4,
+            "rarity": 1,
+            "itemType": -1,
+            "count": 1
+          },
+          {
+            "$type": "ResourceReward",
+            "resourceId": 2,
+            "amount": 5
+          }
+        ]
+      },
+      "5": {
+        "foodPrice": 9000,
+        "battleRewards": [
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 0,
+            "amountMin": 18000,
+            "amountMax": 22000
+          },
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 3,
+            "amountMin": 4950,
+            "amountMax": 6050
+          }
+        ],
+        "locationRewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 5,
+            "rarity": 1,
+            "itemType": -1,
+            "count": 1
+          },
+          {
+            "$type": "ResourceReward",
+            "resourceId": 2,
+            "amount": 5
+          }
+        ]
+      },
+      "6": {
+        "foodPrice": 12000,
+        "battleRewards": [
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 0,
+            "amountMin": 36000,
+            "amountMax": 44000
+          },
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 3,
+            "amountMin": 8100,
+            "amountMax": 9900
+          },
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 4,
+            "amountMin": 9000,
+            "amountMax": 11000
+          }
+        ],
+        "locationRewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 6,
+            "rarity": 1,
+            "itemType": -1,
+            "count": 1
+          },
+          {
+            "$type": "ResourceReward",
+            "resourceId": 2,
+            "amount": 5
+          }
+        ]
+      },
+      "7": {
+        "foodPrice": 15000,
+        "battleRewards": [
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 0,
+            "amountMin": 45000,
+            "amountMax": 55000
+          },
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 3,
+            "amountMin": 8550,
+            "amountMax": 10450
+          },
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 4,
+            "amountMin": 18000,
+            "amountMax": 22000
+          }
+        ],
+        "locationRewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 7,
+            "rarity": 1,
+            "itemType": -1,
+            "count": 1
+          },
+          {
+            "$type": "ResourceReward",
+            "resourceId": 2,
+            "amount": 5
+          }
+        ]
+      },
+      "8": {
+        "foodPrice": 18000,
+        "battleRewards": [
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 0,
+            "amountMin": 58500,
+            "amountMax": 71500
+          },
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 3,
+            "amountMin": 9000,
+            "amountMax": 11000
+          },
+          {
+            "$type": "ResourceRangeReward",
+            "resourceId": 4,
+            "amountMin": 23850,
+            "amountMax": 29150
+          }
+        ],
+        "locationRewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 8,
+            "rarity": 1,
+            "itemType": -1,
+            "count": 1
+          },
+          {
+            "$type": "ResourceReward",
+            "resourceId": 2,
+            "amount": 5
+          }
+        ]
+      }
+    }
+  }
+]

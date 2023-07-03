@@ -1,0 +1,1653 @@
+﻿[
+  {
+    "id": 3,
+    "mainCategoryItems": [
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "unknown_item_view_rarity_rare_type_sword",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 3,
+            "rarity": 1,
+            "itemType": 0,
+            "count": 1
+          }
+        ],
+        "vendorCode": "arena-hall3-rare-sword",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 25
+        }
+      },
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "unknown_item_view_rarity_rare_type_bow",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 3,
+            "rarity": 1,
+            "itemType": 1,
+            "count": 1
+          }
+        ],
+        "vendorCode": "arena-hall3-rare-bow",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 25
+        }
+      },
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "unknown_item_view_rarity_rare_type_stick",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 3,
+            "rarity": 1,
+            "itemType": 2,
+            "count": 1
+          }
+        ],
+        "vendorCode": "arena-hall3-rare-stick",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 25
+        }
+      },
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "unknown_item_view_rarity_rare_type_armor",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 3,
+            "rarity": 1,
+            "itemType": 3,
+            "count": 1
+          }
+        ],
+        "vendorCode": "arena-hall3-rare-armor",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 25
+        }
+      },
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "unknown_item_view_rarity_rare_type_helmet",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 3,
+            "rarity": 1,
+            "itemType": 4,
+            "count": 1
+          }
+        ],
+        "vendorCode": "arena-hall3-rare-helmet",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 25
+        }
+      },
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "unknown_item_view_rarity_rare_type_boots",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 3,
+            "rarity": 1,
+            "itemType": 5,
+            "count": 1
+          }
+        ],
+        "vendorCode": "arena-hall3-rare-boots",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 25
+        }
+      },
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "unknown_item_view_rarity_rare_type_shield",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 3,
+            "rarity": 1,
+            "itemType": 6,
+            "count": 1
+          }
+        ],
+        "vendorCode": "arena-hall3-rare-shield",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 25
+        }
+      },
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "lootbox_name_arena",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 3,
+            "rarity": 1,
+            "itemType": -1,
+            "count": 3
+          }
+        ],
+        "vendorCode": "arena-hall3-rare-lootbox",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 70
+        }
+      }
+    ],
+    "exchangeCategoryItems": [
+      {
+        "$type": "ShopResourceItem",
+        "resourceReward": {
+          "$type": "ResourceReward",
+          "resourceId": 24,
+          "amount": 21
+        },
+        "vendorCode": "arena-hall3-echange-tickets-to-chips-1",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 23,
+          "amount": 1
+        }
+      },
+      {
+        "$type": "ShopResourceItem",
+        "resourceReward": {
+          "$type": "ResourceReward",
+          "resourceId": 24,
+          "amount": 230
+        },
+        "vendorCode": "arena-hall3-echange-tickets-to-chips-10",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 23,
+          "amount": 10
+        }
+      },
+      {
+        "$type": "ShopResourceItem",
+        "resourceReward": {
+          "$type": "ResourceReward",
+          "resourceId": 24,
+          "amount": 750
+        },
+        "vendorCode": "arena-hall3-echange-tickets-to-chips-30",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 23,
+          "amount": 30
+        }
+      }
+    ],
+    "tempItemPatterns": [],
+    "freeChipsCount": 5,
+    "freeChipsDelayInSeconds": 36000,
+    "tempItemsRefreshDelayInSeconds": 0
+  },
+  {
+    "id": 4,
+    "mainCategoryItems": [
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "unknown_item_view_rarity_rare_type_sword",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 4,
+            "rarity": 1,
+            "itemType": 0,
+            "count": 1
+          }
+        ],
+        "vendorCode": "arena-hall4-rare-sword",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 25
+        }
+      },
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "unknown_item_view_rarity_rare_type_bow",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 4,
+            "rarity": 1,
+            "itemType": 1,
+            "count": 1
+          }
+        ],
+        "vendorCode": "arena-hall4-rare-bow",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 25
+        }
+      },
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "unknown_item_view_rarity_rare_type_stick",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 4,
+            "rarity": 1,
+            "itemType": 2,
+            "count": 1
+          }
+        ],
+        "vendorCode": "arena-hall4-rare-stick",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 25
+        }
+      },
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "unknown_item_view_rarity_rare_type_armor",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 4,
+            "rarity": 1,
+            "itemType": 3,
+            "count": 1
+          }
+        ],
+        "vendorCode": "arena-hall4-rare-armor",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 25
+        }
+      },
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "unknown_item_view_rarity_rare_type_helmet",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 4,
+            "rarity": 1,
+            "itemType": 4,
+            "count": 1
+          }
+        ],
+        "vendorCode": "arena-hall4-rare-helmet",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 25
+        }
+      },
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "unknown_item_view_rarity_rare_type_boots",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 4,
+            "rarity": 1,
+            "itemType": 5,
+            "count": 1
+          }
+        ],
+        "vendorCode": "arena-hall4-rare-boots",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 25
+        }
+      },
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "unknown_item_view_rarity_rare_type_shield",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 4,
+            "rarity": 1,
+            "itemType": 6,
+            "count": 1
+          }
+        ],
+        "vendorCode": "arena-hall4-rare-shield",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 25
+        }
+      },
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "lootbox_name_arena",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 4,
+            "rarity": 1,
+            "itemType": -1,
+            "count": 4
+          }
+        ],
+        "vendorCode": "arena-hall4-rare-lootbox",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 90
+        }
+      }
+    ],
+    "exchangeCategoryItems": [
+      {
+        "$type": "ShopResourceItem",
+        "resourceReward": {
+          "$type": "ResourceReward",
+          "resourceId": 24,
+          "amount": 21
+        },
+        "vendorCode": "arena-hall4-echange-tickets-to-chips-1",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 23,
+          "amount": 1
+        }
+      },
+      {
+        "$type": "ShopResourceItem",
+        "resourceReward": {
+          "$type": "ResourceReward",
+          "resourceId": 24,
+          "amount": 230
+        },
+        "vendorCode": "arena-hall4-echange-tickets-to-chips-10",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 23,
+          "amount": 10
+        }
+      },
+      {
+        "$type": "ShopResourceItem",
+        "resourceReward": {
+          "$type": "ResourceReward",
+          "resourceId": 24,
+          "amount": 750
+        },
+        "vendorCode": "arena-hall4-echange-tickets-to-chips-30",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 23,
+          "amount": 30
+        }
+      }
+    ],
+    "tempItemPatterns": [],
+    "freeChipsCount": 5,
+    "freeChipsDelayInSeconds": 36000,
+    "tempItemsRefreshDelayInSeconds": 0
+  },
+  {
+    "id": 5,
+    "mainCategoryItems": [
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "unknown_item_view_rarity_rare_type_sword",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 5,
+            "rarity": 1,
+            "itemType": 0,
+            "count": 1
+          }
+        ],
+        "vendorCode": "arena-hall5-rare-sword",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 25
+        }
+      },
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "unknown_item_view_rarity_rare_type_bow",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 5,
+            "rarity": 1,
+            "itemType": 1,
+            "count": 1
+          }
+        ],
+        "vendorCode": "arena-hall5-rare-bow",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 25
+        }
+      },
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "unknown_item_view_rarity_rare_type_stick",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 5,
+            "rarity": 1,
+            "itemType": 2,
+            "count": 1
+          }
+        ],
+        "vendorCode": "arena-hall5-rare-stick",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 25
+        }
+      },
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "unknown_item_view_rarity_rare_type_armor",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 5,
+            "rarity": 1,
+            "itemType": 3,
+            "count": 1
+          }
+        ],
+        "vendorCode": "arena-hall5-rare-armor",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 25
+        }
+      },
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "unknown_item_view_rarity_rare_type_helmet",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 5,
+            "rarity": 1,
+            "itemType": 4,
+            "count": 1
+          }
+        ],
+        "vendorCode": "arena-hall5-rare-helmet",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 25
+        }
+      },
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "unknown_item_view_rarity_rare_type_boots",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 5,
+            "rarity": 1,
+            "itemType": 5,
+            "count": 1
+          }
+        ],
+        "vendorCode": "arena-hall5-rare-boots",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 25
+        }
+      },
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "unknown_item_view_rarity_rare_type_shield",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 5,
+            "rarity": 1,
+            "itemType": 6,
+            "count": 1
+          }
+        ],
+        "vendorCode": "arena-hall5-rare-shield",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 25
+        }
+      },
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "unknown_item_view_rarity_rare_type_amulet",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 5,
+            "rarity": 1,
+            "itemType": 7,
+            "count": 1
+          }
+        ],
+        "vendorCode": "arena-hall5-rare-amulet",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 25
+        }
+      },
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "unknown_item_view_rarity_rare_type_ring",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 5,
+            "rarity": 1,
+            "itemType": 8,
+            "count": 1
+          }
+        ],
+        "vendorCode": "arena-hall5-rare-ring",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 25
+        }
+      },
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "unknown_item_view_rarity_rare_type_scroll",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 5,
+            "rarity": 1,
+            "itemType": 9,
+            "count": 1
+          }
+        ],
+        "vendorCode": "arena-hall5-rare-scroll",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 25
+        }
+      },
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "lootbox_name_arena_small",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 5,
+            "rarity": 2,
+            "itemType": -1,
+            "count": 1
+          },
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 5,
+            "rarity": 1,
+            "itemType": -1,
+            "count": 3
+          }
+        ],
+        "vendorCode": "arena-hall5-rare-lootbox-small",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 150
+        }
+      },
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "lootbox_name_arena_big",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 5,
+            "rarity": 2,
+            "itemType": -1,
+            "count": 3
+          },
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 5,
+            "rarity": 1,
+            "itemType": -1,
+            "count": 4
+          }
+        ],
+        "vendorCode": "arena-hall5-rare-lootbox-big",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 390
+        }
+      }
+    ],
+    "exchangeCategoryItems": [
+      {
+        "$type": "ShopResourceItem",
+        "resourceReward": {
+          "$type": "ResourceReward",
+          "resourceId": 24,
+          "amount": 21
+        },
+        "vendorCode": "arena-hall5-echange-tickets-to-chips-1",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 23,
+          "amount": 1
+        }
+      },
+      {
+        "$type": "ShopResourceItem",
+        "resourceReward": {
+          "$type": "ResourceReward",
+          "resourceId": 24,
+          "amount": 230
+        },
+        "vendorCode": "arena-hall5-echange-tickets-to-chips-10",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 23,
+          "amount": 10
+        }
+      },
+      {
+        "$type": "ShopResourceItem",
+        "resourceReward": {
+          "$type": "ResourceReward",
+          "resourceId": 24,
+          "amount": 750
+        },
+        "vendorCode": "arena-hall5-echange-tickets-to-chips-30",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 23,
+          "amount": 30
+        }
+      }
+    ],
+    "tempItemPatterns": [
+      {
+        "rarity": 2,
+        "count": 3,
+        "chipsPrice": 130
+      }
+    ],
+    "freeChipsCount": 15,
+    "freeChipsDelayInSeconds": 36000,
+    "tempItemsRefreshDelayInSeconds": 604800
+  },
+  {
+    "id": 6,
+    "mainCategoryItems": [
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "unknown_item_view_rarity_rare_type_sword",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 6,
+            "rarity": 1,
+            "itemType": 0,
+            "count": 1
+          }
+        ],
+        "vendorCode": "arena-hall6-rare-sword",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 25
+        }
+      },
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "unknown_item_view_rarity_rare_type_bow",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 6,
+            "rarity": 1,
+            "itemType": 1,
+            "count": 1
+          }
+        ],
+        "vendorCode": "arena-hall6-rare-bow",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 25
+        }
+      },
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "unknown_item_view_rarity_rare_type_stick",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 6,
+            "rarity": 1,
+            "itemType": 2,
+            "count": 1
+          }
+        ],
+        "vendorCode": "arena-hall6-rare-stick",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 25
+        }
+      },
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "unknown_item_view_rarity_rare_type_armor",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 6,
+            "rarity": 1,
+            "itemType": 3,
+            "count": 1
+          }
+        ],
+        "vendorCode": "arena-hall6-rare-armor",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 25
+        }
+      },
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "unknown_item_view_rarity_rare_type_helmet",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 6,
+            "rarity": 1,
+            "itemType": 4,
+            "count": 1
+          }
+        ],
+        "vendorCode": "arena-hall6-rare-helmet",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 25
+        }
+      },
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "unknown_item_view_rarity_rare_type_boots",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 6,
+            "rarity": 1,
+            "itemType": 5,
+            "count": 1
+          }
+        ],
+        "vendorCode": "arena-hall6-rare-boots",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 25
+        }
+      },
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "unknown_item_view_rarity_rare_type_shield",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 6,
+            "rarity": 1,
+            "itemType": 6,
+            "count": 1
+          }
+        ],
+        "vendorCode": "arena-hall6-rare-shield",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 25
+        }
+      },
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "unknown_item_view_rarity_rare_type_amulet",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 6,
+            "rarity": 1,
+            "itemType": 7,
+            "count": 1
+          }
+        ],
+        "vendorCode": "arena-hall6-rare-amulet",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 25
+        }
+      },
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "unknown_item_view_rarity_rare_type_ring",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 6,
+            "rarity": 1,
+            "itemType": 8,
+            "count": 1
+          }
+        ],
+        "vendorCode": "arena-hall6-rare-ring",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 25
+        }
+      },
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "unknown_item_view_rarity_rare_type_scroll",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 6,
+            "rarity": 1,
+            "itemType": 9,
+            "count": 1
+          }
+        ],
+        "vendorCode": "arena-hall6-rare-scroll",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 25
+        }
+      },
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "lootbox_name_arena",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 6,
+            "rarity": 3,
+            "itemType": -1,
+            "count": 2
+          },
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 6,
+            "rarity": 2,
+            "itemType": -1,
+            "count": 3
+          },
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 6,
+            "rarity": 1,
+            "itemType": -1,
+            "count": 5
+          }
+        ],
+        "vendorCode": "arena-hall6-rare-lootbox",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 520
+        }
+      }
+    ],
+    "exchangeCategoryItems": [
+      {
+        "$type": "ShopResourceItem",
+        "resourceReward": {
+          "$type": "ResourceReward",
+          "resourceId": 24,
+          "amount": 21
+        },
+        "vendorCode": "arena-hall6-echange-tickets-to-chips-1",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 23,
+          "amount": 1
+        }
+      },
+      {
+        "$type": "ShopResourceItem",
+        "resourceReward": {
+          "$type": "ResourceReward",
+          "resourceId": 24,
+          "amount": 230
+        },
+        "vendorCode": "arena-hall6-echange-tickets-to-chips-10",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 23,
+          "amount": 10
+        }
+      },
+      {
+        "$type": "ShopResourceItem",
+        "resourceReward": {
+          "$type": "ResourceReward",
+          "resourceId": 24,
+          "amount": 750
+        },
+        "vendorCode": "arena-hall6-echange-tickets-to-chips-30",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 23,
+          "amount": 30
+        }
+      }
+    ],
+    "tempItemPatterns": [
+      {
+        "rarity": 3,
+        "count": 2,
+        "chipsPrice": 250
+      },
+      {
+        "rarity": 2,
+        "count": 3,
+        "chipsPrice": 175
+      }
+    ],
+    "freeChipsCount": 15,
+    "freeChipsDelayInSeconds": 36000,
+    "tempItemsRefreshDelayInSeconds": 604800
+  },
+  {
+    "id": 7,
+    "mainCategoryItems": [
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "unknown_item_view_rarity_rare_type_sword",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 7,
+            "rarity": 1,
+            "itemType": 0,
+            "count": 1
+          }
+        ],
+        "vendorCode": "arena-hall7-rare-sword",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 33
+        }
+      },
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "unknown_item_view_rarity_rare_type_bow",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 7,
+            "rarity": 1,
+            "itemType": 1,
+            "count": 1
+          }
+        ],
+        "vendorCode": "arena-hall7-rare-bow",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 33
+        }
+      },
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "unknown_item_view_rarity_rare_type_stick",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 7,
+            "rarity": 1,
+            "itemType": 2,
+            "count": 1
+          }
+        ],
+        "vendorCode": "arena-hall7-rare-stick",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 33
+        }
+      },
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "unknown_item_view_rarity_rare_type_armor",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 7,
+            "rarity": 1,
+            "itemType": 3,
+            "count": 1
+          }
+        ],
+        "vendorCode": "arena-hall7-rare-armor",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 33
+        }
+      },
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "unknown_item_view_rarity_rare_type_helmet",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 7,
+            "rarity": 1,
+            "itemType": 4,
+            "count": 1
+          }
+        ],
+        "vendorCode": "arena-hall7-rare-helmet",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 33
+        }
+      },
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "unknown_item_view_rarity_rare_type_boots",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 7,
+            "rarity": 1,
+            "itemType": 5,
+            "count": 1
+          }
+        ],
+        "vendorCode": "arena-hall7-rare-boots",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 33
+        }
+      },
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "unknown_item_view_rarity_rare_type_shield",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 7,
+            "rarity": 1,
+            "itemType": 6,
+            "count": 1
+          }
+        ],
+        "vendorCode": "arena-hall7-rare-shield",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 33
+        }
+      },
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "unknown_item_view_rarity_rare_type_amulet",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 7,
+            "rarity": 1,
+            "itemType": 7,
+            "count": 1
+          }
+        ],
+        "vendorCode": "arena-hall7-rare-amulet",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 33
+        }
+      },
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "unknown_item_view_rarity_rare_type_ring",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 7,
+            "rarity": 1,
+            "itemType": 8,
+            "count": 1
+          }
+        ],
+        "vendorCode": "arena-hall7-rare-ring",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 33
+        }
+      },
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "unknown_item_view_rarity_rare_type_scroll",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 7,
+            "rarity": 1,
+            "itemType": 9,
+            "count": 1
+          }
+        ],
+        "vendorCode": "arena-hall7-rare-scroll",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 33
+        }
+      },
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "lootbox_name_arena",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 7,
+            "rarity": 3,
+            "itemType": -1,
+            "count": 2
+          },
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 7,
+            "rarity": 2,
+            "itemType": -1,
+            "count": 3
+          },
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 7,
+            "rarity": 1,
+            "itemType": -1,
+            "count": 5
+          }
+        ],
+        "vendorCode": "arena-hall7-rare-lootbox",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 835
+        }
+      }
+    ],
+    "exchangeCategoryItems": [
+      {
+        "$type": "ShopResourceItem",
+        "resourceReward": {
+          "$type": "ResourceReward",
+          "resourceId": 24,
+          "amount": 21
+        },
+        "vendorCode": "arena-hall7-echange-tickets-to-chips-1",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 23,
+          "amount": 1
+        }
+      },
+      {
+        "$type": "ShopResourceItem",
+        "resourceReward": {
+          "$type": "ResourceReward",
+          "resourceId": 24,
+          "amount": 230
+        },
+        "vendorCode": "arena-hall7-echange-tickets-to-chips-10",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 23,
+          "amount": 10
+        }
+      },
+      {
+        "$type": "ShopResourceItem",
+        "resourceReward": {
+          "$type": "ResourceReward",
+          "resourceId": 24,
+          "amount": 750
+        },
+        "vendorCode": "arena-hall7-echange-tickets-to-chips-30",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 23,
+          "amount": 30
+        }
+      }
+    ],
+    "tempItemPatterns": [
+      {
+        "rarity": 3,
+        "count": 2,
+        "chipsPrice": 350
+      },
+      {
+        "rarity": 2,
+        "count": 3,
+        "chipsPrice": 200
+      }
+    ],
+    "freeChipsCount": 15,
+    "freeChipsDelayInSeconds": 36000,
+    "tempItemsRefreshDelayInSeconds": 604800
+  },
+  {
+    "id": 8,
+    "mainCategoryItems": [
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "unknown_item_view_rarity_rare_type_sword",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 8,
+            "rarity": 1,
+            "itemType": 0,
+            "count": 1
+          }
+        ],
+        "vendorCode": "arena-hall8-rare-sword",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 38
+        }
+      },
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "unknown_item_view_rarity_rare_type_bow",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 8,
+            "rarity": 1,
+            "itemType": 1,
+            "count": 1
+          }
+        ],
+        "vendorCode": "arena-hall8-rare-bow",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 38
+        }
+      },
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "unknown_item_view_rarity_rare_type_stick",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 8,
+            "rarity": 1,
+            "itemType": 2,
+            "count": 1
+          }
+        ],
+        "vendorCode": "arena-hall8-rare-stick",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 38
+        }
+      },
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "unknown_item_view_rarity_rare_type_armor",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 8,
+            "rarity": 1,
+            "itemType": 3,
+            "count": 1
+          }
+        ],
+        "vendorCode": "arena-hall8-rare-armor",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 38
+        }
+      },
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "unknown_item_view_rarity_rare_type_helmet",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 8,
+            "rarity": 1,
+            "itemType": 4,
+            "count": 1
+          }
+        ],
+        "vendorCode": "arena-hall8-rare-helmet",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 38
+        }
+      },
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "unknown_item_view_rarity_rare_type_boots",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 8,
+            "rarity": 1,
+            "itemType": 5,
+            "count": 1
+          }
+        ],
+        "vendorCode": "arena-hall8-rare-boots",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 38
+        }
+      },
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "unknown_item_view_rarity_rare_type_shield",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 8,
+            "rarity": 1,
+            "itemType": 6,
+            "count": 1
+          }
+        ],
+        "vendorCode": "arena-hall8-rare-shield",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 38
+        }
+      },
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "unknown_item_view_rarity_rare_type_amulet",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 8,
+            "rarity": 1,
+            "itemType": 7,
+            "count": 1
+          }
+        ],
+        "vendorCode": "arena-hall8-rare-amulet",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 38
+        }
+      },
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "unknown_item_view_rarity_rare_type_ring",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 8,
+            "rarity": 1,
+            "itemType": 8,
+            "count": 1
+          }
+        ],
+        "vendorCode": "arena-hall8-rare-ring",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 38
+        }
+      },
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "unknown_item_view_rarity_rare_type_scroll",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 8,
+            "rarity": 1,
+            "itemType": 9,
+            "count": 1
+          }
+        ],
+        "vendorCode": "arena-hall8-rare-scroll",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 38
+        }
+      },
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "lootbox_name_arena",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 8,
+            "rarity": 3,
+            "itemType": -1,
+            "count": 2
+          },
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 8,
+            "rarity": 2,
+            "itemType": -1,
+            "count": 3
+          },
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 8,
+            "rarity": 1,
+            "itemType": -1,
+            "count": 5
+          }
+        ],
+        "vendorCode": "arena-hall8-rare-lootbox",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 24,
+          "amount": 1800
+        }
+      }
+    ],
+    "exchangeCategoryItems": [
+      {
+        "$type": "ShopResourceItem",
+        "resourceReward": {
+          "$type": "ResourceReward",
+          "resourceId": 24,
+          "amount": 21
+        },
+        "vendorCode": "arena-hall8-echange-tickets-to-chips-1",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 23,
+          "amount": 1
+        }
+      },
+      {
+        "$type": "ShopResourceItem",
+        "resourceReward": {
+          "$type": "ResourceReward",
+          "resourceId": 24,
+          "amount": 230
+        },
+        "vendorCode": "arena-hall8-echange-tickets-to-chips-10",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 23,
+          "amount": 10
+        }
+      },
+      {
+        "$type": "ShopResourceItem",
+        "resourceReward": {
+          "$type": "ResourceReward",
+          "resourceId": 24,
+          "amount": 750
+        },
+        "vendorCode": "arena-hall8-echange-tickets-to-chips-30",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 23,
+          "amount": 30
+        }
+      }
+    ],
+    "tempItemPatterns": [
+      {
+        "rarity": 3,
+        "count": 2,
+        "chipsPrice": 850
+      },
+      {
+        "rarity": 2,
+        "count": 3,
+        "chipsPrice": 300
+      }
+    ],
+    "freeChipsCount": 15,
+    "freeChipsDelayInSeconds": 36000,
+    "tempItemsRefreshDelayInSeconds": 604800
+  }
+]

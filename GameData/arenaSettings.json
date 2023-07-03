@@ -1,0 +1,46 @@
+﻿{
+  "requiredTownhall": 3,
+  "battlesInMatch": 5,
+  "battleRewardsForFood": {
+    "chipsForBattleWin": 2,
+    "chipsForBattleDraw": 1,
+    "chipsForMatchEnd": 5,
+    "ticketsForWinAllBattles": 1,
+    "chipsForWinAllBattles": 0,
+    "chipsForDrawAllBattles": 5
+  },
+  "battleRewardsForTicket": {
+    "chipsForBattleWin": 6,
+    "chipsForBattleDraw": 3,
+    "chipsForMatchEnd": 15,
+    "ticketsForWinAllBattles": 0,
+    "chipsForWinAllBattles": 15,
+    "chipsForDrawAllBattles": 8
+  },
+  "townhallSettings": [
+    {
+      "townhall": 3,
+      "foodPrice": 500
+    },
+    {
+      "townhall": 4,
+      "foodPrice": 2000
+    },
+    {
+      "townhall": 5,
+      "foodPrice": 5000
+    },
+    {
+      "townhall": 6,
+      "foodPrice": 10000
+    },
+    {
+      "townhall": 7,
+      "foodPrice": 15000
+    },
+    {
+      "townhall": 8,
+      "foodPrice": 30000
+    }
+  ]
+}
