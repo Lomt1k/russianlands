@@ -1,0 +1,78 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="1920" d:DesignHeight="1080"
+             x:Class="GameDataEditor.Views.Editor.QuestsEditor.StageWithTriggerView">
+
+  <Border Background="WhiteSmoke" Padding="20,0,0,0" Width="500">
+    <ScrollViewer Height="800" Padding="0,0,20,0" VerticalScrollBarVisibility="Visible" AllowAutoHide="False">
+      
+      <StackPanel Spacing="10">
+        <TextBlock Classes="h3" Text="Stage With Trigger" Padding="0,10,0,0"/>
+        
+        <!-- Actions -->
+        <TextBlock Classes="h3" Text="Actions"/>
+        <ListBox
+               ScrollViewer.VerticalScrollBarVisibility="Disabled"
+               ItemsSource="{Binding actionViews}"
+               SelectedItem="{Binding selectedActionView}">
+          <ListBox.ItemTemplate>
+            <DataTemplate>
+              <UserControl Content="{Binding}"/>
+            </DataTemplate>
+          </ListBox.ItemTemplate>
+        </ListBox>
+
+        <StackPanel Orientation="Horizontal" Spacing="20">
+          <Button Classes="Neutral" Content="Add"
+                  Command="{Binding addNewActionCommand}"/>
+          <Button Classes="Neutral" Content="Remove"
+                  Command="{Binding removeActionCommand}"/>
+        </StackPanel>
+
+        <!-- Tooltips -->
+        <TextBlock Classes="h3" Text="Tooltips"/>
+        <ListBox
+               ScrollViewer.VerticalScrollBarVisibility="Disabled"
+               ItemsSource="{Binding tooltipViews}"
+               SelectedItem="{Binding selectedTooltipView}">
+          <ListBox.ItemTemplate>
+            <DataTemplate>
+              <UserControl Content="{Binding}"/>
+            </DataTemplate>
+          </ListBox.ItemTemplate>
+        </ListBox>
+
+        <StackPanel Orientation="Horizontal" Spacing="20">
+          <Button Classes="Neutral" Content="Add"
+                  Command="{Binding addNewTooltipCommand}"/>
+          <Button Classes="Neutral" Content="Remove"
+                  Command="{Binding removeTooltipCommand}"/>
+        </StackPanel>
+
+        <!-- Triggers -->
+        <TextBlock Classes="h3" Text="Next Stage Triggers"/>
+        <ListBox
+               ScrollViewer.VerticalScrollBarVisibility="Disabled"
+               ItemsSource="{Binding triggerViews}"
+               SelectedItem="{Binding selectedTriggerView}">
+          <ListBox.ItemTemplate>
+            <DataTemplate>
+              <UserControl Content="{Binding}"/>
+            </DataTemplate>
+          </ListBox.ItemTemplate>
+        </ListBox>
+
+        <StackPanel Orientation="Horizontal" Spacing="20">
+          <Button Classes="Neutral" Content="Add"
+                  Command="{Binding addNewTriggerCommand}"/>
+          <Button Classes="Neutral" Content="Remove"
+                  Command="{Binding removeTriggerCommand}"/>
+        </StackPanel>
+
+      </StackPanel>
+    </ScrollViewer>    
+  </Border>
+  
+</UserControl>

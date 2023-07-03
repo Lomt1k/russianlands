@@ -1,0 +1,36 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="300"
+             x:Class="GameDataEditor.Views.Editor.ShopItems.ShopPriceView">
+
+  <Border Background="SlateGray" Padding="5">
+    <Border Background="WhiteSmoke" Padding="5">
+      <StackPanel Background="WhiteSmoke" Margin="5">
+
+        <TextBlock Text="Price" Padding="0,5,0,15" Classes="h3"/>
+        <TextBlock Text="price type"/>
+        <ComboBox ItemsSource="{Binding priceTypes}"
+                  SelectedItem="{Binding selectedPriceType}"/>
+
+        <!-- Resource Price -->
+        <StackPanel IsVisible="{Binding resourcePrice, Converter={x:Static ObjectConverters.IsNotNull}}">
+          <TextBlock Text="resource id"/>
+          <ComboBox ItemsSource="{Binding resourceIds}"
+                    SelectedItem="{Binding resourcePrice.resourceId}"/>
+          <TextBlock Text="amount"/>
+          <TextBox Text="{Binding resourcePrice.amount}"/>
+        </StackPanel>
+
+        <!-- Currency Price -->
+        <StackPanel IsVisible="{Binding currencyPrice, Converter={x:Static ObjectConverters.IsNotNull}}">
+          <TextBlock Text="russian rubles"/>
+          <TextBox Text="{Binding currencyPrice.russianRubles}"/>
+        </StackPanel>
+
+      </StackPanel>
+    </Border>
+  </Border>
+
+</UserControl>

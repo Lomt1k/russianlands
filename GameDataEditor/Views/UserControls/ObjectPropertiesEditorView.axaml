@@ -1,0 +1,49 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="500"
+             x:Class="GameDataEditor.Views.UserControls.ObjectPropertiesEditorView">
+
+  <Border Background="SlateGray" Padding="5">
+    <Border Background="WhiteSmoke" Padding="5">
+
+      <StackPanel>
+        <TextBlock Text="{Binding objectName}"/>
+
+        <ListBox
+             ScrollViewer.VerticalScrollBarVisibility="Disabled"
+             ItemsSource="{Binding properties}">
+          <ListBox.ItemTemplate>
+            <DataTemplate>
+              <StackPanel Orientation="Horizontal" Margin="-5">
+                
+                <TextBlock Text="{Binding name}"
+                           VerticalAlignment="Center"
+                           Width="150"/>
+
+                <!-- Boolean -->
+                <CheckBox IsChecked="{Binding unparsedValue}"
+                          IsVisible="{Binding isBooleanValue}"/>
+                
+                <!-- Enum -->
+                <ComboBox ItemsSource="{Binding enumNames}"
+                          SelectedItem="{Binding selectedEnumValue}"
+                          IsVisible="{Binding isEnumValue}"/>
+
+                <!-- Other Types-->
+                <TextBox Text="{Binding unparsedValue}"
+                         AcceptsReturn="True"
+                         IsVisible="{Binding isDefaultType}"/>
+                
+              </StackPanel>
+            </DataTemplate>
+          </ListBox.ItemTemplate>
+        </ListBox>        
+        
+      </StackPanel>
+      
+    </Border>
+  </Border>
+
+</UserControl>

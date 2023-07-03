@@ -1,0 +1,148 @@
+﻿[
+  {
+    "debugName": "Простой меч",
+    "id": 1,
+    "itemType": 0,
+    "itemRarity": 0,
+    "requiredLevel": 1,
+    "abilities": [
+      {
+        "$type": "DealDamageAbility",
+        "minPhysicalDamage": 45,
+        "maxPhysicalDamage": 55,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0,
+        "chanceToSuccessPercentage": 100,
+        "manaCost": 0
+      }
+    ],
+    "properties": [],
+    "statIcons": []
+  },
+  {
+    "debugName": "Простой доспех",
+    "id": 2,
+    "itemType": 3,
+    "itemRarity": 0,
+    "requiredLevel": 1,
+    "abilities": [],
+    "properties": [
+      {
+        "$type": "DamageResistProperty",
+        "physicalDamage": 16,
+        "fireDamage": 0,
+        "coldDamage": 0,
+        "lightningDamage": 0
+      }
+    ],
+    "statIcons": []
+  },
+  {
+    "debugName": "Простой шлем",
+    "id": 3,
+    "itemType": 4,
+    "itemRarity": 0,
+    "requiredLevel": 1,
+    "abilities": [],
+    "properties": [
+      {
+        "$type": "DamageResistProperty",
+        "physicalDamage": 8,
+        "fireDamage": 0,
+        "coldDamage": 0,
+        "lightningDamage": 0
+      }
+    ],
+    "statIcons": []
+  },
+  {
+    "debugName": "Простые сапоги",
+    "id": 4,
+    "itemType": 5,
+    "itemRarity": 0,
+    "requiredLevel": 1,
+    "abilities": [],
+    "properties": [
+      {
+        "$type": "DamageResistProperty",
+        "physicalDamage": 8,
+        "fireDamage": 0,
+        "coldDamage": 0,
+        "lightningDamage": 0
+      }
+    ],
+    "statIcons": []
+  },
+  {
+    "debugName": "Простой щит",
+    "id": 5,
+    "itemType": 6,
+    "itemRarity": 0,
+    "requiredLevel": 1,
+    "abilities": [
+      {
+        "$type": "BlockIncomingDamageEveryTurnAbility",
+        "physicalDamage": 25,
+        "fireDamage": 0,
+        "coldDamage": 0,
+        "lightningDamage": 0,
+        "chanceToSuccessPercentage": 25,
+        "manaCost": 0
+      }
+    ],
+    "properties": [],
+    "statIcons": []
+  },
+  {
+    "debugName": "Лук новобранца",
+    "id": 6,
+    "itemType": 1,
+    "itemRarity": 0,
+    "requiredLevel": 1,
+    "abilities": [
+      {
+        "$type": "DealDamageAbility",
+        "minPhysicalDamage": 56,
+        "maxPhysicalDamage": 68,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0,
+        "chanceToSuccessPercentage": 100,
+        "manaCost": 0
+      }
+    ],
+    "properties": [],
+    "statIcons": []
+  },
+  {
+    "debugName": "Посох волхва",
+    "id": 7,
+    "itemType": 2,
+    "itemRarity": 0,
+    "requiredLevel": 1,
+    "abilities": [
+      {
+        "$type": "DealDamageAbility",
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 60,
+        "maxFireDamage": 80,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0,
+        "chanceToSuccessPercentage": 100,
+        "manaCost": 0
+      }
+    ],
+    "properties": [],
+    "statIcons": []
+  }
+]

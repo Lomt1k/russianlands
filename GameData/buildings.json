@@ -1,0 +1,1918 @@
+﻿[
+  {
+    "id": 100,
+    "levels": [
+      {
+        "$type": "BuildingLevelInfo",
+        "requiredTownHall": 0,
+        "constructionTime": 0,
+        "isBoostAvailable": false,
+        "requiredGold": 0,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "BuildingLevelInfo",
+        "requiredTownHall": 1,
+        "constructionTime": 60,
+        "isBoostAvailable": true,
+        "requiredGold": 1000,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "BuildingLevelInfo",
+        "requiredTownHall": 2,
+        "constructionTime": 900,
+        "isBoostAvailable": true,
+        "requiredGold": 10000,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "BuildingLevelInfo",
+        "requiredTownHall": 3,
+        "constructionTime": 1800,
+        "isBoostAvailable": false,
+        "requiredGold": 30000,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "BuildingLevelInfo",
+        "requiredTownHall": 4,
+        "constructionTime": 3600,
+        "isBoostAvailable": false,
+        "requiredGold": 50000,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "BuildingLevelInfo",
+        "requiredTownHall": 5,
+        "constructionTime": 18000,
+        "isBoostAvailable": false,
+        "requiredGold": 260000,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "BuildingLevelInfo",
+        "requiredTownHall": 6,
+        "constructionTime": 129600,
+        "isBoostAvailable": false,
+        "requiredGold": 900000,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "BuildingLevelInfo",
+        "requiredTownHall": 7,
+        "constructionTime": 172800,
+        "isBoostAvailable": false,
+        "requiredGold": 1800000,
+        "requiredHerbs": 0,
+        "requiredWood": 765000
+      }
+    ]
+  },
+  {
+    "id": 101,
+    "levels": [
+      {
+        "$type": "TyrLevelInfo",
+        "arrowsAmount": 1,
+        "requiredTownHall": 0,
+        "constructionTime": 60,
+        "isBoostAvailable": true,
+        "requiredGold": 0,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "TyrLevelInfo",
+        "arrowsAmount": 2,
+        "requiredTownHall": 3,
+        "constructionTime": 600,
+        "isBoostAvailable": true,
+        "requiredGold": 5000,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "TyrLevelInfo",
+        "arrowsAmount": 3,
+        "requiredTownHall": 5,
+        "constructionTime": 57600,
+        "isBoostAvailable": false,
+        "requiredGold": 200000,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "TyrLevelInfo",
+        "arrowsAmount": 4,
+        "requiredTownHall": 8,
+        "constructionTime": 345600,
+        "isBoostAvailable": false,
+        "requiredGold": 3000000,
+        "requiredHerbs": 0,
+        "requiredWood": 850000
+      }
+    ]
+  },
+  {
+    "id": 102,
+    "levels": [
+      {
+        "$type": "HospitalLevelInfo",
+        "restoreHealthPerMinute": 750,
+        "requiredTownHall": 0,
+        "constructionTime": 0,
+        "isBoostAvailable": false,
+        "requiredGold": 0,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "HospitalLevelInfo",
+        "restoreHealthPerMinute": 900,
+        "requiredTownHall": 3,
+        "constructionTime": 900,
+        "isBoostAvailable": true,
+        "requiredGold": 5000,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "HospitalLevelInfo",
+        "restoreHealthPerMinute": 1050,
+        "requiredTownHall": 4,
+        "constructionTime": 1800,
+        "isBoostAvailable": false,
+        "requiredGold": 30000,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "HospitalLevelInfo",
+        "restoreHealthPerMinute": 1200,
+        "requiredTownHall": 5,
+        "constructionTime": 18000,
+        "isBoostAvailable": false,
+        "requiredGold": 100000,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "HospitalLevelInfo",
+        "restoreHealthPerMinute": 1500,
+        "requiredTownHall": 6,
+        "constructionTime": 43200,
+        "isBoostAvailable": false,
+        "requiredGold": 500000,
+        "requiredHerbs": 0,
+        "requiredWood": 125000
+      },
+      {
+        "$type": "HospitalLevelInfo",
+        "restoreHealthPerMinute": 2250,
+        "requiredTownHall": 7,
+        "constructionTime": 86400,
+        "isBoostAvailable": false,
+        "requiredGold": 900000,
+        "requiredHerbs": 0,
+        "requiredWood": 225000
+      },
+      {
+        "$type": "HospitalLevelInfo",
+        "restoreHealthPerMinute": 3000,
+        "requiredTownHall": 8,
+        "constructionTime": 259200,
+        "isBoostAvailable": false,
+        "requiredGold": 1500000,
+        "requiredHerbs": 0,
+        "requiredWood": 650000
+      }
+    ]
+  },
+  {
+    "id": 200,
+    "levels": [
+      {
+        "$type": "StorageLevelInfo",
+        "resourceStorageLimit": 20000,
+        "requiredTownHall": 0,
+        "constructionTime": 0,
+        "isBoostAvailable": false,
+        "requiredGold": 0,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "StorageLevelInfo",
+        "resourceStorageLimit": 50000,
+        "requiredTownHall": 3,
+        "constructionTime": 900,
+        "isBoostAvailable": true,
+        "requiredGold": 7500,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "StorageLevelInfo",
+        "resourceStorageLimit": 100000,
+        "requiredTownHall": 4,
+        "constructionTime": 1800,
+        "isBoostAvailable": false,
+        "requiredGold": 30000,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "StorageLevelInfo",
+        "resourceStorageLimit": 300000,
+        "requiredTownHall": 5,
+        "constructionTime": 18000,
+        "isBoostAvailable": false,
+        "requiredGold": 60000,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "StorageLevelInfo",
+        "resourceStorageLimit": 1000000,
+        "requiredTownHall": 6,
+        "constructionTime": 43200,
+        "isBoostAvailable": false,
+        "requiredGold": 180000,
+        "requiredHerbs": 0,
+        "requiredWood": 45000
+      },
+      {
+        "$type": "StorageLevelInfo",
+        "resourceStorageLimit": 2000000,
+        "requiredTownHall": 7,
+        "constructionTime": 129600,
+        "isBoostAvailable": false,
+        "requiredGold": 600000,
+        "requiredHerbs": 0,
+        "requiredWood": 175000
+      },
+      {
+        "$type": "StorageLevelInfo",
+        "resourceStorageLimit": 4000000,
+        "requiredTownHall": 8,
+        "constructionTime": 259200,
+        "isBoostAvailable": false,
+        "requiredGold": 1200000,
+        "requiredHerbs": 0,
+        "requiredWood": 600000
+      }
+    ]
+  },
+  {
+    "id": 201,
+    "levels": [
+      {
+        "$type": "StorageLevelInfo",
+        "resourceStorageLimit": 10000,
+        "requiredTownHall": 1,
+        "constructionTime": 600,
+        "isBoostAvailable": true,
+        "requiredGold": 400,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "StorageLevelInfo",
+        "resourceStorageLimit": 30000,
+        "requiredTownHall": 3,
+        "constructionTime": 900,
+        "isBoostAvailable": true,
+        "requiredGold": 7500,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "StorageLevelInfo",
+        "resourceStorageLimit": 60000,
+        "requiredTownHall": 4,
+        "constructionTime": 1800,
+        "isBoostAvailable": false,
+        "requiredGold": 30000,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "StorageLevelInfo",
+        "resourceStorageLimit": 120000,
+        "requiredTownHall": 5,
+        "constructionTime": 18000,
+        "isBoostAvailable": false,
+        "requiredGold": 60000,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "StorageLevelInfo",
+        "resourceStorageLimit": 250000,
+        "requiredTownHall": 6,
+        "constructionTime": 43200,
+        "isBoostAvailable": false,
+        "requiredGold": 180000,
+        "requiredHerbs": 0,
+        "requiredWood": 45000
+      },
+      {
+        "$type": "StorageLevelInfo",
+        "resourceStorageLimit": 320000,
+        "requiredTownHall": 7,
+        "constructionTime": 129600,
+        "isBoostAvailable": false,
+        "requiredGold": 600000,
+        "requiredHerbs": 0,
+        "requiredWood": 175000
+      },
+      {
+        "$type": "StorageLevelInfo",
+        "resourceStorageLimit": 400000,
+        "requiredTownHall": 8,
+        "constructionTime": 259200,
+        "isBoostAvailable": false,
+        "requiredGold": 1200000,
+        "requiredHerbs": 0,
+        "requiredWood": 600000
+      }
+    ]
+  },
+  {
+    "id": 202,
+    "levels": [
+      {
+        "$type": "StorageLevelInfo",
+        "resourceStorageLimit": 20000,
+        "requiredTownHall": 4,
+        "constructionTime": 600,
+        "isBoostAvailable": true,
+        "requiredGold": 15000,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "StorageLevelInfo",
+        "resourceStorageLimit": 80000,
+        "requiredTownHall": 5,
+        "constructionTime": 18000,
+        "isBoostAvailable": false,
+        "requiredGold": 60000,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "StorageLevelInfo",
+        "resourceStorageLimit": 240000,
+        "requiredTownHall": 6,
+        "constructionTime": 43200,
+        "isBoostAvailable": false,
+        "requiredGold": 180000,
+        "requiredHerbs": 0,
+        "requiredWood": 45000
+      },
+      {
+        "$type": "StorageLevelInfo",
+        "resourceStorageLimit": 350000,
+        "requiredTownHall": 7,
+        "constructionTime": 129600,
+        "isBoostAvailable": false,
+        "requiredGold": 600000,
+        "requiredHerbs": 0,
+        "requiredWood": 175000
+      },
+      {
+        "$type": "StorageLevelInfo",
+        "resourceStorageLimit": 600000,
+        "requiredTownHall": 8,
+        "constructionTime": 259200,
+        "isBoostAvailable": false,
+        "requiredGold": 1200000,
+        "requiredHerbs": 0,
+        "requiredWood": 600000
+      }
+    ]
+  },
+  {
+    "id": 203,
+    "levels": [
+      {
+        "$type": "StorageLevelInfo",
+        "resourceStorageLimit": 250000,
+        "requiredTownHall": 6,
+        "constructionTime": 43200,
+        "isBoostAvailable": false,
+        "requiredGold": 60000,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "StorageLevelInfo",
+        "resourceStorageLimit": 800000,
+        "requiredTownHall": 7,
+        "constructionTime": 129600,
+        "isBoostAvailable": false,
+        "requiredGold": 600000,
+        "requiredHerbs": 0,
+        "requiredWood": 175000
+      },
+      {
+        "$type": "StorageLevelInfo",
+        "resourceStorageLimit": 1600000,
+        "requiredTownHall": 8,
+        "constructionTime": 259200,
+        "isBoostAvailable": false,
+        "requiredGold": 1200000,
+        "requiredHerbs": 0,
+        "requiredWood": 600000
+      }
+    ]
+  },
+  {
+    "id": 300,
+    "levels": [
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 200,
+        "resourceStorageLimit": 1500,
+        "bonusPerWorkerLevel": 62.0,
+        "requiredTownHall": 0,
+        "constructionTime": 60,
+        "isBoostAvailable": true,
+        "requiredGold": 200,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 350,
+        "resourceStorageLimit": 2000,
+        "bonusPerWorkerLevel": 62.0,
+        "requiredTownHall": 2,
+        "constructionTime": 300,
+        "isBoostAvailable": true,
+        "requiredGold": 400,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 500,
+        "resourceStorageLimit": 4500,
+        "bonusPerWorkerLevel": 62.0,
+        "requiredTownHall": 3,
+        "constructionTime": 600,
+        "isBoostAvailable": true,
+        "requiredGold": 3500,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 750,
+        "resourceStorageLimit": 15000,
+        "bonusPerWorkerLevel": 62.0,
+        "requiredTownHall": 4,
+        "constructionTime": 900,
+        "isBoostAvailable": false,
+        "requiredGold": 7000,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 900,
+        "resourceStorageLimit": 30000,
+        "bonusPerWorkerLevel": 62.0,
+        "requiredTownHall": 5,
+        "constructionTime": 7200,
+        "isBoostAvailable": false,
+        "requiredGold": 21000,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 1200,
+        "resourceStorageLimit": 55000,
+        "bonusPerWorkerLevel": 62.0,
+        "requiredTownHall": 6,
+        "constructionTime": 25200,
+        "isBoostAvailable": false,
+        "requiredGold": 70000,
+        "requiredHerbs": 0,
+        "requiredWood": 17500
+      },
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 1500,
+        "resourceStorageLimit": 90000,
+        "bonusPerWorkerLevel": 62.0,
+        "requiredTownHall": 7,
+        "constructionTime": 50400,
+        "isBoostAvailable": false,
+        "requiredGold": 140000,
+        "requiredHerbs": 0,
+        "requiredWood": 80000
+      },
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 1850,
+        "resourceStorageLimit": 150000,
+        "bonusPerWorkerLevel": 62.0,
+        "requiredTownHall": 8,
+        "constructionTime": 172800,
+        "isBoostAvailable": false,
+        "requiredGold": 430000,
+        "requiredHerbs": 0,
+        "requiredWood": 215000
+      }
+    ]
+  },
+  {
+    "id": 301,
+    "levels": [
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 200,
+        "resourceStorageLimit": 1500,
+        "bonusPerWorkerLevel": 62.0,
+        "requiredTownHall": 3,
+        "constructionTime": 60,
+        "isBoostAvailable": true,
+        "requiredGold": 200,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 350,
+        "resourceStorageLimit": 2000,
+        "bonusPerWorkerLevel": 62.0,
+        "requiredTownHall": 2,
+        "constructionTime": 300,
+        "isBoostAvailable": true,
+        "requiredGold": 400,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 500,
+        "resourceStorageLimit": 4500,
+        "bonusPerWorkerLevel": 62.0,
+        "requiredTownHall": 3,
+        "constructionTime": 600,
+        "isBoostAvailable": true,
+        "requiredGold": 3500,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 750,
+        "resourceStorageLimit": 15000,
+        "bonusPerWorkerLevel": 62.0,
+        "requiredTownHall": 4,
+        "constructionTime": 900,
+        "isBoostAvailable": false,
+        "requiredGold": 7000,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 900,
+        "resourceStorageLimit": 30000,
+        "bonusPerWorkerLevel": 62.0,
+        "requiredTownHall": 5,
+        "constructionTime": 7200,
+        "isBoostAvailable": false,
+        "requiredGold": 21000,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 1200,
+        "resourceStorageLimit": 55000,
+        "bonusPerWorkerLevel": 62.0,
+        "requiredTownHall": 6,
+        "constructionTime": 25200,
+        "isBoostAvailable": false,
+        "requiredGold": 70000,
+        "requiredHerbs": 0,
+        "requiredWood": 17500
+      },
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 1500,
+        "resourceStorageLimit": 90000,
+        "bonusPerWorkerLevel": 62.0,
+        "requiredTownHall": 7,
+        "constructionTime": 50400,
+        "isBoostAvailable": false,
+        "requiredGold": 140000,
+        "requiredHerbs": 0,
+        "requiredWood": 80000
+      },
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 1850,
+        "resourceStorageLimit": 150000,
+        "bonusPerWorkerLevel": 62.0,
+        "requiredTownHall": 8,
+        "constructionTime": 172800,
+        "isBoostAvailable": false,
+        "requiredGold": 430000,
+        "requiredHerbs": 0,
+        "requiredWood": 215000
+      }
+    ]
+  },
+  {
+    "id": 302,
+    "levels": [
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 200,
+        "resourceStorageLimit": 1500,
+        "bonusPerWorkerLevel": 62.0,
+        "requiredTownHall": 6,
+        "constructionTime": 60,
+        "isBoostAvailable": true,
+        "requiredGold": 200,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 350,
+        "resourceStorageLimit": 2000,
+        "bonusPerWorkerLevel": 62.0,
+        "requiredTownHall": 2,
+        "constructionTime": 300,
+        "isBoostAvailable": true,
+        "requiredGold": 400,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 500,
+        "resourceStorageLimit": 4500,
+        "bonusPerWorkerLevel": 62.0,
+        "requiredTownHall": 3,
+        "constructionTime": 600,
+        "isBoostAvailable": true,
+        "requiredGold": 3500,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 750,
+        "resourceStorageLimit": 15000,
+        "bonusPerWorkerLevel": 62.0,
+        "requiredTownHall": 4,
+        "constructionTime": 900,
+        "isBoostAvailable": false,
+        "requiredGold": 7000,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 900,
+        "resourceStorageLimit": 30000,
+        "bonusPerWorkerLevel": 62.0,
+        "requiredTownHall": 5,
+        "constructionTime": 7200,
+        "isBoostAvailable": false,
+        "requiredGold": 21000,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 1200,
+        "resourceStorageLimit": 55000,
+        "bonusPerWorkerLevel": 62.0,
+        "requiredTownHall": 6,
+        "constructionTime": 25200,
+        "isBoostAvailable": false,
+        "requiredGold": 70000,
+        "requiredHerbs": 0,
+        "requiredWood": 17500
+      },
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 1500,
+        "resourceStorageLimit": 90000,
+        "bonusPerWorkerLevel": 62.0,
+        "requiredTownHall": 7,
+        "constructionTime": 50400,
+        "isBoostAvailable": false,
+        "requiredGold": 140000,
+        "requiredHerbs": 0,
+        "requiredWood": 80000
+      },
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 1850,
+        "resourceStorageLimit": 150000,
+        "bonusPerWorkerLevel": 62.0,
+        "requiredTownHall": 8,
+        "constructionTime": 172800,
+        "isBoostAvailable": false,
+        "requiredGold": 430000,
+        "requiredHerbs": 0,
+        "requiredWood": 215000
+      }
+    ]
+  },
+  {
+    "id": 303,
+    "levels": [
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 100,
+        "resourceStorageLimit": 1000,
+        "bonusPerWorkerLevel": 240.0,
+        "requiredTownHall": 1,
+        "constructionTime": 60,
+        "isBoostAvailable": true,
+        "requiredGold": 200,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 250,
+        "resourceStorageLimit": 2500,
+        "bonusPerWorkerLevel": 240.0,
+        "requiredTownHall": 2,
+        "constructionTime": 300,
+        "isBoostAvailable": true,
+        "requiredGold": 400,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 850,
+        "resourceStorageLimit": 5000,
+        "bonusPerWorkerLevel": 240.0,
+        "requiredTownHall": 3,
+        "constructionTime": 600,
+        "isBoostAvailable": true,
+        "requiredGold": 3500,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 1700,
+        "resourceStorageLimit": 10000,
+        "bonusPerWorkerLevel": 240.0,
+        "requiredTownHall": 4,
+        "constructionTime": 900,
+        "isBoostAvailable": false,
+        "requiredGold": 7000,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 3400,
+        "resourceStorageLimit": 15000,
+        "bonusPerWorkerLevel": 240.0,
+        "requiredTownHall": 5,
+        "constructionTime": 7200,
+        "isBoostAvailable": false,
+        "requiredGold": 21000,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 4500,
+        "resourceStorageLimit": 20000,
+        "bonusPerWorkerLevel": 240.0,
+        "requiredTownHall": 6,
+        "constructionTime": 25200,
+        "isBoostAvailable": false,
+        "requiredGold": 70000,
+        "requiredHerbs": 0,
+        "requiredWood": 17500
+      },
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 5500,
+        "resourceStorageLimit": 25000,
+        "bonusPerWorkerLevel": 240.0,
+        "requiredTownHall": 7,
+        "constructionTime": 50400,
+        "isBoostAvailable": false,
+        "requiredGold": 140000,
+        "requiredHerbs": 0,
+        "requiredWood": 80000
+      },
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 7200,
+        "resourceStorageLimit": 30000,
+        "bonusPerWorkerLevel": 240.0,
+        "requiredTownHall": 8,
+        "constructionTime": 172800,
+        "isBoostAvailable": false,
+        "requiredGold": 430000,
+        "requiredHerbs": 0,
+        "requiredWood": 215000
+      }
+    ]
+  },
+  {
+    "id": 304,
+    "levels": [
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 100,
+        "resourceStorageLimit": 1000,
+        "bonusPerWorkerLevel": 240.0,
+        "requiredTownHall": 3,
+        "constructionTime": 60,
+        "isBoostAvailable": true,
+        "requiredGold": 200,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 250,
+        "resourceStorageLimit": 2500,
+        "bonusPerWorkerLevel": 240.0,
+        "requiredTownHall": 2,
+        "constructionTime": 300,
+        "isBoostAvailable": true,
+        "requiredGold": 400,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 850,
+        "resourceStorageLimit": 5000,
+        "bonusPerWorkerLevel": 240.0,
+        "requiredTownHall": 3,
+        "constructionTime": 600,
+        "isBoostAvailable": true,
+        "requiredGold": 3500,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 1700,
+        "resourceStorageLimit": 10000,
+        "bonusPerWorkerLevel": 240.0,
+        "requiredTownHall": 4,
+        "constructionTime": 900,
+        "isBoostAvailable": false,
+        "requiredGold": 7000,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 3400,
+        "resourceStorageLimit": 15000,
+        "bonusPerWorkerLevel": 240.0,
+        "requiredTownHall": 5,
+        "constructionTime": 7200,
+        "isBoostAvailable": false,
+        "requiredGold": 21000,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 4500,
+        "resourceStorageLimit": 20000,
+        "bonusPerWorkerLevel": 240.0,
+        "requiredTownHall": 6,
+        "constructionTime": 25200,
+        "isBoostAvailable": false,
+        "requiredGold": 70000,
+        "requiredHerbs": 0,
+        "requiredWood": 17500
+      },
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 5500,
+        "resourceStorageLimit": 25000,
+        "bonusPerWorkerLevel": 240.0,
+        "requiredTownHall": 7,
+        "constructionTime": 50400,
+        "isBoostAvailable": false,
+        "requiredGold": 140000,
+        "requiredHerbs": 0,
+        "requiredWood": 80000
+      },
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 7200,
+        "resourceStorageLimit": 30000,
+        "bonusPerWorkerLevel": 240.0,
+        "requiredTownHall": 8,
+        "constructionTime": 172800,
+        "isBoostAvailable": false,
+        "requiredGold": 430000,
+        "requiredHerbs": 0,
+        "requiredWood": 215000
+      }
+    ]
+  },
+  {
+    "id": 305,
+    "levels": [
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 100,
+        "resourceStorageLimit": 1000,
+        "bonusPerWorkerLevel": 240.0,
+        "requiredTownHall": 6,
+        "constructionTime": 60,
+        "isBoostAvailable": true,
+        "requiredGold": 200,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 250,
+        "resourceStorageLimit": 2500,
+        "bonusPerWorkerLevel": 240.0,
+        "requiredTownHall": 2,
+        "constructionTime": 300,
+        "isBoostAvailable": true,
+        "requiredGold": 400,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 850,
+        "resourceStorageLimit": 5000,
+        "bonusPerWorkerLevel": 240.0,
+        "requiredTownHall": 3,
+        "constructionTime": 600,
+        "isBoostAvailable": true,
+        "requiredGold": 3500,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 1700,
+        "resourceStorageLimit": 10000,
+        "bonusPerWorkerLevel": 240.0,
+        "requiredTownHall": 4,
+        "constructionTime": 900,
+        "isBoostAvailable": false,
+        "requiredGold": 7000,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 3400,
+        "resourceStorageLimit": 15000,
+        "bonusPerWorkerLevel": 240.0,
+        "requiredTownHall": 5,
+        "constructionTime": 7200,
+        "isBoostAvailable": false,
+        "requiredGold": 21000,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 4500,
+        "resourceStorageLimit": 20000,
+        "bonusPerWorkerLevel": 240.0,
+        "requiredTownHall": 6,
+        "constructionTime": 25200,
+        "isBoostAvailable": false,
+        "requiredGold": 70000,
+        "requiredHerbs": 0,
+        "requiredWood": 17500
+      },
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 5500,
+        "resourceStorageLimit": 25000,
+        "bonusPerWorkerLevel": 240.0,
+        "requiredTownHall": 7,
+        "constructionTime": 50400,
+        "isBoostAvailable": false,
+        "requiredGold": 140000,
+        "requiredHerbs": 0,
+        "requiredWood": 80000
+      },
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 7200,
+        "resourceStorageLimit": 30000,
+        "bonusPerWorkerLevel": 240.0,
+        "requiredTownHall": 8,
+        "constructionTime": 172800,
+        "isBoostAvailable": false,
+        "requiredGold": 430000,
+        "requiredHerbs": 0,
+        "requiredWood": 215000
+      }
+    ]
+  },
+  {
+    "id": 306,
+    "levels": [
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 750,
+        "resourceStorageLimit": 3000,
+        "bonusPerWorkerLevel": 116.5,
+        "requiredTownHall": 4,
+        "constructionTime": 600,
+        "isBoostAvailable": true,
+        "requiredGold": 7000,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 1700,
+        "resourceStorageLimit": 15000,
+        "bonusPerWorkerLevel": 116.5,
+        "requiredTownHall": 5,
+        "constructionTime": 7200,
+        "isBoostAvailable": false,
+        "requiredGold": 21000,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 2200,
+        "resourceStorageLimit": 25000,
+        "bonusPerWorkerLevel": 116.5,
+        "requiredTownHall": 6,
+        "constructionTime": 25200,
+        "isBoostAvailable": false,
+        "requiredGold": 70000,
+        "requiredHerbs": 0,
+        "requiredWood": 17500
+      },
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 2800,
+        "resourceStorageLimit": 35000,
+        "bonusPerWorkerLevel": 116.5,
+        "requiredTownHall": 7,
+        "constructionTime": 50400,
+        "isBoostAvailable": false,
+        "requiredGold": 140000,
+        "requiredHerbs": 0,
+        "requiredWood": 80000
+      },
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 3500,
+        "resourceStorageLimit": 400000,
+        "bonusPerWorkerLevel": 116.5,
+        "requiredTownHall": 8,
+        "constructionTime": 172800,
+        "isBoostAvailable": false,
+        "requiredGold": 430000,
+        "requiredHerbs": 0,
+        "requiredWood": 215000
+      }
+    ]
+  },
+  {
+    "id": 307,
+    "levels": [
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 750,
+        "resourceStorageLimit": 3000,
+        "bonusPerWorkerLevel": 116.5,
+        "requiredTownHall": 6,
+        "constructionTime": 600,
+        "isBoostAvailable": true,
+        "requiredGold": 7000,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 1700,
+        "resourceStorageLimit": 15000,
+        "bonusPerWorkerLevel": 116.5,
+        "requiredTownHall": 5,
+        "constructionTime": 7200,
+        "isBoostAvailable": false,
+        "requiredGold": 21000,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 2200,
+        "resourceStorageLimit": 25000,
+        "bonusPerWorkerLevel": 116.5,
+        "requiredTownHall": 6,
+        "constructionTime": 25200,
+        "isBoostAvailable": false,
+        "requiredGold": 70000,
+        "requiredHerbs": 0,
+        "requiredWood": 17500
+      },
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 2800,
+        "resourceStorageLimit": 35000,
+        "bonusPerWorkerLevel": 116.5,
+        "requiredTownHall": 7,
+        "constructionTime": 50400,
+        "isBoostAvailable": false,
+        "requiredGold": 140000,
+        "requiredHerbs": 0,
+        "requiredWood": 80000
+      },
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 3500,
+        "resourceStorageLimit": 400000,
+        "bonusPerWorkerLevel": 116.5,
+        "requiredTownHall": 8,
+        "constructionTime": 172800,
+        "isBoostAvailable": false,
+        "requiredGold": 430000,
+        "requiredHerbs": 0,
+        "requiredWood": 215000
+      }
+    ]
+  },
+  {
+    "id": 308,
+    "levels": [
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 750,
+        "resourceStorageLimit": 3000,
+        "bonusPerWorkerLevel": 116.5,
+        "requiredTownHall": 8,
+        "constructionTime": 600,
+        "isBoostAvailable": true,
+        "requiredGold": 7000,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 1700,
+        "resourceStorageLimit": 15000,
+        "bonusPerWorkerLevel": 116.5,
+        "requiredTownHall": 5,
+        "constructionTime": 7200,
+        "isBoostAvailable": false,
+        "requiredGold": 21000,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 2200,
+        "resourceStorageLimit": 25000,
+        "bonusPerWorkerLevel": 116.5,
+        "requiredTownHall": 6,
+        "constructionTime": 25200,
+        "isBoostAvailable": false,
+        "requiredGold": 70000,
+        "requiredHerbs": 0,
+        "requiredWood": 17500
+      },
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 2800,
+        "resourceStorageLimit": 35000,
+        "bonusPerWorkerLevel": 116.5,
+        "requiredTownHall": 7,
+        "constructionTime": 50400,
+        "isBoostAvailable": false,
+        "requiredGold": 140000,
+        "requiredHerbs": 0,
+        "requiredWood": 80000
+      },
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 3500,
+        "resourceStorageLimit": 400000,
+        "bonusPerWorkerLevel": 116.5,
+        "requiredTownHall": 8,
+        "constructionTime": 172800,
+        "isBoostAvailable": false,
+        "requiredGold": 430000,
+        "requiredHerbs": 0,
+        "requiredWood": 215000
+      }
+    ]
+  },
+  {
+    "id": 309,
+    "levels": [
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 800,
+        "resourceStorageLimit": 35000,
+        "bonusPerWorkerLevel": 62.5,
+        "requiredTownHall": 6,
+        "constructionTime": 7200,
+        "isBoostAvailable": false,
+        "requiredGold": 70000,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 1000,
+        "resourceStorageLimit": 55000,
+        "bonusPerWorkerLevel": 62.5,
+        "requiredTownHall": 7,
+        "constructionTime": 50400,
+        "isBoostAvailable": false,
+        "requiredGold": 140000,
+        "requiredHerbs": 0,
+        "requiredWood": 80000
+      },
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 1250,
+        "resourceStorageLimit": 105000,
+        "bonusPerWorkerLevel": 62.5,
+        "requiredTownHall": 8,
+        "constructionTime": 172800,
+        "isBoostAvailable": false,
+        "requiredGold": 430000,
+        "requiredHerbs": 0,
+        "requiredWood": 215000
+      }
+    ]
+  },
+  {
+    "id": 310,
+    "levels": [
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 800,
+        "resourceStorageLimit": 35000,
+        "bonusPerWorkerLevel": 62.5,
+        "requiredTownHall": 7,
+        "constructionTime": 7200,
+        "isBoostAvailable": false,
+        "requiredGold": 70000,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 1000,
+        "resourceStorageLimit": 55000,
+        "bonusPerWorkerLevel": 62.5,
+        "requiredTownHall": 7,
+        "constructionTime": 50400,
+        "isBoostAvailable": false,
+        "requiredGold": 140000,
+        "requiredHerbs": 0,
+        "requiredWood": 80000
+      },
+      {
+        "$type": "ProductionLevelInfo",
+        "productionPerHour": 1250,
+        "resourceStorageLimit": 105000,
+        "bonusPerWorkerLevel": 62.5,
+        "requiredTownHall": 8,
+        "constructionTime": 172800,
+        "isBoostAvailable": false,
+        "requiredGold": 430000,
+        "requiredHerbs": 0,
+        "requiredWood": 215000
+      }
+    ]
+  },
+  {
+    "id": 400,
+    "levels": [
+      {
+        "$type": "TrainingLevelInfo",
+        "maxUnitLevel": 4,
+        "requiredTownHall": 2,
+        "constructionTime": 60,
+        "isBoostAvailable": true,
+        "requiredGold": 1000,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "TrainingLevelInfo",
+        "maxUnitLevel": 7,
+        "requiredTownHall": 3,
+        "constructionTime": 600,
+        "isBoostAvailable": true,
+        "requiredGold": 4000,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "TrainingLevelInfo",
+        "maxUnitLevel": 10,
+        "requiredTownHall": 4,
+        "constructionTime": 1800,
+        "isBoostAvailable": false,
+        "requiredGold": 30000,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "TrainingLevelInfo",
+        "maxUnitLevel": 15,
+        "requiredTownHall": 5,
+        "constructionTime": 28800,
+        "isBoostAvailable": false,
+        "requiredGold": 150000,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "TrainingLevelInfo",
+        "maxUnitLevel": 20,
+        "requiredTownHall": 6,
+        "constructionTime": 129600,
+        "isBoostAvailable": false,
+        "requiredGold": 750000,
+        "requiredHerbs": 0,
+        "requiredWood": 180000
+      },
+      {
+        "$type": "TrainingLevelInfo",
+        "maxUnitLevel": 28,
+        "requiredTownHall": 7,
+        "constructionTime": 259200,
+        "isBoostAvailable": false,
+        "requiredGold": 1500000,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "TrainingLevelInfo",
+        "maxUnitLevel": 35,
+        "requiredTownHall": 8,
+        "constructionTime": 259200,
+        "isBoostAvailable": false,
+        "requiredGold": 3000000,
+        "requiredHerbs": 0,
+        "requiredWood": 1500000
+      }
+    ]
+  },
+  {
+    "id": 401,
+    "levels": [
+      {
+        "$type": "TrainingLevelInfo",
+        "maxUnitLevel": 4,
+        "requiredTownHall": 5,
+        "constructionTime": 10800,
+        "isBoostAvailable": false,
+        "requiredGold": 60000,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "TrainingLevelInfo",
+        "maxUnitLevel": 7,
+        "requiredTownHall": 6,
+        "constructionTime": 86400,
+        "isBoostAvailable": false,
+        "requiredGold": 500000,
+        "requiredHerbs": 0,
+        "requiredWood": 125000
+      },
+      {
+        "$type": "TrainingLevelInfo",
+        "maxUnitLevel": 10,
+        "requiredTownHall": 7,
+        "constructionTime": 172800,
+        "isBoostAvailable": false,
+        "requiredGold": 1000000,
+        "requiredHerbs": 0,
+        "requiredWood": 600000
+      },
+      {
+        "$type": "TrainingLevelInfo",
+        "maxUnitLevel": 15,
+        "requiredTownHall": 8,
+        "constructionTime": 259200,
+        "isBoostAvailable": false,
+        "requiredGold": 3000000,
+        "requiredHerbs": 0,
+        "requiredWood": 1250000
+      }
+    ]
+  },
+  {
+    "id": 402,
+    "levels": [
+      {
+        "$type": "TrainingLevelInfo",
+        "maxUnitLevel": 4,
+        "requiredTownHall": 5,
+        "constructionTime": 10800,
+        "isBoostAvailable": false,
+        "requiredGold": 60000,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "TrainingLevelInfo",
+        "maxUnitLevel": 7,
+        "requiredTownHall": 6,
+        "constructionTime": 86400,
+        "isBoostAvailable": false,
+        "requiredGold": 500000,
+        "requiredHerbs": 0,
+        "requiredWood": 125000
+      },
+      {
+        "$type": "TrainingLevelInfo",
+        "maxUnitLevel": 10,
+        "requiredTownHall": 7,
+        "constructionTime": 172800,
+        "isBoostAvailable": false,
+        "requiredGold": 1000000,
+        "requiredHerbs": 0,
+        "requiredWood": 600000
+      },
+      {
+        "$type": "TrainingLevelInfo",
+        "maxUnitLevel": 15,
+        "requiredTownHall": 8,
+        "constructionTime": 259200,
+        "isBoostAvailable": false,
+        "requiredGold": 3000000,
+        "requiredHerbs": 0,
+        "requiredWood": 1250000
+      }
+    ]
+  },
+  {
+    "id": 403,
+    "levels": [
+      {
+        "$type": "TrainingLevelInfo",
+        "maxUnitLevel": 4,
+        "requiredTownHall": 5,
+        "constructionTime": 10800,
+        "isBoostAvailable": false,
+        "requiredGold": 60000,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "TrainingLevelInfo",
+        "maxUnitLevel": 7,
+        "requiredTownHall": 6,
+        "constructionTime": 86400,
+        "isBoostAvailable": false,
+        "requiredGold": 500000,
+        "requiredHerbs": 0,
+        "requiredWood": 125000
+      },
+      {
+        "$type": "TrainingLevelInfo",
+        "maxUnitLevel": 10,
+        "requiredTownHall": 7,
+        "constructionTime": 172800,
+        "isBoostAvailable": false,
+        "requiredGold": 1000000,
+        "requiredHerbs": 0,
+        "requiredWood": 600000
+      },
+      {
+        "$type": "TrainingLevelInfo",
+        "maxUnitLevel": 15,
+        "requiredTownHall": 8,
+        "constructionTime": 259200,
+        "isBoostAvailable": false,
+        "requiredGold": 3000000,
+        "requiredHerbs": 0,
+        "requiredWood": 1250000
+      }
+    ]
+  },
+  {
+    "id": 404,
+    "levels": [
+      {
+        "$type": "TrainingLevelInfo",
+        "maxUnitLevel": 4,
+        "requiredTownHall": 6,
+        "constructionTime": 86400,
+        "isBoostAvailable": false,
+        "requiredGold": 500000,
+        "requiredHerbs": 0,
+        "requiredWood": 125000
+      },
+      {
+        "$type": "TrainingLevelInfo",
+        "maxUnitLevel": 7,
+        "requiredTownHall": 7,
+        "constructionTime": 172800,
+        "isBoostAvailable": false,
+        "requiredGold": 1000000,
+        "requiredHerbs": 0,
+        "requiredWood": 400000
+      },
+      {
+        "$type": "TrainingLevelInfo",
+        "maxUnitLevel": 10,
+        "requiredTownHall": 8,
+        "constructionTime": 259200,
+        "isBoostAvailable": false,
+        "requiredGold": 3000000,
+        "requiredHerbs": 0,
+        "requiredWood": 750000
+      }
+    ]
+  },
+  {
+    "id": 105,
+    "levels": [
+      {
+        "$type": "CraftLevelInfo",
+        "rareCraft_WoodCost": 35000,
+        "rareCraft_MaterialsCost": 10,
+        "rareCraft_Time": 43200,
+        "epicCraft_WoodCost": 60000,
+        "epicCraft_MaterialsCost": 10,
+        "epicCraft_Time": 129600,
+        "legendaryCraft_WoodCost": 85000,
+        "legendaryCraft_MaterialsCost": 10,
+        "legendaryCraft_Time": 259200,
+        "requiredTownHall": 6,
+        "constructionTime": 57600,
+        "isBoostAvailable": false,
+        "requiredGold": 350000,
+        "requiredHerbs": 120000,
+        "requiredWood": 85000
+      },
+      {
+        "$type": "CraftLevelInfo",
+        "rareCraft_WoodCost": 50000,
+        "rareCraft_MaterialsCost": 10,
+        "rareCraft_Time": 86400,
+        "epicCraft_WoodCost": 85000,
+        "epicCraft_MaterialsCost": 10,
+        "epicCraft_Time": 172800,
+        "legendaryCraft_WoodCost": 120000,
+        "legendaryCraft_MaterialsCost": 10,
+        "legendaryCraft_Time": 345600,
+        "requiredTownHall": 7,
+        "constructionTime": 172800,
+        "isBoostAvailable": false,
+        "requiredGold": 900000,
+        "requiredHerbs": 225000,
+        "requiredWood": 540000
+      },
+      {
+        "$type": "CraftLevelInfo",
+        "rareCraft_WoodCost": 90000,
+        "rareCraft_MaterialsCost": 10,
+        "rareCraft_Time": 172800,
+        "epicCraft_WoodCost": 150000,
+        "epicCraft_MaterialsCost": 10,
+        "epicCraft_Time": 259200,
+        "legendaryCraft_WoodCost": 210000,
+        "legendaryCraft_MaterialsCost": 10,
+        "legendaryCraft_Time": 432000,
+        "requiredTownHall": 8,
+        "constructionTime": 259200,
+        "isBoostAvailable": false,
+        "requiredGold": 2200000,
+        "requiredHerbs": 400000,
+        "requiredWood": 950000
+      }
+    ]
+  },
+  {
+    "id": 106,
+    "levels": [
+      {
+        "$type": "CraftLevelInfo",
+        "rareCraft_WoodCost": 35000,
+        "rareCraft_MaterialsCost": 10,
+        "rareCraft_Time": 43200,
+        "epicCraft_WoodCost": 60000,
+        "epicCraft_MaterialsCost": 10,
+        "epicCraft_Time": 129600,
+        "legendaryCraft_WoodCost": 85000,
+        "legendaryCraft_MaterialsCost": 10,
+        "legendaryCraft_Time": 259200,
+        "requiredTownHall": 6,
+        "constructionTime": 57600,
+        "isBoostAvailable": false,
+        "requiredGold": 350000,
+        "requiredHerbs": 120000,
+        "requiredWood": 85000
+      },
+      {
+        "$type": "CraftLevelInfo",
+        "rareCraft_WoodCost": 50000,
+        "rareCraft_MaterialsCost": 10,
+        "rareCraft_Time": 86400,
+        "epicCraft_WoodCost": 85000,
+        "epicCraft_MaterialsCost": 10,
+        "epicCraft_Time": 172800,
+        "legendaryCraft_WoodCost": 120000,
+        "legendaryCraft_MaterialsCost": 10,
+        "legendaryCraft_Time": 345600,
+        "requiredTownHall": 7,
+        "constructionTime": 172800,
+        "isBoostAvailable": false,
+        "requiredGold": 900000,
+        "requiredHerbs": 225000,
+        "requiredWood": 540000
+      },
+      {
+        "$type": "CraftLevelInfo",
+        "rareCraft_WoodCost": 90000,
+        "rareCraft_MaterialsCost": 10,
+        "rareCraft_Time": 172800,
+        "epicCraft_WoodCost": 150000,
+        "epicCraft_MaterialsCost": 10,
+        "epicCraft_Time": 259200,
+        "legendaryCraft_WoodCost": 210000,
+        "legendaryCraft_MaterialsCost": 10,
+        "legendaryCraft_Time": 432000,
+        "requiredTownHall": 8,
+        "constructionTime": 259200,
+        "isBoostAvailable": false,
+        "requiredGold": 2200000,
+        "requiredHerbs": 400000,
+        "requiredWood": 950000
+      }
+    ]
+  },
+  {
+    "id": 107,
+    "levels": [
+      {
+        "$type": "CraftLevelInfo",
+        "rareCraft_WoodCost": 50000,
+        "rareCraft_MaterialsCost": 10,
+        "rareCraft_Time": 86400,
+        "epicCraft_WoodCost": 85000,
+        "epicCraft_MaterialsCost": 10,
+        "epicCraft_Time": 172800,
+        "legendaryCraft_WoodCost": 120000,
+        "legendaryCraft_MaterialsCost": 10,
+        "legendaryCraft_Time": 345600,
+        "requiredTownHall": 7,
+        "constructionTime": 172800,
+        "isBoostAvailable": false,
+        "requiredGold": 1000000,
+        "requiredHerbs": 225000,
+        "requiredWood": 250000
+      },
+      {
+        "$type": "CraftLevelInfo",
+        "rareCraft_WoodCost": 90000,
+        "rareCraft_MaterialsCost": 10,
+        "rareCraft_Time": 172800,
+        "epicCraft_WoodCost": 150000,
+        "epicCraft_MaterialsCost": 10,
+        "epicCraft_Time": 259200,
+        "legendaryCraft_WoodCost": 210000,
+        "legendaryCraft_MaterialsCost": 10,
+        "legendaryCraft_Time": 432000,
+        "requiredTownHall": 8,
+        "constructionTime": 259200,
+        "isBoostAvailable": false,
+        "requiredGold": 2200000,
+        "requiredHerbs": 400000,
+        "requiredWood": 950000
+      }
+    ]
+  },
+  {
+    "id": 210,
+    "levels": [
+      {
+        "$type": "StorageLevelInfo",
+        "resourceStorageLimit": 50,
+        "requiredTownHall": 0,
+        "constructionTime": 0,
+        "isBoostAvailable": false,
+        "requiredGold": 0,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "StorageLevelInfo",
+        "resourceStorageLimit": 75,
+        "requiredTownHall": 4,
+        "constructionTime": 1800,
+        "isBoostAvailable": false,
+        "requiredGold": 35000,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "StorageLevelInfo",
+        "resourceStorageLimit": 100,
+        "requiredTownHall": 6,
+        "constructionTime": 86400,
+        "isBoostAvailable": false,
+        "requiredGold": 400000,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "StorageLevelInfo",
+        "resourceStorageLimit": 125,
+        "requiredTownHall": 7,
+        "constructionTime": 129600,
+        "isBoostAvailable": false,
+        "requiredGold": 850000,
+        "requiredHerbs": 0,
+        "requiredWood": 250000
+      },
+      {
+        "$type": "StorageLevelInfo",
+        "resourceStorageLimit": 150,
+        "requiredTownHall": 8,
+        "constructionTime": 259200,
+        "isBoostAvailable": false,
+        "requiredGold": 2250000,
+        "requiredHerbs": 0,
+        "requiredWood": 1750000
+      }
+    ]
+  },
+  {
+    "id": 103,
+    "levels": [
+      {
+        "$type": "AlchemyLabLevelInfo",
+        "potionsInBattle": 1,
+        "craftCostInHerbs": 600,
+        "craftTime": 600,
+        "requiredTownHall": 4,
+        "constructionTime": 600,
+        "isBoostAvailable": false,
+        "requiredGold": 15000,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "AlchemyLabLevelInfo",
+        "potionsInBattle": 1,
+        "craftCostInHerbs": 3000,
+        "craftTime": 1200,
+        "requiredTownHall": 5,
+        "constructionTime": 5400,
+        "isBoostAvailable": false,
+        "requiredGold": 30000,
+        "requiredHerbs": 40000,
+        "requiredWood": 0
+      },
+      {
+        "$type": "AlchemyLabLevelInfo",
+        "potionsInBattle": 2,
+        "craftCostInHerbs": 7000,
+        "craftTime": 1680,
+        "requiredTownHall": 6,
+        "constructionTime": 43200,
+        "isBoostAvailable": false,
+        "requiredGold": 300000,
+        "requiredHerbs": 75000,
+        "requiredWood": 70000
+      },
+      {
+        "$type": "AlchemyLabLevelInfo",
+        "potionsInBattle": 2,
+        "craftCostInHerbs": 10000,
+        "craftTime": 2100,
+        "requiredTownHall": 7,
+        "constructionTime": 86400,
+        "isBoostAvailable": false,
+        "requiredGold": 1000000,
+        "requiredHerbs": 230000,
+        "requiredWood": 250000
+      },
+      {
+        "$type": "AlchemyLabLevelInfo",
+        "potionsInBattle": 3,
+        "craftCostInHerbs": 15000,
+        "craftTime": 2700,
+        "requiredTownHall": 8,
+        "constructionTime": 259200,
+        "isBoostAvailable": false,
+        "requiredGold": 2000000,
+        "requiredHerbs": 330000,
+        "requiredWood": 850000
+      }
+    ]
+  },
+  {
+    "id": 108,
+    "levels": [
+      {
+        "$type": "CraftLevelInfo",
+        "rareCraft_WoodCost": 90000,
+        "rareCraft_MaterialsCost": 10,
+        "rareCraft_Time": 172800,
+        "epicCraft_WoodCost": 150000,
+        "epicCraft_MaterialsCost": 10,
+        "epicCraft_Time": 259200,
+        "legendaryCraft_WoodCost": 210000,
+        "legendaryCraft_MaterialsCost": 10,
+        "legendaryCraft_Time": 432000,
+        "requiredTownHall": 8,
+        "constructionTime": 259200,
+        "isBoostAvailable": false,
+        "requiredGold": 2200000,
+        "requiredHerbs": 400000,
+        "requiredWood": 950000
+      }
+    ]
+  },
+  {
+    "id": 104,
+    "levels": [
+      {
+        "$type": "ElixirWorkshopLevelInfo",
+        "skillLevelLimit": 25,
+        "elixirPriceInHerbs": 3500,
+        "requiredTownHall": 5,
+        "constructionTime": 14400,
+        "isBoostAvailable": false,
+        "requiredGold": 75000,
+        "requiredHerbs": 0,
+        "requiredWood": 0
+      },
+      {
+        "$type": "ElixirWorkshopLevelInfo",
+        "skillLevelLimit": 50,
+        "elixirPriceInHerbs": 9000,
+        "requiredTownHall": 6,
+        "constructionTime": 57600,
+        "isBoostAvailable": false,
+        "requiredGold": 300000,
+        "requiredHerbs": 75000,
+        "requiredWood": 85000
+      },
+      {
+        "$type": "ElixirWorkshopLevelInfo",
+        "skillLevelLimit": 75,
+        "elixirPriceInHerbs": 16000,
+        "requiredTownHall": 7,
+        "constructionTime": 259200,
+        "isBoostAvailable": false,
+        "requiredGold": 1000000,
+        "requiredHerbs": 225000,
+        "requiredWood": 250000
+      },
+      {
+        "$type": "ElixirWorkshopLevelInfo",
+        "skillLevelLimit": 100,
+        "elixirPriceInHerbs": 35000,
+        "requiredTownHall": 8,
+        "constructionTime": 345600,
+        "isBoostAvailable": false,
+        "requiredGold": 2000000,
+        "requiredHerbs": 300000,
+        "requiredWood": 850000
+      }
+    ]
+  }
+]

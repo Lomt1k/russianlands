@@ -1,0 +1,5438 @@
+﻿[
+  {
+    "id": 1,
+    "debugName": "First Robber",
+    "localizationKey": "mob_name_robbery",
+    "statsSettings": {
+      "level": 1,
+      "health": 100,
+      "physicalResist": 0,
+      "fireResist": 0,
+      "coldResist": 0,
+      "lightningResist": 0
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 55,
+        "maxPhysicalDamage": 65,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "debugName": "1-1 Young Wolf",
+    "localizationKey": "mob_name_young_wolf",
+    "statsSettings": {
+      "level": 1,
+      "health": 130,
+      "physicalResist": 0,
+      "fireResist": 0,
+      "coldResist": 0,
+      "lightningResist": 0
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 60,
+        "maxPhysicalDamage": 70,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "debugName": "1-2 Frail Robber",
+    "localizationKey": "mob_name_frail_robber",
+    "statsSettings": {
+      "level": 1,
+      "health": 150,
+      "physicalResist": 10,
+      "fireResist": 0,
+      "coldResist": 0,
+      "lightningResist": 0
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 60,
+        "maxPhysicalDamage": 70,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "debugName": "1-3 Greedy Robber",
+    "localizationKey": "mob_name_greedy_robber",
+    "statsSettings": {
+      "level": 1,
+      "health": 180,
+      "physicalResist": 15,
+      "fireResist": 0,
+      "coldResist": 0,
+      "lightningResist": 0
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 65,
+        "maxPhysicalDamage": 75,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "debugName": "1-4 Wild Boar",
+    "localizationKey": "mob_name_wild_boar",
+    "statsSettings": {
+      "level": 2,
+      "health": 300,
+      "physicalResist": 15,
+      "fireResist": 0,
+      "coldResist": 0,
+      "lightningResist": 0
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 62,
+        "maxPhysicalDamage": 78,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "debugName": "1-5 Insidious Robber",
+    "localizationKey": "mob_name_insidious_robber",
+    "statsSettings": {
+      "level": 2,
+      "health": 210,
+      "physicalResist": 15,
+      "fireResist": 5,
+      "coldResist": 5,
+      "lightningResist": 5
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 65,
+        "maxPhysicalDamage": 75,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "debugName": "1-6 Ferisious Wolf",
+    "localizationKey": "mob_name_ferosious_wolf",
+    "statsSettings": {
+      "level": 2,
+      "health": 250,
+      "physicalResist": 20,
+      "fireResist": 5,
+      "coldResist": 5,
+      "lightningResist": 10
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 64,
+        "maxPhysicalDamage": 77,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "debugName": "1-7 Избушка",
+    "localizationKey": "mob_name_hut_on_chicken_legs",
+    "statsSettings": {
+      "level": 3,
+      "health": 350,
+      "physicalResist": 25,
+      "fireResist": 0,
+      "coldResist": 20,
+      "lightningResist": 0
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 70,
+        "maxPhysicalDamage": 75,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 85,
+        "maxPhysicalDamage": 90,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "debugName": "1-8 Brown Bear",
+    "localizationKey": "mob_name_brown_bear",
+    "statsSettings": {
+      "level": 1,
+      "health": 400,
+      "physicalResist": 20,
+      "fireResist": 5,
+      "coldResist": 5,
+      "lightningResist": 5
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 60,
+        "maxPhysicalDamage": 75,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "debugName": "1-9 Rogue Mage",
+    "localizationKey": "character_rogue_mage_name",
+    "statsSettings": {
+      "level": 3,
+      "health": 250,
+      "physicalResist": 10,
+      "fireResist": 60,
+      "coldResist": 60,
+      "lightningResist": 60
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 50,
+        "maxLightningDamage": 60
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 70,
+        "maxLightningDamage": 80
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "debugName": "1-10 Hungry Lynx",
+    "localizationKey": "mob_name_hungry_lynx",
+    "statsSettings": {
+      "level": 3,
+      "health": 230,
+      "physicalResist": 25,
+      "fireResist": 5,
+      "coldResist": 5,
+      "lightningResist": 5
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 70,
+        "maxPhysicalDamage": 80,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "debugName": "1-11 Леший",
+    "localizationKey": "character_wood_goblin_name",
+    "statsSettings": {
+      "level": 4,
+      "health": 320,
+      "physicalResist": 30,
+      "fireResist": 15,
+      "coldResist": 15,
+      "lightningResist": 5
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 70,
+        "maxPhysicalDamage": 80,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 45,
+        "maxLightningDamage": 50
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 50,
+        "maxColdDamage": 55,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "debugName": "1-12 Severe robber",
+    "localizationKey": "mob_name_severe_robber",
+    "statsSettings": {
+      "level": 4,
+      "health": 360,
+      "physicalResist": 25,
+      "fireResist": 10,
+      "coldResist": 10,
+      "lightningResist": 0
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 65,
+        "maxPhysicalDamage": 75,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "debugName": "1-13 Exp robber",
+    "localizationKey": "mob_name_experienced_robber",
+    "statsSettings": {
+      "level": 4,
+      "health": 380,
+      "physicalResist": 20,
+      "fireResist": 5,
+      "coldResist": 10,
+      "lightningResist": 5
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 75,
+        "maxPhysicalDamage": 80,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "debugName": "1-14 Соловей",
+    "localizationKey": "character_nightingale_name",
+    "statsSettings": {
+      "level": 4,
+      "health": 500,
+      "physicalResist": 25,
+      "fireResist": 10,
+      "coldResist": 10,
+      "lightningResist": 0
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 65,
+        "maxPhysicalDamage": 71,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 70,
+        "maxPhysicalDamage": 76,
+        "minFireDamage": 8,
+        "maxFireDamage": 12,
+        "minColdDamage": 8,
+        "maxColdDamage": 12,
+        "minLightningDamage": 8,
+        "maxLightningDamage": 12
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "debugName": "2-1 Walking Dead",
+    "localizationKey": "mob_name_walking_dead",
+    "statsSettings": {
+      "level": 4,
+      "health": 400,
+      "physicalResist": 20,
+      "fireResist": 5,
+      "coldResist": 5,
+      "lightningResist": 5
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 70,
+        "maxPhysicalDamage": 80,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "debugName": "2-2 Nasty Spider",
+    "localizationKey": "mob_name_nasty_spider",
+    "statsSettings": {
+      "level": 5,
+      "health": 420,
+      "physicalResist": 25,
+      "fireResist": 10,
+      "coldResist": 5,
+      "lightningResist": 5
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 85,
+        "maxPhysicalDamage": 90,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 18,
+    "debugName": "2-3 Bloody Zombie",
+    "localizationKey": "mob_name_bloodthirsty_zombie",
+    "statsSettings": {
+      "level": 5,
+      "health": 450,
+      "physicalResist": 25,
+      "fireResist": 10,
+      "coldResist": 10,
+      "lightningResist": 10
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 80,
+        "maxPhysicalDamage": 90,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 19,
+    "debugName": "2-4 Dashing Zombie",
+    "localizationKey": "mob_name_dashing_zombie",
+    "statsSettings": {
+      "level": 5,
+      "health": 465,
+      "physicalResist": 30,
+      "fireResist": 15,
+      "coldResist": 10,
+      "lightningResist": 15
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 85,
+        "maxPhysicalDamage": 92,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "debugName": "2-5 Kikimora",
+    "localizationKey": "character_kikimora_name",
+    "statsSettings": {
+      "level": 5,
+      "health": 500,
+      "physicalResist": 30,
+      "fireResist": 10,
+      "coldResist": 10,
+      "lightningResist": 20
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 90,
+        "maxPhysicalDamage": 95,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 80,
+        "maxLightningDamage": 85
+      }
+    ]
+  },
+  {
+    "id": 21,
+    "debugName": "2-6 Slimy Toad",
+    "localizationKey": "mob_name_slimy_toad",
+    "statsSettings": {
+      "level": 5,
+      "health": 450,
+      "physicalResist": 40,
+      "fireResist": 25,
+      "coldResist": 15,
+      "lightningResist": 25
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 80,
+        "maxPhysicalDamage": 86,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 22,
+    "debugName": "2-7 Slug",
+    "localizationKey": "mob_name_slug",
+    "statsSettings": {
+      "level": 6,
+      "health": 510,
+      "physicalResist": 45,
+      "fireResist": 20,
+      "coldResist": 20,
+      "lightningResist": 20
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 85,
+        "maxPhysicalDamage": 92,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 23,
+    "debugName": "2-8 Mad Elk",
+    "localizationKey": "mob_name_mad_elk",
+    "statsSettings": {
+      "level": 6,
+      "health": 520,
+      "physicalResist": 50,
+      "fireResist": 20,
+      "coldResist": 20,
+      "lightningResist": 35
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 82,
+        "maxPhysicalDamage": 87,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 92,
+        "maxLightningDamage": 97
+      }
+    ]
+  },
+  {
+    "id": 24,
+    "debugName": "2-9 Damn Zombie",
+    "localizationKey": "mob_name_damn_zombie",
+    "statsSettings": {
+      "level": 6,
+      "health": 480,
+      "physicalResist": 50,
+      "fireResist": 25,
+      "coldResist": 25,
+      "lightningResist": 25
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 90,
+        "maxPhysicalDamage": 98,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 25,
+    "debugName": "2-10 Aquatic",
+    "localizationKey": "character_aquatic_name",
+    "statsSettings": {
+      "level": 6,
+      "health": 520,
+      "physicalResist": 55,
+      "fireResist": 50,
+      "coldResist": 20,
+      "lightningResist": 30
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 85,
+        "maxPhysicalDamage": 90,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 4,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 110,
+        "maxColdDamage": 120,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 26,
+    "debugName": "2-11 Poisonous Spider",
+    "localizationKey": "mob_name_poisonous_spider",
+    "statsSettings": {
+      "level": 7,
+      "health": 500,
+      "physicalResist": 40,
+      "fireResist": 20,
+      "coldResist": 20,
+      "lightningResist": 20
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 95,
+        "maxPhysicalDamage": 102,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 27,
+    "debugName": "2-12 Mermaid",
+    "localizationKey": "mob_name_mermaid",
+    "statsSettings": {
+      "level": 7,
+      "health": 530,
+      "physicalResist": 45,
+      "fireResist": 20,
+      "coldResist": 100,
+      "lightningResist": 20
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 100,
+        "maxPhysicalDamage": 110,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 28,
+    "debugName": "2-13 Hungry Zombie",
+    "localizationKey": "mob_name_hungry_zombie",
+    "statsSettings": {
+      "level": 7,
+      "health": 550,
+      "physicalResist": 50,
+      "fireResist": 20,
+      "coldResist": 25,
+      "lightningResist": 35
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 98,
+        "maxPhysicalDamage": 107,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 29,
+    "debugName": "2-14 Ferisious Wolf",
+    "localizationKey": "mob_name_ferosious_wolf",
+    "statsSettings": {
+      "level": 7,
+      "health": 540,
+      "physicalResist": 45,
+      "fireResist": 25,
+      "coldResist": 25,
+      "lightningResist": 25
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 95,
+        "maxPhysicalDamage": 102,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 30,
+    "debugName": "2-15 Kikimora #2",
+    "localizationKey": "character_kikimora_name",
+    "statsSettings": {
+      "level": 7,
+      "health": 500,
+      "physicalResist": 50,
+      "fireResist": 25,
+      "coldResist": 25,
+      "lightningResist": 80
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 100,
+        "maxPhysicalDamage": 105,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 100,
+        "maxLightningDamage": 105
+      }
+    ]
+  },
+  {
+    "id": 31,
+    "debugName": "2-16 Koschey",
+    "localizationKey": "character_koschey_name",
+    "statsSettings": {
+      "level": 7,
+      "health": 600,
+      "physicalResist": 50,
+      "fireResist": 30,
+      "coldResist": 30,
+      "lightningResist": 30
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 90,
+        "maxPhysicalDamage": 100,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 70,
+        "maxFireDamage": 80,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 70,
+        "maxColdDamage": 80,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 70,
+        "maxLightningDamage": 80
+      }
+    ]
+  },
+  {
+    "id": 32,
+    "debugName": "3-1 Snow Wolf",
+    "localizationKey": "mob_name_snow_wolf",
+    "statsSettings": {
+      "level": 7,
+      "health": 550,
+      "physicalResist": 50,
+      "fireResist": 25,
+      "coldResist": 25,
+      "lightningResist": 25
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 100,
+        "maxPhysicalDamage": 108,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 15,
+        "maxColdDamage": 25,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 33,
+    "debugName": "3-2 Mountain Troll",
+    "localizationKey": "mob_name_mountain_troll",
+    "statsSettings": {
+      "level": 7,
+      "health": 620,
+      "physicalResist": 45,
+      "fireResist": 30,
+      "coldResist": 30,
+      "lightningResist": 30
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 90,
+        "maxPhysicalDamage": 105,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 34,
+    "debugName": "3-3 Polar Bear",
+    "localizationKey": "mob_name_polar_bear",
+    "statsSettings": {
+      "level": 7,
+      "health": 580,
+      "physicalResist": 60,
+      "fireResist": 30,
+      "coldResist": 30,
+      "lightningResist": 30
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 105,
+        "maxPhysicalDamage": 112,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 35,
+    "debugName": "3-4 Dovahkiin",
+    "localizationKey": "character_dovahkiin_name",
+    "statsSettings": {
+      "level": 8,
+      "health": 650,
+      "physicalResist": 70,
+      "fireResist": 45,
+      "coldResist": 45,
+      "lightningResist": 45
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 107,
+        "maxPhysicalDamage": 115,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_dovahkiin_attack",
+        "manaCost": 4,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 55,
+        "maxFireDamage": 70,
+        "minColdDamage": 55,
+        "maxColdDamage": 70,
+        "minLightningDamage": 55,
+        "maxLightningDamage": 70
+      }
+    ]
+  },
+  {
+    "id": 36,
+    "debugName": "3-5 Snow Wolf",
+    "localizationKey": "mob_name_snow_wolf",
+    "statsSettings": {
+      "level": 8,
+      "health": 600,
+      "physicalResist": 50,
+      "fireResist": 30,
+      "coldResist": 30,
+      "lightningResist": 30
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 112,
+        "maxPhysicalDamage": 120,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 37,
+    "debugName": "3-6 Feral Hermit",
+    "localizationKey": "mob_name_feral_hermit",
+    "statsSettings": {
+      "level": 8,
+      "health": 620,
+      "physicalResist": 70,
+      "fireResist": 35,
+      "coldResist": 35,
+      "lightningResist": 35
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 108,
+        "maxPhysicalDamage": 118,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 38,
+    "debugName": "3-7 Ice Troll",
+    "localizationKey": "mob_name_ice_troll",
+    "statsSettings": {
+      "level": 8,
+      "health": 650,
+      "physicalResist": 65,
+      "fireResist": 35,
+      "coldResist": 120,
+      "lightningResist": 35
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 113,
+        "maxPhysicalDamage": 125,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 39,
+    "debugName": "3-8 Giant",
+    "localizationKey": "mob_name_giant",
+    "statsSettings": {
+      "level": 8,
+      "health": 680,
+      "physicalResist": 70,
+      "fireResist": 35,
+      "coldResist": 35,
+      "lightningResist": 35
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 120,
+        "maxPhysicalDamage": 130,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 40,
+    "debugName": "3-9 Gorynych",
+    "localizationKey": "character_gorinich_name",
+    "statsSettings": {
+      "level": 8,
+      "health": 700,
+      "physicalResist": 70,
+      "fireResist": 125,
+      "coldResist": 25,
+      "lightningResist": 40
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 115,
+        "maxPhysicalDamage": 125,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 2,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 100,
+        "maxFireDamage": 110,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 41,
+    "debugName": "3-10 Wild Goat",
+    "localizationKey": "mob_name_wild_goat",
+    "statsSettings": {
+      "level": 9,
+      "health": 670,
+      "physicalResist": 70,
+      "fireResist": 50,
+      "coldResist": 50,
+      "lightningResist": 50
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 124,
+        "maxPhysicalDamage": 136,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 42,
+    "debugName": "3-11 Harpy",
+    "localizationKey": "mob_name_harpy",
+    "statsSettings": {
+      "level": 9,
+      "health": 680,
+      "physicalResist": 75,
+      "fireResist": 35,
+      "coldResist": 35,
+      "lightningResist": 75
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 120,
+        "maxPhysicalDamage": 140,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 43,
+    "debugName": "3-12 Mad Elk",
+    "localizationKey": "mob_name_mad_elk",
+    "statsSettings": {
+      "level": 9,
+      "health": 700,
+      "physicalResist": 25,
+      "fireResist": 25,
+      "coldResist": 25,
+      "lightningResist": 25
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 165,
+        "maxPhysicalDamage": 180,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 44,
+    "debugName": "3-13 Polar Bear",
+    "localizationKey": "mob_name_polar_bear",
+    "statsSettings": {
+      "level": 9,
+      "health": 700,
+      "physicalResist": 80,
+      "fireResist": 40,
+      "coldResist": 40,
+      "lightningResist": 40
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 123,
+        "maxPhysicalDamage": 132,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 45,
+    "debugName": "3-14 Gorynych",
+    "localizationKey": "character_gorinichtwoheads_name",
+    "statsSettings": {
+      "level": 9,
+      "health": 750,
+      "physicalResist": 70,
+      "fireResist": 100,
+      "coldResist": 45,
+      "lightningResist": 55
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 115,
+        "maxPhysicalDamage": 125,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 2,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 100,
+        "maxFireDamage": 110,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 46,
+    "debugName": "3-15 Ice Ghost",
+    "localizationKey": "mob_name_ice_ghost",
+    "statsSettings": {
+      "level": 10,
+      "health": 730,
+      "physicalResist": 90,
+      "fireResist": 0,
+      "coldResist": 180,
+      "lightningResist": 50
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 85,
+        "maxColdDamage": 105,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 47,
+    "debugName": "3-16 Armored Troll",
+    "localizationKey": "mob_name_armored_troll",
+    "statsSettings": {
+      "level": 10,
+      "health": 760,
+      "physicalResist": 100,
+      "fireResist": 50,
+      "coldResist": 50,
+      "lightningResist": 50
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 132,
+        "maxPhysicalDamage": 145,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 48,
+    "debugName": "3-17 Snow Wolf",
+    "localizationKey": "mob_name_snow_wolf",
+    "statsSettings": {
+      "level": 10,
+      "health": 780,
+      "physicalResist": 90,
+      "fireResist": 45,
+      "coldResist": 45,
+      "lightningResist": 45
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 135,
+        "maxPhysicalDamage": 150,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 49,
+    "debugName": "3-18 Ferosious harpy",
+    "localizationKey": "mob_name_ferosious_harpy",
+    "statsSettings": {
+      "level": 10,
+      "health": 680,
+      "physicalResist": 90,
+      "fireResist": 45,
+      "coldResist": 45,
+      "lightningResist": 45
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 135,
+        "maxPhysicalDamage": 147,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 145,
+        "maxLightningDamage": 160
+      }
+    ]
+  },
+  {
+    "id": 50,
+    "debugName": "3-19 Gorynych",
+    "localizationKey": "character_gorinichonehead_name",
+    "statsSettings": {
+      "level": 10,
+      "health": 800,
+      "physicalResist": 80,
+      "fireResist": 150,
+      "coldResist": 45,
+      "lightningResist": 60
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 125,
+        "maxPhysicalDamage": 135,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 2,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 110,
+        "maxFireDamage": 120,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 51,
+    "debugName": "4-1 Greedy Robber",
+    "localizationKey": "mob_name_greedy_robber",
+    "statsSettings": {
+      "level": 1,
+      "health": 750,
+      "physicalResist": 80,
+      "fireResist": 45,
+      "coldResist": 55,
+      "lightningResist": 50
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 135,
+        "maxPhysicalDamage": 150,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 52,
+    "debugName": "4-2 Sly Rogue",
+    "localizationKey": "mob_name_sly_rogue",
+    "statsSettings": {
+      "level": 11,
+      "health": 820,
+      "physicalResist": 75,
+      "fireResist": 75,
+      "coldResist": 65,
+      "lightningResist": 65
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 141,
+        "maxPhysicalDamage": 155,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 53,
+    "debugName": "4-3 Impudent Thief",
+    "localizationKey": "mob_name_impudent_thief",
+    "statsSettings": {
+      "level": 11,
+      "health": 800,
+      "physicalResist": 80,
+      "fireResist": 45,
+      "coldResist": 45,
+      "lightningResist": 90
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 142,
+        "maxPhysicalDamage": 153,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 54,
+    "debugName": "4-4 Wild Boar",
+    "localizationKey": "mob_name_wild_boar",
+    "statsSettings": {
+      "level": 11,
+      "health": 1000,
+      "physicalResist": 50,
+      "fireResist": 70,
+      "coldResist": 70,
+      "lightningResist": 70
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 130,
+        "maxPhysicalDamage": 150,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 55,
+    "debugName": "4-5 Nif-Nif",
+    "localizationKey": "character_nifnif_name",
+    "statsSettings": {
+      "level": 12,
+      "health": 800,
+      "physicalResist": 80,
+      "fireResist": 40,
+      "coldResist": 40,
+      "lightningResist": 80
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 140,
+        "maxPhysicalDamage": 155,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 125,
+        "maxLightningDamage": 135
+      }
+    ]
+  },
+  {
+    "id": 56,
+    "debugName": "4-6 Hungry Lynx",
+    "localizationKey": "mob_name_hungry_lynx",
+    "statsSettings": {
+      "level": 12,
+      "health": 550,
+      "physicalResist": 60,
+      "fireResist": 75,
+      "coldResist": 75,
+      "lightningResist": 40
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 175,
+        "maxPhysicalDamage": 195,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 57,
+    "debugName": "4-7 Exp Robber",
+    "localizationKey": "mob_name_experienced_robber",
+    "statsSettings": {
+      "level": 12,
+      "health": 700,
+      "physicalResist": 70,
+      "fireResist": 70,
+      "coldResist": 70,
+      "lightningResist": 70
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 135,
+        "maxPhysicalDamage": 146,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 58,
+    "debugName": "4-8 Severe Robber",
+    "localizationKey": "mob_name_severe_robber",
+    "statsSettings": {
+      "level": 12,
+      "health": 650,
+      "physicalResist": 65,
+      "fireResist": 50,
+      "coldResist": 125,
+      "lightningResist": 50
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 125,
+        "maxPhysicalDamage": 138,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 2,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 100,
+        "maxColdDamage": 112,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 59,
+    "debugName": "4-9 Rogue Mage",
+    "localizationKey": "character_rogue_mage_name",
+    "statsSettings": {
+      "level": 13,
+      "health": 600,
+      "physicalResist": 50,
+      "fireResist": 100,
+      "coldResist": 75,
+      "lightningResist": 75
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 85,
+        "maxColdDamage": 100,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 85,
+        "maxLightningDamage": 100
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 107,
+        "maxFireDamage": 119,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 60,
+    "debugName": "4-10 Nuf-Nuf",
+    "localizationKey": "character_nufnuf_name",
+    "statsSettings": {
+      "level": 13,
+      "health": 1000,
+      "physicalResist": 150,
+      "fireResist": 100,
+      "coldResist": 100,
+      "lightningResist": 100
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 200,
+        "maxPhysicalDamage": 220,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 286,
+        "maxPhysicalDamage": 295,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 61,
+    "debugName": "4-11 Dire Wolf",
+    "localizationKey": "mob_name_dire_wolf",
+    "statsSettings": {
+      "level": 13,
+      "health": 900,
+      "physicalResist": 160,
+      "fireResist": 80,
+      "coldResist": 80,
+      "lightningResist": 160
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 185,
+        "maxPhysicalDamage": 198,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 96,
+        "maxLightningDamage": 104
+      }
+    ]
+  },
+  {
+    "id": 62,
+    "debugName": "4-12 Ice Ghost",
+    "localizationKey": "mob_name_ice_ghost",
+    "statsSettings": {
+      "level": 13,
+      "health": 950,
+      "physicalResist": 125,
+      "fireResist": 100,
+      "coldResist": 170,
+      "lightningResist": 100
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 180,
+        "maxColdDamage": 205,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 63,
+    "debugName": "4-13 Daring Thief",
+    "localizationKey": "mob_name_daring_thief",
+    "statsSettings": {
+      "level": 13,
+      "health": 800,
+      "physicalResist": 120,
+      "fireResist": 90,
+      "coldResist": 90,
+      "lightningResist": 105
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 225,
+        "maxPhysicalDamage": 245,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 64,
+    "debugName": "4-14 Steppe Viper",
+    "localizationKey": "mob_name_steppe_viper",
+    "statsSettings": {
+      "level": 13,
+      "health": 900,
+      "physicalResist": 120,
+      "fireResist": 75,
+      "coldResist": 75,
+      "lightningResist": 120
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 238,
+        "maxPhysicalDamage": 256,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 65,
+    "debugName": "4-15 Naf-Naf",
+    "localizationKey": "character_nafnaf_name",
+    "statsSettings": {
+      "level": 13,
+      "health": 1200,
+      "physicalResist": 200,
+      "fireResist": 150,
+      "coldResist": 50,
+      "lightningResist": 50
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 205,
+        "maxPhysicalDamage": 225,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 185,
+        "maxFireDamage": 203,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 66,
+    "debugName": "4-16 Notorious Rogue",
+    "localizationKey": "mob_name_notorious_rogue",
+    "statsSettings": {
+      "level": 14,
+      "health": 1500,
+      "physicalResist": 135,
+      "fireResist": 90,
+      "coldResist": 80,
+      "lightningResist": 90
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 179,
+        "maxPhysicalDamage": 197,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 67,
+    "debugName": "4-17 Street robber",
+    "localizationKey": "mob_name_street_robber",
+    "statsSettings": {
+      "level": 14,
+      "health": 1350,
+      "physicalResist": 160,
+      "fireResist": 85,
+      "coldResist": 85,
+      "lightningResist": 85
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 195,
+        "maxPhysicalDamage": 209,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 68,
+    "debugName": "4-18 Mad Lynx",
+    "localizationKey": "mob_name_mad_lynx",
+    "statsSettings": {
+      "level": 14,
+      "health": 1300,
+      "physicalResist": 150,
+      "fireResist": 80,
+      "coldResist": 70,
+      "lightningResist": 150
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 170,
+        "maxPhysicalDamage": 182,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 92,
+        "maxLightningDamage": 113
+      }
+    ]
+  },
+  {
+    "id": 69,
+    "debugName": "4-19 Village Shaman",
+    "localizationKey": "mob_name_village_shaman",
+    "statsSettings": {
+      "level": 14,
+      "health": 1100,
+      "physicalResist": 90,
+      "fireResist": 150,
+      "coldResist": 150,
+      "lightningResist": 150
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 96,
+        "maxFireDamage": 104,
+        "minColdDamage": 101,
+        "maxColdDamage": 107,
+        "minLightningDamage": 98,
+        "maxLightningDamage": 105
+      }
+    ]
+  },
+  {
+    "id": 70,
+    "debugName": "4-20 Chocolate king",
+    "localizationKey": "character_chocolateking_name",
+    "statsSettings": {
+      "level": 14,
+      "health": 1500,
+      "physicalResist": 150,
+      "fireResist": 110,
+      "coldResist": 85,
+      "lightningResist": 100
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 208,
+        "maxPhysicalDamage": 220,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 350,
+        "maxPhysicalDamage": 380,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 71,
+    "debugName": "4-21 Village Thief",
+    "localizationKey": "mob_name_village_thief",
+    "statsSettings": {
+      "level": 15,
+      "health": 1380,
+      "physicalResist": 140,
+      "fireResist": 95,
+      "coldResist": 88,
+      "lightningResist": 100
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 230,
+        "maxPhysicalDamage": 255,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 72,
+    "debugName": "4-22 Insidious Robber",
+    "localizationKey": "mob_name_insidious_robber",
+    "statsSettings": {
+      "level": 15,
+      "health": 1400,
+      "physicalResist": 160,
+      "fireResist": 80,
+      "coldResist": 80,
+      "lightningResist": 80
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 225,
+        "maxPhysicalDamage": 248,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 73,
+    "debugName": "4-23 Dire Wolf",
+    "localizationKey": "mob_name_dire_wolf",
+    "statsSettings": {
+      "level": 15,
+      "health": 1300,
+      "physicalResist": 150,
+      "fireResist": 75,
+      "coldResist": 150,
+      "lightningResist": 75
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 215,
+        "maxPhysicalDamage": 237,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 74,
+    "debugName": "4-24 Mighty Shaman",
+    "localizationKey": "mob_name_mighty_shaman",
+    "statsSettings": {
+      "level": 15,
+      "health": 1300,
+      "physicalResist": 100,
+      "fireResist": 150,
+      "coldResist": 150,
+      "lightningResist": 150
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 102,
+        "maxFireDamage": 107,
+        "minColdDamage": 95,
+        "maxColdDamage": 101,
+        "minLightningDamage": 94,
+        "maxLightningDamage": 108
+      }
+    ]
+  },
+  {
+    "id": 75,
+    "debugName": "4-25 Dad Bandit",
+    "localizationKey": "mob_name_dad_bandit",
+    "statsSettings": {
+      "level": 15,
+      "health": 1600,
+      "physicalResist": 150,
+      "fireResist": 100,
+      "coldResist": 100,
+      "lightningResist": 75
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 203,
+        "maxPhysicalDamage": 230,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 190,
+        "maxFireDamage": 207,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 76,
+    "debugName": "5-1 Wild Elf",
+    "localizationKey": "mob_name_wild_elf",
+    "statsSettings": {
+      "level": 16,
+      "health": 1200,
+      "physicalResist": 130,
+      "fireResist": 65,
+      "coldResist": 105,
+      "lightningResist": 65
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 210,
+        "maxPhysicalDamage": 230,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 77,
+    "debugName": "5-2 Hyena",
+    "localizationKey": "mob_name_hyena",
+    "statsSettings": {
+      "level": 16,
+      "health": 800,
+      "physicalResist": 150,
+      "fireResist": 250,
+      "coldResist": 70,
+      "lightningResist": 70
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 275,
+        "maxPhysicalDamage": 300,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 78,
+    "debugName": "5-3 Evil Elf",
+    "localizationKey": "mob_name_evil_elf",
+    "statsSettings": {
+      "level": 16,
+      "health": 1200,
+      "physicalResist": 130,
+      "fireResist": 75,
+      "coldResist": 70,
+      "lightningResist": 160
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 215,
+        "maxPhysicalDamage": 248,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 211,
+        "maxLightningDamage": 239
+      }
+    ]
+  },
+  {
+    "id": 79,
+    "debugName": "5-4 Nasty Spider",
+    "localizationKey": "mob_name_nasty_spider",
+    "statsSettings": {
+      "level": 16,
+      "health": 1600,
+      "physicalResist": 0,
+      "fireResist": 85,
+      "coldResist": 250,
+      "lightningResist": 75
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 165,
+        "maxColdDamage": 198,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 80,
+    "debugName": "5-5 Orc Guardian",
+    "localizationKey": "character_orcguardian_name",
+    "statsSettings": {
+      "level": 16,
+      "health": 1400,
+      "physicalResist": 150,
+      "fireResist": 85,
+      "coldResist": 85,
+      "lightningResist": 85
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 215,
+        "maxPhysicalDamage": 240,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 280,
+        "maxPhysicalDamage": 310,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 81,
+    "debugName": "5-6 Angry Bull",
+    "localizationKey": "mob_name_angry_bull",
+    "statsSettings": {
+      "level": 17,
+      "health": 1200,
+      "physicalResist": 140,
+      "fireResist": 120,
+      "coldResist": 75,
+      "lightningResist": 90
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 200,
+        "maxPhysicalDamage": 225,
+        "minFireDamage": 100,
+        "maxFireDamage": 120,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 82,
+    "debugName": "5-7 Elven Sorcerer",
+    "localizationKey": "mob_name_elven_sorcerer",
+    "statsSettings": {
+      "level": 17,
+      "health": 900,
+      "physicalResist": 90,
+      "fireResist": 160,
+      "coldResist": 160,
+      "lightningResist": 160
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 165,
+        "maxFireDamage": 200,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 165,
+        "maxColdDamage": 200,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 165,
+        "maxLightningDamage": 200
+      }
+    ]
+  },
+  {
+    "id": 83,
+    "debugName": "5-8 Mad Elk",
+    "localizationKey": "mob_name_mad_elk",
+    "statsSettings": {
+      "level": 17,
+      "health": 1000,
+      "physicalResist": 150,
+      "fireResist": 70,
+      "coldResist": 120,
+      "lightningResist": 120
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 264,
+        "maxPhysicalDamage": 302,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 84,
+    "debugName": "5-9 Wild Elf",
+    "localizationKey": "mob_name_wild_elf",
+    "statsSettings": {
+      "level": 17,
+      "health": 1300,
+      "physicalResist": 140,
+      "fireResist": 75,
+      "coldResist": 115,
+      "lightningResist": 75
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 220,
+        "maxPhysicalDamage": 245,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 85,
+    "debugName": "5-10 Troll",
+    "localizationKey": "character_troll_name",
+    "statsSettings": {
+      "level": 17,
+      "health": 2000,
+      "physicalResist": 150,
+      "fireResist": 75,
+      "coldResist": 75,
+      "lightningResist": 75
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 245,
+        "maxPhysicalDamage": 271,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 400,
+        "maxPhysicalDamage": 430,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 86,
+    "debugName": "5-11 Fearless Dwarf",
+    "localizationKey": "mob_name_fearless_dwarf",
+    "statsSettings": {
+      "level": 18,
+      "health": 1500,
+      "physicalResist": 160,
+      "fireResist": 120,
+      "coldResist": 80,
+      "lightningResist": 80
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 280,
+        "maxPhysicalDamage": 315,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 87,
+    "debugName": "5-12 Idiot Dwarf",
+    "localizationKey": "mob_name_idiot_dwarf",
+    "statsSettings": {
+      "level": 18,
+      "health": 1550,
+      "physicalResist": 165,
+      "fireResist": 90,
+      "coldResist": 135,
+      "lightningResist": 90
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 285,
+        "maxPhysicalDamage": 325,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 88,
+    "debugName": "5-13 Brave Dwarf",
+    "localizationKey": "mob_name_brave_dwarf",
+    "statsSettings": {
+      "level": 18,
+      "health": 1600,
+      "physicalResist": 170,
+      "fireResist": 95,
+      "coldResist": 95,
+      "lightningResist": 140
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 290,
+        "maxPhysicalDamage": 330,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 89,
+    "debugName": "5-14 Mighty Dwarf",
+    "localizationKey": "mob_name_mighty_dwarf",
+    "statsSettings": {
+      "level": 18,
+      "health": 1600,
+      "physicalResist": 180,
+      "fireResist": 90,
+      "coldResist": 90,
+      "lightningResist": 90
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 295,
+        "maxPhysicalDamage": 335,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 280,
+        "maxFireDamage": 330,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 90,
+    "debugName": "5-15 Dwarf Commander",
+    "localizationKey": "character_gnomecommander_name",
+    "statsSettings": {
+      "level": 18,
+      "health": 1500,
+      "physicalResist": 175,
+      "fireResist": 100,
+      "coldResist": 250,
+      "lightningResist": 100
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 285,
+        "maxPhysicalDamage": 315,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 116,
+        "maxColdDamage": 134,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 2,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 325,
+        "maxColdDamage": 360,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 91,
+    "debugName": "5-16 Hyena",
+    "localizationKey": "mob_name_hyena",
+    "statsSettings": {
+      "level": 19,
+      "health": 1000,
+      "physicalResist": 200,
+      "fireResist": 300,
+      "coldResist": 50,
+      "lightningResist": 50
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 420,
+        "maxPhysicalDamage": 460,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 92,
+    "debugName": "5-17 Treacherous Elf",
+    "localizationKey": "mob_name_treacherous_elf",
+    "statsSettings": {
+      "level": 19,
+      "health": 1750,
+      "physicalResist": 165,
+      "fireResist": 0,
+      "coldResist": 95,
+      "lightningResist": 140
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 310,
+        "maxPhysicalDamage": 345,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 85,
+        "maxLightningDamage": 110
+      }
+    ]
+  },
+  {
+    "id": 93,
+    "debugName": "5-18 Evil Elf",
+    "localizationKey": "mob_name_evil_elf",
+    "statsSettings": {
+      "level": 19,
+      "health": 1800,
+      "physicalResist": 180,
+      "fireResist": 100,
+      "coldResist": 100,
+      "lightningResist": 100
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 300,
+        "maxPhysicalDamage": 345,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 300,
+        "maxLightningDamage": 350
+      }
+    ]
+  },
+  {
+    "id": 94,
+    "debugName": "5-19 Nasty Spider",
+    "localizationKey": "mob_name_nasty_spider",
+    "statsSettings": {
+      "level": 19,
+      "health": 2000,
+      "physicalResist": 0,
+      "fireResist": 100,
+      "coldResist": 300,
+      "lightningResist": 100
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 260,
+        "maxColdDamage": 290,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 95,
+    "debugName": "5-20 Orc Traitor",
+    "localizationKey": "character_orctraitor_name",
+    "statsSettings": {
+      "level": 19,
+      "health": 2000,
+      "physicalResist": 200,
+      "fireResist": 125,
+      "coldResist": 70,
+      "lightningResist": 70
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 315,
+        "maxPhysicalDamage": 350,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 275,
+        "maxFireDamage": 300,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 96,
+    "debugName": "5-21 Elven Sorcerer",
+    "localizationKey": "mob_name_elven_sorcerer",
+    "statsSettings": {
+      "level": 20,
+      "health": 1500,
+      "physicalResist": 100,
+      "fireResist": 180,
+      "coldResist": 180,
+      "lightningResist": 180
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 245,
+        "maxFireDamage": 280,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 245,
+        "maxColdDamage": 280,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 245,
+        "maxLightningDamage": 280
+      }
+    ]
+  },
+  {
+    "id": 97,
+    "debugName": "5-22 Wild Elf",
+    "localizationKey": "mob_name_wild_elf",
+    "statsSettings": {
+      "level": 20,
+      "health": 1900,
+      "physicalResist": 200,
+      "fireResist": 180,
+      "coldResist": 65,
+      "lightningResist": 65
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 320,
+        "maxPhysicalDamage": 360,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 98,
+    "debugName": "5-23 Light Elf",
+    "localizationKey": "mob_name_light_elf",
+    "statsSettings": {
+      "level": 20,
+      "health": 2000,
+      "physicalResist": 150,
+      "fireResist": 100,
+      "coldResist": 120,
+      "lightningResist": 300
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 300,
+        "maxPhysicalDamage": 330,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 280,
+        "maxLightningDamage": 305
+      }
+    ]
+  },
+  {
+    "id": 99,
+    "debugName": "5-24 Dark Elf",
+    "localizationKey": "mob_name_dark_elf",
+    "statsSettings": {
+      "level": 20,
+      "health": 2000,
+      "physicalResist": 230,
+      "fireResist": 135,
+      "coldResist": 135,
+      "lightningResist": 135
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 310,
+        "maxPhysicalDamage": 340,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 445,
+        "maxPhysicalDamage": 480,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 100,
+    "debugName": "5-25 Elven King",
+    "localizationKey": "character_elvenking_name",
+    "statsSettings": {
+      "level": 20,
+      "health": 2400,
+      "physicalResist": 200,
+      "fireResist": 150,
+      "coldResist": 150,
+      "lightningResist": 200
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 250,
+        "maxFireDamage": 285,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 250,
+        "maxColdDamage": 285,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 320,
+        "maxLightningDamage": 340
+      }
+    ]
+  },
+  {
+    "id": 101,
+    "debugName": "6-1 Angry Bull",
+    "localizationKey": "mob_name_angry_bull",
+    "statsSettings": {
+      "level": 21,
+      "health": 1900,
+      "physicalResist": 220,
+      "fireResist": 250,
+      "coldResist": 100,
+      "lightningResist": 125
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 280,
+        "maxPhysicalDamage": 315,
+        "minFireDamage": 160,
+        "maxFireDamage": 180,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 102,
+    "debugName": "6-2 Treacherous Elf",
+    "localizationKey": "mob_name_treacherous_elf",
+    "statsSettings": {
+      "level": 21,
+      "health": 1800,
+      "physicalResist": 235,
+      "fireResist": 160,
+      "coldResist": 160,
+      "lightningResist": 160
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 240,
+        "maxLightningDamage": 265
+      }
+    ]
+  },
+  {
+    "id": 103,
+    "debugName": "6-3 Evil Elf",
+    "localizationKey": "mob_name_evil_elf",
+    "statsSettings": {
+      "level": 21,
+      "health": 2100,
+      "physicalResist": 190,
+      "fireResist": 115,
+      "coldResist": 125,
+      "lightningResist": 125
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 325,
+        "maxPhysicalDamage": 350,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 104,
+    "debugName": "6-4 Armored Troll",
+    "localizationKey": "mob_name_armored_troll",
+    "statsSettings": {
+      "level": 21,
+      "health": 2500,
+      "physicalResist": 300,
+      "fireResist": 0,
+      "coldResist": 0,
+      "lightningResist": 0
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 330,
+        "maxPhysicalDamage": 360,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 105,
+    "debugName": "6-5 Robin Bad",
+    "localizationKey": "character_robinbad_name",
+    "statsSettings": {
+      "level": 22,
+      "health": 2300,
+      "physicalResist": 210,
+      "fireResist": 175,
+      "coldResist": 175,
+      "lightningResist": 175
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 350,
+        "maxPhysicalDamage": 380,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_arrow_in_the_knee_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 550,
+        "maxPhysicalDamage": 600,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 106,
+    "debugName": "6-6 Hyena",
+    "localizationKey": "mob_name_hyena",
+    "statsSettings": {
+      "level": 22,
+      "health": 2100,
+      "physicalResist": 215,
+      "fireResist": 165,
+      "coldResist": 115,
+      "lightningResist": 165
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 345,
+        "maxPhysicalDamage": 370,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 107,
+    "debugName": "6-7 Mad Elk",
+    "localizationKey": "mob_name_mad_elk",
+    "statsSettings": {
+      "level": 22,
+      "health": 2300,
+      "physicalResist": 270,
+      "fireResist": 125,
+      "coldResist": 175,
+      "lightningResist": 195
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 185,
+        "maxPhysicalDamage": 235,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 185,
+        "maxLightningDamage": 235
+      }
+    ]
+  },
+  {
+    "id": 108,
+    "debugName": "6-8 Wild Elf",
+    "localizationKey": "mob_name_wild_elf",
+    "statsSettings": {
+      "level": 22,
+      "health": 2200,
+      "physicalResist": 215,
+      "fireResist": 150,
+      "coldResist": 150,
+      "lightningResist": 150
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 360,
+        "maxPhysicalDamage": 385,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 350,
+        "maxFireDamage": 370,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 109,
+    "debugName": "6-9 Elven Sorcerer",
+    "localizationKey": "mob_name_elven_sorcerer",
+    "statsSettings": {
+      "level": 22,
+      "health": 2000,
+      "physicalResist": 150,
+      "fireResist": 230,
+      "coldResist": 230,
+      "lightningResist": 230
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 300,
+        "maxFireDamage": 340,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 300,
+        "maxColdDamage": 340,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 300,
+        "maxLightningDamage": 340
+      }
+    ]
+  },
+  {
+    "id": 110,
+    "debugName": "6-10 Ent",
+    "localizationKey": "character_ent_name",
+    "statsSettings": {
+      "level": 23,
+      "health": 2500,
+      "physicalResist": 300,
+      "fireResist": 120,
+      "coldResist": 300,
+      "lightningResist": 120
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 335,
+        "maxPhysicalDamage": 365,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 540,
+        "maxPhysicalDamage": 570,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 111,
+    "debugName": "6-11 Dark Elf",
+    "localizationKey": "mob_name_dark_elf",
+    "statsSettings": {
+      "level": 23,
+      "health": 2300,
+      "physicalResist": 220,
+      "fireResist": 130,
+      "coldResist": 200,
+      "lightningResist": 140
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 325,
+        "maxPhysicalDamage": 345,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 340,
+        "maxColdDamage": 360,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 112,
+    "debugName": "6-12 Young Ent",
+    "localizationKey": "mob_name_young_ent",
+    "statsSettings": {
+      "level": 23,
+      "health": 2400,
+      "physicalResist": 270,
+      "fireResist": 100,
+      "coldResist": 350,
+      "lightningResist": 100
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 300,
+        "maxPhysicalDamage": 330,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 500,
+        "maxPhysicalDamage": 540,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 113,
+    "debugName": "6-13 Light Elf",
+    "localizationKey": "mob_name_light_elf",
+    "statsSettings": {
+      "level": 24,
+      "health": 2500,
+      "physicalResist": 210,
+      "fireResist": 175,
+      "coldResist": 140,
+      "lightningResist": 365
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 300,
+        "maxLightningDamage": 325
+      }
+    ]
+  },
+  {
+    "id": 114,
+    "debugName": "6-14 Giant Spider",
+    "localizationKey": "mob_name_giant_spider",
+    "statsSettings": {
+      "level": 24,
+      "health": 3000,
+      "physicalResist": 180,
+      "fireResist": 85,
+      "coldResist": 170,
+      "lightningResist": 140
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 290,
+        "maxPhysicalDamage": 320,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 220,
+        "maxColdDamage": 260,
+        "minLightningDamage": 200,
+        "maxLightningDamage": 230
+      }
+    ]
+  },
+  {
+    "id": 115,
+    "debugName": "6-15 Anariel",
+    "localizationKey": "character_anariel_name",
+    "statsSettings": {
+      "level": 25,
+      "health": 2500,
+      "physicalResist": 380,
+      "fireResist": 270,
+      "coldResist": 430,
+      "lightningResist": 270
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 475,
+        "maxPhysicalDamage": 495,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 215,
+        "maxColdDamage": 230,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 500,
+        "maxColdDamage": 520,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 116,
+    "debugName": "6-16 Elder Ent",
+    "localizationKey": "mob_name_elder_ent",
+    "statsSettings": {
+      "level": 25,
+      "health": 2600,
+      "physicalResist": 360,
+      "fireResist": 180,
+      "coldResist": 320,
+      "lightningResist": 180
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 520,
+        "maxPhysicalDamage": 550,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 700,
+        "maxPhysicalDamage": 725,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 117,
+    "debugName": "6-17 Treacherous Elf",
+    "localizationKey": "mob_name_treacherous_elf",
+    "statsSettings": {
+      "level": 25,
+      "health": 2700,
+      "physicalResist": 320,
+      "fireResist": 450,
+      "coldResist": 215,
+      "lightningResist": 225
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 325,
+        "maxFireDamage": 350,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 118,
+    "debugName": "6-18 Elven Sorcerer",
+    "localizationKey": "mob_name_elven_sorcerer",
+    "statsSettings": {
+      "level": 25,
+      "health": 2500,
+      "physicalResist": 210,
+      "fireResist": 300,
+      "coldResist": 300,
+      "lightningResist": 300
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 380,
+        "maxFireDamage": 420,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 380,
+        "maxColdDamage": 420,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 380,
+        "maxLightningDamage": 420
+      }
+    ]
+  },
+  {
+    "id": 119,
+    "debugName": "6-19 Angry Bull",
+    "localizationKey": "mob_name_angry_bull",
+    "statsSettings": {
+      "level": 25,
+      "health": 2500,
+      "physicalResist": 320,
+      "fireResist": 400,
+      "coldResist": 240,
+      "lightningResist": 240
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 480,
+        "maxPhysicalDamage": 510,
+        "minFireDamage": 215,
+        "maxFireDamage": 260,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 120,
+    "debugName": "6-20 Tavrilia",
+    "localizationKey": "character_tavrilia_name",
+    "statsSettings": {
+      "level": 26,
+      "health": 2800,
+      "physicalResist": 340,
+      "fireResist": 300,
+      "coldResist": 300,
+      "lightningResist": 300
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 270,
+        "maxFireDamage": 290,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 430,
+        "maxFireDamage": 460,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 121,
+    "debugName": "6-21 Hyena",
+    "localizationKey": "mob_name_hyena",
+    "statsSettings": {
+      "level": 26,
+      "health": 2900,
+      "physicalResist": 300,
+      "fireResist": 275,
+      "coldResist": 220,
+      "lightningResist": 275
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 575,
+        "maxPhysicalDamage": 600,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 122,
+    "debugName": "6-22 Evil Elf",
+    "localizationKey": "mob_name_evil_elf",
+    "statsSettings": {
+      "level": 26,
+      "health": 2600,
+      "physicalResist": 340,
+      "fireResist": 205,
+      "coldResist": 230,
+      "lightningResist": 425
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 435,
+        "maxPhysicalDamage": 465,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 260,
+        "maxLightningDamage": 280
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 510,
+        "maxLightningDamage": 540
+      }
+    ]
+  },
+  {
+    "id": 123,
+    "debugName": "6-23 Giant Spider",
+    "localizationKey": "mob_name_giant_spider",
+    "statsSettings": {
+      "level": 26,
+      "health": 3500,
+      "physicalResist": 280,
+      "fireResist": 170,
+      "coldResist": 170,
+      "lightningResist": 280
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 430,
+        "maxPhysicalDamage": 470,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 430,
+        "maxPhysicalDamage": 470,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 430,
+        "maxLightningDamage": 470
+      }
+    ]
+  },
+  {
+    "id": 124,
+    "debugName": "6-24 Agressive Elf",
+    "localizationKey": "mob_name_agressive_elf",
+    "statsSettings": {
+      "level": 26,
+      "health": 2500,
+      "physicalResist": 250,
+      "fireResist": 380,
+      "coldResist": 380,
+      "lightningResist": 340
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 440,
+        "maxPhysicalDamage": 460,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 550,
+        "maxFireDamage": 600,
+        "minColdDamage": 550,
+        "maxColdDamage": 600,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 125,
+    "debugName": "6-25 Lovelas",
+    "localizationKey": "character_lovelas_name",
+    "statsSettings": {
+      "level": 27,
+      "health": 3000,
+      "physicalResist": 380,
+      "fireResist": 300,
+      "coldResist": 300,
+      "lightningResist": 300
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_arrow_in_the_knee_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 500,
+        "maxPhysicalDamage": 515,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 500,
+        "maxFireDamage": 515,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 500,
+        "maxColdDamage": 515,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 500,
+        "maxLightningDamage": 515
+      }
+    ]
+  },
+  {
+    "id": 126,
+    "debugName": "6-26 Elder Ent",
+    "localizationKey": "mob_name_elder_ent",
+    "statsSettings": {
+      "level": 27,
+      "health": 2800,
+      "physicalResist": 370,
+      "fireResist": 200,
+      "coldResist": 350,
+      "lightningResist": 200
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 540,
+        "maxPhysicalDamage": 560,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 730,
+        "maxPhysicalDamage": 760,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 127,
+    "debugName": "6-27 Dark Elf",
+    "localizationKey": "mob_name_dark_elf",
+    "statsSettings": {
+      "level": 27,
+      "health": 2900,
+      "physicalResist": 350,
+      "fireResist": 300,
+      "coldResist": 500,
+      "lightningResist": 300
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 280,
+        "maxColdDamage": 310,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 460,
+        "maxColdDamage": 490,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 128,
+    "debugName": "6-28 Light Elf",
+    "localizationKey": "mob_name_light_elf",
+    "statsSettings": {
+      "level": 27,
+      "health": 2900,
+      "physicalResist": 350,
+      "fireResist": 300,
+      "coldResist": 300,
+      "lightningResist": 500
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 280,
+        "maxLightningDamage": 310
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 460,
+        "maxLightningDamage": 490
+      }
+    ]
+  },
+  {
+    "id": 129,
+    "debugName": "6-29 Angry Bull",
+    "localizationKey": "mob_name_angry_bull",
+    "statsSettings": {
+      "level": 28,
+      "health": 3000,
+      "physicalResist": 325,
+      "fireResist": 500,
+      "coldResist": 270,
+      "lightningResist": 270
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 500,
+        "maxPhysicalDamage": 520,
+        "minFireDamage": 245,
+        "maxFireDamage": 270,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 130,
+    "debugName": "6-30 Comissioner",
+    "localizationKey": "character_commissioner_name",
+    "statsSettings": {
+      "level": 28,
+      "health": 2800,
+      "physicalResist": 300,
+      "fireResist": 400,
+      "coldResist": 400,
+      "lightningResist": 400
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 200,
+        "maxFireDamage": 220,
+        "minColdDamage": 200,
+        "maxColdDamage": 220,
+        "minLightningDamage": 200,
+        "maxLightningDamage": 220
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 280,
+        "maxFireDamage": 300,
+        "minColdDamage": 280,
+        "maxColdDamage": 300,
+        "minLightningDamage": 280,
+        "maxLightningDamage": 300
+      }
+    ]
+  },
+  {
+    "id": 131,
+    "debugName": "7-1 Greedy Goblin",
+    "localizationKey": "mob_name_greedy_goblin",
+    "statsSettings": {
+      "level": 28,
+      "health": 2700,
+      "physicalResist": 350,
+      "fireResist": 350,
+      "coldResist": 350,
+      "lightningResist": 350
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 310,
+        "maxFireDamage": 340,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 132,
+    "debugName": "7-2 Alligator",
+    "localizationKey": "mob_name_alligator",
+    "statsSettings": {
+      "level": 28,
+      "health": 3200,
+      "physicalResist": 400,
+      "fireResist": 300,
+      "coldResist": 300,
+      "lightningResist": 300
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 550,
+        "maxPhysicalDamage": 590,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 133,
+    "debugName": "7-3 Goblin - Shaman",
+    "localizationKey": "mob_name_goblin_shaman",
+    "statsSettings": {
+      "level": 29,
+      "health": 2900,
+      "physicalResist": 320,
+      "fireResist": 400,
+      "coldResist": 400,
+      "lightningResist": 400
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 420,
+        "maxFireDamage": 450,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 420,
+        "maxColdDamage": 450,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 420,
+        "maxLightningDamage": 450
+      }
+    ]
+  },
+  {
+    "id": 134,
+    "debugName": "7-4 Gilatooth",
+    "localizationKey": "mob_name_gilatooth",
+    "statsSettings": {
+      "level": 29,
+      "health": 3100,
+      "physicalResist": 390,
+      "fireResist": 390,
+      "coldResist": 260,
+      "lightningResist": 390
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 560,
+        "maxPhysicalDamage": 600,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 600,
+        "maxFireDamage": 650,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 600,
+        "maxLightningDamage": 650
+      }
+    ]
+  },
+  {
+    "id": 135,
+    "debugName": "7-5 Banker",
+    "localizationKey": "character_banker_name",
+    "statsSettings": {
+      "level": 29,
+      "health": 3500,
+      "physicalResist": 450,
+      "fireResist": 300,
+      "coldResist": 350,
+      "lightningResist": 350
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 640,
+        "maxPhysicalDamage": 680,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 640,
+        "maxColdDamage": 680,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 640,
+        "maxLightningDamage": 680
+      }
+    ]
+  },
+  {
+    "id": 136,
+    "debugName": "7-6 Evil Rat",
+    "localizationKey": "mob_name_evil_rat",
+    "statsSettings": {
+      "level": 29,
+      "health": 3200,
+      "physicalResist": 380,
+      "fireResist": 510,
+      "coldResist": 300,
+      "lightningResist": 300
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 660,
+        "maxPhysicalDamage": 700,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 850,
+        "maxPhysicalDamage": 900,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 137,
+    "debugName": "7-7 Petty Goblin",
+    "localizationKey": "mob_name_petty_goblin",
+    "statsSettings": {
+      "level": 30,
+      "health": 3400,
+      "physicalResist": 365,
+      "fireResist": 300,
+      "coldResist": 350,
+      "lightningResist": 300
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 440,
+        "maxColdDamage": 475,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 650,
+        "maxColdDamage": 690,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 138,
+    "debugName": "7-8 Fat Goblin",
+    "localizationKey": "mob_name_fat_goblin",
+    "statsSettings": {
+      "level": 30,
+      "health": 3500,
+      "physicalResist": 380,
+      "fireResist": 300,
+      "coldResist": 300,
+      "lightningResist": 350
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 430,
+        "maxLightningDamage": 460
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 660,
+        "maxLightningDamage": 680
+      }
+    ]
+  },
+  {
+    "id": 139,
+    "debugName": "7-9 Alligator",
+    "localizationKey": "mob_name_alligator",
+    "statsSettings": {
+      "level": 30,
+      "health": 3200,
+      "physicalResist": 500,
+      "fireResist": 300,
+      "coldResist": 300,
+      "lightningResist": 300
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 700,
+        "maxPhysicalDamage": 725,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 140,
+    "debugName": "7-10 Eagle",
+    "localizationKey": "character_eagle_name",
+    "statsSettings": {
+      "level": 31,
+      "health": 3800,
+      "physicalResist": 480,
+      "fireResist": 275,
+      "coldResist": 275,
+      "lightningResist": 275
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 765,
+        "maxPhysicalDamage": 795,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 660,
+        "maxFireDamage": 700,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 660,
+        "maxLightningDamage": 700
+      }
+    ]
+  },
+  {
+    "id": 141,
+    "debugName": "7-11 Greedy Goblin",
+    "localizationKey": "mob_name_greedy_goblin",
+    "statsSettings": {
+      "level": 31,
+      "health": 3700,
+      "physicalResist": 490,
+      "fireResist": 260,
+      "coldResist": 400,
+      "lightningResist": 260
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 485,
+        "maxColdDamage": 520,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 142,
+    "debugName": "7-12 Gilatooth",
+    "localizationKey": "mob_name_gilatooth",
+    "statsSettings": {
+      "level": 31,
+      "health": 4000,
+      "physicalResist": 500,
+      "fireResist": 250,
+      "coldResist": 250,
+      "lightningResist": 410
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 610,
+        "maxPhysicalDamage": 650,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 345,
+        "maxLightningDamage": 378
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 605,
+        "maxLightningDamage": 630
+      }
+    ]
+  },
+  {
+    "id": 143,
+    "debugName": "7-13 Goblin - Shaman",
+    "localizationKey": "mob_name_goblin_shaman",
+    "statsSettings": {
+      "level": 31,
+      "health": 3500,
+      "physicalResist": 350,
+      "fireResist": 550,
+      "coldResist": 550,
+      "lightningResist": 550
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 500,
+        "maxFireDamage": 525,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 500,
+        "maxColdDamage": 525,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 500,
+        "maxLightningDamage": 525
+      }
+    ]
+  },
+  {
+    "id": 144,
+    "debugName": "7-14 Black Eagle",
+    "localizationKey": "mob_name_black_eagle",
+    "statsSettings": {
+      "level": 32,
+      "health": 4200,
+      "physicalResist": 500,
+      "fireResist": 300,
+      "coldResist": 500,
+      "lightningResist": 300
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 710,
+        "maxPhysicalDamage": 740,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 450,
+        "maxLightningDamage": 480
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 780,
+        "maxColdDamage": 810,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 145,
+    "debugName": "7-15 Demon Of Wrath",
+    "localizationKey": "character_demonofwrath_name",
+    "statsSettings": {
+      "level": 32,
+      "health": 5000,
+      "physicalResist": 600,
+      "fireResist": 450,
+      "coldResist": 450,
+      "lightningResist": 450
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 800,
+        "maxPhysicalDamage": 875,
+        "minFireDamage": 475,
+        "maxFireDamage": 550,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 875,
+        "maxFireDamage": 925,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 146,
+    "debugName": "7-16 Evil Rat",
+    "localizationKey": "mob_name_evil_rat",
+    "statsSettings": {
+      "level": 32,
+      "health": 4600,
+      "physicalResist": 600,
+      "fireResist": 500,
+      "coldResist": 750,
+      "lightningResist": 750
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 630,
+        "maxColdDamage": 670,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 630,
+        "maxColdDamage": 670,
+        "minLightningDamage": 630,
+        "maxLightningDamage": 670
+      }
+    ]
+  },
+  {
+    "id": 147,
+    "debugName": "7-17 Fat Goblin",
+    "localizationKey": "mob_name_fat_goblin",
+    "statsSettings": {
+      "level": 32,
+      "health": 4400,
+      "physicalResist": 650,
+      "fireResist": 1000,
+      "coldResist": 650,
+      "lightningResist": 650
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 700,
+        "maxFireDamage": 750,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 1000,
+        "maxFireDamage": 1050,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 148,
+    "debugName": "7-18 Alligator",
+    "localizationKey": "mob_name_alligator",
+    "statsSettings": {
+      "level": 32,
+      "health": 5000,
+      "physicalResist": 800,
+      "fireResist": 550,
+      "coldResist": 550,
+      "lightningResist": 550
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 1000,
+        "maxPhysicalDamage": 1060,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 149,
+    "debugName": "7-19 Petty Goblin",
+    "localizationKey": "mob_name_petty_goblin",
+    "statsSettings": {
+      "level": 33,
+      "health": 4500,
+      "physicalResist": 650,
+      "fireResist": 650,
+      "coldResist": 650,
+      "lightningResist": 1000
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 710,
+        "maxLightningDamage": 760
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 1020,
+        "maxLightningDamage": 1070
+      }
+    ]
+  },
+  {
+    "id": 150,
+    "debugName": "7-20 Demon Of Greed",
+    "localizationKey": "character_demonofgreed_name",
+    "statsSettings": {
+      "level": 33,
+      "health": 5000,
+      "physicalResist": 600,
+      "fireResist": 450,
+      "coldResist": 900,
+      "lightningResist": 450
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 825,
+        "maxPhysicalDamage": 875,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 475,
+        "maxLightningDamage": 550
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 950,
+        "maxLightningDamage": 1000
+      }
+    ]
+  },
+  {
+    "id": 151,
+    "debugName": "7-21 Gilatooth",
+    "localizationKey": "mob_name_gilatooth",
+    "statsSettings": {
+      "level": 33,
+      "health": 4600,
+      "physicalResist": 550,
+      "fireResist": 900,
+      "coldResist": 500,
+      "lightningResist": 500
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 800,
+        "maxPhysicalDamage": 850,
+        "minFireDamage": 500,
+        "maxFireDamage": 550,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 960,
+        "maxFireDamage": 990,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 152,
+    "debugName": "7-22 Greedy Goblin",
+    "localizationKey": "mob_name_greedy_goblin",
+    "statsSettings": {
+      "level": 33,
+      "health": 4800,
+      "physicalResist": 600,
+      "fireResist": 750,
+      "coldResist": 750,
+      "lightningResist": 450
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 715,
+        "maxFireDamage": 735,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 885,
+        "maxColdDamage": 915,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 153,
+    "debugName": "7-23 Black Eagle",
+    "localizationKey": "mob_name_black_eagle",
+    "statsSettings": {
+      "level": 33,
+      "health": 4900,
+      "physicalResist": 850,
+      "fireResist": 450,
+      "coldResist": 450,
+      "lightningResist": 550
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 710,
+        "maxLightningDamage": 735
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 900,
+        "maxLightningDamage": 940
+      }
+    ]
+  },
+  {
+    "id": 154,
+    "debugName": "7-24 Caribou",
+    "localizationKey": "mob_name_caribou",
+    "statsSettings": {
+      "level": 34,
+      "health": 5200,
+      "physicalResist": 650,
+      "fireResist": 650,
+      "coldResist": 650,
+      "lightningResist": 650
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 760,
+        "maxPhysicalDamage": 800,
+        "minFireDamage": 420,
+        "maxFireDamage": 450,
+        "minColdDamage": 420,
+        "maxColdDamage": 450,
+        "minLightningDamage": 420,
+        "maxLightningDamage": 450
+      }
+    ]
+  },
+  {
+    "id": 155,
+    "debugName": "7-25 Demon Of Lie",
+    "localizationKey": "character_demonoflie_name",
+    "statsSettings": {
+      "level": 34,
+      "health": 5500,
+      "physicalResist": 600,
+      "fireResist": 900,
+      "coldResist": 600,
+      "lightningResist": 600
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 840,
+        "maxPhysicalDamage": 870,
+        "minFireDamage": 500,
+        "maxFireDamage": 550,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 1000,
+        "maxFireDamage": 1050,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 156,
+    "debugName": "7-26 Evil Rat",
+    "localizationKey": "mob_name_evil_rat",
+    "statsSettings": {
+      "level": 34,
+      "health": 5100,
+      "physicalResist": 600,
+      "fireResist": 800,
+      "coldResist": 600,
+      "lightningResist": 800
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 650,
+        "maxFireDamage": 690,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 650,
+        "maxFireDamage": 690,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 650,
+        "maxLightningDamage": 690
+      }
+    ]
+  },
+  {
+    "id": 157,
+    "debugName": "7-27 Goblin - Shaman",
+    "localizationKey": "mob_name_goblin_shaman",
+    "statsSettings": {
+      "level": 34,
+      "health": 4500,
+      "physicalResist": 600,
+      "fireResist": 750,
+      "coldResist": 750,
+      "lightningResist": 750
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 800,
+        "maxFireDamage": 850,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 800,
+        "maxColdDamage": 850,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 800,
+        "maxLightningDamage": 850
+      }
+    ]
+  },
+  {
+    "id": 158,
+    "debugName": "7-28 Fat Goblin",
+    "localizationKey": "mob_name_fat_goblin",
+    "statsSettings": {
+      "level": 35,
+      "health": 4800,
+      "physicalResist": 700,
+      "fireResist": 600,
+      "coldResist": 900,
+      "lightningResist": 600
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 730,
+        "maxColdDamage": 780,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 1050,
+        "maxColdDamage": 1100,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 159,
+    "debugName": "7-29 Petty Goblin",
+    "localizationKey": "mob_name_petty_goblin",
+    "statsSettings": {
+      "level": 35,
+      "health": 5100,
+      "physicalResist": 600,
+      "fireResist": 900,
+      "coldResist": 550,
+      "lightningResist": 900
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 750,
+        "maxLightningDamage": 800
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 1080,
+        "maxFireDamage": 1130,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      }
+    ]
+  },
+  {
+    "id": 160,
+    "debugName": "7-30 Demon Cracy",
+    "localizationKey": "character_demon_cracy_name",
+    "statsSettings": {
+      "level": 35,
+      "health": 6000,
+      "physicalResist": 650,
+      "fireResist": 450,
+      "coldResist": 450,
+      "lightningResist": 450
+    },
+    "mobAttacks": [
+      {
+        "localizationKey": "battle_action_mob_normal_attack",
+        "manaCost": 0,
+        "minPhysicalDamage": 1000,
+        "maxPhysicalDamage": 1100,
+        "minFireDamage": 0,
+        "maxFireDamage": 0,
+        "minColdDamage": 0,
+        "maxColdDamage": 0,
+        "minLightningDamage": 0,
+        "maxLightningDamage": 0
+      },
+      {
+        "localizationKey": "battle_action_mob_strong_attack",
+        "manaCost": 3,
+        "minPhysicalDamage": 0,
+        "maxPhysicalDamage": 0,
+        "minFireDamage": 700,
+        "maxFireDamage": 750,
+        "minColdDamage": 700,
+        "maxColdDamage": 750,
+        "minLightningDamage": 700,
+        "maxLightningDamage": 750
+      }
+    ]
+  }
+]

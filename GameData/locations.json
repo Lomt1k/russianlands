@@ -1,0 +1,58 @@
+﻿[
+  {
+    "foodExplorePrice": 3,
+    "itemGenerationSettings": {
+      "townHallLevel": 2
+    },
+    "id": 1,
+    "debugName": "DarkForest"
+  },
+  {
+    "foodExplorePrice": 0,
+    "itemGenerationSettings": {
+      "townHallLevel": 3
+    },
+    "id": 2,
+    "debugName": "AncientMountains"
+  },
+  {
+    "foodExplorePrice": 0,
+    "itemGenerationSettings": {
+      "townHallLevel": 4
+    },
+    "id": 3,
+    "debugName": "Wasteland"
+  },
+  {
+    "foodExplorePrice": 0,
+    "itemGenerationSettings": {
+      "townHallLevel": 5
+    },
+    "id": 4,
+    "debugName": "Outskirts"
+  },
+  {
+    "foodExplorePrice": 0,
+    "itemGenerationSettings": {
+      "townHallLevel": 6
+    },
+    "id": 5,
+    "debugName": "MiddleEarth"
+  },
+  {
+    "foodExplorePrice": 0,
+    "itemGenerationSettings": {
+      "townHallLevel": 7
+    },
+    "id": 6,
+    "debugName": "SunsetCountries"
+  },
+  {
+    "foodExplorePrice": 0,
+    "itemGenerationSettings": {
+      "townHallLevel": 8
+    },
+    "id": 7,
+    "debugName": "WildWest"
+  }
+]

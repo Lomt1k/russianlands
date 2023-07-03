@@ -1,0 +1,22 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="200"
+             x:Class="GameDataEditor.Views.Editor.ShopItems.ShopInventoryItemView">
+
+  <Border Background="SlateGray" Padding="5">
+    <Border Background="WhiteSmoke" Padding="5">
+      <StackPanel Background="WhiteSmoke" Margin="5">
+
+        <TextBlock Text="Inventory Item" Padding="0,5,0,15" Classes="h3"/>
+        <TextBlock Text="vendor code"/>
+        <TextBox Text="{Binding shopInventoryItem.vendorCode}"/>
+        <UserControl Content="{Binding rewardView}" Margin="0,20,0,0"/>
+        <UserControl Content="{Binding priceView}" Margin="0,20"/>
+
+      </StackPanel>
+    </Border>
+  </Border>
+
+</UserControl>

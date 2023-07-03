@@ -1,0 +1,111 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="GameDataEditor.App"
+             RequestedThemeVariant="Default">
+             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+
+  <Application.Styles>
+    <FluentTheme />
+
+    <!-- Borders -->
+    <Style Selector="Border.Default">
+      <Setter Property="Background" Value="#EDEEF0" />
+    </Style>
+    <Style Selector="Border.Content">
+      <Setter Property="Background" Value="WhiteSmoke" />
+    </Style>
+
+
+    <!-- Stack Panels -->
+    <Style Selector="StackPanel.Default">
+      <Setter Property="Background" Value="#EDEEF0" />
+    </Style>
+    <Style Selector="StackPanel.Content">
+      <Setter Property="Background" Value="WhiteSmoke" />
+    </Style>
+    <Style Selector="StackPanel.Header">
+      <Setter Property="Background" Value="DarkGray" />
+    </Style>
+
+
+    <!-- Text Blocks -->
+    <Style Selector="TextBlock.h1">
+      <Setter Property="Padding" Value="0,5" />
+      <Setter Property="FontWeight" Value="Bold"/>
+      <Setter Property="FontSize" Value="24"/>
+      <Setter Property="VerticalAlignment" Value="Center"/>
+      <Setter Property="Background" Value="SlateGray"/>
+    </Style>
+
+    <Style Selector="TextBlock.h2">
+      <Setter Property="Padding" Value="0,5" />
+      <Setter Property="FontWeight" Value="Bold"/>
+      <Setter Property="FontSize" Value="16"/>
+      <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <Style Selector="TextBlock.h3">
+      <Setter Property="Padding" Value="0,5" />
+      <Setter Property="FontWeight" Value="Bold"/>
+      <Setter Property="FontSize" Value="14"/>
+      <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+
+    <!-- Buttons -->
+    <Style Selector="Button.Primary">
+      <Setter Property="Background" Value="#FFCC00"/>
+      <Setter Property="Foreground" Value="WhiteSmoke"/>
+      <Setter Property="Padding" Value="15,5" />
+    </Style>
+    <Style Selector="Button.Secondary">
+      <Setter Property="Background" Value="#007FFF"/>
+      <Setter Property="Foreground" Value="WhiteSmoke"/>
+      <Setter Property="Padding" Value="15,5" />
+    </Style>
+    <Style Selector="Button.Neutral">
+      <Setter Property="Background" Value="Gray"/>
+      <Setter Property="Foreground" Value="WhiteSmoke"/>
+      <Setter Property="Padding" Value="15,5" />
+    </Style>
+    <Style Selector="Button.Negative">
+      <Setter Property="Background" Value="DarkRed"/>
+      <Setter Property="Foreground" Value="WhiteSmoke"/>
+      <Setter Property="Padding" Value="15,5" />
+    </Style>
+    <Style Selector="Button.Positive">
+      <Setter Property="Background" Value="DarkGreen"/>
+      <Setter Property="Foreground" Value="WhiteSmoke"/>
+      <Setter Property="Padding" Value="15,5" />
+    </Style>
+
+    <!-- Buttons BIG -->
+    <Style Selector="Button.PrimaryBig">
+      <Setter Property="Background" Value="#FFCC00"/>
+      <Setter Property="Foreground" Value="WhiteSmoke"/>
+      <Setter Property="Padding" Value="30,10" />
+    </Style>
+    <Style Selector="Button.SecondaryBig">
+      <Setter Property="Background" Value="#007FFF"/>
+      <Setter Property="Foreground" Value="WhiteSmoke"/>
+      <Setter Property="Padding" Value="30,10" />
+    </Style>
+    <Style Selector="Button.NeutralBig">
+      <Setter Property="Background" Value="Gray"/>
+      <Setter Property="Foreground" Value="WhiteSmoke"/>
+      <Setter Property="Padding" Value="30,10" />
+    </Style>
+    <Style Selector="Button.NegativeBig">
+      <Setter Property="Background" Value="DarkRed"/>
+      <Setter Property="Foreground" Value="WhiteSmoke"/>
+      <Setter Property="Padding" Value="30,10" />
+    </Style>
+    <Style Selector="Button.PositiveBig">
+      <Setter Property="Background" Value="DarkGreen"/>
+      <Setter Property="Foreground" Value="WhiteSmoke"/>
+      <Setter Property="Padding" Value="30,10" />
+    </Style>
+
+  </Application.Styles>
+  
+</Application>

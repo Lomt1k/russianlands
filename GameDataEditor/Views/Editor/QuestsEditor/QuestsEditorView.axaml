@@ -1,0 +1,70 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="GameDataEditor.Views.Editor.QuestsEditor.QuestsEditorView">
+
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="160"/>
+      <ColumnDefinition Width="300"/>
+      <ColumnDefinition Width="auto"/>
+    </Grid.ColumnDefinitions>
+
+    <Grid.RowDefinitions>
+      <RowDefinition Height="50"/>
+      <RowDefinition Height="auto"/>
+    </Grid.RowDefinitions>
+
+    <!-- Column 1: Quests -->
+    <TextBlock Text="Quests" Grid.Column="0" Grid.Row="0" Classes="h3"/>
+    <ListBox Grid.Column="0" Grid.Row="1" VerticalAlignment="Top"
+             MaxHeight="800"
+             ScrollViewer.VerticalScrollBarVisibility="Disabled"
+             ItemsSource="{Binding quests}"
+             SelectedItem="{Binding selectedQuest}">
+      <ListBox.ItemTemplate>
+
+        <DataTemplate>
+          <TextBlock Text="{Binding}"/>
+        </DataTemplate>
+
+      </ListBox.ItemTemplate>
+    </ListBox>
+
+    <!-- Column 2: Stages -->
+    <TextBlock Text="Stages" Grid.Column="1" Grid.Row="0" Classes="h3" Margin="40,0"/>   
+    <StackPanel Grid.Column="1" Grid.Row="1">
+      <ListBox Grid.Column="1" Grid.Row="1" VerticalAlignment="Top" Margin="40,0"
+             MaxHeight="800"
+             ScrollViewer.VerticalScrollBarVisibility="Disabled"
+             ItemsSource="{Binding questStages}"
+             SelectedItem="{Binding selectedStage}">
+        <ListBox.ItemTemplate>
+
+          <DataTemplate>
+            <TextBlock Text="{Binding}"/>
+          </DataTemplate>
+
+        </ListBox.ItemTemplate>
+      </ListBox>
+
+      <!-- Stage Add / Remove -->
+      <StackPanel Orientation="Horizontal" Spacing="20" Margin="40,10,0,0">
+        <Button Content="Add" Command="{Binding addStageCommand}" Classes="Neutral"
+              IsVisible="{Binding selectedQuest, Converter={x:Static ObjectConverters.IsNotNull}}"/>
+        <Button Content="Remove" Command="{Binding removeStageCommand}" Classes="Neutral"
+                IsVisible="{Binding selectedStage, Converter={x:Static ObjectConverters.IsNotNull}}"/>
+      </StackPanel>
+
+    </StackPanel>
+
+    <!-- Column 2: Location Inspector -->
+    <UserControl Grid.Column="2" Grid.Row="1" Margin="40,0" VerticalAlignment="Top"
+                 Content="{Binding stageInspector}"
+                 IsVisible="{Binding selectedStage, Converter={x:Static ObjectConverters.IsNotNull}}"/>
+
+  </Grid>
+  
+</UserControl>

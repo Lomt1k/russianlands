@@ -1,0 +1,69 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="600"
+             x:Class="GameDataEditor.Views.Editor.MobsEditor.MobInspectorView">
+
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="400"/>
+      <ColumnDefinition Width="auto"/>
+    </Grid.ColumnDefinitions>
+
+    <!-- Column 1: Main Settings-->
+    <StackPanel Grid.Column="0" Orientation="Vertical" Spacing="5">
+      <TextBlock Text="{Binding header}" Classes="h3"/>
+      <TextBlock Text="debugName"/>
+      <TextBox Text="{Binding mob.debugName}"/>
+      <TextBlock Text="localizationKey"/>
+      <TextBox Text="{Binding mob.localizationKey}" AcceptsReturn="True"/>
+
+      <TextBlock Classes="h3" Text="MobStats" Margin="0,20,0,0"/>
+      <UserControl Content="{Binding statsSettingsView}"/>
+      
+    </StackPanel>
+
+    <!-- Column 2: Attacks -->
+    <Border Grid.Column="1" Background="WhiteSmoke" Width="500" Margin="40,0">
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="800"/>
+          <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+        <!-- Attacks -->
+        <Border Grid.Row="0" Margin="15">
+          <ScrollViewer Padding="0,0,20,0"
+                        VerticalScrollBarVisibility="Visible"
+                        AllowAutoHide="False">
+            <StackPanel>
+              <TextBlock Classes="h3" Text="Attacks"/>
+              <ListBox
+                     ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                     ItemsSource="{Binding attackViews}"
+                     SelectedItem="{Binding selectedAttackView}">
+                <ListBox.ItemTemplate>
+                  <DataTemplate>
+                    <UserControl Content="{Binding}"/>
+                  </DataTemplate>
+                </ListBox.ItemTemplate>
+              </ListBox>
+            </StackPanel>
+          </ScrollViewer>
+        </Border>
+        
+        <StackPanel Orientation="Horizontal" Spacing="20" Margin="10"
+                    VerticalAlignment="Bottom" Grid.Row="1">
+          <Button Classes="Neutral" Content="Add"
+                  Command="{Binding addAttackCommand}"/>
+          <Button Classes="Neutral" Content="Remove"
+                  Command="{Binding removeAttackCommand}"/>
+        </StackPanel>
+
+      </Grid>
+    </Border>
+
+  </Grid>
+  
+</UserControl>
