@@ -14,8 +14,9 @@ public class BuildingData : IGameDataWithId<BuildingId>
 
     public List<BuildingLevelInfo> levels { get; set; } = new List<BuildingLevelInfo>();
 
-    public void OnSetupAppMode(AppMode appMode)
+    public void OnBotAppStarted()
     {
+        // ignored
     }
 }
 

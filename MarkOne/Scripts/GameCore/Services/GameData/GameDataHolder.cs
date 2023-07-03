@@ -103,8 +103,10 @@ public class GameDataHolder : Service
 
     public void SaveAllData()
     {
-        if (Program.appMode != AppMode.Editor)
-            throw new InvalidOperationException("Game data can only be changed in Editor mode");
+        if (Program.isBotAppStarted)
+        {
+            throw new InvalidOperationException("Game data can be changed only in Game Data Editor");
+        }
 
         buildings.Save();
         items.Save();

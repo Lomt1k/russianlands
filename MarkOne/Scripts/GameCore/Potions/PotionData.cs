@@ -25,7 +25,7 @@ public abstract class PotionData : IGameDataWithId<int>
         id = _id;
     }
 
-    public void OnSetupAppMode(AppMode appMode)
+    public void OnBotAppStarted()
     {
         // ignored
     }

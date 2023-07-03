@@ -117,12 +117,9 @@ public class ItemData : IGameDataWithId<int>
         properties.RemoveAt(index);
     }
 
-    public void OnSetupAppMode(AppMode appMode)
+    public void OnBotAppStarted()
     {
-        if (appMode == AppMode.PlayMode)
-        {
-            debugName = string.Empty;
-        }
+        debugName = string.Empty;
     }
 
     private byte CalculateTownhallByLevel()

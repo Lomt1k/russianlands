@@ -27,11 +27,6 @@ public class ArenaSettings : GameData
     {
         return townhallSettingsByLevel[townhallLevel];
     }
-
-    protected override void OnSetupAppMode(AppMode appMode)
-    {
-        // ignored
-    }
 }
 
 [JsonObject]

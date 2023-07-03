@@ -111,7 +111,7 @@ public class QuestData : IGameDataWithId<QuestId>
         return completedPoints;
     }
 
-    public void OnSetupAppMode(AppMode appMode)
+    public void OnBotAppStarted()
     {
         // ignored
     }

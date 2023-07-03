@@ -13,11 +13,8 @@ public class QuestMobData : IMobData, IGameDataWithId<int>
     public MobStatsSettings statsSettings { get; set; } = new();
     public List<MobAttack> mobAttacks { get; } = new();
 
-    public void OnSetupAppMode(AppMode appMode)
+    public void OnBotAppStarted()
     {
-        if (appMode == AppMode.PlayMode)
-        {
-            debugName = string.Empty;
-        }
+        debugName = string.Empty;
     }
 }

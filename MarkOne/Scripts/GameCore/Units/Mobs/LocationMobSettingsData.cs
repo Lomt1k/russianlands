@@ -25,7 +25,7 @@ public class LocationMobSettingsData : IGameDataWithId<LocationId>
         OnUpdateDictionary();
     }
 
-    public void OnSetupAppMode(AppMode appMode)
+    public void OnBotAppStarted()
     {
         // ignored
     }
@@ -41,14 +41,11 @@ public class LocationMobSettingsData : IGameDataWithId<LocationId>
 
     public byte AddNewTownHall()
     {
-        if (Program.appMode != AppMode.Editor)
+        if (Program.isBotAppStarted)
         {
             throw new InvalidOperationException("You can only change the date in editor mode");
         }
         var newTownHall = (byte)(maxTownHall + 1);
-
-
-
         dataByTownhall.Add(newTownHall, new LocationMobSettingsDataByTownHall());
         OnUpdateDictionary();
         return newTownHall;
@@ -56,7 +53,7 @@ public class LocationMobSettingsData : IGameDataWithId<LocationId>
 
     public void RemoveTownHall(byte townHall)
     {
-        if (Program.appMode != AppMode.Editor)
+        if (Program.isBotAppStarted)
         {
             throw new InvalidOperationException("You can only change the date in editor mode");
         }

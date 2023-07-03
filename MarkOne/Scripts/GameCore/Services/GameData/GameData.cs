@@ -12,14 +12,11 @@ public abstract class GameData
     private void Init(string _dataPath)
     {
         dataPath = _dataPath;
-        Program.onSetupAppMode += OnSetupAppMode;
     }
-
-    protected abstract void OnSetupAppMode(AppMode appMode);
 
     public void Save()
     {
-        if (Program.appMode != AppMode.Editor)
+        if (Program.isBotAppStarted)
             return;
 
         var jsonStr = JsonConvert.SerializeObject(this, Formatting.Indented);

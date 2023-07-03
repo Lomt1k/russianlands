@@ -7,18 +7,15 @@ using System.IO;
 
 namespace MarkOne;
 
-// TODO: избавиться от AppMode. Пережиток прошлого...
-public enum AppMode { None, Editor, PlayMode };
-
 public class Program
 {
     public const string cacheDirectory = "cache";
 
     public static bool isUnixPlatform => Environment.OSVersion.Platform == PlatformID.Unix;
-    public static AppMode appMode { get; private set; } = AppMode.None;
     public readonly static ILog logger = LogManager.GetLogger(typeof(Program));
 
-    public static Action<AppMode>? onSetupAppMode;
+    public static Action? onBotAppStarted;
+    public static bool isBotAppStarted;
 
     public static void Main(string[] args)
     {
@@ -31,7 +28,9 @@ public class Program
         ConfigureLogger();
         PerformanceMonitor.Start();
         LoadGameData();
-        StartInConsoleMode(args);
+        isBotAppStarted = true;
+        onBotAppStarted?.Invoke();
+        new ConsoleInputHandler().Start(args);
     }
 
     private static void PrepareCacheFolder()
@@ -53,13 +52,6 @@ public class Program
     {
         var gameDataHolder = ServiceLocator.Get<GameDataHolder>();
         gameDataHolder.LoadAllData();
-    }
-
-    private static void StartInConsoleMode(string[] args)
-    {
-        appMode = AppMode.PlayMode;
-        onSetupAppMode?.Invoke(appMode);
-        new ConsoleInputHandler().Start(args);
     }
 
     public static void SetTitle(string title)

@@ -24,7 +24,7 @@ public class GameDataDictionary<TId, TData> where TData : IGameDataWithId<TId>
         _dictionary = dictionary;
         dataPath = path;
 
-        Program.onSetupAppMode += OnSetupAppMode;
+        Program.onBotAppStarted += OnBotAppStarted;
     }
 
     public static GameDataDictionary<TId, TData> LoadFromJSON<TId, TData>(string path) where TData : IGameDataWithId<TId>
@@ -84,7 +84,7 @@ public class GameDataDictionary<TId, TData> where TData : IGameDataWithId<TId>
 
     public void Save()
     {
-        if (Program.appMode != AppMode.Editor)
+        if (Program.isBotAppStarted)
             return;
 
         var jsonStr = JsonConvert.SerializeObject(_dictionary.Values, Formatting.Indented);
@@ -94,14 +94,11 @@ public class GameDataDictionary<TId, TData> where TData : IGameDataWithId<TId>
         }
     }
 
-    private void OnSetupAppMode(AppMode appMode)
+    private void OnBotAppStarted()
     {
-        if (appMode != AppMode.PlayMode)
-            return;
-
         foreach (var item in _dictionary.Values)
         {
-            item.OnSetupAppMode(appMode);
+            item.OnBotAppStarted();
         }
     }
 

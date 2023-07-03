@@ -26,8 +26,9 @@ public class ArenaShopSettings : IGameDataWithId<byte>
         freeChipsResourceData = new ResourceData(ResourceId.ArenaChip, freeChipsCount);
     }
 
-    public void OnSetupAppMode(AppMode appMode)
+    public void OnBotAppStarted()
     {
         // ignored
     }
+
 }

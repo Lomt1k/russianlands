@@ -16,7 +16,7 @@ public class ArenaLeagueSettings : IGameDataWithId<LeagueId>
     public FakePlayerGenerationSettings defaultPlayerGenerationSettings { get; set; } = new();
     public FakePlayerGenerationSettings weakPlayerGenerationSettings { get; set; } = new();
 
-    public void OnSetupAppMode(AppMode appMode)
+    public void OnBotAppStarted()
     {
         // ignored
     }

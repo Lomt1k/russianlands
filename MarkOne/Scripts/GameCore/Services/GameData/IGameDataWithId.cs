@@ -3,5 +3,5 @@
 public interface IGameDataWithId<T>
 {
     T id { get; }
-    void OnSetupAppMode(AppMode appMode);
+    void OnBotAppStarted();
 }
