@@ -14,6 +14,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameDataEditor", "GameDataE
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameDataEditor.Desktop", "GameDataEditor.Desktop\GameDataEditor.Desktop.csproj", "{B1060644-DBAA-481C-898A-0A2EDE00EE33}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StatViewer", "StatViewer\StatViewer.csproj", "{87DE311D-A9CA-4285-B858-96371D26A51B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StatViewer.Desktop", "StatViewer.Desktop\StatViewer.Desktop.csproj", "{BE4A81BE-48A4-456F-874F-6EC5561BE970}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +36,14 @@ Global
 		{B1060644-DBAA-481C-898A-0A2EDE00EE33}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B1060644-DBAA-481C-898A-0A2EDE00EE33}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B1060644-DBAA-481C-898A-0A2EDE00EE33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87DE311D-A9CA-4285-B858-96371D26A51B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87DE311D-A9CA-4285-B858-96371D26A51B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87DE311D-A9CA-4285-B858-96371D26A51B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87DE311D-A9CA-4285-B858-96371D26A51B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE4A81BE-48A4-456F-874F-6EC5561BE970}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE4A81BE-48A4-456F-874F-6EC5561BE970}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE4A81BE-48A4-456F-874F-6EC5561BE970}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE4A81BE-48A4-456F-874F-6EC5561BE970}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
