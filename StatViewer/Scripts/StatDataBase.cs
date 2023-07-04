@@ -52,7 +52,10 @@ internal static class StatDataBase
 
         var loadDb = new SQLiteAsyncConnection(fileInfo.FullName);
         var allData = await loadDb.Table<ProfileDailyStatData>().ToArrayAsync();
-        await db.InsertOrReplaceAsync(allData);
+        foreach (var data in allData)
+        {
+            await db.InsertOrReplaceAsync(data);
+        }
         await db.InsertOrReplaceAsync(manifestData);
     }
 

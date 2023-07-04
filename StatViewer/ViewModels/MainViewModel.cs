@@ -23,10 +23,10 @@ public class MainViewModel : ViewModelBase
     public MainViewModel()
     {
         ShowLoadingView("Loading");
-        Task.Run(() => Load(Initialize));
+        Task.Run(() => StartLoading(InitializeDatabase));
     }
 
-    public async Task Load(Func<Task> loadingTask, string text = "Loading")
+    public async Task StartLoading(Func<Task> loadingTask, string text = "Loading")
     {
         ShowLoadingView(text);
         await loadingTask();
@@ -44,7 +44,7 @@ public class MainViewModel : ViewModelBase
         CurrentView = interfaceView;
     }
 
-    private async Task Initialize()
+    private async Task InitializeDatabase()
     {
         await StatDataBase.ConnectAsync();
         await StatDataBase.RefreshCache();
