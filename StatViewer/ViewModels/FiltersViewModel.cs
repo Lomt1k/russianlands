@@ -1,0 +1,53 @@
+﻿using ReactiveUI;
+using StatViewer.Scripts;
+using StatViewer.Scripts.Metrics;
+using System;
+using System.Collections.ObjectModel;
+using System.Reactive;
+
+namespace StatViewer.ViewModels;
+public class FiltersViewModel : ViewModelBase
+{
+    private MetricType _selectedMetricType = MetricType.DailyActiveUsers;
+    private FilterModel? _selectedFilter;
+
+    public MetricType selectedMetricType
+    {
+        get => _selectedMetricType;
+        set => this.RaiseAndSetIfChanged(ref _selectedMetricType, value);
+    }
+    public FilterModel? selectedFilter
+    {
+        get => _selectedFilter;
+        set => this.RaiseAndSetIfChanged(ref _selectedFilter, value);
+    }
+
+    public ObservableCollection<MetricType> metricTypes => new(Enum.GetValues<MetricType>());
+    public ObservableCollection<FilterModel> filters { get; } = new();
+    public ReactiveCommand<Unit, Unit> addFilterCommand { get; }
+    public ReactiveCommand<Unit, Unit> removeFilterCommand { get; }
+
+    public FiltersViewModel()
+    {
+        addFilterCommand = ReactiveCommand.Create(AddNewFilter);
+        removeFilterCommand = ReactiveCommand.Create(RemoveNewFilter);
+    }
+
+    private void AddNewFilter()
+    {
+        var filter = new FilterModel();
+        filters.Add(filter);
+        selectedFilter = filter;
+    }
+
+    private void RemoveNewFilter()
+    {
+        if (selectedFilter is null)
+        {
+            return;
+        }
+        filters.Remove(selectedFilter);
+        selectedFilter = null;
+    }
+
+}

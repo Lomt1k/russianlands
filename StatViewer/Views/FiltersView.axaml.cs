@@ -2,11 +2,11 @@ using Avalonia.Controls;
 using StatViewer.ViewModels;
 
 namespace StatViewer.Views;
-public partial class InterfaceView : UserControl
+public partial class FiltersView : UserControl
 {
-    public readonly InterfaceViewModel viewModel = new();
+    public FiltersViewModel viewModel { get; } = new();
 
-    public InterfaceView()
+    public FiltersView()
     {
         InitializeComponent();
         DataContext = viewModel;

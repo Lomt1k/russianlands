@@ -9,8 +9,8 @@ namespace StatViewer.ViewModels;
 
 public class MainViewModel : ViewModelBase
 {
-    private static readonly LoadingView loadingView = new LoadingView();
-    private static readonly InterfaceView interfaceView = new InterfaceView();
+    private static readonly LoadingView loadingView = new();
+    private static readonly InterfaceView interfaceView = new();
 
     private UserControl? _currentView;
 

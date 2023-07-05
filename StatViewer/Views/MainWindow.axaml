@@ -10,5 +10,5 @@
         Title="Stat Viewer"
         WindowStartupLocation="CenterScreen"
         WindowState="Maximized">
-        <views:MainView />
+        <views:MainView/>
 </Window>
