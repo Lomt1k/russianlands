@@ -50,6 +50,9 @@
                 Command="{Binding removeFilterCommand}"
                 IsEnabled="{Binding selectedFilter, Converter={x:Static ObjectConverters.IsNotNull}}"/>
       </StackPanel>
+
+      <Button Content="Show stats" Width="210" HorizontalContentAlignment="Center"
+                Command="{Binding showStatsCommand}"/>
       
     </StackPanel>
     

@@ -3,7 +3,9 @@ using StatViewer.Scripts;
 using StatViewer.Scripts.Metrics;
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Reactive;
+using System.Threading.Tasks;
 
 namespace StatViewer.ViewModels;
 public class FiltersViewModel : ViewModelBase
@@ -26,11 +28,13 @@ public class FiltersViewModel : ViewModelBase
     public ObservableCollection<FilterModel> filters { get; } = new();
     public ReactiveCommand<Unit, Unit> addFilterCommand { get; }
     public ReactiveCommand<Unit, Unit> removeFilterCommand { get; }
+    public ReactiveCommand<Unit, Task> showStatsCommand { get; }
 
     public FiltersViewModel()
     {
         addFilterCommand = ReactiveCommand.Create(AddNewFilter);
         removeFilterCommand = ReactiveCommand.Create(RemoveNewFilter);
+        showStatsCommand = ReactiveCommand.Create(ShowStats);
     }
 
     private void AddNewFilter()
@@ -48,6 +52,11 @@ public class FiltersViewModel : ViewModelBase
         }
         filters.Remove(selectedFilter);
         selectedFilter = null;
+    }
+
+    private async Task ShowStats()
+    {
+        await App.mainViewModel.StartLoading(() => StatDataBase.ShowStats(selectedMetricType, filters.ToArray()), $"Loading {selectedMetricType}");
     }
 
 }
