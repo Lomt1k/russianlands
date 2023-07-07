@@ -42,10 +42,6 @@ public class ProfileDailyDataManager : Service
     private async void ExportStatisticData(DateTime date, List<RawProfileDailyData> rawProfileDailyDatas)
     {
         var stringDate = date.ToString("yyyy.MM.dd");
-        if (rawProfileDailyDatas.Count == 0)
-        {
-            return;
-        }
         var statisticsDir = Path.Combine(BotController.dataPath, "Statistics");
         if (!Directory.Exists(statisticsDir))
         {

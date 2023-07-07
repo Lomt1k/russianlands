@@ -24,7 +24,8 @@
              SelectedItem="{Binding selectedFilter}"
              MaxHeight="800"
              Padding="0,10"
-             Background="Gray">
+             Background="Gray"
+             IsVisible="{Binding showFilters}">
         <ListBox.ItemTemplate>
           <DataTemplate>
             
@@ -43,7 +44,8 @@
         </ListBox.ItemTemplate>
       </ListBox>
 
-      <StackPanel Orientation="Horizontal" Spacing="20" Margin="0,20">
+      <StackPanel Orientation="Horizontal" Spacing="20" Margin="0,20"
+                  IsVisible="{Binding showFilters}">
         <Button Content="Add Filter"
                 Command="{Binding addFilterCommand}"/>
         <Button Content="Remove Filter"

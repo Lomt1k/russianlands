@@ -12,16 +12,26 @@ public class FiltersViewModel : ViewModelBase
 {
     private MetricType _selectedMetricType = MetricType.DailyActiveUsers;
     private FilterModel? _selectedFilter;
+    private bool _showFilters = false;
 
     public MetricType selectedMetricType
     {
         get => _selectedMetricType;
-        set => this.RaiseAndSetIfChanged(ref _selectedMetricType, value);
+        set
+        {
+            this.RaiseAndSetIfChanged(ref _selectedMetricType, value);
+            showFilters = value.IsSupportFilters();
+        }
     }
     public FilterModel? selectedFilter
     {
         get => _selectedFilter;
         set => this.RaiseAndSetIfChanged(ref _selectedFilter, value);
+    }
+    public bool showFilters
+    {
+        get => _showFilters;
+        set => this.RaiseAndSetIfChanged(ref _showFilters, value);
     }
 
     public ObservableCollection<MetricType> metricTypes => new(Enum.GetValues<MetricType>());

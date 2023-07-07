@@ -20,6 +20,7 @@ public class ProfileDailyStatData
     public int activityInSeconds { get; set; }
     public int daysAfterRegistration { get; set; }
     public ushort battlesCount { get; set; }
+    public uint revenueRUB { get; set; }
     public byte townhallLevel { get; set; }
     public byte playerLevel { get; set; }
     public QuestId currentQuest { get; set; }
@@ -42,6 +43,7 @@ public class ProfileDailyStatData
             activityInSeconds = data.activityInSeconds,
             daysAfterRegistration = (date - regDate).Days,
             battlesCount = data.battlesCount,
+            revenueRUB = data.revenueRUB,
             townhallLevel = data.townhallLevel,
             playerLevel = data.playerLevel,
             currentQuest = data.currentQuest,

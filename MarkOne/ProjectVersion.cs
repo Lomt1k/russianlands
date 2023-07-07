@@ -38,11 +38,16 @@ internal readonly struct ProjectVersion
 
     }
 
-    public override string ToString()
+    public string GetView()
     {
         return patch == 0
             ? $"{globalNumber}.{update}"
             : $"{globalNumber}.{update}.{patch}";
+    }
+
+    public override string ToString()
+    {
+        return $"{globalNumber}.{update}.{patch}";
     }
 
     public override bool Equals(object? obj)

@@ -21,6 +21,7 @@ public class RawProfileDailyData : RawDynamicData<ProfileDailyData>
     // for stats
     public int activityInSeconds { get; set; } = 1;
     public ushort battlesCount { get; set; }
+    public uint revenueRUB { get; set; }
     public byte townhallLevel { get; set; }
     public byte playerLevel { get; set; }
     public QuestId currentQuest { get; set; }
@@ -41,6 +42,7 @@ public class RawProfileDailyData : RawDynamicData<ProfileDailyData>
 
         activityInSeconds = data.activityInSeconds;
         battlesCount = data.battlesCount;
+        revenueRUB = data.revenueRUB;
         townhallLevel = data.townhallLevel;
         playerLevel = data.playerLevel;
         currentQuest = data.currentQuest;

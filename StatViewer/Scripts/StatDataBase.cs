@@ -1,7 +1,9 @@
-﻿using MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
+﻿using DynamicData;
+using MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
 using SQLite;
 using StatViewer.Scripts.Metrics;
 using StatViewer.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -71,9 +73,16 @@ internal static class StatDataBase
         var table = new List<List<string>>();
 
         var task = metricType switch
-        { 
+        {
             MetricType.DailyActiveUsers => PrepareDAU(headers, table),
             MetricType.MonthActiveUsers => PrepareMAU(headers, table),
+            MetricType.Revenue => PrepareRevenue(headers, table),
+            MetricType.AverageRevenuePerUser => PrepareARPU(headers, table),
+            MetricType.AverageRevenuePerPayingUser => PrepareARPPU(headers, table),
+
+            // with filters
+            MetricType.Retention => PrepareRetention(headers, table, filters),
+
             _ => Task.Delay(100)
         };
         await task;
@@ -125,6 +134,127 @@ internal static class StatDataBase
             string monthName = date.ToString("MMMM", CultureInfo.InvariantCulture);
             table.Add(new List<string>() { $"{date.Year}-{monthName}", hashset.Count.ToString() });
             date = date.AddDays(-1);
+        }
+    }
+
+    private static async Task PrepareRevenue(List<string> headers, List<List<string>> table)
+    {
+        headers.AddRange(new[] { "Date", "Revenue" });
+        var allData = await db.Table<ProfileDailyStatData>().ToArrayAsync();
+        var minDate = allData.Min(x => x.date);
+        var maxDate = allData.Max(x => x.date);
+        var daysCount = (maxDate - minDate).Days + 1;
+
+        var date = maxDate;
+        for (var i = 0; i < daysCount; i++)
+        {
+            var revenue = allData.Sum(x => x.revenueRUB);
+            table.Add(new List<string>() { date.ToLongDateString(), $"RUB {revenue}" });
+            date = date.AddDays(-1);
+        }
+    }
+
+    private static async Task PrepareARPU(List<string> headers, List<List<string>> table)
+    {
+        headers.AddRange(new[] { "Date", "ARPU" });
+        var allData = await db.Table<ProfileDailyStatData>().ToArrayAsync();
+        var minDate = allData.Min(x => x.date);
+        var maxDate = allData.Max(x => x.date);
+        var daysCount = (maxDate - minDate).Days + 1;
+
+        var date = maxDate;
+        for (var i = 0; i < daysCount; i++)
+        {
+            var revenue = allData.Sum(x => x.revenueRUB);
+            var dau = allData.Count(x => x.date == date);
+            var arpu = dau > 0 ? (double)revenue / dau : 0;
+            table.Add(new List<string>() { date.ToLongDateString(), $"RUB {arpu:F2}" });
+            date = date.AddDays(-1);
+        }
+    }
+
+    private static async Task PrepareARPPU(List<string> headers, List<List<string>> table)
+    {
+        headers.AddRange(new[] { "Date", "ARPPU" });
+        var allData = await db.Table<ProfileDailyStatData>().ToArrayAsync();
+        var minDate = allData.Min(x => x.date);
+        var maxDate = allData.Max(x => x.date);
+        var daysCount = (maxDate - minDate).Days + 1;
+
+        var date = maxDate;
+        for (var i = 0; i < daysCount; i++)
+        {
+            var revenue = allData.Sum(x => x.revenueRUB);
+            var payersCount = allData.Count(x => x.date == date && x.revenueRUB > 0);
+            var arppu = payersCount > 0 ? (double)revenue / payersCount : 0;
+            table.Add(new List<string>() { date.ToLongDateString(), $"RUB {arppu:F2}" });
+            date = date.AddDays(-1);
+        }
+    }
+
+    private static async Task PrepareRetention(List<string> headers, List<List<string>> table, FilterModel[] filters)
+    {
+        var filteredData = new Dictionary<string, ProfileDailyStatData[]>();
+        await GetFilteredData(filteredData, filters);
+
+        headers.Add("Day");
+        headers.AddRange(filteredData.Keys);
+
+        var zeroDayDAUs = new List<int>();
+        var maxDay = 0;
+        foreach (var data in filteredData.Values)
+        {
+            var dau = data.Count(x => x.daysAfterRegistration == 0);
+            zeroDayDAUs.Add(dau);
+
+            var filterMaxDay = 0;
+            try
+            {
+                data.Max(x => x.daysAfterRegistration);
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
+            maxDay = Math.Max(maxDay, filterMaxDay);
+        }
+
+        for (var day = 0; day <= maxDay; day++)
+        {
+            var rowData = GetRowData(filteredData.Values, day, zeroDayDAUs);
+            table.Add(rowData);
+        }
+
+
+        List<string> GetRowData(IEnumerable<ProfileDailyStatData[]> filteredDatas, int dayAfterRegistration, List<int> zeroDayDAUs)
+        {
+            var rowData = new List<string> { $"Day {dayAfterRegistration}" };
+            int i = 0;
+            foreach (var data in filteredDatas)
+            {
+                var dau = data.Count(x => x.daysAfterRegistration == dayAfterRegistration);
+                var zeroDayDAU = zeroDayDAUs[i];
+                var retention = zeroDayDAU > 0 ? (double)dau / zeroDayDAU * 100 : 0;
+                rowData.Add($"{retention:F1}%");
+                i++;
+            }
+            return rowData;
+        }
+    }
+
+    private static async Task GetFilteredData(Dictionary<string, ProfileDailyStatData[]> destination, FilterModel[] filters)
+    {
+        foreach (var filter in filters)
+        {
+            var regInfo = filter.regInfo.Trim();
+            var regVersion = filter.regVersion.Trim();
+
+            var name = filter.ToString();
+            var data = await db.Table<ProfileDailyStatData>()
+                .Where(x => x.regInfo.Contains(regInfo) && x.regVersion.StartsWith(regVersion))
+                .ToArrayAsync();
+
+            destination.TryAdd(name, data);
         }
     }
 

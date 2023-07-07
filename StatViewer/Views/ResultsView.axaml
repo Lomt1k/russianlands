@@ -8,7 +8,7 @@
 
   <StackPanel>
     <TextBlock Text="{Binding title}" FontSize="20"/>
-    <UserControl Content="{Binding stackTable}"/>
+    <UserControl Content="{Binding stackTable}" Margin="0,40"/>
   </StackPanel>
   
 </UserControl>
