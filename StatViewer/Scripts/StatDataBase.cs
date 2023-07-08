@@ -102,6 +102,8 @@ internal static class StatDataBase
             MetricType.Filters_AverageRevenuePerPayingUser => PrepareFilteredARPPU(headers, table, filters),
             MetricType.Filters_PayingConversion => PreparePayingConversion(headers, table, filters),
             MetricType.Filters_QuestProgress => PrepareQuestProgress(headers, table, filters),
+            MetricType.Filters_PlayerLevelConversion => PreparePlayerLevelConversion(headers, table, filters),
+            MetricType.Filters_TownhallConversion => PrepareTownhallConversion(headers, table, filters),
 
             _ => Task.Delay(100)
         };
@@ -580,6 +582,82 @@ internal static class StatDataBase
                 var zeroDayDAU = zeroDayDAUs[i];
                 var conversion = zeroDayDAU > 0 ? (double)users.Count / zeroDayDAU * 100 : 0;
                 rowData.Add($"{conversion:F1}%");
+                i++;
+            }
+            return rowData;
+        }
+    }
+
+    private static async Task PreparePlayerLevelConversion(List<string> headers, List<List<string>> table, FilterModel[] filters)
+    {
+        var filteredData = new Dictionary<string, ProfileDailyStatData[]>();
+        await GetFilteredData(filteredData, filters);
+
+        headers.Add("Day");
+        headers.AddRange(filteredData.Keys);
+
+        var zeroDayDAUs = new List<int>();
+        foreach (var data in filteredData.Values)
+        {
+            var dau = data.Count(x => x.daysAfterRegistration == 0);
+            zeroDayDAUs.Add(dau);
+        }
+
+        for (var level = 1; level <= 35; level++)
+        {
+            var rowData = GetRowData(filteredData.Values, level, zeroDayDAUs);
+            table.Add(rowData);
+        }
+
+
+        List<string> GetRowData(IEnumerable<ProfileDailyStatData[]> filteredDatas, int level, List<int> zeroDayDAUs)
+        {
+            var rowData = new List<string> { $"Level {level}" };
+            int i = 0;
+            foreach (var data in filteredDatas)
+            {
+                var usersCount = data.Where(x => x.playerLevel >= level).Select(x => x.dbid).ToHashSet().Count;
+                var zeroDayDAU = zeroDayDAUs[i];
+                var retention = zeroDayDAU > 0 ? (double)usersCount / zeroDayDAU * 100 : 0;
+                rowData.Add($"{retention:F1}%");
+                i++;
+            }
+            return rowData;
+        }
+    }
+
+    private static async Task PrepareTownhallConversion(List<string> headers, List<List<string>> table, FilterModel[] filters)
+    {
+        var filteredData = new Dictionary<string, ProfileDailyStatData[]>();
+        await GetFilteredData(filteredData, filters);
+
+        headers.Add("Day");
+        headers.AddRange(filteredData.Keys);
+
+        var zeroDayDAUs = new List<int>();
+        foreach (var data in filteredData.Values)
+        {
+            var dau = data.Count(x => x.daysAfterRegistration == 0);
+            zeroDayDAUs.Add(dau);
+        }
+
+        for (var townhall = 1; townhall <= 8; townhall++)
+        {
+            var rowData = GetRowData(filteredData.Values, townhall, zeroDayDAUs);
+            table.Add(rowData);
+        }
+
+
+        List<string> GetRowData(IEnumerable<ProfileDailyStatData[]> filteredDatas, int townhall, List<int> zeroDayDAUs)
+        {
+            var rowData = new List<string> { $"Townhall {townhall}" };
+            int i = 0;
+            foreach (var data in filteredDatas)
+            {
+                var usersCount = data.Where(x => x.townhallLevel >= townhall).Select(x => x.dbid).ToHashSet().Count;
+                var zeroDayDAU = zeroDayDAUs[i];
+                var retention = zeroDayDAU > 0 ? (double)usersCount / zeroDayDAU * 100 : 0;
+                rowData.Add($"{retention:F1}%");
                 i++;
             }
             return rowData;

@@ -19,6 +19,8 @@ public enum MetricType
     Filters_AverageRevenuePerPayingUser,
     Filters_PayingConversion,
     Filters_QuestProgress,
+    Filters_PlayerLevelConversion,
+    Filters_TownhallConversion,
 }
 
 public static class MetricTypeExtensions
