@@ -97,7 +97,21 @@ public class Player : IBattleUnit
     {
         unitStats.OnBattleEnd();
         healhRegenerationController.SetLastRegenTimeAsNow();
+
         profile.dailyData.battlesCount++;
+        if (!battle.isPVE)
+        {
+            profile.dailyData.arenaBattles++;
+            switch (battleResult)
+            {
+                case BattleResult.Win:
+                    profile.dailyData.arenaWins++;
+                    break;
+                case BattleResult.Draw:
+                    profile.dailyData.arenaDraws++;
+                    break;
+            }
+        }
     }
 
     public async Task OnStartEnemyTurn(BattleTurn battleTurn)

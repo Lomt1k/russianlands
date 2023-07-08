@@ -21,6 +21,13 @@ public enum MetricType
     Filters_QuestProgress,
     Filters_PlayerLevelConversion,
     Filters_TownhallConversion,
+    Filters_AverageBattles,
+    Filters_DeepAverageBattles,
+    Filters_AverageArenaBattles,
+    Filters_DeepAverageArenaBattles,
+    Filters_AverageArenaResults,
+    Filters_DeepAverageArenaResults,
+    Filters_ArenaLeagueConversion,
 }
 
 public static class MetricTypeExtensions

@@ -1,4 +1,5 @@
-﻿using MarkOne.Scripts.GameCore.Quests;
+﻿using MarkOne.Scripts.GameCore.Arena;
+using MarkOne.Scripts.GameCore.Quests;
 using SQLite;
 using System;
 
@@ -25,6 +26,11 @@ public class ProfileDailyStatData
     public byte playerLevel { get; set; }
     public QuestId currentQuest { get; set; }
     public int currentQuestStage { get; set; }
+    public ushort arenaBattles { get; set; }
+    public ushort arenaWins { get; set; }
+    public ushort arenaDraws { get; set; }
+    public ushort arenaLoses { get; set; }
+    public LeagueId arenaLeagueId { get; set; }
 
     public static ProfileDailyStatData Create(RawProfileDailyData data, DateTime date, string dateStr)
     {
@@ -48,6 +54,11 @@ public class ProfileDailyStatData
             playerLevel = data.playerLevel,
             currentQuest = data.currentQuest,
             currentQuestStage = data.currentQuestStage,
+            arenaBattles = data.arenaBattles,
+            arenaWins = data.arenaWins,
+            arenaDraws = data.arenaDraws,
+            arenaLoses = data.arenaLoses,
+            arenaLeagueId = data.arenaLeagueId,
         };
     }
 }
