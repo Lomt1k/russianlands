@@ -1,5 +1,5 @@
-﻿using DynamicData;
-using MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
+﻿using MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
+using Microsoft.CodeAnalysis;
 using SQLite;
 using StatViewer.Scripts.Metrics;
 using StatViewer.ViewModels;
@@ -76,12 +76,20 @@ internal static class StatDataBase
         {
             MetricType.DailyActiveUsers => PrepareDAU(headers, table),
             MetricType.MonthActiveUsers => PrepareMAU(headers, table),
-            MetricType.Revenue => PrepareRevenue(headers, table),
-            MetricType.AverageRevenuePerUser => PrepareARPU(headers, table),
-            MetricType.AverageRevenuePerPayingUser => PrepareARPPU(headers, table),
+            MetricType.Daily_Revenue => PrepareDailyRevenue(headers, table),
+            MetricType.Daily_AverageRevenuePerUser => PrepareDailyARPU(headers, table),
+            MetricType.Daily_AverageRevenuePerPayingUser => PrepareDailyARPPU(headers, table),
 
             // with filters
-            MetricType.Retention => PrepareRetention(headers, table, filters),
+            MetricType.Filters_DailyActiveUsers => PrepareFilteredDAU(headers, table, filters),
+            MetricType.Filters_Retention => PrepareRetention(headers, table, filters, isDeep: false),
+            MetricType.Filters_DeepRetention => PrepareRetention(headers, table, filters, isDeep: true),
+            MetricType.Filters_AverageTime => PrepareAverageTime(headers, table, filters, isDeep: false),
+            MetricType.Filters_DeepAverageTime => PrepareAverageTime(headers, table, filters, isDeep: true),
+            MetricType.Filters_Revenue => PrepareFilteredRevenue(headers, table, filters),
+            MetricType.Filters_AverageRevenuePerUser => PrepareFilteredARPU(headers, table, filters),
+            MetricType.Filters_AverageRevenuePerPayingUser => PrepareFilteredARPPU(headers, table, filters),
+            MetricType.Filters_PayingConversion => PreparePayingConversion(headers, table, filters),
 
             _ => Task.Delay(100)
         };
@@ -137,7 +145,7 @@ internal static class StatDataBase
         }
     }
 
-    private static async Task PrepareRevenue(List<string> headers, List<List<string>> table)
+    private static async Task PrepareDailyRevenue(List<string> headers, List<List<string>> table)
     {
         headers.AddRange(new[] { "Date", "Revenue" });
         var allData = await db.Table<ProfileDailyStatData>().ToArrayAsync();
@@ -154,7 +162,7 @@ internal static class StatDataBase
         }
     }
 
-    private static async Task PrepareARPU(List<string> headers, List<List<string>> table)
+    private static async Task PrepareDailyARPU(List<string> headers, List<List<string>> table)
     {
         headers.AddRange(new[] { "Date", "ARPU" });
         var allData = await db.Table<ProfileDailyStatData>().ToArrayAsync();
@@ -173,7 +181,7 @@ internal static class StatDataBase
         }
     }
 
-    private static async Task PrepareARPPU(List<string> headers, List<List<string>> table)
+    private static async Task PrepareDailyARPPU(List<string> headers, List<List<string>> table)
     {
         headers.AddRange(new[] { "Date", "ARPPU" });
         var allData = await db.Table<ProfileDailyStatData>().ToArrayAsync();
@@ -192,55 +200,7 @@ internal static class StatDataBase
         }
     }
 
-    private static async Task PrepareRetention(List<string> headers, List<List<string>> table, FilterModel[] filters)
-    {
-        var filteredData = new Dictionary<string, ProfileDailyStatData[]>();
-        await GetFilteredData(filteredData, filters);
-
-        headers.Add("Day");
-        headers.AddRange(filteredData.Keys);
-
-        var zeroDayDAUs = new List<int>();
-        var maxDay = 0;
-        foreach (var data in filteredData.Values)
-        {
-            var dau = data.Count(x => x.daysAfterRegistration == 0);
-            zeroDayDAUs.Add(dau);
-
-            var filterMaxDay = 0;
-            try
-            {
-                data.Max(x => x.daysAfterRegistration);
-            }
-            catch (Exception)
-            {
-                // ignored
-            }
-            maxDay = Math.Max(maxDay, filterMaxDay);
-        }
-
-        for (var day = 0; day <= maxDay; day++)
-        {
-            var rowData = GetRowData(filteredData.Values, day, zeroDayDAUs);
-            table.Add(rowData);
-        }
-
-
-        List<string> GetRowData(IEnumerable<ProfileDailyStatData[]> filteredDatas, int dayAfterRegistration, List<int> zeroDayDAUs)
-        {
-            var rowData = new List<string> { $"Day {dayAfterRegistration}" };
-            int i = 0;
-            foreach (var data in filteredDatas)
-            {
-                var dau = data.Count(x => x.daysAfterRegistration == dayAfterRegistration);
-                var zeroDayDAU = zeroDayDAUs[i];
-                var retention = zeroDayDAU > 0 ? (double)dau / zeroDayDAU * 100 : 0;
-                rowData.Add($"{retention:F1}%");
-                i++;
-            }
-            return rowData;
-        }
-    }
+    #region WITH FILTERS
 
     private static async Task GetFilteredData(Dictionary<string, ProfileDailyStatData[]> destination, FilterModel[] filters)
     {
@@ -257,5 +217,292 @@ internal static class StatDataBase
             destination.TryAdd(name, data);
         }
     }
+
+    private static async Task PrepareFilteredDAU(List<string> headers, List<List<string>> table, FilterModel[] filters)
+    {
+        var filteredData = new Dictionary<string, ProfileDailyStatData[]>();
+        await GetFilteredData(filteredData, filters);
+
+        headers.Add("Day");
+        headers.AddRange(filteredData.Keys);
+
+        var maxDay = 0;
+        foreach (var data in filteredData.Values)
+        {
+            var filterMaxDay = data.Length > 0 ? data.Max(x => x.daysAfterRegistration) : 0;
+            maxDay = Math.Max(maxDay, filterMaxDay);
+        }
+
+        for (var day = 0; day <= maxDay; day++)
+        {
+            var rowData = GetRowData(filteredData.Values, day);
+            table.Add(rowData);
+        }
+
+
+        List<string> GetRowData(IEnumerable<ProfileDailyStatData[]> filteredDatas, int dayAfterRegistration)
+        {
+            var rowData = new List<string> { $"Day {dayAfterRegistration}" };
+            foreach (var data in filteredDatas)
+            {
+                var dau = data.Count(x => x.daysAfterRegistration == dayAfterRegistration);
+                rowData.Add(dau.ToString());
+            }
+            return rowData;
+        }
+    }
+
+    private static async Task PrepareRetention(List<string> headers, List<List<string>> table, FilterModel[] filters, bool isDeep)
+    {
+        var filteredData = new Dictionary<string, ProfileDailyStatData[]>();
+        await GetFilteredData(filteredData, filters);
+
+        headers.Add("Day");
+        headers.AddRange(filteredData.Keys);
+
+        var zeroDayDAUs = new List<int>();
+        var maxDay = 0;
+        foreach (var data in filteredData.Values)
+        {
+            var dau = data.Count(x => x.daysAfterRegistration == 0);
+            zeroDayDAUs.Add(dau);
+
+            var filterMaxDay = data.Length > 0 ? data.Max(x => x.daysAfterRegistration) : 0;
+            maxDay = Math.Max(maxDay, filterMaxDay);
+        }
+
+        for (var day = 0; day <= maxDay; day++)
+        {
+            var rowData = GetRowData(filteredData.Values, day, zeroDayDAUs);
+            table.Add(rowData);
+        }
+
+
+        List<string> GetRowData(IEnumerable<ProfileDailyStatData[]> filteredDatas, int dayAfterRegistration, List<int> zeroDayDAUs)
+        {
+            var rowData = new List<string> { $"Day {dayAfterRegistration}" };
+            int i = 0;
+            foreach (var data in filteredDatas)
+            {
+                var dau = isDeep
+                    ? data.Count(x => x.daysAfterRegistration == dayAfterRegistration && x.battlesCount >= 3) 
+                    : data.Count(x => x.daysAfterRegistration == dayAfterRegistration);
+                var zeroDayDAU = zeroDayDAUs[i];
+                var retention = zeroDayDAU > 0 ? (double)dau / zeroDayDAU * 100 : 0;
+                rowData.Add($"{retention:F1}%");
+                i++;
+            }
+            return rowData;
+        }
+    }
+
+    private static async Task PrepareAverageTime(List<string> headers, List<List<string>> table, FilterModel[] filters, bool isDeep)
+    {
+        var filteredData = new Dictionary<string, ProfileDailyStatData[]>();
+        await GetFilteredData(filteredData, filters);
+
+        headers.Add("Day");
+        headers.AddRange(filteredData.Keys);
+
+        var maxDay = 0;
+        foreach (var data in filteredData.Values)
+        {
+            var filterMaxDay = data.Length > 0 ? data.Max(x => x.daysAfterRegistration) : 0;
+            maxDay = Math.Max(maxDay, filterMaxDay);
+        }
+
+        for (var day = 0; day <= maxDay; day++)
+        {
+            var rowData = GetRowData(filteredData.Values, day);
+            table.Add(rowData);
+        }
+
+
+        List<string> GetRowData(IEnumerable<ProfileDailyStatData[]> filteredDatas, int dayAfterRegistration)
+        {
+            var rowData = new List<string> { $"Day {dayAfterRegistration}" };
+            foreach (var data in filteredDatas)
+            {
+                var sortedData = isDeep
+                    ? data.Where(x => x.daysAfterRegistration == dayAfterRegistration && x.battlesCount >= 3).ToArray()
+                    : data.Where(x => x.daysAfterRegistration == dayAfterRegistration).ToArray();
+
+                var dau = sortedData.Length;
+                var fulltime = dau > 0 ? sortedData.Sum(x => x.activityInSeconds) : 0;
+                var averageTime = dau > 0 ? fulltime / dau : 0;
+                var timeSpan = TimeSpan.FromSeconds(averageTime);
+                rowData.Add(timeSpan.ToString());
+            }
+            return rowData;
+        }
+    }
+
+    private static async Task PrepareFilteredRevenue(List<string> headers, List<List<string>> table, FilterModel[] filters)
+    {
+        var filteredData = new Dictionary<string, ProfileDailyStatData[]>();
+        await GetFilteredData(filteredData, filters);
+
+        headers.Add("Day");
+        headers.AddRange(filteredData.Keys);
+
+        var maxDay = 0;
+        foreach (var data in filteredData.Values)
+        {
+            var filterMaxDay = data.Length > 0 ? data.Max(x => x.daysAfterRegistration) : 0;
+            maxDay = Math.Max(maxDay, filterMaxDay);
+        }
+
+        for (var day = 0; day <= maxDay; day++)
+        {
+            var rowData = GetRowData(filteredData.Values, day);
+            table.Add(rowData);
+        }
+
+
+        List<string> GetRowData(IEnumerable<ProfileDailyStatData[]> filteredDatas, int dayAfterRegistration)
+        {
+            var rowData = new List<string> { $"Day {dayAfterRegistration}" };
+            foreach (var data in filteredDatas)
+            {
+                var sortedData = data.Where(x => x.daysAfterRegistration == dayAfterRegistration).ToArray();
+                var revenue = sortedData.Sum(x => x.revenueRUB);
+                rowData.Add($"RUB {revenue}");
+            }
+            return rowData;
+        }
+    }
+
+    private static async Task PrepareFilteredARPU(List<string> headers, List<List<string>> table, FilterModel[] filters)
+    {
+        var filteredData = new Dictionary<string, ProfileDailyStatData[]>();
+        await GetFilteredData(filteredData, filters);
+
+        headers.Add("Day");
+        headers.AddRange(filteredData.Keys);
+
+        var maxDay = 0;
+        foreach (var data in filteredData.Values)
+        {
+            var filterMaxDay = data.Length > 0 ? data.Max(x => x.daysAfterRegistration) : 0;
+            maxDay = Math.Max(maxDay, filterMaxDay);
+        }
+
+        for (var day = 0; day <= maxDay; day++)
+        {
+            var rowData = GetRowData(filteredData.Values, day);
+            table.Add(rowData);
+        }
+
+
+        List<string> GetRowData(IEnumerable<ProfileDailyStatData[]> filteredDatas, int dayAfterRegistration)
+        {
+            var rowData = new List<string> { $"Day {dayAfterRegistration}" };
+            foreach (var data in filteredDatas)
+            {
+                var sortedData = data.Where(x => x.daysAfterRegistration == dayAfterRegistration).ToArray();
+                var dau = sortedData.Length;
+                var revenue = sortedData.Sum(x => x.revenueRUB);
+                var arpu = dau > 0 ? (double)revenue / dau : 0;
+                rowData.Add($"RUB {revenue:F2}");
+            }
+            return rowData;
+        }
+    }
+
+    private static async Task PrepareFilteredARPPU(List<string> headers, List<List<string>> table, FilterModel[] filters)
+    {
+        var filteredData = new Dictionary<string, ProfileDailyStatData[]>();
+        await GetFilteredData(filteredData, filters);
+
+        headers.Add("Day");
+        headers.AddRange(filteredData.Keys);
+
+        var maxDay = 0;
+        foreach (var data in filteredData.Values)
+        {
+            var filterMaxDay = data.Length > 0 ? data.Max(x => x.daysAfterRegistration) : 0;
+            maxDay = Math.Max(maxDay, filterMaxDay);
+        }
+
+        for (var day = 0; day <= maxDay; day++)
+        {
+            var rowData = GetRowData(filteredData.Values, day);
+            table.Add(rowData);
+        }
+
+
+        List<string> GetRowData(IEnumerable<ProfileDailyStatData[]> filteredDatas, int dayAfterRegistration)
+        {
+            var rowData = new List<string> { $"Day {dayAfterRegistration}" };
+            foreach (var data in filteredDatas)
+            {
+                var sortedData = data.Where(x => x.daysAfterRegistration == dayAfterRegistration).ToArray();
+                var donatersCount = sortedData.Count(x => x.revenueRUB > 0);
+                var revenue = sortedData.Sum(x => x.revenueRUB);
+                var arpu = donatersCount > 0 ? (double)revenue / donatersCount : 0;
+                rowData.Add($"RUB {revenue:F2}");
+            }
+            return rowData;
+        }
+    }
+
+    private static async Task PreparePayingConversion(List<string> headers, List<List<string>> table, FilterModel[] filters)
+    {
+        var filteredData = new Dictionary<string, ProfileDailyStatData[]>();
+        await GetFilteredData(filteredData, filters);
+
+        headers.Add("Day");
+        headers.AddRange(filteredData.Keys);
+
+        var zeroDayDAUs = new List<int>();
+        var maxDay = 0;
+        foreach (var data in filteredData.Values)
+        {
+            var dau = data.Count(x => x.daysAfterRegistration == 0);
+            zeroDayDAUs.Add(dau);
+
+            var filterMaxDay = data.Length > 0 ? data.Max(x => x.daysAfterRegistration) : 0;
+            maxDay = Math.Max(maxDay, filterMaxDay);
+        }
+
+        var donatersCache = new List<HashSet<long>>();
+        for (int i = 0; i < zeroDayDAUs.Count; i++)
+        {
+            donatersCache.Add(new HashSet<long>());
+        }
+        
+        for (var day = 0; day <= maxDay; day++)
+        {
+            var rowData = GetRowData(filteredData.Values, day, zeroDayDAUs, donatersCache);
+            table.Add(rowData);
+        }
+        
+        List<string> GetRowData(IEnumerable<ProfileDailyStatData[]> filteredDatas, int dayAfterRegistration, List<int> zeroDayDAUs, List<HashSet<long>> donatersCache)
+        {
+            var rowData = new List<string> { $"Day {dayAfterRegistration}" };
+            int i = 0;
+            foreach (var data in filteredDatas)
+            {
+                var zeroDayDAU = zeroDayDAUs[i];
+                var donaters = data.Where(x => x.daysAfterRegistration == dayAfterRegistration && x.revenueRUB > 0).Select(x => x.dbid);
+                foreach (var donater in donaters)
+                {
+                    donatersCache[i].Add(donater);
+                }
+
+                
+                var conversion = zeroDayDAU > 0 ? (double)donatersCache[i].Count / zeroDayDAU * 100 : 0;
+                rowData.Add($"{conversion:F2}%");
+                i++;
+            }
+            return rowData;
+        }
+    }
+
+
+
+    #endregion
+
+
 
 }

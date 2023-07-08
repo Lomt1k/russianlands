@@ -4,12 +4,20 @@ public enum MetricType
 {
     DailyActiveUsers,
     MonthActiveUsers,
-    Revenue,
-    AverageRevenuePerUser,
-    AverageRevenuePerPayingUser,
+    Daily_Revenue,
+    Daily_AverageRevenuePerUser,
+    Daily_AverageRevenuePerPayingUser,
 
     // with filters
-    Retention,
+    Filters_DailyActiveUsers,
+    Filters_Retention,
+    Filters_DeepRetention,
+    Filters_AverageTime,
+    Filters_DeepAverageTime,    
+    Filters_Revenue,
+    Filters_AverageRevenuePerUser,
+    Filters_AverageRevenuePerPayingUser,
+    Filters_PayingConversion,
 }
 
 public static class MetricTypeExtensions
@@ -20,9 +28,9 @@ public static class MetricTypeExtensions
         {
             MetricType.DailyActiveUsers => false,
             MetricType.MonthActiveUsers => false,
-            MetricType.Revenue => false,
-            MetricType.AverageRevenuePerUser => false,
-            MetricType.AverageRevenuePerPayingUser => false,
+            MetricType.Daily_Revenue => false,
+            MetricType.Daily_AverageRevenuePerUser => false,
+            MetricType.Daily_AverageRevenuePerPayingUser => false,
             _ => true
         };
     }

@@ -89,7 +89,7 @@ public class ProfileData : DataWithSession
         telegram_id = user.Id;
         regDate = DateTime.UtcNow;
         regVersion = ProjectVersion.Current.ToString();
-        regInfo = messageText.Contains("/start ") ? messageText.Replace("/start ", string.Empty) : string.Empty;
+        regInfo = messageText.Contains("/start ") ? messageText.Replace("/start ", string.Empty) : "organic";
         lastVersion = regVersion;
         nickname = user.FirstName.IsCorrectNickname() ? user.FirstName : "Player_" + (new Random().Next(8999) + 1000);
         username = user.Username;
