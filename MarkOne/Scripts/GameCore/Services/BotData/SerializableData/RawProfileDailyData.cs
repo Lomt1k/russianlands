@@ -3,6 +3,7 @@ using SQLite;
 using MarkOne.Scripts.GameCore.Services.Mobs;
 using System;
 using MarkOne.Scripts.GameCore.Quests;
+using MarkOne.Scripts.GameCore.Arena;
 
 namespace MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
 
@@ -21,10 +22,16 @@ public class RawProfileDailyData : RawDynamicData<ProfileDailyData>
     // for stats
     public int activityInSeconds { get; set; } = 1;
     public ushort battlesCount { get; set; }
+    public uint revenueRUB { get; set; }
     public byte townhallLevel { get; set; }
     public byte playerLevel { get; set; }
     public QuestId currentQuest { get; set; }
     public int currentQuestStage { get; set; }
+    public ushort arenaBattles { get; set; }
+    public ushort arenaWins { get; set; }
+    public ushort arenaDraws { get; set; }
+    public ushort arenaLoses { get; set; }
+    public LeagueId arenaLeagueId { get; set; }
 
     // map mobs progress
     public MobDifficulty? locationMobsDifficulty { get; set; }
@@ -41,10 +48,16 @@ public class RawProfileDailyData : RawDynamicData<ProfileDailyData>
 
         activityInSeconds = data.activityInSeconds;
         battlesCount = data.battlesCount;
+        revenueRUB = data.revenueRUB;
         townhallLevel = data.townhallLevel;
         playerLevel = data.playerLevel;
         currentQuest = data.currentQuest;
         currentQuestStage = data.currentQuestStage;
+        arenaBattles = data.arenaBattles;
+        arenaWins = data.arenaWins;
+        arenaDraws = data.arenaDraws;
+        arenaLoses = data.arenaLoses;
+        arenaLeagueId = data.arenaLeagueId;
 
         locationMobsDifficulty = data.locationMobsDifficulty;
         defeatedLocationMobs = JsonConvert.SerializeObject(data.defeatedLocationMobs);

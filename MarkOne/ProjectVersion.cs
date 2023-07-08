@@ -9,7 +9,7 @@
 
 internal readonly struct ProjectVersion
 {
-    public static readonly ProjectVersion Current = new ProjectVersion("0.1");
+    public static readonly ProjectVersion Current = new ProjectVersion("0.9.0");
 
     public byte globalNumber { get; }
     public byte update { get; }
@@ -38,11 +38,16 @@ internal readonly struct ProjectVersion
 
     }
 
-    public override string ToString()
+    public string GetView()
     {
         return patch == 0
             ? $"{globalNumber}.{update}"
             : $"{globalNumber}.{update}.{patch}";
+    }
+
+    public override string ToString()
+    {
+        return $"{globalNumber}.{update}.{patch}";
     }
 
     public override bool Equals(object? obj)

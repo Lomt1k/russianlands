@@ -42,7 +42,7 @@ public class ProfileDailyDataManager : Service
     private async void ExportStatisticData(DateTime date, List<RawProfileDailyData> rawProfileDailyDatas)
     {
         var stringDate = date.ToString("yyyy.MM.dd");
-        if (rawProfileDailyDatas.Count == 0)
+        if (date == DateTime.MinValue)
         {
             return;
         }
@@ -52,13 +52,13 @@ public class ProfileDailyDataManager : Service
             Directory.CreateDirectory(statisticsDir);
         }
         var statDBPath = Path.Combine(statisticsDir, $"stats_{stringDate}.sqlite");
-        var statsDB = new SQLiteAsyncConnection(statDBPath, storeDateTimeAsTicks: false);
+        var statsDB = new SQLiteAsyncConnection(statDBPath);
         await statsDB.CreateTableAsync<ProfileDailyStatData>().FastAwait();
 
         var statDatas = new List<ProfileDailyStatData>();
         foreach (var rawProfileDailyData in rawProfileDailyDatas)
         {
-            var statData = ProfileDailyStatData.Create(rawProfileDailyData, date, stringDate);
+            var statData = ProfileDailyStatData.Create(rawProfileDailyData, date.Date, stringDate);
             statDatas.Add(statData);
         }
         await statsDB.InsertAllAsync(statDatas).FastAwait();

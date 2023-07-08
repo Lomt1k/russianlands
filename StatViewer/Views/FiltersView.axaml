@@ -1,0 +1,63 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:StatViewer.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="600"
+             x:Class="StatViewer.Views.FiltersView"
+             x:DataType="vm:FiltersViewModel">
+
+  <Grid Background="Gray">
+    <Grid.RowDefinitions>
+      <RowDefinition/>
+      <RowDefinition/>
+    </Grid.RowDefinitions>
+    
+    <StackPanel Grid.Row="0" Margin="20">
+          
+      <TextBlock Text="Metrics:" FontSize="16" FontWeight="Bold"/>
+      <ComboBox ItemsSource="{Binding metricTypes}"
+                SelectedItem="{Binding selectedMetricType}"/>
+      <Line Height="20"/>
+
+      <ListBox ItemsSource="{Binding filters}"
+             SelectedItem="{Binding selectedFilter}"
+             MaxHeight="800"
+             Padding="0,10"
+             Background="Gray"
+             IsVisible="{Binding showFilters}">
+        <ListBox.ItemTemplate>
+          <DataTemplate>
+            
+            <Border Background="AntiqueWhite">
+              <Border Margin="5" Background="Gray">
+                <StackPanel Margin="10">
+                  <TextBlock Text="regVersion:"/>
+                  <TextBox Text="{Binding regVersion}"/>
+                  <TextBlock Text="regInfo:"/>
+                  <TextBox Text="{Binding regInfo}"/>
+                </StackPanel>
+              </Border>
+            </Border>            
+            
+          </DataTemplate>
+        </ListBox.ItemTemplate>
+      </ListBox>
+
+      <StackPanel Orientation="Horizontal" Spacing="20" Margin="0,20"
+                  IsVisible="{Binding showFilters}">
+        <Button Content="Add Filter"
+                Command="{Binding addFilterCommand}"/>
+        <Button Content="Remove Filter"
+                Command="{Binding removeFilterCommand}"
+                IsEnabled="{Binding selectedFilter, Converter={x:Static ObjectConverters.IsNotNull}}"/>
+      </StackPanel>
+
+      <Button Content="Show stats" Width="210" HorizontalContentAlignment="Center"
+                Command="{Binding showStatsCommand}"/>
+      
+    </StackPanel>
+    
+  </Grid>
+  
+</UserControl>

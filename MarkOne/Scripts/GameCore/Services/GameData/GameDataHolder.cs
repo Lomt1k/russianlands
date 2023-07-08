@@ -66,6 +66,11 @@ public class GameDataHolder : Service
     private string? FindGameDataPath()
     {
         var gameDataPostfix = "GameData";
+        var fromAssets = Path.Combine("Assets", gameDataPostfix);
+        if (Directory.Exists(fromAssets))
+        {
+            return fromAssets;
+        }
         if (Directory.Exists(gameDataPostfix))
         {
             return gameDataPostfix;

@@ -5,6 +5,7 @@ using MarkOne.Scripts.GameCore.Locations;
 using MarkOne.Scripts.GameCore.Services.Mobs;
 using System;
 using MarkOne.Scripts.GameCore.Quests;
+using MarkOne.Scripts.GameCore.Arena;
 
 namespace MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
 
@@ -22,10 +23,16 @@ public class ProfileDailyData : DataWithSession
     // for stats
     public int activityInSeconds { get; set; } = 1;
     public ushort battlesCount { get; set; }
+    public uint revenueRUB { get; set; }
     public byte townhallLevel => session?.profile.buildingsData.townHallLevel ?? 1;
     public byte playerLevel => session?.profile.data.level ?? 1;
     public QuestId currentQuest => session?.profile.dynamicData.quests.GetFocusedQuest() ?? QuestId.None;
     public int currentQuestStage => session?.profile.dynamicData.quests.GetStage(session.profile.dynamicData.quests.GetFocusedQuest() ?? QuestId.None) ?? 0;
+    public ushort arenaBattles { get; set; }
+    public ushort arenaWins { get; set; }
+    public ushort arenaDraws { get; set; }
+    public ushort arenaLoses => (ushort)(arenaBattles - arenaWins - arenaDraws);
+    public LeagueId arenaLeagueId => session is not null ? ArenaHelper.GetActualLeagueForPlayer(session.player) : LeagueId.HALL_3;
 
     // game data
     public MobDifficulty? locationMobsDifficulty { get; set; }
@@ -56,7 +63,7 @@ public class ProfileDailyData : DataWithSession
         {
             dbid = data.dbid,
             telegram_id = data.telegram_id,
-            regDate = data.regDate,
+            regDate = data.regDate.Date,
             regVersion = data.regVersion,
             regInfo = data.regInfo,
             lastVersion = data.lastVersion,
@@ -76,6 +83,10 @@ public class ProfileDailyData : DataWithSession
 
             activityInSeconds = rawData.activityInSeconds,
             battlesCount = rawData.battlesCount,
+            revenueRUB = rawData.revenueRUB,
+            arenaBattles = rawData.arenaBattles,
+            arenaWins = rawData.arenaWins,
+            arenaDraws = rawData.arenaDraws,
 
             locationMobsDifficulty = rawData.locationMobsDifficulty,
             defeatedLocationMobs = JsonConvert.DeserializeObject<Dictionary<LocationId, List<byte>>>(rawData.defeatedLocationMobs),
