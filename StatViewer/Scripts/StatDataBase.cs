@@ -1,4 +1,8 @@
-﻿using MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
+﻿using MarkOne.Scripts.GameCore.Quests;
+using MarkOne.Scripts.GameCore.Quests.QuestStages;
+using MarkOne.Scripts.GameCore.Services;
+using MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
+using MarkOne.Scripts.GameCore.Services.GameData;
 using Microsoft.CodeAnalysis;
 using SQLite;
 using StatViewer.Scripts.Metrics;
@@ -17,7 +21,14 @@ internal static class StatDataBase
     public static readonly string cacheFolder = Path.Combine(statisticsFolder, "cache");
     public static readonly string dataBasePath = Path.Combine(cacheFolder, "cache.sqlite");
 
+    private static readonly GameDataHolder gameDataHolder = ServiceLocator.Get<GameDataHolder>();
+
     public static SQLiteAsyncConnection db { get; private set; }
+
+    static StatDataBase()
+    {
+        gameDataHolder.LoadAllData();
+    }
 
     public static async Task ConnectAsync()
     {
@@ -90,6 +101,7 @@ internal static class StatDataBase
             MetricType.Filters_AverageRevenuePerUser => PrepareFilteredARPU(headers, table, filters),
             MetricType.Filters_AverageRevenuePerPayingUser => PrepareFilteredARPPU(headers, table, filters),
             MetricType.Filters_PayingConversion => PreparePayingConversion(headers, table, filters),
+            MetricType.Filters_QuestProgress => PrepareQuestProgress(headers, table, filters),
 
             _ => Task.Delay(100)
         };
@@ -489,10 +501,85 @@ internal static class StatDataBase
                 {
                     donatersCache[i].Add(donater);
                 }
-
                 
                 var conversion = zeroDayDAU > 0 ? (double)donatersCache[i].Count / zeroDayDAU * 100 : 0;
                 rowData.Add($"{conversion:F2}%");
+                i++;
+            }
+            return rowData;
+        }
+    }
+
+    private static async Task PrepareQuestProgress(List<string> headers, List<List<string>> table, FilterModel[] filters)
+    {
+        var filteredData = new Dictionary<string, ProfileDailyStatData[]>();
+        await GetFilteredData(filteredData, filters);
+
+        headers.Add("Day");
+        headers.AddRange(filteredData.Keys);
+
+        var zeroDayDAUs = new List<int>();
+        var maxDay = 0;
+        foreach (var data in filteredData.Values)
+        {
+            var dau = data.Count(x => x.daysAfterRegistration == 0);
+            zeroDayDAUs.Add(dau);
+        }
+
+        var questId = QuestId.MainQuest;
+        var stage = gameDataHolder.quests[questId].stages.First();
+        while (true)
+        {
+            var nextStageInfo = TryGetNextStage(questId, stage);
+            if (nextStageInfo is null)
+            {
+                return;
+            }
+            questId = nextStageInfo.Value.questId;
+            stage = nextStageInfo.Value.stage;
+
+            var rowData = GetRowData(filteredData.Values, questId, stage, zeroDayDAUs);
+            table.Add(rowData);
+        }
+
+
+        (QuestId questId, QuestStage stage)? TryGetNextStage(QuestId lastQuestId, QuestStage lastStage)
+        {
+            var quest = gameDataHolder.quests[lastQuestId];
+            if (quest.stages.Last() == lastStage)
+            {
+                if (lastQuestId == QuestId.Loc_07)
+                {
+                    return null;
+                }
+                var nextQuestId = lastQuestId + 1;
+                var nextStage = gameDataHolder.quests[nextQuestId].stages.First();
+                return (nextQuestId, nextStage);
+            }
+            bool lastStageFound = false;
+            foreach (var stage in quest.stages)
+            {
+                if (lastStageFound)
+                {
+                    return (lastQuestId, stage);
+                }
+                lastStageFound = stage == lastStage;
+            }
+            return null;
+        }
+
+        List<string> GetRowData(IEnumerable<ProfileDailyStatData[]> filteredDatas, QuestId questId, QuestStage stage, List<int> zeroDayDAUs)
+        {
+            var comment = stage.comment.Length > 24 ? stage.comment.Substring(0, 24) : stage.comment;
+            comment = comment.Replace(Environment.NewLine, " ");
+            var rowData = new List<string> { $"{questId} stage {stage.id} | {comment}" };
+            int i = 0;
+            foreach (var data in filteredDatas)
+            {
+                var users = data.Where(x => x.currentQuest > questId || (x.currentQuest == questId && x.currentQuestStage >= stage.id) ).Select(x => x.dbid).ToHashSet();
+                var zeroDayDAU = zeroDayDAUs[i];
+                var conversion = zeroDayDAU > 0 ? (double)users.Count / zeroDayDAU * 100 : 0;
+                rowData.Add($"{conversion:F1}%");
                 i++;
             }
             return rowData;
