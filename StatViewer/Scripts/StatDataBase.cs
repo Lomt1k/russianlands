@@ -112,6 +112,7 @@ internal static class StatDataBase
             MetricType.Filters_AverageArenaResults => PrepareAverageArenaResults(headers, table, filters, isDeep: false),
             MetricType.Filters_DeepAverageArenaResults => PrepareAverageArenaResults(headers, table, filters, isDeep: true),
             MetricType.Filters_ArenaLeagueConversion => PrepareArenaLeagueConversion(headers, table, filters),
+            MetricType.Filters_GeneralStats => PrepareGeneralStats(headers, table, filters),
 
             _ => Task.Delay(100)
         };
@@ -760,6 +761,199 @@ internal static class StatDataBase
                 var zeroDayDAU = zeroDayDAUs[i];
                 var retention = zeroDayDAU > 0 ? (double)usersCount / zeroDayDAU * 100 : 0;
                 rowData.Add($"{retention:F1}%");
+                i++;
+            }
+            return rowData;
+        }
+    }
+
+    private static async Task PrepareGeneralStats(List<string> headers, List<List<string>> table, FilterModel[] filters)
+    {
+        var filteredData = new Dictionary<string, ProfileDailyStatData[]>();
+        await GetFilteredData(filteredData, filters);
+
+        headers.Add("Day");
+        headers.AddRange(filteredData.Keys);
+
+        var zeroDayDAUs = new List<int>();
+        foreach (var data in filteredData.Values)
+        {
+            var dau = data.Count(x => x.daysAfterRegistration == 0);
+            zeroDayDAUs.Add(dau);
+        }
+
+        table.Add(GetRegistrations(filteredData.Values, zeroDayDAUs));
+
+        table.Add(new List<string>() { Environment.NewLine });
+        table.Add(GetRetentionByDay(filteredData.Values, day: 1, zeroDayDAUs));
+        table.Add(GetRetentionByDay(filteredData.Values, day: 3, zeroDayDAUs));
+        table.Add(GetRetentionByDay(filteredData.Values, day: 7, zeroDayDAUs));
+        table.Add(GetRetentionByDay(filteredData.Values, day: 30, zeroDayDAUs));
+
+        table.Add(new List<string>() { Environment.NewLine });
+        table.Add(GetRevenueByPeriod(filteredData.Values, days: 0));
+        table.Add(GetRevenueByPeriod(filteredData.Values, days: 3));
+        table.Add(GetRevenueByPeriod(filteredData.Values, days: 7));
+        table.Add(GetRevenueByPeriod(filteredData.Values, days: 14));
+        table.Add(GetRevenueByPeriod(filteredData.Values, days: 30));
+        table.Add(GetTotalRevenue(filteredData.Values));
+
+        table.Add(new List<string>() { Environment.NewLine });
+        table.Add(GetARPUByPeriod(filteredData.Values, days: 0, zeroDayDAUs));
+        table.Add(GetARPUByPeriod(filteredData.Values, days: 3, zeroDayDAUs));
+        table.Add(GetARPUByPeriod(filteredData.Values, days: 7, zeroDayDAUs));
+        table.Add(GetARPUByPeriod(filteredData.Values, days: 14, zeroDayDAUs));
+        table.Add(GetARPUByPeriod(filteredData.Values, days: 30, zeroDayDAUs));
+        table.Add(GetTotalARPU(filteredData.Values, zeroDayDAUs));
+
+        table.Add(new List<string>() { Environment.NewLine });
+        table.Add(GetARPPUByPeriod(filteredData.Values, days: 0));
+        table.Add(GetARPPUByPeriod(filteredData.Values, days: 3));
+        table.Add(GetARPPUByPeriod(filteredData.Values, days: 7));
+        table.Add(GetARPPUByPeriod(filteredData.Values, days: 14));
+        table.Add(GetARPPUByPeriod(filteredData.Values, days: 30));
+        table.Add(GetTotalARPPU(filteredData.Values));
+
+        table.Add(new List<string>() { Environment.NewLine });
+        table.Add(GetPayingConversion(filteredData.Values, days: 0, zeroDayDAUs));
+        table.Add(GetPayingConversion(filteredData.Values, days: 3, zeroDayDAUs));
+        table.Add(GetPayingConversion(filteredData.Values, days: 7, zeroDayDAUs));
+        table.Add(GetPayingConversion(filteredData.Values, days: 14, zeroDayDAUs));
+        table.Add(GetPayingConversion(filteredData.Values, days: 30, zeroDayDAUs));
+        table.Add(GetTotalPayingConversion(filteredData.Values, zeroDayDAUs));
+
+
+        List<string> GetRegistrations(IEnumerable<ProfileDailyStatData[]> filteredDatas, List<int> zeroDayDAUs)
+        {
+            var rowData = new List<string> { $"Registrations" };
+            int i = 0;
+            foreach (var data in filteredDatas)
+            {
+                var registrations = zeroDayDAUs[i];
+                rowData.Add($"{registrations}");
+                i++;
+            }
+            return rowData;
+        }
+
+        List<string> GetRetentionByDay(IEnumerable<ProfileDailyStatData[]> filteredDatas, int day, List<int> zeroDayDAUs)
+        {
+            var rowData = new List<string> { $"Retention | Day {day}" };
+            int i = 0;
+            foreach (var data in filteredDatas)
+            {
+                var usersCount = data.Count(x => x.daysAfterRegistration == day);
+                var zeroDayDAU = zeroDayDAUs[i];
+                var retention = zeroDayDAU > 0 ? (double)usersCount / zeroDayDAU * 100 : 0;
+                rowData.Add($"{retention:F1}%");
+                i++;
+            }
+            return rowData;
+        }
+
+        List<string> GetRevenueByPeriod(IEnumerable<ProfileDailyStatData[]> filteredDatas, int days)
+        {
+            var rowData = new List<string> { $"Revenue | " + (days > 0 ? $"Days 0 - {days} " : $"Day 0") };
+            foreach (var data in filteredDatas)
+            {
+                var revenue = data.Where(x => x.daysAfterRegistration <= days).Sum(x => x.revenueRUB);
+                rowData.Add($"RUB {revenue}");
+            }
+            return rowData;
+        }
+
+        List<string> GetTotalRevenue(IEnumerable<ProfileDailyStatData[]> filteredDatas)
+        {
+            var rowData = new List<string> { $"Revenue | Total" };
+            foreach (var data in filteredDatas)
+            {
+                var revenue = data.Sum(x => x.revenueRUB);
+                rowData.Add($"RUB {revenue}");
+            }
+            return rowData;
+        }
+
+        List<string> GetARPUByPeriod(IEnumerable<ProfileDailyStatData[]> filteredDatas, int days, List<int> zeroDayDAUs)
+        {
+            var rowData = new List<string> { $"ARPU | " + (days > 0 ? $"Days 0 - {days} " : $"Day 0") };
+            int i = 0;
+            foreach (var data in filteredDatas)
+            {
+                var revenue = data.Where(x => x.daysAfterRegistration <= days).Sum(x => x.revenueRUB);
+                var usersCount = zeroDayDAUs[i];
+                var ARPU = usersCount > 0 ? (double)revenue / usersCount * 100 : 0;
+                rowData.Add($"RUB {ARPU:F2}");
+                i++;
+            }
+            return rowData;
+        }
+
+        List<string> GetTotalARPU(IEnumerable<ProfileDailyStatData[]> filteredDatas, List<int> zeroDayDAUs)
+        {
+            var rowData = new List<string> { $"ARPU | Total" };
+            int i = 0;
+            foreach (var data in filteredDatas)
+            {
+                var revenue = data.Sum(x => x.revenueRUB);
+                var usersCount = zeroDayDAUs[i];
+                var ARPU = usersCount > 0 ? (double)revenue / usersCount * 100 : 0;
+                rowData.Add($"RUB {ARPU:F2}");
+                i++;
+            }
+            return rowData;
+        }
+
+        List<string> GetARPPUByPeriod(IEnumerable<ProfileDailyStatData[]> filteredDatas, int days)
+        {
+            var rowData = new List<string> { $"ARPPU | " + (days > 0 ? $"Days 0 - {days} " : $"Day 0") };
+            foreach (var data in filteredDatas)
+            {
+                var revenue = data.Where(x => x.daysAfterRegistration <= days).Sum(x => x.revenueRUB);
+                var usersCount = data.Where(x => x.daysAfterRegistration <= days && x.revenueRUB > 0).Select(x => x.dbid).ToHashSet().Count;
+                var ARPPU = usersCount > 0 ? (double)revenue / usersCount * 100 : 0;
+                rowData.Add($"RUB {ARPPU:F2}");
+            }
+            return rowData;
+        }
+
+        List<string> GetTotalARPPU(IEnumerable<ProfileDailyStatData[]> filteredDatas)
+        {
+            var rowData = new List<string> { $"ARPPU | Total" };
+            foreach (var data in filteredDatas)
+            {
+                var revenue = data.Sum(x => x.revenueRUB);
+                var usersCount = data.Where(x => x.revenueRUB > 0).Select(x => x.dbid).ToHashSet().Count;
+                var ARPPU = usersCount > 0 ? (double)revenue / usersCount * 100 : 0;
+                rowData.Add($"RUB {ARPPU:F2}");
+            }
+            return rowData;
+        }
+
+        List<string> GetPayingConversion(IEnumerable<ProfileDailyStatData[]> filteredDatas, int days, List<int> zeroDayDAUs)
+        {
+            var rowData = new List<string> { $"Paying Conversion | " + (days > 0 ? $"Days 0 - {days} " : $"Day 0") };
+            int i = 0;
+            foreach (var data in filteredDatas)
+            {
+                var donatersCount = data.Count(x => x.daysAfterRegistration <= days && x.revenueRUB > 0);
+                var totalUsersCount = zeroDayDAUs[i];
+                var conversion = totalUsersCount > 0 ? (double)donatersCount / totalUsersCount * 100 : 0;
+                rowData.Add($"{conversion:F2}%");
+                i++;
+            }
+            return rowData;
+        }
+
+        List<string> GetTotalPayingConversion(IEnumerable<ProfileDailyStatData[]> filteredDatas, List<int> zeroDayDAUs)
+        {
+            var rowData = new List<string> { $"Paying Conversion | Total" };
+            int i = 0;
+            foreach (var data in filteredDatas)
+            {
+                var donatersCount = data.Count(x => x.revenueRUB > 0);
+                var totalUsersCount = zeroDayDAUs[i];
+                var conversion = totalUsersCount > 0 ? (double)donatersCount / totalUsersCount * 100 : 0;
+                rowData.Add($"{conversion:F2}%");
                 i++;
             }
             return rowData;

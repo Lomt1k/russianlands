@@ -28,6 +28,7 @@ public enum MetricType
     Filters_AverageArenaResults,
     Filters_DeepAverageArenaResults,
     Filters_ArenaLeagueConversion,
+    Filters_GeneralStats,
 }
 
 public static class MetricTypeExtensions
