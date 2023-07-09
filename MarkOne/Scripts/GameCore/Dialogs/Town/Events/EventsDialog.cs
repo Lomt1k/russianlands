@@ -1,9 +1,8 @@
-﻿using MarkOne.Scripts.GameCore.Dialogs;
-using MarkOne.Scripts.GameCore.Localizations;
+﻿using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Sessions;
 using System.Threading.Tasks;
 
-namespace MarkOne.Scripts.GameCore.Events;
+namespace MarkOne.Scripts.GameCore.Dialogs.Town.Events;
 public class EventsDialog : DialogBase
 {
     public EventsDialog(GameSession _session) : base(_session)
