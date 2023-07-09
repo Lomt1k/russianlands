@@ -1,0 +1,115 @@
+﻿[
+  {
+    "id": 2,
+    "premiumCategoryItems": [],
+    "lootboxCategoryItems": [],
+    "diamondsCategoryItems": [
+      {
+        "$type": "ShopResourceItem",
+        "resourceReward": {
+          "$type": "ResourceReward",
+          "resourceId": 2,
+          "amount": 500
+        },
+        "vendorCode": "shop-hall2-diamonds-500",
+        "price": {
+          "$type": "ShopCurrentcyPrice",
+          "priceType": 2,
+          "russianRubles": 449
+        }
+      },
+      {
+        "$type": "ShopResourceItem",
+        "resourceReward": {
+          "$type": "ResourceReward",
+          "resourceId": 2,
+          "amount": 1100
+        },
+        "vendorCode": "shop-hall2-diamonds-1100",
+        "price": {
+          "$type": "ShopCurrentcyPrice",
+          "priceType": 2,
+          "russianRubles": 899
+        }
+      },
+      {
+        "$type": "ShopResourceItem",
+        "resourceReward": {
+          "$type": "ResourceReward",
+          "resourceId": 0,
+          "amount": 2500
+        },
+        "vendorCode": "shop-hall2-diamonds-2500",
+        "price": {
+          "$type": "ShopCurrentcyPrice",
+          "priceType": 2,
+          "russianRubles": 1790
+        }
+      },
+      {
+        "$type": "ShopResourceItem",
+        "resourceReward": {
+          "$type": "ResourceReward",
+          "resourceId": 0,
+          "amount": 6500
+        },
+        "vendorCode": "shop-hall2-diamonds-6500",
+        "price": {
+          "$type": "ShopCurrentcyPrice",
+          "priceType": 2,
+          "russianRubles": 4690
+        }
+      },
+      {
+        "$type": "ShopResourceItem",
+        "resourceReward": {
+          "$type": "ResourceReward",
+          "resourceId": 2,
+          "amount": 15000
+        },
+        "vendorCode": "shop-hall2-diamonds-15000",
+        "price": {
+          "$type": "ShopCurrentcyPrice",
+          "priceType": 2,
+          "russianRubles": 9490
+        }
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "premiumCategoryItems": [],
+    "lootboxCategoryItems": [],
+    "diamondsCategoryItems": []
+  },
+  {
+    "id": 4,
+    "premiumCategoryItems": [],
+    "lootboxCategoryItems": [],
+    "diamondsCategoryItems": []
+  },
+  {
+    "id": 5,
+    "premiumCategoryItems": [],
+    "lootboxCategoryItems": [],
+    "diamondsCategoryItems": []
+  },
+  {
+    "id": 6,
+    "premiumCategoryItems": [],
+    "lootboxCategoryItems": [],
+    "diamondsCategoryItems": []
+  },
+  {
+    "id": 7,
+    "premiumCategoryItems": [],
+    "lootboxCategoryItems": [],
+    "diamondsCategoryItems": []
+  },
+  {
+    "id": 8,
+    "premiumCategoryItems": [],
+    "lootboxCategoryItems": [],
+    "diamondsCategoryItems": []
+  }
+]

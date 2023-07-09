@@ -19,8 +19,7 @@
         <StackPanel Grid.Row="0" Spacing="10">
           <TextBlock Classes="h3" Text="{Binding buildingData.debugName}" Margin="10"/>
           <ListBox ItemsSource="{Binding levelViews}"
-                   SelectedItem="{Binding selectedLevelView}"
-                   ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                   SelectedItem="{Binding selectedLevelView}">
             <ListBox.ItemTemplate>
               <DataTemplate>
                 <UserControl Content="{Binding}"/>

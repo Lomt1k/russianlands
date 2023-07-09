@@ -20,7 +20,6 @@
     <TextBlock Text="Buildings" Grid.Column="0" Grid.Row="0" Classes="h3"/>
     <ListBox Grid.Column="0" Grid.Row="1" VerticalAlignment="Top"
              MaxHeight="800"
-             ScrollViewer.VerticalScrollBarVisibility="Disabled"
              ItemsSource="{Binding buildings}"
              SelectedItem="{Binding selectedBuilding}">
       <ListBox.ItemTemplate>

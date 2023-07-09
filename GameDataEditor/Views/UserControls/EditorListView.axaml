@@ -9,7 +9,6 @@
 
     <ListBox ItemsSource="{Binding viewsCollection}"
              SelectedItem="{Binding selectedView}"
-             ScrollViewer.VerticalScrollBarVisibility="Disabled"
              Padding="0,10"
              MaxHeight="800">
       <ListBox.ItemTemplate>

@@ -11,9 +11,7 @@
       <StackPanel>
         <TextBlock Text="{Binding objectName}"/>
 
-        <ListBox
-             ScrollViewer.VerticalScrollBarVisibility="Disabled"
-             ItemsSource="{Binding properties}">
+        <ListBox ItemsSource="{Binding properties}">
           <ListBox.ItemTemplate>
             <DataTemplate>
               <StackPanel Orientation="Horizontal" Margin="-5">

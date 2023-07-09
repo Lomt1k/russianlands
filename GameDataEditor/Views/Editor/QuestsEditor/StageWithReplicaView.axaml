@@ -17,7 +17,6 @@
 
         <TextBlock Classes="h3" Text="Answers"/>
         <ListBox MaxHeight="400"
-               ScrollViewer.VerticalScrollBarVisibility="Disabled"
                ItemsSource="{Binding answers}"
                SelectedItem="{Binding selectedAnswer}">
           <ListBox.ItemTemplate>
