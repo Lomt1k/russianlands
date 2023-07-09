@@ -21,6 +21,14 @@ public class BotConfig
     public PerformanceSettings performanceSettings = new PerformanceSettings();
     public HttpListenerSettings httpListenerSettings = new HttpListenerSettings();
     public LogSettings logSettings = new LogSettings();
+    public SocialLink[] socialLinks = new SocialLink[]
+    {
+        new SocialLink
+        {
+            url = "https://example.com",
+            description = "YOUR_LINK_HERE"
+        }
+    };
 
     [JsonIgnore] public LanguageCode[] languageCodes { get; private set; } = { LanguageCode.RU };
     [JsonIgnore] public LanguageCode defaultLanguageCode { get; private set; }
@@ -83,6 +91,13 @@ public class BotConfig
     {
         public bool logUpdates = true;
         public bool logDailyNotifications = true;
+    }
+
+    [JsonObject]
+    public class SocialLink
+    {
+        public string url = string.Empty;
+        public string description = string.Empty;
     }
 
     private void ParseLanguageCodes()

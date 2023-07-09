@@ -21,11 +21,23 @@ public enum TownEntryReason
 
 public class TownDialog : DialogBase
 {
+    private static readonly string linksText = string.Empty;
+
     private readonly NewsService newsService = ServiceLocator.Get<NewsService>();
 
     private readonly TownEntryReason _reason;
     private readonly ReplyKeyboardMarkup _keyboard;
     private MessageId? _regenHealthMessageId;
+
+    static TownDialog()
+    {
+        var sb = new StringBuilder();
+        foreach (var link in BotController.config.socialLinks)
+        {
+            sb.AppendLine($@"<a href=""{link.url}"">{link.description}</a>".Bold());
+        }
+        linksText = sb.ToString();
+    }
 
     public TownDialog(GameSession _session, TownEntryReason reason) : base(_session)
     {
@@ -51,8 +63,7 @@ public class TownDialog : DialogBase
             + Localization.Get(session, "menu_item_news");
         RegisterButton(newsButton, () => new News.NewsDialog(session).Start());
 
-        RegisterButton(Emojis.ButtonSupport + Localization.Get(session, "menu_item_support"),
-            () => messageSender.SendTextMessage(session.chatId, "Поддержка недоступна в текущей версии игры")); //заглушка
+        RegisterButton(Emojis.ElementLocked + Localization.Get(session, "menu_item_events"), () => new Events.EventsDialog(session).Start());
 
         _keyboard = GetKeyboardWithRowSizes(1, 2, 3);
     }
@@ -72,10 +83,11 @@ public class TownDialog : DialogBase
         sb.AppendLine(resources);
 
         var withTooltip = TryAppendTooltip(sb);
-        if (!withTooltip)
+        if (!withTooltip && linksText.Length > 0)
         {
             sb.AppendLine();
-            sb.AppendLine(Localization.Get(session, "dialog_town_text_backFromInnerDialog"));
+            sb.AppendLine(Localization.Get(session, "dialog_town_helphul_links_header"));
+            sb.Append(linksText);
         }
 
         await SendDialogMessage(sb, _keyboard).FastAwait();

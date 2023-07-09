@@ -152,7 +152,7 @@ public abstract class DialogBase
 
     protected async Task<MessageId> SendDialogMessage(string text, ReplyKeyboardMarkup? replyMarkup)
     {
-        _resendLastMessageFunc = async () => await messageSender.SendTextDialog(session.chatId, text, replyMarkup, cancellationToken: session.cancellationToken).FastAwait();
+        _resendLastMessageFunc = async () => await messageSender.SendTextDialog(session.chatId, text, replyMarkup, disableWebPagePreview: true, cancellationToken: session.cancellationToken).FastAwait();
         lastMessageId = await _resendLastMessageFunc().FastAwait();
         lastMessageDate = DateTime.UtcNow;
         return lastMessageId.Value;

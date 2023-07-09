@@ -13,6 +13,7 @@
 	"dialog_tooltip_header" : "<b>Обучение:</b>",
 	"dialog_tooltip_press_button" : "Нажмите на кнопку: <b>{0}</b>",
 	"dialog_town_text_newSession" : "Вы проснулись в городе после крепного сна и готовы к новым приключениям!",
+	"dialog_town_helphul_links_header" : "<pre>Полезные ссылки:</pre>",
 	"dialog_town_text_backFromInnerDialog" : "<pre>Куда вы хотите направиться?</pre>",
 
 	"dialog_entry_name_description" : "Введите имя, под которым вас будут видеть другие игроки. \n\n<b>Требования к имени:</b>",
@@ -175,6 +176,7 @@
 	"dialog_news_no_news" : "На данный момент администраторы не добавили ни одной новости",
 	"dialog_news_last_news" : "Последние новости",
 	"dialog_news_publication_date" : "<i>Дата публикации: {0}</i>",
+	"dialog_enents_no_events" : "На данный момент в городе не проводится никаких событий",
 	
 	"building_category_general" : "Основные",
 	"building_category_storages" : "Хранилища",
@@ -294,7 +296,7 @@
 	"menu_item_buildings" : "Здания",
 	"menu_item_character" : "Персонаж",
 	"menu_item_news" : "Новости",
-	"menu_item_support" : "Помощь",
+	"menu_item_events" : "События",
 	"menu_item_back_button" : "Назад",
 	"menu_item_boost_button" : "Ускорить   {0}",
 	"menu_item_boost_all_button" : "Ускорить всё   {0}",

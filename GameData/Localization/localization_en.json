@@ -13,6 +13,7 @@
 	"dialog_tooltip_header" : "<b>Tutorial:</b>",
 	"dialog_tooltip_press_button" : "Press on the button: <b>{0}</b>",
 	"dialog_town_text_newSession" : "You woke up in the town after a good sleep and ready for new adventures!",
+	"dialog_town_helphul_links_header" : "<pre>Useful links:</pre>",
 	"dialog_town_text_backFromInnerDialog" : "<pre>Where do you want to go?</pre>",
 	
 	"dialog_entry_name_description" : "Enter the name under which other players will see you. \n\n<b>Name Requirements:</b>",
@@ -175,6 +176,7 @@
 	"dialog_news_no_news" : "At the moment, the administrators have not added any news",
 	"dialog_news_last_news" : "Last news",
 	"dialog_news_publication_date" : "<i>Publication date: {0}</i>",
+	"dialog_enents_no_events" : "There are currently no events taking place in the town",
 	
 	"building_category_general" : "General",
 	"building_category_storages" : "Storages",
@@ -294,7 +296,7 @@
 	"menu_item_buildings" : "Buildings",
 	"menu_item_character" : "Character",
 	"menu_item_news" : "News",
-	"menu_item_support" : "Support",
+	"menu_item_events" : "Events",
 	"menu_item_back_button" : "Back",
 	"menu_item_boost_button" : "Speed up   {0}",
 	"menu_item_boost_all_button" : "Speed up all   {0}",
