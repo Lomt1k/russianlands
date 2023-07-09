@@ -63,7 +63,7 @@
         "$type": "ShopResourceItem",
         "resourceReward": {
           "$type": "ResourceReward",
-          "resourceId": 0,
+          "resourceId": 2,
           "amount": 2500
         },
         "vendorCode": "shop-hall2-diamonds-2500",
@@ -77,7 +77,7 @@
         "$type": "ShopResourceItem",
         "resourceReward": {
           "$type": "ResourceReward",
-          "resourceId": 0,
+          "resourceId": 2,
           "amount": 6500
         },
         "vendorCode": "shop-hall2-diamonds-6500",
@@ -167,7 +167,7 @@
         "$type": "ShopResourceItem",
         "resourceReward": {
           "$type": "ResourceReward",
-          "resourceId": 0,
+          "resourceId": 2,
           "amount": 2500
         },
         "vendorCode": "shop-hall3-diamonds-2500",
@@ -181,7 +181,7 @@
         "$type": "ShopResourceItem",
         "resourceReward": {
           "$type": "ResourceReward",
-          "resourceId": 0,
+          "resourceId": 2,
           "amount": 6500
         },
         "vendorCode": "shop-hall3-diamonds-6500",
@@ -271,7 +271,7 @@
         "$type": "ShopResourceItem",
         "resourceReward": {
           "$type": "ResourceReward",
-          "resourceId": 0,
+          "resourceId": 2,
           "amount": 2500
         },
         "vendorCode": "shop-hall4-diamonds-2500",
@@ -285,7 +285,7 @@
         "$type": "ShopResourceItem",
         "resourceReward": {
           "$type": "ResourceReward",
-          "resourceId": 0,
+          "resourceId": 2,
           "amount": 6500
         },
         "vendorCode": "shop-hall4-diamonds-6500",
@@ -448,7 +448,7 @@
         "$type": "ShopResourceItem",
         "resourceReward": {
           "$type": "ResourceReward",
-          "resourceId": 0,
+          "resourceId": 2,
           "amount": 2500
         },
         "vendorCode": "shop-hall5-diamonds-2500",
@@ -462,7 +462,7 @@
         "$type": "ShopResourceItem",
         "resourceReward": {
           "$type": "ResourceReward",
-          "resourceId": 0,
+          "resourceId": 2,
           "amount": 6500
         },
         "vendorCode": "shop-hall5-diamonds-6500",
@@ -625,7 +625,7 @@
         "$type": "ShopResourceItem",
         "resourceReward": {
           "$type": "ResourceReward",
-          "resourceId": 0,
+          "resourceId": 2,
           "amount": 2500
         },
         "vendorCode": "shop-hall6-diamonds-2500",
@@ -639,7 +639,7 @@
         "$type": "ShopResourceItem",
         "resourceReward": {
           "$type": "ResourceReward",
-          "resourceId": 0,
+          "resourceId": 2,
           "amount": 6500
         },
         "vendorCode": "shop-hall6-diamonds-6500",
@@ -802,7 +802,7 @@
         "$type": "ShopResourceItem",
         "resourceReward": {
           "$type": "ResourceReward",
-          "resourceId": 0,
+          "resourceId": 2,
           "amount": 2500
         },
         "vendorCode": "shop-hall7-diamonds-2500",
@@ -816,7 +816,7 @@
         "$type": "ShopResourceItem",
         "resourceReward": {
           "$type": "ResourceReward",
-          "resourceId": 0,
+          "resourceId": 2,
           "amount": 6500
         },
         "vendorCode": "shop-hall7-diamonds-6500",
@@ -972,7 +972,7 @@
         "$type": "ShopResourceItem",
         "resourceReward": {
           "$type": "ResourceReward",
-          "resourceId": 0,
+          "resourceId": 2,
           "amount": 2500
         },
         "vendorCode": "shop-hall8-diamonds-2500",
@@ -986,7 +986,7 @@
         "$type": "ShopResourceItem",
         "resourceReward": {
           "$type": "ResourceReward",
-          "resourceId": 0,
+          "resourceId": 2,
           "amount": 6500
         },
         "vendorCode": "shop-hall8-diamonds-6500",

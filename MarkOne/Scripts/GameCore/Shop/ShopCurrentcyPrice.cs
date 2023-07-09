@@ -13,16 +13,17 @@ public class ShopCurrentcyPrice : ShopPriceBase
 
     public override string GetCompactPriceView()
     {
-        throw new NotImplementedException();
+        return $"{russianRubles} ₽";
     }
 
     public override string GetPlayerResourcesView(GameSession session)
     {
-        throw new NotImplementedException();
+        return string.Empty;
     }
 
     public override Task<bool> TryPurchase(GameSession session, Func<string, Task> onPurchaseError)
     {
-        throw new NotImplementedException();
+        // TODO
+        return Task.FromResult(false);
     }
 }

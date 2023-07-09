@@ -22,7 +22,7 @@ public class ShopFruitsItem : ShopItemBase
             .AppendLine(GetTitle(session))
             .AppendLine()
             .AppendLine(Localization.Get(session, "dialog_shop_item_view_contains_header"))
-            .Append(randomFruitsReward.GetPossibleRewardsView(session));
+            .AppendLine(randomFruitsReward.GetPossibleRewardsView(session));
 
         if (price != null)
         {
