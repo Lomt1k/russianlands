@@ -407,6 +407,7 @@
 	"resource_name_arenachip" : "Arena chips",
 	
 	"premium_reward" : "<b>Premium:</b> {0}",
+	"reward_random_fruits" : "<b>Random fruits:</b> {0}",
 	
 	"item_rarity_common" : "Common",
 	"item_rarity_rare" : "Rare",
@@ -470,6 +471,10 @@
 	"lootbox_name_arena" : "Arena chest",
 	"lootbox_name_arena_small" : "Arena Chest (Small)",
 	"lootbox_name_arena_big" : "Arena Chest (Large)",
+	"lootbox_heroic_chest" : "Heroic chest",
+	"lootbox_name_fruits_small" : "Fruit Box (Small)",
+	"lootbox_name_fruits_medium" : "Fruit Box (Medium)",
+	"lootbox_name_fruits_large" : "Fruit Box (Small)",
 	
 	"item_sword_hall_2_grade_3" : "Short sword",
 	"item_sword_hall_2_grade_7" : "Rogue sword",

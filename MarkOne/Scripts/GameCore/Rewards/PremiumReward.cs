@@ -37,7 +37,4 @@ public class PremiumReward : RewardBase
         return Emojis.StatPremium + Localization.Get(session, "premium_reward", timeSpan.GetShortView(session));
     }
 
-    
-
-
 }

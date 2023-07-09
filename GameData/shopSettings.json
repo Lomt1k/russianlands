@@ -344,7 +344,7 @@
     "lootboxCategoryItems": [
       {
         "$type": "ShopLootboxItem",
-        "titleLocalizationKey": "",
+        "titleLocalizationKey": "lootbox_heroic_chest",
         "rewards": [
           {
             "$type": "RandomItemReward",
@@ -367,6 +367,51 @@
           "priceType": 1,
           "resourceId": 2,
           "amount": 180
+        }
+      },
+      {
+        "$type": "ShopFruitsItem",
+        "titleLocalizationKey": "lootbox_name_fruits_small",
+        "randomFruitsReward": {
+          "$type": "RandomFruitsReward",
+          "amount": 5
+        },
+        "vendorCode": "shop-hall5-fruits-small",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 2,
+          "amount": 70
+        }
+      },
+      {
+        "$type": "ShopFruitsItem",
+        "titleLocalizationKey": "lootbox_name_fruits_medium",
+        "randomFruitsReward": {
+          "$type": "RandomFruitsReward",
+          "amount": 20
+        },
+        "vendorCode": "shop-hall5-fruits-middle",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 2,
+          "amount": 210
+        }
+      },
+      {
+        "$type": "ShopFruitsItem",
+        "titleLocalizationKey": "lootbox_name_fruits_large",
+        "randomFruitsReward": {
+          "$type": "RandomFruitsReward",
+          "amount": 60
+        },
+        "vendorCode": "shop-hall5-fruits-large",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 2,
+          "amount": 540
         }
       }
     ],
@@ -476,7 +521,7 @@
     "lootboxCategoryItems": [
       {
         "$type": "ShopLootboxItem",
-        "titleLocalizationKey": "",
+        "titleLocalizationKey": "lootbox_heroic_chest",
         "rewards": [
           {
             "$type": "RandomItemReward",
@@ -499,6 +544,51 @@
           "priceType": 1,
           "resourceId": 2,
           "amount": 250
+        }
+      },
+      {
+        "$type": "ShopFruitsItem",
+        "titleLocalizationKey": "lootbox_name_fruits_small",
+        "randomFruitsReward": {
+          "$type": "RandomFruitsReward",
+          "amount": 5
+        },
+        "vendorCode": "shop-hall6-fruits-small",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 2,
+          "amount": 70
+        }
+      },
+      {
+        "$type": "ShopFruitsItem",
+        "titleLocalizationKey": "lootbox_name_fruits_medium",
+        "randomFruitsReward": {
+          "$type": "RandomFruitsReward",
+          "amount": 20
+        },
+        "vendorCode": "shop-hall6-fruits-middle",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 2,
+          "amount": 210
+        }
+      },
+      {
+        "$type": "ShopFruitsItem",
+        "titleLocalizationKey": "lootbox_name_fruits_large",
+        "randomFruitsReward": {
+          "$type": "RandomFruitsReward",
+          "amount": 60
+        },
+        "vendorCode": "shop-hall6-fruits-large",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 2,
+          "amount": 540
         }
       }
     ],
@@ -608,7 +698,7 @@
     "lootboxCategoryItems": [
       {
         "$type": "ShopLootboxItem",
-        "titleLocalizationKey": "",
+        "titleLocalizationKey": "lootbox_heroic_chest",
         "rewards": [
           {
             "$type": "RandomItemReward",
@@ -631,6 +721,51 @@
           "priceType": 1,
           "resourceId": 2,
           "amount": 320
+        }
+      },
+      {
+        "$type": "ShopFruitsItem",
+        "titleLocalizationKey": "lootbox_name_fruits_small",
+        "randomFruitsReward": {
+          "$type": "RandomFruitsReward",
+          "amount": 5
+        },
+        "vendorCode": "shop-hall7-fruits-small",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 2,
+          "amount": 70
+        }
+      },
+      {
+        "$type": "ShopFruitsItem",
+        "titleLocalizationKey": "lootbox_name_fruits_medium",
+        "randomFruitsReward": {
+          "$type": "RandomFruitsReward",
+          "amount": 20
+        },
+        "vendorCode": "shop-hall7-fruits-middle",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 2,
+          "amount": 210
+        }
+      },
+      {
+        "$type": "ShopFruitsItem",
+        "titleLocalizationKey": "lootbox_name_fruits_large",
+        "randomFruitsReward": {
+          "$type": "RandomFruitsReward",
+          "amount": 60
+        },
+        "vendorCode": "shop-hall7-fruits-large",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 2,
+          "amount": 540
         }
       }
     ],
@@ -740,7 +875,7 @@
     "lootboxCategoryItems": [
       {
         "$type": "ShopLootboxItem",
-        "titleLocalizationKey": "",
+        "titleLocalizationKey": "lootbox_heroic_chest",
         "rewards": [
           {
             "$type": "RandomItemReward",
@@ -756,6 +891,51 @@
           "priceType": 1,
           "resourceId": 2,
           "amount": 390
+        }
+      },
+      {
+        "$type": "ShopFruitsItem",
+        "titleLocalizationKey": "lootbox_name_fruits_small",
+        "randomFruitsReward": {
+          "$type": "RandomFruitsReward",
+          "amount": 5
+        },
+        "vendorCode": "shop-hall8-fruits-small",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 2,
+          "amount": 70
+        }
+      },
+      {
+        "$type": "ShopFruitsItem",
+        "titleLocalizationKey": "lootbox_name_fruits_medium",
+        "randomFruitsReward": {
+          "$type": "RandomFruitsReward",
+          "amount": 20
+        },
+        "vendorCode": "shop-hall8-fruits-middle",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 2,
+          "amount": 210
+        }
+      },
+      {
+        "$type": "ShopFruitsItem",
+        "titleLocalizationKey": "lootbox_name_fruits_large",
+        "randomFruitsReward": {
+          "$type": "RandomFruitsReward",
+          "amount": 60
+        },
+        "vendorCode": "shop-hall8-fruits-large",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 2,
+          "amount": 540
         }
       }
     ],
