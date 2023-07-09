@@ -406,6 +406,8 @@
 	"resource_name_arenaticket" : "Arena ticket",
 	"resource_name_arenachip" : "Arena chips",
 	
+	"premium_reward" : "<b>Premium:</b> {0}",
+	
 	"item_rarity_common" : "Common",
 	"item_rarity_rare" : "Rare",
 	"item_rarity_epic" : "Epic",

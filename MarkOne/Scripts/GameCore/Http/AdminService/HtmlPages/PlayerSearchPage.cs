@@ -281,7 +281,7 @@ internal class PlayerSearchPage : IHtmlPage
 
     private HTag GetGeneralProfileInfo(ProfileData profileData, bool isOnline)
     {
-        var endPremiumDt = new DateTime(profileData.endPremiumTime);
+        var endPremiumDt = profileData.endPremiumTime;
         var premiumValue = profileData.IsPremiumActive() ? $"ACTIVE (until {endPremiumDt.ToLongDateString()})"
             : profileData.IsPremiumExpired() ? $"EXPIRED {endPremiumDt.ToLongDateString()}"
             : "NEVER BUY";

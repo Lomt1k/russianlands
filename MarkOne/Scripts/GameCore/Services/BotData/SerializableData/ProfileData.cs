@@ -27,7 +27,7 @@ public class ProfileData : DataWithSession
     public AdminStatus adminStatus { get; set; }
     public byte level { get; set; } = 1;
     public byte freeNickChanges { get; set; } = 1;
-    public long endPremiumTime { get; set; }
+    public DateTime endPremiumTime { get; set; }
     public int lastNewsId { get; set; } = -1;
     public string specialNotification { get; set; } = string.Empty;
 
@@ -101,12 +101,12 @@ public class ProfileData : DataWithSession
 
     public bool IsPremiumActive()
     {
-        return endPremiumTime > DateTime.UtcNow.Ticks;
+        return endPremiumTime > DateTime.UtcNow;
     }
 
     public bool IsPremiumExpired()
     {
-        return !IsPremiumActive() && endPremiumTime > 0;
+        return !IsPremiumActive() && endPremiumTime > DateTime.MinValue;
     }
 
     public void AddSpecialNotification(string text)

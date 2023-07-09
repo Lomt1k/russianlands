@@ -406,6 +406,8 @@
 	"resource_name_arenaticket" : "Аренный билет",
 	"resource_name_arenachip" : "Аренные фишки",
 	
+	"premium_reward" : "<b>Премиум:</b> {0}",
+	
 	"item_rarity_common" : "Обычный",
 	"item_rarity_rare" : "Редкий",
 	"item_rarity_epic" : "Эпический",
