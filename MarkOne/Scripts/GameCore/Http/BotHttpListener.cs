@@ -74,9 +74,14 @@ public class BotHttpListener
                 }
             }
 
-            Program.logger.WarnFormat("Unhandled HTTP Request!\n\tRawUrl: {0}\n\tRemoteEndPoint: {1}\n\tIsLocalRequest: {2}", request.RawUrl, request.RemoteEndPoint, request.IsLocal);
             response.StatusCode = 404;
             response.Close();
+
+            if (request.RawUrl.Equals("/favicon.ico"))
+            {
+                return;
+            }
+            Program.logger.WarnFormat("Unhandled HTTP Request!\n\tRawUrl: {0}\n\tRemoteEndPoint: {1}\n\tIsLocalRequest: {2}", request.RawUrl, request.RemoteEndPoint, request.IsLocal);
         }
         catch (System.Exception ex)
         {
