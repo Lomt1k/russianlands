@@ -28,6 +28,7 @@ public static class BotController
     public static BotConfig config { get; private set; }
     public static BotDataBase dataBase { get; private set; }
     public static BotHttpListener httpListener { get; private set; }
+    public static HttpClient httpClient => _httpClient;
 
     public static bool isReceiving { get; private set; }
 

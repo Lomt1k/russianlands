@@ -13,5 +13,5 @@ public abstract class ShopPriceBase
 
     public abstract string GetCompactPriceView();
     public abstract string GetPlayerResourcesView(GameSession session);
-    public abstract Task<bool> TryPurchase(GameSession session, Func<string, Task> onPurchaseError);
+    public abstract Task<bool> TryPurchase(GameSession session, ShopItemBase shopItem, Func<string, Task> onPurchaseError);
 }

@@ -46,7 +46,7 @@ public abstract class ShopItemBase
             return;
         }
 
-        var success = price == null ? true : await price.TryPurchase(session, onPurchaseError).FastAwait();
+        var success = price == null ? true : await price.TryPurchase(session, this, onPurchaseError).FastAwait();
         if (success)
         {
             await GiveAndShowRewards(session, onSuccess).FastAwait();

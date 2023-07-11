@@ -31,6 +31,8 @@ public class GameDataHolder : Service
     public GameDataDictionary<byte, ShopSettings> shopSettings { get; private set; }
     public IReadOnlyList<string> botnames { get; private set; }
 
+    public Dictionary<string, ShopItemBase> shopItemsCache { get; private set; } = new();
+
 #pragma warning restore CS8618
 
     public event Action? onDataReloaded;
@@ -58,6 +60,8 @@ public class GameDataHolder : Service
         arenaLeagueSettings = LoadGameDataDictionary<LeagueId, ArenaLeagueSettings>("arenaLeagueSettings");
         arenaShopSettings = LoadGameDataDictionary<byte, ArenaShopSettings>("arenaShopSettings");
         shopSettings = LoadGameDataDictionary<byte, ShopSettings>("shopSettings");
+
+        RefreshShopItemsCache();
 
         Localizations.Localization.LoadAll(gameDataPath);
         botnames = File.ReadAllLines(Path.Combine(gameDataPath, "botnames.txt"));
@@ -107,6 +111,26 @@ public class GameDataHolder : Service
         var fullPath = Path.Combine(gameDataPath, fileName + ".json");
         var loadedObject = GameData.LoadFromJSON<T>(fullPath);
         return loadedObject;
+    }
+
+    private void RefreshShopItemsCache()
+    {
+        shopItemsCache.Clear();
+        foreach (var settings in shopSettings.GetAllData())
+        {
+            foreach (var item in settings.premiumCategoryItems)
+            {
+                shopItemsCache.Add(item.vendorCode, item);
+            }
+            foreach (var item in settings.lootboxCategoryItems)
+            {
+                shopItemsCache.Add(item.vendorCode, item);
+            }
+            foreach (var item in settings.diamondsCategoryItems)
+            {
+                shopItemsCache.Add(item.vendorCode, item);
+            }
+        }
     }
 
     public void SaveAllData()
