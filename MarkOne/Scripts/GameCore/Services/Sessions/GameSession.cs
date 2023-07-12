@@ -169,15 +169,19 @@ public class GameSession
         await QuestManager.HandleNewSession(this, update).FastAwait();
     }
 
-    public async Task OnCloseSession(bool onError)
+    public async Task OnCloseSession(bool onError, string? errorMessage = null)
     {
         await SaveProfileIfNeed().FastAwait();
         _sessionTasksCTS.Cancel();
-        Program.logger.Info($"Session closed for {actualUser}" + (onError ? " [ON ERROR]" : string.Empty));
-
         if (onError)
         {
+            var message = errorMessage ?? "ON ERROR";
+            Program.logger.Info($"Session closed for {actualUser} [{message}]");
             battleManager.OnSessionClosedWithError(player);
+        }
+        else
+        {
+            Program.logger.Info($"Session closed for {actualUser}");
         }
     }
 

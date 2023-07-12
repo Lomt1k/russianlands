@@ -121,12 +121,12 @@ public class SessionManager : Service
         return _sessions.Values.ToList();
     }
 
-    public async Task CloseSession(ChatId chatId, bool onError = false)
+    public async Task CloseSession(ChatId chatId, bool onError = false, string? errorMessage = null)
     {
         if (_sessions.TryGetValue(chatId, out var session))
         {
             _sessions.Remove(chatId);
-            await session.OnCloseSession(onError).FastAwait();
+            await session.OnCloseSession(onError, errorMessage).FastAwait();
         }
     }
 
