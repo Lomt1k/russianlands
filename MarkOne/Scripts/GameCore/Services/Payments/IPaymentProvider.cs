@@ -7,5 +7,5 @@ namespace MarkOne.Scripts.GameCore.Services.Payments;
 internal interface IPaymentProvider
 {
     PaymentProviderType providerType { get; }
-    Task<bool> CreatePayment(GameSession session, ShopItemBase shopItem, PaymentData paymentData);
+    Task<string?> CreatePayment(GameSession session, ShopItemBase shopItem, PaymentData paymentData);
 }

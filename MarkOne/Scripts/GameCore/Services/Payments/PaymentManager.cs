@@ -32,7 +32,7 @@ public class PaymentManager : Service
         return Task.CompletedTask;
     }
 
-    public async Task<PaymentData?> CreatePayment(GameSession session, ShopItemBase shopItem, double rubblePrice)
+    public async Task<PaymentInfo> CreatePayment(GameSession session, ShopItemBase shopItem, double rubblePrice)
     {
         if (!_isEnabled || _paymentProvider is null)
         {
@@ -53,7 +53,8 @@ public class PaymentManager : Service
         var db = BotController.dataBase.db;
         await db.InsertAsync(paymentData).FastAwait();
 
-        var success = await _paymentProvider.CreatePayment(session, shopItem, paymentData).FastAwait();
-        return success ? paymentData : null;
+        var paymentUrl = await _paymentProvider.CreatePayment(session, shopItem, paymentData).FastAwait();
+        return new PaymentInfo(paymentData, paymentUrl);
     }
+
 }

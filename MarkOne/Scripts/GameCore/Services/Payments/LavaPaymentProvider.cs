@@ -3,6 +3,7 @@ using MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
 using MarkOne.Scripts.GameCore.Sessions;
 using MarkOne.Scripts.GameCore.Shop;
 using Newtonsoft.Json;
+using System;
 using System.IO;
 using System.Net.Http;
 using System.Security.Cryptography;
@@ -21,41 +22,63 @@ internal class LavaPaymentProvider : IPaymentProvider
         settings = _paymentsSettings;
     }
 
-    public async Task<bool> CreatePayment(GameSession session, ShopItemBase shopItem, PaymentData paymentData)
+    public async Task<string?> CreatePayment(GameSession session, ShopItemBase shopItem, PaymentData paymentData)
     {
-        var jsonBuilder = new StringBuilder();
-        using (var textWriter = new StringWriter(jsonBuilder))
+        try
         {
-            using var jsonWriter = new JsonTextWriter(textWriter);
-            jsonWriter.WriteStartObject();
-            jsonWriter.WritePropertyName("sum");
-            jsonWriter.WriteValue(paymentData.rubbles);
-            jsonWriter.WritePropertyName("shopId");
-            jsonWriter.WriteValue(settings.shopId);
-            jsonWriter.WritePropertyName("orderId");
-            jsonWriter.WriteValue(paymentData.paymentId.ToString());
-            jsonWriter.WritePropertyName("expire");
-            jsonWriter.WriteValue(settings.expireTimeInMinutes);
-            jsonWriter.WritePropertyName("customFields");
-            jsonWriter.WriteValue(paymentData.vendorCode);
-            jsonWriter.WritePropertyName("comment");
-            jsonWriter.WriteValue(shopItem.GetTitle(session).RemoveHtmlTags());
-            jsonWriter.WriteEndObject();
+            var jsonBuilder = new StringBuilder();
+            using (var textWriter = new StringWriter(jsonBuilder))
+            {
+                using var jsonWriter = new JsonTextWriter(textWriter);
+                jsonWriter.WriteStartObject();
+                jsonWriter.WritePropertyName("sum");
+                jsonWriter.WriteValue(paymentData.rubbles);
+                jsonWriter.WritePropertyName("shopId");
+                jsonWriter.WriteValue(settings.shopId);
+                jsonWriter.WritePropertyName("orderId");
+                jsonWriter.WriteValue(paymentData.paymentId.ToString());
+                jsonWriter.WritePropertyName("expire");
+                jsonWriter.WriteValue(settings.expireTimeInMinutes);
+                jsonWriter.WritePropertyName("customFields");
+                jsonWriter.WriteValue(paymentData.vendorCode);
+                jsonWriter.WritePropertyName("comment");
+                jsonWriter.WriteValue(shopItem.GetTitle(session).RemoveHtmlTags());
+                jsonWriter.WriteEndObject();
+            }
+            var jsonData = jsonBuilder.ToString();
+
+            var request = new HttpRequestMessage(HttpMethod.Post, "https://api.lava.ru/business/invoice/create");
+            request.Headers.Add("Accept", "application/json");
+            request.Headers.Add("Signature", GetSignature(jsonData));
+            request.Content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+
+            var response = await BotController.httpClient.SendAsync(request).FastAwait();
+            var jsonStream = await response.Content.ReadAsStreamAsync().FastAwait();
+            using var streamReader = new StreamReader(jsonStream);
+            using var jsonReader = new JsonTextReader(streamReader);
+
+            while (jsonReader.Read())
+            {
+                if (jsonReader.TokenType == JsonToken.PropertyName)
+                {
+                    var key = jsonReader.Value.ToString();
+                    switch (key)
+                    {
+                        case "url":
+                            var paymentUrl = jsonReader.ReadAsString();
+                            return paymentUrl;
+                    }
+                }
+            }
+
+            var jsonStr = response.Content.ReadAsStringAsync().FastAwait();
+            Program.logger.Error($"Error on try to create lava payment. JSON from LAVA.RU:\n{jsonStr}");
         }
-        var jsonData = jsonBuilder.ToString();
-        Program.logger.Debug("Payment request data:\n" + jsonData);
-
-        var request = new HttpRequestMessage(HttpMethod.Post, "https://api.lava.ru/business/invoice/create");
-        request.Headers.Add("Accept", "application/json");
-        request.Headers.Add("Signature", GetSignature(jsonData));
-        request.Content = new StringContent(jsonData, Encoding.UTF8, "application/json");
-
-        var response = await BotController.httpClient.SendAsync(request).FastAwait();
-        Program.logger.Debug($"Response code: {response.StatusCode}");
-        var content = await response.Content.ReadAsStringAsync().FastAwait();
-        Program.logger.Debug($"Response content: {content}");
-
-        return response.IsSuccessStatusCode;
+        catch (Exception ex)
+        {
+            Program.logger.Error($"Catched exception on try to create lava payment:\n{ex}");
+        }
+        return null;
     }
 
     private string GetSignature(string serializeData)
