@@ -1,7 +1,9 @@
 ﻿using System.Threading.Tasks;
 using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.GameCore.Services.Payments;
 using MarkOne.Scripts.GameCore.Sessions;
+using MarkOne.Scripts.GameCore.Shop;
 
 namespace MarkOne.Scripts.GameCore.Dialogs.Town.Shop;
 
@@ -28,5 +30,10 @@ public class ShopDialog : DialogWithPanel
         var header = Emojis.ButtonShop + Localization.Get(session, "menu_item_shop").Bold();
         await SendDialogMessage(header, GetOneLineKeyboard()).FastAwait();
         await _shopPanel.ShowCategory(category).FastAwait();
+    }
+
+    public async Task ShowPaymentMessage(PaymentInfo paymentInfo, ShopItemBase shopItem)
+    {
+        await _shopPanel.ShowPaymentMessage(paymentInfo, shopItem).FastAwait();
     }
 }

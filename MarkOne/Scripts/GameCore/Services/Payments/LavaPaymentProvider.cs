@@ -14,6 +14,8 @@ using static MarkOne.Scripts.Bot.BotConfig;
 namespace MarkOne.Scripts.GameCore.Services.Payments;
 internal class LavaPaymentProvider : IPaymentProvider
 {
+    private static string botName => BotController.botname;
+
     public PaymentProviderType providerType => PaymentProviderType.LAVA_RU;
     private readonly PaymentsSettings settings;
 
@@ -32,11 +34,12 @@ internal class LavaPaymentProvider : IPaymentProvider
                 using var jsonWriter = new JsonTextWriter(textWriter);
                 jsonWriter.WriteStartObject();
                 jsonWriter.WritePropertyName("sum");
-                jsonWriter.WriteValue(paymentData.rubbles);
+                //jsonWriter.WriteValue(paymentData.rubbles);
+                jsonWriter.WriteValue(10); // debug only!
                 jsonWriter.WritePropertyName("shopId");
                 jsonWriter.WriteValue(settings.shopId);
                 jsonWriter.WritePropertyName("orderId");
-                jsonWriter.WriteValue(paymentData.paymentId.ToString());
+                jsonWriter.WriteValue($"date-{DateTime.UtcNow}-bot-{botName}-payment-{paymentData.paymentId}");
                 jsonWriter.WritePropertyName("expire");
                 jsonWriter.WriteValue(settings.expireTimeInMinutes);
                 jsonWriter.WritePropertyName("customFields");
@@ -72,7 +75,7 @@ internal class LavaPaymentProvider : IPaymentProvider
             }
 
             var jsonStr = response.Content.ReadAsStringAsync().FastAwait();
-            Program.logger.Error($"Error on try to create lava payment. JSON from LAVA.RU:\n{jsonStr}");
+            Program.logger.Error($"Error on try to create lava payment...\nStatus: {response.StatusCode}\n JSON from LAVA.RU:\n{jsonStr}");
         }
         catch (Exception ex)
         {

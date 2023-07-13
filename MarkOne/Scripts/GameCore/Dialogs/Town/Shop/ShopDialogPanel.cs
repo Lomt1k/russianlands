@@ -2,6 +2,7 @@
 using MarkOne.Scripts.GameCore.Buildings;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Resources;
+using MarkOne.Scripts.GameCore.Services.Payments;
 using MarkOne.Scripts.GameCore.Sessions;
 using MarkOne.Scripts.GameCore.Shop;
 using System;
@@ -166,6 +167,19 @@ internal class ShopDialogPanel : DialogPanelBase
         RegisterButton(Localization.Get(session, "menu_item_continue_button"), () => ShowCategory(_currentCategory));
 
         await SendPanelMessage(sb, GetOneLineKeyboard()).FastAwait();
+    }
+
+    public async Task ShowPaymentMessage(PaymentInfo paymentInfo, ShopItemBase shopItem)
+    {
+        var buttonText = Localization.Get(session, "dialog_shop_buy_link_button");
+        var messageText = Localization.Get(session, "dialog_shop_before_purchase", shopItem.GetTitle(session), buttonText);
+        var url = paymentInfo.url;
+
+        ClearButtons();
+        RegisterLinkButton(Emojis.ButtonPay + buttonText, url);
+        RegisterBackButton(() => ShowCategory(_currentCategory));
+
+        await SendPanelMessage(messageText, GetMultilineKeyboard()).FastAwait();
     }
 
 }

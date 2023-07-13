@@ -56,8 +56,8 @@ public class ItemWithCodeReward : RewardBase
         try
         {
             var item = itemTemplate.Clone();
-            var success = session.player.inventory.TryAddItem(item);
-            return success ? item.GetFullName(session).Bold() : string.Empty;
+            session.player.inventory.ForceAddItem(item);
+            return item.GetFullName(session).Bold();
         }
         catch (Exception ex)
         {

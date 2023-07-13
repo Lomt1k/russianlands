@@ -26,15 +26,13 @@ public class RandomItemReward : RewardBase
                 var item = itemType == ItemType.Any
                     ? ItemGenerationManager.GenerateItemWithSmartRandom(session, townhallLevel, rarity)
                     : ItemGenerationManager.GenerateItem(townhallLevel, itemType, rarity);
-                var success = session.player.inventory.TryAddItem(item);
-                if (success)
+                session.player.inventory.ForceAddItem(item);
+
+                if (i > 0)
                 {
-                    if (i > 0)
-                    {
-                        sb.AppendLine();
-                    }
-                    sb.Append(item.GetFullName(session).Bold());
+                    sb.AppendLine();
                 }
+                sb.Append(item.GetFullName(session).Bold());
             }            
             return sb.ToString();
         }

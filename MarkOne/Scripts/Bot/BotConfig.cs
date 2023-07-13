@@ -111,6 +111,7 @@ public class BotConfig
         public string shopId = string.Empty;
         public string secretKey = string.Empty;
         public string secondaryKey = string.Empty;
+        public string webhookPath = "/lava-pay";
     }
 
     private void ParseLanguageCodes()

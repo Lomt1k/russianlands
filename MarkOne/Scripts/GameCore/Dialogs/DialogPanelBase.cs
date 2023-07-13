@@ -73,6 +73,12 @@ public abstract class DialogPanelBase
         _freeButtonId++;
     }
 
+    protected void RegisterLinkButton(string text, string url)
+    {
+        _registeredButtons.Add(_freeButtonId, InlineKeyboardButton.WithUrl(text, url));
+        _freeButtonId++;
+    }
+
     protected void ClearButtons()
     {
         _registeredButtons.Clear();
