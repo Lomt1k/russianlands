@@ -106,7 +106,8 @@ public class BotConfig
     public class PaymentsSettings
     {
         public bool isEnabled = false;
-        public int expireTimeInMinutes = 30;
+        public int expireTimeInMinutes = 180;
+        public int minExpireTimeToUseOldOrder = 30;
         [JsonConverter(typeof(StringEnumConverter))] public PaymentProviderType paymentProvider = PaymentProviderType.LAVA_RU;
         public string shopId = string.Empty;
         public string secretKey = string.Empty;

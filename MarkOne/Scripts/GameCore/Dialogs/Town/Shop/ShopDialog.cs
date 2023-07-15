@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
 using MarkOne.Scripts.GameCore.Services.Payments;
 using MarkOne.Scripts.GameCore.Sessions;
 using MarkOne.Scripts.GameCore.Shop;
@@ -32,8 +33,8 @@ public class ShopDialog : DialogWithPanel
         await _shopPanel.ShowCategory(category).FastAwait();
     }
 
-    public async Task ShowPaymentMessage(PaymentInfo paymentInfo, ShopItemBase shopItem)
+    public async Task ShowPaymentMessage(PaymentData paymentData, ShopItemBase shopItem)
     {
-        await _shopPanel.ShowPaymentMessage(paymentInfo, shopItem).FastAwait();
+        await _shopPanel.ShowPaymentMessage(paymentData, shopItem).FastAwait();
     }
 }

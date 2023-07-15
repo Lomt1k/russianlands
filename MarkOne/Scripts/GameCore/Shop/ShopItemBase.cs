@@ -53,7 +53,7 @@ public abstract class ShopItemBase
         }
     }
 
-    private async Task GiveAndShowRewards(GameSession session, Func<Task> onContinue)
+    public async Task GiveAndShowRewards(GameSession session, Func<Task> onContinue)
     {
         var sb = new StringBuilder();
         sb.AppendLine(Localization.Get(session, "dialog_shop_purchased_items_header"));

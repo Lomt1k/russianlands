@@ -9,13 +9,14 @@ public enum PaymentStatus : byte
     NotPaid = 0,
     WaitingForGoods = 1,
     Received = 2,
+    ErrorOnTryReceive = 3,
 }
 
 [Table("PaymentData")]
 public class PaymentData
 {
-    [PrimaryKey, AutoIncrement]
-    public long paymentId { get; set; }
+    [PrimaryKey]
+    public string orderId { get; set; }
     public long telegramId { get; set; }
     public PaymentProviderType providerType { get; set; }
     public string vendorCode { get; set; } = string.Empty;
@@ -23,5 +24,8 @@ public class PaymentData
     public double rubbles { get; set; }
     public DateTime creationDate { get; set; }
     public DateTime expireDate { get; set; }
+    public string comment { get; set; } = string.Empty;
+    public string url { get; set; } = string.Empty;
+    public string signature { get; set; } = string.Empty;
     
 }

@@ -29,10 +29,12 @@ public class ShopCurrentcyPrice : ShopPriceBase
 
     public override async Task<bool> TryPurchase(GameSession session, ShopItemBase shopItem, Func<string, Task> onPurchaseError)
     {
-        var paymentInfo = await paymentManager.CreatePayment(session, shopItem, russianRubles).FastAwait();
-        if (paymentInfo.url is not null && session.currentDialog is ShopDialog shopDialog)
+        var vendorCode = shopItem.vendorCode;
+        var comment = shopItem.GetTitle(session).RemoveHtmlTags();
+        var paymentData = await paymentManager.TryGetOrCreatePayment(session, russianRubles, vendorCode, comment).FastAwait();
+        if (paymentData is not null && session.currentDialog is ShopDialog shopDialog)
         {
-            await shopDialog.ShowPaymentMessage(paymentInfo, shopItem).FastAwait();
+            await shopDialog.ShowPaymentMessage(paymentData, shopItem).FastAwait();
         }
         else
         {

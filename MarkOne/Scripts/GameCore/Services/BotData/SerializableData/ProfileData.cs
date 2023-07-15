@@ -30,6 +30,8 @@ public class ProfileData : DataWithSession
     public DateTime endPremiumTime { get; set; }
     public int lastNewsId { get; set; } = -1;
     public string specialNotification { get; set; } = string.Empty;
+    public uint revenueRUB { get; set; }
+    public bool hasWaitingGoods { get; set; }
 
 
     // resources

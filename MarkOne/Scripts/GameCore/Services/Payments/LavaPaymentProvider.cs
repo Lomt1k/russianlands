@@ -1,10 +1,11 @@
 ﻿using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
 using MarkOne.Scripts.GameCore.Sessions;
-using MarkOne.Scripts.GameCore.Shop;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
@@ -14,20 +15,24 @@ using static MarkOne.Scripts.Bot.BotConfig;
 namespace MarkOne.Scripts.GameCore.Services.Payments;
 internal class LavaPaymentProvider : IPaymentProvider
 {
-    private static string botName => BotController.botname;
-
     public PaymentProviderType providerType => PaymentProviderType.LAVA_RU;
     private readonly PaymentsSettings settings;
+
+    private string defaultWebHookPath { get; }
 
     public LavaPaymentProvider(PaymentsSettings _paymentsSettings)
     {
         settings = _paymentsSettings;
+        defaultWebHookPath = BotController.config.httpListenerSettings.externalHttpPrefix.TrimEnd('/') + _paymentsSettings.webhookPath;
     }
 
-    public async Task<string?> CreatePayment(GameSession session, ShopItemBase shopItem, PaymentData paymentData)
+    public async Task<CreatedPaymentInfo?> CreatePayment(GameSession session, PaymentData paymentData)
     {
         try
         {
+            var hookSignature = GetSignature(new Random().Next(1_000_000_000).ToString(), settings.secondaryKey);
+            var hookUrl = $"{defaultWebHookPath}?signature={hookSignature}";
+
             var jsonBuilder = new StringBuilder();
             using (var textWriter = new StringWriter(jsonBuilder))
             {
@@ -39,20 +44,22 @@ internal class LavaPaymentProvider : IPaymentProvider
                 jsonWriter.WritePropertyName("shopId");
                 jsonWriter.WriteValue(settings.shopId);
                 jsonWriter.WritePropertyName("orderId");
-                jsonWriter.WriteValue($"date-{DateTime.UtcNow}-bot-{botName}-payment-{paymentData.paymentId}");
+                jsonWriter.WriteValue(paymentData.orderId);
                 jsonWriter.WritePropertyName("expire");
                 jsonWriter.WriteValue(settings.expireTimeInMinutes);
                 jsonWriter.WritePropertyName("customFields");
                 jsonWriter.WriteValue(paymentData.vendorCode);
                 jsonWriter.WritePropertyName("comment");
-                jsonWriter.WriteValue(shopItem.GetTitle(session).RemoveHtmlTags());
+                jsonWriter.WriteValue(paymentData.comment);
+                jsonWriter.WritePropertyName("hookUrl");
+                jsonWriter.WriteValue(hookUrl);
                 jsonWriter.WriteEndObject();
             }
             var jsonData = jsonBuilder.ToString();
 
             var request = new HttpRequestMessage(HttpMethod.Post, "https://api.lava.ru/business/invoice/create");
             request.Headers.Add("Accept", "application/json");
-            request.Headers.Add("Signature", GetSignature(jsonData));
+            request.Headers.Add("Signature", GetSignature(jsonData, settings.secretKey));
             request.Content = new StringContent(jsonData, Encoding.UTF8, "application/json");
 
             var response = await BotController.httpClient.SendAsync(request).FastAwait();
@@ -68,8 +75,8 @@ internal class LavaPaymentProvider : IPaymentProvider
                     switch (key)
                     {
                         case "url":
-                            var paymentUrl = jsonReader.ReadAsString();
-                            return paymentUrl;
+                            var paymentUrl = jsonReader.ReadAsString() ?? string.Empty;
+                            return new CreatedPaymentInfo(paymentUrl, hookSignature);
                     }
                 }
             }
@@ -84,11 +91,11 @@ internal class LavaPaymentProvider : IPaymentProvider
         return null;
     }
 
-    private string GetSignature(string serializeData)
+    public static string GetSignature(string serializeData, string secretKey)
     {
         var encoding = new UTF8Encoding();
         var data = encoding.GetBytes(serializeData);
-        var key = encoding.GetBytes(settings.secretKey);
+        var key = encoding.GetBytes(secretKey);
         var hash = new HMACSHA256(key);
         var hashmessage = hash.ComputeHash(data);
 
@@ -98,6 +105,38 @@ internal class LavaPaymentProvider : IPaymentProvider
             signatureBuilder.Append(hashmessage[i].ToString("X2").ToLower());
         }
         return signatureBuilder.ToString();
+    }
+
+    private static string PrepareJsonToSignature(string data)
+    {
+        data = data.Replace("{\"data\":", string.Empty);
+        data = data.Replace(",\"status\":200,\"status_check\":true}", string.Empty);
+        Program.logger.Debug($"old dataBody: '{data}'\n");
+
+        var jsonDictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(data);
+        var jsonBuilder = new StringBuilder();
+        using (var textWriter = new StringWriter(jsonBuilder))
+        {
+            using var jsonWriter = new JsonTextWriter(textWriter);
+            jsonWriter.WriteStartObject();
+
+            foreach (var jsonKey in jsonDictionary.Keys.OrderBy(x => x))
+            {
+                jsonWriter.WritePropertyName(jsonKey);
+                var value = jsonDictionary[jsonKey] ?? "null";
+                if (value != "null" && value.Any(x => !char.IsDigit(x)))
+                {
+                    value = $"\"{value}\"";
+                }
+                jsonWriter.WriteRawValue(value);
+            }
+            jsonWriter.WriteEndObject();
+        }
+
+        data = jsonBuilder.ToString();
+        data = data.Replace("/", "\\/");
+        Program.logger.Debug($"new dataBody: '{data}'\n");
+        return data;
     }
 
 }

@@ -25,6 +25,7 @@ public static class ServiceLocator
         Register(new SessionExceptionHandler());
         Register(new BattleManager());
         Register(new PerformanceManager());
+        Register(new Payments.PaymentManager());
         Register(new NotificationsManager());
         Register(new MessageSequencer());
         Register(new MessageSender());
@@ -36,7 +37,6 @@ public static class ServiceLocator
         Register(new Arena.ArenaMatchMaker());
         Register(new FakePlayers.FakePlayersFactory());
         Register(new News.NewsService());
-        Register(new Payments.PaymentManager());
     }
 
     private static void Register<T>(T instance) where T : Service, new()
