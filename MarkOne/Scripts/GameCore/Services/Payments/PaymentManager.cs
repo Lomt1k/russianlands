@@ -124,7 +124,8 @@ public class PaymentManager : Service
                         await db.UpdateAsync(paymentData).FastAwait();
                         return;
                     }
-                    await shopItem.GiveAndShowRewards(session, () => new ShopDialog(session).Start()).FastAwait();
+                    await shopItem.GiveAndShowRewards(session, () => new ShopDialog(session).Start()).FastAwait();                    
+                    session.profile.data.revenueRUB += (uint)paymentData.rubbles;
                     session.profile.dailyData.revenueRUB += (uint)paymentData.rubbles;
 
                     Program.logger.Info($"PAYMENT | User {session.actualUser} received a reward by orderId: '{paymentData.orderId}'");
@@ -137,6 +138,8 @@ public class PaymentManager : Service
                 paymentData.status = PaymentStatus.WaitingForGoods;
                 await db.UpdateAsync(paymentData).FastAwait();
                 session.profile.data.hasWaitingGoods = true;
+                session.profile.data.revenueRUB += (uint)paymentData.rubbles;
+                session.profile.dailyData.revenueRUB += (uint)paymentData.rubbles;
                 await session.profile.SaveProfile().FastAwait();
                 Program.logger.Info($"PAYMENT | User {session.actualUser} is waiting for a reward by orderId: '{paymentData.orderId}'");
                 return;
@@ -159,8 +162,27 @@ public class PaymentManager : Service
         paymentData.status = PaymentStatus.WaitingForGoods;
         await db.UpdateAsync(paymentData).FastAwait();
         profileData.hasWaitingGoods = true;
+        profileData.revenueRUB += (uint)paymentData.rubbles;
         await db.UpdateAsync(profileData).FastAwait();
         Program.logger.Info($"PAYMENT | User (ID {profileData.telegram_id}) is waiting for a reward by orderId: '{paymentData.orderId}'");
+
+        try
+        {
+            var dailyData = await db.Table<RawProfileDailyData>()
+                .Where(x => x.telegram_id == telegramId)
+                .FirstOrDefaultAsync()
+                .FastAwait();
+
+            if (dailyData is not null)
+            {
+                dailyData.revenueRUB += (uint)paymentData.rubbles;
+                await db.UpdateAsync(dailyData).FastAwait();
+            }
+        }
+        catch (Exception)
+        {
+            // ignored
+        }
     }
 
     public async Task GetNextWaitingGoods(GameSession session, Func<Task> onConinue)
@@ -192,7 +214,6 @@ public class PaymentManager : Service
         }
 
         await shopItem.GiveAndShowRewards(session, onConinue).FastAwait();
-        session.profile.dailyData.revenueRUB += (uint)paymentData.rubbles;
 
         Program.logger.Info($"PAYMENT | User {session.actualUser} received a reward by orderId: '{paymentData.orderId}'");
         await session.profile.SaveProfile().FastAwait();
