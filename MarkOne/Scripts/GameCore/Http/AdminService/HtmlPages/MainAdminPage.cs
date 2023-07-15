@@ -27,6 +27,7 @@ internal class MainAdminPage : IHtmlPage
         var recentlyActive = allSessions.Where(x => (dtNow - x.lastActivityTime).TotalMinutes < 5).Count();
         var debugInfo = pm.debugInfo;
         var date = serverDailyDataManager.lastDate;
+        var dailyRevenue = await serverDailyDataManager.GetIntegerValue("revenue").FastAwait();
         var dailyActiveUsers = await profileDailyDataManager.GetDailyActiveUsers().FastAwait();
 
         // prepare document
@@ -43,6 +44,7 @@ internal class MainAdminPage : IHtmlPage
             CreateTableRow("DAU", dailyActiveUsers.ToString()),
             CreateTableRow("Sessions", allSessions.Count.ToString()),
             CreateTableRow("Now playing", recentlyActive.ToString()),
+            CreateTableRow("Revenue", $"{dailyRevenue} RUB"),
             CreateTableRow("&nbsp;", "&nbsp;"),
             CreateTableRow("Status", pm.currentState.ToString()),
             CreateTableRow("CPU", debugInfo.cpuInfo.Replace("CPU: ", string.Empty)),

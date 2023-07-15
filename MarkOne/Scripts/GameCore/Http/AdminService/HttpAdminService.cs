@@ -68,8 +68,15 @@ public class HttpAdminService : IHttpService
         var sessionId = await CheckLoginStatus(request, response).FastAwait();
         if (sessionId is null)
         {
-            response.AsText(GetLoginPage());
-            response.Close();
+            try
+            {
+                response.AsText(GetLoginPage());
+                response.Close();
+            }
+            catch (ObjectDisposedException)
+            {
+                //ignored
+            }
             return;
         }
 
