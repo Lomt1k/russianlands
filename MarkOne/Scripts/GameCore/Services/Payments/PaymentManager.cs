@@ -118,7 +118,12 @@ public class PaymentManager : Service
                 {
                     if (!gameDataHolder.shopItemsCache.TryGetValue(paymentData.vendorCode, out var shopItem))
                     {
-                        Program.logger.Error($"PAYMENT | Not found item with vendorCode '{paymentData.vendorCode}' (orderId: '{paymentData.orderId}'). " +
+                        Program.logger.Error($"PAYMENT | Not found item with vendorCode '{paymentData.vendorCode}'" +
+                            $"\n orderId: {paymentData.orderId}" +
+                            $"\n telegramId: {paymentData.telegramId}" +
+                            $"\n rubbles: {paymentData.rubbles}" +
+                            $"\n comment: {paymentData.comment}" +
+                            $"\n status: {PaymentStatus.ErrorOnTryReceive}" +
                             $"But payment is success. Call the administrator!");
                         paymentData.status = PaymentStatus.ErrorOnTryReceive;
                         await db.UpdateAsync(paymentData).FastAwait();
@@ -128,7 +133,12 @@ public class PaymentManager : Service
                     session.profile.data.revenueRUB += (uint)paymentData.rubbles;
                     session.profile.dailyData.revenueRUB += (uint)paymentData.rubbles;
 
-                    Program.logger.Info($"PAYMENT | User {session.actualUser} received a reward by orderId: '{paymentData.orderId}'");
+                    Program.logger.Info($"PAYMENT | User {session.actualUser} received a reward" +
+                        $"\n orderId: {paymentData.orderId}" +
+                        $"\n telegramId: {paymentData.telegramId}" +
+                        $"\n rubbles: {paymentData.rubbles}" +
+                        $"\n comment: {paymentData.comment}" +
+                        $"\n status: {PaymentStatus.Received}");
                     await session.profile.SaveProfile().FastAwait();
                     paymentData.status = PaymentStatus.Received;
                     await db.UpdateAsync(paymentData).FastAwait();
@@ -141,7 +151,14 @@ public class PaymentManager : Service
                 session.profile.data.revenueRUB += (uint)paymentData.rubbles;
                 session.profile.dailyData.revenueRUB += (uint)paymentData.rubbles;
                 await session.profile.SaveProfile().FastAwait();
-                Program.logger.Info($"PAYMENT | User {session.actualUser} is waiting for a reward by orderId: '{paymentData.orderId}'");
+
+                Program.logger.Info($"PAYMENT | User {session.actualUser} is waiting for a reward" +
+                    $"\n orderId: {paymentData.orderId}" +
+                    $"\n telegramId: {paymentData.telegramId}" +
+                    $"\n rubbles: {paymentData.rubbles}" +
+                    $"\n comment: {paymentData.comment}" +
+                    $"\n status: {PaymentStatus.WaitingForGoods}");
+
                 return;
             }
             catch (Exception ex)
@@ -154,8 +171,16 @@ public class PaymentManager : Service
         var profileData = await db.Table<ProfileData>().Where(x => x.telegram_id == telegramId).FirstOrDefaultAsync().FastAwait();
         if (profileData is null)
         {
-            Program.logger.Error($"PAYMENT | Not found profileData with telegramId '{telegramId}' (orderId: '{paymentData.orderId}'). " +
-                        $"But payment is success. Call the administrator!");
+            Program.logger.Error($"PAYMENT | Not found profileData with telegramId '{telegramId}'" +
+                $"\n orderId: {paymentData.orderId}" +
+                $"\n telegramId: {paymentData.telegramId}" +
+                $"\n rubbles: {paymentData.rubbles}" +
+                $"\n comment: {paymentData.comment}" +
+                $"\n status: {PaymentStatus.ErrorOnTryReceive}" +
+                $"But payment is success. Call the administrator!");
+
+            paymentData.status = PaymentStatus.ErrorOnTryReceive;
+            await db.UpdateAsync(paymentData).FastAwait();
             return;
         }
         
@@ -164,7 +189,13 @@ public class PaymentManager : Service
         profileData.hasWaitingGoods = true;
         profileData.revenueRUB += (uint)paymentData.rubbles;
         await db.UpdateAsync(profileData).FastAwait();
-        Program.logger.Info($"PAYMENT | User (ID {profileData.telegram_id}) is waiting for a reward by orderId: '{paymentData.orderId}'");
+
+        Program.logger.Info($"PAYMENT | User (ID {profileData.telegram_id}) is waiting for a reward" +
+            $"\n orderId: {paymentData.orderId}" +
+            $"\n telegramId: {paymentData.telegramId}" +
+            $"\n rubbles: {paymentData.rubbles}" +
+            $"\n comment: {paymentData.comment}" +
+            $"\n status: {PaymentStatus.WaitingForGoods}");
 
         try
         {
@@ -205,8 +236,14 @@ public class PaymentManager : Service
         var vendorCode = paymentData.vendorCode;
         if (!gameDataHolder.shopItemsCache.TryGetValue(paymentData.vendorCode, out var shopItem))
         {
-            Program.logger.Error($"PAYMENT | Not found item with vendorCode '{paymentData.vendorCode}' (orderId: '{paymentData.orderId}'). " +
+            Program.logger.Error($"PAYMENT | Not found item with vendorCode '{paymentData.vendorCode}'" +
+                $"\n orderId: {paymentData.orderId}" +
+                $"\n telegramId: {paymentData.telegramId}" +
+                $"\n rubbles: {paymentData.rubbles}" +
+                $"\n comment: {paymentData.comment}" +
+                $"\n status: {PaymentStatus.ErrorOnTryReceive}" +
                 $"But payment is success. Call the administrator!");
+
             paymentData.status = PaymentStatus.ErrorOnTryReceive;
             await db.UpdateAsync(paymentData).FastAwait();
             await onConinue().FastAwait();
@@ -215,7 +252,12 @@ public class PaymentManager : Service
 
         await shopItem.GiveAndShowRewards(session, onConinue).FastAwait();
 
-        Program.logger.Info($"PAYMENT | User {session.actualUser} received a reward by orderId: '{paymentData.orderId}'");
+        Program.logger.Info($"PAYMENT | User {session.actualUser} received a reward" +
+            $"\n orderId: '{paymentData.orderId}'" +
+            $"\n telegramId: {paymentData.telegramId}" +
+            $"\n rubbles: {paymentData.rubbles}" +
+            $"\n comment: {paymentData.comment}" +
+            $"\n status: {PaymentStatus.Received}");
         await session.profile.SaveProfile().FastAwait();
         paymentData.status = PaymentStatus.Received;
         await db.UpdateAsync(paymentData).FastAwait();
