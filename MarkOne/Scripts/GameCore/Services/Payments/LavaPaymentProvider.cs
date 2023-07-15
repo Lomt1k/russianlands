@@ -3,9 +3,7 @@ using MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
 using MarkOne.Scripts.GameCore.Sessions;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
@@ -105,38 +103,6 @@ internal class LavaPaymentProvider : IPaymentProvider
             signatureBuilder.Append(hashmessage[i].ToString("X2").ToLower());
         }
         return signatureBuilder.ToString();
-    }
-
-    private static string PrepareJsonToSignature(string data)
-    {
-        data = data.Replace("{\"data\":", string.Empty);
-        data = data.Replace(",\"status\":200,\"status_check\":true}", string.Empty);
-        Program.logger.Debug($"old dataBody: '{data}'\n");
-
-        var jsonDictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(data);
-        var jsonBuilder = new StringBuilder();
-        using (var textWriter = new StringWriter(jsonBuilder))
-        {
-            using var jsonWriter = new JsonTextWriter(textWriter);
-            jsonWriter.WriteStartObject();
-
-            foreach (var jsonKey in jsonDictionary.Keys.OrderBy(x => x))
-            {
-                jsonWriter.WritePropertyName(jsonKey);
-                var value = jsonDictionary[jsonKey] ?? "null";
-                if (value != "null" && value.Any(x => !char.IsDigit(x)))
-                {
-                    value = $"\"{value}\"";
-                }
-                jsonWriter.WriteRawValue(value);
-            }
-            jsonWriter.WriteEndObject();
-        }
-
-        data = jsonBuilder.ToString();
-        data = data.Replace("/", "\\/");
-        Program.logger.Debug($"new dataBody: '{data}'\n");
-        return data;
     }
 
 }
