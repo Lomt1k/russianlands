@@ -1065,6 +1065,7 @@
 	"battle_result_description_lose" : "На этот раз удача была не на вашей стороне...",
 	"battle_result_description_draw" : "Никто не одержал победу в сражении",
 	"battle_result_header_rewards" : "<pre>Ваша награда:</pre>",
+	"battle_result_header_premium_rewards" : "<pre>Премиум-награда:</pre>",
 	"battle_result_continue_button" : "Продолжить",
 	"battle_not_enough_mana" : "<b>У вас не хватает маны для использования свитков</b>",
 	"battle_potion_selection" : "Выберите зелье, которое хотите использовать:",

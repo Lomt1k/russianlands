@@ -4,11 +4,12 @@ using System.Threading.Tasks;
 using MarkOne.Scripts.GameCore.Resources;
 using MarkOne.Scripts.GameCore.Sessions;
 using System.Text;
+using System.Collections.Generic;
 
 namespace MarkOne.Scripts.GameCore.Rewards;
 
 [JsonObject]
-public class ResourceABWithOneBonusReward : RewardBase
+public class ResourceABWithOneBonusReward : ResourceRewardBase
 {
     public ResourceId resourceIdA { get; set; } = ResourceId.Gold;
     public int amountA { get; set; }
@@ -24,11 +25,35 @@ public class ResourceABWithOneBonusReward : RewardBase
 
     public override Task<string?> AddReward(GameSession session)
     {
-        var isA = new Random().Next(2) == 0;
-        return isA ? AddRewardWithBonusA(session) : AddRewardWithBonusB(session);
+        var rewards = PrepareRewards();
+        session.player.resources.ForceAdd(rewards);
+        var text = rewards.GetLocalizedView(session);
+        return Task.FromResult(text);
     }
 
-    private Task<string?> AddRewardWithBonusA(GameSession session)
+    public override Task<string?> AddRewardWithAddPossiblePremiumRewardToList(GameSession session, List<ResourceReward> possiblePremiumRewards)
+    {
+        var rewards = PrepareRewards();
+        foreach (var (resourceId, amount) in rewards)
+        {
+            var premiumAmount = amount * 15 / 100;
+            if (premiumAmount > 0)
+            {
+                possiblePremiumRewards.Add(new ResourceReward(resourceId, premiumAmount));
+            }
+        }
+        session.player.resources.ForceAdd(rewards);
+        var text = rewards.GetLocalizedView(session);
+        return Task.FromResult(text);
+    }
+
+    private ResourceData[] PrepareRewards()
+    {
+        var isA = new Random().Next(2) == 0;
+        return isA ? GetRewardsWithBonusA() : GetRewardsWithBonusB();
+    }
+
+    private ResourceData[] GetRewardsWithBonusA()
     {
         var amountWithBonus = amountA + new Random().Next(bonusA_min, bonusA_max + 1);
         var resourceDatas = new ResourceData[]
@@ -36,13 +61,10 @@ public class ResourceABWithOneBonusReward : RewardBase
             new ResourceData(resourceIdA, amountWithBonus),
             new ResourceData(resourceIdB, amountB),
         };
-        session.player.resources.ForceAdd(resourceDatas);
-
-        var text = resourceDatas.GetLocalizedView(session);
-        return Task.FromResult(text);
+        return resourceDatas;
     }
 
-    private Task<string?> AddRewardWithBonusB(GameSession session)
+    private ResourceData[] GetRewardsWithBonusB()
     {
         var amountWithBonus = amountB + new Random().Next(bonusB_min, bonusB_max + 1);
         var resourceDatas = new ResourceData[]
@@ -50,10 +72,7 @@ public class ResourceABWithOneBonusReward : RewardBase
             new ResourceData(resourceIdA, amountA),
             new ResourceData(resourceIdB, amountWithBonus),
         };
-        session.player.resources.ForceAdd(resourceDatas);
-
-        var text = resourceDatas.GetLocalizedView(session);
-        return Task.FromResult(text);
+        return resourceDatas;
     }
 
     public override string GetPossibleRewardsView(GameSession session)

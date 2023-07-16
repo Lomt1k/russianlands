@@ -1066,6 +1066,7 @@
 	"battle_result_description_lose" : "Luck was not on your side this time...",
 	"battle_result_description_draw" : "No one has won the battle",
 	"battle_result_header_rewards" : "<pre>Your rewards:</pre>",
+	"battle_result_header_premium_rewards" : "<pre>Premium Reward:</pre>",
 	"battle_result_continue_button" : "Continue",
 	"battle_not_enough_mana" : "<b>You don't have enough mana to use scrolls</b>",
 	"battle_potion_selection" : "Choose the potion you want to use:",
