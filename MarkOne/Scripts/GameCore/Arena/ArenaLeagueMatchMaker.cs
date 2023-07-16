@@ -194,7 +194,7 @@ public class ArenaLeagueMatchMaker
         var generationSettings = needWeakEnemy
             ? _arenaLeagueSettings.weakPlayerGenerationSettings
             : _arenaLeagueSettings.defaultPlayerGenerationSettings;
-        Program.logger.Debug("generate player... isWeak: " + needWeakEnemy);
+        //Program.logger.Debug("generate player... isWeak: " + needWeakEnemy);
         return fakePlayersFactory.Generate(generationSettings);
     }
 
