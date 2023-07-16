@@ -14,6 +14,7 @@ namespace MarkOne.Scripts.GameCore.Services.FakePlayers;
 public sealed class FakePlayersFactory : Service
 {
     private static readonly GameDataHolder gameDataHolder = ServiceLocator.Get<GameDataHolder>();
+    private const int premiumPercentageChance = 10;
 
     public FakePlayer Generate(FakePlayerGenerationSettings settings)
     {
@@ -22,7 +23,7 @@ public sealed class FakePlayersFactory : Service
         var items = GeneratePlayerItems(random, settings, playerLevel);
         var skills = GeneratePlayerSkillls(random, settings);
         var nickname = GenerateRandomName(random);
-        var isPremium = false;
+        var isPremium = Randomizer.TryPercentage(premiumPercentageChance);
         return new FakePlayer(items, skills, playerLevel, nickname, isPremium);
     }
 
