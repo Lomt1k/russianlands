@@ -31,7 +31,8 @@ public class CharacterDialog : DialogBase
         var skillsEmoji = IsSkillsDialogAvailable() ? Emojis.ButtonSkills : Emojis.ElementLocked;
         RegisterButton(skillsEmoji + Localization.Get(session, "menu_item_skills"), TryShowSkillsDialog);
 
-        RegisterButton(Emojis.AvatarMale + Localization.Get(session, "menu_item_avatar"), null);
+        RegisterButton(Emojis.AvatarMale + Localization.Get(session, "menu_item_avatar"), 
+            () => new Avatars.AvatarsDialog(session).Start());
         RegisterButton(Emojis.ButtonNameChange + Localization.Get(session, "menu_item_namechange"),
             () => new EnterNameDialog(session).Start());
         RegisterTownButton(isDoubleBack: false);
