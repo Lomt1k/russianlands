@@ -155,7 +155,15 @@ internal class ShopDialogPanel : DialogPanelBase
             RegisterButton(shopItem.GetNameForList(session), () => ShowItem(shopItem));
         }
         RegisterBackButton(Localization.Get(session, "menu_item_shop") + Emojis.ElementScales, ShowCategories);
-        await SendPanelMessage(GetCategoryName(_currentCategory, session), GetMultilineKeyboard()).FastAwait();
+
+        var sb = new StringBuilder();
+        sb.AppendLine(GetCategoryName(_currentCategory, session));
+        if (!session.profile.data.isDoubleDiamondsBonusUsed)
+        {
+            sb.AppendLine();
+            sb.AppendLine(Emojis.ElementWarningRed.ToString() + Localization.Get(session, "dialog_shop_double_diamonds_bonus"));
+        }
+        await SendPanelMessage(sb, GetMultilineKeyboard()).FastAwait();
     }
 
     private async Task ShowItem(ShopItemBase shopItem)

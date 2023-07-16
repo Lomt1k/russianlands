@@ -33,6 +33,7 @@ public class ProfileData : DataWithSession
     public string specialNotification { get; set; } = string.Empty;
     public uint revenueRUB { get; set; }
     public bool hasWaitingGoods { get; set; }
+    public bool isDoubleDiamondsBonusUsed { get; set; }
 
 
     // resources
