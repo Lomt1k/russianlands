@@ -72,13 +72,17 @@ public abstract class CraftBuildingBase : BuildingBase
     {
         var currentLevel = GetCurrentLevel(data);
         var levelInfo = (CraftLevelInfo)buildingData.levels[currentLevel - 1];
-        return rarity switch
+        var craftTime = rarity switch
         {
             Rarity.Rare => levelInfo.rareCraft_Time,
             Rarity.Epic => levelInfo.epicCraft_Time,
             Rarity.Legendary => levelInfo.legendaryCraft_Time,
             _ => 0
         };
+
+        return data.session is not null && data.session.player.IsPremiumActive()
+            ? craftTime * 3 / 4
+            : craftTime;
     }
 
     /// <returns>Дата, когда изготовление предмета должно быть заверено</returns>

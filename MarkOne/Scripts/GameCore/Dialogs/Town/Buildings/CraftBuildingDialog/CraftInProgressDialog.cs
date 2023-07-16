@@ -39,7 +39,8 @@ public class CraftInProgressDialog : DialogBase
         sb.AppendLine();
         var timeSpan = _building.GetEndCraftTime(buildingsData) - DateTime.UtcNow;
         var productionView = Localization.Get(session, "dialog_craft_progress", timeSpan.GetView(session));
-        sb.AppendLine(Emojis.ElementSmallBlack + productionView);
+        sb.AppendLine(Emojis.ElementSmallBlack + productionView
+            + (session.player.IsPremiumActive() ? $" {Emojis.StatPremium}" : string.Empty));
 
         ClearButtons();
         var diamondsForBoost = GetBoostPriceInDiamonds();
