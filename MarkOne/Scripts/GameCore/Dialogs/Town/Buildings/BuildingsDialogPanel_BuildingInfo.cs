@@ -156,7 +156,10 @@ public partial class BuildingsDialogPanel : DialogPanelBase
         var requiredResources = GetRequiredResourcesForConstruction(building);
         sb.Append(requiredResources.GetPriceView(session));
         var dtNow = DateTime.UtcNow;
-        var timeSpan = dtNow.AddSeconds(levelData.constructionTime) - dtNow;
+        var constuctionTime = session.player.IsPremiumActive()
+            ? levelData.constructionTime * 3 / 4
+            : levelData.constructionTime;
+        var timeSpan = TimeSpan.FromSeconds(constuctionTime);
         sb.AppendLine(timeSpan.GetView(session, withCaption: true));
 
         var playerTownHall = BuildingId.TownHall.GetBuilding().GetCurrentLevel(_buildingsData);

@@ -162,6 +162,11 @@ public abstract class BuildingBase
         var currentLevel = GetCurrentLevel(data);
         var startDt = GetStartConstructionTime(data);
         var secondsForConstruction = buildingData.levels[currentLevel].constructionTime;
+        var session = data.session;
+        if (session is not null && session.player.IsPremiumActive())
+        {
+            secondsForConstruction = secondsForConstruction * 3 / 4;
+        }
         var endDt = startDt.AddSeconds(secondsForConstruction);
         return endDt;
     }
