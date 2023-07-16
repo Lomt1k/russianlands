@@ -104,7 +104,8 @@ internal class ShopDialogPanel : DialogPanelBase
         if (session.profile.data.IsPremiumActive())
         {
             var timeUntilExpire = session.profile.data.endPremiumTime - DateTime.UtcNow;
-            sb.AppendLine(Localization.Get(session, "dialog_shop_premium_end_time", timeUntilExpire.GetView(session)));
+            sb.AppendLine();
+            sb.AppendLine(Localization.Get(session, "dialog_shop_premium_end_time", timeUntilExpire.GetShortView(session)));
         }
 
         await SendPanelMessage(sb.ToString(), GetMultilineKeyboard()).FastAwait();
