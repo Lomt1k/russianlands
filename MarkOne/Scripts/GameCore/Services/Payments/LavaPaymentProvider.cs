@@ -37,8 +37,8 @@ internal class LavaPaymentProvider : IPaymentProvider
                 using var jsonWriter = new JsonTextWriter(textWriter);
                 jsonWriter.WriteStartObject();
                 jsonWriter.WritePropertyName("sum");
-                //jsonWriter.WriteValue(paymentData.rubbles);
-                jsonWriter.WriteValue(10); // debug only!
+                //jsonWriter.WriteValue(10); // debug only!
+                jsonWriter.WriteValue(paymentData.rubbles);
                 jsonWriter.WritePropertyName("shopId");
                 jsonWriter.WriteValue(settings.shopId);
                 jsonWriter.WritePropertyName("orderId");
