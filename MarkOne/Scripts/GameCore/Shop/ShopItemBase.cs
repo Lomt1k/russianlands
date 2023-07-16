@@ -46,14 +46,14 @@ public abstract class ShopItemBase
             return;
         }
 
-        var success = price == null ? true : await price.TryPurchase(session, onPurchaseError).FastAwait();
+        var success = price == null ? true : await price.TryPurchase(session, this, onPurchaseError).FastAwait();
         if (success)
         {
             await GiveAndShowRewards(session, onSuccess).FastAwait();
         }
     }
 
-    private async Task GiveAndShowRewards(GameSession session, Func<Task> onContinue)
+    public async Task GiveAndShowRewards(GameSession session, Func<Task> onContinue)
     {
         var sb = new StringBuilder();
         sb.AppendLine(Localization.Get(session, "dialog_shop_purchased_items_header"));
@@ -65,6 +65,25 @@ public abstract class ShopItemBase
                 sb.AppendLine(addedReward);
             }
         }
+
+        // костыль для x2 бонуса при первой покупке алмазов
+        if (vendorCode.Contains("-diamonds-") && !session.profile.data.isDoubleDiamondsBonusUsed)
+        {
+            sb.AppendLine();
+            sb.AppendLine(Localization.Get(session, "dialog_shop_first_purchase_bonus"));
+            foreach (var reward in GetRewards())
+            {
+                var addedReward = await reward.AddReward(session).FastAwait();
+                if (!string.IsNullOrEmpty(addedReward))
+                {
+                    sb.AppendLine(addedReward);
+                }
+            }
+            session.profile.data.isDoubleDiamondsBonusUsed = true;
+            Program.logger.Info($"PAYMENT | User {session.actualUser} received a x2 bonus for the first purchase of diamonds");
+        }
+        // конец костыля :)
+
         await notificationsManager.ShowNotification(session, sb, onContinue).FastAwait();
     }
 

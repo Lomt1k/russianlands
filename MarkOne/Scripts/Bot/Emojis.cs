@@ -46,7 +46,6 @@ public static class Emojis
     public static readonly Emoji ButtonBuildings = new Emoji("\ud83d\uded6");
     public static readonly Emoji ButtonShop = new Emoji("\ud83d\uded2");
     public static readonly Emoji ButtonNews = new Emoji("\ud83d\udccc");
-    public static readonly Emoji ButtonSupport = new Emoji(char.ConvertFromUtf32(0x1F4AC));
     public static readonly Emoji ButtonPotions = new Emoji("\ud83e\uddea");
     public static readonly Emoji ButtonSkills = new Emoji("\ud83d\udcaa");
     public static readonly Emoji ButtonCraft = new Emoji("\ud83d\udd28");
@@ -57,6 +56,7 @@ public static class Emojis
     public static readonly Emoji ButtonStoryMode = new Emoji("\ud83d\udea9");
     public static readonly Emoji ButtonArena = new Emoji("\ud83c\udfdf");
     public static readonly Emoji ButtonCrossroads = new Emoji("\ud83e\udea8");
+    public static readonly Emoji ButtonPay = new Emoji(char.ConvertFromUtf32(0x1F4B3));
 
 
     // --- Stats

@@ -41,6 +41,7 @@ public class BotDataBase
         await db.CreateTableAsync<ServerDailyData>().FastAwait();
         await db.CreateTableAsync<RawProfileDailyData>().FastAwait();
         await db.CreateTableAsync<NewsData>().FastAwait();
+        await db.CreateTableAsync<PaymentData>().FastAwait();
     }
 
     public async Task CloseAsync()

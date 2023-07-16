@@ -56,7 +56,11 @@ public class EnterNameDialog : DialogBase
             await messageSender.SendSticker(session.chatId, sticker.Value, session.cancellationToken).FastAwait();
         }
 
-        var text = Localization.Get(session, "quest_main_vasilisa_encounter_replica");
+        var text = new StringBuilder()
+            .AppendLine($"<b>{CharacterType.Vasilisa.GetName(session)}:</b>")
+            .AppendLine()
+            .AppendLine(Localization.Get(session, "quest_main_vasilisa_encounter_replica"))
+            .ToString();
         var buttonText = GetQuestButtonText(session);
         RegisterButton(buttonText, null);
         await SendDialogMessage(text, GetOneLineKeyboard()).FastAwait();

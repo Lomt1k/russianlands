@@ -159,7 +159,9 @@ public class AlchemyLabBuilding : BuildingBase
             return 0;
 
         var levelInfo = (AlchemyLabLevelInfo)buildingData.levels[level - 1];
-        return levelInfo.craftTime;
+        return data.session is not null && data.session.player.IsPremiumActive()
+            ? levelInfo.craftTime * 3 / 4
+            : levelInfo.craftTime;
     }
 
     public ResourceData GetCraftCostForBuildingLevel(int level)

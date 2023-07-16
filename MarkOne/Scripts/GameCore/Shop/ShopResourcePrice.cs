@@ -54,7 +54,7 @@ public class ShopResourcePrice : ShopPriceBase
         return sb.ToString();
     }
 
-    public override async Task<bool> TryPurchase(GameSession session, Func<string, Task> onPurchaseError)
+    public override async Task<bool> TryPurchase(GameSession session, ShopItemBase shopItem, Func<string, Task> onPurchaseError)
     {
         var success = session.player.resources.TryPurchase(resourceData, out var notEnoughResource);
         if (!success)

@@ -21,7 +21,6 @@
     <TextBlock Text="Quests" Grid.Column="0" Grid.Row="0" Classes="h3"/>
     <ListBox Grid.Column="0" Grid.Row="1" VerticalAlignment="Top"
              MaxHeight="800"
-             ScrollViewer.VerticalScrollBarVisibility="Disabled"
              ItemsSource="{Binding quests}"
              SelectedItem="{Binding selectedQuest}">
       <ListBox.ItemTemplate>
@@ -38,7 +37,6 @@
     <StackPanel Grid.Column="1" Grid.Row="1">
       <ListBox Grid.Column="1" Grid.Row="1" VerticalAlignment="Top" Margin="40,0"
              MaxHeight="800"
-             ScrollViewer.VerticalScrollBarVisibility="Disabled"
              ItemsSource="{Binding questStages}"
              SelectedItem="{Binding selectedStage}">
         <ListBox.ItemTemplate>

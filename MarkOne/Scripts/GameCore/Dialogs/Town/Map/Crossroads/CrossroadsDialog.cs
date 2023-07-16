@@ -115,7 +115,7 @@ public class CrossroadsDialog : DialogBase
 
     public BattlePointData GetMobBattlePointData(CrossroadsMobData mobData)
     {
-        var reward = new ResourceReward() { resourceId = mobData.fruitId, amount = 1 };
+        var reward = new ResourceReward(mobData.fruitId, 1);
 
         return new BattlePointData
         {

@@ -18,6 +18,8 @@ internal class EditorShopItemsListViewModel : EditorListViewModel<ShopItemBase>
             {"Resource", () => result = new ShopResourceItem() },
             {"Inventory Item", () => result = new ShopInventoryItem() },
             {"Lootbox", () => result = new ShopLootboxItem() },
+            {"Premium", () => result = new ShopPremiumItem() },
+            {"Fruits", () => result = new ShopFruitsItem() }
         });
         return result;
     }
@@ -29,6 +31,8 @@ internal class EditorShopItemsListViewModel : EditorListViewModel<ShopItemBase>
             ShopResourceItem resourceItem => new ShopResourceItemView() { DataContext = new ShopResourceItemViewModel(resourceItem) },
             ShopInventoryItem inventoryItem => new ShopInventoryItemView() { DataContext = new ShopInventoryItemViewModel(inventoryItem) },
             ShopLootboxItem lootboxItem => new ShopLootboxItemView() { DataContext = new ShopLootboxItemViewModel(lootboxItem) },
+            ShopPremiumItem premiumItem => new ShopPremiumItemView() { DataContext = new ShopPremiumItemViewModel(premiumItem) },
+            ShopFruitsItem fruitsItem => new ShopFruitsItemView() { DataContext = new ShopFruitsItemViewModel(fruitsItem) },
         };
     }
 }

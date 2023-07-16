@@ -8,6 +8,7 @@ using MarkOne.Scripts.GameCore.Items;
 using MarkOne.Scripts.GameCore.Locations;
 using MarkOne.Scripts.GameCore.Potions;
 using MarkOne.Scripts.GameCore.Quests;
+using MarkOne.Scripts.GameCore.Shop;
 using MarkOne.Scripts.GameCore.Units.Mobs;
 
 namespace MarkOne.Scripts.GameCore.Services.GameData;
@@ -27,7 +28,10 @@ public class GameDataHolder : Service
     public ArenaSettings arenaSettings { get; private set; }
     public GameDataDictionary<LeagueId, ArenaLeagueSettings> arenaLeagueSettings { get; private set; }
     public GameDataDictionary<byte,ArenaShopSettings> arenaShopSettings { get; private set; }
+    public GameDataDictionary<byte, ShopSettings> shopSettings { get; private set; }
     public IReadOnlyList<string> botnames { get; private set; }
+
+    public Dictionary<string, ShopItemBase> shopItemsCache { get; private set; } = new();
 
 #pragma warning restore CS8618
 
@@ -55,6 +59,9 @@ public class GameDataHolder : Service
         arenaSettings = LoadGameData<ArenaSettings>("arenaSettings");
         arenaLeagueSettings = LoadGameDataDictionary<LeagueId, ArenaLeagueSettings>("arenaLeagueSettings");
         arenaShopSettings = LoadGameDataDictionary<byte, ArenaShopSettings>("arenaShopSettings");
+        shopSettings = LoadGameDataDictionary<byte, ShopSettings>("shopSettings");
+
+        RefreshShopItemsCache();
 
         Localizations.Localization.LoadAll(gameDataPath);
         botnames = File.ReadAllLines(Path.Combine(gameDataPath, "botnames.txt"));
@@ -106,6 +113,26 @@ public class GameDataHolder : Service
         return loadedObject;
     }
 
+    private void RefreshShopItemsCache()
+    {
+        shopItemsCache.Clear();
+        foreach (var settings in shopSettings.GetAllData())
+        {
+            foreach (var item in settings.premiumCategoryItems)
+            {
+                shopItemsCache.Add(item.vendorCode, item);
+            }
+            foreach (var item in settings.lootboxCategoryItems)
+            {
+                shopItemsCache.Add(item.vendorCode, item);
+            }
+            foreach (var item in settings.diamondsCategoryItems)
+            {
+                shopItemsCache.Add(item.vendorCode, item);
+            }
+        }
+    }
+
     public void SaveAllData()
     {
         if (Program.isBotAppStarted)
@@ -122,6 +149,7 @@ public class GameDataHolder : Service
         arenaSettings.Save();
         arenaLeagueSettings.Save();
         arenaShopSettings.Save();
+        shopSettings.Save();
     }
 
 }

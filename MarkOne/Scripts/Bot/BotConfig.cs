@@ -5,6 +5,8 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using MarkOne.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.GameCore.Services.Payments;
+using Newtonsoft.Json.Converters;
 
 namespace MarkOne.Scripts.Bot;
 
@@ -17,10 +19,19 @@ public class BotConfig
     public int sessionTimeoutInMinutes = 30;
     public int periodicSaveDatabaseInMinutes = 15;
 
-    public SendingLimits sendingLimits = new SendingLimits();
-    public PerformanceSettings performanceSettings = new PerformanceSettings();
-    public HttpListenerSettings httpListenerSettings = new HttpListenerSettings();
-    public LogSettings logSettings = new LogSettings();
+    public SendingLimits sendingLimits = new();
+    public PerformanceSettings performanceSettings = new();
+    public HttpListenerSettings httpListenerSettings = new();
+    public LogSettings logSettings = new();
+    public SocialLink[] socialLinks = new[]
+    {
+        new SocialLink
+        {
+            url = "https://example.com",
+            description = "YOUR_LINK_HERE"
+        }
+    };
+    public PaymentsSettings paymentsSettings = new();
 
     [JsonIgnore] public LanguageCode[] languageCodes { get; private set; } = { LanguageCode.RU };
     [JsonIgnore] public LanguageCode defaultLanguageCode { get; private set; }
@@ -83,6 +94,25 @@ public class BotConfig
     {
         public bool logUpdates = true;
         public bool logDailyNotifications = true;
+    }
+
+    [JsonObject]
+    public class SocialLink
+    {
+        public string url = string.Empty;
+        public string description = string.Empty;
+    }
+
+    public class PaymentsSettings
+    {
+        public bool isEnabled = false;
+        public int expireTimeInMinutes = 180;
+        public int minExpireTimeToUseOldOrder = 30;
+        [JsonConverter(typeof(StringEnumConverter))] public PaymentProviderType paymentProvider = PaymentProviderType.LAVA_RU;
+        public string shopId = string.Empty;
+        public string secretKey = string.Empty;
+        public string secondaryKey = string.Empty;
+        public string webhookPath = "/lava-pay";
     }
 
     private void ParseLanguageCodes()

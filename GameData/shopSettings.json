@@ -1,0 +1,1015 @@
+﻿[
+  {
+    "id": 2,
+    "premiumCategoryItems": [
+      {
+        "$type": "ShopPremiumItem",
+        "premiumReward": {
+          "$type": "PremiumReward",
+          "seconds": 1296000
+        },
+        "vendorCode": "shop-hall2-premium-15",
+        "price": {
+          "$type": "ShopCurrentcyPrice",
+          "priceType": 2,
+          "russianRubles": 279
+        }
+      },
+      {
+        "$type": "ShopPremiumItem",
+        "premiumReward": {
+          "$type": "PremiumReward",
+          "seconds": 2592000
+        },
+        "vendorCode": "shop-hall2-premium-30",
+        "price": {
+          "$type": "ShopCurrentcyPrice",
+          "priceType": 2,
+          "russianRubles": 449
+        }
+      }
+    ],
+    "lootboxCategoryItems": [],
+    "diamondsCategoryItems": [
+      {
+        "$type": "ShopResourceItem",
+        "resourceReward": {
+          "$type": "ResourceReward",
+          "resourceId": 2,
+          "amount": 500
+        },
+        "vendorCode": "shop-hall2-diamonds-500",
+        "price": {
+          "$type": "ShopCurrentcyPrice",
+          "priceType": 2,
+          "russianRubles": 449
+        }
+      },
+      {
+        "$type": "ShopResourceItem",
+        "resourceReward": {
+          "$type": "ResourceReward",
+          "resourceId": 2,
+          "amount": 1100
+        },
+        "vendorCode": "shop-hall2-diamonds-1100",
+        "price": {
+          "$type": "ShopCurrentcyPrice",
+          "priceType": 2,
+          "russianRubles": 899
+        }
+      },
+      {
+        "$type": "ShopResourceItem",
+        "resourceReward": {
+          "$type": "ResourceReward",
+          "resourceId": 2,
+          "amount": 2500
+        },
+        "vendorCode": "shop-hall2-diamonds-2500",
+        "price": {
+          "$type": "ShopCurrentcyPrice",
+          "priceType": 2,
+          "russianRubles": 1790
+        }
+      },
+      {
+        "$type": "ShopResourceItem",
+        "resourceReward": {
+          "$type": "ResourceReward",
+          "resourceId": 2,
+          "amount": 6500
+        },
+        "vendorCode": "shop-hall2-diamonds-6500",
+        "price": {
+          "$type": "ShopCurrentcyPrice",
+          "priceType": 2,
+          "russianRubles": 4690
+        }
+      },
+      {
+        "$type": "ShopResourceItem",
+        "resourceReward": {
+          "$type": "ResourceReward",
+          "resourceId": 2,
+          "amount": 15000
+        },
+        "vendorCode": "shop-hall2-diamonds-15000",
+        "price": {
+          "$type": "ShopCurrentcyPrice",
+          "priceType": 2,
+          "russianRubles": 9490
+        }
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "premiumCategoryItems": [
+      {
+        "$type": "ShopPremiumItem",
+        "premiumReward": {
+          "$type": "PremiumReward",
+          "seconds": 1296000
+        },
+        "vendorCode": "shop-hall3-premium-15",
+        "price": {
+          "$type": "ShopCurrentcyPrice",
+          "priceType": 2,
+          "russianRubles": 279
+        }
+      },
+      {
+        "$type": "ShopPremiumItem",
+        "premiumReward": {
+          "$type": "PremiumReward",
+          "seconds": 2592000
+        },
+        "vendorCode": "shop-hall3-premium-30",
+        "price": {
+          "$type": "ShopCurrentcyPrice",
+          "priceType": 2,
+          "russianRubles": 449
+        }
+      }
+    ],
+    "lootboxCategoryItems": [],
+    "diamondsCategoryItems": [
+      {
+        "$type": "ShopResourceItem",
+        "resourceReward": {
+          "$type": "ResourceReward",
+          "resourceId": 2,
+          "amount": 500
+        },
+        "vendorCode": "shop-hall3-diamonds-500",
+        "price": {
+          "$type": "ShopCurrentcyPrice",
+          "priceType": 2,
+          "russianRubles": 449
+        }
+      },
+      {
+        "$type": "ShopResourceItem",
+        "resourceReward": {
+          "$type": "ResourceReward",
+          "resourceId": 2,
+          "amount": 1100
+        },
+        "vendorCode": "shop-hall3-diamonds-1100",
+        "price": {
+          "$type": "ShopCurrentcyPrice",
+          "priceType": 2,
+          "russianRubles": 899
+        }
+      },
+      {
+        "$type": "ShopResourceItem",
+        "resourceReward": {
+          "$type": "ResourceReward",
+          "resourceId": 2,
+          "amount": 2500
+        },
+        "vendorCode": "shop-hall3-diamonds-2500",
+        "price": {
+          "$type": "ShopCurrentcyPrice",
+          "priceType": 2,
+          "russianRubles": 1790
+        }
+      },
+      {
+        "$type": "ShopResourceItem",
+        "resourceReward": {
+          "$type": "ResourceReward",
+          "resourceId": 2,
+          "amount": 6500
+        },
+        "vendorCode": "shop-hall3-diamonds-6500",
+        "price": {
+          "$type": "ShopCurrentcyPrice",
+          "priceType": 2,
+          "russianRubles": 4690
+        }
+      },
+      {
+        "$type": "ShopResourceItem",
+        "resourceReward": {
+          "$type": "ResourceReward",
+          "resourceId": 2,
+          "amount": 15000
+        },
+        "vendorCode": "shop-hall3-diamonds-15000",
+        "price": {
+          "$type": "ShopCurrentcyPrice",
+          "priceType": 2,
+          "russianRubles": 9490
+        }
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "premiumCategoryItems": [
+      {
+        "$type": "ShopPremiumItem",
+        "premiumReward": {
+          "$type": "PremiumReward",
+          "seconds": 1296000
+        },
+        "vendorCode": "shop-hall4-premium-15",
+        "price": {
+          "$type": "ShopCurrentcyPrice",
+          "priceType": 2,
+          "russianRubles": 279
+        }
+      },
+      {
+        "$type": "ShopPremiumItem",
+        "premiumReward": {
+          "$type": "PremiumReward",
+          "seconds": 2592000
+        },
+        "vendorCode": "shop-hall4-premium-30",
+        "price": {
+          "$type": "ShopCurrentcyPrice",
+          "priceType": 2,
+          "russianRubles": 449
+        }
+      }
+    ],
+    "lootboxCategoryItems": [],
+    "diamondsCategoryItems": [
+      {
+        "$type": "ShopResourceItem",
+        "resourceReward": {
+          "$type": "ResourceReward",
+          "resourceId": 2,
+          "amount": 500
+        },
+        "vendorCode": "shop-hall4-diamonds-500",
+        "price": {
+          "$type": "ShopCurrentcyPrice",
+          "priceType": 2,
+          "russianRubles": 449
+        }
+      },
+      {
+        "$type": "ShopResourceItem",
+        "resourceReward": {
+          "$type": "ResourceReward",
+          "resourceId": 2,
+          "amount": 1100
+        },
+        "vendorCode": "shop-hall4-diamonds-1100",
+        "price": {
+          "$type": "ShopCurrentcyPrice",
+          "priceType": 2,
+          "russianRubles": 899
+        }
+      },
+      {
+        "$type": "ShopResourceItem",
+        "resourceReward": {
+          "$type": "ResourceReward",
+          "resourceId": 2,
+          "amount": 2500
+        },
+        "vendorCode": "shop-hall4-diamonds-2500",
+        "price": {
+          "$type": "ShopCurrentcyPrice",
+          "priceType": 2,
+          "russianRubles": 1790
+        }
+      },
+      {
+        "$type": "ShopResourceItem",
+        "resourceReward": {
+          "$type": "ResourceReward",
+          "resourceId": 2,
+          "amount": 6500
+        },
+        "vendorCode": "shop-hall4-diamonds-6500",
+        "price": {
+          "$type": "ShopCurrentcyPrice",
+          "priceType": 2,
+          "russianRubles": 4690
+        }
+      },
+      {
+        "$type": "ShopResourceItem",
+        "resourceReward": {
+          "$type": "ResourceReward",
+          "resourceId": 2,
+          "amount": 15000
+        },
+        "vendorCode": "shop-hall4-diamonds-15000",
+        "price": {
+          "$type": "ShopCurrentcyPrice",
+          "priceType": 2,
+          "russianRubles": 9490
+        }
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "premiumCategoryItems": [
+      {
+        "$type": "ShopPremiumItem",
+        "premiumReward": {
+          "$type": "PremiumReward",
+          "seconds": 1296000
+        },
+        "vendorCode": "shop-hall5-premium-15",
+        "price": {
+          "$type": "ShopCurrentcyPrice",
+          "priceType": 2,
+          "russianRubles": 279
+        }
+      },
+      {
+        "$type": "ShopPremiumItem",
+        "premiumReward": {
+          "$type": "PremiumReward",
+          "seconds": 2592000
+        },
+        "vendorCode": "shop-hall5-premium-30",
+        "price": {
+          "$type": "ShopCurrentcyPrice",
+          "priceType": 2,
+          "russianRubles": 449
+        }
+      }
+    ],
+    "lootboxCategoryItems": [
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "lootbox_heroic_chest",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 5,
+            "rarity": 2,
+            "itemType": -1,
+            "count": 1
+          },
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 5,
+            "rarity": 1,
+            "itemType": -1,
+            "count": 2
+          }
+        ],
+        "vendorCode": "shop-hall5-itembox",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 2,
+          "amount": 180
+        }
+      },
+      {
+        "$type": "ShopFruitsItem",
+        "titleLocalizationKey": "lootbox_name_fruits_small",
+        "randomFruitsReward": {
+          "$type": "RandomFruitsReward",
+          "amount": 5
+        },
+        "vendorCode": "shop-hall5-fruits-small",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 2,
+          "amount": 70
+        }
+      },
+      {
+        "$type": "ShopFruitsItem",
+        "titleLocalizationKey": "lootbox_name_fruits_medium",
+        "randomFruitsReward": {
+          "$type": "RandomFruitsReward",
+          "amount": 20
+        },
+        "vendorCode": "shop-hall5-fruits-middle",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 2,
+          "amount": 210
+        }
+      },
+      {
+        "$type": "ShopFruitsItem",
+        "titleLocalizationKey": "lootbox_name_fruits_large",
+        "randomFruitsReward": {
+          "$type": "RandomFruitsReward",
+          "amount": 60
+        },
+        "vendorCode": "shop-hall5-fruits-large",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 2,
+          "amount": 540
+        }
+      }
+    ],
+    "diamondsCategoryItems": [
+      {
+        "$type": "ShopResourceItem",
+        "resourceReward": {
+          "$type": "ResourceReward",
+          "resourceId": 2,
+          "amount": 500
+        },
+        "vendorCode": "shop-hall5-diamonds-500",
+        "price": {
+          "$type": "ShopCurrentcyPrice",
+          "priceType": 2,
+          "russianRubles": 449
+        }
+      },
+      {
+        "$type": "ShopResourceItem",
+        "resourceReward": {
+          "$type": "ResourceReward",
+          "resourceId": 2,
+          "amount": 1100
+        },
+        "vendorCode": "shop-hall5-diamonds-1100",
+        "price": {
+          "$type": "ShopCurrentcyPrice",
+          "priceType": 2,
+          "russianRubles": 899
+        }
+      },
+      {
+        "$type": "ShopResourceItem",
+        "resourceReward": {
+          "$type": "ResourceReward",
+          "resourceId": 2,
+          "amount": 2500
+        },
+        "vendorCode": "shop-hall5-diamonds-2500",
+        "price": {
+          "$type": "ShopCurrentcyPrice",
+          "priceType": 2,
+          "russianRubles": 1790
+        }
+      },
+      {
+        "$type": "ShopResourceItem",
+        "resourceReward": {
+          "$type": "ResourceReward",
+          "resourceId": 2,
+          "amount": 6500
+        },
+        "vendorCode": "shop-hall5-diamonds-6500",
+        "price": {
+          "$type": "ShopCurrentcyPrice",
+          "priceType": 2,
+          "russianRubles": 4690
+        }
+      },
+      {
+        "$type": "ShopResourceItem",
+        "resourceReward": {
+          "$type": "ResourceReward",
+          "resourceId": 2,
+          "amount": 15000
+        },
+        "vendorCode": "shop-hall5-diamonds-15000",
+        "price": {
+          "$type": "ShopCurrentcyPrice",
+          "priceType": 2,
+          "russianRubles": 9490
+        }
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "premiumCategoryItems": [
+      {
+        "$type": "ShopPremiumItem",
+        "premiumReward": {
+          "$type": "PremiumReward",
+          "seconds": 1296000
+        },
+        "vendorCode": "shop-hall6-premium-15",
+        "price": {
+          "$type": "ShopCurrentcyPrice",
+          "priceType": 2,
+          "russianRubles": 279
+        }
+      },
+      {
+        "$type": "ShopPremiumItem",
+        "premiumReward": {
+          "$type": "PremiumReward",
+          "seconds": 2592000
+        },
+        "vendorCode": "shop-hall6-premium-30",
+        "price": {
+          "$type": "ShopCurrentcyPrice",
+          "priceType": 2,
+          "russianRubles": 449
+        }
+      }
+    ],
+    "lootboxCategoryItems": [
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "lootbox_heroic_chest",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 6,
+            "rarity": 2,
+            "itemType": -1,
+            "count": 1
+          },
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 6,
+            "rarity": 1,
+            "itemType": -1,
+            "count": 2
+          }
+        ],
+        "vendorCode": "shop-hall6-itembox",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 2,
+          "amount": 250
+        }
+      },
+      {
+        "$type": "ShopFruitsItem",
+        "titleLocalizationKey": "lootbox_name_fruits_small",
+        "randomFruitsReward": {
+          "$type": "RandomFruitsReward",
+          "amount": 5
+        },
+        "vendorCode": "shop-hall6-fruits-small",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 2,
+          "amount": 70
+        }
+      },
+      {
+        "$type": "ShopFruitsItem",
+        "titleLocalizationKey": "lootbox_name_fruits_medium",
+        "randomFruitsReward": {
+          "$type": "RandomFruitsReward",
+          "amount": 20
+        },
+        "vendorCode": "shop-hall6-fruits-middle",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 2,
+          "amount": 210
+        }
+      },
+      {
+        "$type": "ShopFruitsItem",
+        "titleLocalizationKey": "lootbox_name_fruits_large",
+        "randomFruitsReward": {
+          "$type": "RandomFruitsReward",
+          "amount": 60
+        },
+        "vendorCode": "shop-hall6-fruits-large",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 2,
+          "amount": 540
+        }
+      }
+    ],
+    "diamondsCategoryItems": [
+      {
+        "$type": "ShopResourceItem",
+        "resourceReward": {
+          "$type": "ResourceReward",
+          "resourceId": 2,
+          "amount": 500
+        },
+        "vendorCode": "shop-hall6-diamonds-500",
+        "price": {
+          "$type": "ShopCurrentcyPrice",
+          "priceType": 2,
+          "russianRubles": 449
+        }
+      },
+      {
+        "$type": "ShopResourceItem",
+        "resourceReward": {
+          "$type": "ResourceReward",
+          "resourceId": 2,
+          "amount": 1100
+        },
+        "vendorCode": "shop-hall6-diamonds-1100",
+        "price": {
+          "$type": "ShopCurrentcyPrice",
+          "priceType": 2,
+          "russianRubles": 899
+        }
+      },
+      {
+        "$type": "ShopResourceItem",
+        "resourceReward": {
+          "$type": "ResourceReward",
+          "resourceId": 2,
+          "amount": 2500
+        },
+        "vendorCode": "shop-hall6-diamonds-2500",
+        "price": {
+          "$type": "ShopCurrentcyPrice",
+          "priceType": 2,
+          "russianRubles": 1790
+        }
+      },
+      {
+        "$type": "ShopResourceItem",
+        "resourceReward": {
+          "$type": "ResourceReward",
+          "resourceId": 2,
+          "amount": 6500
+        },
+        "vendorCode": "shop-hall6-diamonds-6500",
+        "price": {
+          "$type": "ShopCurrentcyPrice",
+          "priceType": 2,
+          "russianRubles": 4690
+        }
+      },
+      {
+        "$type": "ShopResourceItem",
+        "resourceReward": {
+          "$type": "ResourceReward",
+          "resourceId": 2,
+          "amount": 15000
+        },
+        "vendorCode": "shop-hall6-diamonds-15000",
+        "price": {
+          "$type": "ShopCurrentcyPrice",
+          "priceType": 2,
+          "russianRubles": 9490
+        }
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "premiumCategoryItems": [
+      {
+        "$type": "ShopPremiumItem",
+        "premiumReward": {
+          "$type": "PremiumReward",
+          "seconds": 1296000
+        },
+        "vendorCode": "shop-hall7-premium-15",
+        "price": {
+          "$type": "ShopCurrentcyPrice",
+          "priceType": 2,
+          "russianRubles": 279
+        }
+      },
+      {
+        "$type": "ShopPremiumItem",
+        "premiumReward": {
+          "$type": "PremiumReward",
+          "seconds": 2592000
+        },
+        "vendorCode": "shop-hall7-premium-30",
+        "price": {
+          "$type": "ShopCurrentcyPrice",
+          "priceType": 2,
+          "russianRubles": 449
+        }
+      }
+    ],
+    "lootboxCategoryItems": [
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "lootbox_heroic_chest",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 7,
+            "rarity": 2,
+            "itemType": -1,
+            "count": 1
+          },
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 7,
+            "rarity": 1,
+            "itemType": -1,
+            "count": 2
+          }
+        ],
+        "vendorCode": "shop-hall7-itembox",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 2,
+          "amount": 320
+        }
+      },
+      {
+        "$type": "ShopFruitsItem",
+        "titleLocalizationKey": "lootbox_name_fruits_small",
+        "randomFruitsReward": {
+          "$type": "RandomFruitsReward",
+          "amount": 5
+        },
+        "vendorCode": "shop-hall7-fruits-small",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 2,
+          "amount": 70
+        }
+      },
+      {
+        "$type": "ShopFruitsItem",
+        "titleLocalizationKey": "lootbox_name_fruits_medium",
+        "randomFruitsReward": {
+          "$type": "RandomFruitsReward",
+          "amount": 20
+        },
+        "vendorCode": "shop-hall7-fruits-middle",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 2,
+          "amount": 210
+        }
+      },
+      {
+        "$type": "ShopFruitsItem",
+        "titleLocalizationKey": "lootbox_name_fruits_large",
+        "randomFruitsReward": {
+          "$type": "RandomFruitsReward",
+          "amount": 60
+        },
+        "vendorCode": "shop-hall7-fruits-large",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 2,
+          "amount": 540
+        }
+      }
+    ],
+    "diamondsCategoryItems": [
+      {
+        "$type": "ShopResourceItem",
+        "resourceReward": {
+          "$type": "ResourceReward",
+          "resourceId": 2,
+          "amount": 500
+        },
+        "vendorCode": "shop-hall7-diamonds-500",
+        "price": {
+          "$type": "ShopCurrentcyPrice",
+          "priceType": 2,
+          "russianRubles": 449
+        }
+      },
+      {
+        "$type": "ShopResourceItem",
+        "resourceReward": {
+          "$type": "ResourceReward",
+          "resourceId": 2,
+          "amount": 1100
+        },
+        "vendorCode": "shop-hall7-diamonds-1100",
+        "price": {
+          "$type": "ShopCurrentcyPrice",
+          "priceType": 2,
+          "russianRubles": 899
+        }
+      },
+      {
+        "$type": "ShopResourceItem",
+        "resourceReward": {
+          "$type": "ResourceReward",
+          "resourceId": 2,
+          "amount": 2500
+        },
+        "vendorCode": "shop-hall7-diamonds-2500",
+        "price": {
+          "$type": "ShopCurrentcyPrice",
+          "priceType": 2,
+          "russianRubles": 1790
+        }
+      },
+      {
+        "$type": "ShopResourceItem",
+        "resourceReward": {
+          "$type": "ResourceReward",
+          "resourceId": 2,
+          "amount": 6500
+        },
+        "vendorCode": "shop-hall7-diamonds-6500",
+        "price": {
+          "$type": "ShopCurrentcyPrice",
+          "priceType": 2,
+          "russianRubles": 4690
+        }
+      },
+      {
+        "$type": "ShopResourceItem",
+        "resourceReward": {
+          "$type": "ResourceReward",
+          "resourceId": 2,
+          "amount": 15000
+        },
+        "vendorCode": "shop-hall7-diamonds-15000",
+        "price": {
+          "$type": "ShopCurrentcyPrice",
+          "priceType": 2,
+          "russianRubles": 9490
+        }
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "premiumCategoryItems": [
+      {
+        "$type": "ShopPremiumItem",
+        "premiumReward": {
+          "$type": "PremiumReward",
+          "seconds": 1296000
+        },
+        "vendorCode": "shop-hall8-premium-15",
+        "price": {
+          "$type": "ShopCurrentcyPrice",
+          "priceType": 2,
+          "russianRubles": 279
+        }
+      },
+      {
+        "$type": "ShopPremiumItem",
+        "premiumReward": {
+          "$type": "PremiumReward",
+          "seconds": 2592000
+        },
+        "vendorCode": "shop-hall8-premium-30",
+        "price": {
+          "$type": "ShopCurrentcyPrice",
+          "priceType": 2,
+          "russianRubles": 449
+        }
+      }
+    ],
+    "lootboxCategoryItems": [
+      {
+        "$type": "ShopLootboxItem",
+        "titleLocalizationKey": "lootbox_heroic_chest",
+        "rewards": [
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 8,
+            "rarity": 2,
+            "itemType": -1,
+            "count": 2
+          }
+        ],
+        "vendorCode": "shop-hall8-itembox",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 2,
+          "amount": 390
+        }
+      },
+      {
+        "$type": "ShopFruitsItem",
+        "titleLocalizationKey": "lootbox_name_fruits_small",
+        "randomFruitsReward": {
+          "$type": "RandomFruitsReward",
+          "amount": 5
+        },
+        "vendorCode": "shop-hall8-fruits-small",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 2,
+          "amount": 70
+        }
+      },
+      {
+        "$type": "ShopFruitsItem",
+        "titleLocalizationKey": "lootbox_name_fruits_medium",
+        "randomFruitsReward": {
+          "$type": "RandomFruitsReward",
+          "amount": 20
+        },
+        "vendorCode": "shop-hall8-fruits-middle",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 2,
+          "amount": 210
+        }
+      },
+      {
+        "$type": "ShopFruitsItem",
+        "titleLocalizationKey": "lootbox_name_fruits_large",
+        "randomFruitsReward": {
+          "$type": "RandomFruitsReward",
+          "amount": 60
+        },
+        "vendorCode": "shop-hall8-fruits-large",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 2,
+          "amount": 540
+        }
+      }
+    ],
+    "diamondsCategoryItems": [
+      {
+        "$type": "ShopResourceItem",
+        "resourceReward": {
+          "$type": "ResourceReward",
+          "resourceId": 2,
+          "amount": 500
+        },
+        "vendorCode": "shop-hall8-diamonds-500",
+        "price": {
+          "$type": "ShopCurrentcyPrice",
+          "priceType": 2,
+          "russianRubles": 449
+        }
+      },
+      {
+        "$type": "ShopResourceItem",
+        "resourceReward": {
+          "$type": "ResourceReward",
+          "resourceId": 2,
+          "amount": 1100
+        },
+        "vendorCode": "shop-hall8-diamonds-1100",
+        "price": {
+          "$type": "ShopCurrentcyPrice",
+          "priceType": 2,
+          "russianRubles": 899
+        }
+      },
+      {
+        "$type": "ShopResourceItem",
+        "resourceReward": {
+          "$type": "ResourceReward",
+          "resourceId": 2,
+          "amount": 2500
+        },
+        "vendorCode": "shop-hall8-diamonds-2500",
+        "price": {
+          "$type": "ShopCurrentcyPrice",
+          "priceType": 2,
+          "russianRubles": 1790
+        }
+      },
+      {
+        "$type": "ShopResourceItem",
+        "resourceReward": {
+          "$type": "ResourceReward",
+          "resourceId": 2,
+          "amount": 6500
+        },
+        "vendorCode": "shop-hall8-diamonds-6500",
+        "price": {
+          "$type": "ShopCurrentcyPrice",
+          "priceType": 2,
+          "russianRubles": 4690
+        }
+      },
+      {
+        "$type": "ShopResourceItem",
+        "resourceReward": {
+          "$type": "ResourceReward",
+          "resourceId": 2,
+          "amount": 15000
+        },
+        "vendorCode": "shop-hall8-diamonds-15000",
+        "price": {
+          "$type": "ShopCurrentcyPrice",
+          "priceType": 2,
+          "russianRubles": 9490
+        }
+      }
+    ]
+  }
+]

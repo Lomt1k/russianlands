@@ -15,7 +15,6 @@ public class SessionExceptionHandler : Service
 
     public async Task HandleException(User user, Exception ex)
     {
-        Program.logger.Error($"Catched exception in session for user {user}");
         var hanldingEx = ex.InnerException ?? ex;
         switch (hanldingEx)
         {
@@ -35,6 +34,7 @@ public class SessionExceptionHandler : Service
 
     private async Task HandleHttpException(User user, HttpRequestException ex)
     {
+        Program.logger.Error($"Catched exception in session for user {user}");
         Program.logger.Error($"HttpRequestException: {ex.Message}");
 
         BotController.Reconnect();
@@ -43,12 +43,19 @@ public class SessionExceptionHandler : Service
 
     private async Task HandleTelegramBotException(User user, TelegramBotException ex)
     {
+        if (ex.ErrorCode == 403)
+        {
+            await sessionManager.CloseSession(user.Id, onError: true, "BLOCKED BY USER").FastAwait();
+            return;
+        }
+        Program.logger.Error($"Catched exception in session for user {user}");
         Program.logger.Error($"TelegramBotException: {ex.Message}");
         await sessionManager.CloseSession(user.Id, onError: true).FastAwait();
     }
 
     private async Task HandleUnknownException(User user, Exception ex)
     {
+        Program.logger.Error($"Catched exception in session for user {user}");
         Program.logger.Error(ex);
         await messageSender.SendErrorMessage(user.Id, $"{ex.GetType()}: {ex.Message}").FastAwait();
         await sessionManager.CloseSession(user.Id, onError: true).FastAwait();

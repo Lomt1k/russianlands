@@ -75,10 +75,13 @@ public class SessionManager : Service
         await Task.Delay(_periodicSaveDatabaseInMs).FastAwait();
         while (!_allSessionsTasksCTS.IsCancellationRequested)
         {
-            Program.logger.Info("Saving changes in database for active users...");
-            foreach (var session in _sessions.Values)
+            if (sessionsCount > 0)
             {
-                await session.SaveProfileIfNeed();
+                Program.logger.Info("Saving changes in database for active users...");
+                foreach (var session in _sessions.Values)
+                {
+                    await session.SaveProfileIfNeed();
+                }
             }
             await Task.Delay(_periodicSaveDatabaseInMs).FastAwait();
         }
@@ -118,12 +121,12 @@ public class SessionManager : Service
         return _sessions.Values.ToList();
     }
 
-    public async Task CloseSession(ChatId chatId, bool onError = false)
+    public async Task CloseSession(ChatId chatId, bool onError = false, string? errorMessage = null)
     {
         if (_sessions.TryGetValue(chatId, out var session))
         {
             _sessions.Remove(chatId);
-            await session.OnCloseSession(onError).FastAwait();
+            await session.OnCloseSession(onError, errorMessage).FastAwait();
         }
     }
 

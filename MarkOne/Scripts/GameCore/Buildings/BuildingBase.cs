@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using log4net.Core;
+using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Buildings.Data;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
@@ -68,7 +68,8 @@ public abstract class BuildingBase
                 var endTime = GetEndConstructionTime(data);
                 var timeToEnd = endTime - DateTime.UtcNow;
                 var key = IsBuilt(data) ? "construction" : "build";
-                var update = Localization.Get(session, $"building_{key}_progress", timeToEnd.GetView(session));
+                var update = Localization.Get(session, $"building_{key}_progress", timeToEnd.GetView(session))
+                    + (session.player.IsPremiumActive() ? $" {Emojis.StatPremium}" : string.Empty);
                 updates.Add(update);
             }
         }
@@ -162,6 +163,11 @@ public abstract class BuildingBase
         var currentLevel = GetCurrentLevel(data);
         var startDt = GetStartConstructionTime(data);
         var secondsForConstruction = buildingData.levels[currentLevel].constructionTime;
+        var session = data.session;
+        if (session is not null && session.player.IsPremiumActive())
+        {
+            secondsForConstruction = secondsForConstruction * 3 / 4;
+        }
         var endDt = startDt.AddSeconds(secondsForConstruction);
         return endDt;
     }

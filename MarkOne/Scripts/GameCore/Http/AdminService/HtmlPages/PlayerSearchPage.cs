@@ -267,6 +267,7 @@ internal class PlayerSearchPage : IHtmlPage
                 HtmlHelper.CreateLinkButton("<< Back", localPath + $"?page={page}" + (fromActivePlayers ? "&showActivePlayers=" : string.Empty) ),
                 HtmlHelper.CreateLinkButton("Last Logs", localPath + $"?page=showLog&mode=search&searchId={profileData.telegram_id}" + (fromActivePlayers ? "&showActivePlayers=" : string.Empty), color: "#808080"),
                 HtmlHelper.CreateLinkButton("Add Resource", localPath + $"?page=addResource&telegramId={profileData.telegram_id}" + (fromActivePlayers ? "&showActivePlayers=" : string.Empty), color: "#808080"),
+                HtmlHelper.CreateLinkButton("Add Premium", localPath + $"?page=addPremium&telegramId={profileData.telegram_id}" + (fromActivePlayers ? "&showActivePlayers=" : string.Empty), color: "#808080"),
                 HtmlHelper.CreateLinkButton("Add Item", localPath + $"?page=addItem&telegramId={profileData.telegram_id}" + (fromActivePlayers ? "&showActivePlayers=" : string.Empty), color: "#808080"),
                 "br",
                 HtmlHelper.CreateLinkButton("Set Building Level", localPath + $"?page=setBuildingLevel&telegramId={profileData.telegram_id}" + (fromActivePlayers ? "&showActivePlayers=" : string.Empty), color: "#808080"),
@@ -281,7 +282,7 @@ internal class PlayerSearchPage : IHtmlPage
 
     private HTag GetGeneralProfileInfo(ProfileData profileData, bool isOnline)
     {
-        var endPremiumDt = new DateTime(profileData.endPremiumTime);
+        var endPremiumDt = profileData.endPremiumTime;
         var premiumValue = profileData.IsPremiumActive() ? $"ACTIVE (until {endPremiumDt.ToLongDateString()})"
             : profileData.IsPremiumExpired() ? $"EXPIRED {endPremiumDt.ToLongDateString()}"
             : "NEVER BUY";

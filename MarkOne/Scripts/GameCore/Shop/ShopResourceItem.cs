@@ -9,7 +9,7 @@ namespace MarkOne.Scripts.GameCore.Shop;
 [JsonObject]
 public class ShopResourceItem : ShopItemBase
 {
-    public ResourceReward resourceReward { get; set; } = new();
+    public ResourceReward resourceReward { get; set; } = new(ResourceId.Gold, 0);
 
     public override string GetTitle(GameSession session)
     {

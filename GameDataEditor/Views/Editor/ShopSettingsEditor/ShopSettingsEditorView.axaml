@@ -1,0 +1,71 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="600"
+             x:Class="GameDataEditor.Views.Editor.ShopSettingsEditor.ShopSettingsEditorView">
+
+  <Grid>
+
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="180"/>
+      <ColumnDefinition Width="auto" MinWidth="200"/>
+      <ColumnDefinition Width="auto" MinWidth="200"/>
+      <ColumnDefinition Width="auto" MinWidth="200"/>
+    </Grid.ColumnDefinitions>
+
+    <Grid.RowDefinitions>
+      <RowDefinition Height="50"/>
+      <RowDefinition Height="auto"/>
+    </Grid.RowDefinitions>
+
+    <!-- Column 1: Townhalls -->
+    <TextBlock Text="Townhall" Grid.Column="0" Grid.Row="0" Classes="h3"/>
+    <StackPanel Grid.Column="0" Grid.Row="1" VerticalAlignment="Top">
+
+      <ListBox MaxHeight="600"
+             ItemsSource="{Binding townhallList}"
+             SelectedItem="{Binding selectedTownhall}">
+        <ListBox.ItemTemplate>
+
+          <DataTemplate>
+            <TextBlock Text="{Binding}" HorizontalAlignment="Center"/>
+          </DataTemplate>
+
+        </ListBox.ItemTemplate>
+      </ListBox>
+
+      <StackPanel Orientation="Horizontal" Spacing="20" Margin="0,20">
+        <Button Classes="Neutral" Content="Add"
+                Command="{Binding addTownhallSettingsCommand}"/>
+        <Button Classes="Neutral" Content="Remove"
+                Command="{Binding removeTownhallSettingsCommand}"
+                IsEnabled="{Binding selectedTownhall, Converter={x:Static ObjectConverters.IsNotNull}}"/>
+      </StackPanel>
+
+    </StackPanel>
+
+
+    <!-- Column 2: Premium Category -->
+    <TextBlock Text="Premium Category" Grid.Column="1" Grid.Row="0" Classes="h3" Margin="40,0,0,0"/>
+    <UserControl Grid.Column="1" Grid.Row="1" VerticalAlignment="Top" Margin="40,0,0,0"
+                 Content="{Binding premiumCategoryListView}"
+                 IsVisible="{Binding selectedTownhall, Converter={x:Static ObjectConverters.IsNotNull}}"/>
+
+    <!-- Column 3: Lootbox Category -->
+    <TextBlock Text="Lootbox Category" Grid.Column="2" Grid.Row="0" Classes="h3" Margin="40,0,0,0"/>
+    <UserControl Grid.Column="2" Grid.Row="1" VerticalAlignment="Top" Margin="40,0,0,0"
+                 Content="{Binding lootboxCategoryListView}"
+                 IsVisible="{Binding selectedTownhall, Converter={x:Static ObjectConverters.IsNotNull}}"/>
+
+    <!-- Column 4: Diamond Items -->
+    <TextBlock Text="Diamonds Category" Grid.Column="3" Grid.Row="0" Classes="h3" Margin="40,0,0,0"/>
+    <UserControl Grid.Column="3" Grid.Row="1" VerticalAlignment="Top" Margin="40,0,0,0"
+                 Content="{Binding diamondsCategoryListView}"
+                 IsVisible="{Binding selectedTownhall, Converter={x:Static ObjectConverters.IsNotNull}}"/>
+
+
+  </Grid>
+
+</UserControl>
+

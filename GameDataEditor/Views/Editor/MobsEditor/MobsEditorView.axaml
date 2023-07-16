@@ -21,7 +21,6 @@
 
     <StackPanel Grid.Column="0" Grid.Row="1">
       <ListBox VerticalAlignment="Top" MaxHeight="800"
-             ScrollViewer.VerticalScrollBarVisibility="Disabled"
              ItemsSource="{Binding mobsList}"
              SelectedItem="{Binding selectedMob}">
         <ListBox.ItemTemplate>

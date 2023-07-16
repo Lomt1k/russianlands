@@ -16,12 +16,15 @@ using MarkOne.Scripts.GameCore.Dialogs.Battle;
 using MarkOne.Scripts.GameCore.Sessions;
 using MarkOne.Scripts.GameCore.Profiles;
 using FastTelegramBot.DataTypes.Keyboards;
+using System;
+using MarkOne.Scripts.GameCore.Services;
 
 namespace MarkOne.Scripts.GameCore.Units;
 
 public class Player : IBattleUnit
 {
     private static readonly MessageSender messageSender = Services.ServiceLocator.Get<MessageSender>();
+    private static readonly SessionExceptionHandler sessionExceptionHandler = ServiceLocator.Get<SessionExceptionHandler>();
 
     public GameSession session { get; }
     public UnitStats unitStats { get; }
@@ -79,24 +82,40 @@ public class Player : IBattleUnit
         return buildings.HasBuilding(BuildingId.ElixirWorkshop);
     }
 
+    public bool IsPremiumActive()
+    {
+        return profile.data.IsPremiumActive();
+    }
+
     public async Task OnStartBattle(Battle battle)
     {
-        unitStats.OnStartBattle();
+        try
+        {
+            unitStats.OnStartBattle();
 
-        var sb = new StringBuilder();
-        sb.AppendLine(Emojis.ButtonBattle + Localization.Get(session, "battle_start"));
-        sb.AppendLine(Localization.Get(session, "battle_your_turn_" + (this == battle.firstUnit ? "first" : "second")));
-        sb.AppendLine();
-        sb.AppendLine(battle.GetStatsView(session));
+            var sb = new StringBuilder();
+            sb.AppendLine(Emojis.ButtonBattle + Localization.Get(session, "battle_start"));
+            sb.AppendLine(Localization.Get(session, "battle_your_turn_" + (this == battle.firstUnit ? "first" : "second")));
+            sb.AppendLine();
+            sb.AppendLine(battle.GetStatsView(session));
 
-        var keyboard = BattleToolipHelper.GetStatsKeyboard(session);
-        await messageSender.SendTextMessage(session.chatId, sb.ToString(), keyboard, cancellationToken: session.cancellationToken).FastAwait();
+            var keyboard = BattleToolipHelper.GetStatsKeyboard(session);
+            await messageSender.SendTextMessage(session.chatId, sb.ToString(), keyboard, cancellationToken: session.cancellationToken).FastAwait();
+        }
+        catch (Exception ex)
+        {
+            await sessionExceptionHandler.HandleException(session.actualUser, ex);
+        }
     }
 
     public void OnBattleEnd(Battle battle, BattleResult battleResult)
     {
         unitStats.OnBattleEnd();
         healhRegenerationController.SetLastRegenTimeAsNow();
+        if (IsPremiumActive())
+        {
+            unitStats.SetFullHealth();
+        }
 
         profile.dailyData.battlesCount++;
         if (!battle.isPVE)
@@ -116,35 +135,63 @@ public class Player : IBattleUnit
 
     public async Task OnStartEnemyTurn(BattleTurn battleTurn)
     {
-        var sb = new StringBuilder();
-        if (battleTurn.isLastChance)
+        try
         {
-            sb.AppendLine(Emojis.ElementBrokenHeart + Localization.Get(session, "battle_enemy_turn_start_last_chance"));
-            sb.AppendLine();
-        }
+            var sb = new StringBuilder();
+            if (battleTurn.isLastChance)
+            {
+                sb.AppendLine(Emojis.ElementBrokenHeart + Localization.Get(session, "battle_enemy_turn_start_last_chance"));
+                sb.AppendLine();
+            }
 
-        var waitingText = Emojis.ElementHourgrlass + Localization.Get(session, "battle_enemy_turn_start");
-        sb.AppendLine(waitingText);
-        var keyboard = new ReplyKeyboardMarkup(waitingText);
-        await messageSender.SendTextDialog(session.chatId, sb.ToString(), keyboard, silent: true, cancellationToken: session.cancellationToken).FastAwait();
+            var waitingText = Emojis.ElementHourgrlass + Localization.Get(session, "battle_enemy_turn_start");
+            sb.AppendLine(waitingText);
+            var keyboard = new ReplyKeyboardMarkup(waitingText);
+            await messageSender.SendTextDialog(session.chatId, sb.ToString(), keyboard, silent: true, cancellationToken: session.cancellationToken).FastAwait();
+        }
+        catch (Exception ex)
+        {
+            await sessionExceptionHandler.HandleException(session.actualUser, ex);
+        }
     }
 
     public async void OnMineBattleTurnAlmostEnd()
     {
-        var text = Emojis.ElementWarningGrey + Localization.Get(session, "battle_mine_turn_almost_end");
-        await messageSender.SendTextMessage(session.chatId, text, silent: true, cancellationToken: session.cancellationToken).FastAwait();
+        try
+        {
+            var text = Emojis.ElementWarningGrey + Localization.Get(session, "battle_mine_turn_almost_end");
+            await messageSender.SendTextMessage(session.chatId, text, silent: true, cancellationToken: session.cancellationToken).FastAwait();
+        }
+        catch (Exception ex)
+        {
+            await sessionExceptionHandler.HandleException(session.actualUser, ex);
+        }
     }
 
     public async Task OnMineBatteTurnTimeEnd()
     {
-        var text = Localization.Get(session, "battle_mine_turn_time_end") + Emojis.SmileSad;
-        await messageSender.SendTextMessage(session.chatId, text, silent: true, cancellationToken: session.cancellationToken).FastAwait();
+        try
+        {
+            var text = Localization.Get(session, "battle_mine_turn_time_end") + Emojis.SmileSad;
+            await messageSender.SendTextMessage(session.chatId, text, silent: true, cancellationToken: session.cancellationToken).FastAwait();
+        }
+        catch (Exception ex)
+        {
+            await sessionExceptionHandler.HandleException(session.actualUser, ex);
+        }
     }
 
     public async Task OnEnemyBattleTurnTimeEnd()
     {
-        var text = Localization.Get(session, "battle_enemy_turn_time_end");
-        await messageSender.SendTextMessage(session.chatId, text, silent: true, cancellationToken: session.cancellationToken).FastAwait();
+        try
+        {
+            var text = Localization.Get(session, "battle_enemy_turn_time_end");
+            await messageSender.SendTextMessage(session.chatId, text, silent: true, cancellationToken: session.cancellationToken).FastAwait();
+        }
+        catch (Exception ex)
+        {
+            await sessionExceptionHandler.HandleException(session.actualUser, ex);
+        }
     }
 
 }

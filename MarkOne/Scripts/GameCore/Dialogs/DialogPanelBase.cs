@@ -73,6 +73,12 @@ public abstract class DialogPanelBase
         _freeButtonId++;
     }
 
+    protected void RegisterLinkButton(string text, string url)
+    {
+        _registeredButtons.Add(_freeButtonId, InlineKeyboardButton.WithUrl(text, url));
+        _freeButtonId++;
+    }
+
     protected void ClearButtons()
     {
         _registeredButtons.Clear();
@@ -168,11 +174,11 @@ public abstract class DialogPanelBase
         _resendLastMessageFunc = async () => await messageSender.SendTextMessage(session.chatId, text, inlineMarkup, cancellationToken: session.cancellationToken).FastAwait();
         if (lastMessageId is null)
         {
-            lastMessageId = await messageSender.SendTextMessage(session.chatId, text, inlineMarkup, cancellationToken: session.cancellationToken).FastAwait();
+            lastMessageId = await messageSender.SendTextMessage(session.chatId, text, inlineMarkup, disableWebPagePreview: true, cancellationToken: session.cancellationToken).FastAwait();
         }
         else
         {
-            await messageSender.EditTextMessage(session.chatId, lastMessageId.Value, text, inlineMarkup, cancellationToken: session.cancellationToken).FastAwait();
+            await messageSender.EditTextMessage(session.chatId, lastMessageId.Value, text, inlineMarkup, disableWebPagePreview: true, cancellationToken: session.cancellationToken).FastAwait();
         }
         _withMarkup = inlineMarkup is not null;
         return lastMessageId.Value;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using FastTelegramBot;
 using FastTelegramBot.DataTypes.Keyboards;
 using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Localizations;
@@ -104,9 +105,16 @@ public class DailyRemindersManager : Service
                 Program.logger.Info($"Daily notification sended for {reminderData.userId}");
             }
         }
+        catch (TelegramBotException telegramBotEx)
+        {
+            if (telegramBotEx.ErrorCode != 403)
+            {
+                Program.logger.Error("Catched exception at DailyRemindersManager.SendReminderAsync:\n" + telegramBotEx);
+            }
+        }
         catch (Exception ex)
         {
-            Program.logger.Error("Catched exception at RemindersManager.SendReminderAsync:\n" + ex);
+            Program.logger.Error("Catched exception at DailyRemindersManager.SendReminderAsync:\n" + ex);
         }
     }
 

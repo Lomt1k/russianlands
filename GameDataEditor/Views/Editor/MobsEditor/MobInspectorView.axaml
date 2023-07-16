@@ -40,7 +40,6 @@
             <StackPanel>
               <TextBlock Classes="h3" Text="Attacks"/>
               <ListBox
-                     ScrollViewer.VerticalScrollBarVisibility="Disabled"
                      ItemsSource="{Binding attackViews}"
                      SelectedItem="{Binding selectedAttackView}">
                 <ListBox.ItemTemplate>

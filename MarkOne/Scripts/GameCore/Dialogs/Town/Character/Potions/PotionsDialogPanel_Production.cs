@@ -52,7 +52,8 @@ public partial class PotionsDialogPanel : DialogPanelBase
         sb.Append(requiredResources.GetPriceView(session));
         var dtNow = DateTime.UtcNow;
         var timeSpan = dtNow.AddSeconds(GetCraftTimeInSeconds()) - dtNow;
-        sb.AppendLine(timeSpan.GetView(session, withCaption: true));
+        sb.AppendLine(timeSpan.GetView(session, withCaption: true)
+            + (session.player.IsPremiumActive() ? $" {Emojis.StatPremium}" : string.Empty));
 
         sb.AppendLine();
         sb.AppendLine(Localization.Get(session, "resource_header_ours"));

@@ -7,13 +7,18 @@ using MarkOne.Scripts.GameCore.Buildings;
 using MarkOne.Scripts.GameCore.Dialogs;
 using MarkOne.Scripts.GameCore.Dialogs.Town;
 using MarkOne.Scripts.GameCore.Dialogs.Town.Buildings;
+using MarkOne.Scripts.GameCore.Dialogs.Town.Shop;
 using MarkOne.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.GameCore.Resources;
+using MarkOne.Scripts.GameCore.Services.Payments;
 using MarkOne.Scripts.GameCore.Sessions;
 
 namespace MarkOne.Scripts.GameCore.Services;
 
 public class NotificationsManager : Service
 {
+    private readonly PaymentManager paymentManager = ServiceLocator.Get<PaymentManager>();
+
     public async Task GetNotificationsAndEntryTown(GameSession session, TownEntryReason reason)
     {
         await CommonNotificationsLogic(session, () => new TownDialog(session, reason).Start()).FastAwait();
@@ -74,6 +79,28 @@ public class NotificationsManager : Service
             session.profile.data.specialNotification = string.Empty;
             await ShowNotification(session, notification, () => CommonNotificationsLogic(session, onNotificationsEnd)).FastAwait();
             return;
+        }
+
+        var hasWaitingGoods = session.profile.data.hasWaitingGoods;
+        if (hasWaitingGoods)
+        {
+            await paymentManager.GetNextWaitingGoods(session, () => CommonNotificationsLogic(session, onNotificationsEnd)).FastAwait();
+            return;
+        }
+
+        if (session.player.IsPremiumActive())
+        {
+            var now = DateTime.UtcNow;
+            if (session.profile.data.lastPremiumDailyRewardTime.Date != now.Date)
+            {
+                var dailyRewards = ShopDialogPanel.premiumDailyRewards;
+                session.profile.data.lastPremiumDailyRewardTime = now;
+                session.player.resources.ForceAdd(dailyRewards);
+                notification.AppendLine(Localization.Get(session, "resource_header_premium_daily_reward"));
+                notification.AppendLine(dailyRewards.GetLocalizedView(session, showCountIfSingle: false));
+                await ShowNotification(session, notification, () => CommonNotificationsLogic(session, onNotificationsEnd)).FastAwait();
+                return;
+            }
         }
 
         await onNotificationsEnd().FastAwait();

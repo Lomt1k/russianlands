@@ -95,7 +95,8 @@ public class CraftNewItemDialog : DialogBase
         var craftTimeInSeconds = _building.GetCraftTimeInSeconds(buildingsData, rarity);
         var dtNow = DateTime.UtcNow;
         var timeSpan = dtNow.AddSeconds(craftTimeInSeconds) - dtNow;
-        sb.AppendLine(timeSpan.GetView(session, withCaption: true));
+        sb.AppendLine(timeSpan.GetView(session, withCaption: true)
+            + (session.player.IsPremiumActive() ? $" {Emojis.StatPremium}" : string.Empty));
 
         sb.AppendLine();
         sb.AppendLine(Localization.Get(session, "resource_header_ours"));

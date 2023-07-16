@@ -50,6 +50,7 @@ public class HttpAdminService : IHttpService
 
         // player control
         RegisterPage(new AddResourcePage());
+        RegisterPage(new AddPremiumPage());
         RegisterPage(new AddItemPage());
         RegisterPage(new SetBuildingLevelPage());
         RegisterPage(new SetSkillLevelPage());
@@ -68,8 +69,15 @@ public class HttpAdminService : IHttpService
         var sessionId = await CheckLoginStatus(request, response).FastAwait();
         if (sessionId is null)
         {
-            response.AsText(GetLoginPage());
-            response.Close();
+            try
+            {
+                response.AsText(GetLoginPage());
+                response.Close();
+            }
+            catch (ObjectDisposedException)
+            {
+                //ignored
+            }
             return;
         }
 

@@ -11,6 +11,7 @@ using MarkOne.Scripts.GameCore.Services.BotData;
 using MarkOne.Scripts.GameCore.Http;
 using MarkOne.Scripts.GameCore.Http.AdminService;
 using FastTelegramBot;
+using MarkOne.Scripts.GameCore.Http.Payments;
 
 namespace MarkOne.Scripts.Bot;
 public static class BotController
@@ -28,6 +29,7 @@ public static class BotController
     public static BotConfig config { get; private set; }
     public static BotDataBase dataBase { get; private set; }
     public static BotHttpListener httpListener { get; private set; }
+    public static HttpClient httpClient => _httpClient;
 
     public static bool isReceiving { get; private set; }
 
@@ -127,6 +129,13 @@ public static class BotController
             var path = adminServiceSettings.localPath;
             var fullUrl = httpListenerSettings.externalHttpPrefix + path.TrimStart('/');
             httpListener.RegisterHttpService(path, new HttpAdminService(fullUrl, adminServiceSettings));
+        }
+
+        var paymentSettings = config.paymentsSettings;
+        var webHookPath = paymentSettings.webhookPath;
+        if (paymentSettings.paymentProvider == GameCore.Services.Payments.PaymentProviderType.LAVA_RU)
+        {
+            httpListener.RegisterHttpService(webHookPath, new LavaPaymentsHttpWebhookService());
         }
     }
 

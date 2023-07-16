@@ -1,8 +1,10 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Dialogs.Town;
 using MarkOne.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.GameCore.Rewards;
 using MarkOne.Scripts.GameCore.Services;
 using MarkOne.Scripts.GameCore.Sessions;
 
@@ -32,12 +34,29 @@ public class BattleResultDialog : DialogBase
         {
             sb.AppendLine();
             sb.AppendLine(Localization.Get(session, "battle_result_header_rewards"));
+            var premiumRewards = new List<ResourceReward>();
             foreach (var reward in _data.rewards)
             {
-                var addedReward = await reward.AddReward(session).FastAwait();
+                var addedReward = session.player.IsPremiumActive() && reward is ResourceRewardBase resourceRewardBase
+                    ? await resourceRewardBase.AddRewardWithAddPossiblePremiumRewardToList(session, premiumRewards).FastAwait()
+                    : await reward.AddReward(session).FastAwait();
                 if (!string.IsNullOrEmpty(addedReward))
                 {
                     sb.AppendLine(addedReward);
+                }
+            }
+            
+            if (premiumRewards.Count > 0)
+            {
+                sb.AppendLine();
+                sb.AppendLine(Localization.Get(session, "battle_result_header_premium_rewards"));
+                foreach (var reward in premiumRewards)
+                {
+                    var addedReward = await reward.AddReward(session).FastAwait();
+                    if (!string.IsNullOrEmpty(addedReward))
+                    {
+                        sb.AppendLine(addedReward);
+                    }
                 }
             }
         }

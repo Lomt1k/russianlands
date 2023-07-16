@@ -25,6 +25,7 @@ public static class ServiceLocator
         Register(new SessionExceptionHandler());
         Register(new BattleManager());
         Register(new PerformanceManager());
+        Register(new Payments.PaymentManager());
         Register(new NotificationsManager());
         Register(new MessageSequencer());
         Register(new MessageSender());
