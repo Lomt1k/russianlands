@@ -160,7 +160,8 @@ public partial class BuildingsDialogPanel : DialogPanelBase
             ? levelData.constructionTime * 3 / 4
             : levelData.constructionTime;
         var timeSpan = TimeSpan.FromSeconds(constuctionTime);
-        sb.AppendLine(timeSpan.GetView(session, withCaption: true));
+        sb.AppendLine(timeSpan.GetView(session, withCaption: true)
+            + (session.player.IsPremiumActive() ? $" {Emojis.StatPremium}" : string.Empty));
 
         var playerTownHall = BuildingId.TownHall.GetBuilding().GetCurrentLevel(_buildingsData);
         if (playerTownHall < levelData.requiredTownHall)
