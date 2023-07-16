@@ -15,6 +15,14 @@ public enum ShopCategory : byte { None = 0, Premium, Main, Diamonds }
 
 internal class ShopDialogPanel : DialogPanelBase
 {
+    public static ResourceData[] premiumDailyRewards = new[]
+    {
+        new ResourceData(ResourceId.ArenaTicket, 1),
+        new ResourceData(ResourceId.Diamond, 10),
+    };
+
+    public static int maxPremiumDays = 40;
+
     private ShopCategory _currentCategory;
 
     private PlayerResources playerResources => session.player.resources;
@@ -90,25 +98,42 @@ internal class ShopDialogPanel : DialogPanelBase
     private async Task ShowPremiumCategory()
     {
         ClearButtons();
+        var timeUntilExpire = session.profile.data.endPremiumTime - DateTime.UtcNow;
         foreach (var shopItem in shopSettings.premiumCategoryItems)
         {
-            RegisterButton(shopItem.GetNameForList(session), () => ShowItem(shopItem));
+            if (timeUntilExpire.Days > maxPremiumDays)
+            {
+                RegisterButton(shopItem.GetNameForList(session), ShowPremiumLimitReachedMessage);
+            }
+            else
+            {
+                RegisterButton(shopItem.GetNameForList(session), () => ShowItem(shopItem));
+            }
         }
         RegisterBackButton(Localization.Get(session, "menu_item_shop") + Emojis.ElementScales, ShowCategories);
 
         var sb = new StringBuilder()
             .AppendLine(GetCategoryName(_currentCategory, session))
             .AppendLine()
-            .AppendLine(Localization.Get(session, "dialog_shop_premium_description", Emojis.ElementSmallBlack, Emojis.StatPremium));
+            .AppendLine(Localization.Get(session, "dialog_shop_premium_description", Emojis.ElementSmallBlack, Emojis.StatPremium,
+                premiumDailyRewards[0].GetLocalizedView(session, showCountIfSingle: false),
+                premiumDailyRewards[1].GetCompactView()));
 
         if (session.profile.data.IsPremiumActive())
         {
-            var timeUntilExpire = session.profile.data.endPremiumTime - DateTime.UtcNow;
             sb.AppendLine();
             sb.AppendLine(Localization.Get(session, "dialog_shop_premium_end_time", timeUntilExpire.GetShortView(session)));
         }
 
         await SendPanelMessage(sb.ToString(), GetMultilineKeyboard()).FastAwait();
+    }
+
+    private async Task ShowPremiumLimitReachedMessage()
+    {
+        ClearButtons();
+        RegisterBackButton(Localization.Get(session, "menu_item_shop") + Emojis.ElementScales, ShowCategories);
+        var text = Localization.Get(session, "dialog_shop_premium_limit_reached", maxPremiumDays);
+        await SendPanelMessage(text, GetOneLineKeyboard()).FastAwait();
     }
 
     private async Task ShowMainCategory()
