@@ -82,6 +82,11 @@ public class Player : IBattleUnit
         return buildings.HasBuilding(BuildingId.ElixirWorkshop);
     }
 
+    public bool IsPremiumActive()
+    {
+        return profile.data.IsPremiumActive();
+    }
+
     public async Task OnStartBattle(Battle battle)
     {
         try
@@ -107,6 +112,10 @@ public class Player : IBattleUnit
     {
         unitStats.OnBattleEnd();
         healhRegenerationController.SetLastRegenTimeAsNow();
+        if (IsPremiumActive())
+        {
+            unitStats.SetFullHealth();
+        }
 
         profile.dailyData.battlesCount++;
         if (!battle.isPVE)
