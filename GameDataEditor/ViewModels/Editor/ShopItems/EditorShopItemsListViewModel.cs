@@ -16,6 +16,7 @@ internal class EditorShopItemsListViewModel : EditorListViewModel<ShopItemBase>
         await RegularDialogHelper.ShowItemSelectionDialog("Select item type:", new Dictionary<string, Action>()
         {
             {"Resource", () => result = new ShopResourceItem() },
+            {"Resource Box", () => result = new ShopResourceBoxItem() },
             {"Inventory Item", () => result = new ShopInventoryItem() },
             {"Lootbox", () => result = new ShopLootboxItem() },
             {"Premium", () => result = new ShopPremiumItem() },
@@ -29,6 +30,7 @@ internal class EditorShopItemsListViewModel : EditorListViewModel<ShopItemBase>
         return item switch
         {
             ShopResourceItem resourceItem => new ShopResourceItemView() { DataContext = new ShopResourceItemViewModel(resourceItem) },
+            ShopResourceBoxItem resourceBoxItem => new ShopResourceBoxItemView() { DataContext = new ShopResourceBoxItemViewModel(resourceBoxItem) },
             ShopInventoryItem inventoryItem => new ShopInventoryItemView() { DataContext = new ShopInventoryItemViewModel(inventoryItem) },
             ShopLootboxItem lootboxItem => new ShopLootboxItemView() { DataContext = new ShopLootboxItemViewModel(lootboxItem) },
             ShopPremiumItem premiumItem => new ShopPremiumItemView() { DataContext = new ShopPremiumItemViewModel(premiumItem) },

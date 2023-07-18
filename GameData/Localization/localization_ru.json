@@ -487,9 +487,10 @@
 	"lootbox_name_arena_small" : "Аренный сундук (Малый)",
 	"lootbox_name_arena_big" : "Аренный сундук (Большой)",
 	"lootbox_heroic_chest" : "Богатырский сундук",
-	"lootbox_name_fruits_small" : "Ящик с фруктами (Малый)",
-	"lootbox_name_fruits_medium" : "Ящик с фруктами (Средний)",
-	"lootbox_name_fruits_large" : "Ящик с фруктами (Большой)",
+	"lootbox_name_fruits_small" : "Сундук с фруктами (Малый)",
+	"lootbox_name_fruits_medium" : "Сундук с фруктами (Средний)",
+	"lootbox_name_fruits_large" : "Сундук с фруктами (Большой)",
+	"lootbox_name_materials" : "Сундук с материалами",
 	
 	"item_sword_hall_2_grade_3" : "Короткий меч",
 	"item_sword_hall_2_grade_7" : "Меч разбойника",

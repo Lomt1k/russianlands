@@ -48,7 +48,9 @@ public class ResourceReward : ResourceRewardBase
 
     public override string GetPossibleRewardsView(GameSession session)
     {
-        return resourceData.GetLocalizedView(session, showCountIfSingle: false);
+        return resourceData.resourceId.IsCraftResource()
+            ? resourceData.GetLocalizedView(session, showCountIfSingle: true)
+            : resourceData.GetLocalizedView(session, showCountIfSingle: false);
     }
 
 }

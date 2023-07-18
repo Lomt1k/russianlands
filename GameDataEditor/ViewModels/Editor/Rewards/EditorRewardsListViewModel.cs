@@ -6,6 +6,7 @@ using GameDataEditor.Models.RegularDialogs;
 using MarkOne.Scripts.GameCore.Rewards;
 using GameDataEditor.ViewModels.UserControls;
 using GameDataEditor.Views.Editor.Rewards;
+using MarkOne.Scripts.GameCore.Resources;
 
 namespace GameDataEditor.ViewModels.Editor.Rewards;
 
@@ -16,8 +17,8 @@ internal sealed class EditorRewardsListViewModel : EditorListViewModel<RewardBas
         RewardBase? result = null;
         await RegularDialogHelper.ShowItemSelectionDialog("Select reward type:", new Dictionary<string, Action>()
         {
-            {"Resource", () => result = new ResourceReward() },
-            {"Resource Range", () => result = new ResourceRangeReward() },
+            {"Resource", () => result = new ResourceReward(ResourceId.Gold, 0) },
+            {"Resource Range", () => result = new ResourceRangeReward(ResourceId.Gold, 0, 0) },
             {"Resource AB With One Bonus", () => result = new ResourceABWithOneBonusReward() },
             {"Item With Code", () => result = new ItemWithCodeReward() },
             {"Random Item", () => result = new RandomItemReward() },

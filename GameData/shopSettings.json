@@ -351,14 +351,14 @@
             "townhallLevel": 5,
             "rarity": 2,
             "itemType": -1,
-            "count": 1
+            "count": 2
           },
           {
             "$type": "RandomItemReward",
             "townhallLevel": 5,
             "rarity": 1,
             "itemType": -1,
-            "count": 2
+            "count": 3
           }
         ],
         "vendorCode": "shop-hall5-itembox",
@@ -528,14 +528,14 @@
             "townhallLevel": 6,
             "rarity": 2,
             "itemType": -1,
-            "count": 1
+            "count": 2
           },
           {
             "$type": "RandomItemReward",
             "townhallLevel": 6,
             "rarity": 1,
             "itemType": -1,
-            "count": 2
+            "count": 3
           }
         ],
         "vendorCode": "shop-hall6-itembox",
@@ -589,6 +589,39 @@
           "priceType": 1,
           "resourceId": 2,
           "amount": 540
+        }
+      },
+      {
+        "$type": "ShopResourceBoxItem",
+        "titleLocalizationKey": "lootbox_name_materials",
+        "rewards": [
+          {
+            "$type": "ResourceReward",
+            "resourceId": 9,
+            "amount": 1
+          },
+          {
+            "$type": "ResourceReward",
+            "resourceId": 8,
+            "amount": 5
+          },
+          {
+            "$type": "ResourceReward",
+            "resourceId": 7,
+            "amount": 10
+          },
+          {
+            "$type": "ResourceReward",
+            "resourceId": 6,
+            "amount": 50
+          }
+        ],
+        "vendorCode": "shop-hall6-materials-box",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 2,
+          "amount": 740
         }
       }
     ],
@@ -705,14 +738,14 @@
             "townhallLevel": 7,
             "rarity": 2,
             "itemType": -1,
-            "count": 1
+            "count": 2
           },
           {
             "$type": "RandomItemReward",
             "townhallLevel": 7,
             "rarity": 1,
             "itemType": -1,
-            "count": 2
+            "count": 3
           }
         ],
         "vendorCode": "shop-hall7-itembox",
@@ -766,6 +799,39 @@
           "priceType": 1,
           "resourceId": 2,
           "amount": 540
+        }
+      },
+      {
+        "$type": "ShopResourceBoxItem",
+        "titleLocalizationKey": "lootbox_name_materials",
+        "rewards": [
+          {
+            "$type": "ResourceReward",
+            "resourceId": 9,
+            "amount": 1
+          },
+          {
+            "$type": "ResourceReward",
+            "resourceId": 8,
+            "amount": 5
+          },
+          {
+            "$type": "ResourceReward",
+            "resourceId": 7,
+            "amount": 10
+          },
+          {
+            "$type": "ResourceReward",
+            "resourceId": 6,
+            "amount": 50
+          }
+        ],
+        "vendorCode": "shop-hall7-materials-box",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 2,
+          "amount": 830
         }
       }
     ],
@@ -883,6 +949,13 @@
             "rarity": 2,
             "itemType": -1,
             "count": 2
+          },
+          {
+            "$type": "RandomItemReward",
+            "townhallLevel": 8,
+            "rarity": 1,
+            "itemType": -1,
+            "count": 3
           }
         ],
         "vendorCode": "shop-hall8-itembox",
@@ -936,6 +1009,39 @@
           "priceType": 1,
           "resourceId": 2,
           "amount": 540
+        }
+      },
+      {
+        "$type": "ShopResourceBoxItem",
+        "titleLocalizationKey": "lootbox_name_materials",
+        "rewards": [
+          {
+            "$type": "ResourceReward",
+            "resourceId": 9,
+            "amount": 1
+          },
+          {
+            "$type": "ResourceReward",
+            "resourceId": 8,
+            "amount": 5
+          },
+          {
+            "$type": "ResourceReward",
+            "resourceId": 7,
+            "amount": 10
+          },
+          {
+            "$type": "ResourceReward",
+            "resourceId": 6,
+            "amount": 50
+          }
+        ],
+        "vendorCode": "shop-hall8-materials-box",
+        "price": {
+          "$type": "ShopResourcePrice",
+          "priceType": 1,
+          "resourceId": 2,
+          "amount": 920
         }
       }
     ],
