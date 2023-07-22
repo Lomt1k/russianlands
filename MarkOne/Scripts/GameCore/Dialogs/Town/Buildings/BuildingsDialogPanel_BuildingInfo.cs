@@ -292,6 +292,7 @@ public partial class BuildingsDialogPanel : DialogPanelBase
 
             var buildingName = constructions[i].GetLocalizedName(session, data);
             var time = (constructions[i].GetEndConstructionTime(data) - DateTime.UtcNow).GetShortView(session);
+            sb.AppendLine();
             sb.AppendLine($"{buildingName} {time}");
         }
 
