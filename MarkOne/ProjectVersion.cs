@@ -9,7 +9,7 @@
 
 internal readonly struct ProjectVersion
 {
-    public static readonly ProjectVersion Current = new ProjectVersion("0.9.0");
+    public static readonly ProjectVersion Current = new ProjectVersion("1.0.0");
 
     public byte globalNumber { get; }
     public byte update { get; }
