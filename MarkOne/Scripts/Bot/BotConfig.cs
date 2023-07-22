@@ -19,6 +19,7 @@ public class BotConfig
     public int sessionTimeoutInMinutes = 30;
     public int periodicSaveDatabaseInMinutes = 15;
     public string termsUrl = "https://example.com";
+    public int hourForCreateBackup = 3;
 
     public SendingLimits sendingLimits = new();
     public PerformanceSettings performanceSettings = new();
