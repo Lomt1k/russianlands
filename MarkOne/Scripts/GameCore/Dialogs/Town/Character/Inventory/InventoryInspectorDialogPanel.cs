@@ -53,7 +53,7 @@ public partial class InventoryInspectorDialogPanel : DialogPanelBase
         sb.Append(Emojis.bigSpace);
         sb.Append(ItemType.Armor.GetEmoji() + _inventory.GetItemsCountByType(ItemType.Armor).ToString());
         sb.Append(Emojis.bigSpace);
-        sb.Append(ItemType.Armor.GetEmoji() + _inventory.GetItemsCountByType(ItemType.Armor).ToString());
+        sb.Append(ItemType.Boots.GetEmoji() + _inventory.GetItemsCountByType(ItemType.Boots).ToString());
 
         sb.AppendLine();
         sb.Append(ItemType.Shield.GetEmoji() + _inventory.GetItemsCountByType(ItemType.Shield).ToString());

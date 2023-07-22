@@ -93,7 +93,7 @@ public class MessageSequencer : Service
             return result;
         }
         result = new Dictionary<string, byte>();
-        dictionary[second] = result;
+        dictionary.TryAdd(second, result);
         return result;
     }
 
@@ -126,7 +126,7 @@ public class MessageSequencer : Service
         }
         else
         {
-            dataDictionary[key] = 1;
+            dataDictionary.Add(key, 1);
         }
     }
 

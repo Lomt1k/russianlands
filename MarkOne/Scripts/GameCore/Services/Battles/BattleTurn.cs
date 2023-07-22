@@ -15,6 +15,7 @@ public class BattleTurn
     public const int MOB_TURN_MILISECONDS_DELAY = 3_000;
 
     private static readonly MessageSender messageSender = ServiceLocator.Get<MessageSender>();
+    private static readonly SessionExceptionHandler sessionExceptionHandler = ServiceLocator.Get<SessionExceptionHandler>();
 
     private List<IBattleAction>? _battleActions = null;
     private readonly Dictionary<Player, HashSet<BattleTooltipType>> _queryTooltipsToIgnoreByPlayers = new();
@@ -163,16 +164,33 @@ public class BattleTurn
             mineStringBuilder.AppendLine();
             mineStringBuilder.AppendLine(battle.GetStatsView(minePlayer.session));
             var keyboard = BattleToolipHelper.GetStatsKeyboard(minePlayer.session);
-            await messageSender.SendTextMessage(minePlayer.session.chatId, mineStringBuilder.ToString(), keyboard,
-                cancellationToken: minePlayer.session.cancellationToken).FastAwait();
+            try
+            {
+                await messageSender.SendTextMessage(minePlayer.session.chatId, mineStringBuilder.ToString(), keyboard,
+                    cancellationToken: minePlayer.session.cancellationToken).FastAwait();
+            }
+            catch (Exception ex)
+            {
+                await sessionExceptionHandler.HandleException(minePlayer.session.actualUser, ex).FastAwait();
+                return;
+            }
+            
         }
         if (enemyPlayer is not null)
         {
             enemyStringBuilder.AppendLine();
             enemyStringBuilder.AppendLine(battle.GetStatsView(enemyPlayer.session));
             var keyboard = BattleToolipHelper.GetStatsKeyboard(enemyPlayer.session);
-            await messageSender.SendTextMessage(enemyPlayer.session.chatId, enemyStringBuilder.ToString(), keyboard,
-                cancellationToken: enemyPlayer.session.cancellationToken).FastAwait();
+            try
+            {
+                await messageSender.SendTextMessage(enemyPlayer.session.chatId, enemyStringBuilder.ToString(), keyboard,
+                    cancellationToken: enemyPlayer.session.cancellationToken).FastAwait();
+            }
+            catch (Exception ex)
+            {
+                await sessionExceptionHandler.HandleException(enemyPlayer.session.actualUser, ex).FastAwait();
+                return;
+            }
         }
     }
 

@@ -8,7 +8,6 @@ using MarkOne.Scripts.GameCore.Services;
 using MarkOne.Scripts.Bot;
 using FastTelegramBot.DataTypes;
 using FastTelegramBot.DataTypes.Keyboards;
-using SimpleHttp;
 
 namespace MarkOne.Scripts.GameCore.Sessions;
 
@@ -30,8 +29,8 @@ public class SessionManager : Service
     {
         _periodicSaveDatabaseInMs = BotController.config.periodicSaveDatabaseInMinutes * millisecondsInMinute;
         _allSessionsTasksCTS = new CancellationTokenSource();
-        Task.Run(() => PeriodicSaveProfilesAsync(), _allSessionsTasksCTS.Token);
-        Task.Run(() => CloseSessionsWithTimeoutAsync(), _allSessionsTasksCTS.Token);
+        Task.Run(() => PeriodicSaveProfilesAsync());
+        Task.Run(() => CloseSessionsWithTimeoutAsync());
         return Task.CompletedTask;
     }
 
@@ -74,23 +73,30 @@ public class SessionManager : Service
     private async Task PeriodicSaveProfilesAsync()
     {
         await Task.Delay(_periodicSaveDatabaseInMs).FastAwait();
-        while (!_allSessionsTasksCTS.IsCancellationRequested)
+        while (true)
         {
-            if (sessionsCount > 0)
+            try
             {
-                Program.logger.Info("Saving changes in database for active users...");
-                foreach (var session in _sessions.Values)
+                if (sessionsCount > 0)
                 {
-                    await session.SaveProfileIfNeed();
+                    Program.logger.Info("Saving changes in database for active users...");
+                    foreach (var session in _sessions.Values)
+                    {
+                        await session.SaveProfileIfNeed();
+                    }
                 }
+                await Task.Delay(_periodicSaveDatabaseInMs).FastAwait();
             }
-            await Task.Delay(_periodicSaveDatabaseInMs).FastAwait();
+            catch (Exception ex) 
+            {
+                Program.logger.Error(ex);
+            }
         }
     }
 
     private async Task CloseSessionsWithTimeoutAsync()
     {
-        while (!_allSessionsTasksCTS.IsCancellationRequested)
+        while (true)
         {
             var sessionsToClose = new List<ChatId>();
             var timeoutMs = BotController.config.sessionTimeoutInMinutes * millisecondsInMinute;

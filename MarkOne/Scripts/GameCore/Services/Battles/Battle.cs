@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -168,26 +169,24 @@ public class Battle
             return;
         }
 
+        // ВАЖНО: Результаты должны быть посчитаны до вызова HandleBattleEndForPlayer
         var hasWinner = firstUnit.unitStats.currentHP > 0 || secondUnit.unitStats.currentHP > 0;
+        var firstUnitResult = hasWinner
+            ? (firstUnit.unitStats.currentHP > secondUnit.unitStats.currentHP ? BattleResult.Win : BattleResult.Lose)
+            : BattleResult.Draw;
+        var secondUnitResult = hasWinner
+            ? (secondUnit.unitStats.currentHP > firstUnit.unitStats.currentHP ? BattleResult.Win : BattleResult.Lose)
+            : BattleResult.Draw;
+
         if (firstUnit is Player firstPlayer)
         {
-            await HandleBattleEndForPlayer(firstPlayer, hasWinner).FastAwait();
+            await HandleBattleEndForPlayer(firstPlayer, firstUnitResult).FastAwait();
         }
         if (secondUnit is Player secondPlayer)
         {
-            await HandleBattleEndForPlayer(secondPlayer, hasWinner).FastAwait();
+            await HandleBattleEndForPlayer(secondPlayer, secondUnitResult).FastAwait();
         }
         battleManager.UnregisterBattle(this);
-    }
-
-    private async Task HandleBattleEndForPlayer(Player player, bool hasWinner)
-    {
-        var enemy = GetEnemy(player);
-        var battleResult = hasWinner
-            ? (player.unitStats.currentHP > enemy.unitStats.currentHP ? BattleResult.Win : BattleResult.Lose)
-            : BattleResult.Draw;
-
-        await HandleBattleEndForPlayer(player, battleResult).FastAwait();
     }
 
     // Вызывается при ошибке (либо читом)
