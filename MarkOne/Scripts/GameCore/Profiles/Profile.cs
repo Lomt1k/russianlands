@@ -57,7 +57,7 @@ public class Profile
 
         lastSaveProfileTime = DateTime.UtcNow;
         var user = session?.actualUser.ToString() ?? $"(ID {data.telegram_id})";
-        Program.logger.Info($"Profile saved for user {user}");
+        Program.logger.Info($"Profile saved for {user}");
     }
 
     public async Task Cheat_ResetProfile()
