@@ -176,7 +176,7 @@ public class GameSession
     {
         try
         {
-            await SaveProfile().FastAwait();
+            await SaveProfileIfNeed().FastAwait();
             _sessionTasksCTS.Cancel();
             if (onError)
             {
@@ -195,13 +195,13 @@ public class GameSession
         }
     }
 
-    public async Task SaveProfile()
+    public async Task SaveProfileIfNeed()
     {
         try
         {
             if (profile != null)
             {
-                await profile.SaveProfile().FastAwait();
+                await profile.SaveProfileIfNeed(lastActivityTime).FastAwait();
             }
         }
         catch (Exception ex)

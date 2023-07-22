@@ -82,7 +82,7 @@ public class SessionManager : Service
                     Program.logger.Info("Saving changes in database for active users...");
                     foreach (var session in _sessions.Values)
                     {
-                        await session.SaveProfile();
+                        await session.SaveProfileIfNeed();
                     }
                 }
                 await Task.Delay(_periodicSaveDatabaseInMs).FastAwait();
