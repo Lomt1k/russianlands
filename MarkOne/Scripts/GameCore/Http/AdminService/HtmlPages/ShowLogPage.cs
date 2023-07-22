@@ -5,6 +5,7 @@ using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace MarkOne.Scripts.GameCore.Http.AdminService.HtmlPages;
@@ -48,14 +49,17 @@ internal class ShowLogPage : IHtmlPage
         document["html"]["body"].Add(contentBlock);
 
         var logTable = new HTag("table", new HProp("frame", "hsides"));
-        foreach (var line in lines)
+        var sb = new StringBuilder();
+        foreach (var  line in lines)
         {
-            var tableLine = new HTag("tr")
-            {
-                { "td", line }
-            };
-            logTable.Add(tableLine);
+            sb.Append(line + "<br>");
         }
+        var tableLine = new HTag("tr")
+        {
+            { "td", sb.ToString() }
+        };
+        logTable.Add(tableLine);
+
         contentBlock.Add(logTable);
 
         var bottomPanel = new HTag("div", new HProp("align", "center"), new HProp("style", "margin: 40px 0;"))
@@ -130,14 +134,17 @@ internal class ShowLogPage : IHtmlPage
         document["html"]["body"].Add(contentBlock);
 
         var logTable = new HTag("table", new HProp("frame", "hsides"));
+        var sb = new StringBuilder();
         foreach (var line in resultLogs)
         {
-            var tableLine = new HTag("tr")
-            {
-                { "td", line }
-            };
-            logTable.Add(tableLine);
+            sb.Append(line + "<br>");
         }
+        var tableLine = new HTag("tr")
+        {
+            { "td", sb.ToString() }
+        };
+        logTable.Add(tableLine);
+
         contentBlock.Add(logTable);
 
         var bottomPanel = new HTag("div", new HProp("align", "center"), new HProp("style", "margin: 40px 0;"))

@@ -128,7 +128,10 @@ public class GameSession
             await CommandHandler.HandleCommand(this, message.Text).FastAwait();
             return;
         }
-        await currentDialog.HandleMessage(message).FastAwait();
+        if (currentDialog is not null)
+        {
+            await currentDialog.HandleMessage(message).FastAwait();
+        }
     }
 
     public async Task HandleQueryAsync(CallbackQuery query)
@@ -171,26 +174,41 @@ public class GameSession
 
     public async Task OnCloseSession(bool onError, string? errorMessage = null)
     {
-        await SaveProfileIfNeed().FastAwait();
-        _sessionTasksCTS.Cancel();
-        if (onError)
+        try
         {
-            var message = errorMessage ?? "ON ERROR";
-            Program.logger.Info($"Session closed for {actualUser} [{message}]");
-            battleManager.OnSessionClosedWithError(player);
+            await SaveProfile().FastAwait();
+            _sessionTasksCTS.Cancel();
+            if (onError)
+            {
+                var message = errorMessage ?? "ON ERROR";
+                Program.logger.Info($"Session closed for {actualUser} [{message}]");
+                battleManager.OnSessionClosedWithError(player);
+            }
+            else
+            {
+                Program.logger.Info($"Session closed for {actualUser}");
+            }
         }
-        else
+        catch (Exception ex)
         {
-            Program.logger.Info($"Session closed for {actualUser}");
+            Program.logger.Error(ex);
         }
     }
 
-    public async Task SaveProfileIfNeed()
+    public async Task SaveProfile()
     {
-        if (profile != null)
+        try
         {
-            await profile.SaveProfileIfNeed(lastActivityTime).FastAwait();
+            if (profile != null)
+            {
+                await profile.SaveProfile().FastAwait();
+            }
         }
+        catch (Exception ex)
+        {
+            Program.logger.Error(ex);
+        }
+        
     }
 
 }

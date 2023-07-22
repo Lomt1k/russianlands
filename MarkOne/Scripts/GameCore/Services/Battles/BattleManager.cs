@@ -50,8 +50,16 @@ public class BattleManager : Service
 
     public Battle? GetCurrentBattle(Player player)
     {
-        _battlesByPlayers.TryGetValue(player, out var battle);
-        return battle;
+        try
+        {
+            _battlesByPlayers.TryGetValue(player, out var battle);
+            return battle;
+        }
+        catch (Exception ex)
+        {
+            Program.logger.Error(ex);
+            return null;
+        }
     }
 
     public void UnregisterBattle(Battle battle)
