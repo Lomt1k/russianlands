@@ -81,11 +81,12 @@ public partial class PotionsDialogPanel : DialogPanelBase
 
     private async Task CancelCraft(PotionItem item)
     {
-        var alchemyLabLevel = item.GetData().workshopLevel;
+        var potionData = item.GetData();
+        var alchemyLabLevel = potionData.workshopLevel;
         var alchemyLab = (AlchemyLabBuilding)BuildingId.AlchemyLab.GetBuilding();
         var resourcesToRestore = alchemyLab.GetCraftCostForBuildingLevel(alchemyLabLevel);
-        var potionData = item.GetData();
-        Program.logger.Info($"CRAFT | User {session.actualUser} canceled potion craft ({potionData.debugName} lvl {potionData.potionLevel})");
+        
+        Program.logger.Info($"CRAFT | User {session.actualUser} canceled potion craft ({potionData.debugName})");
         session.player.resources.ForceAdd(resourcesToRestore);
         session.player.potions.Remove(item);
 

@@ -47,7 +47,7 @@ public class SelectBattleItemDialog : DialogBase
         {
             sb.Append(' ' + Emojis.StatArrows.ToString() + playerStats.currentArrows.ToString());
         }
-        if (playerStats.availablePotions > 0)
+        if (playerStats.availablePotions > 0 && _battleTurn.battle.isPVE)
         {
             sb.Append(' ' + Emojis.ButtonPotions.ToString() + playerStats.availablePotions.ToString());
         }
@@ -128,7 +128,7 @@ public class SelectBattleItemDialog : DialogBase
     public void AppendMultiSlotItems(ref List<List<ReplyKeyboardButton>> keyboardRows)
     {
         var multiRow = new List<ReplyKeyboardButton>();
-        if (playerStats.availablePotions > 0)
+        if (playerStats.availablePotions > 0 && _battleTurn.battle.isPVE)
         {
             var potionsButtonText = Emojis.ButtonPotions + Localization.Get(session, "menu_item_potions");
             RegisterButton(potionsButtonText, ShowPotionsSelection);
@@ -274,7 +274,7 @@ public class SelectBattleItemDialog : DialogBase
 
         var potionData = potionItem.GetData();
         potionData.Apply(_battleTurn, session.player);
-        Program.logger.Info($"BATTLE | User {session.actualUser} used potion {potionData.debugName} lvl {potionData.potionLevel}");
+        Program.logger.Info($"BATTLE | User {session.actualUser} used potion {potionData.debugName}");
 
         SendPotionMessageForEnemy(potionData);
         await SendPotionMessage(potionData).FastAwait();
