@@ -17,6 +17,7 @@ public static class CommandHandler
         {
             // commands for all
             { "/start", new StartCommand() },
+            { "/terms", new TermsCommand() },
 
             // cheats
             { "//", new Cheats.CheatsCommand() },

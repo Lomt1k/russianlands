@@ -18,6 +18,7 @@ public class BotConfig
     public bool cheatsForAll = true;
     public int sessionTimeoutInMinutes = 30;
     public int periodicSaveDatabaseInMinutes = 15;
+    public string termsUrl = "https://example.com";
 
     public SendingLimits sendingLimits = new();
     public PerformanceSettings performanceSettings = new();

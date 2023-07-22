@@ -1148,6 +1148,8 @@
 	"quest_loc_01_magus_meeting_answer_who_are_you" : "Who are you?",
 	"quest_loc_01_magus_meeting_answer_what_contribution" : "What contribution?",
 	
+	"terms_notification_header" : "End User Agreement",
+	"terms_link_button" : "Open in browser",
 	"special_notification_header" : "<b>Special Notice:</b>",
 	"notification_admin_add_resource" : "Administrator {0} gave you:\n{1}",
 	"notification_admin_set_building_level" : "Administrator {0} has leveled your building:\n{1}",
