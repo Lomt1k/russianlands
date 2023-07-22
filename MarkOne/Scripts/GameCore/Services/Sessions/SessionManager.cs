@@ -8,6 +8,7 @@ using MarkOne.Scripts.GameCore.Services;
 using MarkOne.Scripts.Bot;
 using FastTelegramBot.DataTypes;
 using FastTelegramBot.DataTypes.Keyboards;
+using SimpleHttp;
 
 namespace MarkOne.Scripts.GameCore.Sessions;
 
@@ -141,10 +142,11 @@ public class SessionManager : Service
             .OrderByDescending(x => x.lastActivityTime)
             .ToArray();
 
-        foreach (var chatId in _sessions.Keys)
+        foreach (var session in GetAllSessions())
         {
-            await CloseSession(chatId).FastAwait();
+            await session.OnCloseSession(false).FastAwait();
         }
+        _sessions.Clear();
         Program.logger.Info($"All sessions closed. Profiles data saved.");
 
         await SendMaintenanceNotifications(lastActivePlayers).FastAwait();

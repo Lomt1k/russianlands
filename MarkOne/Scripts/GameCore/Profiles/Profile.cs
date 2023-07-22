@@ -56,7 +56,8 @@ public class Profile
         await db.InsertOrReplaceAsync(rawDailyData).FastAwait();
 
         lastSaveProfileTime = DateTime.UtcNow;
-        Program.logger.Info($"Profile saved (ID {data.telegram_id})");
+        var user = session?.actualUser.ToString() ?? $"(ID {data.telegram_id})";
+        Program.logger.Info($"Profile saved for user {user}");
     }
 
     public async Task Cheat_ResetProfile()
