@@ -29,12 +29,27 @@ public class MessageSender : Service
         var delay = sequencer.GetDelayForSendMessage(text);
         await Task.Delay(delay, cancellationToken).FastAwait();
 
-        return await _botClient.SendMessageAsync(id, text,
-            parseMode: ParseMode.HTML,
-            keyboardMarkup: inlineKeyboard,
-            disableNotification: silent,
-            disableWebPagePreview: disableWebPagePreview,
-            cancellationToken: cancellationToken).FastAwait();
+        try
+        {
+            return await _botClient.SendMessageAsync(id, text,
+                parseMode: ParseMode.HTML,
+                keyboardMarkup: inlineKeyboard,
+                disableNotification: silent,
+                disableWebPagePreview: disableWebPagePreview,
+                cancellationToken: cancellationToken).FastAwait();
+        }
+        catch (TelegramBotException telegramBotException)
+        {
+            if (telegramBotException.ErrorCode == 429)
+            {
+                Program.logger.Debug("Catched 'Too many requests':" +
+                    "\n Method: SendMessage" +
+                    $"\n Used delay: {delay} sec" +
+                    $"\n Text: {text}");
+                throw telegramBotException;
+            }
+        }
+        return new MessageId();
     }
 
     public async Task EditTextMessage(ChatId id, MessageId messageId, string text, InlineKeyboardMarkup? inlineKeyboard = null, bool disableWebPagePreview = false, CancellationToken cancellationToken = default)
@@ -42,25 +57,75 @@ public class MessageSender : Service
         var delay = sequencer.GetDelayForEditMessage(text);
         await Task.Delay(delay, cancellationToken).FastAwait();
 
-        await _botClient.EditMessageTextAsync(id, messageId, text, ParseMode.HTML,
-            inlineKeyboardMarkup: inlineKeyboard,
-            disableWebPagePreview: disableWebPagePreview,
-            cancellationToken: cancellationToken).FastAwait();
+        try
+        {
+            await _botClient.EditMessageTextAsync(id, messageId, text, ParseMode.HTML,
+                inlineKeyboardMarkup: inlineKeyboard,
+                disableWebPagePreview: disableWebPagePreview,
+                cancellationToken: cancellationToken).FastAwait();
+        }
+        catch (TelegramBotException telegramBotException)
+        {
+            if (telegramBotException.ErrorCode == 429)
+            {
+                Program.logger.Debug("Catched 'Too many requests':" +
+                    "\n Method: EditMessageText" +
+                    $"\n Used delay: {delay} sec" +
+                    $"\n Text: {text}");
+                throw telegramBotException;
+            }
+        }
     }
 
     public async Task DeleteMessage(ChatId id, MessageId messageId)
     {
-        await _botClient.DeleteMesageAsync(id, messageId).FastAwait();
+        try
+        {
+            await _botClient.DeleteMesageAsync(id, messageId).FastAwait();
+        }
+        catch (TelegramBotException telegramBotException)
+        {
+            if (telegramBotException.ErrorCode == 429)
+            {
+                Program.logger.Debug("Catched 'Too many requests':" +
+                    "\n Method: DeleteMesage" +
+                    $"\n Used delay: -");
+            }
+        }
     }
 
     public async Task EditInlineKeyboardAsync(ChatId id, MessageId messageId, InlineKeyboardMarkup? inlineKeyboard, CancellationToken cancellationToken = default)
     {
-        await _botClient.EditInlineKeyboardAsync(id, messageId, inlineKeyboard, cancellationToken).FastAwait();
+        try
+        {
+            await _botClient.EditInlineKeyboardAsync(id, messageId, inlineKeyboard, cancellationToken).FastAwait();
+        }
+        catch (TelegramBotException telegramBotException)
+        {
+            if (telegramBotException.ErrorCode == 429)
+            {
+                Program.logger.Debug("Catched 'Too many requests':" +
+                    "\n Method: EditInlineKeyboard" +
+                    $"\n Used delay: -");
+            }
+        }
     }
 
     public async Task RemoveInlineKeyboardAsync(ChatId id, MessageId messageId, CancellationToken cancellationToken = default)
     {
-        await _botClient.RemoveInlineKeyboardAsync(id, messageId, cancellationToken).FastAwait();
+        try
+        {
+            await _botClient.RemoveInlineKeyboardAsync(id, messageId, cancellationToken).FastAwait();
+        }
+        catch (TelegramBotException telegramBotException)
+        {
+            if (telegramBotException.ErrorCode == 429)
+            {
+                Program.logger.Debug("Catched 'Too many requests':" +
+                    "\n Method: EditInlineKeyboard (Remove!)" +
+                    $"\n Used delay: -");
+            }
+        }
     }
 
     public async Task<MessageId> SendTextDialog(ChatId id, string text, ReplyKeyboardMarkup? replyKeyboard = null,
@@ -74,12 +139,27 @@ public class MessageSender : Service
         var delay = sequencer.GetDelayForSendMessage(text);
         await Task.Delay(delay, cancellationToken).FastAwait();
 
-        return await _botClient.SendMessageAsync(id, text,
-            parseMode: ParseMode.HTML,
-            keyboardMarkup: replyKeyboard,
-            disableNotification: silent,
-            disableWebPagePreview: disableWebPagePreview,
-            cancellationToken: cancellationToken).FastAwait();
+        try
+        {
+            return await _botClient.SendMessageAsync(id, text,
+                parseMode: ParseMode.HTML,
+                keyboardMarkup: replyKeyboard,
+                disableNotification: silent,
+                disableWebPagePreview: disableWebPagePreview,
+                cancellationToken: cancellationToken).FastAwait();
+        }
+        catch (TelegramBotException telegramBotException)
+        {
+            if (telegramBotException.ErrorCode == 429)
+            {
+                Program.logger.Debug("Catched 'Too many requests':" +
+                    "\n Method: SendMessage" +
+                    $"\n Used delay: {delay} sec" +
+                    $"\n Text: {text}");
+                throw telegramBotException;
+            }
+        }
+        return new MessageId();
     }
 
     public async Task AnswerQuery(string queryId, string? text = null, CancellationToken cancellationToken = default)
@@ -109,7 +189,21 @@ public class MessageSender : Service
             return;
         }
         await Task.Delay(delay, cancellationToken).FastAwait();
-        await _botClient.SendStickerAsync(id, stickerFileId, cancellationToken: cancellationToken).FastAwait();
+
+        try
+        {
+            await _botClient.SendStickerAsync(id, stickerFileId, cancellationToken: cancellationToken).FastAwait();
+        }
+        catch (TelegramBotException telegramBotException)
+        {
+            if (telegramBotException.ErrorCode == 429)
+            {
+                Program.logger.Debug("Catched 'Too many requests':" +
+                    "\n Method: SendSticker" +
+                    $"\n Used delay: {delay} sec" +
+                    $"\n FileId: {stickerFileId}");
+            }
+        }
     }
 
     public async Task<MessageId> SendDocument(ChatId id, InputFile document, string? caption = null, CancellationToken cancellationToken = default)

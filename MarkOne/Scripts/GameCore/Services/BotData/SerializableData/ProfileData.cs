@@ -99,6 +99,8 @@ public class ProfileData : DataWithSession
         username = user.Username;
         firstName = user.FirstName;
         lastName = user.LastName;
+        // Для рандомизации сообщения в окне города
+        resourceGold += new Random().Next(11) * 50;
 
         return this;
     }
