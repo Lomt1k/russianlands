@@ -46,8 +46,8 @@
         "nextStageTriggers": [
           {
             "$type": "StartNextStageImmediateTrigger",
-            "nextStage": 200,
-            "triggerType": 2
+            "triggerType": 2,
+            "nextStage": 200
           }
         ],
         "id": 100,
@@ -65,8 +65,8 @@
         "nextStageTriggers": [
           {
             "$type": "InvokeFromCodeTrigger",
-            "nextStage": 300,
-            "triggerType": 1
+            "triggerType": 1,
+            "nextStage": 300
           }
         ],
         "id": 200,
@@ -151,8 +151,8 @@
         "nextStageTriggers": [
           {
             "$type": "InvokeFromCodeTrigger",
-            "nextStage": 800,
-            "triggerType": 1
+            "triggerType": 1,
+            "nextStage": 800
           }
         ],
         "id": 700,
@@ -288,8 +288,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 900,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 900
           }
         ],
         "id": 800,
@@ -329,7 +329,7 @@
         ],
         "id": 1000,
         "comment": "Точка #1",
-        "jumpToStageIfNewSession": 700
+        "jumpToStageIfNewSession": 200
       },
       {
         "$type": "QuestStageWithReplica",
@@ -469,8 +469,8 @@
         "nextStageTriggers": [
           {
             "$type": "StartNextStageImmediateTrigger",
-            "nextStage": 1800,
-            "triggerType": 2
+            "triggerType": 2,
+            "nextStage": 1800
           }
         ],
         "id": 1700,
@@ -613,8 +613,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 2300,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 2300
           }
         ],
         "id": 2200,
@@ -962,8 +962,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 5200,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 5200
           }
         ],
         "id": 5100,
@@ -1128,8 +1128,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 6100,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 6100
           }
         ],
         "id": 6000,
@@ -1192,8 +1192,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 6500,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 6500
           }
         ],
         "id": 6400,
@@ -1332,8 +1332,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 7200,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 7200
           }
         ],
         "id": 7100,
@@ -1413,8 +1413,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 7600,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 7600
           }
         ],
         "id": 7500,
@@ -1640,8 +1640,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 8600,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 8600
           }
         ],
         "id": 8500,
@@ -1713,8 +1713,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 9000,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 9000
           }
         ],
         "id": 8900,
@@ -1837,8 +1837,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 9700,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 9700
           }
         ],
         "id": 9600,
@@ -1910,8 +1910,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 10100,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 10100
           }
         ],
         "id": 10000,
@@ -2086,8 +2086,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 10700,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 10700
           }
         ],
         "id": 10600,
@@ -2219,8 +2219,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 11400,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 11400
           }
         ],
         "id": 11300,
@@ -2284,8 +2284,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 11700,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 11700
           }
         ],
         "id": 11600,
@@ -2459,8 +2459,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 400,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 400
           }
         ],
         "id": 300,
@@ -2599,8 +2599,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 1100,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 1100
           }
         ],
         "id": 1000,
@@ -2662,8 +2662,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 1400,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 1400
           }
         ],
         "id": 1300,
@@ -2776,8 +2776,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 2000,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 2000
           }
         ],
         "id": 1900,
@@ -2839,8 +2839,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 2300,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 2300
           }
         ],
         "id": 2200,
@@ -2933,8 +2933,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 2700,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 2700
           }
         ],
         "id": 2600,
@@ -2996,8 +2996,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 3000,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 3000
           }
         ],
         "id": 2900,
@@ -3127,8 +3127,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 3700,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 3700
           }
         ],
         "id": 3600,
@@ -3190,8 +3190,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 4000,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 4000
           }
         ],
         "id": 3900,
@@ -3253,8 +3253,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 4300,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 4300
           }
         ],
         "id": 4200,
@@ -3405,8 +3405,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 5100,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 5100
           }
         ],
         "id": 5000,
@@ -3468,8 +3468,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 5400,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 5400
           }
         ],
         "id": 5300,
@@ -3531,8 +3531,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 5700,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 5700
           }
         ],
         "id": 5600,
@@ -3645,8 +3645,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 6300,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 6300
           }
         ],
         "id": 6200,
@@ -3708,8 +3708,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 6600,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 6600
           }
         ],
         "id": 6500,
@@ -3847,8 +3847,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 7300,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 7300
           }
         ],
         "id": 7200,
@@ -4064,8 +4064,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 400,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 400
           }
         ],
         "id": 300,
@@ -4136,8 +4136,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 700,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 700
           }
         ],
         "id": 600,
@@ -4199,8 +4199,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 1000,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 1000
           }
         ],
         "id": 900,
@@ -4262,8 +4262,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 1300,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 1300
           }
         ],
         "id": 1200,
@@ -4398,8 +4398,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 1900,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 1900
           }
         ],
         "id": 1800,
@@ -4461,8 +4461,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 2200,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 2200
           }
         ],
         "id": 2100,
@@ -4524,8 +4524,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 2500,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 2500
           }
         ],
         "id": 2400,
@@ -4587,8 +4587,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 2800,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 2800
           }
         ],
         "id": 2700,
@@ -4650,8 +4650,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 3100,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 3100
           }
         ],
         "id": 3000,
@@ -4823,8 +4823,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 4000,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 4000
           }
         ],
         "id": 3900,
@@ -4886,8 +4886,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 4300,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 4300
           }
         ],
         "id": 4200,
@@ -4949,8 +4949,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 4600,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 4600
           }
         ],
         "id": 4500,
@@ -5012,8 +5012,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 4900,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 4900
           }
         ],
         "id": 4800,
@@ -5075,8 +5075,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 5200,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 5200
           }
         ],
         "id": 5100,
@@ -5248,8 +5248,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 6100,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 6100
           }
         ],
         "id": 6000,
@@ -5311,8 +5311,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 6400,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 6400
           }
         ],
         "id": 6300,
@@ -5374,8 +5374,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 6700,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 6700
           }
         ],
         "id": 6600,
@@ -5437,8 +5437,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 7000,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 7000
           }
         ],
         "id": 6900,
@@ -5500,8 +5500,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 7300,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 7300
           }
         ],
         "id": 7200,
@@ -5734,8 +5734,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 500,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 500
           }
         ],
         "id": 400,
@@ -5851,8 +5851,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 1100,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 1100
           }
         ],
         "id": 1000,
@@ -5917,8 +5917,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 1400,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 1400
           }
         ],
         "id": 1300,
@@ -6017,8 +6017,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 1900,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 1900
           }
         ],
         "id": 1800,
@@ -6083,8 +6083,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 2200,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 2200
           }
         ],
         "id": 2100,
@@ -6214,8 +6214,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 2800,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 2800
           }
         ],
         "id": 2700,
@@ -6280,8 +6280,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 3100,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 3100
           }
         ],
         "id": 3000,
@@ -6363,8 +6363,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 3500,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 3500
           }
         ],
         "id": 3400,
@@ -6429,8 +6429,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 3800,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 3800
           }
         ],
         "id": 3700,
@@ -6495,8 +6495,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 4100,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 4100
           }
         ],
         "id": 4000,
@@ -6609,8 +6609,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 4600,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 4600
           }
         ],
         "id": 4500,
@@ -6675,8 +6675,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 4900,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 4900
           }
         ],
         "id": 4800,
@@ -6741,8 +6741,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 5200,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 5200
           }
         ],
         "id": 5100,
@@ -6858,8 +6858,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 5800,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 5800
           }
         ],
         "id": 5700,
@@ -6924,8 +6924,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 6100,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 6100
           }
         ],
         "id": 6000,
@@ -7038,8 +7038,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 6600,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 6600
           }
         ],
         "id": 6500,
@@ -7104,8 +7104,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 6900,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 6900
           }
         ],
         "id": 6800,
@@ -7187,8 +7187,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 7300,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 7300
           }
         ],
         "id": 7200,
@@ -7253,8 +7253,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 7600,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 7600
           }
         ],
         "id": 7500,
@@ -7319,8 +7319,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 7900,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 7900
           }
         ],
         "id": 7800,
@@ -7450,8 +7450,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 8500,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 8500
           }
         ],
         "id": 8400,
@@ -7516,8 +7516,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 8800,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 8800
           }
         ],
         "id": 8700,
@@ -7582,8 +7582,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 9100,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 9100
           }
         ],
         "id": 9000,
@@ -7682,8 +7682,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 9600,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 9600
           }
         ],
         "id": 9500,
@@ -7748,8 +7748,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 9900,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 9900
           }
         ],
         "id": 9800,
@@ -7903,8 +7903,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 400,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 400
           }
         ],
         "id": 300,
@@ -8034,8 +8034,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 1000,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 1000
           }
         ],
         "id": 900,
@@ -8114,8 +8114,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 1300,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 1300
           }
         ],
         "id": 1200,
@@ -8194,8 +8194,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 1600,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 1600
           }
         ],
         "id": 1500,
@@ -8274,8 +8274,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 1900,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 1900
           }
         ],
         "id": 1800,
@@ -8529,8 +8529,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 3200,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 3200
           }
         ],
         "id": 3100,
@@ -8600,8 +8600,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 3500,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 3500
           }
         ],
         "id": 3400,
@@ -8671,8 +8671,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 3800,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 3800
           }
         ],
         "id": 3700,
@@ -8793,8 +8793,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 4400,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 4400
           }
         ],
         "id": 4300,
@@ -8864,8 +8864,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 4700,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 4700
           }
         ],
         "id": 4600,
@@ -9034,8 +9034,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 5500,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 5500
           }
         ],
         "id": 5400,
@@ -9114,8 +9114,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 5800,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 5800
           }
         ],
         "id": 5700,
@@ -9194,8 +9194,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 6100,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 6100
           }
         ],
         "id": 6000,
@@ -9274,8 +9274,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 6400,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 6400
           }
         ],
         "id": 6300,
@@ -9354,8 +9354,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 6700,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 6700
           }
         ],
         "id": 6600,
@@ -9490,8 +9490,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 7300,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 7300
           }
         ],
         "id": 7200,
@@ -9612,8 +9612,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 7900,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 7900
           }
         ],
         "id": 7800,
@@ -9683,8 +9683,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 8200,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 8200
           }
         ],
         "id": 8100,
@@ -9754,8 +9754,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 8500,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 8500
           }
         ],
         "id": 8400,
@@ -9825,8 +9825,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 8800,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 8800
           }
         ],
         "id": 8700,
@@ -10012,8 +10012,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 9700,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 9700
           }
         ],
         "id": 9600,
@@ -10092,8 +10092,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 10000,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 10000
           }
         ],
         "id": 9900,
@@ -10172,8 +10172,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 10300,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 10300
           }
         ],
         "id": 10200,
@@ -10252,8 +10252,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 10600,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 10600
           }
         ],
         "id": 10500,
@@ -10332,8 +10332,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 10900,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 10900
           }
         ],
         "id": 10800,
@@ -10587,8 +10587,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 300,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 300
           }
         ],
         "id": 200,
@@ -10718,8 +10718,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 900,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 900
           }
         ],
         "id": 800,
@@ -10789,8 +10789,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 1200,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 1200
           }
         ],
         "id": 1100,
@@ -10860,8 +10860,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 1500,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 1500
           }
         ],
         "id": 1400,
@@ -10931,8 +10931,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 1800,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 1800
           }
         ],
         "id": 1700,
@@ -11089,8 +11089,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 2500,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 2500
           }
         ],
         "id": 2400,
@@ -11160,8 +11160,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 2800,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 2800
           }
         ],
         "id": 2700,
@@ -11265,8 +11265,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 3300,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 3300
           }
         ],
         "id": 3200,
@@ -11336,8 +11336,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 3600,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 3600
           }
         ],
         "id": 3500,
@@ -11407,8 +11407,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 3900,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 3900
           }
         ],
         "id": 3800,
@@ -11543,8 +11543,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 4500,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 4500
           }
         ],
         "id": 4400,
@@ -11614,8 +11614,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 4800,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 4800
           }
         ],
         "id": 4700,
@@ -11685,8 +11685,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 5100,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 5100
           }
         ],
         "id": 5000,
@@ -11756,8 +11756,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 5400,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 5400
           }
         ],
         "id": 5300,
@@ -11827,8 +11827,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 5700,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 5700
           }
         ],
         "id": 5600,
@@ -12039,8 +12039,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 6800,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 6800
           }
         ],
         "id": 6700,
@@ -12110,8 +12110,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 7100,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 7100
           }
         ],
         "id": 7000,
@@ -12232,8 +12232,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 7700,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 7700
           }
         ],
         "id": 7600,
@@ -12303,8 +12303,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 8000,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 8000
           }
         ],
         "id": 7900,
@@ -12374,8 +12374,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 8300,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 8300
           }
         ],
         "id": 8200,
@@ -12535,8 +12535,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 9100,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 9100
           }
         ],
         "id": 9000,
@@ -12606,8 +12606,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 9400,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 9400
           }
         ],
         "id": 9300,
@@ -12677,8 +12677,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 9700,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 9700
           }
         ],
         "id": 9600,
@@ -12799,8 +12799,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 10300,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 10300
           }
         ],
         "id": 10200,
@@ -12870,8 +12870,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 10600,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 10600
           }
         ],
         "id": 10500,
@@ -12980,8 +12980,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 11100,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 11100
           }
         ],
         "id": 11000,
@@ -13051,8 +13051,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 11400,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 11400
           }
         ],
         "id": 11300,
@@ -13122,8 +13122,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 11700,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 11700
           }
         ],
         "id": 11600,
@@ -13227,8 +13227,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 12200,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 12200
           }
         ],
         "id": 12100,
@@ -13298,8 +13298,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 12500,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 12500
           }
         ],
         "id": 12400,
@@ -13551,8 +13551,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 300,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 300
           }
         ],
         "id": 200,
@@ -13631,8 +13631,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 600,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 600
           }
         ],
         "id": 500,
@@ -13702,8 +13702,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 900,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 900
           }
         ],
         "id": 800,
@@ -13807,8 +13807,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 1400,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 1400
           }
         ],
         "id": 1300,
@@ -13878,8 +13878,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 1700,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 1700
           }
         ],
         "id": 1600,
@@ -14005,8 +14005,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 2300,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 2300
           }
         ],
         "id": 2200,
@@ -14076,8 +14076,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 2600,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 2600
           }
         ],
         "id": 2500,
@@ -14147,8 +14147,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 2900,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 2900
           }
         ],
         "id": 2800,
@@ -14269,8 +14269,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 3500,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 3500
           }
         ],
         "id": 3400,
@@ -14340,8 +14340,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 3800,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 3800
           }
         ],
         "id": 3700,
@@ -14459,8 +14459,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 4300,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 4300
           }
         ],
         "id": 4200,
@@ -14530,8 +14530,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 4600,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 4600
           }
         ],
         "id": 4500,
@@ -14601,8 +14601,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 4900,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 4900
           }
         ],
         "id": 4800,
@@ -14723,8 +14723,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 5500,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 5500
           }
         ],
         "id": 5400,
@@ -14794,8 +14794,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 5800,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 5800
           }
         ],
         "id": 5700,
@@ -14904,8 +14904,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 6300,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 6300
           }
         ],
         "id": 6200,
@@ -14975,8 +14975,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 6600,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 6600
           }
         ],
         "id": 6500,
@@ -15046,8 +15046,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 6900,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 6900
           }
         ],
         "id": 6800,
@@ -15117,8 +15117,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 7200,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 7200
           }
         ],
         "id": 7100,
@@ -15188,8 +15188,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 7500,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 7500
           }
         ],
         "id": 7400,
@@ -15298,8 +15298,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 8000,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 8000
           }
         ],
         "id": 7900,
@@ -15369,8 +15369,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 8300,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 8300
           }
         ],
         "id": 8200,
@@ -15440,8 +15440,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 8600,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 8600
           }
         ],
         "id": 8500,
@@ -15511,8 +15511,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 8900,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 8900
           }
         ],
         "id": 8800,
@@ -15582,8 +15582,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 9200,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 9200
           }
         ],
         "id": 9100,
@@ -15692,8 +15692,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 9700,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 9700
           }
         ],
         "id": 9600,
@@ -15763,8 +15763,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 10000,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 10000
           }
         ],
         "id": 9900,
@@ -15834,8 +15834,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 10300,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 10300
           }
         ],
         "id": 10200,
@@ -15905,8 +15905,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 10600,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 10600
           }
         ],
         "id": 10500,
@@ -15993,8 +15993,8 @@
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
-            "nextStage": 11000,
-            "triggerType": 3
+            "triggerType": 3,
+            "nextStage": 11000
           }
         ],
         "id": 10900,
