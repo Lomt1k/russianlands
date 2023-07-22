@@ -131,6 +131,7 @@ internal class UpgradeSkillDialog : DialogBase
     private async Task SkillUp(byte amount)
     {
         _skills.AddValue(_itemType, amount);
+        Program.logger.Info($"SKILL UP | User {session.actualUser} up skill level {_itemType} to {_skills.GetValue(_itemType)}");
 
         var sb = new StringBuilder();
         sb.AppendLine(_itemType.GetEmoji() + _itemType.GetCategoryLocalization(session).Bold());

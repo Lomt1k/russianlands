@@ -97,6 +97,7 @@ public partial class PotionsDialogPanel : DialogPanelBase
         var successfullPurchase = playerResources.TryPurchase(requiredResources, out var notEnoughResources);
         if (successfullPurchase)
         {
+            Program.logger.Info($"CRAFT | User {session.actualUser} started craft potions {data.debugName} lvl {data.potionLevel} (amount: {potionsAmount})");
             StartCraft(data, potionsAmount);
             await ShowPotionsList().FastAwait();
             return;

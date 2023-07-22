@@ -274,6 +274,7 @@ public class SelectBattleItemDialog : DialogBase
 
         var potionData = potionItem.GetData();
         potionData.Apply(_battleTurn, session.player);
+        Program.logger.Info($"BATTLE | User {session.actualUser} used potion {potionData.debugName} lvl {potionData.potionLevel}");
 
         SendPotionMessageForEnemy(potionData);
         await SendPotionMessage(potionData).FastAwait();

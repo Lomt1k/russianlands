@@ -100,8 +100,13 @@ public class PlayerResources
 
         foreach (var (resourceId, amount) in requiredResources)
         {
+            if (amount < 1)
+            {
+                continue;
+            }
             var newValue = GetValue(resourceId) - amount;
             ResourcesDictionary.Get(resourceId).SetValue(_profileData, newValue);
+            Program.logger.InfoFormat($"RESOURCE SPENDING | {_session.actualUser} : {resourceId} ({amount})");
         }
         return true;
     }
@@ -141,8 +146,13 @@ public class PlayerResources
         var success = HasEnough(requiredResource);
         if (success)
         {
+            if (requiredResource.amount < 1)
+            {
+                return true;
+            }
             var newValue = GetValue(requiredResource.resourceId) - requiredResource.amount;
             ResourcesDictionary.Get(requiredResource.resourceId).SetValue(_profileData, newValue);
+            Program.logger.InfoFormat($"RESOURCE SPENDING | {_session.actualUser} : {requiredResource.resourceId} ({requiredResource.amount})");
         }
         return success;
     }
@@ -206,6 +216,8 @@ public class PlayerResources
         var canBeAdded = int.MaxValue - currentValue;
         var reallyAdded = resourceData.amount > canBeAdded ? canBeAdded : resourceData.amount;
         resource.AddValue(_profileData, reallyAdded);
+
+        Program.logger.InfoFormat($"RESOURCE ADD | {_session.actualUser} : {resourceData.resourceId} ({reallyAdded})");
     }
 
     /// <summary>
@@ -232,6 +244,8 @@ public class PlayerResources
         var canBeAdded = currentValue > maxValue ? 0 : maxValue - currentValue;
         var reallyAdded = resourceData.amount > canBeAdded ? canBeAdded : resourceData.amount;
         resource.AddValue(_profileData, reallyAdded);
+
+        Program.logger.InfoFormat($"RESOURCE ADD | {_session.actualUser} : {resourceData.resourceId} ({reallyAdded})");
 
         return resourceData with { amount = reallyAdded };
     }

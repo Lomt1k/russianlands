@@ -49,6 +49,7 @@ public abstract class ShopItemBase
         var success = price == null ? true : await price.TryPurchase(session, this, onPurchaseError).FastAwait();
         if (success)
         {
+            Program.logger.Info($"SHOP | User {session.actualUser} purchased shop item with vendorCode: '{vendorCode}'");
             await GiveAndShowRewards(session, onSuccess).FastAwait();
         }
     }

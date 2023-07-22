@@ -117,6 +117,7 @@ public partial class BuildingsDialogPanel : DialogPanelBase
         if (successsPurchase)
         {
             building.LevelUp(_buildingsData);
+            Program.logger.Info($"CONSTRUCTION | User {session.actualUser} boosted construction: {building.buildingId} lvl {building.GetCurrentLevel(_buildingsData)}");
 
             var sb = new StringBuilder();
             sb.AppendLine(building.GetLocalizedName(session, _buildingsData).Bold());
@@ -258,6 +259,7 @@ public partial class BuildingsDialogPanel : DialogPanelBase
         var successfullPurchase = playerResources.TryPurchase(requiredResources, out var notEnoughResources);
         if (successfullPurchase)
         {
+            Program.logger.Info($"CONSTRUCTION | {session.actualUser} started construction {building.buildingId} lvl {building.GetCurrentLevel(_buildingsData) + 1}");
             building.StartConstruction(_buildingsData);
             await ShowBuildingCurrentLevelInfo(building).FastAwait();
             return;

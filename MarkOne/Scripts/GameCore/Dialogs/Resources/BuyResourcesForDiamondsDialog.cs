@@ -60,6 +60,7 @@ public class BuyResourcesForDiamondsDialog : DialogBase
         var success = playerResources.TryPurchase(_priceInDiamonds);
         if (success)
         {
+            Program.logger.Info($"INGAME BUY | Resources by diamonds: user {session.actualUser}");
             playerResources.ForceAdd(_targetResources);
             var sb = new StringBuilder();
             var fullPriceView = ResourceId.Diamond.GetEmoji() + _priceInDiamonds.amount.View();

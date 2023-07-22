@@ -115,10 +115,13 @@ public partial class PotionsDialogPanel : DialogPanelBase
         var successsPurchase = playerResources.TryPurchase(requiredDiamonds, out var notEnoughDiamonds);
         if (successsPurchase)
         {
+            byte count = 0;
             foreach (var potion in playerPotions.GetPotionsInProduction())
             {
                 potion.BoostProduction();
+                count++;
             }
+            Program.logger.Info($"User {session.actualUser} boosted craft for all potions (potions: {count})");
 
             ClearButtons();
             var sb = new StringBuilder();

@@ -101,6 +101,7 @@ public class PlayerInventory
         if (session is not null)
         {
             item.RecalculateDataWithPlayerSkills(session.player.skills);
+            Program.logger.Info($"INVENTORY | User {session.actualUser} get item with id '{item.id}'");
         }
         return true;
     }
@@ -119,6 +120,7 @@ public class PlayerInventory
         if (session is not null)
         {
             item.RecalculateDataWithPlayerSkills(session.player.skills);
+            Program.logger.Info($"INVENTORY | User {session.actualUser} get item with id '{item.id}'");
         }
     }
 

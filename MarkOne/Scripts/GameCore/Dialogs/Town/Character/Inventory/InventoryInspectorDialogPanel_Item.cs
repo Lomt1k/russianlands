@@ -165,6 +165,7 @@ public partial class InventoryInspectorDialogPanel : DialogPanelBase
     private async Task ForceBreakApart()
     {
         var rewardResources = _browsedItem.CalculateResourcesForBreakApart();
+        Program.logger.Info($"INVENTORY | User {session.actualUser} breaked item with id '{_browsedItem.id}'");
         session.player.resources.ForceAdd(rewardResources);
         inventory.RemoveItem(_browsedItem);
         _browsedItem = null;

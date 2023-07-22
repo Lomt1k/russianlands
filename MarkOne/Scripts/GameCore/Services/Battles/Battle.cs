@@ -81,6 +81,10 @@ public class Battle
 
         InvokeHealthRegen();
 
+        var firstUnitForLog = firstUnit is Player firtPlayer ? firtPlayer.session.actualUser.ToString() : firstUnit.nickname;
+        var secondUnitForLog = secondUnit is Player secondPlayer ? secondPlayer.session.actualUser.ToString() : secondUnit.nickname;
+        Program.logger.Info($"BATTLE | New {(isPVE ? "PVE" : "PVP")} battle started: {firstUnitForLog} vs {secondUnitForLog}");
+
         //Сначала второму юниту, так как первый уже сразу сможет ходить
         await secondUnit.OnStartBattle(this).FastAwait();
         await firstUnit.OnStartBattle(this).FastAwait();
@@ -227,6 +231,8 @@ public class Battle
             onContinueButtonFunc = _onContinueButtonFunc,
             isReturnToTownAvailable = isReturnToTownAvailable
         };
+
+        Program.logger.Info($"BATTLE | User {player.session.actualUser} end {(isPVE ? "PVE" : "PVP")} battle with result: {battleResult}");
         await new BattleResultDialog(player.session, data).Start().FastAwait();
     }
 

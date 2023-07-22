@@ -81,6 +81,7 @@ public sealed class ShopArenaDialogPanel : DialogPanelBase
 
     private async Task GiveFreeChips(ResourceData resourceData)
     {
+        Program.logger.Info($"User {session.actualUser} get free daily chips from arena shop");
         session.player.resources.Add(resourceData);
         session.profile.data.lastCollectArenaChipsTime = DateTime.UtcNow;
 

@@ -42,7 +42,7 @@ public class MessageSender : Service
         {
             if (telegramBotException.ErrorCode == 429)
             {
-                Program.logger.Debug("Catched 'Too many requests':" +
+                Program.logger.Error("Catched 'Too many requests':" +
                     "\n Method: SendMessage" +
                     $"\n Used delay: {delay} sec" +
                     $"\n Text: {text}");
@@ -68,7 +68,7 @@ public class MessageSender : Service
         {
             if (telegramBotException.ErrorCode == 429)
             {
-                Program.logger.Debug("Catched 'Too many requests':" +
+                Program.logger.Error("Catched 'Too many requests':" +
                     "\n Method: EditMessageText" +
                     $"\n Used delay: {delay} sec" +
                     $"\n Text: {text}");
@@ -87,7 +87,7 @@ public class MessageSender : Service
         {
             if (telegramBotException.ErrorCode == 429)
             {
-                Program.logger.Debug("Catched 'Too many requests':" +
+                Program.logger.Error("Catched 'Too many requests':" +
                     "\n Method: DeleteMesage" +
                     $"\n Used delay: -");
             }
@@ -104,7 +104,7 @@ public class MessageSender : Service
         {
             if (telegramBotException.ErrorCode == 429)
             {
-                Program.logger.Debug("Catched 'Too many requests':" +
+                Program.logger.Error("Catched 'Too many requests':" +
                     "\n Method: EditInlineKeyboard" +
                     $"\n Used delay: -");
             }
@@ -121,7 +121,7 @@ public class MessageSender : Service
         {
             if (telegramBotException.ErrorCode == 429)
             {
-                Program.logger.Debug("Catched 'Too many requests':" +
+                Program.logger.Error("Catched 'Too many requests':" +
                     "\n Method: EditInlineKeyboard (Remove!)" +
                     $"\n Used delay: -");
             }
@@ -152,7 +152,7 @@ public class MessageSender : Service
         {
             if (telegramBotException.ErrorCode == 429)
             {
-                Program.logger.Debug("Catched 'Too many requests':" +
+                Program.logger.Error("Catched 'Too many requests':" +
                     "\n Method: SendMessage" +
                     $"\n Used delay: {delay} sec" +
                     $"\n Text: {text}");
@@ -198,7 +198,7 @@ public class MessageSender : Service
         {
             if (telegramBotException.ErrorCode == 429)
             {
-                Program.logger.Debug("Catched 'Too many requests':" +
+                Program.logger.Error("Catched 'Too many requests':" +
                     "\n Method: SendSticker" +
                     $"\n Used delay: {delay} sec" +
                     $"\n FileId: {stickerFileId}");

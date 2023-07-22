@@ -21,6 +21,7 @@ internal class AddResourceCommand : CommandBase
             return;
         }
 
+        Program.logger.Info($"Add resource from cheat: {session.actualUser}");
         var resourceData = new ResourceData(resourceId, amount);
         session.player.resources.ForceAdd(resourceData);
 

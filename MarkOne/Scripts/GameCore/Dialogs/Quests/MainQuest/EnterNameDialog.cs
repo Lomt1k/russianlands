@@ -152,6 +152,7 @@ public class EnterNameDialog : DialogBase
             return;
         }
 
+        Program.logger.Info($"CHANGE NICK | User {session.actualUser} changed nick from '{currentNickname}' to '{newNickname}'");
         currentNickname = newNickname;
         var notification = Localization.Get(session, "dialog_entry_name_name_changed", newNickname);
         await notificationsManager.ShowNotification(session, notification, () => new CharacterDialog(session).Start()).FastAwait();

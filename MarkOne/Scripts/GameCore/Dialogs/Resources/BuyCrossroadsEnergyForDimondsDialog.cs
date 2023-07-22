@@ -55,6 +55,7 @@ public class BuyCrossroadsEnergyForDimondsDialog : DialogBase
         var success = playerResources.TryPurchase(actualPriceInDiamonds);
         if (success)
         {
+            Program.logger.Info($"INGAME BUY | Crossroads Energy: user {session.actualUser}");
             playerResources.ForceAdd(targetResource);
             session.profile.data.lastCrossroadsResourceUpdate = DateTime.UtcNow;
 

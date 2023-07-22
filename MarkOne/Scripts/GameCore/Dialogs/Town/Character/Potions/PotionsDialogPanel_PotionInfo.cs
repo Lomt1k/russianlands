@@ -47,6 +47,8 @@ public partial class PotionsDialogPanel : DialogPanelBase
         var successsPurchase = playerResources.TryPurchase(requiredDiamonds, out var notEnoughDiamonds);
         if (successsPurchase)
         {
+            var data = item.GetData();
+            Program.logger.Info($"CRAFT | User {session.actualUser} boosted potion craft ({data.debugName} lvl {data.potionLevel})");
             item.BoostProduction();
             playerPotions.SortByPreparationTime();
 
@@ -82,6 +84,8 @@ public partial class PotionsDialogPanel : DialogPanelBase
         var alchemyLabLevel = item.GetData().workshopLevel;
         var alchemyLab = (AlchemyLabBuilding)BuildingId.AlchemyLab.GetBuilding();
         var resourcesToRestore = alchemyLab.GetCraftCostForBuildingLevel(alchemyLabLevel);
+        var potionData = item.GetData();
+        Program.logger.Info($"CRAFT | User {session.actualUser} canceled potion craft ({potionData.debugName} lvl {potionData.potionLevel})");
         session.player.resources.ForceAdd(resourcesToRestore);
         session.player.potions.Remove(item);
 

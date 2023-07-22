@@ -166,11 +166,13 @@ public class TrainingBuildingDialog : DialogBase
     {
         if (!_building.HasFirstTrainingUnit(_data))
         {
+            Program.logger.Info($"User {session.actualUser} started training in {_building.buildingId} (worker: First, unitIndex: {unitIndex})");
             _building.SetFirstTrainingUnitIndex(_data, unitIndex);
             _building.SetFirstTrainingUnitStartTime(_data, DateTime.UtcNow);
         }
         else if (!_building.HasSecondTrainingUnit(_data))
         {
+            Program.logger.Info($"User {session.actualUser} started training in {_building.buildingId} (worker: Second, unitIndex: {unitIndex})");
             _building.SetSecondTrainingUnitIndex(_data, unitIndex);
             _building.SetSecondTrainingUnitStartTime(_data, DateTime.UtcNow);
         }
@@ -212,6 +214,7 @@ public class TrainingBuildingDialog : DialogBase
             else
                 _building.LevelUpSecond(session, _data);
 
+            Program.logger.Info($"User {session.actualUser} boosted training in {_building.buildingId} (worker: {(isFirst ? "First" : "Second")})");
             var sb = new StringBuilder();
             sb.AppendLine(Emojis.ElementTraining + Localization.Get(session, "dialog_training_boosted"));
             sb.AppendLine();

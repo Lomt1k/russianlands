@@ -29,6 +29,7 @@ public class TryCollectResourcesDialog : DialogBase
 
     public static string StartLogicAndGetResultMessage(GameSession session)
     {
+        Program.logger.Info($"User {session.actualUser} collected resources from production buildings");
         var collectedResources = new Dictionary<ResourceId, int>();
         var notCollectedResources = new Dictionary<ResourceId, int>();
 

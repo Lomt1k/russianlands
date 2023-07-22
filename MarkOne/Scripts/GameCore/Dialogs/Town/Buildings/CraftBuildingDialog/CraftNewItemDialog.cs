@@ -123,6 +123,7 @@ public class CraftNewItemDialog : DialogBase
         var successfullPurchase = playerResources.TryPurchase(requiredResources, out var notEnoughResources);
         if (successfullPurchase)
         {
+            Program.logger.Info($"CRAFT | User {session.actualUser} start craft item {itemType} - {rarity}");
             _building.StartCraft(buildingsData, itemType, rarity);
             await new CraftInProgressDialog(session, _building).Start().FastAwait();
             return;

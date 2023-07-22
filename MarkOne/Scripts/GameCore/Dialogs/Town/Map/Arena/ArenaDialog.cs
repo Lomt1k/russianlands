@@ -107,6 +107,7 @@ public sealed class ArenaDialog : DialogBase
         var playerResources = session.player.resources;
         if (playerResources.TryPurchase(price, out var notEnoughResources))
         {
+            Program.logger.Info($"User {session.actualUser} started new arena with {price.resourceId} (on player level: {session.player.level})");
             await StartNewMatch(byTicket).FastAwait();
             return;
         }
@@ -292,6 +293,7 @@ public sealed class ArenaDialog : DialogBase
         sb.AppendLine(Localization.Get(session, "dialog_arena_results_total_header"));
         sb.AppendLine(totalRewardsList.GetLocalizedView(session));
 
+        Program.logger.Info($"User {session.actualUser} completed the Arena");
         session.player.resources.Add(totalRewardsList);
         session.profile.dynamicData.arenaProgress = null;
 

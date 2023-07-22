@@ -71,6 +71,7 @@ public class CraftInProgressDialog : DialogBase
         if (successsPurchase)
         {
             _building.BoostCraft(buildingsData);
+            Program.logger.Info($"CRAFT | User {session.actualUser} boosted craft in {_building.buildingId} lvl {_building.GetCurrentLevel(buildingsData)}");
 
             var sb = new StringBuilder();
             sb.AppendLine(Emojis.ButtonCraft + Localization.Get(session, "dialog_craft_boosted"));
