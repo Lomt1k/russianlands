@@ -72,9 +72,13 @@ public partial class BuildingsDialogPanel : DialogPanelBase
         foreach (ProductionBuildingBase building in productionBuildings)
         {
             if (!building.IsBuilt(_buildingsData))
+            {
                 continue;
+            }
 
-            var farmedAmount = building.GetFarmedResourceAmount(_buildingsData);
+            var farmedAmount = !building.IsUnderConstruction(_buildingsData)
+                ? building.GetFarmedResourceAmount(_buildingsData)
+                : 0;
             AddToShow(building.resourceId, farmedAmount);
 
             var limit = building.GetCurrentLevelResourceLimit(_buildingsData);
