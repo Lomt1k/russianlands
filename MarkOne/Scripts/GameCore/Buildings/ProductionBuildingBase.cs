@@ -104,7 +104,7 @@ public abstract class ProductionBuildingBase : BuildingBase
         var dtNow = DateTime.UtcNow;
         var endFarmTimeDt = IsUnderConstruction(data) ? GetStartConstructionTime(data) : dtNow;
 
-        var farmHours = (endFarmTimeDt - startFarmTime).TotalHours;
+        var farmHours = Math.Max( (endFarmTimeDt - startFarmTime).TotalHours, 0 );
         var farmPerHour = GetCurrentLevelFirstWorkerProductionPerHour(data)
             + GetCurrentLevelSecondWorkerProductionPerHour(data);
         var farmedTotal = (int)(farmPerHour * farmHours);
@@ -115,14 +115,14 @@ public abstract class ProductionBuildingBase : BuildingBase
             // нужно посчитать то, что было добыто уже после завершения строительства
             startFarmTime = GetEndConstructionTime(data);
             endFarmTimeDt = dtNow;
-            farmHours = (endFarmTimeDt - startFarmTime).TotalHours;
+            farmHours = Math.Max( (endFarmTimeDt - startFarmTime).TotalHours, 0);
             farmPerHour = GetNextLevelFirstWorkerProductionPerHour(data)
             + GetNextLevelSecondWorkerProductionPerHour(data);
             farmedTotal += (int)(farmPerHour * farmHours);
             farmLimit = GetNextLevelResourceLimit(data);
         }
 
-        return farmedTotal > farmLimit ? farmLimit : farmedTotal;
+        return Math.Min(farmedTotal, farmLimit);
     }
 
     public override string GetCurrentLevelInfo(GameSession session, ProfileBuildingsData data)
