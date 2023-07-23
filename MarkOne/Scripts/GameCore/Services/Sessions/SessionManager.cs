@@ -8,6 +8,7 @@ using MarkOne.Scripts.GameCore.Services;
 using MarkOne.Scripts.Bot;
 using FastTelegramBot.DataTypes;
 using FastTelegramBot.DataTypes.Keyboards;
+using System.Collections.Concurrent;
 
 namespace MarkOne.Scripts.GameCore.Sessions;
 
@@ -19,8 +20,8 @@ public class SessionManager : Service
 
     private int _periodicSaveDatabaseInMs;
     private CancellationTokenSource _allSessionsTasksCTS = new CancellationTokenSource();
-    private readonly Dictionary<ChatId, GameSession> _sessions = new Dictionary<ChatId, GameSession>();
-    private readonly Dictionary<long, long> _fakeIdsDict = new Dictionary<long, long>(); //cheat: allow play as another telegram user
+    private readonly ConcurrentDictionary<ChatId, GameSession> _sessions = new();
+    private readonly Dictionary<long, long> _fakeIdsDict = new(); //cheat: allow play as another telegram user
 
     public int sessionsCount => _sessions.Count;
     public CancellationTokenSource allSessionsTasksCTS => _allSessionsTasksCTS;
@@ -29,22 +30,18 @@ public class SessionManager : Service
     {
         _periodicSaveDatabaseInMs = BotController.config.periodicSaveDatabaseInMinutes * millisecondsInMinute;
         _allSessionsTasksCTS = new CancellationTokenSource();
-        Task.Run(() => PeriodicSaveProfilesAsync());
-        Task.Run(() => CloseSessionsWithTimeoutAsync());
+        Task.Run(PeriodicSaveProfilesAsync);
+        Task.Run(CloseSessionsWithTimeoutAsync);
         return Task.CompletedTask;
     }
 
     public GameSession GetOrCreateSession(User user)
     {
-        if (!_sessions.TryGetValue(user.Id, out var session))
+        return _sessions.GetOrAdd(user.Id, (chatId) =>
         {
             var useFakeChatId = _fakeIdsDict.TryGetValue(user.Id, out var fakeChatId);
-            session = useFakeChatId
-                ? new GameSession(user, fakeChatId)
-                : new GameSession(user);
-            _sessions.Add(user.Id, session);
-        }
-        return session;
+            return useFakeChatId ? new GameSession(user, fakeChatId) : new GameSession(user);
+        });
     }
 
     public bool IsSessionExists(ChatId id)
@@ -132,7 +129,7 @@ public class SessionManager : Service
     {
         if (_sessions.TryGetValue(chatId, out var session))
         {
-            _sessions.Remove(chatId);
+            _sessions.TryRemove(chatId, out _);
             await session.OnCloseSession(onError, errorMessage).FastAwait();
         }
     }

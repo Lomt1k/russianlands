@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.Threading.Tasks;
 using FastTelegramBot.DataTypes;
 using MarkOne.Scripts.Bot;
@@ -8,9 +8,9 @@ namespace MarkOne.Scripts.GameCore.Services.Sending;
 
 public class MessageSequencer : Service
 {
-    private readonly Dictionary<int, Dictionary<string, byte>> _sendMessagesDict = new Dictionary<int, Dictionary<string, byte>>();
-    private readonly Dictionary<int, Dictionary<string, byte>> _editMessagesDict = new Dictionary<int, Dictionary<string, byte>>();
-    private readonly Dictionary<int, Dictionary<string, byte>> _sendStickerDict = new Dictionary<int, Dictionary<string, byte>>();
+    private readonly ConcurrentDictionary<int, ConcurrentDictionary<string, byte>> _sendMessagesDict = new();
+    private readonly ConcurrentDictionary<int, ConcurrentDictionary<string, byte>> _editMessagesDict = new();
+    private readonly ConcurrentDictionary<int, ConcurrentDictionary<string, byte>> _sendStickerDict = new();
 
     private int _currentSecond;
 
@@ -65,7 +65,7 @@ public class MessageSequencer : Service
 
     #region calculation logic
 
-    private int GetDelayForSomething(Dictionary<int, Dictionary<string, byte>> dictionary, byte limit, string key)
+    private int GetDelayForSomething(ConcurrentDictionary<int, ConcurrentDictionary<string, byte>> dictionary, byte limit, string key)
     {
         var resultDelay = 0;
         var i = _currentSecond;
@@ -86,15 +86,14 @@ public class MessageSequencer : Service
         return resultDelay;
     }
 
-    private Dictionary<string, byte> GetDataBySecond(Dictionary<int, Dictionary<string, byte>> dictionary, int second)
+    private ConcurrentDictionary<string, byte> GetDataBySecond(ConcurrentDictionary<int, ConcurrentDictionary<string, byte>> dictionary, int second)
     {
-        if (dictionary.TryGetValue(second, out var result))
+        return dictionary.GetOrAdd(second, (sec) =>
         {
+            var result = new ConcurrentDictionary<string, byte>();
+            dictionary.TryAdd(second, result);
             return result;
-        }
-        result = new Dictionary<string, byte>();
-        dictionary.TryAdd(second, result);
-        return result;
+        });
     }
 
     private void RemoveDataBySecond(int second)
@@ -104,12 +103,12 @@ public class MessageSequencer : Service
         RemoveDataBySecond(_sendStickerDict, second);
     }
 
-    private void RemoveDataBySecond(Dictionary<int, Dictionary<string, byte>> dictionary, int second)
+    private void RemoveDataBySecond(ConcurrentDictionary<int, ConcurrentDictionary<string, byte>> dictionary, int second)
     {
-        dictionary.Remove(second);
+        dictionary.TryRemove(second, out _);
     }
 
-    private byte GetCountByKey(Dictionary<string, byte> dataDictionary, string key)
+    private byte GetCountByKey(ConcurrentDictionary<string, byte> dataDictionary, string key)
     {
         if (dataDictionary.TryGetValue(key, out var count))
         {
@@ -118,7 +117,7 @@ public class MessageSequencer : Service
         return 0;
     }
 
-    private void IncreaseCountByKey(Dictionary<string, byte> dataDictionary, string key)
+    private void IncreaseCountByKey(ConcurrentDictionary<string, byte> dataDictionary, string key)
     {
         if (dataDictionary.ContainsKey(key))
         {
@@ -126,7 +125,7 @@ public class MessageSequencer : Service
         }
         else
         {
-            dataDictionary.Add(key, 1);
+            dataDictionary.TryAdd(key, 1);
         }
     }
 
