@@ -42,22 +42,41 @@ public class Profile
 
     public async Task SaveProfile()
     {
-        var db = BotController.dataBase.db;
-        await db.UpdateAsync(data).FastAwait();
+        var attemptsCount = 20;
+        Exception? cachedException = null;
+        for (int i = 1; i <= attemptsCount; i++)
+        {
+            try
+            {
+                var db = BotController.dataBase.db;
+                await db.UpdateAsync(data).FastAwait();
 
-        var rawDynamicData = new RawProfileDynamicData();
-        rawDynamicData.Fill(dynamicData);
-        await db.UpdateAsync(rawDynamicData).FastAwait();
+                var rawDynamicData = new RawProfileDynamicData();
+                rawDynamicData.Fill(dynamicData);
+                await db.UpdateAsync(rawDynamicData).FastAwait();
 
-        await db.UpdateAsync(buildingsData).FastAwait();
+                await db.UpdateAsync(buildingsData).FastAwait();
 
-        var rawDailyData = new RawProfileDailyData();
-        rawDailyData.Fill(dailyData);
-        await db.InsertOrReplaceAsync(rawDailyData).FastAwait();
+                var rawDailyData = new RawProfileDailyData();
+                rawDailyData.Fill(dailyData);
+                await db.InsertOrReplaceAsync(rawDailyData).FastAwait();
 
-        lastSaveProfileTime = DateTime.UtcNow;
-        var user = session?.actualUser.ToString() ?? $"(ID {data.telegram_id})";
-        Program.logger.Info($"Profile saved for {user}");
+                lastSaveProfileTime = DateTime.UtcNow;
+                var user = session?.actualUser.ToString() ?? $"(ID {data.telegram_id})";
+                Program.logger.Info($"Profile saved for {user}");
+                return;
+            }
+            catch (Exception ex)
+            {
+                cachedException ??= ex;
+                if (i < attemptsCount)
+                {
+                    await Task.Delay(15);
+                    continue;
+                }
+                throw cachedException;
+            }
+        }
     }
 
     public async Task Cheat_ResetProfile()

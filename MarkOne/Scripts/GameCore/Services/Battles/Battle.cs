@@ -150,7 +150,7 @@ public class Battle
     {
         if (BotController.config.logSettings.logUpdates)
         {
-            Program.logger.InfoFormat("UPDATE :: {0}: {1}", player.session.actualUser, callback.tooltip);
+            Program.logger.Info($"UPDATE :: {player.session.actualUser}: {callback.tooltip}");
         }
 
         if (currentTurn == null)
