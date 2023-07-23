@@ -120,7 +120,7 @@ public class GameSession
     {
         if (BotController.config.logSettings.logUpdates && message.Text != null)
         {
-            Program.logger.InfoFormat("UPDATE :: {0}: {1}", actualUser, message.Text);
+            Program.logger.Info($"UPDATE :: {actualUser}: {message.Text}");
         }
 
         if (message.Text != null && message.Text.StartsWith('/'))

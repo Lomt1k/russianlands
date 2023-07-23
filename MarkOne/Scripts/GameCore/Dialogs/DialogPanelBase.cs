@@ -206,7 +206,7 @@ public abstract class DialogPanelBase
 
         if (BotController.config.logSettings.logUpdates)
         {
-            Program.logger.InfoFormat("UPDATE :: {0}: {1}", session.actualUser, _registeredButtons[buttonId].Text);
+            Program.logger.Info($"UPDATE :: {session.actualUser}: {_registeredButtons[buttonId].Text}");
         }
 
         var generateQueryFunc = _registeredQueryAnswers[buttonId];
