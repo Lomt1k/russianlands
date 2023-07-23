@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,8 +12,7 @@ namespace MarkOne.Scripts.GameCore.Services.Battles;
 
 public class BattleManager : Service
 {
-    private readonly List<Battle> _battles = new List<Battle>();
-    private readonly Dictionary<Player, Battle> _battlesByPlayers = new Dictionary<Player, Battle>();
+    private readonly ConcurrentDictionary<Player, Battle> _battlesByPlayers = new();
 
     public Battle StartBattle(Player player, IMobData mobData, IEnumerable<RewardBase>? rewards = null,
         Func<Player, BattleResult, Task>? onBattleEndFunc = null,
@@ -30,14 +30,13 @@ public class BattleManager : Service
     {
         var battle = new Battle(opponentA, opponentB, rewards, onBattleEndFunc, onContinueButtonFunc, isAvailableReturnToTownFunc);
         RegisterBattle(battle);
-        battle.StartBattle();
+        Task.Run(battle.StartBattle);
         return battle;
     }
     
 
     private void RegisterBattle(Battle battle)
     {
-        _battles.Add(battle);
         if (battle.firstUnit is Player firstPlayer)
         {
             _battlesByPlayers[firstPlayer] = battle;
@@ -64,20 +63,18 @@ public class BattleManager : Service
 
     public void UnregisterBattle(Battle battle)
     {
-        _battles.Remove(battle);
         if (battle.firstUnit is Player firstPlayer)
         {
-            _battlesByPlayers.Remove(firstPlayer);
+            _battlesByPlayers.TryRemove(firstPlayer, out _);
         }
         if (battle.secondUnit is Player secondPlayer)
         {
-            _battlesByPlayers.Remove(secondPlayer);
+            _battlesByPlayers.TryRemove(secondPlayer, out _);
         }
     }
 
     public void UnregisterAllBattles()
     {
-        _battles.Clear();
         _battlesByPlayers.Clear();
     }
 

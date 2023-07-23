@@ -21,7 +21,7 @@ public class SessionManager : Service
     private int _periodicSaveDatabaseInMs;
     private CancellationTokenSource _allSessionsTasksCTS = new CancellationTokenSource();
     private readonly ConcurrentDictionary<ChatId, GameSession> _sessions = new();
-    private readonly Dictionary<long, long> _fakeIdsDict = new(); //cheat: allow play as another telegram user
+    private readonly ConcurrentDictionary<long, long> _fakeIdsDict = new(); //cheat: allow play as another telegram user
 
     public int sessionsCount => _sessions.Count;
     public CancellationTokenSource allSessionsTasksCTS => _allSessionsTasksCTS;
@@ -188,7 +188,7 @@ public class SessionManager : Service
     {
         if (fakeId == 0 || fakeId == telegramId)
         {
-            _fakeIdsDict.Remove(telegramId);
+            _fakeIdsDict.TryRemove(telegramId, out _);
             return;
         }
         _fakeIdsDict[telegramId] = fakeId;
