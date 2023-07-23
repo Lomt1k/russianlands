@@ -138,7 +138,7 @@
         ],
         "id": 600,
         "comment": "Первый бой\r\n(схватка с разбойником)",
-        "jumpToStageIfNewSession": 300
+        "jumpToStageIfNewSession": 700
       },
       {
         "$type": "QuestStageWithTrigger",
@@ -157,7 +157,7 @@
         ],
         "id": 700,
         "comment": "Василиса: приветствие\r\n[Ввод имени]",
-        "jumpToStageIfNewSession": null
+        "jumpToStageIfNewSession": 800
       },
       {
         "$type": "QuestStageWithReplica",
