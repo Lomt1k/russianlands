@@ -77,6 +77,12 @@ public class MessageSequencer : Service
             {
                 resultDelay += 1_000;
                 i++;
+                // escape infinity cycle
+                if (i > 300)
+                {
+                    return 0;
+                }
+                // escape infinity cycle
                 continue;
             }
 
