@@ -68,10 +68,7 @@ public class Profile
             }
             catch (Exception ex)
             {
-                if (cachedException is null)
-                {
-                    cachedException = ex;
-                }
+                cachedException ??= ex;
                 if (i < attemptsCount)
                 {
                     await Task.Delay(15);
