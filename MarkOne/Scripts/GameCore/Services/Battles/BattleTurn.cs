@@ -225,10 +225,10 @@ public class BattleTurn
         switch (callback.tooltip)
         {
             case BattleTooltipType.ShowMineStats:
-                await CreateUnitStatsTooltip(player, queryId, unit).FastAwait();
+                await CreateUnitStatsTooltip(player, queryId, player).FastAwait();
                 break;
             case BattleTooltipType.ShowEnemyStats:
-                await CreateUnitStatsTooltip(player, queryId, battle.GetEnemy(unit)).FastAwait();
+                await CreateUnitStatsTooltip(player, queryId, battle.GetEnemy(player)).FastAwait();
                 break;
         }
     }
