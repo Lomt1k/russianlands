@@ -258,6 +258,7 @@ public static class BotController
 
         await StopListening().FastAwait();
         Program.logger.Info("Stopping the server was completed correctly");
+        await Task.Delay(500); //for correct logs
         System.Environment.Exit(0);
     }
 
