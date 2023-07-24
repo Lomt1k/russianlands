@@ -1,5 +1,5 @@
 ﻿using System;
-using System.IO;
+using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
 using FastTelegramBot;
@@ -13,17 +13,16 @@ namespace MarkOne.Scripts.Bot;
 
 public class MessageSender : Service
 {
-    private const int attemptsCount = 20;
-    private const int attemptDelay = 150;
+    private const int attemptsCount = 10;
+    private const int attemptDelay = 300;
 
     private static readonly MessageSequencer sequencer = ServiceLocator.Get<MessageSequencer>();
 
-    private TelegramBotClient _botClient;
+    private TelegramBotClient _botClient => BotController.botClient;
     private int _maxDelayForSendStickers;
 
     public override Task OnBotStarted()
     {
-        _botClient = BotController.botClient;
         _maxDelayForSendStickers = BotController.config.sendingLimits.dontSendStickerIfDelayInSeconds * 1_000;
         return Task.CompletedTask;
     }
@@ -33,7 +32,7 @@ public class MessageSender : Service
         var delay = sequencer.GetDelayForSendMessage(text);
         await Task.Delay(delay, cancellationToken).FastAwait();
 
-        IOException? cachedIOException = null;
+        SocketException? cachedSocketException = null;
         for (int i = 1; i <= attemptsCount; i++)
         {
             try
@@ -56,15 +55,18 @@ public class MessageSender : Service
                     throw telegramBotException;
                 }
             }
-            catch (IOException ioException)
+            catch (Exception ex)
             {
-                cachedIOException ??= ioException;
+                cachedSocketException ??= ex is SocketException socketEx ? socketEx 
+                        : ex.InnerException is SocketException innerSocketEx ? innerSocketEx
+                        : null;
                 if (i < attemptsCount)
                 {
-                    await Task.Delay(attemptDelay);
+                    Program.logger.Error("Success handling of Socket Exception...\nMethod: MessageSender.SendTextMessage");
+                    await Task.Delay(attemptDelay).FastAwait();
                     continue;
                 }
-                throw cachedIOException;
+                throw cachedSocketException;
             }
         }
         
@@ -76,7 +78,7 @@ public class MessageSender : Service
         var delay = sequencer.GetDelayForEditMessage(text);
         await Task.Delay(delay, cancellationToken).FastAwait();
 
-        IOException? cachedIOException = null;
+        SocketException? cachedSocketException = null;
         for (int i = 1; i <= attemptsCount; i++)
         {
             try
@@ -98,22 +100,25 @@ public class MessageSender : Service
                     throw telegramBotException;
                 }
             }
-            catch (IOException ioException)
+            catch (Exception ex)
             {
-                cachedIOException ??= ioException;
+                cachedSocketException ??= ex is SocketException socketEx ? socketEx
+                        : ex.InnerException is SocketException innerSocketEx ? innerSocketEx
+                        : null;
                 if (i < attemptsCount)
                 {
-                    await Task.Delay(attemptDelay);
+                    Program.logger.Error("Success handling of Socket Exception...\nMethod: MessageSender.EditTextMessage");
+                    await Task.Delay(attemptDelay).FastAwait();
                     continue;
                 }
-                throw cachedIOException;
+                throw cachedSocketException;
             }
         }            
     }
 
     public async Task DeleteMessage(ChatId id, MessageId messageId)
     {
-        IOException? cachedIOException = null;
+        SocketException? cachedSocketException = null;
         for (int i = 1; i <= attemptsCount; i++)
         {
             try
@@ -130,22 +135,25 @@ public class MessageSender : Service
                         $"\n Used delay: -");
                 }
             }
-            catch (IOException ioException)
+            catch (Exception ex)
             {
-                cachedIOException ??= ioException;
+                cachedSocketException ??= ex is SocketException socketEx ? socketEx
+                        : ex.InnerException is SocketException innerSocketEx ? innerSocketEx
+                        : null;
                 if (i < attemptsCount)
                 {
-                    await Task.Delay(attemptDelay);
+                    Program.logger.Error("Success handling of Socket Exception...\nMethod: MessageSender.DeleteMessage");
+                    await Task.Delay(attemptDelay).FastAwait();
                     continue;
                 }
-                throw cachedIOException;
+                throw cachedSocketException;
             }
         }            
     }
 
     public async Task EditInlineKeyboardAsync(ChatId id, MessageId messageId, InlineKeyboardMarkup? inlineKeyboard, CancellationToken cancellationToken = default)
     {
-        IOException? cachedIOException = null;
+        SocketException? cachedSocketException = null;
         for (int i = 1; i <= attemptsCount; i++)
         {
             try
@@ -162,22 +170,25 @@ public class MessageSender : Service
                         $"\n Used delay: -");
                 }
             }
-            catch (IOException ioException)
+            catch (Exception ex)
             {
-                cachedIOException ??= ioException;
+                cachedSocketException ??= ex is SocketException socketEx ? socketEx
+                        : ex.InnerException is SocketException innerSocketEx ? innerSocketEx
+                        : null;
                 if (i < attemptsCount)
                 {
-                    await Task.Delay(attemptDelay);
+                    Program.logger.Error("Success handling of Socket Exception...\nMethod: MessageSender.EditInlineKeyboardAsync");
+                    await Task.Delay(attemptDelay).FastAwait();
                     continue;
                 }
-                throw cachedIOException;
+                throw cachedSocketException;
             }
         }
     }
 
     public async Task RemoveInlineKeyboardAsync(ChatId id, MessageId messageId, CancellationToken cancellationToken = default)
     {
-        IOException? cachedIOException = null;
+        SocketException? cachedSocketException = null;
         for (int i = 1; i <= attemptsCount; i++)
         {
             try
@@ -194,15 +205,18 @@ public class MessageSender : Service
                         $"\n Used delay: -");
                 }
             }
-            catch (IOException ioException)
+            catch (Exception ex)
             {
-                cachedIOException ??= ioException;
+                cachedSocketException ??= ex is SocketException socketEx ? socketEx
+                        : ex.InnerException is SocketException innerSocketEx ? innerSocketEx
+                        : null;
                 if (i < attemptsCount)
                 {
-                    await Task.Delay(attemptDelay);
+                    Program.logger.Error("Success handling of Socket Exception...\nMethod: MessageSender.RemoveInlineKeyboardAsync");
+                    await Task.Delay(attemptDelay).FastAwait();
                     continue;
                 }
-                throw cachedIOException;
+                throw cachedSocketException;
             }
         }  
     }
@@ -218,7 +232,7 @@ public class MessageSender : Service
         var delay = sequencer.GetDelayForSendMessage(text);
         await Task.Delay(delay, cancellationToken).FastAwait();
 
-        IOException? cachedIOException = null;
+        SocketException? cachedSocketException = null;
         for (int i = 1; i <= attemptsCount; i++)
         {
             try
@@ -241,15 +255,18 @@ public class MessageSender : Service
                     throw telegramBotException;
                 }
             }
-            catch (IOException ioException)
+            catch (Exception ex)
             {
-                cachedIOException ??= ioException;
+                cachedSocketException ??= ex is SocketException socketEx ? socketEx
+                        : ex.InnerException is SocketException innerSocketEx ? innerSocketEx
+                        : null;
                 if (i < attemptsCount)
                 {
-                    await Task.Delay(attemptDelay);
+                    Program.logger.Error("Success handling of Socket Exception...\nMethod: MessageSender.SendTextDialog");
+                    await Task.Delay(attemptDelay).FastAwait();
                     continue;
                 }
-                throw cachedIOException;
+                throw cachedSocketException;
             }
         }
             
@@ -258,7 +275,7 @@ public class MessageSender : Service
 
     public async Task AnswerQuery(string queryId, string? text = null, CancellationToken cancellationToken = default)
     {
-        IOException? cachedIOException = null;
+        SocketException? cachedSocketException = null;
         for (int i = 1; i <= attemptsCount; i++)
         {
             try
@@ -266,15 +283,26 @@ public class MessageSender : Service
                 await _botClient.AnswerCallbackQueryAsync(queryId, text, cancellationToken: cancellationToken).FastAwait();
                 return;
             }
-            catch (IOException ioException)
+            catch (TelegramBotException telegramBotException)
             {
-                cachedIOException ??= ioException;
+                if (telegramBotException.ErrorCode == 400)
+                {
+                    return;
+                }
+                throw telegramBotException;
+            }
+            catch (Exception ex)
+            {
+                cachedSocketException ??= ex is SocketException socketEx ? socketEx
+                        : ex.InnerException is SocketException innerSocketEx ? innerSocketEx
+                        : null;
                 if (i < attemptsCount)
                 {
-                    await Task.Delay(attemptDelay);
+                    Program.logger.Error("Success handling of Socket Exception...\nMethod: MessageSender.AnswerQuery");
+                    await Task.Delay(attemptDelay).FastAwait();
                     continue;
                 }
-                throw cachedIOException;
+                throw cachedSocketException;
             }
         }            
     }
@@ -302,7 +330,7 @@ public class MessageSender : Service
         }
         await Task.Delay(delay, cancellationToken).FastAwait();
 
-        IOException? cachedIOException = null;
+        SocketException? cachedSocketException = null;
         for (int i = 1; i <= attemptsCount; i++)
         {
             try
@@ -320,37 +348,43 @@ public class MessageSender : Service
                         $"\n FileId: {stickerFileId}");
                 }
             }
-            catch (IOException ioException)
+            catch (Exception ex)
             {
-                cachedIOException ??= ioException;
+                cachedSocketException ??= ex is SocketException socketEx ? socketEx
+                        : ex.InnerException is SocketException innerSocketEx ? innerSocketEx
+                        : null;
                 if (i < attemptsCount)
                 {
-                    await Task.Delay(attemptDelay);
+                    Program.logger.Error("Success handling of Socket Exception...\nMethod: MessageSender.SendSticker");
+                    await Task.Delay(attemptDelay).FastAwait();
                     continue;
                 }
-                throw cachedIOException;
+                throw cachedSocketException;
             }
         }            
     }
 
     public async Task<MessageId> SendDocument(ChatId id, InputFile document, string? caption = null, CancellationToken cancellationToken = default)
     {
-        IOException? cachedIOException = null;
+        SocketException? cachedSocketException = null;
         for (int i = 1; i <= attemptsCount; i++)
         {
             try
             {
                 return await _botClient.SendDocumentAsync(id, document, caption: caption, parseMode: ParseMode.HTML, cancellationToken: cancellationToken).FastAwait();
             }
-            catch (IOException ioException)
+            catch (Exception ex)
             {
-                cachedIOException ??= ioException;
+                cachedSocketException ??= ex is SocketException socketEx ? socketEx
+                        : ex.InnerException is SocketException innerSocketEx ? innerSocketEx
+                        : null;
                 if (i < attemptsCount)
                 {
-                    await Task.Delay(attemptDelay);
+                    Program.logger.Error("Success handling of Socket Exception...\nMethod: MessageSender.SendDocument");
+                    await Task.Delay(attemptDelay).FastAwait();
                     continue;
                 }
-                throw cachedIOException;
+                throw cachedSocketException;
             }
         }
 
