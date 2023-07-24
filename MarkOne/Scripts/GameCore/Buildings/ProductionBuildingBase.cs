@@ -104,7 +104,7 @@ public abstract class ProductionBuildingBase : BuildingBase
         var dtNow = DateTime.UtcNow;
         var endFarmTimeDt = IsUnderConstruction(data) ? GetStartConstructionTime(data) : dtNow;
 
-        var farmHours = Math.Max( (endFarmTimeDt - startFarmTime).TotalHours, 0 );
+        var farmHours = (endFarmTimeDt - startFarmTime).TotalHours;
         var farmPerHour = GetCurrentLevelFirstWorkerProductionPerHour(data)
             + GetCurrentLevelSecondWorkerProductionPerHour(data);
         var farmedTotal = (int)(farmPerHour * farmHours);
@@ -115,14 +115,14 @@ public abstract class ProductionBuildingBase : BuildingBase
             // нужно посчитать то, что было добыто уже после завершения строительства
             startFarmTime = GetEndConstructionTime(data);
             endFarmTimeDt = dtNow;
-            farmHours = Math.Max( (endFarmTimeDt - startFarmTime).TotalHours, 0);
+            farmHours = (endFarmTimeDt - startFarmTime).TotalHours;
             farmPerHour = GetNextLevelFirstWorkerProductionPerHour(data)
             + GetNextLevelSecondWorkerProductionPerHour(data);
             farmedTotal += (int)(farmPerHour * farmHours);
             farmLimit = GetNextLevelResourceLimit(data);
         }
 
-        return Math.Min(farmedTotal, farmLimit);
+        return farmedTotal > farmLimit ? farmLimit : farmedTotal;
     }
 
     public override string GetCurrentLevelInfo(GameSession session, ProfileBuildingsData data)
@@ -142,12 +142,12 @@ public abstract class ProductionBuildingBase : BuildingBase
             sb.AppendLine(firstWorker + resourcePrefix + $" {GetCurrentLevelFirstWorkerProductionPerHour(data).View()}");
             var secondWorker = secondWorkerIcon.GetEmoji() + Localization.Get(session, $"building_{buildingId}_second_worker") + Emojis.bigSpace;
             sb.AppendLine(secondWorker + resourcePrefix + $" {GetCurrentLevelSecondWorkerProductionPerHour(data).View()}");
-        }
 
-        sb.AppendLine();
-        sb.AppendLine(Localization.Get(session, "building_production_capacity_header"));
-        var capacity = $"{resourcePrefix} {GetFarmedResourceAmount(data).View()} / {GetCurrentLevelResourceLimit(data).View()}";
-        sb.Append(capacity);
+            sb.AppendLine();
+            sb.AppendLine(Localization.Get(session, "building_production_capacity_header"));
+            var capacity = $"{resourcePrefix} {GetFarmedResourceAmount(data).View()} / {GetCurrentLevelResourceLimit(data).View()}";
+            sb.Append(capacity);
+        }
 
         return sb.ToString();
     }

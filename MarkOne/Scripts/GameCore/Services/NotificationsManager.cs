@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Buildings;
+using MarkOne.Scripts.GameCore.Buildings.Data;
 using MarkOne.Scripts.GameCore.Dialogs;
 using MarkOne.Scripts.GameCore.Dialogs.Town;
 using MarkOne.Scripts.GameCore.Dialogs.Town.Buildings;
@@ -114,7 +115,13 @@ public class NotificationsManager : Service
         foreach (ProductionBuildingBase building in productionBuildings)
         {
             if (!building.IsBuilt(buildingsData))
+            {
                 continue;
+            }
+            if (building.IsUnderConstruction(buildingsData) && !building.IsConstructionCanBeFinished(buildingsData))
+            {
+                continue;
+            }
 
             var farmedAmount = building.GetFarmedResourceAmount(buildingsData);
             var farmLimit = building.GetCurrentLevelResourceLimit(buildingsData);
