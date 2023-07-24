@@ -29,7 +29,7 @@ public static class BotController
     public static BotConfig config { get; private set; }
     public static BotDataBase dataBase { get; private set; }
     public static BotHttpListener httpListener { get; private set; }
-    public static HttpClient httpClient => _httpClient;
+    public static HttpClient httpClient => botClient.HttpClient;
 
     public static bool isReceiving { get; private set; }
 
@@ -49,6 +49,27 @@ public static class BotController
         httpListener = new BotHttpListener(config.httpListenerSettings);
         _updatesReceiver = new TelegramUpdatesReceiver(httpListener);
         _isInited = true;
+        Task.Run(TryFixCPUOverloadLoop);
+    }
+
+    // test hotfix
+    private static async Task TryFixCPUOverloadLoop()
+    {
+        TelegramBotClient? oldClient = null;
+        while (true)
+        {            
+            try
+            {
+                await Task.Delay(60_000);
+                oldClient?.HttpClient?.Dispose();
+                oldClient = botClient;
+                botClient = new TelegramBotClient(config.token);
+            }
+            catch (System.Exception ex)
+            {
+                Program.logger.Error($"Catched exception in TryFixCPUOverloadLoop:\n{ex}");
+            }
+        }
     }
 
     private static BotConfig GetConfig()

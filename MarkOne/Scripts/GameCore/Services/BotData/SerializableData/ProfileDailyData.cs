@@ -43,7 +43,14 @@ public class ProfileDailyData : DataWithSession
 
     public MobDifficulty GetLocationMobDifficulty()
     {
-        return locationMobsDifficulty ??= MobDifficultyCalculator.GetActualDifficultyForPlayer(session.player);
+        // почему-то падал NRE, попробовал прописать длинным образом (по ночам)
+        //return locationMobsDifficulty ??= MobDifficultyCalculator.GetActualDifficultyForPlayer(session.player);
+
+        if (!locationMobsDifficulty.HasValue)
+        {
+            locationMobsDifficulty = MobDifficultyCalculator.GetActualDifficultyForPlayer(session.player);
+        }
+        return locationMobsDifficulty.Value;
     }
 
     public List<byte> GetLocationDefeatedMobs(LocationId locationId)
