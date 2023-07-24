@@ -38,9 +38,15 @@ public class TryCollectResourcesDialog : DialogBase
         var buildingsData = session.profile.buildingsData;
         foreach (ProductionBuildingBase building in productionBuildings)
         {
+            if (building.IsUnderConstruction(buildingsData) && !building.IsConstructionCanBeFinished(buildingsData))
+            {
+                continue;
+            }
             var farmedAmout = building.GetFarmedResourceAmount(buildingsData);
             if (farmedAmout < 1)
+            {
                 continue;
+            }
 
             var reallyAdded = playerResources.Add(new ResourceData(building.resourceId, farmedAmout));
             if (reallyAdded.amount > 0)

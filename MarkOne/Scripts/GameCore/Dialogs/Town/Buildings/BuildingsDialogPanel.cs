@@ -9,6 +9,7 @@ using MarkOne.Scripts.GameCore.Dialogs.Town.Buildings;
 using MarkOne.Scripts.GameCore.Dialogs;
 using MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
 using FastTelegramBot.DataTypes.Keyboards;
+using MarkOne.Scripts.GameCore.Buildings.Data;
 
 namespace MarkOne.Scripts.Bot.Dialogs.Town.Buildings;
 
@@ -75,6 +76,10 @@ public partial class BuildingsDialogPanel : DialogPanelBase
             {
                 continue;
             }
+            if (building.IsUnderConstruction(_buildingsData) && !building.IsConstructionCanBeFinished(_buildingsData))
+            {
+                continue;
+            }
 
             var farmedAmount = !building.IsUnderConstruction(_buildingsData)
                 ? building.GetFarmedResourceAmount(_buildingsData)
@@ -92,6 +97,11 @@ public partial class BuildingsDialogPanel : DialogPanelBase
                     neeedToShowLimitWarning = true;
                 }
             }
+        }
+
+        if (resourcesToShow.Count < 1)
+        {
+            return;
         }
 
         var resourceDatas = new List<ResourceData>();
