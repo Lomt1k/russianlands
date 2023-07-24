@@ -1119,7 +1119,7 @@
 	"battle_action_sanctions_remove_mana_description" : "Opponent loses one point of mana",
 	"battle_action_sanctions_remove_arrow_description" : "Opponent loses one arrow",
 	
-	"quest_main_start_journey_replica" : "From time immemorial, heroes have stood guard over the world. Possessing remarkable strength and good disposition, they protect people from all kinds of misfortunes, performing feats over and over again.\n\nSo you, hero, have taken up military service. You went to a city to receive your first task.\n\n<i>You have been walking for three days and three nights, but you still cannot see the city...</i>",
+	"quest_main_start_journey_replica" : "From time immemorial, heroes have stood guard over the world. Possessing remarkable strength and good disposition, they protect people from all kinds of misfortunes, performing feats over and over again.\n\nSo you, hero, have taken up military service. You went to a city to receive your first task. You have been walking for three days and three nights, but you still cannot see the town...\n\n<pre>Click 'Continue'</pre>",
 	"quest_main_start_robber_encounter_replica" : "As you continue your journey, you come across a robber who has molested a young girl.\n\n<i>You realize that you can't get past...</i>",
 	"quest_main_start_robber_encounter_answer_start_fight" : "Attack the robber",
 	"quest_main_start_robber_tutorial_fight_replica" : "<b>Tutorial:</b> your first battle\n\n• All battles are turn-based\n• Each turn you choose one of the items you want to use: sword, bow, scroll, etc.\n• Combat lasts until the health of one of the opponents drops to zero\n• The player who goes second has the right to the last turn\n\n<pre>Win the battle!</pre>",
@@ -1127,7 +1127,7 @@
 	
 	"quest_main_vasilisa_encounter_replica" : "Good health to you, hero! It's only thanks to you that I didn't get into trouble...\n\nWhat is your name?",
 	"quest_main_vasilisa_encounter_answer" : "Introduce myself",
-	"quest_main_vasilisa_meeting_replica" : "My name is Vasilisa. I work in the hospital - I monitor the health of brave warriors and ordinary citizens. This hospital is located in a nearby town.\n\n<i>Could you please walk me to it?</i>",
+	"quest_main_vasilisa_meeting_replica" : "Good health to you, hero! It's only thanks to you that I didn't get into trouble...\n\nMy name is Vasilisa. I work in the hospital - I monitor the health of brave warriors and ordinary citizens. This hospital is located in a nearby town.\n\n<i>Could you please walk me to it?</i>",
 	"quest_main_vasilisa_meeting_answer_1" : "Let's go!",
 	"quest_main_vasilisa_meeting_answer_2" : "I went there anyway",
 	"quest_main_journey_with_vasilisa_replica" : "You and Vasilisa went to the noble city.\n\n<i>And it really turned out that it was not far away: before you had time to talk to the beautiful girl, majestic fortress walls decorated with red flags appeared in front of your eyes.</i>",

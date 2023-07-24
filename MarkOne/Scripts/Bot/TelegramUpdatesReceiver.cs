@@ -20,6 +20,7 @@ public class TelegramUpdatesReceiver
     private readonly BotHttpListener _botHttpListener;
 
     public bool isReceiving { get; private set; }
+    public bool isPolling { get; private set; }
 
     public TelegramUpdatesReceiver(BotHttpListener botHttpListener)
     {
@@ -84,6 +85,7 @@ public class TelegramUpdatesReceiver
     {
         BotController.botClient.StartPollingUpdates(HandlePollingUpdates, allowedUpdates: AllowedUpdates, cancellationToken: _cts.Token);
         isReceiving = true;
+        isPolling = true;
         Program.logger.Info($"Polling updates started");
     }
 
@@ -100,6 +102,7 @@ public class TelegramUpdatesReceiver
 
         _cts.Cancel();
         isReceiving = false;
+        isPolling = false;
         Program.logger.Info($"Polling updates stopped");
     }
 

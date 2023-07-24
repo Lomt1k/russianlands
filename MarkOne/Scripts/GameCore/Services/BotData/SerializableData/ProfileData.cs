@@ -95,14 +95,39 @@ public class ProfileData : DataWithSession
         regVersion = ProjectVersion.Current.ToString();
         regInfo = messageText.Contains("/start ") ? messageText.Replace("/start ", string.Empty) : "organic";
         lastVersion = regVersion;
-        nickname = user.FirstName.IsCorrectNickname() ? user.FirstName : "Player_" + (new Random().Next(8999) + 1000);
         username = user.Username;
         firstName = user.FirstName;
         lastName = user.LastName;
+        SetupDefaultNickname(user);
         // Для рандомизации сообщения в окне города
         resourceGold += new Random().Next(11) * 50;
 
         return this;
+    }
+
+    private void SetupDefaultNickname(User user)
+    {
+        if (user.Username is not null && user.Username.IsCorrectNickname())
+        {
+            nickname = user.Username;
+            return;
+        }
+        if (user.LastName is not null)
+        {
+            var fullName = $"{user.FirstName} {user.LastName}";
+            if (fullName.IsCorrectNickname())
+            {
+                nickname = fullName;
+                return;
+            }
+        }
+        if (user.FirstName.IsCorrectNickname())
+        {
+            nickname = user.FirstName;
+            return;
+        }
+
+        nickname = "Player_" + (new Random().Next(8999) + 1000);
     }
 
     public bool IsPremiumActive()

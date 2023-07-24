@@ -56,10 +56,14 @@ public static class BotController
     {
         TelegramBotClient? oldClient = null;
         while (true)
-        {            
+        {
             try
             {
                 await Task.Delay(60_000);
+                if (_updatesReceiver.isPolling)
+                {
+                    break;
+                }
                 oldClient?.HttpClient?.Dispose();
                 oldClient = botClient;
                 botClient = new TelegramBotClient(config.token);
