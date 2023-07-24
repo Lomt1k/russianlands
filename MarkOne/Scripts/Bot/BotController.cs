@@ -20,7 +20,6 @@ public static class BotController
     private static readonly PerformanceManager performanceManager = ServiceLocator.Get<PerformanceManager>();
 
     private static bool _isInited;
-    private static readonly HttpClient _httpClient = new HttpClient();
     private static TelegramUpdatesReceiver _updatesReceiver;
 
     public static string dataPath { get; private set; }
@@ -208,7 +207,7 @@ public static class BotController
             try
             {
                 using var checkConnectionRequest = new HttpRequestMessage(HttpMethod.Get, "https://t.me");
-                var result = await _httpClient.SendAsync(checkConnectionRequest);
+                var result = await httpClient.SendAsync(checkConnectionRequest);
                 if (result.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     Program.logger.Info($"Connected to telegram servers");

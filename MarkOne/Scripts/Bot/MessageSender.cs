@@ -35,6 +35,8 @@ public class MessageSender : Service
         SocketException? cachedSocketException = null;
         for (int i = 1; i <= attemptsCount; i++)
         {
+            var currentRequestCTS = new CancellationTokenSource();
+            var resultCTS = CancellationTokenSource.CreateLinkedTokenSource(currentRequestCTS.Token, cancellationToken);
             try
             {
                 return await _botClient.SendMessageAsync(id, text,
@@ -42,7 +44,7 @@ public class MessageSender : Service
                     keyboardMarkup: inlineKeyboard,
                     disableNotification: silent,
                     disableWebPagePreview: disableWebPagePreview,
-                    cancellationToken: cancellationToken).FastAwait();
+                    cancellationToken: resultCTS.Token).FastAwait();
             }
             catch (TelegramBotException telegramBotException)
             {
@@ -57,6 +59,7 @@ public class MessageSender : Service
             }
             catch (Exception ex)
             {
+                currentRequestCTS.Cancel();
                 cachedSocketException ??= ex is SocketException socketEx ? socketEx 
                         : ex.InnerException is SocketException innerSocketEx ? innerSocketEx
                         : null;
@@ -81,12 +84,14 @@ public class MessageSender : Service
         SocketException? cachedSocketException = null;
         for (int i = 1; i <= attemptsCount; i++)
         {
+            var currentRequestCTS = new CancellationTokenSource();
+            var resultCTS = CancellationTokenSource.CreateLinkedTokenSource(currentRequestCTS.Token, cancellationToken);
             try
             {
                 await _botClient.EditMessageTextAsync(id, messageId, text, ParseMode.HTML,
                     inlineKeyboardMarkup: inlineKeyboard,
                     disableWebPagePreview: disableWebPagePreview,
-                    cancellationToken: cancellationToken).FastAwait();
+                    cancellationToken: resultCTS.Token).FastAwait();
                 return;
             }
             catch (TelegramBotException telegramBotException)
@@ -102,6 +107,7 @@ public class MessageSender : Service
             }
             catch (Exception ex)
             {
+                currentRequestCTS.Cancel();
                 cachedSocketException ??= ex is SocketException socketEx ? socketEx
                         : ex.InnerException is SocketException innerSocketEx ? innerSocketEx
                         : null;
@@ -121,9 +127,10 @@ public class MessageSender : Service
         SocketException? cachedSocketException = null;
         for (int i = 1; i <= attemptsCount; i++)
         {
+            var currentRequestCTS = new CancellationTokenSource();
             try
             {
-                await _botClient.DeleteMesageAsync(id, messageId).FastAwait();
+                await _botClient.DeleteMesageAsync(id, messageId, currentRequestCTS.Token).FastAwait();
                 return;
             }
             catch (TelegramBotException telegramBotException)
@@ -137,6 +144,7 @@ public class MessageSender : Service
             }
             catch (Exception ex)
             {
+                currentRequestCTS.Cancel();
                 cachedSocketException ??= ex is SocketException socketEx ? socketEx
                         : ex.InnerException is SocketException innerSocketEx ? innerSocketEx
                         : null;
@@ -156,9 +164,11 @@ public class MessageSender : Service
         SocketException? cachedSocketException = null;
         for (int i = 1; i <= attemptsCount; i++)
         {
+            var currentRequestCTS = new CancellationTokenSource();
+            var resultCTS = CancellationTokenSource.CreateLinkedTokenSource(currentRequestCTS.Token, cancellationToken);
             try
             {
-                await _botClient.EditInlineKeyboardAsync(id, messageId, inlineKeyboard, cancellationToken).FastAwait();
+                await _botClient.EditInlineKeyboardAsync(id, messageId, inlineKeyboard, resultCTS.Token).FastAwait();
                 return;
             }
             catch (TelegramBotException telegramBotException)
@@ -172,6 +182,7 @@ public class MessageSender : Service
             }
             catch (Exception ex)
             {
+                currentRequestCTS.Cancel();
                 cachedSocketException ??= ex is SocketException socketEx ? socketEx
                         : ex.InnerException is SocketException innerSocketEx ? innerSocketEx
                         : null;
@@ -191,9 +202,11 @@ public class MessageSender : Service
         SocketException? cachedSocketException = null;
         for (int i = 1; i <= attemptsCount; i++)
         {
+            var currentRequestCTS = new CancellationTokenSource();
+            var resultCTS = CancellationTokenSource.CreateLinkedTokenSource(currentRequestCTS.Token, cancellationToken);
             try
             {
-                await _botClient.RemoveInlineKeyboardAsync(id, messageId, cancellationToken).FastAwait();
+                await _botClient.RemoveInlineKeyboardAsync(id, messageId, resultCTS.Token).FastAwait();
                 return;
             }
             catch (TelegramBotException telegramBotException)
@@ -207,6 +220,7 @@ public class MessageSender : Service
             }
             catch (Exception ex)
             {
+                currentRequestCTS.Cancel();
                 cachedSocketException ??= ex is SocketException socketEx ? socketEx
                         : ex.InnerException is SocketException innerSocketEx ? innerSocketEx
                         : null;
@@ -235,6 +249,8 @@ public class MessageSender : Service
         SocketException? cachedSocketException = null;
         for (int i = 1; i <= attemptsCount; i++)
         {
+            var currentRequestCTS = new CancellationTokenSource();
+            var resultCTS = CancellationTokenSource.CreateLinkedTokenSource(currentRequestCTS.Token, cancellationToken);
             try
             {
                 return await _botClient.SendMessageAsync(id, text,
@@ -242,7 +258,7 @@ public class MessageSender : Service
                     keyboardMarkup: replyKeyboard,
                     disableNotification: silent,
                     disableWebPagePreview: disableWebPagePreview,
-                    cancellationToken: cancellationToken).FastAwait();
+                    cancellationToken: resultCTS.Token).FastAwait();
             }
             catch (TelegramBotException telegramBotException)
             {
@@ -257,6 +273,7 @@ public class MessageSender : Service
             }
             catch (Exception ex)
             {
+                currentRequestCTS.Cancel();
                 cachedSocketException ??= ex is SocketException socketEx ? socketEx
                         : ex.InnerException is SocketException innerSocketEx ? innerSocketEx
                         : null;
@@ -278,9 +295,11 @@ public class MessageSender : Service
         SocketException? cachedSocketException = null;
         for (int i = 1; i <= attemptsCount; i++)
         {
+            var currentRequestCTS = new CancellationTokenSource();
+            var resultCTS = CancellationTokenSource.CreateLinkedTokenSource(currentRequestCTS.Token, cancellationToken);
             try
             {
-                await _botClient.AnswerCallbackQueryAsync(queryId, text, cancellationToken: cancellationToken).FastAwait();
+                await _botClient.AnswerCallbackQueryAsync(queryId, text, cancellationToken: resultCTS.Token).FastAwait();
                 return;
             }
             catch (TelegramBotException telegramBotException)
@@ -293,6 +312,7 @@ public class MessageSender : Service
             }
             catch (Exception ex)
             {
+                currentRequestCTS.Cancel();
                 cachedSocketException ??= ex is SocketException socketEx ? socketEx
                         : ex.InnerException is SocketException innerSocketEx ? innerSocketEx
                         : null;
@@ -309,14 +329,17 @@ public class MessageSender : Service
 
     public async Task SendErrorMessage(ChatId id, string text)
     {
+        var currentRequestCTS = new CancellationTokenSource();
         try
         {
             var delay = sequencer.GetDelayForSendMessage(text);
             await Task.Delay(delay).FastAwait();
-            await _botClient.SendMessageAsync(id, Emojis.ElementWarning + "<b>Program Error</b>\n\n" + text, parseMode: ParseMode.HTML).FastAwait();
+            await _botClient.SendMessageAsync(id, Emojis.ElementWarning + "<b>Program Error</b>\n\n" + text,
+                parseMode: ParseMode.HTML, cancellationToken: currentRequestCTS.Token).FastAwait();
         }
         catch (Exception)
         {
+            currentRequestCTS.Cancel();
             // ignored
         }        
     }
@@ -333,9 +356,11 @@ public class MessageSender : Service
         SocketException? cachedSocketException = null;
         for (int i = 1; i <= attemptsCount; i++)
         {
+            var currentRequestCTS = new CancellationTokenSource();
+            var resultCTS = CancellationTokenSource.CreateLinkedTokenSource(currentRequestCTS.Token, cancellationToken);
             try
             {
-                await _botClient.SendStickerAsync(id, stickerFileId, cancellationToken: cancellationToken).FastAwait();
+                await _botClient.SendStickerAsync(id, stickerFileId, cancellationToken: resultCTS.Token).FastAwait();
                 return;
             }
             catch (TelegramBotException telegramBotException)
@@ -350,6 +375,7 @@ public class MessageSender : Service
             }
             catch (Exception ex)
             {
+                currentRequestCTS.Cancel();
                 cachedSocketException ??= ex is SocketException socketEx ? socketEx
                         : ex.InnerException is SocketException innerSocketEx ? innerSocketEx
                         : null;
@@ -369,12 +395,15 @@ public class MessageSender : Service
         SocketException? cachedSocketException = null;
         for (int i = 1; i <= attemptsCount; i++)
         {
+            var currentRequestCTS = new CancellationTokenSource();
+            var resultCTS = CancellationTokenSource.CreateLinkedTokenSource(currentRequestCTS.Token, cancellationToken);
             try
             {
-                return await _botClient.SendDocumentAsync(id, document, caption: caption, parseMode: ParseMode.HTML, cancellationToken: cancellationToken).FastAwait();
+                return await _botClient.SendDocumentAsync(id, document, caption: caption, parseMode: ParseMode.HTML, cancellationToken: resultCTS.Token).FastAwait();
             }
             catch (Exception ex)
             {
+                currentRequestCTS.Cancel();
                 cachedSocketException ??= ex is SocketException socketEx ? socketEx
                         : ex.InnerException is SocketException innerSocketEx ? innerSocketEx
                         : null;
