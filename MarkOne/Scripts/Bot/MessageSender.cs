@@ -65,11 +65,10 @@ public class MessageSender : Service
                         : null;
                 if (i < attemptsCount)
                 {
-                    Program.logger.Error("Success handling of Socket Exception...\nMethod: MessageSender.SendTextMessage");
                     await Task.Delay(attemptDelay).FastAwait();
                     continue;
                 }
-                throw cachedSocketException;
+                throw cachedSocketException ?? ex;
             }
         }
         
@@ -161,11 +160,10 @@ public class MessageSender : Service
                         : null;
                 if (i < attemptsCount)
                 {
-                    Program.logger.Error("Success handling of Socket Exception...\nMethod: MessageSender.EditTextMessage");
                     await Task.Delay(attemptDelay).FastAwait();
                     continue;
                 }
-                throw cachedSocketException;
+                throw cachedSocketException ?? ex;
             }
         }
     }
@@ -243,11 +241,10 @@ public class MessageSender : Service
                         : null;
                 if (i < attemptsCount)
                 {
-                    Program.logger.Error("Success handling of Socket Exception...\nMethod: MessageSender.DeleteMessage");
                     await Task.Delay(attemptDelay).FastAwait();
                     continue;
                 }
-                throw cachedSocketException;
+                throw cachedSocketException ?? ex;
             }
         }            
     }
@@ -281,11 +278,10 @@ public class MessageSender : Service
                         : null;
                 if (i < attemptsCount)
                 {
-                    Program.logger.Error("Success handling of Socket Exception...\nMethod: MessageSender.EditInlineKeyboardAsync");
                     await Task.Delay(attemptDelay).FastAwait();
                     continue;
                 }
-                throw cachedSocketException;
+                throw cachedSocketException ?? ex;
             }
         }
     }
@@ -319,11 +315,10 @@ public class MessageSender : Service
                         : null;
                 if (i < attemptsCount)
                 {
-                    Program.logger.Error("Success handling of Socket Exception...\nMethod: MessageSender.RemoveInlineKeyboardAsync");
                     await Task.Delay(attemptDelay).FastAwait();
                     continue;
                 }
-                throw cachedSocketException;
+                throw cachedSocketException ?? ex;
             }
         }  
     }
@@ -372,11 +367,10 @@ public class MessageSender : Service
                         : null;
                 if (i < attemptsCount)
                 {
-                    Program.logger.Error("Success handling of Socket Exception...\nMethod: MessageSender.SendTextDialog");
                     await Task.Delay(attemptDelay).FastAwait();
                     continue;
                 }
-                throw cachedSocketException;
+                throw cachedSocketException ?? ex;
             }
         }
             
@@ -465,11 +459,10 @@ public class MessageSender : Service
                         : null;
                 if (i < attemptsCount)
                 {
-                    Program.logger.Error("Success handling of Socket Exception...\nMethod: MessageSender.AnswerQuery");
                     await Task.Delay(attemptDelay).FastAwait();
                     continue;
                 }
-                throw cachedSocketException;
+                throw cachedSocketException ?? ex;
             }
         }            
     }
@@ -528,11 +521,10 @@ public class MessageSender : Service
                         : null;
                 if (i < attemptsCount)
                 {
-                    Program.logger.Error("Success handling of Socket Exception...\nMethod: MessageSender.SendSticker");
                     await Task.Delay(attemptDelay).FastAwait();
                     continue;
                 }
-                throw cachedSocketException;
+                throw cachedSocketException ?? ex;
             }
         }            
     }
@@ -556,11 +548,10 @@ public class MessageSender : Service
                         : null;
                 if (i < attemptsCount)
                 {
-                    Program.logger.Error("Success handling of Socket Exception...\nMethod: MessageSender.SendDocument");
                     await Task.Delay(attemptDelay).FastAwait();
                     continue;
                 }
-                throw cachedSocketException;
+                throw cachedSocketException ?? ex;
             }
         }
 
