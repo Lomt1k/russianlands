@@ -48,28 +48,28 @@ public static class BotController
         httpListener = new BotHttpListener(config.httpListenerSettings);
         _updatesReceiver = new TelegramUpdatesReceiver(httpListener);
         _isInited = true;
-        //Task.Run(TryFixCPUOverloadLoop);
+        Task.Run(TryFixCPUOverloadLoop);
     }
 
     // test hotfix
-    //private static async Task TryFixCPUOverloadLoop()
-    //{
-    //    TelegramBotClient? oldClient = null;
-    //    while (true)
-    //    {            
-    //        try
-    //        {
-    //            await Task.Delay(60_000);
-    //            oldClient?.HttpClient?.Dispose();
-    //            oldClient = botClient;
-    //            botClient = new TelegramBotClient(config.token);
-    //        }
-    //        catch (System.Exception ex)
-    //        {
-    //            Program.logger.Error($"Catched exception in TryFixCPUOverloadLoop:\n{ex}");
-    //        }
-    //    }
-    //}
+    private static async Task TryFixCPUOverloadLoop()
+    {
+        TelegramBotClient? oldClient = null;
+        while (true)
+        {            
+            try
+            {
+                await Task.Delay(60_000);
+                oldClient?.HttpClient?.Dispose();
+                oldClient = botClient;
+                botClient = new TelegramBotClient(config.token);
+            }
+            catch (System.Exception ex)
+            {
+                Program.logger.Error($"Catched exception in TryFixCPUOverloadLoop:\n{ex}");
+            }
+        }
+    }
 
     private static BotConfig GetConfig()
     {

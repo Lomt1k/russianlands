@@ -92,6 +92,7 @@ public class Profile
     public void ResetDailyDataWithoutSave()
     {
         dailyData = ProfileDailyData.Create(data, dynamicData, buildingsData);
+        dailyData.SetupSession(session);
     }
 
     public static async Task<Profile> Load(GameSession session, string messageText)
