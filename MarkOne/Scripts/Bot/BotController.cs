@@ -51,7 +51,7 @@ public static class BotController
         Task.Run(TryFixCPUOverloadLoop);
     }
 
-     test hotfix
+    // test hotfix
     private static async Task TryFixCPUOverloadLoop()
     {
         TelegramBotClient? oldClient = null;

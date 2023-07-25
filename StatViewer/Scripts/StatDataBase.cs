@@ -196,7 +196,7 @@ internal static class StatDataBase
         var date = maxDate;
         for (var i = 0; i < daysCount; i++)
         {
-            var revenue = allData.Sum(x => x.revenueRUB);
+            var revenue = allData.Where(x => x.date == date).Sum(x => x.revenueRUB);
             var dau = allData.Count(x => x.date == date);
             var arpu = dau > 0 ? (double)revenue / dau : 0;
             table.Add(new List<string>() { date.ToLongDateString(), $"RUB {arpu:F2}" });
@@ -215,7 +215,7 @@ internal static class StatDataBase
         var date = maxDate;
         for (var i = 0; i < daysCount; i++)
         {
-            var revenue = allData.Sum(x => x.revenueRUB);
+            var revenue = allData.Where(x => x.date == date).Sum(x => x.revenueRUB);
             var payersCount = allData.Count(x => x.date == date && x.revenueRUB > 0);
             var arppu = payersCount > 0 ? (double)revenue / payersCount : 0;
             table.Add(new List<string>() { date.ToLongDateString(), $"RUB {arppu:F2}" });
