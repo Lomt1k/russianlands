@@ -394,7 +394,7 @@ internal static class StatDataBase
                 var dau = sortedData.Length;
                 var revenue = sortedData.Sum(x => x.revenueRUB);
                 var arpu = dau > 0 ? (double)revenue / dau : 0;
-                rowData.Add($"RUB {revenue:F2}");
+                rowData.Add($"RUB {arpu:F2}");
             }
             return rowData;
         }
@@ -424,7 +424,7 @@ internal static class StatDataBase
                 var donatersCount = sortedData.Count(x => x.revenueRUB > 0);
                 var revenue = sortedData.Sum(x => x.revenueRUB);
                 var arpu = donatersCount > 0 ? (double)revenue / donatersCount : 0;
-                rowData.Add($"RUB {revenue:F2}");
+                rowData.Add($"RUB {arpu:F2}");
             }
             return rowData;
         }
@@ -786,7 +786,11 @@ internal static class StatDataBase
 
         table.Add(new List<string>() { Environment.NewLine });
         table.Add(GetRetentionByDay(filteredData.Values, day: 1, zeroDayDAUs));
+        table.Add(GetRetentionByDay(filteredData.Values, day: 2, zeroDayDAUs));
         table.Add(GetRetentionByDay(filteredData.Values, day: 3, zeroDayDAUs));
+        table.Add(GetRetentionByDay(filteredData.Values, day: 4, zeroDayDAUs));
+        table.Add(GetRetentionByDay(filteredData.Values, day: 5, zeroDayDAUs));
+        table.Add(GetRetentionByDay(filteredData.Values, day: 6, zeroDayDAUs));
         table.Add(GetRetentionByDay(filteredData.Values, day: 7, zeroDayDAUs));
         table.Add(GetRetentionByDay(filteredData.Values, day: 30, zeroDayDAUs));
 
@@ -881,7 +885,7 @@ internal static class StatDataBase
             {
                 var revenue = data.Where(x => x.daysAfterRegistration <= days).Sum(x => x.revenueRUB);
                 var usersCount = zeroDayDAUs[i];
-                var ARPU = usersCount > 0 ? (double)revenue / usersCount * 100 : 0;
+                var ARPU = usersCount > 0 ? (double)revenue / usersCount : 0;
                 rowData.Add($"RUB {ARPU:F2}");
                 i++;
             }
@@ -896,7 +900,7 @@ internal static class StatDataBase
             {
                 var revenue = data.Sum(x => x.revenueRUB);
                 var usersCount = zeroDayDAUs[i];
-                var ARPU = usersCount > 0 ? (double)revenue / usersCount * 100 : 0;
+                var ARPU = usersCount > 0 ? (double)revenue / usersCount : 0;
                 rowData.Add($"RUB {ARPU:F2}");
                 i++;
             }
@@ -910,7 +914,7 @@ internal static class StatDataBase
             {
                 var revenue = data.Where(x => x.daysAfterRegistration <= days).Sum(x => x.revenueRUB);
                 var usersCount = data.Where(x => x.daysAfterRegistration <= days && x.revenueRUB > 0).Select(x => x.dbid).ToHashSet().Count;
-                var ARPPU = usersCount > 0 ? (double)revenue / usersCount * 100 : 0;
+                var ARPPU = usersCount > 0 ? (double)revenue / usersCount : 0;
                 rowData.Add($"RUB {ARPPU:F2}");
             }
             return rowData;
@@ -923,7 +927,7 @@ internal static class StatDataBase
             {
                 var revenue = data.Sum(x => x.revenueRUB);
                 var usersCount = data.Where(x => x.revenueRUB > 0).Select(x => x.dbid).ToHashSet().Count;
-                var ARPPU = usersCount > 0 ? (double)revenue / usersCount * 100 : 0;
+                var ARPPU = usersCount > 0 ? (double)revenue / usersCount : 0;
                 rowData.Add($"RUB {ARPPU:F2}");
             }
             return rowData;
