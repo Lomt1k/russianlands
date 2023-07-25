@@ -142,11 +142,7 @@
       },
       {
         "$type": "QuestStageWithTrigger",
-        "questActions": [
-          {
-            "$type": "ShowEnterNameDialogAction"
-          }
-        ],
+        "questActions": [],
         "tooltips": [],
         "nextStageTriggers": [
           {

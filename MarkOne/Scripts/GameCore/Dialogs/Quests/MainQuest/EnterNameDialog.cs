@@ -1,11 +1,7 @@
 ﻿using System.Text;
 using System.Threading.Tasks;
 using MarkOne.Scripts.GameCore.Localizations;
-using MarkOne.Scripts.GameCore.Quests;
-using MarkOne.Scripts.GameCore.Quests.Characters;
-using MarkOne.Scripts.GameCore.Quests.NextStageTriggers;
 using MarkOne.Scripts.GameCore.Resources;
-using MarkOne.Scripts.GameCore.Services;
 using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Sessions;
 using MarkOne.Scripts.GameCore.Dialogs.Town.Character;
@@ -19,10 +15,7 @@ public class EnterNameDialog : DialogBase
     private const int minLength = 3;
     private const int maxLength = 16;
 
-    private static readonly NotificationsManager notificationsManager = ServiceLocator.Get<NotificationsManager>();
     private static readonly ResourceData nickChangePrice = new ResourceData(ResourceId.Diamond, 800);
-
-    private bool _isQuestReplicaStage = false;
 
     public byte freeNickChanges
     {
@@ -40,37 +33,6 @@ public class EnterNameDialog : DialogBase
     {
     }
 
-    /*
-     * Тут идёт реплика персонажа, но не через QuestReplicaStage, а костыльно
-     * Сделано для того, чтобы пользователь мог либо:
-     * - нажать на кнопку "Представиться" в релпике и тогда уже перейти к вводу имени
-     * - сразу ввести имя, не нажимая кнопку "представиться"
-     * Сделано чтобы избежать отвала игроков, когда они вместо нажатия на кнопку сразу вводят имя и ловят ступор
-     */
-    public async Task StartFromQuest()
-    {
-        _isQuestReplicaStage = true;
-        var sticker = CharacterType.Vasilisa.GetSticker();
-        if (sticker != null)
-        {
-            await messageSender.SendSticker(session.chatId, sticker.Value, session.cancellationToken).FastAwait();
-        }
-
-        var text = new StringBuilder()
-            .AppendLine($"<b>{CharacterType.Vasilisa.GetName(session)}:</b>")
-            .AppendLine()
-            .AppendLine(Localization.Get(session, "quest_main_vasilisa_encounter_replica"))
-            .ToString();
-        var buttonText = GetQuestButtonText(session);
-        RegisterButton(buttonText, null);
-        await SendDialogMessage(text, GetOneLineKeyboard()).FastAwait();
-    }
-
-    private string GetQuestButtonText(GameSession session)
-    {
-        return Localization.Get(session, "quest_main_vasilisa_encounter_answer");
-    }
-
     public override async Task Start()
     {
         ClearButtons();
@@ -79,17 +41,14 @@ public class EnterNameDialog : DialogBase
         sb.AppendLine(Localization.Get(session, "dialog_entry_name_requirments_1"));
         sb.AppendLine(Localization.Get(session, "dialog_entry_name_requirments_2", minLength, maxLength));
 
-        if (!_isQuestReplicaStage)
+        sb.AppendLine();
+        if (freeNickChanges > 0)
         {
-            sb.AppendLine();
-            if (freeNickChanges > 0)
-            {
-                sb.AppendLine(Localization.Get(session, "dialog_entry_name_free_nick_changes", freeNickChanges));
-            }
-            else
-            {
-                sb.Append(nickChangePrice.GetPriceView(session));
-            }
+            sb.AppendLine(Localization.Get(session, "dialog_entry_name_free_nick_changes", freeNickChanges));
+        }
+        else
+        {
+            sb.Append(nickChangePrice.GetPriceView(session));
         }
 
         sb.AppendLine();
@@ -100,30 +59,6 @@ public class EnterNameDialog : DialogBase
     }
 
     public override async Task HandleMessage(Message message)
-    {
-        if (_isQuestReplicaStage)
-        {
-            await HandleMessageInQuestStage(message).FastAwait();
-            return;
-        }
-        await HandleMessageNotInQuest(message).FastAwait();
-    }
-
-    public async Task HandleMessageInQuestStage(Message message)
-    {
-        var newNickname = message.Text;
-        if (string.IsNullOrWhiteSpace(newNickname) || newNickname.Equals(GetQuestButtonText(session)) || !newNickname.IsCorrectNickname())
-        {
-            await Start().FastAwait();
-            return;
-        }
-
-        currentNickname = newNickname;
-        await QuestManager.TryInvokeTrigger(session, TriggerType.InvokeFromCode).FastAwait();
-        return;
-    }
-
-    public async Task HandleMessageNotInQuest(Message message)
     {
         var newNickname = message.Text;
         if (newNickname is null || !newNickname.IsCorrectNickname())
