@@ -56,7 +56,7 @@ internal class MainAdminPage : IHtmlPage
         // top buttons
         var topButtons = new HTag("div", new HProp("style", "margin: 15px 0;"))
         {
-            HtmlHelper.CreateLinkButton("Last Log", localPath + "?page=showLog&fileName=appLog.log"),
+            HtmlHelper.CreateLinkButton("Last Log", localPath + "?page=showLog&fileName=appLog.log&limit=500"),
             HtmlHelper.CreateLinkButton("Last Errors", localPath + "?page=showLog&fileName=errors.log"),
             HtmlHelper.CreateLinkButton("Logs List", localPath + "?page=showLog&mode=list"),
         };

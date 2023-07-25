@@ -44,6 +44,12 @@ internal class ShowLogPage : IHtmlPage
             ? await ReadTextFromFile(filePath).FastAwait()
             : new List<string>() { $"Log not exists :(\nPath: {filePath}" };
 
+        var limit = int.Parse(query["limit"] ?? "0");
+        if (limit > 0)
+        {
+            lines = lines.TakeLast(limit).ToList();
+        }
+
         var document = HtmlHelper.CreateDocument($"Show Log [{fileName}]");
         var contentBlock = new HTag("div");
         document["html"]["body"].Add(contentBlock);
@@ -56,7 +62,7 @@ internal class ShowLogPage : IHtmlPage
         }
         var tableLine = new HTag("tr")
         {
-            { "td", sb.ToString() }
+            { "td", sb.ToString(), new HProp("style", "font-size: 14px;") }
         };
         logTable.Add(tableLine);
 
@@ -116,6 +122,8 @@ internal class ShowLogPage : IHtmlPage
         var sortedFileInfos = fileInfos.OrderBy(x => x.CreationTime);
         
         var resultLogs = new List<string>();
+        var limit = int.Parse(query["limit"] ?? "0");
+
         foreach (var file in sortedFileInfos)
         {
             var strings = await ReadTextFromFile(file.FullName).FastAwait();
@@ -124,6 +132,10 @@ internal class ShowLogPage : IHtmlPage
                 if (str.Contains(searchPattern))
                 {
                     resultLogs.Add(str);
+                    if (limit > 0 && resultLogs.Count == limit)
+                    {
+                        break;
+                    }
                 }
             }
         }
@@ -141,7 +153,7 @@ internal class ShowLogPage : IHtmlPage
         }
         var tableLine = new HTag("tr")
         {
-            { "td", sb.ToString() }
+            { "td", sb.ToString(), new HProp("style", "font-size: 14px;") }
         };
         logTable.Add(tableLine);
 
