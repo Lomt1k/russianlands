@@ -9,9 +9,29 @@ namespace MarkOne.Scripts.GameCore.Services.BotData;
 
 public class BotDataBase
 {
+    private SQLiteAsyncConnection _dbConnection;
+    private readonly object _dbLock = new();
+
     public string botDataPath { get; }
     public string dataBasePath { get; }
-    public SQLiteAsyncConnection db { get; private set; }
+    public SQLiteAsyncConnection db
+    {
+        get
+        {
+            lock (_dbLock)
+            {
+                return _dbConnection;
+            }
+        }
+        set
+        {
+            lock (_dbLock)
+            {
+                _dbConnection = value;
+            }
+        }
+    }
+
 
     public BotDataBase(string _botDataPath)
     {
