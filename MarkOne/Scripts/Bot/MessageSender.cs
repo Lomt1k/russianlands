@@ -76,6 +76,54 @@ public class MessageSender : Service
         return default;
     }
 
+    public async Task<MessageId> SendPhotoMessage(ChatId id, InputFile photo, string caption, InlineKeyboardMarkup? inlineKeyboard = null, bool silent = false, CancellationToken cancellationToken = default)
+    {
+        var delay = sequencer.GetDelayForSendMessage(caption);
+        await Task.Delay(delay, cancellationToken).FastAwait();
+
+        SocketException? cachedSocketException = null;
+        for (int i = 1; i <= attemptsCount; i++)
+        {
+            var currentRequestCTS = new CancellationTokenSource();
+            var resultCTS = CancellationTokenSource.CreateLinkedTokenSource(currentRequestCTS.Token, cancellationToken);
+            try
+            {
+                return await _botClient.SendPhotoAsync(id, photo, caption,
+                    parseMode: ParseMode.HTML,
+                    keyboardMarkup: inlineKeyboard,
+                    disableNotification: silent,
+                    cancellationToken: resultCTS.Token).FastAwait();
+            }
+            catch (TelegramBotException telegramBotException)
+            {
+                if (telegramBotException.ErrorCode == 429)
+                {
+                    Program.logger.Error("Catched 'Too many requests':" +
+                        "\n Method: SendPhotoMessage" +
+                        $"\n Used delay: {delay} sec" +
+                        $"\n Caption: {caption}");
+                    throw telegramBotException;
+                }
+            }
+            catch (Exception ex)
+            {
+                currentRequestCTS.Cancel();
+                cachedSocketException ??= ex is SocketException socketEx ? socketEx
+                        : ex.InnerException is SocketException innerSocketEx ? innerSocketEx
+                        : null;
+                if (i < attemptsCount)
+                {
+                    Program.logger.Error("Success handling of Socket Exception...\nMethod: MessageSender.SendPhotoMessage");
+                    await Task.Delay(attemptDelay).FastAwait();
+                    continue;
+                }
+                throw cachedSocketException;
+            }
+        }
+
+        return default;
+    }
+
     public async Task EditTextMessage(ChatId id, MessageId messageId, string text, InlineKeyboardMarkup? inlineKeyboard = null, bool disableWebPagePreview = false, CancellationToken cancellationToken = default)
     {
         var delay = sequencer.GetDelayForEditMessage(text);
@@ -119,7 +167,52 @@ public class MessageSender : Service
                 }
                 throw cachedSocketException;
             }
-        }            
+        }
+    }
+
+    public async Task EditPhotoMessageCaption(ChatId id, MessageId messageId, string caption, InlineKeyboardMarkup? inlineKeyboard = null, bool disableWebPagePreview = false, CancellationToken cancellationToken = default)
+    {
+        var delay = sequencer.GetDelayForEditMessage(caption);
+        await Task.Delay(delay, cancellationToken).FastAwait();
+
+        SocketException? cachedSocketException = null;
+        for (int i = 1; i <= attemptsCount; i++)
+        {
+            var currentRequestCTS = new CancellationTokenSource();
+            var resultCTS = CancellationTokenSource.CreateLinkedTokenSource(currentRequestCTS.Token, cancellationToken);
+            try
+            {
+                await _botClient.EditMessageCaptionAsync(id, messageId, caption, ParseMode.HTML,
+                    inlineKeyboardMarkup: inlineKeyboard,
+                    cancellationToken: resultCTS.Token).FastAwait();
+                return;
+            }
+            catch (TelegramBotException telegramBotException)
+            {
+                if (telegramBotException.ErrorCode == 429)
+                {
+                    Program.logger.Error("Catched 'Too many requests':" +
+                        "\n Method: EditPhotoCaption" +
+                        $"\n Used delay: {delay} sec" +
+                        $"\n Text: {caption}");
+                    throw telegramBotException;
+                }
+            }
+            catch (Exception ex)
+            {
+                currentRequestCTS.Cancel();
+                cachedSocketException ??= ex is SocketException socketEx ? socketEx
+                        : ex.InnerException is SocketException innerSocketEx ? innerSocketEx
+                        : null;
+                if (i < attemptsCount)
+                {
+                    Program.logger.Error("Success handling of Socket Exception...\nMethod: MessageSender.EditPhotoCaption");
+                    await Task.Delay(attemptDelay).FastAwait();
+                    continue;
+                }
+                throw cachedSocketException;
+            }
+        }
     }
 
     public async Task DeleteMessage(ChatId id, MessageId messageId)
@@ -287,6 +380,60 @@ public class MessageSender : Service
             }
         }
             
+        return default;
+    }
+
+    public async Task<MessageId> SendPhotoDialog(ChatId id, InputFile photo, string caption, ReplyKeyboardMarkup? replyKeyboard = null,
+        bool silent = false, CancellationToken cancellationToken = default)
+    {
+        if (replyKeyboard != null)
+        {
+            replyKeyboard.ResizeKeyboard = true;
+        }
+
+        var delay = sequencer.GetDelayForSendMessage(caption);
+        await Task.Delay(delay, cancellationToken).FastAwait();
+
+        SocketException? cachedSocketException = null;
+        for (int i = 1; i <= attemptsCount; i++)
+        {
+            var currentRequestCTS = new CancellationTokenSource();
+            var resultCTS = CancellationTokenSource.CreateLinkedTokenSource(currentRequestCTS.Token, cancellationToken);
+            try
+            {
+                return await _botClient.SendPhotoAsync(id, photo, caption,
+                    parseMode: ParseMode.HTML,
+                    keyboardMarkup: replyKeyboard,
+                    disableNotification: silent,
+                    cancellationToken: resultCTS.Token).FastAwait();
+            }
+            catch (TelegramBotException telegramBotException)
+            {
+                if (telegramBotException.ErrorCode == 429)
+                {
+                    Program.logger.Error("Catched 'Too many requests':" +
+                        "\n Method: SendPhotoDialog" +
+                        $"\n Used delay: {delay} sec" +
+                        $"\n Caption: {caption}");
+                    throw telegramBotException;
+                }
+            }
+            catch (Exception ex)
+            {
+                currentRequestCTS.Cancel();
+                cachedSocketException ??= ex is SocketException socketEx ? socketEx
+                        : ex.InnerException is SocketException innerSocketEx ? innerSocketEx
+                        : null;
+                if (i < attemptsCount)
+                {
+                    Program.logger.Error("Success handling of Socket Exception...\nMethod: MessageSender.SendPhotoDialog");
+                    await Task.Delay(attemptDelay).FastAwait();
+                    continue;
+                }
+                throw cachedSocketException;
+            }
+        }
+
         return default;
     }
 
