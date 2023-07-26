@@ -51,7 +51,7 @@ public class DailyRemindersManager : Service
                 timeToSend = DateTime.UtcNow.AddDays(1),
                 languageCode = profileData.language
             };
-            await BotController.dataBase.db.InsertOrReplaceAsync(reminderData).FastAwait();
+            BotController.dataBase.db.InsertOrReplace(reminderData);
         }
         catch (Exception ex)
         {
@@ -74,7 +74,7 @@ public class DailyRemindersManager : Service
         {
             var db = BotController.dataBase.db;
             var now = DateTime.UtcNow;
-            var reminderDatas = await db.Table<DailyReminderData>().Where(x => x.timeToSend < now).ToArrayAsync().FastAwait();
+            var reminderDatas = db.Table<DailyReminderData>().Where(x => x.timeToSend < now).ToArray();
             if (reminderDatas == null || reminderDatas.Length == 0)
             {
                 return;
@@ -99,7 +99,7 @@ public class DailyRemindersManager : Service
             var buttonText = Localization.Get(reminderData.languageCode, "restart_button");
             var keyboard = new ReplyKeyboardMarkup(buttonText);
             await messageSender.SendTextDialog(reminderData.userId, text, keyboard, cancellationToken: cancellationToken).FastAwait();
-            await BotController.dataBase.db.DeleteAsync(reminderData).FastAwait();
+            BotController.dataBase.db.Delete(reminderData);
             if (_isLogRequired)
             {
                 Program.logger.Info($"Daily notification sended for {reminderData.userId}");

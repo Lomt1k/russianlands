@@ -123,17 +123,17 @@ internal class ProfileState
         return property.GetValue(obj);
     }
 
-    public async Task ExecuteQuerries(long dbid)
+    public void ExecuteQuerries(long dbid)
     {
-        await ExecuteQuery(dbid, profileQuery).FastAwait();
-        await ExecuteQuery(dbid, profileDynamicQuery).FastAwait();
-        await ExecuteQuery(dbid, buildingsQuery).FastAwait();
+        ExecuteQuery(dbid, profileQuery);
+        ExecuteQuery(dbid, profileDynamicQuery);
+        ExecuteQuery(dbid, buildingsQuery);
     }
 
-    private async Task ExecuteQuery(long dbid, string query)
+    private void ExecuteQuery(long dbid, string query)
     {
         var preparedQuery = query.Replace(idPlacement, dbid.ToString());
-        await BotController.dataBase.db.ExecuteAsync(preparedQuery).FastAwait();
+        BotController.dataBase.db.Execute(preparedQuery);
     }
 
 }

@@ -200,7 +200,7 @@ public class HttpAdminService : IHttpService
 
         var db = BotController.dataBase.db;
         var query = db.Table<ProfileData>().Where(x => x.telegram_id == telegramId);
-        var profileData = await query.FirstOrDefaultAsync().FastAwait();
+        var profileData = query.FirstOrDefault();
         return profileData is not null ? profileData.adminStatus : AdminStatus.None;
     }
 
@@ -210,7 +210,7 @@ public class HttpAdminService : IHttpService
     {
         var db = BotController.dataBase.db;
         var query = db.Table<ProfileData>().Where(x => x.telegram_id == telegramId);
-        var profileData = await query.FirstOrDefaultAsync().FastAwait();
+        var profileData = query.FirstOrDefault();
         var languageCode = profileData is not null ? profileData.language : BotController.config.defaultLanguageCode;
         var user = profileData is not null
             ? new User

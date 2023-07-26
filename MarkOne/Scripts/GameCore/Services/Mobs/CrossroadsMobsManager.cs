@@ -39,7 +39,7 @@ public class CrossroadsMobsManager : Service
 
     private async void LoadMobPacks()
     {
-        var jsonStr = await serverDailyDataManager.GetStringValue("crossroadsMobs", string.Empty).FastAwait();
+        var jsonStr = serverDailyDataManager.GetStringValue("crossroadsMobs", string.Empty);
         if (string.IsNullOrEmpty(jsonStr))
         {
             CreateNewMobPacks();
@@ -57,7 +57,7 @@ public class CrossroadsMobsManager : Service
         isMobsReady = true;
     }
 
-    private async void CreateNewMobPacks()
+    private void CreateNewMobPacks()
     {
         _mobPacks.Clear();
         foreach (MobDifficulty difficulty in Enum.GetValues(typeof(MobDifficulty)))
@@ -69,7 +69,7 @@ public class CrossroadsMobsManager : Service
             _mobPacks[difficulty] = GenerateMobPack(difficulty);
         }
         var jsonStr = JsonConvert.SerializeObject(_mobPacks);
-        await serverDailyDataManager.SetStringValue("crossroadsMobs", jsonStr).FastAwait();
+        serverDailyDataManager.SetStringValue("crossroadsMobs", jsonStr);
         Program.logger.Info("New crossroads mobs created");
         isMobsReady = true;
     }

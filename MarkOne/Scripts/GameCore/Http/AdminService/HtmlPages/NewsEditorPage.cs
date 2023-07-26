@@ -31,10 +31,10 @@ public class NewsEditorPage : IHtmlPage
         await task.FastAwait();
     }
 
-    private async Task ShowNewsList(HttpListenerResponse response, HttpAdminSessionInfo sessionInfo, NameValueCollection query, string localPath)
+    private Task ShowNewsList(HttpListenerResponse response, HttpAdminSessionInfo sessionInfo, NameValueCollection query, string localPath)
     {
         var db = BotController.dataBase.db;
-        var allNews = await db.Table<NewsData>().OrderByDescending(x => x.id).ToArrayAsync().FastAwait();
+        var allNews = db.Table<NewsData>().OrderByDescending(x => x.id).ToArray();
 
         var document = HtmlHelper.CreateDocument("News Editor");
         var table = document["html"]["body"].Add("table", new HProp("cellpadding", "10"), new HProp("style", "border-collapse: collapse;"));
@@ -71,6 +71,7 @@ public class NewsEditorPage : IHtmlPage
 
         response.AsTextUTF8(document.GenerateHTML());
         response.Close();
+        return Task.CompletedTask;
     }
 
     private Task ShowAddForm(HttpListenerResponse response, HttpAdminSessionInfo sessionInfo, NameValueCollection query, string localPath)
@@ -102,12 +103,12 @@ public class NewsEditorPage : IHtmlPage
         return Task.CompletedTask;
     }
 
-    private async Task TryAddNews(HttpListenerResponse response, HttpAdminSessionInfo sessionInfo, NameValueCollection query, string localPath)
+    private Task TryAddNews(HttpListenerResponse response, HttpAdminSessionInfo sessionInfo, NameValueCollection query, string localPath)
     {
-        var hasAdminRights = await CheckAdminRights(response, sessionInfo, localPath).FastAwait();
+        var hasAdminRights = CheckAdminRights(response, sessionInfo, localPath);
         if (!hasAdminRights)
         {
-            return;
+            return Task.CompletedTask;
         }
 
         var title = query["title"]?.Trim();
@@ -117,10 +118,10 @@ public class NewsEditorPage : IHtmlPage
             var errorMessage = HtmlHelper.CreateMessagePage("Incorrect text", "Title and Text can not be empty", localPath + $"?page{page}");
             response.AsTextUTF8(errorMessage.GenerateHTML());
             response.Close();
-            return;
+            return Task.CompletedTask;
         }
 
-        var newsData = await newsService.AddNews(title, description).FastAwait();
+        var newsData = newsService.AddNews(title, description);
         Program.logger.Info($"Administrator {sessionInfo.GetAdminView()} added news:" +
             $"\nnewsId: {newsData.id}" +
             $"\ntitle: {newsData.title}" +
@@ -128,22 +129,23 @@ public class NewsEditorPage : IHtmlPage
 
         response.Redirect(localPath + $"?page={page}");
         response.Close();
+        return Task.CompletedTask;
     }
 
-    private async Task TryRemoveNews(HttpListenerResponse response, HttpAdminSessionInfo sessionInfo, NameValueCollection query, string localPath)
+    private Task TryRemoveNews(HttpListenerResponse response, HttpAdminSessionInfo sessionInfo, NameValueCollection query, string localPath)
     {
-        var hasAdminRights = await CheckAdminRights(response, sessionInfo, localPath).FastAwait();
+        var hasAdminRights = CheckAdminRights(response, sessionInfo, localPath);
         if (!hasAdminRights)
         {
-            return;
+            return Task.CompletedTask;
         }
 
         if (int.TryParse(query["newsId"], out var newsId))
         {
-            var newsData = await newsService.TreGetNewsById(newsId).FastAwait();
+            var newsData = newsService.TreGetNewsById(newsId);
             if (newsData is not null)
             {
-                await newsService.RemoveNews(newsId).FastAwait();
+                newsService.RemoveNews(newsId);
                 Program.logger.Info($"Administrator {sessionInfo.GetAdminView()} removed news:" +
                     $"\nnewsId: {newsData.id}" +
                     $"\ntitle: {newsData.title}" +
@@ -153,23 +155,24 @@ public class NewsEditorPage : IHtmlPage
 
         response.Redirect(localPath + $"?page={page}");
         response.Close();
+        return Task.CompletedTask;
     }
 
-    private async Task ShowEditForm(HttpListenerResponse response, HttpAdminSessionInfo sessionInfo, NameValueCollection query, string localPath)
+    private Task ShowEditForm(HttpListenerResponse response, HttpAdminSessionInfo sessionInfo, NameValueCollection query, string localPath)
     {
         if (!int.TryParse(query["newsId"], out var newsId))
         {
             response.Redirect(localPath + $"?page={page}");
             response.Close();
-            return;
+            return Task.CompletedTask;
         }
 
-        var newsData = await newsService.TreGetNewsById(newsId).FastAwait();
+        var newsData = newsService.TreGetNewsById(newsId);
         if (newsData is null)
         {
             response.Redirect(localPath + $"?page={page}");
             response.Close();
-            return;
+            return Task.CompletedTask;
         }
 
         var document = HtmlHelper.CreateDocument("Edit News");
@@ -197,14 +200,15 @@ public class NewsEditorPage : IHtmlPage
 
         response.AsTextUTF8(document.GenerateHTML());
         response.Close();
+        return Task.CompletedTask;
     }
 
-    private async Task TryEditNews(HttpListenerResponse response, HttpAdminSessionInfo sessionInfo, NameValueCollection query, string localPath)
+    private Task TryEditNews(HttpListenerResponse response, HttpAdminSessionInfo sessionInfo, NameValueCollection query, string localPath)
     {
-        var hasAdminRights = await CheckAdminRights(response, sessionInfo, localPath).FastAwait();
+        var hasAdminRights = CheckAdminRights(response, sessionInfo, localPath);
         if (!hasAdminRights)
         {
-            return;
+            return Task.CompletedTask;
         }
 
         if (!int.TryParse(query["newsId"], out var newsId))
@@ -212,7 +216,7 @@ public class NewsEditorPage : IHtmlPage
             var errorMessage = HtmlHelper.CreateMessagePage("Incorrect newsId", "Incorrect newsId", localPath + $"?page{page}");
             response.AsTextUTF8(errorMessage.GenerateHTML());
             response.Close();
-            return;
+            return Task.CompletedTask;
         }
 
         var title = query["title"]?.Trim();
@@ -222,10 +226,10 @@ public class NewsEditorPage : IHtmlPage
             var errorMessage = HtmlHelper.CreateMessagePage("Incorrect text", "Title and Text can not be empty", localPath + $"?page{page}");
             response.AsTextUTF8(errorMessage.GenerateHTML());
             response.Close();
-            return;
+            return Task.CompletedTask;
         }
 
-        await newsService.TryEditNews(newsId, title, description).FastAwait();
+        newsService.TryEditNews(newsId, title, description);
         Program.logger.Info($"Administrator {sessionInfo.GetAdminView()} edited news:" +
             $"\nnewsId: {newsId}" +
             $"\ntitle: {title}" +
@@ -233,9 +237,10 @@ public class NewsEditorPage : IHtmlPage
 
         response.Redirect(localPath + $"?page={page}");
         response.Close();
+        return Task.CompletedTask;
     }
 
-    private async Task<bool> CheckAdminRights(HttpListenerResponse response, HttpAdminSessionInfo sessionInfo, string localPath)
+    private bool CheckAdminRights(HttpListenerResponse response, HttpAdminSessionInfo sessionInfo, string localPath)
     {
         if (sessionInfo.withoutLogin)
         {
@@ -243,7 +248,7 @@ public class NewsEditorPage : IHtmlPage
         }
 
         var db = BotController.dataBase.db;
-        var profileData = await db.Table<ProfileData>().Where(x => x.telegram_id == sessionInfo.telegramId).FirstOrDefaultAsync().FastAwait();
+        var profileData = db.Table<ProfileData>().Where(x => x.telegram_id == sessionInfo.telegramId).FirstOrDefault();
         if (profileData is null || profileData.adminStatus < AdminStatus.Admin)
         {
             var error = HtmlHelper.CreateMessagePage("Forbidden", $"You dont have admin rights", localPath);

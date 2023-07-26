@@ -44,10 +44,9 @@ public class PaymentManager : Service
         var mixExpireTime = DateTime.UtcNow.AddMinutes(_settings.minExpireTimeToUseOldOrder);
         var telegramId = session.actualUser.Id;
 
-        var paymentData = await db.Table<PaymentData>()
+        var paymentData = db.Table<PaymentData>()
             .Where(x => x.telegramId == telegramId && x.vendorCode == vendorCode && x.expireDate >= mixExpireTime && x.status == PaymentStatus.NotPaid)
-            .FirstOrDefaultAsync()
-            .FastAwait();
+            .FirstOrDefault();
 
         if (paymentData is not null)
         {
@@ -86,7 +85,7 @@ public class PaymentManager : Service
         paymentData.signature = createdPaymentInfo.signature;
 
         var db = BotController.dataBase.db;
-        await db.InsertAsync(paymentData).FastAwait();   
+        db.Insert(paymentData);   
         
         return paymentData;
     }
@@ -100,9 +99,9 @@ public class PaymentManager : Service
             $"\n vendorCode: {paymentData.vendorCode}" +
             $"\n comment: {paymentData.comment}");
 
-        var dailyRevenue = await serverDailyDataManager.GetIntegerValue("revenue");
+        var dailyRevenue = serverDailyDataManager.GetIntegerValue("revenue");
         dailyRevenue += (long)paymentData.rubbles;
-        await serverDailyDataManager.SetIntegerValue("revenue", dailyRevenue);
+        serverDailyDataManager.SetIntegerValue("revenue", dailyRevenue);
 
         var telegramId = paymentData.telegramId;
         var db = BotController.dataBase.db;
@@ -126,7 +125,7 @@ public class PaymentManager : Service
                             $"\n status: {PaymentStatus.ErrorOnTryReceive}" +
                             $"But payment is success. Call the administrator!");
                         paymentData.status = PaymentStatus.ErrorOnTryReceive;
-                        await db.UpdateAsync(paymentData).FastAwait();
+                        db.Update(paymentData);
                         return;
                     }
                     await shopItem.GiveAndShowRewards(session, () => new ShopDialog(session).Start()).FastAwait();                    
@@ -141,12 +140,12 @@ public class PaymentManager : Service
                         $"\n status: {PaymentStatus.Received}");
                     await session.profile.SaveProfile().FastAwait();
                     paymentData.status = PaymentStatus.Received;
-                    await db.UpdateAsync(paymentData).FastAwait();
+                    db.Update(paymentData);
                     return;
                 }
 
                 paymentData.status = PaymentStatus.WaitingForGoods;
-                await db.UpdateAsync(paymentData).FastAwait();
+                db.Update(paymentData);
                 session.profile.data.hasWaitingGoods = true;
                 session.profile.data.revenueRUB += (uint)paymentData.rubbles;
                 session.profile.dailyData.revenueRUB += (uint)paymentData.rubbles;
@@ -168,7 +167,7 @@ public class PaymentManager : Service
         }
 
         // session not exists
-        var profileData = await db.Table<ProfileData>().Where(x => x.telegram_id == telegramId).FirstOrDefaultAsync().FastAwait();
+        var profileData = db.Table<ProfileData>().Where(x => x.telegram_id == telegramId).FirstOrDefault();
         if (profileData is null)
         {
             Program.logger.Error($"PAYMENT | Not found profileData with telegramId '{telegramId}'" +
@@ -180,15 +179,15 @@ public class PaymentManager : Service
                 $"But payment is success. Call the administrator!");
 
             paymentData.status = PaymentStatus.ErrorOnTryReceive;
-            await db.UpdateAsync(paymentData).FastAwait();
+            db.Update(paymentData);
             return;
         }
         
         paymentData.status = PaymentStatus.WaitingForGoods;
-        await db.UpdateAsync(paymentData).FastAwait();
+        db.Update(paymentData);
         profileData.hasWaitingGoods = true;
         profileData.revenueRUB += (uint)paymentData.rubbles;
-        await db.UpdateAsync(profileData).FastAwait();
+        db.Update(profileData);
 
         Program.logger.Info($"PAYMENT | User (ID {profileData.telegram_id}) is waiting for a reward" +
             $"\n orderId: {paymentData.orderId}" +
@@ -199,15 +198,14 @@ public class PaymentManager : Service
 
         try
         {
-            var dailyData = await db.Table<RawProfileDailyData>()
+            var dailyData = db.Table<RawProfileDailyData>()
                 .Where(x => x.telegram_id == telegramId)
-                .FirstOrDefaultAsync()
-                .FastAwait();
+                .FirstOrDefault();
 
             if (dailyData is not null)
             {
                 dailyData.revenueRUB += (uint)paymentData.rubbles;
-                await db.UpdateAsync(dailyData).FastAwait();
+                db.Update(dailyData);
             }
         }
         catch (Exception)
@@ -221,10 +219,9 @@ public class PaymentManager : Service
         Program.logger.Info($"PAYEMENT | Get waiting goods for user {session.actualUser}");
         var db = BotController.dataBase.db;
         var telegramId = session.actualUser.Id;
-        var paymentData = await db.Table<PaymentData>()
+        var paymentData = db.Table<PaymentData>()
                 .Where(x => x.telegramId == telegramId && x.status == PaymentStatus.WaitingForGoods)
-                .FirstOrDefaultAsync()
-                .FastAwait();
+                .FirstOrDefault();
 
         if (paymentData is null)
         {
@@ -245,7 +242,7 @@ public class PaymentManager : Service
                 $"But payment is success. Call the administrator!");
 
             paymentData.status = PaymentStatus.ErrorOnTryReceive;
-            await db.UpdateAsync(paymentData).FastAwait();
+            db.Update(paymentData);
             await onConinue().FastAwait();
             return;
         }
@@ -260,7 +257,7 @@ public class PaymentManager : Service
             $"\n status: {PaymentStatus.Received}");
         await session.profile.SaveProfile().FastAwait();
         paymentData.status = PaymentStatus.Received;
-        await db.UpdateAsync(paymentData).FastAwait();
+        db.Update(paymentData);
     }
 
 }

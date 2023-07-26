@@ -27,7 +27,7 @@ internal class LavaPaymentsHttpWebhookService : IHttpService
             }
 
             var db = BotController.dataBase.db;
-            var paymentData = await db.Table<PaymentData>().Where(x => x.orderId == paymentInfo.order_id).FirstOrDefaultAsync().FastAwait();
+            var paymentData = db.Table<PaymentData>().Where(x => x.orderId == paymentInfo.order_id).FirstOrDefault();
             if (paymentData is null)
             {
                 Program.logger.Error($"Not found PaymentData with orderId: '{paymentInfo.order_id}' (but payment is success). Call the administrator!");

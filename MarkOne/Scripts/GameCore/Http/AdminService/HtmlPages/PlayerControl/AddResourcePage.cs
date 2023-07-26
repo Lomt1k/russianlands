@@ -35,7 +35,7 @@ internal class AddResourcePage : IHtmlPage
         if (!sessionInfo.withoutLogin)
         {
             var db = BotController.dataBase.db;
-            var profileData = await db.Table<ProfileData>().Where(x => x.telegram_id == sessionInfo.telegramId).FirstOrDefaultAsync().FastAwait();
+            var profileData = db.Table<ProfileData>().Where(x => x.telegram_id == sessionInfo.telegramId).FirstOrDefault();
             if (profileData is null || profileData.adminStatus < AdminStatus.Admin)
             {
                 var error = HtmlHelper.CreateMessagePage("Forbidden", $"You dont have admin rights", GetBackUrl(query, localPath));
@@ -108,7 +108,7 @@ internal class AddResourcePage : IHtmlPage
         else
         {
             var db = BotController.dataBase.db;
-            var profileData = await db.Table<ProfileData>().Where(x => x.telegram_id == telegramId).FirstOrDefaultAsync().FastAwait();
+            var profileData = db.Table<ProfileData>().Where(x => x.telegram_id == telegramId).FirstOrDefault();
             if (profileData == null)
             {
                 var error = HtmlHelper.CreateMessagePage("Bad request", $"ProfileData with 'telegram_id' == {telegramId} not exists", localPath);
@@ -119,7 +119,7 @@ internal class AddResourcePage : IHtmlPage
             ResourcesDictionary.Get(resourceData.resourceId).AddValue(profileData, resourceData.amount);
             var notification = Localization.Get(profileData.language, "notification_admin_add_resource", sessionInfo.GetAdminView(), resourceData.GetLocalizedView(profileData.language));
             profileData.AddSpecialNotification(notification);
-            await db.UpdateAsync(profileData).FastAwait();
+            db.Update(profileData);
             ShowSuccessfullAddResource(response, sessionInfo, query, localPath, profileData, resourceData);
         }
     }

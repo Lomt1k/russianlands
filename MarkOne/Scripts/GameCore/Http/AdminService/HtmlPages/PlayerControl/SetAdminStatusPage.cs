@@ -33,7 +33,7 @@ internal class SetAdminStatusPage : IHtmlPage
         if (!sessionInfo.withoutLogin)
         {
             var db = BotController.dataBase.db;
-            var profileData = await db.Table<ProfileData>().Where(x => x.telegram_id == sessionInfo.telegramId).FirstOrDefaultAsync().FastAwait();
+            var profileData = db.Table<ProfileData>().Where(x => x.telegram_id == sessionInfo.telegramId).FirstOrDefault();
             if (profileData is null || profileData.adminStatus < AdminStatus.Root)
             {
                 var error = HtmlHelper.CreateMessagePage("Forbidden", $"Required '{AdminStatus.Root}' status", GetBackUrl(query, localPath));
@@ -100,7 +100,7 @@ internal class SetAdminStatusPage : IHtmlPage
         else
         {
             var db = BotController.dataBase.db;
-            var profileData = await db.Table<ProfileData>().Where(x => x.telegram_id == telegramId).FirstOrDefaultAsync().FastAwait();
+            var profileData = db.Table<ProfileData>().Where(x => x.telegram_id == telegramId).FirstOrDefault();
             if (profileData == null)
             {
                 var error = HtmlHelper.CreateMessagePage("Bad request", $"ProfileData with 'telegram_id' == {telegramId} not exists", localPath);
@@ -111,7 +111,7 @@ internal class SetAdminStatusPage : IHtmlPage
             profileData.adminStatus = adminStatus;
             var notification = Localization.Get(profileData.language, "notification_admin_set_admin_status", sessionInfo.GetAdminView(), adminStatus);
             profileData.AddSpecialNotification(notification);
-            await db.UpdateAsync(profileData).FastAwait();
+            db.Update(profileData);
             ShowSuccess(response, sessionInfo, query, localPath, profileData, adminStatus);
         }
     }
