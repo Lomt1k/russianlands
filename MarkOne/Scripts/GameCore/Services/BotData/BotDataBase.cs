@@ -4,8 +4,6 @@ using System.IO;
 using System.Threading.Tasks;
 using MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
 using MarkOne.Scripts.Bot;
-using System.Diagnostics;
-using System.Collections.Generic;
 
 namespace MarkOne.Scripts.GameCore.Services.BotData;
 
