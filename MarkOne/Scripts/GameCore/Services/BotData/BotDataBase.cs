@@ -49,7 +49,6 @@ public class BotDataBase
             db = new SQLiteConnection(dataBasePath);
             CreateTables();
             Program.logger.Info("Successfully connected to database");
-            Task.Run(TestThreadsAsync); //test
             return true;
         }
         catch (Exception ex)
@@ -69,35 +68,6 @@ public class BotDataBase
         db.CreateTable<RawProfileDailyData>();
         db.CreateTable<NewsData>();
         db.CreateTable<PaymentData>();
-    }
-
-    private async Task TestThreadsAsync()
-    {
-        await Task.Delay(10_000);
-        for (int i = 0; i < 100; i++)
-        {
-            Program.logger.Debug($"Iteration: {i}");
-            await CurrentLogicTest();
-            Program.logger.Debug("");
-            await Task.Delay(1000);
-        }
-    }
-
-    private async Task CurrentLogicTest()
-    {
-        var sw = new Stopwatch();
-        sw.Start();
-        var tasks = new List<Task>();
-        for (int i = 0; i < 1000; i++)
-        {
-            Task.Run(() =>
-            {
-                var dailyData = new ProfileDailyData();
-                db.Insert(dailyData);
-            });
-        }
-        sw.Stop();
-        Program.logger.Debug($"Current logic: {sw.ElapsedMilliseconds} ms");
     }
 
     public void Close()
