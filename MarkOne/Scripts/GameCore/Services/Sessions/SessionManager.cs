@@ -74,6 +74,7 @@ public class SessionManager : Service
         {
             try
             {
+                await Task.Delay(_periodicSaveDatabaseInMs).FastAwait();
                 if (sessionsCount > 0)
                 {
                     Program.logger.Info("Saving changes in database for active users...");
@@ -82,7 +83,6 @@ public class SessionManager : Service
                         await session.SaveProfileIfNeed();
                     }
                 }
-                await Task.Delay(_periodicSaveDatabaseInMs).FastAwait();
             }
             catch (Exception ex) 
             {
