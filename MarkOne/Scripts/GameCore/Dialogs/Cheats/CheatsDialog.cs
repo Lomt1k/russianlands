@@ -552,7 +552,7 @@ public class CheatsDialog : DialogBase
         var telegramId = session.profile.data.telegram_id;
         var dbid = session.profile.data.dbid;
         await ResetAccountInDatabase().FastAwait();
-        await profileState.ExecuteQuerries(dbid).FastAwait();
+        profileState.ExecuteQuerries(dbid);
 
         var sb = new StringBuilder();
         sb.AppendLine("Account has been imported");

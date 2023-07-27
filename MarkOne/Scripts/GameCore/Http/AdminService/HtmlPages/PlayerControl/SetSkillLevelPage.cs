@@ -36,7 +36,7 @@ internal class SetSkillLevelPage : IHtmlPage
         if (!sessionInfo.withoutLogin)
         {
             var db = BotController.dataBase.db;
-            var profileData = await db.Table<ProfileData>().Where(x => x.telegram_id == sessionInfo.telegramId).FirstOrDefaultAsync().FastAwait();
+            var profileData = db.Table<ProfileData>().Where(x => x.telegram_id == sessionInfo.telegramId).FirstOrDefault();
             if (profileData is null || profileData.adminStatus < AdminStatus.Admin)
             {
                 var error = HtmlHelper.CreateMessagePage("Forbidden", $"You dont have admin rights", GetBackUrl(query, localPath));
@@ -110,7 +110,7 @@ internal class SetSkillLevelPage : IHtmlPage
         else
         {
             var db = BotController.dataBase.db;
-            var profileData = await db.Table<ProfileData>().Where(x => x.telegram_id == telegramId).FirstOrDefaultAsync().FastAwait();
+            var profileData = db.Table<ProfileData>().Where(x => x.telegram_id == telegramId).FirstOrDefault();
             if (profileData == null)
             {
                 var error = HtmlHelper.CreateMessagePage("Bad request", $"ProfileData with 'telegram_id' == {telegramId} not exists", localPath);
@@ -122,7 +122,7 @@ internal class SetSkillLevelPage : IHtmlPage
             var skillView = skillType.GetEmoji() + skillType.GetCategoryLocalization(profileData.language) + $": {level}";
             var notification = Localization.Get(profileData.language, "notification_admin_set_skill_level", sessionInfo.GetAdminView(), skillView);
             profileData.AddSpecialNotification(notification);
-            await db.UpdateAsync(profileData).FastAwait();
+            db.Update(profileData);
             ShowSuccess(response, sessionInfo, query, localPath, profileData, skillView);
         }
     }

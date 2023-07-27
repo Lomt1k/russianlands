@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Dialogs.Battle;
 using MarkOne.Scripts.GameCore.Items;
 using MarkOne.Scripts.GameCore.Items.ItemAbilities;
 using MarkOne.Scripts.GameCore.Items.ItemAbilities.Keywords;
+using MarkOne.Scripts.GameCore.Services;
 using MarkOne.Scripts.GameCore.Services.Battles;
 using MarkOne.Scripts.GameCore.Services.Battles.Actions;
 using MarkOne.Scripts.Utils;
@@ -12,6 +15,8 @@ namespace MarkOne.Scripts.GameCore.Units.ActionHandlers;
 
 public class PlayerActionHandler : IBattleActionHandler
 {
+    private static readonly SessionExceptionHandler sessionExceptionHandler = ServiceLocator.Get<SessionExceptionHandler>();
+
     public Player player { get; }
 
     public PlayerActionHandler(Player _player)
@@ -21,26 +26,34 @@ public class PlayerActionHandler : IBattleActionHandler
 
     public async Task<List<IBattleAction>> GetActionsBySelectedItem(BattleTurn battleTurn)
     {
-        var result = new List<IBattleAction>();
-
-        var isActionsReady = false;
-        var dialog = new SelectBattleItemDialog(player.session, battleTurn, (item) =>
+        try
         {
-            player.unitStats.OnUseItemInBattle(item);
-            var generalAttackAction = new PlayerAttackAction(item);
-            result.Add(generalAttackAction);
-            ItemKeywordActionsHandler.HandleKeywords(battleTurn, item, ref generalAttackAction, ref result);
-            generalAttackAction.damageInfo += player.unitStats.statEffects.GetExtraDamageAndRemoveEffects();
-            isActionsReady = true;
-        })
-        .Start().FastAwait();
+            var result = new List<IBattleAction>();
 
-        while (battleTurn.isWaitingForActions && !isActionsReady)
-        {
-            await Task.Delay(500).FastAwait();
+            var isActionsReady = false;
+            var dialog = new SelectBattleItemDialog(player.session, battleTurn, (item) =>
+            {
+                player.unitStats.OnUseItemInBattle(item);
+                var generalAttackAction = new PlayerAttackAction(item);
+                result.Add(generalAttackAction);
+                ItemKeywordActionsHandler.HandleKeywords(battleTurn, item, ref generalAttackAction, ref result);
+                generalAttackAction.damageInfo += player.unitStats.statEffects.GetExtraDamageAndRemoveEffects();
+                isActionsReady = true;
+            })
+            .Start().FastAwait();
+
+            while (battleTurn.isWaitingForActions && !isActionsReady)
+            {
+                await Task.Delay(500).FastAwait();
+            }
+
+            return result;
         }
-
-        return result;
+        catch (Exception ex)
+        {
+            await sessionExceptionHandler.HandleException(player.session.actualUser, ex).FastAwait();
+            return new List<IBattleAction>();
+        }
     }
 
     public bool TryAddShieldOnEnemyTurn(out DamageInfo damageInfo)

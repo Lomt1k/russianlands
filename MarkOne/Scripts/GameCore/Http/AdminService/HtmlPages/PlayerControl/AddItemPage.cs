@@ -37,7 +37,7 @@ internal class AddItemPage : IHtmlPage
         if (!sessionInfo.withoutLogin)
         {
             var db = BotController.dataBase.db;
-            var profileData = await db.Table<ProfileData>().Where(x => x.telegram_id == sessionInfo.telegramId).FirstOrDefaultAsync().FastAwait();
+            var profileData = db.Table<ProfileData>().Where(x => x.telegram_id == sessionInfo.telegramId).FirstOrDefault();
             if (profileData is null || profileData.adminStatus < AdminStatus.Admin)
             {
                 var error = HtmlHelper.CreateMessagePage("Forbidden", $"You dont have admin rights", GetBackUrl(query, localPath));
@@ -114,7 +114,7 @@ internal class AddItemPage : IHtmlPage
         else
         {
             var db = BotController.dataBase.db;
-            var profileData = await db.Table<ProfileData>().Where(x => x.telegram_id == telegramId).FirstOrDefaultAsync().FastAwait();
+            var profileData = db.Table<ProfileData>().Where(x => x.telegram_id == telegramId).FirstOrDefault();
             if (profileData == null)
             {
                 var error = HtmlHelper.CreateMessagePage("Bad request", $"ProfileData with 'telegram_id' == {telegramId} not exists", localPath);
@@ -122,7 +122,7 @@ internal class AddItemPage : IHtmlPage
                 response.Close();
                 return;
             }
-            var rawDynamicData = await db.Table<RawProfileDynamicData>().Where(x => x.dbid == profileData.dbid).FirstOrDefaultAsync().FastAwait();
+            var rawDynamicData = db.Table<RawProfileDynamicData>().Where(x => x.dbid == profileData.dbid).FirstOrDefault();
             if (rawDynamicData == null)
             {
                 var error = HtmlHelper.CreateMessagePage("Bad request", $"RawProfileDynamicData for 'telegram_id' == {telegramId} not exists", localPath);
@@ -137,8 +137,8 @@ internal class AddItemPage : IHtmlPage
 
             var notification = Localization.Get(profileData.language, "notification_admin_add_resource", sessionInfo.GetAdminView(), item.GetFullName(profileData.language));
             profileData.AddSpecialNotification(notification);
-            await db.UpdateAsync(profileData).FastAwait();
-            await db.UpdateAsync(rawDynamicData).FastAwait();
+            db.Update(profileData);
+            db.Update(rawDynamicData);
             ShowSuccessfullAddItem(response, sessionInfo, query, localPath, profileData, item);
         }
     }

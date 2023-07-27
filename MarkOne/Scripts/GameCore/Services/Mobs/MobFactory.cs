@@ -123,9 +123,11 @@ public class MobFactory : Service
             .SetVisualLevel(visualLevel)
             .GetResult();
 
-        var fruitsForSelection = crossroadFruits.Where(x => !excludeFruits.Contains(x)).ToArray();
-        var randomIndex = new Random().Next(fruitsForSelection.Length);
-        mobData.fruitId = fruitsForSelection[randomIndex];
+        do
+        {
+            var fruitTypeIndex = new Random().Next(crossroadFruits.Length);
+            mobData.fruitId = crossroadFruits[fruitTypeIndex];
+        } while (excludeFruits.Contains(mobData.fruitId));
 
         return mobData;
     }

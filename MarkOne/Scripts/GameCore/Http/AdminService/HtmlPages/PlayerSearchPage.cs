@@ -117,7 +117,7 @@ internal class PlayerSearchPage : IHtmlPage
 
         var db = BotController.dataBase.db;
         var query = db.Table<ProfileData>().Where(x => x.telegram_id == longTelegramId);
-        var profileData = await query.FirstOrDefaultAsync().FastAwait();
+        var profileData = query.FirstOrDefault();
         if (profileData == null)
         {
             var document = HtmlHelper.CreateMessagePage("Player Search", $"Player with TelegramID {longTelegramId} not found", localPath + $"?page={page}");
@@ -135,7 +135,7 @@ internal class PlayerSearchPage : IHtmlPage
 
         var db = BotController.dataBase.db;
         var query = db.Table<ProfileData>().Where(x => x.username == username);
-        var profileData = await query.FirstOrDefaultAsync().FastAwait();
+        var profileData = query.FirstOrDefault();
         if (profileData == null)
         {
             var document = HtmlHelper.CreateMessagePage("Player Search", $"Player with username @{username} not found", localPath + $"?page={page}");
@@ -151,7 +151,7 @@ internal class PlayerSearchPage : IHtmlPage
     {
         var db = BotController.dataBase.db;
         var query = db.Table<ProfileData>().Where(x => x.nickname.Contains(nickname));
-        var profileDatas  = await query.Take(100).ToArrayAsync().FastAwait();
+        var profileDatas  = query.Take(100).ToArray();
         if (profileDatas.Length < 1)
         {
             var document = HtmlHelper.CreateMessagePage("Player Search", $"Player with nickname '{nickname}' not found", localPath + $"?page={page}");
@@ -175,7 +175,7 @@ internal class PlayerSearchPage : IHtmlPage
             ? db.Table<ProfileData>().Where(x => x.lastName != null && x.firstName.Contains(firstName) && x.lastName.Contains(lastName))
             : lastName.Length > 0 ? db.Table<ProfileData>().Where(x => x.lastName != null && x.lastName.Contains(lastName))
             : db.Table<ProfileData>().Where(x => x.firstName.Contains(firstName));
-        var profileDatas = await query.Take(100).ToArrayAsync().FastAwait();
+        var profileDatas = query.Take(100).ToArray();
 
         if (profileDatas.Length < 1)
         {
@@ -249,7 +249,7 @@ internal class PlayerSearchPage : IHtmlPage
 
         var secondTable = GetProfileResourcesInfo(session?.profile.data ?? profileData, sessionInfo);
 
-        var buildingsData = session?.profile.buildingsData ?? await db.Table<ProfileBuildingsData>().Where(x => x.dbid == profileData.dbid).FirstAsync().FastAwait();
+        var buildingsData = session?.profile.buildingsData ?? db.Table<ProfileBuildingsData>().Where(x => x.dbid == profileData.dbid).First();
         var thirdTable = GetProfileBuildingsInfo(buildingsData, sessionInfo);
         var skillsInfo = GetProfileSkillsInfo(profileData, sessionInfo);
         thirdTable.Add(skillsInfo);
@@ -325,7 +325,7 @@ internal class PlayerSearchPage : IHtmlPage
         else
         {
             var db = BotController.dataBase.db;
-            var rawDynamicData = await db.Table<RawProfileDynamicData>().Where(x => x.dbid == profileData.dbid).FirstAsync().FastAwait();
+            var rawDynamicData = db.Table<RawProfileDynamicData>().Where(x => x.dbid == profileData.dbid).First();
             var dynamicData = ProfileDynamicData.Deserialize(rawDynamicData);
             equippedItems = dynamicData.inventory.equipped.allEquipped;
             questsProgress = dynamicData.quests;

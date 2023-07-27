@@ -27,8 +27,8 @@ internal class MainAdminPage : IHtmlPage
         var recentlyActive = allSessions.Where(x => (dtNow - x.lastActivityTime).TotalMinutes < 5).Count();
         var debugInfo = pm.debugInfo;
         var date = serverDailyDataManager.lastDate;
-        var dailyRevenue = await serverDailyDataManager.GetIntegerValue("revenue").FastAwait();
-        var dailyActiveUsers = await profileDailyDataManager.GetDailyActiveUsers().FastAwait();
+        var dailyRevenue = serverDailyDataManager.GetIntegerValue("revenue");
+        var dailyActiveUsers = profileDailyDataManager.GetDailyActiveUsers();
 
         // prepare document
         var document = HtmlHelper.CreateDocument("Main Admin Page");

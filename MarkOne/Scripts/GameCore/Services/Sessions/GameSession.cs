@@ -182,7 +182,6 @@ public class GameSession
             {
                 var message = errorMessage ?? "ON ERROR";
                 Program.logger.Info($"Session closed for {actualUser} [{message}]");
-                battleManager.OnSessionClosedWithError(player);
             }
             else
             {
