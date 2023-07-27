@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Numerics;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -20,6 +19,7 @@ public class Battle
 {
     private static readonly BattleManager battleManager = ServiceLocator.Get<BattleManager>();
     private static readonly MessageSender messageSender = ServiceLocator.Get<MessageSender>();
+    private static readonly SessionExceptionHandler sessionExceptionHandler = ServiceLocator.Get<SessionExceptionHandler>();
 
     private readonly IEnumerable<RewardBase>? _rewards;
     private readonly Func<Player, BattleResult, Task>? _onBattleEndFunc;
@@ -109,7 +109,7 @@ public class Battle
     {
         var battleTurnTimeInSeconds = isPVE ? 120 : 80;
         int turnNumber = 0;
-        while (!HasDefeatedUnits())
+        while (!HasDefeatedUnits() && !IsCancellationRequested())
         {
             turnNumber++;
             currentTurn = new BattleTurn(this, firstUnit, battleTurnTimeInSeconds, _isFirstUnit: true, turnNumber);
@@ -163,14 +163,8 @@ public class Battle
 
     private async Task BattleEnd()
     {
-        if (IsCancellationRequested())
-        {
-            battleManager.UnregisterBattle(this);
-            return;
-        }
-
         // ВАЖНО: Результаты должны быть посчитаны до вызова HandleBattleEndForPlayer
-        var hasWinner = firstUnit.unitStats.currentHP > 0 || secondUnit.unitStats.currentHP > 0;
+        var hasWinner = firstUnit.unitStats.currentHP != secondUnit.unitStats.currentHP;
         var firstUnitResult = hasWinner
             ? (firstUnit.unitStats.currentHP > secondUnit.unitStats.currentHP ? BattleResult.Win : BattleResult.Lose)
             : BattleResult.Draw;
@@ -178,11 +172,11 @@ public class Battle
             ? (secondUnit.unitStats.currentHP > firstUnit.unitStats.currentHP ? BattleResult.Win : BattleResult.Lose)
             : BattleResult.Draw;
 
-        if (firstUnit is Player firstPlayer)
+        if (firstUnit is Player firstPlayer && !firstPlayer.session.cancellationToken.IsCancellationRequested)
         {
             await HandleBattleEndForPlayer(firstPlayer, firstUnitResult).FastAwait();
         }
-        if (secondUnit is Player secondPlayer)
+        if (secondUnit is Player secondPlayer && !secondPlayer.session.cancellationToken.IsCancellationRequested)
         {
             await HandleBattleEndForPlayer(secondPlayer, secondUnitResult).FastAwait();
         }
@@ -214,25 +208,32 @@ public class Battle
 
     private async Task HandleBattleEndForPlayer(Player player, BattleResult battleResult)
     {
-        player.OnBattleEnd(this, battleResult);
-        if (_onBattleEndFunc != null)
+        try
         {
-            await _onBattleEndFunc(player, battleResult).FastAwait();
+            player.OnBattleEnd(this, battleResult);
+            if (_onBattleEndFunc != null)
+            {
+                await _onBattleEndFunc(player, battleResult).FastAwait();
+            }
+
+            var hasContinueButton = _onContinueButtonFunc != null;
+            var isReturnToTownAvailable = !hasContinueButton || (_isAvailableReturnToTownFunc != null && _isAvailableReturnToTownFunc(player, battleResult));
+
+            var data = new BattleResultData
+            {
+                battleResult = battleResult,
+                rewards = _rewards,
+                onContinueButtonFunc = _onContinueButtonFunc,
+                isReturnToTownAvailable = isReturnToTownAvailable
+            };
+
+            Program.logger.Info($"BATTLE | User {player.session.actualUser} end {(isPVE ? "PVE" : "PVP")} battle with result: {battleResult}");
+            await new BattleResultDialog(player.session, data).Start().FastAwait();
         }
-
-        var hasContinueButton = _onContinueButtonFunc != null;
-        var isReturnToTownAvailable = !hasContinueButton || (_isAvailableReturnToTownFunc != null && _isAvailableReturnToTownFunc(player, battleResult));
-
-        var data = new BattleResultData
+        catch ( Exception ex )
         {
-            battleResult = battleResult,
-            rewards = _rewards,
-            onContinueButtonFunc = _onContinueButtonFunc,
-            isReturnToTownAvailable = isReturnToTownAvailable
-        };
-
-        Program.logger.Info($"BATTLE | User {player.session.actualUser} end {(isPVE ? "PVE" : "PVP")} battle with result: {battleResult}");
-        await new BattleResultDialog(player.session, data).Start().FastAwait();
+            await sessionExceptionHandler.HandleException(player.session.actualUser, ex).FastAwait();
+        }
     }
 
 

@@ -78,15 +78,6 @@ public class BattleManager : Service
         _battlesByPlayers.Clear();
     }
 
-    public async void OnSessionClosedWithError(Player player)
-    {
-        var battle = GetCurrentBattle(player);
-        if (battle != null)
-        {
-            await battle.ForceBattleEndWithResult(player, BattleResult.Lose).FastAwait();
-        }
-    }
-
     public List<Player> GetAllPlayers()
     {
         return _battlesByPlayers.Keys.ToList();
