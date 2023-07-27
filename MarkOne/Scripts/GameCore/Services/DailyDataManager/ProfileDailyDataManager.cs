@@ -6,7 +6,6 @@ using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Services.DailyDataManagers;
 using MarkOne.Scripts.GameCore.Sessions;
 using MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
-using System.Threading.Tasks;
 
 namespace MarkOne.Scripts.GameCore.Services.DailyDataManager;
 
@@ -15,16 +14,16 @@ public class ProfileDailyDataManager : Service
     private static readonly ServerDailyDataManager serverDailyDataManager = ServiceLocator.Get<ServerDailyDataManager>();
     private static readonly SessionManager sessionManager = ServiceLocator.Get<SessionManager>();
 
-    private static SQLiteAsyncConnection db => BotController.dataBase.db;
+    private static SQLiteConnection db => BotController.dataBase.db;
 
     public ProfileDailyDataManager()
     {
         serverDailyDataManager.onStartNewDay += OnStartNewDay;
     }
 
-    public async Task<int> GetDailyActiveUsers()
+    public int GetDailyActiveUsers()
     {
-        return await db.Table<RawProfileDailyData>().CountAsync().FastAwait();
+        return db.Table<RawProfileDailyData>().Count();
     }
 
     private void OnStartNewDay(DateTime oldDate, DateTime newDate)
@@ -32,9 +31,9 @@ public class ProfileDailyDataManager : Service
         ExportAndResetProfileDailyData(oldDate);
     }
 
-    private async void ExportAndResetProfileDailyData(DateTime oldDate)
+    private void ExportAndResetProfileDailyData(DateTime oldDate)
     {
-        var allData = await db.Table<RawProfileDailyData>().ToListAsync().FastAwait();
+        var allData = db.Table<RawProfileDailyData>().ToList();
         ExportStatisticData(oldDate, allData);
         ResetAllProfileDailyData();
     }
@@ -66,9 +65,9 @@ public class ProfileDailyDataManager : Service
         Program.logger.Info($"Daily statistics exported to file: stats_{stringDate}.sqlite");
     }
 
-    private async void ResetAllProfileDailyData()
+    private void ResetAllProfileDailyData()
     {
-        await db.DeleteAllAsync<ProfileDailyData>().FastAwait();
+        db.DeleteAll<ProfileDailyData>();
         var allSessions = sessionManager.GetAllSessions();
         foreach (var session in allSessions)
         {

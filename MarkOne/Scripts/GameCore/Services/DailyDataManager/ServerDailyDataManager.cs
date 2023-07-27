@@ -9,7 +9,7 @@ namespace MarkOne.Scripts.GameCore.Services.DailyDataManagers;
 
 public class ServerDailyDataManager : Service
 {
-    private static SQLiteAsyncConnection db => BotController.dataBase.db;
+    private static SQLiteConnection db => BotController.dataBase.db;
 
     private CancellationTokenSource _cts = new CancellationTokenSource();
 
@@ -19,7 +19,7 @@ public class ServerDailyDataManager : Service
 
     public override async Task OnBotStarted()
     {
-        lastDate = await GetDateValue("lastDate", DateTime.MinValue).FastAwait();
+        lastDate = GetDateValue("lastDate", DateTime.MinValue);
         _cts = new CancellationTokenSource();
 
         var now = DateTime.UtcNow;
@@ -27,7 +27,7 @@ public class ServerDailyDataManager : Service
         if (daysPassed > 0)
         {
             var newDate = lastDate.AddDays(daysPassed);
-            await StartNewDay(lastDate, newDate).FastAwait();
+            StartNewDay(lastDate, newDate);
         }
         else
         {
@@ -62,7 +62,7 @@ public class ServerDailyDataManager : Service
             var now = DateTime.UtcNow;
             if ((now - lastDate).Days > 0)
             {
-                await StartNewDay(lastDate, lastDate.AddDays(1)).FastAwait();
+                StartNewDay(lastDate, lastDate.AddDays(1));
             }
             var nextDate = lastDate.AddDays(1);
             var secondsToWait = (nextDate - now).TotalSeconds;
@@ -71,101 +71,101 @@ public class ServerDailyDataManager : Service
         }
     }
 
-    private async Task StartNewDay(DateTime oldDate, DateTime newDate)
+    private void StartNewDay(DateTime oldDate, DateTime newDate)
     {
         lastDate = newDate;
-        await db.DeleteAllAsync<ServerDailyData>().FastAwait();
-        await SetDateValue("lastDate", lastDate).FastAwait();
+        db.DeleteAll<ServerDailyData>();
+        SetDateValue("lastDate", lastDate);
         Program.logger.Info($"New day started! ({lastDate.AsDateString()})");
         onStartNewDay?.Invoke(oldDate, newDate);
     }
 
     #region setters
 
-    public async Task SetStringValue(string key, string value)
+    public void SetStringValue(string key, string value)
     {
         var data = new ServerDailyData { key = key, value = value };
-        await db.InsertOrReplaceAsync(data).FastAwait();
+        db.InsertOrReplace(data);
     }
 
-    public async Task SetIntegerValue(string key, long value)
+    public void SetIntegerValue(string key, long value)
     {
         var data = new ServerDailyData { key = key, value = value.ToString() };
-        await db.InsertOrReplaceAsync(data).FastAwait();
+        db.InsertOrReplace(data);
     }
 
-    public async Task SetDoubleValue(string key, double value)
+    public void SetDoubleValue(string key, double value)
     {
         var data = new ServerDailyData { key = key, value = value.ToString() };
-        await db.InsertOrReplaceAsync(data).FastAwait();
+        db.InsertOrReplace(data);
     }
 
-    public async Task SetDateTimeValue(string key, DateTime value)
+    public void SetDateTimeValue(string key, DateTime value)
     {
         var data = new ServerDailyData { key = key, value = value.AsDateTimeString() };
-        await db.InsertOrReplaceAsync(data).FastAwait();
+        db.InsertOrReplace(data);
     }
 
-    public async Task SetDateValue(string key, DateTime value)
+    public void SetDateValue(string key, DateTime value)
     {
         var data = new ServerDailyData { key = key, value = value.AsDateString() };
-        await db.InsertOrReplaceAsync(data).FastAwait();
+        db.InsertOrReplace(data);
     }
 
     #endregion
 
     #region getters
 
-    public async Task<string> GetStringValue(string key, string defaultValue)
+    public string GetStringValue(string key, string defaultValue)
     {
-        var result = await db.GetOrNullAsync<ServerDailyData>(key);
+        var result = db.GetOrNull<ServerDailyData>(key);
         if (result == null)
         {
-            await SetStringValue(key, defaultValue).FastAwait();
+            SetStringValue(key, defaultValue);
             return defaultValue;
         }
         return result.value;
     }
 
-    public async Task<long> GetIntegerValue(string key, long defaultValue = 0)
+    public long GetIntegerValue(string key, long defaultValue = 0)
     {
-        var result = await db.GetOrNullAsync<ServerDailyData>(key);
+        var result = db.GetOrNull<ServerDailyData>(key);
         if (result == null)
         {
-            await SetIntegerValue(key, defaultValue).FastAwait();
+            SetIntegerValue(key, defaultValue);
             return defaultValue;
         }
         return Convert.ToInt64(result.value);
     }
 
-    public async Task<double> GetDoubleValue(string key, double defaultValue = 0)
+    public double GetDoubleValue(string key, double defaultValue = 0)
     {
-        var result = await db.GetOrNullAsync<ServerDailyData>(key);
+        var result = db.GetOrNull<ServerDailyData>(key);
         if (result == null)
         {
-            await SetDoubleValue(key, defaultValue).FastAwait();
+            SetDoubleValue(key, defaultValue);
             return defaultValue;
         }
         return Convert.ToDouble(result.value);
     }
 
-    public async Task<DateTime> GetDateTimeValue(string key, DateTime defaultValue)
+    public DateTime GetDateTimeValue(string key, DateTime defaultValue)
     {
-        var result = await db.GetOrNullAsync<ServerDailyData>(key);
+        var result = db.GetOrNull<ServerDailyData>(key);
         if (result == null)
         {
-            await SetDateTimeValue(key, defaultValue).FastAwait();
+            SetDateTimeValue(key, defaultValue);
             return defaultValue;
         }
         return result.value.AsDateTime();
     }
 
-    public async Task<DateTime> GetDateValue(string key, DateTime defaultValue)
+    public DateTime GetDateValue(string key, DateTime defaultValue)
     {
-        var result = await db.GetOrNullAsync<ServerDailyData>(key);
+        var result = db.GetOrNull<ServerDailyData>(key);
         if (result == null)
         {
-            await SetDateValue(key, defaultValue).FastAwait();
+            SetDateValue(key, defaultValue);
             return defaultValue;
         }
         return result.value.AsDate();

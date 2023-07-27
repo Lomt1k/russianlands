@@ -16,16 +16,16 @@ public class NewsService : Service
 
     public override async Task OnBotStarted()
     {
-        await RefreshLastNews().FastAwait();
+        RefreshLastNews();
     }
 
-    private async Task RefreshLastNews()
+    private void RefreshLastNews()
     {
         var db = BotController.dataBase.db;
-        _lastNews = await db.Table<NewsData>().OrderByDescending(x => x.id).Take(LAST_NEWS_COUNT).ToArrayAsync().FastAwait();
+        _lastNews = db.Table<NewsData>().OrderByDescending(x => x.id).Take(LAST_NEWS_COUNT).ToArray();
     }
 
-    public async Task<NewsData> AddNews(string title, string description, DateTime? date = null)
+    public NewsData AddNews(string title, string description, DateTime? date = null)
     {
         var newsData = new NewsData
         {
@@ -34,38 +34,38 @@ public class NewsService : Service
             description = description,
         };
         var db = BotController.dataBase.db;
-        await db.InsertAsync(newsData).FastAwait();
-        await RefreshLastNews();
+        db.Insert(newsData);
+        RefreshLastNews();
         return newsData;
     }
 
-    public async Task RemoveNews(int newsId)
+    public void RemoveNews(int newsId)
     {
         var db = BotController.dataBase.db;
-        await db.DeleteAsync<NewsData>(newsId).FastAwait();
-        await RefreshLastNews();
+        db.Delete<NewsData>(newsId);
+        RefreshLastNews();
     }
 
-    public async Task<NewsData?> TreGetNewsById(int newsId)
+    public NewsData? TreGetNewsById(int newsId)
     {
         var db = BotController.dataBase.db;
-        return await db.Table<NewsData>().Where(x => x.id == newsId).FirstOrDefaultAsync().FastAwait();
+        return db.Table<NewsData>().Where(x => x.id == newsId).FirstOrDefault();
     }
 
-    public async Task<bool> TryEditNews(int newsId, string title, string description)
+    public bool TryEditNews(int newsId, string title, string description)
     {
         var db = BotController.dataBase.db;
-        var newsData = await db.Table<NewsData>().Where(x => x.id == newsId).FirstOrDefaultAsync().FastAwait();
+        var newsData = db.Table<NewsData>().Where(x => x.id == newsId).FirstOrDefault();
         if (newsData is null)
         {
             return false;
         }
         newsData.title = title;
         newsData.description = description;
-        var result = await db.UpdateAsync(newsData).FastAwait();
+        var result = db.Update(newsData);
         if (result > 0)
         {
-            await RefreshLastNews();
+            RefreshLastNews();
         }
         return result > 0 ? true : false;
     }

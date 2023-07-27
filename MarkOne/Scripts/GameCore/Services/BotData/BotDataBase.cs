@@ -9,12 +9,12 @@ namespace MarkOne.Scripts.GameCore.Services.BotData;
 
 public class BotDataBase
 {
-    private SQLiteAsyncConnection _dbConnection;
+    private SQLiteConnection _dbConnection;
     private readonly object _dbLock = new();
 
     public string botDataPath { get; }
     public string dataBasePath { get; }
-    public SQLiteAsyncConnection db
+    public SQLiteConnection db
     {
         get
         {
@@ -40,12 +40,12 @@ public class BotDataBase
         Task.Run(CreateBackupLoop);
     }
 
-    public async Task<bool> ConnectAsync()
+    public bool Connect()
     {
         try
         {
-            db = new SQLiteAsyncConnection(dataBasePath);
-            await CreateTables().FastAwait();
+            db = new SQLiteConnection(dataBasePath);
+            CreateTables();
             Program.logger.Info("Successfully connected to database");
             return true;
         }
@@ -56,25 +56,25 @@ public class BotDataBase
         return false;
     }
 
-    private async Task CreateTables()
+    private void CreateTables()
     {
-        await db.CreateTableAsync<ProfileData>().FastAwait();
-        await db.CreateTableAsync<RawProfileDynamicData>().FastAwait();
-        await db.CreateTableAsync<ProfileBuildingsData>().FastAwait();
-        await db.CreateTableAsync<DailyReminderData>().FastAwait();
-        await db.CreateTableAsync<ServerDailyData>().FastAwait();
-        await db.CreateTableAsync<RawProfileDailyData>().FastAwait();
-        await db.CreateTableAsync<NewsData>().FastAwait();
-        await db.CreateTableAsync<PaymentData>().FastAwait();
+        db.CreateTable<ProfileData>();
+        db.CreateTable<RawProfileDynamicData>();
+        db.CreateTable<ProfileBuildingsData>();
+        db.CreateTable<DailyReminderData>();
+        db.CreateTable<ServerDailyData>();
+        db.CreateTable<RawProfileDailyData>();
+        db.CreateTable<NewsData>();
+        db.CreateTable<PaymentData>();
     }
 
-    public async Task CloseAsync()
+    public void Close()
     {
         try
         {
             if (db != null)
             {
-                await db.CloseAsync().FastAwait();
+                db.Close();
                 Program.logger.Info("Closed connection to database");
             }
         }
@@ -101,7 +101,7 @@ public class BotDataBase
                     }
                     var backupName = $"database_backup_{now:yyyy.MM.dd}.sqlite";
                     Program.logger.Info("Try to create backup for database...");
-                    await db.BackupAsync(Path.Combine(backupsFolder, backupName));
+                    db.Backup(Path.Combine(backupsFolder, backupName));
                     Program.logger.Info($"Backup for database created: {backupName}");
                     await Task.Delay(60_000);
                 }

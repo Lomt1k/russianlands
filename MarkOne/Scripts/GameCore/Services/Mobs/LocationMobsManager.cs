@@ -49,9 +49,9 @@ public class LocationMobsManager : Service
         CreateNewMobPacks();
     }
 
-    private async void LoadMobPacks()
+    private void LoadMobPacks()
     {
-        var jsonStr = await serverDailyDataManager.GetStringValue("locationMobs", string.Empty).FastAwait();
+        var jsonStr = serverDailyDataManager.GetStringValue("locationMobs", string.Empty);
         if (string.IsNullOrEmpty(jsonStr))
         {
             CreateNewMobPacks();
@@ -69,7 +69,7 @@ public class LocationMobsManager : Service
         isMobsReady = true;
     }
 
-    private async void CreateNewMobPacks()
+    private void CreateNewMobPacks()
     {
         _mobPacks.Clear();
         foreach (MobDifficulty difficulty in Enum.GetValues(typeof(MobDifficulty)))
@@ -77,7 +77,7 @@ public class LocationMobsManager : Service
             _mobPacks[difficulty] = GenerateMobPack(difficulty);
         }
         var jsonStr = JsonConvert.SerializeObject(_mobPacks);
-        await serverDailyDataManager.SetStringValue("locationMobs", jsonStr).FastAwait();
+        serverDailyDataManager.SetStringValue("locationMobs", jsonStr);
         Program.logger.Info("New location mobs created");
         isMobsReady = true;
     }

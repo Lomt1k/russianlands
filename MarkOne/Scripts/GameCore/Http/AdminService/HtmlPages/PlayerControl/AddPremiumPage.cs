@@ -33,7 +33,7 @@ internal class AddPremiumPage : IHtmlPage
         if (!sessionInfo.withoutLogin)
         {
             var db = BotController.dataBase.db;
-            var profileData = await db.Table<ProfileData>().Where(x => x.telegram_id == sessionInfo.telegramId).FirstOrDefaultAsync().FastAwait();
+            var profileData = db.Table<ProfileData>().Where(x => x.telegram_id == sessionInfo.telegramId).FirstOrDefault();
             if (profileData is null || profileData.adminStatus < AdminStatus.Admin)
             {
                 var error = HtmlHelper.CreateMessagePage("Forbidden", $"You dont have admin rights", GetBackUrl(query, localPath));
@@ -99,7 +99,7 @@ internal class AddPremiumPage : IHtmlPage
         else
         {
             var db = BotController.dataBase.db;
-            var profileData = await db.Table<ProfileData>().Where(x => x.telegram_id == telegramId).FirstOrDefaultAsync().FastAwait();
+            var profileData = db.Table<ProfileData>().Where(x => x.telegram_id == telegramId).FirstOrDefault();
             if (profileData == null)
             {
                 var error = HtmlHelper.CreateMessagePage("Bad request", $"ProfileData with 'telegram_id' == {telegramId} not exists", localPath);
@@ -111,7 +111,7 @@ internal class AddPremiumPage : IHtmlPage
             AddPremiumValue(profileData, daysAmount);
             var notification = Localization.Get(profileData.language, "notification_admin_add_premium", sessionInfo.GetAdminView(), Emojis.StatPremium, premiumTimeView);
             profileData.AddSpecialNotification(notification);
-            await db.UpdateAsync(profileData).FastAwait();
+            db.Update(profileData);
             ShowSuccessfullAddPremium(response, sessionInfo, query, localPath, profileData, daysAmount);
         }
     }

@@ -49,17 +49,17 @@ public class Profile
             try
             {
                 var db = BotController.dataBase.db;
-                await db.UpdateAsync(data).FastAwait();
+                db.Update(data);
 
                 var rawDynamicData = new RawProfileDynamicData();
                 rawDynamicData.Fill(dynamicData);
-                await db.UpdateAsync(rawDynamicData).FastAwait();
+                db.Update(rawDynamicData);
 
-                await db.UpdateAsync(buildingsData).FastAwait();
+                db.Update(buildingsData);
 
                 var rawDailyData = new RawProfileDailyData();
                 rawDailyData.Fill(dailyData);
-                await db.InsertOrReplaceAsync(rawDailyData).FastAwait();
+                db.InsertOrReplace(rawDailyData);
 
                 lastSaveProfileTime = DateTime.UtcNow;
                 var user = session?.actualUser.ToString() ?? $"(ID {data.telegram_id})";
@@ -99,11 +99,11 @@ public class Profile
     {
         var db = BotController.dataBase.db;
         var query = db.Table<ProfileData>().Where(x => x.telegram_id == session.actualUser.Id);
-        var profileData = await query.FirstOrDefaultAsync().FastAwait();
+        var profileData = query.FirstOrDefault();
         if (profileData == null)
         {
             profileData = new ProfileData().SetupNewProfile(session.actualUser, messageText);
-            await db.InsertAsync(profileData).FastAwait();
+            db.Insert(profileData);
         }
         else
         {
@@ -120,29 +120,29 @@ public class Profile
         profileData.username = session.actualUser.Username;
 
         var dbid = profileData.dbid;
-        var rawDynamicData = await db.GetOrNullAsync<RawProfileDynamicData>(dbid).FastAwait();
+        var rawDynamicData = db.GetOrNull<RawProfileDynamicData>(dbid);
         if (rawDynamicData == null)
         {
             rawDynamicData = new RawProfileDynamicData() { dbid = dbid };
-            await db.InsertAsync(rawDynamicData).FastAwait();
+            db.Insert(rawDynamicData);
         }
         var profileDynamicData = ProfileDynamicData.Deserialize(rawDynamicData);
 
-        var profileBuildingsData = await db.GetOrNullAsync<ProfileBuildingsData>(dbid).FastAwait();
+        var profileBuildingsData = db.GetOrNull<ProfileBuildingsData>(dbid);
         if (profileBuildingsData == null)
         {
             profileBuildingsData = new ProfileBuildingsData() { dbid = dbid };
-            await db.InsertAsync(profileBuildingsData).FastAwait();
+            db.Insert(profileBuildingsData);
         }
 
-        var rawDailyData = await db.GetOrNullAsync<RawProfileDailyData>(dbid).FastAwait();
+        var rawDailyData = db.GetOrNull<RawProfileDailyData>(dbid);
         ProfileDailyData dailyData;
         if (rawDailyData == null)
         {
             dailyData = ProfileDailyData.Create(profileData, profileDynamicData, profileBuildingsData);
             rawDailyData = new RawProfileDailyData();
             rawDailyData.Fill(dailyData);
-            await db.InsertAsync(rawDailyData).FastAwait();
+            db.Insert(rawDailyData);
         }
         else
         {

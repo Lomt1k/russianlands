@@ -93,7 +93,7 @@ public static class BotController
 
         Program.logger.Info($"Starting bot with data... {dataPath}");
         Program.logger.Info("Connecting to bot database...");
-        bool isConnected = await dataBase.ConnectAsync();
+        bool isConnected = dataBase.Connect();
         if (!isConnected)
         {
             Program.logger.Info($"Reject database connection!...");
@@ -146,7 +146,7 @@ public static class BotController
         _updatesReceiver.StopReceiving();
         httpListener.StopListening();
         await sessionManager.CloseAllSessions().FastAwait();
-        await dataBase.CloseAsync().FastAwait();
+        dataBase.Close();
         await ServiceLocator.OnBotStopped().FastAwait();
         UnsubscribeEvents();
         Program.logger.Info($"Listening has been stopped");

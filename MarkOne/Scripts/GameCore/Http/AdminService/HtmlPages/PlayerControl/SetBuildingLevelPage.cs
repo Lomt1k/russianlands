@@ -35,7 +35,7 @@ internal class SetBuildingLevelPage : IHtmlPage
         if (!sessionInfo.withoutLogin)
         {
             var db = BotController.dataBase.db;
-            var profileData = await db.Table<ProfileData>().Where(x => x.telegram_id == sessionInfo.telegramId).FirstOrDefaultAsync().FastAwait();
+            var profileData = db.Table<ProfileData>().Where(x => x.telegram_id == sessionInfo.telegramId).FirstOrDefault();
             if (profileData is null || profileData.adminStatus < AdminStatus.Admin)
             {
                 var error = HtmlHelper.CreateMessagePage("Forbidden", $"You dont have admin rights", GetBackUrl(query, localPath));
@@ -108,7 +108,7 @@ internal class SetBuildingLevelPage : IHtmlPage
         else
         {
             var db = BotController.dataBase.db;
-            var profileData = await db.Table<ProfileData>().Where(x => x.telegram_id == telegramId).FirstOrDefaultAsync().FastAwait();
+            var profileData = db.Table<ProfileData>().Where(x => x.telegram_id == telegramId).FirstOrDefault();
             if (profileData == null)
             {
                 var error = HtmlHelper.CreateMessagePage("Bad request", $"ProfileData with 'telegram_id' == {telegramId} not exists", localPath);
@@ -116,7 +116,7 @@ internal class SetBuildingLevelPage : IHtmlPage
                 response.Close();
                 return;
             }
-            var buildingsData = await db.Table<ProfileBuildingsData>().Where(x => x.dbid == profileData.dbid).FirstOrDefaultAsync().FastAwait();
+            var buildingsData = db.Table<ProfileBuildingsData>().Where(x => x.dbid == profileData.dbid).FirstOrDefault();
             if (buildingsData == null)
             {
                 var error = HtmlHelper.CreateMessagePage("Bad request", $"ProfileBuildingsData for 'telegram_id' == {telegramId} not exists", localPath);
@@ -127,8 +127,8 @@ internal class SetBuildingLevelPage : IHtmlPage
             buildingId.GetBuilding().Cheat_SetCurrentLevel(buildingsData, level);
             var notification = Localization.Get(profileData.language, "notification_admin_add_resource", sessionInfo.GetAdminView(), buildingId.GetBuilding().GetLocalizedName(profileData.language, buildingsData));
             profileData.AddSpecialNotification(notification);
-            await db.UpdateAsync(profileData).FastAwait();
-            await db.UpdateAsync(buildingsData).FastAwait();
+            db.Update(profileData);
+            db.Update(buildingsData);
             ShowSuccessfullAddResource(response, sessionInfo, query, localPath, profileData, buildingsData, buildingId);
         }
     }
