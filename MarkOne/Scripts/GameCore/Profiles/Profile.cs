@@ -71,6 +71,7 @@ public class Profile
                 cachedException ??= ex;
                 if (i < attemptsCount)
                 {
+                    Program.logger.Error($"Successfull handled exception on SaveProfile:\n{ex}");
                     await Task.Delay(15);
                     continue;
                 }

@@ -43,6 +43,7 @@ public class PerformanceManager : Service
         currentState = GetActualState(info);
         debugInfo = GetDebugInfo(info);
         currentResponceDelay = currentState != PerformanceState.Normal ? BotController.config.performanceSettings.responceMsDelayWhenCpuHighload : 0;
+        Program.logger.Error(debugInfo.cpuInfo);
 
         onStateUpdate?.Invoke(currentState);
     }
