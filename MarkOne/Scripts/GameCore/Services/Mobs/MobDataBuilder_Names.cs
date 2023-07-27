@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using MarkOne.Scripts.GameCore.Locations;
 
 namespace MarkOne.Scripts.GameCore.Services.Mobs;
@@ -124,12 +123,11 @@ public partial class MobDataBuilder<T>
             _ => throw new NotImplementedException()
         };
 
-        var namesForSelection = excludeNames is not null
-            ? array.Where(x => !excludeNames.Contains(_mobData.localizationKey)).ToArray()
-            : array;
-
-        var randomIndex = random.Next(namesForSelection.Length);
-        _mobData.localizationKey = namesForSelection[randomIndex];
+        do
+        {
+            var index = random.Next(array.Length);
+            _mobData.localizationKey = array[index];
+        } while (excludeNames != null && excludeNames.Contains(_mobData.localizationKey));
 
         return this;
     }

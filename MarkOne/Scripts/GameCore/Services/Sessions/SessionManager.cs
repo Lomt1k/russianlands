@@ -69,19 +69,20 @@ public class SessionManager : Service
 
     private async Task PeriodicSaveProfilesAsync()
     {
+        await Task.Delay(_periodicSaveDatabaseInMs).FastAwait();
         while (true)
         {
             try
             {
                 if (sessionsCount > 0)
                 {
-                    await Task.Delay(_periodicSaveDatabaseInMs).FastAwait();
                     Program.logger.Info("Saving changes in database for active users...");
                     foreach (var session in _sessions.Values)
                     {
                         await session.SaveProfileIfNeed();
                     }
                 }
+                await Task.Delay(_periodicSaveDatabaseInMs).FastAwait();
             }
             catch (Exception ex) 
             {
