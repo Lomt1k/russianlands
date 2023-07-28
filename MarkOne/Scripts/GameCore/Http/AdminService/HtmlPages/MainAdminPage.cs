@@ -34,7 +34,7 @@ internal class MainAdminPage : IHtmlPage
         var document = HtmlHelper.CreateDocument("Main Admin Page");
 
         document["html"]["body"].AddProperties(StylesHelper.CenterScreenParent());
-        var centerScreenBlock = new HTag("div", new HProp("align", "center"), StylesHelper.CenterScreenBlock(700, 500));
+        var centerScreenBlock = new HTag("div", new HProp("align", "center"), StylesHelper.CenterScreenBlock(700, 700));
         document["html"]["body"].Add(centerScreenBlock);
 
         // status table
@@ -86,6 +86,7 @@ internal class MainAdminPage : IHtmlPage
         {
             var record = new HTag("td", arg);
             record.AddProperties(new HProp("align", "right"));
+            record.AddProperties(new HProp("style", "font-size: 24px;"));
             row.Add(record);
         }
         return row;
