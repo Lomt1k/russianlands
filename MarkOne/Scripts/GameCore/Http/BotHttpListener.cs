@@ -83,8 +83,6 @@ public class BotHttpListener
         {
             Program.logger.Error($"Catched exception on handle HTTP Request\n\tRawUrl: {request.RawUrl}\n{ex}");
         }
-
-        response.Close();
     }
 
 }

@@ -164,7 +164,7 @@ public class Battle
     private async Task BattleEnd()
     {
         // ВАЖНО: Результаты должны быть посчитаны до вызова HandleBattleEndForPlayer
-        var hasWinner = firstUnit.unitStats.currentHP != secondUnit.unitStats.currentHP;
+        var hasWinner = firstUnit.unitStats.currentHP > 0 || secondUnit.unitStats.currentHP > 0;
         var firstUnitResult = hasWinner
             ? (firstUnit.unitStats.currentHP > secondUnit.unitStats.currentHP ? BattleResult.Win : BattleResult.Lose)
             : BattleResult.Draw;

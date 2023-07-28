@@ -58,21 +58,24 @@ public static class StringExtensions
         if (input < 1_000_000)
         {
             var rounded = (float)input / 1_000;
-            var rest = rounded - (int)rounded;
-            return rest < 0.1f ? $"{rounded:F0}K" : $"{rounded:F1}K";
+            var fullPart = (int)rounded;
+            var remainder = (int)(rounded * 10) - ((int)rounded * 10);
+            return fullPart.ToString() + (remainder > 0 ? $".{remainder}" : string.Empty) + 'K';
         }
 
         if (input < 1_000_000_000)
         {
             var rounded = (float)input / 1_000_000;
-            var rest = rounded - (int)rounded;
-            return rest < 0.1f ? $"{rounded:F0}M" : $"{rounded:F1}M";
+            var fullPart = (int)rounded;
+            var remainder = (int)(rounded * 10) - ((int)rounded * 10);
+            return fullPart.ToString() + (remainder > 0 ? $".{remainder}" : string.Empty) + 'M';
         }
         else
         {
             var rounded = (float)input / 1_000_000_000;
-            var rest = rounded - (int)rounded;
-            return rest < 0.1f ? $"{rounded:F0}B" : $"{rounded:F1}B";
+            var fullPart = (int)rounded;
+            var remainder = (int)(rounded * 10) - ((int)rounded * 10);
+            return fullPart.ToString() + (remainder > 0 ? $".{remainder}" : string.Empty) + 'B';
         }
     }
 
