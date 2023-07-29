@@ -49,6 +49,7 @@ public class NotificationsManager : Service
         var notification = new StringBuilder();
         var playerBuildings = session.player.buildings.GetAllBuildings();
         var buildingsData = session.profile.buildingsData;
+        var realUpdatesCount = 0; // КОСТЫЛЬ: Без этого бывал пустой апдейт, который зацикливал нотификации
         foreach (var building in playerBuildings)
         {
             if (!building.HasImportantUpdates(buildingsData))
@@ -58,14 +59,20 @@ public class NotificationsManager : Service
             notification.AppendLine(header);
 
             var updates = building.GetUpdates(session, buildingsData, onlyImportant: true);
+            
             foreach (var update in updates)
             {
-                notification.AppendLine(Emojis.ElementSmallBlack + update);
+                if (!string.IsNullOrWhiteSpace(update))
+                {
+                    notification.AppendLine(Emojis.ElementSmallBlack + update);
+                    realUpdatesCount++;
+                }
+                
             }
             notification.AppendLine();
         }
 
-        if (notification.Length > 0)
+        if (notification.Length > 0 && realUpdatesCount > 0)
         {
             await ShowNotification(session, notification, () => CommonNotificationsLogic(session, onNotificationsEnd)).FastAwait();
             return;

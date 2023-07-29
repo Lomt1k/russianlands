@@ -106,13 +106,14 @@ public abstract class ProductionBuildingBase : BuildingBase
         }
 
         var startFarmTime = GetStartFarmTime(data);
+        var dtNow = DateTime.UtcNow;
         if (startFarmTime == DateTime.MinValue) //fix incorrect startTime
         {
-            SetStartFarmTime(data, DateTime.UtcNow);
+            SetStartFarmTime(data, dtNow);
             return;
         }
 
-        var dtNow = DateTime.UtcNow;
+        
         var farmHours = (dtNow - startFarmTime).TotalHours;
         var farmPerHour = GetCurrentLevelFirstWorkerProductionPerHour(data)
             + GetCurrentLevelSecondWorkerProductionPerHour(data);
@@ -204,7 +205,8 @@ public abstract class ProductionBuildingBase : BuildingBase
 
     protected override void OnConstructionEnd(ProfileBuildingsData data, DateTime startConstructionTime, DateTime endConstructionTime)
     {
-        SetStartFarmTime(data, endConstructionTime);
+        var dtNow = DateTime.UtcNow;
+        SetStartFarmTime(data, endConstructionTime > dtNow ? dtNow : endConstructionTime);
     }
 
     public override string? GetSpecialConstructionWarning(ProfileBuildingsData data, GameSession session)
