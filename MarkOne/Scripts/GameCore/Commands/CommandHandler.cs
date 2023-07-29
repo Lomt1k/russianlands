@@ -22,7 +22,6 @@ public static class CommandHandler
             // cheats
             { "//", new Cheats.CheatsCommand() },
             { "/cheats", new Cheats.CheatsCommand() },
-            { "/fakeid", new FakeIdCommand() },
             { "/language", new LanguageCommand() },
             { "/addresource", new Cheats.AddResourceCommand() },
             { "/additem", new Cheats.AddItemCommand() },

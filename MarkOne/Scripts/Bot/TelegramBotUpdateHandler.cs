@@ -1,20 +1,14 @@
 ﻿using System;
 using System.Threading.Tasks;
-using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Services;
 using MarkOne.Scripts.GameCore.Sessions;
 using FastTelegramBot.DataTypes;
 using System.Collections.Generic;
-using FastTelegramBot.DataTypes.Keyboards;
 
 namespace MarkOne.Scripts.Bot;
 public class TelegramBotUpdateHandler
 {
-    private readonly string accountIsBusyText = Emojis.ElementWarning + Localization.GetDefault("account_is_busy_message");
-    private readonly ReplyKeyboardMarkup restartButton = new (Localization.GetDefault("restart_button"));
-
     private static readonly SessionManager sessionManager = ServiceLocator.Get<SessionManager>();
-    private static readonly MessageSender messageSender = ServiceLocator.Get<MessageSender>();
 
     public void HandleUpdates(List<Update> updates)
     {
@@ -46,12 +40,6 @@ public class TelegramBotUpdateHandler
                 return;
             }
 
-            if (sessionManager.IsAccountUsedByFakeId(fromUser))
-            {
-                SendAccountIsBusyMessage(fromUser.Id);
-                return;
-            }
-
             var gameSession = sessionManager.GetOrCreateSession(fromUser);
             Task.Run(() => gameSession.HandleUpdateAsync(fromUser, update));
         }
@@ -59,11 +47,6 @@ public class TelegramBotUpdateHandler
         {
             Program.logger.Error($"Exception on handle update with ID: {update.Id}\n{ex}\n");
         }
-    }
-
-    private async void SendAccountIsBusyMessage(ChatId id)
-    {
-        await messageSender.SendTextDialog(id, accountIsBusyText, restartButton, silent: true).FastAwait();
     }
 
 }

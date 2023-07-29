@@ -1,6 +1,5 @@
 ﻿{
 	"maintenance_message" : "<b>Maintenance</b>\n\nMaintenance work in progress. Please try restarting the game later...",
-	"account_is_busy_message" : "Access to your account is temporarily restricted.\n\nThe administrator is doing technical work. Please try restarting the game later...",
 	"restart_button" : "Restart",
 	
 	"daily_reminder_variant_0" : "Hero! We need you! Get back to work soon!",

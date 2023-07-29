@@ -21,7 +21,6 @@ public class SessionManager : Service
     private int _periodicSaveDatabaseInMs;
     private CancellationTokenSource _allSessionsTasksCTS = new CancellationTokenSource();
     private readonly ConcurrentDictionary<ChatId, GameSession> _sessions = new();
-    private readonly ConcurrentDictionary<long, long> _fakeIdsDict = new(); //cheat: allow play as another telegram user
 
     public int sessionsCount => _sessions.Count;
     public CancellationTokenSource allSessionsTasksCTS => _allSessionsTasksCTS;
@@ -39,8 +38,7 @@ public class SessionManager : Service
     {
         return _sessions.GetOrAdd(user.Id, (chatId) =>
         {
-            var useFakeChatId = _fakeIdsDict.TryGetValue(user.Id, out var fakeChatId);
-            return useFakeChatId ? new GameSession(user, fakeChatId) : new GameSession(user);
+            return new GameSession(user);
         });
     }
 
@@ -53,18 +51,6 @@ public class SessionManager : Service
     {
         _sessions.TryGetValue(id, out var session);
         return session;
-    }
-
-    public bool IsAccountUsedByFakeId(User user)
-    {
-        foreach (var fakeId in _fakeIdsDict.Values)
-        {
-            if (fakeId == user.Id)
-            {
-                return true;
-            }
-        }
-        return false;
     }
 
     private async Task PeriodicSaveProfilesAsync()
@@ -181,17 +167,6 @@ public class SessionManager : Service
 
         await Task.WhenAll(sendMessageTasks).FastAwait();
         Program.logger.Info("Notifications sending completed");
-    }
-
-    // allow play as another telegram user
-    public void Cheat_SetFakeId(long telegramId, long fakeId)
-    {
-        if (fakeId == 0 || fakeId == telegramId)
-        {
-            _fakeIdsDict.TryRemove(telegramId, out _);
-            return;
-        }
-        _fakeIdsDict[telegramId] = fakeId;
     }
 
 
