@@ -87,7 +87,7 @@ public static class ItemKeywordActionsHandler
         if (abilitiesDict.TryGetValue(AbilityType.FinishingKeyword, out var finishingAbility))
         {
             var ability = (FinishingKeywordAbility)finishingAbility;
-            var multiplicator = ((float)ability.damageBonusPercentage / 100) + 1f;
+            var multiplicator = (float)ability.damageBonusPercentage / 100;
             battleTurn.enemy.unitStats.PredictDealDamageResult(generalAttack.damageInfo, out var predictedDamage, out var _);
             var bonusDamageIfFinishing = predictedDamage * multiplicator;
             battleTurn.enemy.unitStats.PredictDealDamageResult(generalAttack.damageInfo + bonusDamageIfFinishing, out _, out var resultHealth);
