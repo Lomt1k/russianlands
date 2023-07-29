@@ -22,6 +22,7 @@ internal sealed class EditorRewardsListViewModel : EditorListViewModel<RewardBas
             {"Resource AB With One Bonus", () => result = new ResourceABWithOneBonusReward() },
             {"Item With Code", () => result = new ItemWithCodeReward() },
             {"Random Item", () => result = new RandomItemReward() },
+            {"Random Fruits", () => result = new RandomFruitsReward() },
         });
         return result;
     }
@@ -35,6 +36,7 @@ internal sealed class EditorRewardsListViewModel : EditorListViewModel<RewardBas
             ResourceABWithOneBonusReward reward => new EditorResourceABWithOneBonusRewardView() { DataContext = new EditorResourceABWithOneBonusRewardViewModel(reward) },
             ItemWithCodeReward reward => new EditorItemWithCodeRewardView() { DataContext = new EditorItemWithCodeRewardViewModel(reward) },
             RandomItemReward reward => new EditorRandomItemRewardView() { DataContext = new EditorRandomItemRewardViewModel(reward) },
+            RandomFruitsReward reward => new EditorRandomFruitsRewardView { DataContext = new EditorRandomFruitsRewardViewModel(reward) },
         };
     }
 }

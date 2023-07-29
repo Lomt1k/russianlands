@@ -28,12 +28,14 @@ public class Battle
 
     private readonly CancellationTokenSource _forceBattleCTS;
 
+    private bool _battleEndedWithCheat = false;
+
     public BattleType battleType { get; }
     public IBattleUnit firstUnit { get; private set; }
     public IBattleUnit secondUnit { get; private set; }
     public BattleTurn? currentTurn { get; private set; }
     public bool isPVE { get; private set; }
-    public DateTime startTime { get; private set; }
+    public DateTime startTime { get; private set; }    
 
     public Battle(Player opponentA, IBattleUnit opponentB, IEnumerable<RewardBase>? rewards = null,
         Func<Player, BattleResult, Task>? onBattleEndFunc = null,
@@ -118,7 +120,10 @@ public class Battle
             await currentTurn.HandleTurn().FastAwait();
         }
         currentTurn = null;
-        await BattleEnd().FastAwait();
+        if (!_battleEndedWithCheat)
+        {
+            await BattleEnd().FastAwait();
+        }
     }
 
     public string GetStatsView(GameSession session)
@@ -183,10 +188,11 @@ public class Battle
         battleManager.UnregisterBattle(this);
     }
 
-    // Вызывается при ошибке (либо читом)
+    // Вызывается читом
     public async Task ForceBattleEndWithResult(Player player, BattleResult battleResult)
     {
         battleManager.UnregisterBattle(this);
+        _battleEndedWithCheat = true;
         _forceBattleCTS.Cancel();
 
         if (!player.session.cancellationToken.IsCancellationRequested)

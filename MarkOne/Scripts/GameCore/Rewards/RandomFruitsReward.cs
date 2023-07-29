@@ -1,4 +1,5 @@
-﻿using MarkOne.Scripts.GameCore.Localizations;
+﻿using MarkOne.Scripts.Bot;
+using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Resources;
 using MarkOne.Scripts.GameCore.Sessions;
 using System;
@@ -40,12 +41,16 @@ public class RandomFruitsReward : RewardBase
         }
 
         session.player.resources.ForceAdd(resourceDatas);
-        var result = resourceDatas.GetLocalizedView(session);
+        var result = resourceDatas.Length == 1
+            ? resourceDatas[0].GetLocalizedView(session)
+            : resourceDatas.GetLocalizedView(session);
         return Task.FromResult(result);
     }
 
     public override string GetPossibleRewardsView(GameSession session)
     {
-        return Localization.Get(session, "reward_random_fruits", amount);
+        return amount == 1
+            ? Emojis.ResourceFruitApple + Localization.Get(session, "reward_random_fruit")
+            : Emojis.ResourceFruitApple + Localization.Get(session, "reward_random_fruits", amount);
     }
 }

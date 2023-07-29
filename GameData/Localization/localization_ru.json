@@ -423,6 +423,7 @@
 	"resource_name_arenachip" : "Аренные фишки",
 	
 	"premium_reward" : "<b>Премиум:</b> {0}",
+	"reward_random_fruit" : "<b>Случайный фрукт</b>",
 	"reward_random_fruits" : "<b>Случайные фрукты:</b> {0}",
 	
 	"item_rarity_common" : "Обычный",

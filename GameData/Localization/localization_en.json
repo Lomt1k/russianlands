@@ -423,6 +423,7 @@
 	"resource_name_arenachip" : "Arena chips",
 	
 	"premium_reward" : "<b>Premium:</b> {0}",
+	"reward_random_fruit" : "<b>Random fruit</b>",
 	"reward_random_fruits" : "<b>Random fruits:</b> {0}",
 	
 	"item_rarity_common" : "Common",

@@ -324,6 +324,10 @@
             "count": 1
           },
           {
+            "$type": "RandomFruitsReward",
+            "amount": 1
+          },
+          {
             "$type": "ResourceReward",
             "resourceId": 2,
             "amount": 5
@@ -359,6 +363,10 @@
             "rarity": 1,
             "itemType": -1,
             "count": 1
+          },
+          {
+            "$type": "RandomFruitsReward",
+            "amount": 1
           },
           {
             "$type": "ResourceReward",
@@ -398,6 +406,10 @@
             "count": 1
           },
           {
+            "$type": "RandomFruitsReward",
+            "amount": 1
+          },
+          {
             "$type": "ResourceReward",
             "resourceId": 2,
             "amount": 5
@@ -433,6 +445,10 @@
             "rarity": 1,
             "itemType": -1,
             "count": 1
+          },
+          {
+            "$type": "RandomFruitsReward",
+            "amount": 1
           },
           {
             "$type": "ResourceReward",
@@ -528,6 +544,10 @@
             "count": 1
           },
           {
+            "$type": "RandomFruitsReward",
+            "amount": 1
+          },
+          {
             "$type": "ResourceReward",
             "resourceId": 2,
             "amount": 5
@@ -563,6 +583,10 @@
             "rarity": 1,
             "itemType": -1,
             "count": 1
+          },
+          {
+            "$type": "RandomFruitsReward",
+            "amount": 1
           },
           {
             "$type": "ResourceReward",
@@ -602,6 +626,10 @@
             "count": 1
           },
           {
+            "$type": "RandomFruitsReward",
+            "amount": 1
+          },
+          {
             "$type": "ResourceReward",
             "resourceId": 2,
             "amount": 5
@@ -637,6 +665,10 @@
             "rarity": 1,
             "itemType": -1,
             "count": 1
+          },
+          {
+            "$type": "RandomFruitsReward",
+            "amount": 1
           },
           {
             "$type": "ResourceReward",
@@ -732,6 +764,10 @@
             "count": 1
           },
           {
+            "$type": "RandomFruitsReward",
+            "amount": 1
+          },
+          {
             "$type": "ResourceReward",
             "resourceId": 2,
             "amount": 5
@@ -767,6 +803,10 @@
             "rarity": 1,
             "itemType": -1,
             "count": 1
+          },
+          {
+            "$type": "RandomFruitsReward",
+            "amount": 1
           },
           {
             "$type": "ResourceReward",
@@ -806,6 +846,10 @@
             "count": 1
           },
           {
+            "$type": "RandomFruitsReward",
+            "amount": 1
+          },
+          {
             "$type": "ResourceReward",
             "resourceId": 2,
             "amount": 5
@@ -841,6 +885,10 @@
             "rarity": 1,
             "itemType": -1,
             "count": 1
+          },
+          {
+            "$type": "RandomFruitsReward",
+            "amount": 1
           },
           {
             "$type": "ResourceReward",
@@ -936,6 +984,10 @@
             "count": 1
           },
           {
+            "$type": "RandomFruitsReward",
+            "amount": 1
+          },
+          {
             "$type": "ResourceReward",
             "resourceId": 2,
             "amount": 5
@@ -971,6 +1023,10 @@
             "rarity": 1,
             "itemType": -1,
             "count": 1
+          },
+          {
+            "$type": "RandomFruitsReward",
+            "amount": 1
           },
           {
             "$type": "ResourceReward",
@@ -1010,6 +1066,10 @@
             "count": 1
           },
           {
+            "$type": "RandomFruitsReward",
+            "amount": 1
+          },
+          {
             "$type": "ResourceReward",
             "resourceId": 2,
             "amount": 5
@@ -1045,6 +1105,10 @@
             "rarity": 1,
             "itemType": -1,
             "count": 1
+          },
+          {
+            "$type": "RandomFruitsReward",
+            "amount": 1
           },
           {
             "$type": "ResourceReward",
@@ -1140,6 +1204,10 @@
             "count": 1
           },
           {
+            "$type": "RandomFruitsReward",
+            "amount": 1
+          },
+          {
             "$type": "ResourceReward",
             "resourceId": 2,
             "amount": 5
@@ -1175,6 +1243,10 @@
             "rarity": 1,
             "itemType": -1,
             "count": 1
+          },
+          {
+            "$type": "RandomFruitsReward",
+            "amount": 1
           },
           {
             "$type": "ResourceReward",
@@ -1214,6 +1286,10 @@
             "count": 1
           },
           {
+            "$type": "RandomFruitsReward",
+            "amount": 1
+          },
+          {
             "$type": "ResourceReward",
             "resourceId": 2,
             "amount": 5
@@ -1249,6 +1325,10 @@
             "rarity": 1,
             "itemType": -1,
             "count": 1
+          },
+          {
+            "$type": "RandomFruitsReward",
+            "amount": 1
           },
           {
             "$type": "ResourceReward",
@@ -1344,6 +1424,10 @@
             "count": 1
           },
           {
+            "$type": "RandomFruitsReward",
+            "amount": 1
+          },
+          {
             "$type": "ResourceReward",
             "resourceId": 2,
             "amount": 5
@@ -1379,6 +1463,10 @@
             "rarity": 1,
             "itemType": -1,
             "count": 1
+          },
+          {
+            "$type": "RandomFruitsReward",
+            "amount": 1
           },
           {
             "$type": "ResourceReward",
@@ -1418,6 +1506,10 @@
             "count": 1
           },
           {
+            "$type": "RandomFruitsReward",
+            "amount": 1
+          },
+          {
             "$type": "ResourceReward",
             "resourceId": 2,
             "amount": 5
@@ -1453,6 +1545,10 @@
             "rarity": 1,
             "itemType": -1,
             "count": 1
+          },
+          {
+            "$type": "RandomFruitsReward",
+            "amount": 1
           },
           {
             "$type": "ResourceReward",
