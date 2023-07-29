@@ -91,7 +91,6 @@ public class TryCollectResourcesDialog : DialogBase
             }
         }
 
-        buildingsData.lastResourceCollectTime = dtNow;
         return sb.ToString();
     }
 

@@ -119,6 +119,7 @@ public abstract class ProductionBuildingBase : BuildingBase
             + GetCurrentLevelSecondWorkerProductionPerHour(data);
         var farmedTotal = (int)(farmPerHour * farmHours);
         var addResourceAmount = Math.Min(farmedTotal, addResourceLimit);
+        addResourceAmount = Math.Max(addResourceAmount, 0);
 
         SetStorageResourceAmount(data, storageAmount + addResourceAmount);
         SetStartFarmTime(data, dtNow);

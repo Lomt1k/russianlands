@@ -49,7 +49,6 @@ public class NotificationsManager : Service
         var notification = new StringBuilder();
         var playerBuildings = session.player.buildings.GetAllBuildings();
         var buildingsData = session.profile.buildingsData;
-        var realUpdatesCount = 0; // КОСТЫЛЬ: Без этого бывал пустой апдейт, который зацикливал нотификации
         foreach (var building in playerBuildings)
         {
             if (!building.HasImportantUpdates(buildingsData))
@@ -62,17 +61,12 @@ public class NotificationsManager : Service
             
             foreach (var update in updates)
             {
-                if (!string.IsNullOrWhiteSpace(update))
-                {
-                    notification.AppendLine(Emojis.ElementSmallBlack + update);
-                    realUpdatesCount++;
-                }
-                
+                notification.AppendLine(Emojis.ElementSmallBlack + update);
             }
             notification.AppendLine();
         }
 
-        if (notification.Length > 0 && realUpdatesCount > 0)
+        if (notification.Length > 0)
         {
             await ShowNotification(session, notification, () => CommonNotificationsLogic(session, onNotificationsEnd)).FastAwait();
             return;
@@ -119,11 +113,6 @@ public class NotificationsManager : Service
     private bool NeedForceClaimResources(GameSession session)
     {
         var buildingsData = session.profile.buildingsData;
-        var timeAfterLastCollect = DateTime.UtcNow - buildingsData.lastResourceCollectTime;
-        if (timeAfterLastCollect.Minutes < 10)
-        {
-            return false;
-        }
 
         var productionBuildings = session.player.buildings.GetBuildingsByCategory(BuildingCategory.Production);
         foreach (ProductionBuildingBase building in productionBuildings)
