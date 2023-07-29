@@ -39,7 +39,7 @@ public static class StringExtensions
         for (var i = 0; i < input.Length; i++)
         {
             var symbol = input[i];
-            if (!char.IsLetterOrDigit(symbol) && !char.IsWhiteSpace(symbol))
+            if (!char.IsLetterOrDigit(symbol) && !char.IsWhiteSpace(symbol) && symbol != '_')
             {
                 return false;
             }
