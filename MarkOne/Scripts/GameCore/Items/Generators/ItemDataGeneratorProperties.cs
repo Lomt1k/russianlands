@@ -9,24 +9,16 @@ public abstract partial class ItemDataGeneratorBase
         if (_properties.TryGetValue(PropertyType.DamageResist, out var damageResist))
         {
             ((DamageResistProperty)damageResist).physicalDamage += value;
-            _statIcons.Add(ItemStatIcon.PhysicalDamage);
             return;
         }
 
         var property = (DamageResistProperty)ItemPropertyRegistry.GetNewProperty(PropertyType.DamageResist);
         property.physicalDamage = value;
         _properties.Add(PropertyType.DamageResist, property);
-
-        // у колец и амулетов защита от физ. урона как бонусное свойство (должно быть с иконкой)
-        if (seed.itemType == ItemType.Amulet || seed.itemType == ItemType.Ring)
-        {
-            _statIcons.Add(ItemStatIcon.PhysicalDamage);
-        }
     }
 
     protected void AddFireDamageResist(int value)
     {
-        _statIcons.Add(ItemStatIcon.FireDamage);
         if (_properties.TryGetValue(PropertyType.DamageResist, out var damageResist))
         {
             ((DamageResistProperty)damageResist).fireDamage += value;
@@ -40,7 +32,6 @@ public abstract partial class ItemDataGeneratorBase
 
     protected void AddColdDamageResist(int value)
     {
-        _statIcons.Add(ItemStatIcon.ColdDamage);
         if (_properties.TryGetValue(PropertyType.DamageResist, out var damageResist))
         {
             ((DamageResistProperty)damageResist).coldDamage += value;
@@ -54,7 +45,6 @@ public abstract partial class ItemDataGeneratorBase
 
     protected void AddLightningDamageResist(int value)
     {
-        _statIcons.Add(ItemStatIcon.LightningDamage);
         if (_properties.TryGetValue(PropertyType.DamageResist, out var damageResist))
         {
             ((DamageResistProperty)damageResist).lightningDamage += value;
@@ -68,7 +58,6 @@ public abstract partial class ItemDataGeneratorBase
 
     protected void AddIncreaseMaxHealth(int value)
     {
-        _statIcons.Add(ItemStatIcon.IncreaseHealth);
         if (_properties.TryGetValue(PropertyType.IncreaseMaxHealth, out var property))
         {
             ((IncreaseMaxHealthProperty)property).value += value;

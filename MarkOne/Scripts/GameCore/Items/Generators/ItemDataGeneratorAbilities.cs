@@ -24,7 +24,6 @@ public abstract partial class ItemDataGeneratorBase
                 temp += chancePercentage;
                 _stackOfChances[abilityType]++;
                 dealDamage.chanceToSuccessPercentage = (byte)Math.Round(temp / _stackOfChances[abilityType]);
-                _statIcons.Add(ItemStatIcon.PhysicalDamage);
             }
             return;
         }
@@ -51,7 +50,6 @@ public abstract partial class ItemDataGeneratorBase
                 temp += chancePercentage;
                 _stackOfChances[abilityType]++;
                 dealDamage.chanceToSuccessPercentage = (byte)Math.Round(temp / _stackOfChances[abilityType]);
-                _statIcons.Add(ItemStatIcon.PhysicalDamage);
             }
             return;
         }
@@ -66,7 +64,6 @@ public abstract partial class ItemDataGeneratorBase
 
     protected void AddDealFireDamage(int value, byte chancePercentage = 100)
     {
-        _statIcons.Add(ItemStatIcon.FireDamage);
         var abilityType = AbilityType.DealDamage;
         if (_abilities.TryGetValue(abilityType, out var ability))
         {
@@ -93,7 +90,6 @@ public abstract partial class ItemDataGeneratorBase
 
     protected void AddDealFireDamage(int minDamage, int maxDamage, byte chancePercentage = 100)
     {
-        _statIcons.Add(ItemStatIcon.FireDamage);
         var abilityType = AbilityType.DealDamage;
         if (_abilities.TryGetValue(abilityType, out var ability))
         {
@@ -120,7 +116,6 @@ public abstract partial class ItemDataGeneratorBase
 
     protected void AddDealColdDamage(int value, byte chancePercentage = 100)
     {
-        _statIcons.Add(ItemStatIcon.ColdDamage);
         var abilityType = AbilityType.DealDamage;
         if (_abilities.TryGetValue(abilityType, out var ability))
         {
@@ -147,7 +142,6 @@ public abstract partial class ItemDataGeneratorBase
 
     protected void AddDealColdDamage(int minDamage, int maxDamage, byte chancePercentage = 100)
     {
-        _statIcons.Add(ItemStatIcon.ColdDamage);
         var abilityType = AbilityType.DealDamage;
         if (_abilities.TryGetValue(abilityType, out var ability))
         {
@@ -174,7 +168,6 @@ public abstract partial class ItemDataGeneratorBase
 
     protected void AddDealLightningDamage(int value, byte chancePercentage = 100)
     {
-        _statIcons.Add(ItemStatIcon.LightningDamage);
         var abilityType = AbilityType.DealDamage;
         if (_abilities.TryGetValue(abilityType, out var ability))
         {
@@ -201,7 +194,6 @@ public abstract partial class ItemDataGeneratorBase
 
     protected void AddDealLightningDamage(int minDamage, int maxDamage, byte chancePercentage = 100)
     {
-        _statIcons.Add(ItemStatIcon.LightningDamage);
         var abilityType = AbilityType.DealDamage;
         if (_abilities.TryGetValue(abilityType, out var ability))
         {
@@ -241,7 +233,6 @@ public abstract partial class ItemDataGeneratorBase
                 temp += chancePercentage;
                 _stackOfChances[abilityType]++;
                 blockDamage.chanceToSuccessPercentage = (byte)Math.Round(temp / _stackOfChances[abilityType]);
-                _statIcons.Add(ItemStatIcon.PhysicalDamage);
             }
             return;
         }
@@ -255,7 +246,6 @@ public abstract partial class ItemDataGeneratorBase
 
     protected void AddBlockIncomingFireDamage(int value, byte chancePercentage = 25)
     {
-        _statIcons.Add(ItemStatIcon.FireDamage);
         var abilityType = AbilityType.BlockIncomingDamageEveryTurn;
         if (_abilities.TryGetValue(abilityType, out var ability))
         {
@@ -279,7 +269,6 @@ public abstract partial class ItemDataGeneratorBase
 
     protected void AddBlockIncomingColdDamage(int value, byte chancePercentage = 25)
     {
-        _statIcons.Add(ItemStatIcon.ColdDamage);
         var abilityType = AbilityType.BlockIncomingDamageEveryTurn;
         if (_abilities.TryGetValue(abilityType, out var ability))
         {
@@ -303,7 +292,6 @@ public abstract partial class ItemDataGeneratorBase
 
     protected void AddBlockIncomingLightningDamage(int value, byte chancePercentage = 25)
     {
-        _statIcons.Add(ItemStatIcon.LightningDamage);
         var abilityType = AbilityType.BlockIncomingDamageEveryTurn;
         if (_abilities.TryGetValue(abilityType, out var ability))
         {
@@ -329,7 +317,6 @@ public abstract partial class ItemDataGeneratorBase
 
     protected void AddRestoreHealthEveryTurn(int value, byte chancePercentage = 100)
     {
-        _statIcons.Add(ItemStatIcon.RestoreHealth);
         var abilityType = AbilityType.RestoreHealthEveryTurn;
         if (_abilities.TryGetValue(abilityType, out var ability))
         {
@@ -354,7 +341,6 @@ public abstract partial class ItemDataGeneratorBase
 
     protected void AddManaEveryTurn(sbyte manaAmount, byte chancePercentage = 100)
     {
-        _statIcons.Add(ItemStatIcon.Mana);
         var abilityType = AbilityType.AddManaEveryTurn;
         if (_abilities.TryGetValue(abilityType, out var ability))
         {

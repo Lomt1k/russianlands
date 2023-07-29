@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using MarkOne.Scripts.Utils;
 using MarkOne.Scripts.GameCore.Sessions;
+using System.Collections.Generic;
 
 namespace MarkOne.Scripts.GameCore.Items.ItemAbilities;
 
@@ -31,6 +32,7 @@ public abstract class ItemAbilityBase
     }
 
     public abstract string GetView(GameSession session);
+    public abstract IEnumerable<ItemStatIcon> GetIcons(ItemType itemType);
     public virtual void ApplySkillLevel(byte level)
     {
         // ignored by default

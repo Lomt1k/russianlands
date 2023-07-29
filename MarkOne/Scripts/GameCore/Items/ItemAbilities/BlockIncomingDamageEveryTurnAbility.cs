@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.Text;
 using MarkOne.Scripts.GameCore.Sessions;
 
 namespace MarkOne.Scripts.GameCore.Items.ItemAbilities;
@@ -66,4 +67,19 @@ public class BlockIncomingDamageEveryTurnAbility : ItemAbilityBase
         IncreaseByPercents(ref lightningDamage, level);
     }
 
+    public override IEnumerable<ItemStatIcon> GetIcons(ItemType itemType)
+    {
+        if (fireDamage > 0)
+        {
+            yield return ItemStatIcon.FireDamage;
+        }
+        if (coldDamage > 0)
+        {
+            yield return ItemStatIcon.ColdDamage;
+        }
+        if (lightningDamage > 0)
+        {
+            yield return ItemStatIcon.LightningDamage;
+        }
+    }
 }

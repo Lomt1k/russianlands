@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.Text;
 using MarkOne.Scripts.GameCore.Sessions;
 
 namespace MarkOne.Scripts.GameCore.Items.ItemProperties;
@@ -16,6 +17,26 @@ public class DamageResistProperty : ItemPropertyBase
     public DamageInfo GetValues()
     {
         return new DamageInfo(physicalDamage, fireDamage, coldDamage, lightningDamage);
+    }
+
+    public override IEnumerable<ItemStatIcon> GetIcons(ItemType itemType)
+    {
+        if (physicalDamage > 0 && (itemType is ItemType.Amulet or ItemType.Ring))
+        {
+            yield return ItemStatIcon.PhysicalDamage;
+        }
+        if (fireDamage > 0)
+        {
+            yield return ItemStatIcon.FireDamage;
+        }
+        if (coldDamage > 0)
+        {
+            yield return ItemStatIcon.ColdDamage;
+        }
+        if (lightningDamage > 0)
+        {
+            yield return ItemStatIcon.LightningDamage;
+        }
     }
 
     public override string ToString()

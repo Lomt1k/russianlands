@@ -1,4 +1,5 @@
 ﻿using MarkOne.Scripts.GameCore.Sessions;
+using System.Collections.Generic;
 
 namespace MarkOne.Scripts.GameCore.Items.ItemProperties;
 
@@ -8,6 +9,11 @@ public class IncreaseMaxHealthProperty : ItemPropertyBase
     public override PropertyType propertyType => PropertyType.IncreaseMaxHealth;
 
     public int value;
+
+    public override IEnumerable<ItemStatIcon> GetIcons(ItemType itemType)
+    {
+        yield return ItemStatIcon.IncreaseHealth;
+    }
 
     public override string ToString()
     {

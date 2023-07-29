@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.Text;
 using MarkOne.Scripts.GameCore.Sessions;
 
 namespace MarkOne.Scripts.GameCore.Items.ItemAbilities.Keywords;
@@ -46,6 +47,11 @@ public class SwordBlockKeywordAbility : ItemAbilityBase
         }
 
         return sb.ToString();
+    }
+
+    public override IEnumerable<ItemStatIcon> GetIcons(ItemType itemType)
+    {
+        yield return ItemStatIcon.KeywordSwordBlock;
     }
 
     public override string GetView(GameSession session)

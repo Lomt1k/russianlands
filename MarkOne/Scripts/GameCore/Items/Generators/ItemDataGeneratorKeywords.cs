@@ -11,7 +11,6 @@ public abstract partial class ItemDataGeneratorBase
 {
     protected void AddSwordBlockKeyword(DamageInfo blockInfo, byte chancePercentage = 100)
     {
-        _statIcons.Add(ItemStatIcon.KeywordSwordBlock);
         var abilityType = AbilityType.SwordBlockEveryTurnKeyword;
         var newAbility = (SwordBlockKeywordAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
 
@@ -26,7 +25,6 @@ public abstract partial class ItemDataGeneratorBase
 
     protected void AddBowLastShotKeyword()
     {
-        _statIcons.Add(ItemStatIcon.KeywordBowLastShot);
         var abilityType = AbilityType.BowLastShotKeyword;
         var newAbility = (BowLastShotKeywordAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
         _abilities.Add(abilityType, newAbility);
@@ -34,7 +32,6 @@ public abstract partial class ItemDataGeneratorBase
 
     protected void AddAddArrowKeyword(byte chancePercentage)
     {
-        _statIcons.Add(ItemStatIcon.KeywordAddArrow);
         var abilityType = AbilityType.AddArrowKeyword;
         var newAbility = (AddArrowKeywordAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
 
@@ -45,7 +42,6 @@ public abstract partial class ItemDataGeneratorBase
 
     protected void AddStealManaKeyword(byte chancePercentage)
     {
-        _statIcons.Add(ItemStatIcon.KeywordStealMana);
         var abilityType = AbilityType.StealManaKeyword;
         var newAbility = (StealManaKeywordAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
 
@@ -56,7 +52,6 @@ public abstract partial class ItemDataGeneratorBase
 
     protected void AddAdditionalFireDamageKeyword(int damage, byte chancePercentage)
     {
-        _statIcons.Add(ItemStatIcon.KeywordAdditionalDamage);
         var abilityType = AbilityType.AdditionalFireDamageKeyword;
         var newAbility = (AdditionalFireDamageKeywordAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
 
@@ -68,7 +63,6 @@ public abstract partial class ItemDataGeneratorBase
 
     protected void AddAdditionalColdDamageKeyword(int damage, byte chancePercentage)
     {
-        _statIcons.Add(ItemStatIcon.KeywordAdditionalDamage);
         var abilityType = AbilityType.AdditionalColdDamageKeyword;
         var newAbility = (AdditionalColdDamageKeywordAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
 
@@ -80,7 +74,6 @@ public abstract partial class ItemDataGeneratorBase
 
     protected void AddAdditionalLightningDamageKeyword(int damage, byte chancePercentage)
     {
-        _statIcons.Add(ItemStatIcon.KeywordAdditionalDamage);
         var abilityType = AbilityType.AdditionalLightningDamageKeyword;
         var newAbility = (AdditionalLightningDamageKeywordAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
 
@@ -92,7 +85,6 @@ public abstract partial class ItemDataGeneratorBase
 
     protected void AddRageKeyword()
     {
-        _statIcons.Add(ItemStatIcon.KeywordRage);
         var abilityType = AbilityType.RageKeyword;
         var newAbility = (RageKeywordAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
         _abilities.Add(abilityType, newAbility);
@@ -100,7 +92,6 @@ public abstract partial class ItemDataGeneratorBase
 
     protected void AddFinishingKeyword(byte bonusDamagePercentage)
     {
-        _statIcons.Add(ItemStatIcon.KeywordFinishing);
         var abilityType = AbilityType.FinishingKeyword;
         var newAbility = (FinishingKeywordAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
 
@@ -111,7 +102,6 @@ public abstract partial class ItemDataGeneratorBase
 
     protected void AddAbsorptionKeyword(byte chancePercentage)
     {
-        _statIcons.Add(ItemStatIcon.KeywordAbsorption);
         var abilityType = AbilityType.AbsorptionKeyword;
         var newAbility = (AbsorptionKeywordAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
 
@@ -122,7 +112,6 @@ public abstract partial class ItemDataGeneratorBase
 
     protected void AddAddManaKeyword(byte chancePercentage)
     {
-        _statIcons.Add(ItemStatIcon.Mana);
         var abilityType = AbilityType.AddManaKeyword;
         var newAbility = (AddManaKeywordAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
 
@@ -133,7 +122,6 @@ public abstract partial class ItemDataGeneratorBase
 
     protected void AddStunKeyword(byte chancePercentage)
     {
-        _statIcons.Add(ItemStatIcon.KeywordStun);
         var abilityType = AbilityType.StunKeyword;
         var newAbility = (StunKeywordAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
 
@@ -144,7 +132,6 @@ public abstract partial class ItemDataGeneratorBase
 
     protected void AddSanctionsKeyword(byte chancePercentage)
     {
-        _statIcons.Add(ItemStatIcon.KeywordSanctions);
         var abilityType = AbilityType.SanctionsKeyword;
         var newAbility = (SanctionsKeywordAbility)ItemAbilityRegistry.GetNewAbility(abilityType);
 

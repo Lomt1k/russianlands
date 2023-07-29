@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Sessions;
@@ -161,6 +162,22 @@ public class DealDamageAbility : ItemAbilityBase
         IncreaseByPercents(ref maxColdDamage, level);
         IncreaseByPercents(ref minLightningDamage, level);
         IncreaseByPercents(ref maxLightningDamage, level);
+    }
+
+    public override IEnumerable<ItemStatIcon> GetIcons(ItemType itemType)
+    {
+        if (maxFireDamage > 0)
+        {
+            yield return ItemStatIcon.FireDamage;
+        }
+        if (maxColdDamage > 0)
+        {
+            yield return ItemStatIcon.ColdDamage;
+        }
+        if (maxLightningDamage > 0)
+        {
+            yield return ItemStatIcon.LightningDamage;
+        }
     }
 
 }

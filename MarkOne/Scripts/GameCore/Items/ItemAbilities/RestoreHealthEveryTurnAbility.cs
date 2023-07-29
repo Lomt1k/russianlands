@@ -1,4 +1,5 @@
 ﻿using MarkOne.Scripts.GameCore.Sessions;
+using System.Collections.Generic;
 
 namespace MarkOne.Scripts.GameCore.Items.ItemAbilities;
 
@@ -9,6 +10,11 @@ public class RestoreHealthEveryTurnAbility : ItemAbilityBase
     public override AbilityType abilityType => AbilityType.RestoreHealthEveryTurn;
 
     public int healthValue;
+
+    public override IEnumerable<ItemStatIcon> GetIcons(ItemType itemType)
+    {
+        yield return ItemStatIcon.RestoreHealth;
+    }
 
     public override string ToString()
     {

@@ -13,7 +13,6 @@ public abstract partial class ItemDataGeneratorBase
 
     protected Dictionary<AbilityType, ItemAbilityBase> _abilities = new Dictionary<AbilityType, ItemAbilityBase>();
     protected Dictionary<PropertyType, ItemPropertyBase> _properties = new Dictionary<PropertyType, ItemPropertyBase>();
-    protected List<ItemStatIcon> _statIcons = new List<ItemStatIcon>();
 
     public ItemDataGeneratorBase(ItemDataSeed _seed)
     {
@@ -32,7 +31,7 @@ public abstract partial class ItemDataGeneratorBase
 
     private ItemData BakeItem()
     {
-        return new ItemData(seed, _abilities.Values.ToList(), _properties.Values.ToList(), _statIcons.OrderBy(x => x).ToList());
+        return new ItemData(seed, _abilities.Values.ToList(), _properties.Values.ToList());
     }
 
     protected void AddProperties()

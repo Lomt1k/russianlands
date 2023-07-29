@@ -6,6 +6,7 @@ using MarkOne.Scripts.GameCore.Items.Generators;
 using MarkOne.Scripts.GameCore.Items.ItemAbilities;
 using MarkOne.Scripts.GameCore.Items.ItemProperties;
 using MarkOne.Scripts.GameCore.Services.GameData;
+using System;
 
 namespace MarkOne.Scripts.GameCore.Items;
 
@@ -18,7 +19,7 @@ public class ItemData : IGameDataWithId<int>
     public byte requiredLevel { get; set; }
     public List<ItemAbilityBase> abilities { get; private set; } = new List<ItemAbilityBase>();
     public List<ItemPropertyBase> properties { get; private set; } = new List<ItemPropertyBase>();
-    public List<ItemStatIcon> statIcons { get; private set; } = new List<ItemStatIcon>();
+    public ItemStatIcon[] statIcons { get; private set; } = Array.Empty<ItemStatIcon>();
 
     [JsonIgnore]
     public byte requiredTownHall { get; private set; }
@@ -32,7 +33,7 @@ public class ItemData : IGameDataWithId<int>
     [JsonIgnore]
     public Dictionary<PropertyType, ItemPropertyBase> propertyByType;
 
-    public static ItemData brokenItem = new ItemData(new ItemDataSeed(), new List<ItemAbilityBase>(), new List<ItemPropertyBase>(), new List<ItemStatIcon>())
+    public static ItemData brokenItem = new ItemData(new ItemDataSeed(), new List<ItemAbilityBase>(), new List<ItemPropertyBase>())
     { debugName = "Broken Item" };
 
     [JsonConstructor]
@@ -44,7 +45,7 @@ public class ItemData : IGameDataWithId<int>
     }
 
     // from item generator
-    public ItemData(ItemDataSeed _seed, List<ItemAbilityBase> _abilities, List<ItemPropertyBase> _properties, List<ItemStatIcon> _statIcons)
+    public ItemData(ItemDataSeed _seed, List<ItemAbilityBase> _abilities, List<ItemPropertyBase> _properties)
     {
         debugName = string.Empty;
         id = -1;
@@ -55,7 +56,6 @@ public class ItemData : IGameDataWithId<int>
         grade = _seed.grade;
         abilities = _abilities;
         properties = _properties;
-        statIcons = _statIcons;
         RebuildDictionaries();
     }
 
@@ -91,6 +91,18 @@ public class ItemData : IGameDataWithId<int>
     {
         ablitityByType = abilities.ToDictionary(x => x.abilityType);
         propertyByType = properties.ToDictionary(x => x.propertyType);
+
+        // rerfresh statIcons
+        var iconsList = new List<ItemStatIcon>();
+        foreach (var ability in abilities)
+        {
+            iconsList.AddRange(ability.GetIcons(itemType));
+        }
+        foreach (var ability in properties)
+        {
+            iconsList.AddRange(ability.GetIcons(itemType));
+        }
+        statIcons = iconsList.OrderBy(x => x).ToArray();
     }
 
     public ItemAbilityBase AddEmptyAbility()

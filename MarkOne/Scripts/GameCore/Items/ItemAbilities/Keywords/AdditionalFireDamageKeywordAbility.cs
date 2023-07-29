@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.Text;
 using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Sessions;
@@ -11,6 +12,11 @@ public class AdditionalFireDamageKeywordAbility : ItemAbilityBase
     public override AbilityType abilityType => AbilityType.AdditionalFireDamageKeyword;
 
     public int damageAmount;
+
+    public override IEnumerable<ItemStatIcon> GetIcons(ItemType itemType)
+    {
+        yield return ItemStatIcon.KeywordAdditionalDamage;
+    }
 
     public override string ToString()
     {

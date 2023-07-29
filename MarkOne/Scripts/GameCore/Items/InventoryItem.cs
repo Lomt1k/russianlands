@@ -103,10 +103,12 @@ public class InventoryItem
 
     private void RecalculateDynamicData()
     {
+        // setup data
         data = int.TryParse(id, out var dbid)
             ? gameDataBase.items[dbid].Clone()
             : ItemDataDecoder.Decode(id);
 
+        // setup manaCost
         manaCost = 0;
         foreach (var ability in data.abilities)
         {
@@ -143,7 +145,7 @@ public class InventoryItem
         sb.Append(data.itemType.GetEmoji() + GetLocalizedName(languageCode));
 
         var statIcons = data.statIcons;
-        if (statIcons.Count > 0)
+        if (statIcons.Length > 0)
         {
             sb.Append(' ');
             foreach (var stat in statIcons)
