@@ -984,6 +984,10 @@
         "rewards": [
           {
             "$type": "ItemWithCodeReward",
+            "itemCode": "SW2G3R0"
+          },
+          {
+            "$type": "ItemWithCodeReward",
             "itemCode": "HE2G3R0"
           },
           {
@@ -994,7 +998,7 @@
           },
           {
             "$type": "ResourceRangeReward",
-            "resourceId": 1,
+            "resourceId": 0,
             "amountMin": 60,
             "amountMax": 70
           }
@@ -1037,7 +1041,7 @@
             {
               "comment": "Продолжить",
               "localizationKey": "menu_item_continue_button",
-              "nextStage": 5600
+              "nextStage": 5700
             }
           ]
         },
@@ -1059,8 +1063,8 @@
           ]
         },
         "id": 5600,
-        "comment": "Кратий завершает\r\nдиалог с Соловьем",
-        "jumpToStageIfNewSession": null
+        "comment": "[DELETED] Кратий завершает\r\nдиалог с Соловьем",
+        "jumpToStageIfNewSession": 5700
       },
       {
         "$type": "QuestStageWithReplica",
@@ -1105,7 +1109,7 @@
             {
               "comment": "Продолжить",
               "localizationKey": "menu_item_continue_button",
-              "nextStage": 6000
+              "nextStage": 6400
             }
           ]
         },
@@ -1129,53 +1133,35 @@
           }
         ],
         "id": 6000,
-        "comment": "Город",
-        "jumpToStageIfNewSession": null
+        "comment": "[DELETED] Город",
+        "jumpToStageIfNewSession": 6400
       },
       {
         "$type": "QuestStageWithDefaultReplica",
         "replicaType": 1,
         "nextStage": 6200,
         "id": 6100,
-        "comment": "Идём к точке #4",
-        "jumpToStageIfNewSession": null
+        "comment": "[DELETED] Идём к точке #4",
+        "jumpToStageIfNewSession": 6400
       },
       {
-        "$type": "QuestStageWithBattlePoint",
-        "mobId": 5,
-        "foodPrice": 50,
-        "backButtonAvailable": true,
-        "nextStageIfWin": 6400,
-        "nextStageIfLose": 6201,
-        "rewards": [
-          {
-            "$type": "ItemWithCodeReward",
-            "itemCode": "SW2G3R0"
-          },
-          {
-            "$type": "ResourceRangeReward",
-            "resourceId": 0,
-            "amountMin": 625,
-            "amountMax": 675
-          },
-          {
-            "$type": "ResourceRangeReward",
-            "resourceId": 1,
-            "amountMin": 60,
-            "amountMax": 70
-          }
-        ],
+        "$type": "QuestStageWithReplica",
+        "replica": {
+          "characterType": 0,
+          "localizationKey": "Заглушка!",
+          "answers": []
+        },
         "id": 6200,
-        "comment": "Точка #4",
-        "jumpToStageIfNewSession": null
+        "comment": "[DELETED] Точка #4",
+        "jumpToStageIfNewSession": 6400
       },
       {
         "$type": "QuestStageWithDefaultReplica",
         "replicaType": 0,
         "nextStage": 6000,
         "id": 6201,
-        "comment": "Точка #4 - Поражение",
-        "jumpToStageIfNewSession": null
+        "comment": "[DELETED] Точка #4 - Поражение",
+        "jumpToStageIfNewSession": 6400
       },
       {
         "$type": "QuestStageWithTrigger",
@@ -1357,6 +1343,10 @@
             "itemCode": "BO2G3R0"
           },
           {
+            "$type": "ItemWithCodeReward",
+            "itemCode": "BT2G3R0"
+          },
+          {
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 625,
@@ -1466,7 +1456,7 @@
           {
             "$type": "ResourceReward",
             "resourceId": 0,
-            "amount": 1000
+            "amount": 1500
           },
           {
             "$type": "ResourceRangeReward",
@@ -1617,7 +1607,7 @@
             {
               "comment": "Продолжить",
               "localizationKey": "menu_item_continue_button",
-              "nextStage": 8500
+              "nextStage": 8900
             }
           ]
         },
@@ -1641,45 +1631,27 @@
           }
         ],
         "id": 8500,
-        "comment": "Город",
-        "jumpToStageIfNewSession": null
+        "comment": "[DELETED] Город",
+        "jumpToStageIfNewSession": 8900
       },
       {
         "$type": "QuestStageWithDefaultReplica",
         "replicaType": 1,
         "nextStage": 8700,
         "id": 8600,
-        "comment": "Идём к точке #8",
-        "jumpToStageIfNewSession": null
+        "comment": "[DELETED] Идём к точке #8",
+        "jumpToStageIfNewSession": 8900
       },
       {
-        "$type": "QuestStageWithBattlePoint",
-        "mobId": 9,
-        "foodPrice": 50,
-        "backButtonAvailable": true,
-        "nextStageIfWin": 8900,
-        "nextStageIfLose": 8701,
-        "rewards": [
-          {
-            "$type": "ItemWithCodeReward",
-            "itemCode": "BT2G3R0"
-          },
-          {
-            "$type": "ResourceRangeReward",
-            "resourceId": 0,
-            "amountMin": 775,
-            "amountMax": 825
-          },
-          {
-            "$type": "ResourceRangeReward",
-            "resourceId": 1,
-            "amountMin": 60,
-            "amountMax": 70
-          }
-        ],
+        "$type": "QuestStageWithReplica",
+        "replica": {
+          "characterType": 0,
+          "localizationKey": "Заглушка!",
+          "answers": []
+        },
         "id": 8700,
-        "comment": "Точка #8",
-        "jumpToStageIfNewSession": null
+        "comment": "[DELETED] Точка #8",
+        "jumpToStageIfNewSession": 8900
       },
       {
         "$type": "QuestStageWithReplica",
@@ -1695,8 +1667,8 @@
           ]
         },
         "id": 8701,
-        "comment": "Точка #8 - Поражение\r\n[Добрыня про гильдию]",
-        "jumpToStageIfNewSession": null
+        "comment": "[DELETED] Точка #8 - Поражение\r\n[Добрыня про гильдию]",
+        "jumpToStageIfNewSession": 8900
       },
       {
         "$type": "QuestStageWithTrigger",
@@ -1705,7 +1677,15 @@
             "$type": "EntryTownAction"
           }
         ],
-        "tooltips": [],
+        "tooltips": [
+          {
+            "comment": "Подсказка_про_виды_урона",
+            "dialogType": "TownDialog",
+            "localizationKey": "quest_loc_01_tooltip_damage_types",
+            "buttonId": -1,
+            "stageAfterButtonClick": -1
+          }
+        ],
         "nextStageTriggers": [
           {
             "$type": "ContinueStoryModeTrigger",
@@ -1753,6 +1733,10 @@
           {
             "$type": "ItemWithCodeReward",
             "itemCode": "SC2G3R0DLM2"
+          },
+          {
+            "$type": "ItemWithCodeReward",
+            "itemCode": "ST2G3R0DC"
           },
           {
             "$type": "ResourceRangeReward",
@@ -1814,7 +1798,7 @@
             {
               "comment": "Продолжить",
               "localizationKey": "menu_item_continue_button",
-              "nextStage": 9600
+              "nextStage": 10000
             }
           ]
         },
@@ -1838,45 +1822,27 @@
           }
         ],
         "id": 9600,
-        "comment": "Город",
-        "jumpToStageIfNewSession": null
+        "comment": "[DELETED] Город",
+        "jumpToStageIfNewSession": 10000
       },
       {
         "$type": "QuestStageWithDefaultReplica",
         "replicaType": 1,
         "nextStage": 9800,
         "id": 9700,
-        "comment": "Идём к точке #10",
-        "jumpToStageIfNewSession": null
+        "comment": "[DELETED] Идём к точке #10",
+        "jumpToStageIfNewSession": 10000
       },
       {
-        "$type": "QuestStageWithBattlePoint",
-        "mobId": 11,
-        "foodPrice": 50,
-        "backButtonAvailable": true,
-        "nextStageIfWin": 10000,
-        "nextStageIfLose": 9801,
-        "rewards": [
-          {
-            "$type": "ItemWithCodeReward",
-            "itemCode": "ST2G3R0DC"
-          },
-          {
-            "$type": "ResourceRangeReward",
-            "resourceId": 0,
-            "amountMin": 850,
-            "amountMax": 900
-          },
-          {
-            "$type": "ResourceRangeReward",
-            "resourceId": 1,
-            "amountMin": 60,
-            "amountMax": 70
-          }
-        ],
+        "$type": "QuestStageWithReplica",
+        "replica": {
+          "characterType": 0,
+          "localizationKey": "Заглушка!",
+          "answers": []
+        },
         "id": 9800,
-        "comment": "Точка #10",
-        "jumpToStageIfNewSession": null
+        "comment": "[DELETED] Точка #10",
+        "jumpToStageIfNewSession": 10000
       },
       {
         "$type": "QuestStageWithReplica",
@@ -1892,8 +1858,8 @@
           ]
         },
         "id": 9801,
-        "comment": "Точка #10 - Поражение\r\n[Добрыня про гильдию]",
-        "jumpToStageIfNewSession": null
+        "comment": "[DELETED] Точка #10 - Поражение\r\n[Добрыня про гильдию]",
+        "jumpToStageIfNewSession": 10000
       },
       {
         "$type": "QuestStageWithTrigger",
@@ -2019,7 +1985,7 @@
           {
             "$type": "ResourceReward",
             "resourceId": 0,
-            "amount": 1200
+            "amount": 2000
           },
           {
             "$type": "ResourceRangeReward",
@@ -2324,7 +2290,7 @@
           {
             "$type": "ResourceReward",
             "resourceId": 0,
-            "amount": 1500
+            "amount": 2500
           },
           {
             "$type": "ResourceReward",

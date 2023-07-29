@@ -88,6 +88,8 @@ public class QuestsEditorViewModel : ViewModelBase
             id = GetDefaultIdForNewStage(),
             comment = "New Default Replica"
         };
+        _quest.stages.Add(stage);
+        _quest.stages = _quest.stages.OrderBy(x => x.id).ToList();
         questStages.Add(stage);
     }
 
@@ -98,6 +100,8 @@ public class QuestsEditorViewModel : ViewModelBase
             id = GetDefaultIdForNewStage(),
             comment = "New Replica"
         };
+        _quest.stages.Add(stage);
+        _quest.stages = _quest.stages.OrderBy(x => x.id).ToList();
         questStages.Add(stage);
     }
 
@@ -107,6 +111,8 @@ public class QuestsEditorViewModel : ViewModelBase
         {
             id = GetDefaultIdForNewStage()
         };
+        _quest.stages.Add(stage);
+        _quest.stages = _quest.stages.OrderBy(x => x.id).ToList();
         questStages.Add(stage);
     }
 
@@ -116,6 +122,8 @@ public class QuestsEditorViewModel : ViewModelBase
         {
             id = GetDefaultIdForNewStage()
         };
+        _quest.stages.Add(stage);
+        _quest.stages = _quest.stages.OrderBy(x => x.id).ToList();
         questStages.Add(stage);
     }
 
@@ -125,6 +133,8 @@ public class QuestsEditorViewModel : ViewModelBase
         {
             id = GetDefaultIdForNewStage()
         };
+        _quest.stages.Add(stage);
+        _quest.stages = _quest.stages.OrderBy(x => x.id).ToList();
         questStages.Add(stage);
     }
 
@@ -142,6 +152,7 @@ public class QuestsEditorViewModel : ViewModelBase
         if (selectedStage == null)
             return;
 
+        _quest.stages.Remove(selectedStage);
         questStages.Remove(selectedStage);
         selectedStage = null;
     }

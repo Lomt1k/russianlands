@@ -35,11 +35,11 @@ public class QuestStageWithTrigger : QuestStage
 [JsonObject]
 public class Tooltip
 {
-    public string comment = "New Tooltip";
-    public string dialogType = string.Empty;
-    public string localizationKey = "dialog_tooltip_press_button";
-    public int buttonId = -1;
-    public int stageAfterButtonClick = -1;
+    public string comment { get; set; } = "New Tooltip";
+    public string dialogType { get; set; } = string.Empty;
+    public string localizationKey { get; set; } = "dialog_tooltip_press_button";
+    public int buttonId { get; set; } = -1;
+    public int stageAfterButtonClick { get; set; } = -1;
 
     [JsonIgnore]
     public bool isTooltipForDialogPanel { get; private set; }
