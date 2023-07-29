@@ -173,7 +173,15 @@ public class LocationMobsManager : Service
             }
         }
 
-        await notificationsManager.ShowNotification(session, sb, () => notificationsManager.GetNotificationsAndEntryTown(session, TownEntryReason.BattleEnd)).FastAwait();
+        var photo = locationId.GetPhoto(session);
+        if (photo is not null)
+        {
+            await notificationsManager.ShowNotification(session, photo, sb, () => notificationsManager.GetNotificationsAndEntryTown(session, TownEntryReason.BattleEnd)).FastAwait();
+        }
+        else
+        {
+            await notificationsManager.ShowNotification(session, sb, () => notificationsManager.GetNotificationsAndEntryTown(session, TownEntryReason.BattleEnd)).FastAwait();
+        }
     }
 
     public string GetTimerViewUntilMobsRespawn(GameSession session)

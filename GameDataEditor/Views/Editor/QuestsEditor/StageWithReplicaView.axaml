@@ -14,6 +14,8 @@
                   SelectedItem="{Binding selectedCharacter}"/>
         <TextBlock Text="localizationKey"/>
         <TextBox Text="{Binding stage.replica.localizationKey}"/>
+        <TextBlock Text="imageKey"/>
+        <TextBox Text="{Binding stage.replica.imageKey}"/>
 
         <TextBlock Classes="h3" Text="Answers"/>
         <ListBox MaxHeight="400"

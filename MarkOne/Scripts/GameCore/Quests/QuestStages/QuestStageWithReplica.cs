@@ -23,6 +23,7 @@ public class Replica
 {
     public CharacterType characterType { get; set; } = CharacterType.None;
     public string localizationKey { get; set; } = string.Empty;
+    public string imageKey { get; set; } = string.Empty;
     public List<Answer> answers { get; set; } = new List<Answer>();
 }
 

@@ -78,6 +78,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_main_start_journey_replica",
+          "imageKey": "photo_fileId_loc_crossroads",
           "answers": [
             {
               "comment": "[ПРОДОЛЖИТЬ]",
@@ -95,6 +96,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_main_start_robber_encounter_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Атаковать разбойника",
@@ -112,6 +114,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_main_start_robber_tutorial_fight_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "В бой!",
@@ -160,6 +163,7 @@
         "replica": {
           "characterType": 10,
           "localizationKey": "quest_main_vasilisa_meeting_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Да, пойдем!",
@@ -182,6 +186,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_main_journey_with_vasilisa_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Войти в город",
@@ -222,6 +227,7 @@
         "replica": {
           "characterType": 20,
           "localizationKey": "quest_loc_01_dobrynya_meeting_replica_1",
+          "imageKey": "",
           "answers": [
             {
               "comment": "[ПРОДОЛЖИТЬ]",
@@ -239,6 +245,7 @@
         "replica": {
           "characterType": 20,
           "localizationKey": "quest_loc_01_dobrynya_meeting_replica_2",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Я готов!",
@@ -297,6 +304,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_01_point_01_travel_replica",
+          "imageKey": "photo_fileId_loc_01",
           "answers": [
             {
               "comment": "[ПРОДОЛЖИТЬ]",
@@ -332,6 +340,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_01_point_01_battle_win_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "[ПРОДОЛЖИТЬ]",
@@ -349,6 +358,7 @@
         "replica": {
           "characterType": 30,
           "localizationKey": "quest_loc_01_magus_meeting_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Кто ты такой?",
@@ -371,6 +381,7 @@
         "replica": {
           "characterType": 30,
           "localizationKey": "quest_loc_01_magus_meeting_introduce_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Какой вклад?",
@@ -388,6 +399,7 @@
         "replica": {
           "characterType": 30,
           "localizationKey": "quest_loc_01_magus_meeting_contribution_replica_1",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Кто несёт нам зло?",
@@ -405,6 +417,7 @@
         "replica": {
           "characterType": 30,
           "localizationKey": "quest_loc_01_magus_meeting_contribution_replica_1",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Кто ты такой?",
@@ -422,6 +435,7 @@
         "replica": {
           "characterType": 30,
           "localizationKey": "quest_loc_01_magus_meeting_introduce_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Кто несёт нам зло?",
@@ -439,6 +453,7 @@
         "replica": {
           "characterType": 30,
           "localizationKey": "quest_loc_01_magus_meeting_about_mission_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "[ПРОДОЛЖИТЬ]",
@@ -478,6 +493,7 @@
         "replica": {
           "characterType": 30,
           "localizationKey": "quest_loc_01_magus_meeting_stick_gift_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Взять посох",
@@ -495,6 +511,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_01_tutorial_stick_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "[ПРОДОЛЖИТЬ]",
@@ -564,6 +581,7 @@
         "replica": {
           "characterType": 30,
           "localizationKey": "quest_loc_01_magus_second_travel_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "[Продолжить]",
@@ -653,6 +671,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_01_point_02_battle_win",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -670,6 +689,7 @@
         "replica": {
           "characterType": 20,
           "localizationKey": "quest_loc_01_dobrynya_about_food_replica_1",
+          "imageKey": "",
           "answers": [
             {
               "comment": "[Продолжить]",
@@ -687,6 +707,7 @@
         "replica": {
           "characterType": 20,
           "localizationKey": "quest_loc_01_dobrynya_about_food_replica_2",
+          "imageKey": "",
           "answers": [
             {
               "comment": "[Продолжить]",
@@ -756,6 +777,7 @@
         "replica": {
           "characterType": 20,
           "localizationKey": "quest_loc_01_dobrynya_about_foor_storage_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -822,6 +844,7 @@
         "replica": {
           "characterType": 20,
           "localizationKey": "quest_loc_01_dobrynya_about_collecting_resources_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -839,6 +862,7 @@
         "replica": {
           "characterType": 20,
           "localizationKey": "quest_loc_01_dobrynya_about_buildings_replica_1",
+          "imageKey": "",
           "answers": [
             {
               "comment": "[Продолжить]",
@@ -856,6 +880,7 @@
         "replica": {
           "characterType": 20,
           "localizationKey": "quest_loc_01_dobrynya_about_buildings_replica_2",
+          "imageKey": "",
           "answers": [
             {
               "comment": "[Продолжить]",
@@ -932,6 +957,7 @@
         "replica": {
           "characterType": 20,
           "localizationKey": "quest_loc_01_dobrynya_end_tutorial_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "[Продолжить]",
@@ -1020,6 +1046,7 @@
         "replica": {
           "characterType": 40,
           "localizationKey": "quest_loc_01_point_03_replica_1_cracy",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -1037,6 +1064,7 @@
         "replica": {
           "characterType": 50,
           "localizationKey": "quest_loc_01_point_03_replica_2_nightningale",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -1054,6 +1082,7 @@
         "replica": {
           "characterType": 40,
           "localizationKey": "quest_loc_01_point_03_replica_3_cracy",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -1071,6 +1100,7 @@
         "replica": {
           "characterType": 10,
           "localizationKey": "quest_loc_01_point_03_replica_4_vasilisa_surprised",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -1088,6 +1118,7 @@
         "replica": {
           "characterType": 20,
           "localizationKey": "quest_loc_01_point_03_replica_5_dobrynya",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -1105,6 +1136,7 @@
         "replica": {
           "characterType": 20,
           "localizationKey": "quest_loc_01_point_03_replica_6_dobrynya",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -1149,6 +1181,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "Заглушка!",
+          "imageKey": "",
           "answers": []
         },
         "id": 6200,
@@ -1232,6 +1265,7 @@
         "replica": {
           "characterType": 50,
           "localizationKey": "quest_loc_01_point_05_replica_1_nightningale",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -1249,6 +1283,7 @@
         "replica": {
           "characterType": 30,
           "localizationKey": "quest_loc_01_point_05_replica_2_magus",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -1266,6 +1301,7 @@
         "replica": {
           "characterType": 30,
           "localizationKey": "quest_loc_01_point_05_replica_3_magus",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -1283,6 +1319,7 @@
         "replica": {
           "characterType": 30,
           "localizationKey": "quest_loc_01_point_05_replica_4_magus",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -1368,6 +1405,7 @@
         "replica": {
           "characterType": 20,
           "localizationKey": "quest_loc_01_battle_lose_after_point_5_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -1412,6 +1450,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_01_point_07_travel_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -1429,6 +1468,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_01_point_07_travel_replica_2",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -1479,6 +1519,7 @@
         "replica": {
           "characterType": 20,
           "localizationKey": "quest_loc_01_battle_lose_after_point_5_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -1496,6 +1537,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_01_point_07_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -1513,6 +1555,7 @@
         "replica": {
           "characterType": 60,
           "localizationKey": "quest_loc_01_point_07_replica_2_yaga_surprised",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Я думал, что изба - это чудище",
@@ -1535,6 +1578,7 @@
         "replica": {
           "characterType": 60,
           "localizationKey": "quest_loc_01_point_07_replica_3_moster_yaga",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -1552,6 +1596,7 @@
         "replica": {
           "characterType": 60,
           "localizationKey": "quest_loc_01_point_07_replica_3_sorry_yaga",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -1569,6 +1614,7 @@
         "replica": {
           "characterType": 60,
           "localizationKey": "quest_loc_01_point_07_replica_4_yaga",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -1586,6 +1632,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_01_point_07_replica_5",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -1603,6 +1650,7 @@
         "replica": {
           "characterType": 10,
           "localizationKey": "quest_loc_01_point_07_replica_6_vasilisa_surprised",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -1647,6 +1695,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "Заглушка!",
+          "imageKey": "",
           "answers": []
         },
         "id": 8700,
@@ -1658,6 +1707,7 @@
         "replica": {
           "characterType": 20,
           "localizationKey": "quest_loc_01_battle_lose_after_point_5_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -1710,6 +1760,7 @@
         "replica": {
           "characterType": 70,
           "localizationKey": "quest_loc_01_point_09_travel_replica_rogue_mage",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -1760,6 +1811,7 @@
         "replica": {
           "characterType": 20,
           "localizationKey": "quest_loc_01_battle_lose_after_point_5_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -1777,6 +1829,7 @@
         "replica": {
           "characterType": 50,
           "localizationKey": "quest_loc_01_point_09_replica_1_nightningale",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -1794,6 +1847,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_01_tutorial_scroll_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -1838,6 +1892,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "Заглушка!",
+          "imageKey": "",
           "answers": []
         },
         "id": 9800,
@@ -1849,6 +1904,7 @@
         "replica": {
           "characterType": 20,
           "localizationKey": "quest_loc_01_battle_lose_after_point_5_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -1885,6 +1941,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_01_point_11_travel_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -1902,6 +1959,7 @@
         "replica": {
           "characterType": 80,
           "localizationKey": "quest_loc_01_point_11_travel_replica_2_wood_goblin",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Уверен, что хватит",
@@ -1924,6 +1982,7 @@
         "replica": {
           "characterType": 80,
           "localizationKey": "quest_loc_01_point_11_travel_replica_3_sure_wood_goblin",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -1941,6 +2000,7 @@
         "replica": {
           "characterType": 80,
           "localizationKey": "quest_loc_01_point_11_travel_replica_3_hope_wood_goblin",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -1958,6 +2018,7 @@
         "replica": {
           "characterType": 80,
           "localizationKey": "quest_loc_01_point_11_travel_replica_4_wood_goblin",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -2008,6 +2069,7 @@
         "replica": {
           "characterType": 80,
           "localizationKey": "quest_loc_01_point_11_lose_battle_replica_wood_goblin",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -2025,6 +2087,7 @@
         "replica": {
           "characterType": 80,
           "localizationKey": "quest_loc_01_point_11_win_battle_replica_wood_goblin",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -2061,6 +2124,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_01_point_12_travel_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -2078,6 +2142,7 @@
         "replica": {
           "characterType": 40,
           "localizationKey": "quest_loc_01_point_12_replica_cracy",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -2095,6 +2160,7 @@
         "replica": {
           "characterType": 50,
           "localizationKey": "quest_loc_01_point_12_replica_2_nightningale",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -2112,6 +2178,7 @@
         "replica": {
           "characterType": 40,
           "localizationKey": "quest_loc_01_point_12_replica_3_cracy",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -2158,6 +2225,7 @@
         "replica": {
           "characterType": 20,
           "localizationKey": "quest_loc_01_battle_lose_after_point_5_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -2223,6 +2291,7 @@
         "replica": {
           "characterType": 20,
           "localizationKey": "quest_loc_01_battle_lose_after_point_5_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -2259,6 +2328,7 @@
         "replica": {
           "characterType": 50,
           "localizationKey": "quest_loc_01_before_final_battle_replica_nightningale",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -2307,6 +2377,7 @@
         "replica": {
           "characterType": 20,
           "localizationKey": "quest_loc_01_battle_lose_after_point_5_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -2324,6 +2395,7 @@
         "replica": {
           "characterType": 20,
           "localizationKey": "quest_loc_01_complete_replica_dobrynya",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -2341,6 +2413,7 @@
         "replica": {
           "characterType": 10,
           "localizationKey": "quest_loc_01_complete_replica_2_vasilisa",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -2381,6 +2454,7 @@
         "replica": {
           "characterType": 30,
           "localizationKey": "quest_loc_02_intro_replica_magus",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -2398,6 +2472,7 @@
         "replica": {
           "characterType": 30,
           "localizationKey": "quest_loc_02_intro_replica_2_magus",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -2434,6 +2509,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_02_point_01_travel_replica",
+          "imageKey": "photo_fileId_loc_02",
           "answers": [
             {
               "comment": "Продолжить",
@@ -2451,6 +2527,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_02_point_01_travel_replica_2",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -2504,6 +2581,7 @@
         "replica": {
           "characterType": 20,
           "localizationKey": "quest_loc_02_point_01_replica_dobrynya",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -2521,6 +2599,7 @@
         "replica": {
           "characterType": 30,
           "localizationKey": "quest_loc_02_point_01_replica_2_magus_oldman",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -2538,6 +2617,7 @@
         "replica": {
           "characterType": 20,
           "localizationKey": "quest_loc_02_point_01_replica_3_dobrynya",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -2681,6 +2761,7 @@
         "replica": {
           "characterType": 90,
           "localizationKey": "quest_loc_02_point_03_replica_koschey",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -2698,6 +2779,7 @@
         "replica": {
           "characterType": 90,
           "localizationKey": "quest_loc_02_point_03_replica_2_koschey",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -2715,6 +2797,7 @@
         "replica": {
           "characterType": 20,
           "localizationKey": "quest_loc_02_point_03_replica_3_dobrynya",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -2814,6 +2897,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_02_point_05_travel_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -2831,6 +2915,7 @@
         "replica": {
           "characterType": 100,
           "localizationKey": "quest_loc_02_point_05_travel_replica_2_kikimora",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -3015,6 +3100,7 @@
         "replica": {
           "characterType": 90,
           "localizationKey": "quest_loc_02_point_07_replica_koschey",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -3032,6 +3118,7 @@
         "replica": {
           "characterType": 10,
           "localizationKey": "quest_loc_02_point_07_replica_2_vasilisa",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -3049,6 +3136,7 @@
         "replica": {
           "characterType": 90,
           "localizationKey": "quest_loc_02_point_07_replica_3_koschey",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -3066,6 +3154,7 @@
         "replica": {
           "characterType": 20,
           "localizationKey": "quest_loc_02_point_07_replica_4_dobrynya",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -3236,6 +3325,7 @@
         "replica": {
           "characterType": 110,
           "localizationKey": "quest_loc_02_point_10_travel_replica_aquatic",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -3253,6 +3343,7 @@
         "replica": {
           "characterType": 80,
           "localizationKey": "quest_loc_02_point_10_travel_replica_2_wood_goblin",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -3270,6 +3361,7 @@
         "replica": {
           "characterType": 110,
           "localizationKey": "quest_loc_02_point_10_travel_replica_3_aquatic",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -3287,6 +3379,7 @@
         "replica": {
           "characterType": 90,
           "localizationKey": "quest_loc_02_point_10_travel_replica_4_koschey",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -3344,6 +3437,7 @@
         "replica": {
           "characterType": 90,
           "localizationKey": "quest_loc_02_point_10_replica_5_koschey",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -3550,6 +3644,7 @@
         "replica": {
           "characterType": 40,
           "localizationKey": "quest_loc_02_point_13_replica_cracy",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -3567,6 +3662,7 @@
         "replica": {
           "characterType": 90,
           "localizationKey": "quest_loc_02_point_13_replica_2_koschey",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -3584,6 +3680,7 @@
         "replica": {
           "characterType": 40,
           "localizationKey": "quest_loc_02_point_13_replica_3_cracy",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -3683,6 +3780,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_02_point_15_travel_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -3700,6 +3798,7 @@
         "replica": {
           "characterType": 100,
           "localizationKey": "quest_loc_02_point_15_travel_replica_2_kikimora",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -3717,6 +3816,7 @@
         "replica": {
           "characterType": 100,
           "localizationKey": "quest_loc_02_point_15_travel_replica_3_kikimora",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -3734,6 +3834,7 @@
         "replica": {
           "characterType": 100,
           "localizationKey": "quest_loc_02_point_15_travel_replica_4_kikimora",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -3786,6 +3887,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_02_point_15_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -3822,6 +3924,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_02_point_16_travel_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -3839,6 +3942,7 @@
         "replica": {
           "characterType": 90,
           "localizationKey": "quest_loc_02_point_16_travel_replica_2_koschey",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -3895,6 +3999,7 @@
         "replica": {
           "characterType": 90,
           "localizationKey": "quest_loc_02_point_16_replica_koschey",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -3912,6 +4017,7 @@
         "replica": {
           "characterType": 20,
           "localizationKey": "quest_loc_02_point_16_replica_2_dobrynya",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -3929,6 +4035,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_02_point_16_replica_3",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -3946,6 +4053,7 @@
         "replica": {
           "characterType": 30,
           "localizationKey": "quest_loc_02_point_16_replica_4_magus",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -3986,6 +4094,7 @@
         "replica": {
           "characterType": 30,
           "localizationKey": "quest_loc_03_intro_replica_magus",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -4003,6 +4112,7 @@
         "replica": {
           "characterType": 30,
           "localizationKey": "quest_loc_03_intro_replica_2_magus",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -4039,6 +4149,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_03_point_01_travel_replica",
+          "imageKey": "photo_fileId_loc_03",
           "answers": [
             {
               "comment": "Продолжить",
@@ -4237,6 +4348,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_03_point_04_travel_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -4254,6 +4366,7 @@
         "replica": {
           "characterType": 120,
           "localizationKey": "quest_loc_03_point_04_travel_replica_dovahkiin",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Ты заблудился?",
@@ -4276,6 +4389,7 @@
         "replica": {
           "characterType": 120,
           "localizationKey": "quest_loc_03_point_04_travel_replica_2_dovahkiin",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Есть и другие драконы?",
@@ -4298,6 +4412,7 @@
         "replica": {
           "characterType": 120,
           "localizationKey": "quest_loc_03_point_04_travel_replica_3_dovahkiin",
+          "imageKey": "",
           "answers": [
             {
               "comment": "(Хранить молчание)",
@@ -4625,6 +4740,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_03_point_09_travel_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -4642,6 +4758,7 @@
         "replica": {
           "characterType": 130,
           "localizationKey": "quest_loc_03_point_09_travel_replica_2_gorinich",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -4659,6 +4776,7 @@
         "replica": {
           "characterType": 130,
           "localizationKey": "quest_loc_03_point_09_travel_replica_3_gorinich",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -4711,6 +4829,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_03_point_09_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -4728,6 +4847,7 @@
         "replica": {
           "characterType": 140,
           "localizationKey": "quest_loc_03_point_09_replica_2_gorinich",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -4745,6 +4865,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_03_point_09_replica_3",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -4762,6 +4883,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_03_point_09_replica_4",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -5050,6 +5172,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_03_point_14_travel_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -5067,6 +5190,7 @@
         "replica": {
           "characterType": 140,
           "localizationKey": "quest_loc_03_point_14_travel_replica_2_gorinich",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -5084,6 +5208,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_03_point_14_travel_3_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -5101,6 +5226,7 @@
         "replica": {
           "characterType": 140,
           "localizationKey": "quest_loc_03_point_14_travel_replica_4_gorinich",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -5118,6 +5244,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_03_point_14_travel_5_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -5170,6 +5297,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_03_point_14_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -5187,6 +5315,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_03_point_14_replica_2",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -5475,6 +5604,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_03_point_19_travel_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -5492,6 +5622,7 @@
         "replica": {
           "characterType": 150,
           "localizationKey": "quest_loc_03_point_19_travel_replica_2_gorinich",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -5509,6 +5640,7 @@
         "replica": {
           "characterType": 150,
           "localizationKey": "quest_loc_03_point_19_travel_replica_3_gorinich",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -5565,6 +5697,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_03_point_19_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -5582,6 +5715,7 @@
         "replica": {
           "characterType": 30,
           "localizationKey": "quest_loc_03_outro_replica_magus",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -5599,6 +5733,7 @@
         "replica": {
           "characterType": 30,
           "localizationKey": "quest_loc_03_outro_replica_2_magus",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -5639,6 +5774,7 @@
         "replica": {
           "characterType": 20,
           "localizationKey": "quest_loc_04_intro_replica_dobrynya",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -5656,6 +5792,7 @@
         "replica": {
           "characterType": 20,
           "localizationKey": "quest_loc_04_intro_replica_2_dobrynya",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -5673,6 +5810,7 @@
         "replica": {
           "characterType": 20,
           "localizationKey": "quest_loc_04_intro_replica_3_dobrynya",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -5756,6 +5894,7 @@
         "replica": {
           "characterType": 160,
           "localizationKey": "quest_loc_04_point_01_replica_buffoon",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -5773,6 +5912,7 @@
         "replica": {
           "characterType": 40,
           "localizationKey": "quest_loc_04_point_01_replica_2_cracy",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -5790,6 +5930,7 @@
         "replica": {
           "characterType": 160,
           "localizationKey": "quest_loc_04_point_01_replica_3_buffoon",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -5939,6 +6080,7 @@
         "replica": {
           "characterType": 160,
           "localizationKey": "quest_loc_04_point_03_replica_buffoon",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -5956,6 +6098,7 @@
         "replica": {
           "characterType": 20,
           "localizationKey": "quest_loc_04_point_03_replica_2_dobrynya",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -6058,6 +6201,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_04_point_05_travel_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -6075,6 +6219,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_04_point_05_travel_replica_2",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -6092,6 +6237,7 @@
         "replica": {
           "characterType": 170,
           "localizationKey": "quest_loc_04_point_05_travel_replica_3_nifnif",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -6153,6 +6299,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_04_point_05_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -6302,6 +6449,7 @@
         "replica": {
           "characterType": 160,
           "localizationKey": "quest_loc_04_point_07_replica_buffoon",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -6470,6 +6618,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_04_point_10_travel_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -6487,6 +6636,7 @@
         "replica": {
           "characterType": 180,
           "localizationKey": "quest_loc_04_point_10_travel_replica_2_nufnuf",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -6548,6 +6698,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_04_point_05_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -6763,6 +6914,7 @@
         "replica": {
           "characterType": 40,
           "localizationKey": "quest_loc_04_point_13_replica_cracy",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -6780,6 +6932,7 @@
         "replica": {
           "characterType": 160,
           "localizationKey": "quest_loc_04_point_13_replica_2_buffoon",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -6797,6 +6950,7 @@
         "replica": {
           "characterType": 40,
           "localizationKey": "quest_loc_04_point_13_replica_3_cracy",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -6899,6 +7053,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_04_point_15_travel_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -6916,6 +7071,7 @@
         "replica": {
           "characterType": 190,
           "localizationKey": "quest_loc_04_point_15_travel_replica_3_nafnaf",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -6977,6 +7133,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_04_point_05_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -7126,6 +7283,7 @@
         "replica": {
           "characterType": 160,
           "localizationKey": "quest_loc_04_point_17_replica_buffoon",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -7294,6 +7452,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_04_point_20_travel_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -7311,6 +7470,7 @@
         "replica": {
           "characterType": 200,
           "localizationKey": "quest_loc_04_point_20_replica_chocolate_king",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -7372,6 +7532,7 @@
         "replica": {
           "characterType": 20,
           "localizationKey": "quest_loc_04_point_20_replica_dobrynya",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -7389,6 +7550,7 @@
         "replica": {
           "characterType": 30,
           "localizationKey": "quest_loc_04_point_20_replica_2_magus",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -7604,6 +7766,7 @@
         "replica": {
           "characterType": 10,
           "localizationKey": "quest_loc_04_point_23_replica_vasilisa",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -7621,6 +7784,7 @@
         "replica": {
           "characterType": 30,
           "localizationKey": "quest_loc_04_point_23_replica_2_magus",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -7723,6 +7887,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_04_point_25_travel_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -7785,6 +7950,7 @@
         "replica": {
           "characterType": 30,
           "localizationKey": "quest_loc_04_outro_replica_magus",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -7825,6 +7991,7 @@
         "replica": {
           "characterType": 30,
           "localizationKey": "quest_loc_05_intro_magus",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -7842,6 +8009,7 @@
         "replica": {
           "characterType": 30,
           "localizationKey": "quest_loc_05_intro_magus_2",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -7878,6 +8046,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_05_point_01_travel_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -7895,6 +8064,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_05_point_01_travel_replica_2",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -7956,6 +8126,7 @@
         "replica": {
           "characterType": 20,
           "localizationKey": "quest_loc_05_point_01_repica_dobrynya",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -7973,6 +8144,7 @@
         "replica": {
           "characterType": 30,
           "localizationKey": "quest_loc_05_point_01_replica_2_magus",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -8009,6 +8181,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_05_travel_to_dormor_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -8089,6 +8262,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_05_travel_to_dormor_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -8169,6 +8343,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_05_travel_to_dormor_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -8249,6 +8424,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_05_point_05_travel_replica",
+          "imageKey": "photo_fileId_loc_05",
           "answers": [
             {
               "comment": "Продолжить",
@@ -8266,6 +8442,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_05_point_05_travel_replica_2",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -8283,6 +8460,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_05_point_05_travel_replica_3",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -8300,6 +8478,7 @@
         "replica": {
           "characterType": 220,
           "localizationKey": "quest_loc_05_point_05_travel_replica_4_orc_guardian",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -8366,6 +8545,7 @@
         "replica": {
           "characterType": 220,
           "localizationKey": "quest_loc_05_point_05_replica_orc_guardian",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -8383,6 +8563,7 @@
         "replica": {
           "characterType": 210,
           "localizationKey": "quest_loc_05_point_05_replica_2_orc_leader",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Расскажи про эльфов и орков",
@@ -8400,6 +8581,7 @@
         "replica": {
           "characterType": 210,
           "localizationKey": "quest_loc_05_point_05_orc_leader_about_elves",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -8417,6 +8599,7 @@
         "replica": {
           "characterType": 210,
           "localizationKey": "quest_loc_05_point_05_orc_leader_about_elves_2",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -8434,6 +8617,7 @@
         "replica": {
           "characterType": 210,
           "localizationKey": "quest_loc_05_point_05_orc_leader_about_elves_3",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Что я должен сделать?",
@@ -8451,6 +8635,7 @@
         "replica": {
           "characterType": 210,
           "localizationKey": "quest_loc_05_point_05_orc_leader_what_to_do",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -8468,6 +8653,7 @@
         "replica": {
           "characterType": 210,
           "localizationKey": "quest_loc_05_point_05_orc_leader_what_to_do_2",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -8698,6 +8884,7 @@
         "replica": {
           "characterType": 40,
           "localizationKey": "quest_loc_05_point_08_replica_cracy",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -8715,6 +8902,7 @@
         "replica": {
           "characterType": 260,
           "localizationKey": "quest_loc_05_point_08_replica_2_elven_king",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -8732,6 +8920,7 @@
         "replica": {
           "characterType": 40,
           "localizationKey": "quest_loc_05_point_08_replica_3_cracy",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -8839,6 +9028,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_05_point_10_travel_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -8856,6 +9046,7 @@
         "replica": {
           "characterType": 240,
           "localizationKey": "quest_loc_05_point_10_travel_replica_2_gnome_commander",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -8873,6 +9064,7 @@
         "replica": {
           "characterType": 230,
           "localizationKey": "quest_loc_05_point_10_travel_replica_3_troll",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -8890,6 +9082,7 @@
         "replica": {
           "characterType": 240,
           "localizationKey": "quest_loc_05_point_10_travel_replica_4_gnome_commander",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -8907,6 +9100,7 @@
         "replica": {
           "characterType": 230,
           "localizationKey": "quest_loc_05_point_10_travel_replica_5_troll",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -8973,6 +9167,7 @@
         "replica": {
           "characterType": 240,
           "localizationKey": "quest_loc_05_point_10_replica_gnome_commander",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -9009,6 +9204,7 @@
         "replica": {
           "characterType": 240,
           "localizationKey": "quest_loc_05_travel_to_first_gnome_fight_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -9089,6 +9285,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_05_travel_to_gnome_fight_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -9169,6 +9366,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_05_travel_to_gnome_fight_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -9249,6 +9447,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_05_travel_to_gnome_fight_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -9329,6 +9528,7 @@
         "replica": {
           "characterType": 210,
           "localizationKey": "quest_loc_05_travel_point_15_replica_orc_leader",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -9346,6 +9546,7 @@
         "replica": {
           "characterType": 240,
           "localizationKey": "quest_loc_05_travel_point_15_replica_2_gnome_commander",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -9412,6 +9613,7 @@
         "replica": {
           "characterType": 210,
           "localizationKey": "quest_loc_05_point_15_replica_orc_leader",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -9429,6 +9631,7 @@
         "replica": {
           "characterType": 210,
           "localizationKey": "quest_loc_05_point_15_replica_2_orc_leader",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -9517,6 +9720,7 @@
         "replica": {
           "characterType": 210,
           "localizationKey": "quest_loc_05_point_16_replica_orc_leader",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -9534,6 +9738,7 @@
         "replica": {
           "characterType": 260,
           "localizationKey": "quest_loc_05_point_16_replica_2_elven_king",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -9551,6 +9756,7 @@
         "replica": {
           "characterType": 210,
           "localizationKey": "quest_loc_05_point_16_replica_3_orc_leader",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -9800,6 +10006,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_05_point_20_travel_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -9817,6 +10024,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_05_point_20_travel_replica_2",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -9834,6 +10042,7 @@
         "replica": {
           "characterType": 250,
           "localizationKey": "quest_loc_05_point_20_travel_replica_3_orc_traitor",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -9851,6 +10060,7 @@
         "replica": {
           "characterType": 250,
           "localizationKey": "quest_loc_05_point_20_travel_replica_4_orc_traitor",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -9917,6 +10127,7 @@
         "replica": {
           "characterType": 210,
           "localizationKey": "quest_loc_05_point_20_replica_orc_leader",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -9934,6 +10145,7 @@
         "replica": {
           "characterType": 260,
           "localizationKey": "quest_loc_05_point_20_replica_2_elven_king",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -9951,6 +10163,7 @@
         "replica": {
           "characterType": 210,
           "localizationKey": "quest_loc_05_point_20_replica_3_orc_leader",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -9987,6 +10200,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_05_travel_to_fight_in_dormor_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -10067,6 +10281,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_05_travel_to_fight_in_dormor_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -10147,6 +10362,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_05_travel_to_fight_in_dormor_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -10227,6 +10443,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_05_travel_to_fight_in_dormor_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -10307,6 +10524,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_05_travel_to_fight_in_dormor_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -10324,6 +10542,7 @@
         "replica": {
           "characterType": 260,
           "localizationKey": "quest_loc_05_travel_point_25_replica_elven_king",
+          "imageKey": "",
           "answers": [
             {
               "comment": "За правду!",
@@ -10351,6 +10570,7 @@
         "replica": {
           "characterType": 260,
           "localizationKey": "quest_loc_05_travel_point_25_replica_2_elven_king",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -10418,6 +10638,7 @@
         "replica": {
           "characterType": 210,
           "localizationKey": "quest_loc_05_outro_replica_orc_leader",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -10435,6 +10656,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_05_outro_replica_2",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -10452,6 +10674,7 @@
         "replica": {
           "characterType": 20,
           "localizationKey": "quest_loc_05_outro_replica_3_dobrynya",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -10469,6 +10692,7 @@
         "replica": {
           "characterType": 20,
           "localizationKey": "quest_loc_05_outro_replica_4_dobrynya",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -10486,6 +10710,7 @@
         "replica": {
           "characterType": 30,
           "localizationKey": "quest_loc_05_outro_replica_5_magus",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -10526,6 +10751,7 @@
         "replica": {
           "characterType": 30,
           "localizationKey": "quest_loc_06_intro_replica_magus",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -10562,6 +10788,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_06_travel_point_01_replica",
+          "imageKey": "photo_fileId_loc_06",
           "answers": [
             {
               "comment": "Продолжить",
@@ -10623,6 +10850,7 @@
         "replica": {
           "characterType": 270,
           "localizationKey": "quest_loc_06_point_01_replica_comissar",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -10640,6 +10868,7 @@
         "replica": {
           "characterType": 40,
           "localizationKey": "quest_loc_06_point_01_replica_2_cracy",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -10657,6 +10886,7 @@
         "replica": {
           "characterType": 30,
           "localizationKey": "quest_loc_06_point_01_replica_3_magus",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -10906,6 +11136,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_06_travel_point_05_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -10923,6 +11154,7 @@
         "replica": {
           "characterType": 280,
           "localizationKey": "quest_loc_06_travel_point_05_replica_2_robin",
+          "imageKey": "",
           "answers": [
             {
               "comment": "А ты ещё кто?",
@@ -10940,6 +11172,7 @@
         "replica": {
           "characterType": 280,
           "localizationKey": "quest_loc_06_travel_point_05_replica_3_robin",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Да уж, благодарным...",
@@ -10962,6 +11195,7 @@
         "replica": {
           "characterType": 280,
           "localizationKey": "quest_loc_06_travel_point_05_replica_4_robin",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -11028,6 +11262,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_06_travel_05_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -11187,6 +11422,7 @@
         "replica": {
           "characterType": 270,
           "localizationKey": "quest_loc_06_point_07_replica_comissar",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -11204,6 +11440,7 @@
         "replica": {
           "characterType": 20,
           "localizationKey": "quest_loc_06_point_07_replica_2_dobrynya",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -11382,6 +11619,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_06_travel_point_10_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -11399,6 +11637,7 @@
         "replica": {
           "characterType": 290,
           "localizationKey": "quest_loc_06_travel_point_10_replica_2_ent",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -11416,6 +11655,7 @@
         "replica": {
           "characterType": 20,
           "localizationKey": "quest_loc_06_travel_point_10_replica_3_dobrynya",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -11482,6 +11722,7 @@
         "replica": {
           "characterType": 290,
           "localizationKey": "quest_loc_06_point_10_replica_ent",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -11810,6 +12051,7 @@
         "replica": {
           "characterType": 300,
           "localizationKey": "quest_loc_06_travel_point_15_replica_anariel",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -11827,6 +12069,7 @@
         "replica": {
           "characterType": 20,
           "localizationKey": "quest_loc_06_travel_point_15_replica_2_dobrynya",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -11844,6 +12087,7 @@
         "replica": {
           "characterType": 300,
           "localizationKey": "quest_loc_06_travel_point_15_replica_3_anariel",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -11910,6 +12154,7 @@
         "replica": {
           "characterType": 300,
           "localizationKey": "quest_loc_06_point_15_replica_anariel",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -11927,6 +12172,7 @@
         "replica": {
           "characterType": 300,
           "localizationKey": "quest_loc_06_point_15_replica_2_anariel",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -11944,6 +12190,7 @@
         "replica": {
           "characterType": 20,
           "localizationKey": "quest_loc_06_point_15_replica_3_dobrynya",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -11961,6 +12208,7 @@
         "replica": {
           "characterType": 300,
           "localizationKey": "quest_loc_06_point_15_replica_4_anariel",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -11978,6 +12226,7 @@
         "replica": {
           "characterType": 30,
           "localizationKey": "quest_loc_06_point_15_replica_5_magus",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -12137,6 +12386,7 @@
         "replica": {
           "characterType": 270,
           "localizationKey": "quest_loc_06_point_17_replica_comissar",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -12154,6 +12404,7 @@
         "replica": {
           "characterType": 300,
           "localizationKey": "quest_loc_06_point_17_replica_2_anariel",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -12171,6 +12422,7 @@
         "replica": {
           "characterType": 40,
           "localizationKey": "quest_loc_06_point_17_replica_3_cracy",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -12357,6 +12609,7 @@
         "replica": {
           "characterType": 310,
           "localizationKey": "quest_loc_06_travel_point_20_replica_tavrilia",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -12374,6 +12627,7 @@
         "replica": {
           "characterType": 300,
           "localizationKey": "quest_loc_06_travel_point_20_replica_2_anariel",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -12391,6 +12645,7 @@
         "replica": {
           "characterType": 310,
           "localizationKey": "quest_loc_06_travel_point_20_replica_3_tavrilia",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -12457,6 +12712,7 @@
         "replica": {
           "characterType": 10,
           "localizationKey": "quest_loc_06_point_20_replica_vasilisa",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -12474,6 +12730,7 @@
         "replica": {
           "characterType": 210,
           "localizationKey": "quest_loc_06_point_20_replica_2_orc_leader",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -12704,6 +12961,7 @@
         "replica": {
           "characterType": 40,
           "localizationKey": "quest_loc_06_point_23_replica_cracy",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -12721,6 +12979,7 @@
         "replica": {
           "characterType": 270,
           "localizationKey": "quest_loc_06_point_23_replica_2_comissar",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -12738,6 +12997,7 @@
         "replica": {
           "characterType": 40,
           "localizationKey": "quest_loc_06_point_23_replica_3_cracy",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -12853,6 +13113,7 @@
         "replica": {
           "characterType": 320,
           "localizationKey": "quest_loc_06_travel_point_25_replica_lovelas",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -12919,6 +13180,7 @@
         "replica": {
           "characterType": 270,
           "localizationKey": "quest_loc_06_point_25_replica_comissar",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -13149,6 +13411,7 @@
         "replica": {
           "characterType": 20,
           "localizationKey": "quest_loc_06_point_28_replica_dobrynya",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -13166,6 +13429,7 @@
         "replica": {
           "characterType": 30,
           "localizationKey": "quest_loc_06_point_28_replica_2_magus",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -13281,6 +13545,7 @@
         "replica": {
           "characterType": 270,
           "localizationKey": "quest_loc_06_travel_point_30_replica_comissar",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -13298,6 +13563,7 @@
         "replica": {
           "characterType": 300,
           "localizationKey": "quest_loc_06_travel_point_30_replica_2_anariel",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -13315,6 +13581,7 @@
         "replica": {
           "characterType": 270,
           "localizationKey": "quest_loc_06_travel_point_30_replica_3_comissar",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -13382,6 +13649,7 @@
         "replica": {
           "characterType": 300,
           "localizationKey": "quest_loc_06_outro_replica_anariel",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -13399,6 +13667,7 @@
         "replica": {
           "characterType": 300,
           "localizationKey": "quest_loc_06_outro_replica_2_anariel",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -13416,6 +13685,7 @@
         "replica": {
           "characterType": 300,
           "localizationKey": "quest_loc_06_outro_replica_3_anariel",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -13433,6 +13703,7 @@
         "replica": {
           "characterType": 20,
           "localizationKey": "quest_loc_06_outro_replica_4_dobrynya",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -13450,6 +13721,7 @@
         "replica": {
           "characterType": 300,
           "localizationKey": "quest_loc_06_outro_replica_5_anariel",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -13490,6 +13762,7 @@
         "replica": {
           "characterType": 20,
           "localizationKey": "quest_loc_07_intro_replica_dobrynya",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -13526,6 +13799,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_07_travel_point_01_replica",
+          "imageKey": "photo_fileId_loc_07",
           "answers": [
             {
               "comment": "Продолжить",
@@ -13729,6 +14003,7 @@
         "replica": {
           "characterType": 40,
           "localizationKey": "quest_loc_07_point_03_replica_cracy",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -13746,6 +14021,7 @@
         "replica": {
           "characterType": 20,
           "localizationKey": "quest_loc_07_point_03_replica_2_dobrynya",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -13861,6 +14137,7 @@
         "replica": {
           "characterType": 330,
           "localizationKey": "quest_loc_07_travel_point_05_replica_banker",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -13878,6 +14155,7 @@
         "replica": {
           "characterType": 330,
           "localizationKey": "quest_loc_07_travel_point_05_replica_2_banker",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -13895,6 +14173,7 @@
         "replica": {
           "characterType": 20,
           "localizationKey": "quest_loc_07_travel_point_05_replica_3_dobrynya",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -14174,6 +14453,7 @@
         "replica": {
           "characterType": 40,
           "localizationKey": "quest_loc_07_point_08_replica_cracy",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -14191,6 +14471,7 @@
         "replica": {
           "characterType": 30,
           "localizationKey": "quest_loc_07_point_08_replica_2_magus",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -14208,6 +14489,7 @@
         "replica": {
           "characterType": 300,
           "localizationKey": "quest_loc_07_point_08_replica_3_anariel",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -14315,6 +14597,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_07_travel_point_10_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -14332,6 +14615,7 @@
         "replica": {
           "characterType": 340,
           "localizationKey": "quest_loc_07_travel_point_10_replica_2_eagle",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -14398,6 +14682,7 @@
         "replica": {
           "characterType": 20,
           "localizationKey": "quest_loc_07_point_10_replica_dobrynya",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -14628,6 +14913,7 @@
         "replica": {
           "characterType": 360,
           "localizationKey": "quest_loc_07_point_13_replica_demon_of_greed",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -14645,6 +14931,7 @@
         "replica": {
           "characterType": 350,
           "localizationKey": "quest_loc_07_point_13_replica_2_demon_of_wrath",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -14662,6 +14949,7 @@
         "replica": {
           "characterType": 40,
           "localizationKey": "quest_loc_07_point_13_replica_3_cracy",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -14777,6 +15065,7 @@
         "replica": {
           "characterType": 350,
           "localizationKey": "quest_loc_07_travel_point_15_replica_demon_of_wrath",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -14794,6 +15083,7 @@
         "replica": {
           "characterType": 30,
           "localizationKey": "quest_loc_07_travel_point_15_replica_2_magus",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -15171,6 +15461,7 @@
         "replica": {
           "characterType": 360,
           "localizationKey": "quest_loc_07_travel_point_20_replica_demon_of_greed",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -15188,6 +15479,7 @@
         "replica": {
           "characterType": 20,
           "localizationKey": "quest_loc_07_travel_point_20_replica_2_dobrynya",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -15565,6 +15857,7 @@
         "replica": {
           "characterType": 370,
           "localizationKey": "quest_loc_07_travel_point_25_replica_demon_of_lie",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -15582,6 +15875,7 @@
         "replica": {
           "characterType": 10,
           "localizationKey": "quest_loc_07_travel_point_25_replica_2_vasilisa",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -15932,6 +16226,7 @@
         "replica": {
           "characterType": 30,
           "localizationKey": "quest_loc_07_point_29_replica_magus",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -15968,6 +16263,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_07_travel_point_30_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -15985,6 +16281,7 @@
         "replica": {
           "characterType": 40,
           "localizationKey": "quest_loc_07_travel_point_30_replica_2",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -16052,6 +16349,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_07_outro_replica",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",
@@ -16069,6 +16367,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_07_outro_replica_2",
+          "imageKey": "",
           "answers": [
             {
               "comment": "Продолжить",

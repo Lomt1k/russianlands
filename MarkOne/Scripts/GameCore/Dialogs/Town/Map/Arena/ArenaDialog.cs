@@ -1,4 +1,5 @@
-﻿using MarkOne.Scripts.Bot;
+﻿using FastTelegramBot.DataTypes.InputFiles;
+using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Arena;
 using MarkOne.Scripts.GameCore.Buildings;
 using MarkOne.Scripts.GameCore.Dialogs.Battle;
@@ -167,7 +168,8 @@ public sealed class ArenaDialog : DialogBase
 
         ClearButtons();
         RegisterButton(Emojis.ElementCancel + Localization.Get(session, "dialog_arena_cancel_match_making_button"), TryCancelNextBattle);
-        await SendDialogMessage(sb, GetOneLineKeyboard()).FastAwait();
+        var photo = InputFile.FromFileId(Localization.Get(session, "photo_fileId_loc_arena"));
+        await SendDialogPhotoMessage(photo, sb.ToString(), GetOneLineKeyboard()).FastAwait();
     }
 
     private IEnumerable<ResourceData> GetRewardsForWinAllBattles(bool byTicket)

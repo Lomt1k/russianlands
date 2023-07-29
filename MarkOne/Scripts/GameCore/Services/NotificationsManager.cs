@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using FastTelegramBot.DataTypes.InputFiles;
 using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Buildings;
 using MarkOne.Scripts.GameCore.Buildings.Data;
@@ -154,6 +155,24 @@ public class NotificationsManager : Service
     public async Task ShowNotification(GameSession session, string text, Func<Task> onButtonClick)
     {
         var dialog = new SimpleDialog(session, text, false, new Dictionary<string, Func<Task>>
+        {
+            { Localization.Get(session, "menu_item_continue_button"), onButtonClick }
+        });
+        await dialog.Start().FastAwait();
+    }
+
+    public async Task ShowNotification(GameSession session, InputFile photo, StringBuilder text, Func<Task> onButtonClick)
+    {
+        var dialog = new SimpleDialog(session, photo, text.ToString(), false, new Dictionary<string, Func<Task>>
+        {
+            { Localization.Get(session, "menu_item_continue_button"), onButtonClick }
+        });
+        await dialog.Start().FastAwait();
+    }
+
+    public async Task ShowNotification(GameSession session, InputFile photo, string text, Func<Task> onButtonClick)
+    {
+        var dialog = new SimpleDialog(session, photo, text, false, new Dictionary<string, Func<Task>>
         {
             { Localization.Get(session, "menu_item_continue_button"), onButtonClick }
         });

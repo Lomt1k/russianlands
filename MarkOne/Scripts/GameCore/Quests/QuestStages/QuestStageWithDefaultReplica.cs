@@ -48,6 +48,7 @@ public class QuestStageWithDefaultReplica : QuestStage
         {
             characterType = GetCharacterType(),
             localizationKey = GetLocalizationKey(),
+            imageKey = GetImageKey(),
             answers = new List<Answer>
             {
                 new Answer
@@ -90,6 +91,30 @@ public class QuestStageWithDefaultReplica : QuestStage
 
             default:
                 return "Default Replica";
+        }
+    }
+
+    private string GetImageKey()
+    {
+        switch (replicaType)
+        {
+            case ReplicaType.StartTravelToEnemyLoc01:
+                return $"photo_fileId_loc_01";
+            case ReplicaType.StartTravelToEnemyLoc02:
+                return $"photo_fileId_loc_02";
+            case ReplicaType.StartTravelToEnemyLoc03:
+                return $"photo_fileId_loc_03";
+            case ReplicaType.StartTravelToEnemyLoc04:
+                return $"photo_fileId_loc_04";
+            case ReplicaType.StartTravelToEnemyLoc05:
+                return $"photo_fileId_loc_05";
+            case ReplicaType.StartTravelToEnemyLoc06:
+                return $"photo_fileId_loc_06";
+            case ReplicaType.StartTravelToEnemyLoc07:
+                return $"photo_fileId_loc_07";
+
+            default:
+                return string.Empty;
         }
     }
 

@@ -12,6 +12,7 @@ using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Sessions;
 using FastTelegramBot.DataTypes;
 using FastTelegramBot.DataTypes.Keyboards;
+using FastTelegramBot.DataTypes.InputFiles;
 
 namespace MarkOne.Scripts.GameCore.Dialogs;
 
@@ -153,6 +154,14 @@ public abstract class DialogBase
     protected async Task<MessageId> SendDialogMessage(string text, ReplyKeyboardMarkup? replyMarkup)
     {
         _resendLastMessageFunc = async () => await messageSender.SendTextDialog(session.chatId, text, replyMarkup, disableWebPagePreview: true, cancellationToken: session.cancellationToken).FastAwait();
+        lastMessageId = await _resendLastMessageFunc().FastAwait();
+        lastMessageDate = DateTime.UtcNow;
+        return lastMessageId.Value;
+    }
+
+    protected async Task<MessageId> SendDialogPhotoMessage(InputFile photo, string caption, ReplyKeyboardMarkup? replyMarkup)
+    {
+        _resendLastMessageFunc = async () => await messageSender.SendPhotoDialog(session.chatId, photo, caption, replyMarkup, cancellationToken: session.cancellationToken).FastAwait();
         lastMessageId = await _resendLastMessageFunc().FastAwait();
         lastMessageDate = DateTime.UtcNow;
         return lastMessageId.Value;
