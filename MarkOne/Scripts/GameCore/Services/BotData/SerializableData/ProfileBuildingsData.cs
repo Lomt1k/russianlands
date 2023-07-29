@@ -9,7 +9,6 @@ public class ProfileBuildingsData : DataWithSession
 {
     [PrimaryKey]
     public long dbid { get; set; }
-    public DateTime lastResourceCollectTime { get; set; }
 
     public byte townHallLevel { get; set; } = 1;
     public DateTime townHallStartConstructionTime { get; set; }
