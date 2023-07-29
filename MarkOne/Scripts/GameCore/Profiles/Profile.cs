@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Services;
 using MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
+using MarkOne.Scripts.GameCore.Services.DailyDataManagers;
 using MarkOne.Scripts.GameCore.Sessions;
 
 namespace MarkOne.Scripts.GameCore.Profiles;
@@ -10,6 +11,7 @@ namespace MarkOne.Scripts.GameCore.Profiles;
 public class Profile
 {
     private static readonly DailyRemindersManager remindersManager = ServiceLocator.Get<DailyRemindersManager>();
+    private static readonly ServerDailyDataManager serverDailyDataManager = ServiceLocator.Get<ServerDailyDataManager>();
 
     public GameSession session { get; }
     public ProfileData data { get; private set; }
@@ -104,6 +106,8 @@ public class Profile
         {
             profileData = new ProfileData().SetupNewProfile(session.actualUser, messageText);
             db.Insert(profileData);
+            var registrations = serverDailyDataManager.GetIntegerValue("registrations");
+            serverDailyDataManager.SetIntegerValue("registrations", registrations + 1);
         }
         else
         {

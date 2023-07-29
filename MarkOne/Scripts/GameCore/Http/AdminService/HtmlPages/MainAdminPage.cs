@@ -28,6 +28,7 @@ internal class MainAdminPage : IHtmlPage
         var debugInfo = pm.debugInfo;
         var date = serverDailyDataManager.lastDate;
         var dailyRevenue = serverDailyDataManager.GetIntegerValue("revenue");
+        var registrations = serverDailyDataManager.GetIntegerValue("registrations");
         var dailyActiveUsers = profileDailyDataManager.GetDailyActiveUsers();
 
         // prepare document
@@ -42,6 +43,7 @@ internal class MainAdminPage : IHtmlPage
         var table = new HTag("table", new HProp("frame", "hsides"))
         {
             CreateTableRow("DAU", dailyActiveUsers.ToString()),
+            CreateTableRow("Registrations", registrations.ToString()),
             CreateTableRow("Sessions", allSessions.Count.ToString()),
             CreateTableRow("Now playing", recentlyActive.ToString()),
             CreateTableRow("Revenue", $"{dailyRevenue} RUB"),
