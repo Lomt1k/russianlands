@@ -35,11 +35,11 @@ internal class MainAdminPage : IHtmlPage
         var document = HtmlHelper.CreateDocument("Main Admin Page");
 
         document["html"]["body"].AddProperties(StylesHelper.CenterScreenParent());
-        var centerScreenBlock = new HTag("div", new HProp("align", "center"), StylesHelper.CenterScreenBlock(700, 700));
+        var centerScreenBlock = new HTag("div", new HProp("align", "center"), StylesHelper.CenterScreenBlock(700, 800));
         document["html"]["body"].Add(centerScreenBlock);
 
         // status table
-        centerScreenBlock.Add("p", $"Server Stats ({date.ToShortDateString()})");
+        centerScreenBlock.Add("p", $"Server Stats ({date.AsDateString()})", new HProp("style", "font-size: 24px;"));
         var table = new HTag("table", new HProp("frame", "hsides"))
         {
             CreateTableRow("DAU", dailyActiveUsers.ToString()),

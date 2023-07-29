@@ -53,7 +53,7 @@ internal class NewsDialogPanel : DialogPanelBase
             return;
         }
 
-        var publicationDate = Localization.Get(session, "dialog_news_publication_date", news.date.ToShortDateString());
+        var publicationDate = Localization.Get(session, "dialog_news_publication_date", news.date.AsDateString());
         var description = news.description.Replace("\\n", System.Environment.NewLine);
         var text = new StringBuilder()
             .AppendLine(news.title.Bold())

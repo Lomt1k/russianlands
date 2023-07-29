@@ -300,10 +300,10 @@ internal class PlayerSearchPage : IHtmlPage
                 CreateTableRow("Username", profileData.username ?? string.Empty),
                 CreateTableRow("Level", profileData.level.ToString()),
 
-                CreateTableRow("Registration Date", profileData.regDate.ToShortDateString()),
+                CreateTableRow("Registration Date", profileData.regDate.AsDateString()),
                 CreateTableRow("Registration Version", profileData.regVersion),
                 CreateTableRow("Last Version", profileData.lastVersion),
-                CreateTableRow("Last Activity Time", profileData.lastActivityTime.ToShortDateString()),
+                CreateTableRow("Last Activity Time", profileData.lastActivityTime.AsDateString()),
 
                 CreateTableRow("Language", profileData.language.ToString()),
                 CreateTableRow("Admin Status", profileData.adminStatus.ToString()),
