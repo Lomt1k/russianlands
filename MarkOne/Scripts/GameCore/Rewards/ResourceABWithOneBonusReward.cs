@@ -5,6 +5,7 @@ using MarkOne.Scripts.GameCore.Resources;
 using MarkOne.Scripts.GameCore.Sessions;
 using System.Text;
 using System.Collections.Generic;
+using MarkOne.Scripts.GameCore.Localizations;
 
 namespace MarkOne.Scripts.GameCore.Rewards;
 
@@ -26,9 +27,13 @@ public class ResourceABWithOneBonusReward : ResourceRewardBase
     public override Task<string?> AddReward(GameSession session)
     {
         var rewards = PrepareRewards();
-        session.player.resources.ForceAdd(rewards);
-        var text = rewards.GetLocalizedView(session);
-        return Task.FromResult(text);
+        var sb = new StringBuilder();
+        foreach (var reward in rewards)
+        {
+            var addedResource = session.player.resources.Add(reward);
+            sb.AppendLine(reward.GetLocalizedView(session) + (addedResource.amount < reward.amount ? Localization.Get(session, "resource_full_storage_prefix") : string.Empty));
+        }
+        return Task.FromResult(sb.ToString());
     }
 
     public override Task<string?> AddRewardWithAddPossiblePremiumRewardToList(GameSession session, List<ResourceReward> possiblePremiumRewards)
@@ -42,9 +47,14 @@ public class ResourceABWithOneBonusReward : ResourceRewardBase
                 possiblePremiumRewards.Add(new ResourceReward(resourceId, premiumAmount));
             }
         }
-        session.player.resources.ForceAdd(rewards);
-        var text = rewards.GetLocalizedView(session);
-        return Task.FromResult(text);
+
+        var sb = new StringBuilder();
+        foreach (var reward in rewards)
+        {
+            var addedResource = session.player.resources.Add(reward);
+            sb.AppendLine(reward.GetLocalizedView(session) + (addedResource.amount < reward.amount ? Localization.Get(session, "resource_full_storage_prefix") : string.Empty));
+        }
+        return Task.FromResult(sb.ToString());
     }
 
     private ResourceData[] PrepareRewards()

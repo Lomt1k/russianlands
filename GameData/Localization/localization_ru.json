@@ -390,6 +390,7 @@
 	"resource_successfull_purshase_for_diamonds" : "Вы успешно приобрели ресурсы за {0}",
 	"resource_buying_energy_canceled" : "Покупка энергии за алмазы была отменена, поскольку энергия уже накопилась самостоятельно",
 	"resource_price_free" : "Бесплатно",
+	"resource_full_storage_prefix" : " <i>[ЗАПОЛНЕНО]</i>",
 	"resource_name_time" : "<b>Время:</b>",
 	"resource_name_gold" : "Золото",
 	"resource_name_food" : "Еда",

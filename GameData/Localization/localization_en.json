@@ -390,6 +390,7 @@
 	"resource_successfull_purshase_for_diamonds" : "You have successfully purchased resources for {0}",
 	"resource_buying_energy_canceled" : "Buying energy with diamonds has been canceled as the energy has already accumulated on its own",
 	"resource_price_free" : "Free",
+	"resource_full_storage_prefix" : " <i>[FILLED]</i>",
 	"resource_name_time" : "<b>Time:</b>",
 	"resource_name_gold" : "Gold",
 	"resource_name_food" : "Food",
