@@ -135,8 +135,8 @@ public abstract class BuildingBase
     {
         if (IsNextLevelUnlocked(data))
         {
-            SetStartConstructionTime(data, DateTime.UtcNow);
             OnConstructionStart(data);
+            SetStartConstructionTime(data, DateTime.UtcNow);
         }
     }
 

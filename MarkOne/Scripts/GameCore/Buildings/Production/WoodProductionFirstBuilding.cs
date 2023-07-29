@@ -62,4 +62,14 @@ public class WoodProductionFirstBuilding : ProductionBuildingBase
         data.woodProdFirstWorkerSecond = level;
     }
 
+    public override int GetStorageResourceAmount(ProfileBuildingsData data)
+    {
+        return data.woodProdFirstStorageAmount;
+    }
+
+    public override void SetStorageResourceAmount(ProfileBuildingsData data, int resourceAmount)
+    {
+        data.woodProdFirstStorageAmount = resourceAmount;
+    }
+
 }

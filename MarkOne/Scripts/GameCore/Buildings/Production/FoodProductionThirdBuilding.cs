@@ -62,4 +62,14 @@ public class FoodProductionThirdBuilding : ProductionBuildingBase
         data.foodProdThirdWorkerSecond = level;
     }
 
+    public override int GetStorageResourceAmount(ProfileBuildingsData data)
+    {
+        return data.foodProdThirdStorageAmount;
+    }
+
+    public override void SetStorageResourceAmount(ProfileBuildingsData data, int resourceAmount)
+    {
+        data.foodProdThirdStorageAmount = resourceAmount;
+    }
+
 }

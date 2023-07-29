@@ -61,4 +61,14 @@ public class FoodProductionFirstBuilding : ProductionBuildingBase
     {
         data.foodProdFirstWorkerSecond = level;
     }
+
+    public override int GetStorageResourceAmount(ProfileBuildingsData data)
+    {
+        return data.foodProdFirstStorageAmount;
+    }
+
+    public override void SetStorageResourceAmount(ProfileBuildingsData data, int resourceAmount)
+    {
+        data.foodProdFirstStorageAmount = resourceAmount;
+    }
 }

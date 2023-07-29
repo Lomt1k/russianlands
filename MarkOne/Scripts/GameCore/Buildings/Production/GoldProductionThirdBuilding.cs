@@ -62,4 +62,14 @@ public class GoldProductionThirdBuilding : ProductionBuildingBase
         data.goldProdThirdWorkerSecond = level;
     }
 
+    public override int GetStorageResourceAmount(ProfileBuildingsData data)
+    {
+        return data.goldProdThirdStorageAmount;
+    }
+
+    public override void SetStorageResourceAmount(ProfileBuildingsData data, int resourceAmount)
+    {
+        data.goldProdThirdStorageAmount = resourceAmount;
+    }
+
 }

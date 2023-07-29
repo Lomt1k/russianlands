@@ -9,6 +9,7 @@ public class ProfileBuildingsData : DataWithSession
 {
     [PrimaryKey]
     public long dbid { get; set; }
+    public DateTime lastResourceCollectTime { get; set; }
 
     public byte townHallLevel { get; set; } = 1;
     public DateTime townHallStartConstructionTime { get; set; }
@@ -60,18 +61,21 @@ public class ProfileBuildingsData : DataWithSession
     public DateTime goldProdFirstStartFarmTime { get; set; }
     public byte goldProdFirstWorkerFirst { get; set; } = 1;
     public byte goldProdFirstWorkerSecond { get; set; } = 1;
+    public int goldProdFirstStorageAmount { get; set; }
 
     public byte goldProdSecondLevel { get; set; }
     public DateTime goldProdSecondStartConstructionTime { get; set; }
     public DateTime goldProdSecondStartFarmTime { get; set; }
     public byte goldProdSecondWorkerFirst { get; set; } = 1;
     public byte goldProdSecondWorkerSecond { get; set; } = 1;
+    public int goldProdSecondStorageAmount { get; set; }
 
     public byte goldProdThirdLevel { get; set; }
     public DateTime goldProdThirdStartConstructionTime { get; set; }
     public DateTime goldProdThirdStartFarmTime { get; set; }
     public byte goldProdThirdWorkerFirst { get; set; } = 1;
     public byte goldProdThirdWorkerSecond { get; set; } = 1;
+    public int goldProdThirdStorageAmount { get; set; }
 
     // --- Добыча ресурсов: Еда
     public byte foodProdFirstLevel { get; set; }
@@ -79,18 +83,21 @@ public class ProfileBuildingsData : DataWithSession
     public DateTime foodProdFirstStartFarmTime { get; set; }
     public byte foodProdFirstWorkerFirst { get; set; } = 1;
     public byte foodProdFirstWorkerSecond { get; set; } = 1;
+    public int foodProdFirstStorageAmount { get; set; }
 
     public byte foodProdSecondLevel { get; set; }
     public DateTime foodProdSecondStartConstructionTime { get; set; }
     public DateTime foodProdSecondStartFarmTime { get; set; }
     public byte foodProdSecondWorkerFirst { get; set; } = 1;
     public byte foodProdSecondWorkerSecond { get; set; } = 1;
+    public int foodProdSecondStorageAmount { get; set; }
 
     public byte foodProdThirdLevel { get; set; }
     public DateTime foodProdThirdStartConstructionTime { get; set; }
     public DateTime foodProdThirdStartFarmTime { get; set; }
     public byte foodProdThirdWorkerFirst { get; set; } = 1;
     public byte foodProdThirdWorkerSecond { get; set; } = 1;
+    public int foodProdThirdStorageAmount { get; set; }
 
     // --- Добыча ресурсов: Травы
     public byte herbsProdFirstLevel { get; set; }
@@ -98,18 +105,21 @@ public class ProfileBuildingsData : DataWithSession
     public DateTime herbsProdFirstStartFarmTime { get; set; }
     public byte herbsProdFirstWorkerFirst { get; set; } = 1;
     public byte herbsProdFirstWorkerSecond { get; set; } = 1;
+    public int herbsProdFirstStorageAmount { get; set; }
 
     public byte herbsProdSecondLevel { get; set; }
     public DateTime herbsProdSecondStartConstructionTime { get; set; }
     public DateTime herbsProdSecondStartFarmTime { get; set; }
     public byte herbsProdSecondWorkerFirst { get; set; } = 1;
     public byte herbsProdSecondWorkerSecond { get; set; } = 1;
+    public int herbsProdSecondStorageAmount { get; set; }
 
     public byte herbsProdThirdLevel { get; set; }
     public DateTime herbsProdThirdStartConstructionTime { get; set; }
     public DateTime herbsProdThirdStartFarmTime { get; set; }
     public byte herbsProdThirdWorkerFirst { get; set; } = 1;
     public byte herbsProdThirdWorkerSecond { get; set; } = 1;
+    public int herbsProdThirdStorageAmount { get; set; }
 
     // --- Добыча ресурсов: Дерево
     public byte woodProdFirstLevel { get; set; }
@@ -117,12 +127,14 @@ public class ProfileBuildingsData : DataWithSession
     public DateTime woodProdFirstStartFarmTime { get; set; }
     public byte woodProdFirstWorkerFirst { get; set; } = 1;
     public byte woodProdFirstWorkerSecond { get; set; } = 1;
+    public int woodProdFirstStorageAmount { get; set; }
 
     public byte woodProdSecondLevel { get; set; }
     public DateTime woodProdSecondStartConstructionTime { get; set; }
     public DateTime woodProdSecondStartFarmTime { get; set; }
     public byte woodProdSecondWorkerFirst { get; set; } = 1;
     public byte woodProdSecondWorkerSecond { get; set; } = 1;
+    public int woodProdSecondStorageAmount { get; set; }
 
     // --- Тренировка
     public byte warriorTrainingLevel { get; set; }

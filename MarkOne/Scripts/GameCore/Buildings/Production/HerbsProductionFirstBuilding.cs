@@ -62,4 +62,14 @@ public class HerbsProductionFirstBuilding : ProductionBuildingBase
         data.herbsProdFirstWorkerSecond = level;
     }
 
+    public override int GetStorageResourceAmount(ProfileBuildingsData data)
+    {
+        return data.herbsProdFirstStorageAmount;
+    }
+
+    public override void SetStorageResourceAmount(ProfileBuildingsData data, int resourceAmount)
+    {
+        data.herbsProdFirstStorageAmount = resourceAmount;
+    }
+
 }

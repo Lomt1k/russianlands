@@ -111,6 +111,12 @@ public class NotificationsManager : Service
     private bool NeedForceClaimResources(GameSession session)
     {
         var buildingsData = session.profile.buildingsData;
+        var timeAfterLastCollect = DateTime.UtcNow - buildingsData.lastResourceCollectTime;
+        if (timeAfterLastCollect.Minutes < 10)
+        {
+            return false;
+        }
+
         var productionBuildings = session.player.buildings.GetBuildingsByCategory(BuildingCategory.Production);
         foreach (ProductionBuildingBase building in productionBuildings)
         {
@@ -118,14 +124,11 @@ public class NotificationsManager : Service
             {
                 continue;
             }
-            if (building.IsUnderConstruction(buildingsData) && !building.IsConstructionCanBeFinished(buildingsData))
-            {
-                continue;
-            }
 
-            var farmedAmount = building.GetFarmedResourceAmount(buildingsData);
+            building.UpdateProduction(buildingsData);
+            var storageAmount = building.GetStorageResourceAmount(buildingsData);
             var farmLimit = building.GetCurrentLevelResourceLimit(buildingsData);
-            var isFarmedLimitReached = farmedAmount >= farmLimit;
+            var isFarmedLimitReached = storageAmount >= farmLimit;
 
             if (isFarmedLimitReached)
             {

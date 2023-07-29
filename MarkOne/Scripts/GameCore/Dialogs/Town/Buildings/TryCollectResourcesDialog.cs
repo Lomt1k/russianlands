@@ -36,42 +36,25 @@ public class TryCollectResourcesDialog : DialogBase
         var playerResources = session.player.resources;
         var productionBuildings = session.player.buildings.GetBuildingsByCategory(BuildingCategory.Production);
         var buildingsData = session.profile.buildingsData;
+        var dtNow = DateTime.UtcNow;
         foreach (ProductionBuildingBase building in productionBuildings)
         {
-            if (building.IsUnderConstruction(buildingsData) && !building.IsConstructionCanBeFinished(buildingsData))
-            {
-                continue;
-            }
-            var farmedAmout = building.GetFarmedResourceAmount(buildingsData);
-            if (farmedAmout < 1)
+            building.UpdateProduction(buildingsData);
+            var storageAmount = building.GetStorageResourceAmount(buildingsData);
+            if (storageAmount < 1)
             {
                 continue;
             }
 
-            var reallyAdded = playerResources.Add(new ResourceData(building.resourceId, farmedAmout));
+            var reallyAdded = playerResources.Add(new ResourceData(building.resourceId, storageAmount));
             if (reallyAdded.amount > 0)
             {
                 collectedResources.TryGetValue(building.resourceId, out var prevValue);
                 collectedResources[building.resourceId] = prevValue + reallyAdded.amount;
             }
 
-            if (reallyAdded.amount == farmedAmout)
-            {
-                building.SetStartFarmTime(buildingsData, DateTime.UtcNow);
-            }
-            else
-            {
-                var startFarmDt = building.GetStartFarmTime(buildingsData);
-                var totalFarmSeconds = (DateTime.UtcNow - startFarmDt).TotalSeconds;
-                var collectedPart = (float)reallyAdded.amount / farmedAmout;
-                var secondsToRemove = totalFarmSeconds * collectedPart;
-                var newStartFarmDt = startFarmDt.AddSeconds(secondsToRemove);
-                building.SetStartFarmTime(buildingsData, newStartFarmDt);
-
-                var notCollectedAmount = farmedAmout - reallyAdded.amount;
-                notCollectedResources.TryGetValue(building.resourceId, out var prevValue);
-                notCollectedResources[building.resourceId] = prevValue + notCollectedAmount;
-            }
+            building.SetStorageResourceAmount(buildingsData, storageAmount - reallyAdded.amount);
+            building.SetStartFarmTime(buildingsData, dtNow);
         }
 
         var sb = new StringBuilder();
@@ -107,6 +90,8 @@ public class TryCollectResourcesDialog : DialogBase
                 sb.AppendLine(notCollectedDatas.GetCompactView());
             }
         }
+
+        buildingsData.lastResourceCollectTime = dtNow;
         return sb.ToString();
     }
 
