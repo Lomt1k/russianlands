@@ -133,7 +133,7 @@ public abstract class BuildingBase
     /// </summary>
     public void StartConstruction(ProfileBuildingsData data)
     {
-        if (IsNextLevelUnlocked(data))
+        if (IsNextLevelAvailable(data))
         {
             OnConstructionStart(data);
             SetStartConstructionTime(data, DateTime.UtcNow);
@@ -141,7 +141,7 @@ public abstract class BuildingBase
     }
 
     /// <returns>Доступен ли следующий уровень на текущем уровне ратуши</returns>
-    public bool IsNextLevelUnlocked(ProfileBuildingsData data)
+    public virtual bool IsNextLevelAvailable(ProfileBuildingsData data)
     {
         if (IsMaxLevel(data))
             return false;

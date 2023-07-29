@@ -148,7 +148,7 @@ public partial class BuildingsDialogPanel : DialogPanelBase
         if (building.IsBuilt(data))
             return Emojis.Empty;
 
-        return building.IsNextLevelUnlocked(data)
+        return building.IsNextLevelAvailable(data)
             ? Emojis.ElementPlus
             : Emojis.ElementLocked;
     }

@@ -44,6 +44,8 @@ public class ObjectPropertyModel
                 if (element.ToString().Equals(_selectedEnumValue))
                 {
                     this.value = element;
+                    isValidValue = true;
+                    SaveValueIfValid();
                     break;
                 }
             }

@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using MarkOne.Scripts.GameCore.Services.GameData;
+using MarkOne.Scripts.GameCore.Quests;
 
 namespace MarkOne.Scripts.GameCore.Buildings.Data;
 
@@ -30,6 +31,12 @@ public class BuildingLevelInfo
     public int requiredGold { get; set; }
     public int requiredHerbs { get; set; }
     public int requiredWood { get; set; }
+}
+
+[JsonObject]
+public class TownhallLevelInfo : BuildingLevelInfo
+{
+    public QuestId requireCompletedQuest { get; set; }
 }
 
 [JsonObject]

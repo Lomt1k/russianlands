@@ -106,6 +106,9 @@ public static class BuildingIdExtensions
     {
         switch (buildingId)
         {
+            case BuildingId.TownHall:
+                return new TownhallLevelInfo();
+
             case BuildingId.ItemsStorage:
             case BuildingId.GoldStorage:
             case BuildingId.FoodStorage:

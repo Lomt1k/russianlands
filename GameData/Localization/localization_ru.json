@@ -228,6 +228,7 @@
 	"building_construction_end" : "Улучшено до {0} уровня",
 	"building_construction_progress" : "Улучшается... {0}",
 	"building_TownHall_description" : "Главное здание города. Его улучшение открывает доступ к новым зданиям",
+	"building_TownHall_locked" : "Чтобы улучшить ратушу до следующего уровня, нужно пройти локацию <b>{0}</b>",
 	"building_Tyr_description" : "Данное здание снабжает вас стрелами, которые используются в бою",
 	"building_AlchemyLab_description" : "Данное здание позволяет изготавливать зелья, которые можно использовать в бою",
 	"building_AlchemyLab_unavailable_under_construction" : "Изготовление новых зелий недоступно во время строительства",

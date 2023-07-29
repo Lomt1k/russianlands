@@ -179,7 +179,7 @@ public partial class BuildingsDialogPanel : DialogPanelBase
 
 
         ClearButtons();
-        if (playerTownHall >= levelData.requiredTownHall)
+        if (building.IsNextLevelAvailable(_buildingsData))
         {
             RegisterButton(Emojis.ElementConstruction + Localization.Get(session, "dialog_buildings_start_construction_button"),
                 () => TryStartConstruction(building));

@@ -1,5 +1,8 @@
 ﻿using System;
+using MarkOne.Scripts.GameCore.Buildings.Data;
 using MarkOne.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.GameCore.Locations;
+using MarkOne.Scripts.GameCore.Quests;
 using MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
 using MarkOne.Scripts.GameCore.Sessions;
 
@@ -54,6 +57,33 @@ public class TownHallBuilding : BuildingBase
         profileData.arenaItemId_2 = null;
         profileData.arenaItemId_3 = null;
         profileData.arenaItemId_4 = null;
+    }
+
+    public override string? GetSpecialConstructionWarning(ProfileBuildingsData data, GameSession session)
+    {
+        var level = GetCurrentLevel(data);
+        var nextLevelInfo = (TownhallLevelInfo)buildingData.levels[level];
+        var requiredQuest = nextLevelInfo.requireCompletedQuest;
+        if (requiredQuest == QuestId.None || data.session.profile.dynamicData.quests.IsCompleted(requiredQuest))
+        {
+            return null;
+        }
+        var locationId = requiredQuest.GetLocation();
+        return Localization.Get(session, "building_TownHall_locked", locationId.Value.GetLocalization(data.session));
+    }
+
+    public override bool IsNextLevelAvailable(ProfileBuildingsData data)
+    {
+        var defaultValue = base.IsNextLevelAvailable(data);
+        if (!defaultValue)
+        {
+            return false;
+        }
+
+        var level = GetCurrentLevel(data);
+        var nextLevelInfo = (TownhallLevelInfo)buildingData.levels[level];
+        var requiredQuest = nextLevelInfo.requireCompletedQuest;
+        return requiredQuest == QuestId.None || data.session.profile.dynamicData.quests.IsCompleted(requiredQuest);
     }
 
 }

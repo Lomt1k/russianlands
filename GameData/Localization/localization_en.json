@@ -228,6 +228,7 @@
 	"building_construction_end" : "Upgraded to level {0}",
 	"building_construction_progress" : "Improving... {0}",
 	"building_TownHall_description" : "The main building of the town. Its improvement opens access to new buildings",
+	"building_TownHall_locked" : "To upgrade the town hall to the next level, you need to complete the location <b>{0}</b>",
 	"building_Tyr_description" : "This building supplies you with arrows that are used in battle",
 	"building_AlchemyLab_description" : "This building allows you to make potions that can be used in battle",
 	"building_AlchemyLab_unavailable_under_construction" : "Crafting new potions is not available during construction",

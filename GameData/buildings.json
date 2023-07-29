@@ -3,7 +3,8 @@
     "id": 100,
     "levels": [
       {
-        "$type": "BuildingLevelInfo",
+        "$type": "TownhallLevelInfo",
+        "requireCompletedQuest": 0,
         "requiredTownHall": 0,
         "constructionTime": 0,
         "isBoostAvailable": false,
@@ -12,7 +13,8 @@
         "requiredWood": 0
       },
       {
-        "$type": "BuildingLevelInfo",
+        "$type": "TownhallLevelInfo",
+        "requireCompletedQuest": 0,
         "requiredTownHall": 1,
         "constructionTime": 60,
         "isBoostAvailable": true,
@@ -21,7 +23,8 @@
         "requiredWood": 0
       },
       {
-        "$type": "BuildingLevelInfo",
+        "$type": "TownhallLevelInfo",
+        "requireCompletedQuest": 0,
         "requiredTownHall": 2,
         "constructionTime": 900,
         "isBoostAvailable": true,
@@ -30,7 +33,8 @@
         "requiredWood": 0
       },
       {
-        "$type": "BuildingLevelInfo",
+        "$type": "TownhallLevelInfo",
+        "requireCompletedQuest": 0,
         "requiredTownHall": 3,
         "constructionTime": 1800,
         "isBoostAvailable": false,
@@ -39,7 +43,8 @@
         "requiredWood": 0
       },
       {
-        "$type": "BuildingLevelInfo",
+        "$type": "TownhallLevelInfo",
+        "requireCompletedQuest": 4,
         "requiredTownHall": 4,
         "constructionTime": 3600,
         "isBoostAvailable": false,
@@ -48,7 +53,8 @@
         "requiredWood": 0
       },
       {
-        "$type": "BuildingLevelInfo",
+        "$type": "TownhallLevelInfo",
+        "requireCompletedQuest": 5,
         "requiredTownHall": 5,
         "constructionTime": 18000,
         "isBoostAvailable": false,
@@ -57,7 +63,8 @@
         "requiredWood": 0
       },
       {
-        "$type": "BuildingLevelInfo",
+        "$type": "TownhallLevelInfo",
+        "requireCompletedQuest": 6,
         "requiredTownHall": 6,
         "constructionTime": 129600,
         "isBoostAvailable": false,
@@ -66,7 +73,8 @@
         "requiredWood": 0
       },
       {
-        "$type": "BuildingLevelInfo",
+        "$type": "TownhallLevelInfo",
+        "requireCompletedQuest": 7,
         "requiredTownHall": 7,
         "constructionTime": 172800,
         "isBoostAvailable": false,
