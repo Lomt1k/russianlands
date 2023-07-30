@@ -8,6 +8,7 @@ using MarkOne.Scripts.GameCore.Services.DailyDataManagers;
 using MarkOne.Scripts.GameCore.Services.Mobs;
 using MarkOne.Scripts.GameCore.Services.Sending;
 using MarkOne.Scripts.GameCore.Sessions;
+using MarkOne.Scripts.GameCore.Shop.Offers;
 
 namespace MarkOne.Scripts.GameCore.Services;
 
@@ -26,6 +27,7 @@ public static class ServiceLocator
         Register(new BattleManager());
         Register(new PerformanceManager());
         Register(new Payments.PaymentManager());
+        Register(new OffersManager());
         Register(new NotificationsManager());
         Register(new MessageSequencer());
         Register(new MessageSender());

@@ -38,7 +38,7 @@ public class PaymentManager : Service
         return Task.CompletedTask;
     }
 
-    public async Task<PaymentData?> TryGetOrCreatePayment(GameSession session, double rubblePrice, string vendorCode, string comment)
+    public async Task<PaymentData?> TryGetOrCreatePayment(GameSession session, double rubblePrice, string vendorCode, string comment, DateTime? expireDate = null)
     {
         var db = BotController.dataBase.db;
         var mixExpireTime = DateTime.UtcNow.AddMinutes(_settings.minExpireTimeToUseOldOrder);
@@ -55,7 +55,7 @@ public class PaymentManager : Service
         return await TryCreatePayment(session, rubblePrice, vendorCode, comment).FastAwait();
     }
 
-    private async Task<PaymentData?> TryCreatePayment(GameSession session, double rubblePrice, string vendorCode, string comment)
+    private async Task<PaymentData?> TryCreatePayment(GameSession session, double rubblePrice, string vendorCode, string comment, DateTime? expireDate = null)
     {
         if (!_isEnabled || _paymentProvider is null)
         {
@@ -72,7 +72,7 @@ public class PaymentManager : Service
             status = PaymentStatus.NotPaid,
             rubbles = rubblePrice,
             creationDate = now,
-            expireDate = now.AddMinutes(_settings.expireTimeInMinutes),
+            expireDate = expireDate ?? now.AddMinutes(_settings.expireTimeInMinutes),
             comment = comment
         };
 

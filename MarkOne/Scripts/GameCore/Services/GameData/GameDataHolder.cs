@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using MarkOne.Scripts.GameCore.Arena;
 using MarkOne.Scripts.GameCore.Buildings;
 using MarkOne.Scripts.GameCore.Buildings.Data;
@@ -33,7 +34,9 @@ public class GameDataHolder : Service
     public GameDataDictionary<int, OfferData> offers { get; private set; }
     public IReadOnlyList<string> botnames { get; private set; }
 
+    // cache
     public Dictionary<string, ShopItemBase> shopItemsCache { get; private set; } = new();
+    public OfferData[] offersOrderedByPriority { get; private set; } = Array.Empty<OfferData>();
 
 #pragma warning restore CS8618
 
@@ -65,6 +68,7 @@ public class GameDataHolder : Service
         offers = LoadGameDataDictionary<int, OfferData>("offers");
 
         RefreshShopItemsCache();
+        offersOrderedByPriority = offers.GetAllData().OrderByDescending(x => x.priority).ToArray();
 
         Localizations.Localization.LoadAll(gameDataPath);
         botnames = File.ReadAllLines(Path.Combine(gameDataPath, "botnames.txt"));
