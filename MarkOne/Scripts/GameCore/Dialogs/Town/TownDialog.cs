@@ -8,6 +8,10 @@ using MarkOne.Scripts.GameCore.Services.News;
 using MarkOne.Scripts.GameCore.Services;
 using FastTelegramBot.DataTypes;
 using FastTelegramBot.DataTypes.Keyboards;
+using System.Linq;
+using System;
+using MarkOne.Scripts.GameCore.Shop.Offers;
+using MarkOne.Scripts.GameCore.Dialogs.Town.Shop;
 
 namespace MarkOne.Scripts.GameCore.Dialogs.Town;
 
@@ -65,7 +69,30 @@ public class TownDialog : DialogBase
 
         RegisterButton(Emojis.ElementLocked + Localization.Get(session, "menu_item_events"), () => new Events.EventsDialog(session).Start());
 
-        _keyboard = GetKeyboardWithRowSizes(1, 2, 3);
+        var hasOfferButton = TryRegisterRandomOfferButton();
+        _keyboard = hasOfferButton ? GetKeyboardWithRowSizes(1, 2, 3, 1) : GetKeyboardWithRowSizes(1, 2, 3);
+    }
+
+    private bool TryRegisterRandomOfferButton()
+    {
+        var activeOffers = session.profile.dynamicData.offers.Where(x => x.IsActive()).ToArray();
+        if (activeOffers.Length < 1)
+        {
+            return false;
+        }
+
+        var randIndex = new Random().Next(activeOffers.Length);
+        var offer = activeOffers[randIndex];
+        var timeToEnd = offer.GetTimeToEnd();
+        var buttonText = $"{timeToEnd.GetShortView(session)} | {offer.GetData().GetTitle(session)}";
+        RegisterButton(buttonText, () => ShowOffer(offer));
+        return true;
+    }
+
+    private async Task ShowOffer(OfferItem offerItem)
+    {
+        var offerData = offerItem.GetData();
+        await offerData.StartOfferDialog(session, offerItem, () => new ShopDialog(session).StartWithCategory(ShopCategory.Offers));
     }
 
     public override async Task Start()
