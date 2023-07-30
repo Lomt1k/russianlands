@@ -9,6 +9,7 @@ using MarkOne.Scripts.GameCore.Locations;
 using MarkOne.Scripts.GameCore.Potions;
 using MarkOne.Scripts.GameCore.Quests;
 using MarkOne.Scripts.GameCore.Shop;
+using MarkOne.Scripts.GameCore.Shop.Offers;
 using MarkOne.Scripts.GameCore.Units.Mobs;
 
 namespace MarkOne.Scripts.GameCore.Services.GameData;
@@ -29,6 +30,7 @@ public class GameDataHolder : Service
     public GameDataDictionary<LeagueId, ArenaLeagueSettings> arenaLeagueSettings { get; private set; }
     public GameDataDictionary<byte,ArenaShopSettings> arenaShopSettings { get; private set; }
     public GameDataDictionary<byte, ShopSettings> shopSettings { get; private set; }
+    public GameDataDictionary<int, OfferData> offers { get; private set; }
     public IReadOnlyList<string> botnames { get; private set; }
 
     public Dictionary<string, ShopItemBase> shopItemsCache { get; private set; } = new();
@@ -60,6 +62,7 @@ public class GameDataHolder : Service
         arenaLeagueSettings = LoadGameDataDictionary<LeagueId, ArenaLeagueSettings>("arenaLeagueSettings");
         arenaShopSettings = LoadGameDataDictionary<byte, ArenaShopSettings>("arenaShopSettings");
         shopSettings = LoadGameDataDictionary<byte, ShopSettings>("shopSettings");
+        offers = LoadGameDataDictionary<int, OfferData>("offers");
 
         RefreshShopItemsCache();
 
@@ -150,6 +153,7 @@ public class GameDataHolder : Service
         arenaLeagueSettings.Save();
         arenaShopSettings.Save();
         shopSettings.Save();
+        offers.Save();
     }
 
 }

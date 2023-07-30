@@ -14,6 +14,7 @@ using GameDataEditor.Views.Editor.ArenaSettingsEditor;
 using GameDataEditor.Views.Editor.ArenaLeaguesEditor;
 using GameDataEditor.Views.Editor.ArenaShopSettingsEditor;
 using GameDataEditor.Views.Editor.ShopSettingsEditor;
+using GameDataEditor.Views.Editor.OffersEditor;
 
 namespace GameDataEditor.ViewModels;
 
@@ -61,6 +62,7 @@ public class MainViewModel : ViewModelBase
         categories.Add(new MainEditorCategory("Arena Leagues", new ArenaLeaguesEditorView()));
         categories.Add(new MainEditorCategory("Arena Shop Settings", new ArenaShopSettingsEditorView()));
         categories.Add(new MainEditorCategory("Shop Settings", new ShopSettingsEditorView()));
+        categories.Add(new MainEditorCategory("Offers", new OffersEditorView()));
     }
 
     private void SaveCommand()

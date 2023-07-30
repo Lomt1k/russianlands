@@ -1,0 +1,20 @@
+﻿[
+  {
+    "$type": "PremiumOfferData",
+    "premiumReward": {
+      "$type": "PremiumReward",
+      "seconds": 0
+    },
+    "id": 1,
+    "comment": "Стартовый оффер на премиум",
+    "isEnabled": true,
+    "vendorCode": "offer-start-premium-conversion",
+    "titleKey": "",
+    "descriptionKey": "",
+    "visualPriceWithoutOffer": 449,
+    "priceRubles": 99,
+    "activityHours": 96,
+    "cooldownInDays": 0,
+    "IsOneTimeOffer": true
+  }
+]

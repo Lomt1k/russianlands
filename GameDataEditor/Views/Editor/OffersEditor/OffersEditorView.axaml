@@ -1,0 +1,62 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="GameDataEditor.Views.Editor.OffersEditor.OffersEditorView">
+
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="auto"/>
+      <ColumnDefinition Width="auto"/>
+    </Grid.ColumnDefinitions>
+
+    <Grid.RowDefinitions>
+      <RowDefinition Height="50"/>
+      <RowDefinition Height="auto"/>
+    </Grid.RowDefinitions>
+
+    <!-- Column 2: Offers List -->
+    <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="0" Margin="40,0"
+                Background="DarkGray" MaxHeight="40">
+      <TextBlock Text="ID" Width="80" Classes="h3" Padding="10"/>
+      <TextBlock Text="Comment" MinWidth="300" Classes="h3" Padding="10"/>
+    </StackPanel>
+
+    <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Vertical"
+                Margin="40,0" VerticalAlignment="Top">
+
+      <ListBox MaxHeight="600"
+               ItemsSource="{Binding showedOffers}"
+               SelectedItem="{Binding selectedOffer}">
+        <ListBox.ItemTemplate>
+
+          <DataTemplate>
+            <StackPanel Orientation="Horizontal">
+              <TextBlock Text="{Binding id}" Width="80"/>
+              <TextBlock Text="{Binding comment}" MinWidth="300"/>
+            </StackPanel>
+          </DataTemplate>
+
+        </ListBox.ItemTemplate>
+      </ListBox>
+
+      <StackPanel Margin="0,20" Spacing="20" Orientation="Horizontal">
+        <Button Content="Add New" Classes="Neutral"
+              Command="{Binding addNewOfferCommand}"/>
+        <Button Content="Remove" Classes="Neutral"
+                Command="{Binding removeOfferCommand}"/>
+      </StackPanel>
+
+
+    </StackPanel>
+
+    <!-- Column 3: Offer Inspector -->
+    <UserControl Grid.Column="1" Grid.Row="1" Margin="40,0" VerticalAlignment="Top"
+                 Content="{Binding offerView}"
+                 IsVisible="{Binding selectedOffer, Converter={x:Static ObjectConverters.IsNotNull}}"/>
+
+
+  </Grid>
+  
+</UserControl>

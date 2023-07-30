@@ -17,11 +17,10 @@ public class PotionsEditorViewModel : ViewModelBase
 {
     private static readonly GameDataHolder gameDataBase = ServiceLocator.Get<GameDataHolder>();
 
-
     private PotionData? _selectedPotion;
     private ObjectPropertiesEditorView? _potionPropertiesEditorView;
 
-    public ObservableCollection<PotionData> showedPotions { get; private set; } = new ObservableCollection<PotionData>();
+    public ObservableCollection<PotionData> showedPotions { get; private set; } = new();
 
     public PotionData? selectedPotion
     {
