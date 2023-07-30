@@ -5,7 +5,9 @@ using MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
 using MarkOne.Scripts.GameCore.Services.DailyDataManagers;
 using MarkOne.Scripts.GameCore.Services.GameData;
 using MarkOne.Scripts.GameCore.Sessions;
+using MarkOne.Scripts.GameCore.Shop.Offers;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using static MarkOne.Scripts.Bot.BotConfig;
 
@@ -131,6 +133,10 @@ public class PaymentManager : Service
                     await shopItem.GiveAndShowRewards(session, () => new ShopDialog(session).Start()).FastAwait();                    
                     session.profile.data.revenueRUB += (uint)paymentData.rubbles;
                     session.profile.dailyData.revenueRUB += (uint)paymentData.rubbles;
+                    if (shopItem is ShopOfferItem)
+                    {
+                        session.profile.dynamicData.offers.Where(x => x.GetData().vendorCode == shopItem.vendorCode).FirstOrDefault()?.Deactivate();
+                    }
 
                     Program.logger.Info($"PAYMENT | User {session.actualUser} received a reward" +
                         $"\n orderId: {paymentData.orderId}" +
@@ -248,6 +254,10 @@ public class PaymentManager : Service
         }
 
         await shopItem.GiveAndShowRewards(session, onConinue).FastAwait();
+        if (shopItem is ShopOfferItem)
+        {
+            session.profile.dynamicData.offers.Where(x => x.GetData().vendorCode == shopItem.vendorCode).FirstOrDefault()?.Deactivate();
+        }
 
         Program.logger.Info($"PAYMENT | User {session.actualUser} received a reward" +
             $"\n orderId: '{paymentData.orderId}'" +

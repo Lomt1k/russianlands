@@ -84,5 +84,10 @@ public class OfferItem
         var endCooldownTime = lastEndTime.AddDays(GetData().cooldownInDays);
         return endCooldownTime > DateTime.UtcNow;
     }
+
+    public void Deactivate()
+    {
+        _lastEndTime = DateTime.UtcNow.Ticks;
+    }
     
 }
