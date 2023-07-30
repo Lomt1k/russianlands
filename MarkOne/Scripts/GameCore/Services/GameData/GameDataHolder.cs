@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using MarkOne.Scripts.GameCore.Arena;
 using MarkOne.Scripts.GameCore.Buildings;
 using MarkOne.Scripts.GameCore.Buildings.Data;
@@ -9,6 +10,7 @@ using MarkOne.Scripts.GameCore.Locations;
 using MarkOne.Scripts.GameCore.Potions;
 using MarkOne.Scripts.GameCore.Quests;
 using MarkOne.Scripts.GameCore.Shop;
+using MarkOne.Scripts.GameCore.Shop.Offers;
 using MarkOne.Scripts.GameCore.Units.Mobs;
 
 namespace MarkOne.Scripts.GameCore.Services.GameData;
@@ -29,9 +31,12 @@ public class GameDataHolder : Service
     public GameDataDictionary<LeagueId, ArenaLeagueSettings> arenaLeagueSettings { get; private set; }
     public GameDataDictionary<byte,ArenaShopSettings> arenaShopSettings { get; private set; }
     public GameDataDictionary<byte, ShopSettings> shopSettings { get; private set; }
+    public GameDataDictionary<int, OfferData> offers { get; private set; }
     public IReadOnlyList<string> botnames { get; private set; }
 
+    // cache
     public Dictionary<string, ShopItemBase> shopItemsCache { get; private set; } = new();
+    public OfferData[] offersOrderedByPriority { get; private set; } = Array.Empty<OfferData>();
 
 #pragma warning restore CS8618
 
@@ -60,8 +65,10 @@ public class GameDataHolder : Service
         arenaLeagueSettings = LoadGameDataDictionary<LeagueId, ArenaLeagueSettings>("arenaLeagueSettings");
         arenaShopSettings = LoadGameDataDictionary<byte, ArenaShopSettings>("arenaShopSettings");
         shopSettings = LoadGameDataDictionary<byte, ShopSettings>("shopSettings");
+        offers = LoadGameDataDictionary<int, OfferData>("offers");
 
         RefreshShopItemsCache();
+        offersOrderedByPriority = offers.GetAllData().OrderByDescending(x => x.priority).ToArray();
 
         Localizations.Localization.LoadAll(gameDataPath);
         botnames = File.ReadAllLines(Path.Combine(gameDataPath, "botnames.txt"));
@@ -131,6 +138,13 @@ public class GameDataHolder : Service
                 shopItemsCache.Add(item.vendorCode, item);
             }
         }
+
+        // offers
+        foreach (var offerData in offers.GetAllData())
+        {
+            var shopItem = offerData.GenerateShopItem();
+            shopItemsCache.Add(shopItem.vendorCode, shopItem);
+        }
     }
 
     public void SaveAllData()
@@ -150,6 +164,7 @@ public class GameDataHolder : Service
         arenaLeagueSettings.Save();
         arenaShopSettings.Save();
         shopSettings.Save();
+        offers.Save();
     }
 
 }
