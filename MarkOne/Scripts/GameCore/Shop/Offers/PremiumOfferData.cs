@@ -36,5 +36,9 @@ public class PremiumOfferData : OfferData
     {
         await new PremiumOfferDialog(session, this, offerItem, onClose).Start().FastAwait();
     }
-    
+
+    public override ShopItemBase GenerateShopItem()
+    {
+        return new ShopOfferItem(this, new[] { premiumReward });
+    }
 }

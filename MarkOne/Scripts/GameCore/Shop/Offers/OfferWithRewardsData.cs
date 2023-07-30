@@ -45,4 +45,9 @@ public class OfferWithRewardsData : OfferData
     {
         await new OfferWithRewardsDialog(session, this, offerItem, onClose).Start().FastAwait();
     }
+
+    public override ShopItemBase GenerateShopItem()
+    {
+        return new ShopOfferItem(this, rewards);
+    }
 }

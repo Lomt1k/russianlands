@@ -138,6 +138,13 @@ public class GameDataHolder : Service
                 shopItemsCache.Add(item.vendorCode, item);
             }
         }
+
+        // offers
+        foreach (var offerData in offers.GetAllData())
+        {
+            var shopItem = offerData.GenerateShopItem();
+            shopItemsCache.Add(shopItem.vendorCode, shopItem);
+        }
     }
 
     public void SaveAllData()

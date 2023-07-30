@@ -45,9 +45,8 @@ public class OfferItem
         var dtNow = DateTime.UtcNow;
         var offerEndTime = dtNow.AddHours(GetData().activityHours);
         var paymentEndTime = offerEndTime.AddMinutes(15);
-        var offerCode = $"offer-{id}-start-{dtNow.AsDateTimeString()}";
         var comment = data.GetTitle(session);
-        var paymentData = await paymentManager.TryGetOrCreatePayment(session, data.priceRubles, offerCode, comment, paymentEndTime).FastAwait();
+        var paymentData = await paymentManager.TryGetOrCreatePayment(session, data.priceRubles, data.vendorCode, comment, paymentEndTime).FastAwait();
         if (paymentData is null)
         {
             return false;

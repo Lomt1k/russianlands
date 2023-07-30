@@ -24,6 +24,8 @@ public abstract class OfferData : IGameDataWithId<int>
     public int activationsLimit { get; set; } = 1;
     public int priority { get; set; } = 100;
 
+    public string vendorCode => $"offer-{id}";
+
     public OfferData(int _id)
     {
         id = _id;
@@ -33,6 +35,7 @@ public abstract class OfferData : IGameDataWithId<int>
     public abstract string GetDescription(GameSession session);
     public abstract string GetBestBuyLabel(GameSession session);
     public abstract Task StartOfferDialog(GameSession session, OfferItem offerItem, Func<Task> onClose);
+    public abstract ShopItemBase GenerateShopItem();
 
     public string GetTimeToEndLabel(GameSession session, OfferItem offerItem)
     {
