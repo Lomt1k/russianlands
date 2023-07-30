@@ -1174,4 +1174,12 @@
 	"photo_fileId_loc_07" : "AgACAgIAAxkBAAET0IVkxRnfGpDJn6mhNr3raMiDuNOjFwACD84xG8M2KErDUgwRUNx7rgEAAwIAA3gAAy8E",
 	"photo_fileId_loc_arena" : "AgACAgIAAxkBAAET0GZkxRnLp0bSMJZlPwSs9EEqpJckGwACBs4xG8M2KEpHwYBd3rJEMwEAAwIAA3gAAy8E",
 	"photo_fileId_loc_crossroads" : "AgACAgIAAxkBAAET0F1kxRnCRbvxZTgD2clPScb3bdm21QACBc4xG8M2KEr7IG3a6UBRPgEAAwIAA3gAAy8E",
+	
+	"offer_start_with_premium_title" : "Start the game with Premium!",
+	"offer_start_with_premium_description" : "With a premium, you will instantly restore health after each battle, build buildings faster and get more rewards!",
+	"offer_diamond_madness_title" : "Diamond madness",
+	"offer_diamond_madness_description" : "The most profitable purchase of diamonds in 'Russian Lands'",
+	
+	"offer_best_buy_only_for_new_players" : "<b>Only for new players!</b>",
+	"offer_best_buy_good_choice" : "<b>Profitable proposition!</b>",
 }

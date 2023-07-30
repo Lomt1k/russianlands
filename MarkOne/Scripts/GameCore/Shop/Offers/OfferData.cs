@@ -12,14 +12,15 @@ public abstract class OfferData : IGameDataWithId<int>
     public int id { get; set; }
     public string comment { get; set; } = string.Empty;
     public bool isEnabled { get; set; }
-    public string vendorCode { get; set; } = string.Empty;
     public string titleKey { get; set; } = string.Empty;
     public string descriptionKey { get; set; } = string.Empty;
+    public string bestBuyKey { get; set; } = string.Empty;
     public uint visualPriceWithoutOffer { get; set; }
     public uint priceRubles { get; set; }
     public int activityHours { get; set; }
     public int cooldownInDays { get; set; }
-    public bool IsOneTimeOffer { get; set; }
+    public int activationsLimit { get; set; } = 1;
+    public int priority { get; set; } = 100;
 
     public OfferData(int _id)
     {

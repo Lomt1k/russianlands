@@ -1472,4 +1472,12 @@
 	"photo_fileId_loc_07" : "AgACAgIAAxkBAAET0IVkxRnfGpDJn6mhNr3raMiDuNOjFwACD84xG8M2KErDUgwRUNx7rgEAAwIAA3gAAy8E",
 	"photo_fileId_loc_arena" : "AgACAgIAAxkBAAET0GZkxRnLp0bSMJZlPwSs9EEqpJckGwACBs4xG8M2KEpHwYBd3rJEMwEAAwIAA3gAAy8E",
 	"photo_fileId_loc_crossroads" : "AgACAgIAAxkBAAET0F1kxRnCRbvxZTgD2clPScb3bdm21QACBc4xG8M2KEr7IG3a6UBRPgEAAwIAA3gAAy8E",
+	
+	"offer_start_with_premium_title" : "Начни игру с премиумом!",
+	"offer_start_with_premium_description" : "С премиумом вы будете мгновенно восстанавливать здоровье после каждого боя, быстрее строить здания и получать больше наград!",
+	"offer_diamond_madness_title" : "Алмазное безумие",
+	"offer_diamond_madness_description" : "Самая выгодная покупка алмазов в 'Русских Землях'",
+	
+	"offer_best_buy_only_for_new_players" : "<b>Только для новых игроков!</b>",
+	"offer_best_buy_good_choice" : "<b>Выгодное предложение!</b>",
 }

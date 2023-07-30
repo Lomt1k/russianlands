@@ -1,22 +1,22 @@
-﻿using MarkOne.Scripts.Bot;
-using MarkOne.Scripts.GameCore.Localizations;
+﻿using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Rewards;
 using MarkOne.Scripts.GameCore.Sessions;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace MarkOne.Scripts.GameCore.Shop.Offers;
-public class PremiumOfferData : OfferData
+public class OfferWithRewardsData : OfferData
 {
-    public PremiumReward premiumReward { get; set; } = new();
+    public List<RewardBase> rewards = new();
 
-    public PremiumOfferData(int _id) : base(_id)
+    public OfferWithRewardsData(int _id) : base(_id)
     {
     }
 
     public override string GetTitle(GameSession session)
     {
-        return Localization.Get(session, titleKey) + Emojis.StatPremium;
+        return Localization.Get(session, titleKey);
     }
 
     public override Task StartOfferDialog(GameSession session)

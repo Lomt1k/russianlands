@@ -1,9 +1,6 @@
-﻿using Avalonia;
-using Avalonia.Controls;
+﻿using Avalonia.Controls;
 using GameDataEditor.Models.RegularDialogs;
-using GameDataEditor.Models.UserControls;
 using GameDataEditor.Views.Editor.OffersEditor;
-using GameDataEditor.Views.UserControls;
 using MarkOne.Scripts.GameCore.Services;
 using MarkOne.Scripts.GameCore.Services.GameData;
 using MarkOne.Scripts.GameCore.Shop.Offers;
@@ -82,7 +79,8 @@ public class OffersEditorViewModel : ViewModelBase
     {
         return offerData switch
         {
-            PremiumOfferData offer => new OfferView() { DataContext = new PremiumOfferViewModel(offer) }
+            PremiumOfferData offer => new OfferView() { DataContext = new PremiumOfferViewModel(offer) },
+            OfferWithRewardsData offer => new OfferView() { DataContext = new OfferWithRewardsViewModel(offer) },
         };
     }
 
@@ -94,6 +92,7 @@ public class OffersEditorViewModel : ViewModelBase
         RegularDialogHelper.ShowItemSelectionDialog("Select offer type", new Dictionary<string, Action>()
         {
             { "Premium", () => AddNewOfferData(new PremiumOfferData(newOfferId)) },
+            { "With Rewards", () => AddNewOfferData(new OfferWithRewardsData(newOfferId)) },
         });
     }
 

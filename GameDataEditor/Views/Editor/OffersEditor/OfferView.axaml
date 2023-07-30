@@ -12,15 +12,14 @@
         <TextBlock Text="{Binding offer.id, , StringFormat='ID {0}'}"
                    Padding="0,5,0,15" Classes="h3"/>
         <CheckBox IsChecked="{Binding offer.isEnabled}" Content="Is Enabled"/>
-        <CheckBox IsChecked="{Binding offer.IsOneTimeOffer}" Content="One Time Offer"/>
         <TextBlock Text="Comment"/>
         <TextBox Text="{Binding offer.comment}"/>
-        <TextBlock Text="Vendor Code"/>
-        <TextBox Text="{Binding offer.vendorCode}"/>
         <TextBlock Text="Title Key"/>
         <TextBox Text="{Binding offer.titleKey}"/>
         <TextBlock Text="Description Key"/>
         <TextBox Text="{Binding offer.descriptionKey}"/>
+        <TextBlock Text="BestBuy Key"/>
+        <TextBox Text="{Binding offer.bestBuyKey}"/>
         <TextBlock Text="Price (Rubles)"/>
         <TextBox Text="{Binding offer.priceRubles}"/>
         <TextBlock Text="Visual price without offer (Rubles)"/>
@@ -29,12 +28,13 @@
         <TextBox Text="{Binding offer.activityHours}"/>
         <TextBlock Text="Cooldown (Days)"/>
         <TextBox Text="{Binding offer.cooldownInDays}"/>
-        
-        
-        
+        <TextBlock Text="Activations Limit"/>
+        <TextBox Text="{Binding offer.activationsLimit}"/>
+        <TextBlock Text="Offer Priority"/>
+        <TextBox Text="{Binding offer.priority}"/>
         
         <UserControl Content="{Binding rewardView}" Margin="0,20,0,0"/>
-        <UserControl Content="{Binding priceView}" Margin="0,20"/>
+        <UserControl Content="{Binding restrictionsView}" Margin="0,20"/>
 
       </StackPanel>
     </Border>
