@@ -40,6 +40,7 @@ public class GameSession
     public TooltipController tooltipController { get; } = new TooltipController();
     public CancellationToken cancellationToken { get; }
     public bool isAdmin => profile.data.adminStatus >= AdminStatus.Admin;
+    public DateTime lastStartOfferTime { get; set; }
 
     public GameSession(User user, ChatId? _fakeChatId = null)
     {
