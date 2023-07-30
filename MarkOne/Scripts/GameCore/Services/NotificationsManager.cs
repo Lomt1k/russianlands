@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using FastTelegramBot.DataTypes.InputFiles;
 using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Buildings;
-using MarkOne.Scripts.GameCore.Buildings.Data;
 using MarkOne.Scripts.GameCore.Dialogs;
 using MarkOne.Scripts.GameCore.Dialogs.Town;
 using MarkOne.Scripts.GameCore.Dialogs.Town.Buildings;
@@ -14,12 +13,14 @@ using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Resources;
 using MarkOne.Scripts.GameCore.Services.Payments;
 using MarkOne.Scripts.GameCore.Sessions;
+using MarkOne.Scripts.GameCore.Shop.Offers;
 
 namespace MarkOne.Scripts.GameCore.Services;
 
 public class NotificationsManager : Service
 {
     private readonly PaymentManager paymentManager = ServiceLocator.Get<PaymentManager>();
+    private readonly OffersManager offersManager = ServiceLocator.Get<OffersManager>();
 
     public async Task GetNotificationsAndEntryTown(GameSession session, TownEntryReason reason)
     {
@@ -103,6 +104,19 @@ public class NotificationsManager : Service
                 notification.AppendLine(Localization.Get(session, "resource_header_premium_daily_reward"));
                 notification.AppendLine(dailyRewards.GetLocalizedView(session, showCountIfSingle: false));
                 await ShowNotification(session, notification, () => CommonNotificationsLogic(session, onNotificationsEnd)).FastAwait();
+                return;
+            }
+        }
+
+        // offers
+        var dtNow = DateTime.UtcNow;
+        if ((dtNow - session.lastStartOfferTime).TotalMinutes > 10)
+        {
+            var newOffer = await offersManager.TryStartNextOffer(session).FastAwait();
+            if (newOffer is not null)
+            {
+                session.lastStartOfferTime = dtNow;
+                await newOffer.GetData().StartOfferDialog(session, newOffer, () => CommonNotificationsLogic(session, onNotificationsEnd)).FastAwait();
                 return;
             }
         }

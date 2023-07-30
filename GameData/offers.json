@@ -7,7 +7,7 @@
     },
     "id": 1,
     "comment": "Стартовый оффер на премиум",
-    "isEnabled": true,
+    "isEnabled": false,
     "titleKey": "offer_start_with_premium_title",
     "descriptionKey": "offer_start_with_premium_description",
     "bestBuyKey": "offer_best_buy_only_for_new_players",

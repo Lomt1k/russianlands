@@ -1478,6 +1478,11 @@
 	"offer_diamond_madness_title" : "Алмазное безумие",
 	"offer_diamond_madness_description" : "Самая выгодная покупка алмазов в 'Русских Землях'",
 	
-	"offer_best_buy_only_for_new_players" : "<b>Только для новых игроков!</b>",
+	"offer_best_buy_only_for_new_players" : "<b>Только для новых игроков</b>",
 	"offer_best_buy_good_choice" : "<b>Выгодное предложение!</b>",
+	"offer_end_time_label" : "<i>Предложение исчезнет через\n{0}</i>",
+	"offer_price_without_offer" : "<b>Обычная цена:</b> <s>{0}</s>",
+	"offer_price_with_offer" : "<b>Цена по акции:</b> {0}",
+	"offer_later_button" : "В другой раз...",
+	"offer_header" : "<b>Акция</b>"
 }

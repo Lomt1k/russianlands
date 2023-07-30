@@ -16,17 +16,23 @@ public class OfferItem
     private readonly int _id;
     [JsonProperty("st")]
     private long _lastStartTime;
-    [JsonProperty("st")]
+    [JsonProperty("et")]
     private long _lastEndTime;
     [JsonProperty("c")]
     private ushort _activationsCount;
     [JsonProperty("oid")]
     private string _orderId;
 
+    [JsonIgnore]
     public int id => _id;
+    [JsonIgnore]
     public DateTime lastStartTime => new DateTime(_lastStartTime);
+    [JsonIgnore]
     public DateTime lastEndTime => new DateTime(_lastEndTime);
+    [JsonIgnore]
     public int activationsCount => _activationsCount;
+    [JsonIgnore]
+    public string orderId => _orderId;
 
     public OfferItem(int id)
     {

@@ -1,7 +1,9 @@
 ﻿using JsonKnownTypes;
+using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Services.GameData;
 using MarkOne.Scripts.GameCore.Sessions;
 using Newtonsoft.Json;
+using System;
 using System.Threading.Tasks;
 
 namespace MarkOne.Scripts.GameCore.Shop.Offers;
@@ -28,7 +30,25 @@ public abstract class OfferData : IGameDataWithId<int>
     }
 
     public abstract string GetTitle(GameSession session);
-    public abstract Task StartOfferDialog(GameSession session);
+    public abstract string GetDescription(GameSession session);
+    public abstract string GetBestBuyLabel(GameSession session);
+    public abstract Task StartOfferDialog(GameSession session, OfferItem offerItem, Func<Task> onClose);
+
+    public string GetTimeToEndLabel(GameSession session, OfferItem offerItem)
+    {
+        var timeToEnd = offerItem.lastEndTime - DateTime.UtcNow;
+        return Localization.Get(session, "offer_end_time_label", timeToEnd.GetView(session));
+    }
+
+    public string GetPriceView()
+    {
+        return $"{priceRubles} ₽";
+    }
+
+    public string GetPriceWithoutOfferView()
+    {
+        return $"{visualPriceWithoutOffer} ₽";
+    }
 
     public void OnBotAppStarted()
     {

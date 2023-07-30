@@ -1,8 +1,10 @@
-﻿using MarkOne.Scripts.GameCore.Localizations;
+﻿using MarkOne.Scripts.GameCore.Dialogs.Offers;
+using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Rewards;
 using MarkOne.Scripts.GameCore.Sessions;
 using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace MarkOne.Scripts.GameCore.Shop.Offers;
@@ -19,8 +21,28 @@ public class OfferWithRewardsData : OfferData
         return Localization.Get(session, titleKey);
     }
 
-    public override Task StartOfferDialog(GameSession session)
+    public override string GetDescription(GameSession session)
     {
-        throw new NotImplementedException();
+        var sb = new StringBuilder()
+            .AppendLine(Localization.Get(session, descriptionKey))
+            .AppendLine()
+            .AppendLine(Localization.Get(session, "dialog_shop_item_view_contains_header"));
+
+        foreach (var reward in rewards)
+        {
+            sb.AppendLine(reward.GetPossibleRewardsView(session));
+        }
+
+        return sb.ToString();
+    }
+
+    public override string GetBestBuyLabel(GameSession session)
+    {
+        return Localization.Get(session, bestBuyKey);
+    }
+
+    public override async Task StartOfferDialog(GameSession session, OfferItem offerItem, Func<Task> onClose)
+    {
+        await new OfferWithRewardsDialog(session, this, offerItem, onClose).Start().FastAwait();
     }
 }

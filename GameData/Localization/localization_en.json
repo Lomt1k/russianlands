@@ -1180,6 +1180,11 @@
 	"offer_diamond_madness_title" : "Diamond madness",
 	"offer_diamond_madness_description" : "The most profitable purchase of diamonds in 'Russian Lands'",
 	
-	"offer_best_buy_only_for_new_players" : "<b>Only for new players!</b>",
-	"offer_best_buy_good_choice" : "<b>Profitable proposition!</b>",
+	"offer_best_buy_only_for_new_players" : "<b>Only for new players</b>",
+	"offer_best_buy_good_choice" : "<b>Profitable offer!</b>",
+	"offer_end_time_label" : "<i>Offer will expire in\n{0}</i>",
+	"offer_price_without_offer" : "<b>Common price:</b> <s>{0}</s>",
+	"offer_price_with_offer" : "<b>Price now:</b> {0}",
+	"offer_later_button" : "May be later...",
+	"offer_header" : "<b>Offer</b>"
 }

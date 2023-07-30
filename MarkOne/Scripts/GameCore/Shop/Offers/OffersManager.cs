@@ -14,6 +14,11 @@ public class OffersManager : Service
         var allOffersArray = gameDataBase.offersOrderedByPriority;
         foreach (var offerData in allOffersArray)
         {
+            if (!offerData.isEnabled)
+            {
+                continue;
+            }
+
             var offerItem = await TryStartOfferWithData(session, offerData).FastAwait();
             if (offerItem is not null)
             {
