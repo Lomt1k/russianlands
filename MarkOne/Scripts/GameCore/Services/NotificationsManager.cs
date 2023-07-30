@@ -115,6 +115,7 @@ public class NotificationsManager : Service
             var newOffer = await offersManager.TryStartNextOffer(session).FastAwait();
             if (newOffer is not null)
             {
+                Program.logger.Info($"Started offer '{newOffer.GetData().GetTitle(session)}' (ID {newOffer.id}) for user {session.actualUser}");
                 session.lastStartOfferTime = dtNow;
                 await newOffer.GetData().StartOfferDialog(session, newOffer, () => CommonNotificationsLogic(session, onNotificationsEnd)).FastAwait();
                 return;
