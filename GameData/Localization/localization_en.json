@@ -177,6 +177,7 @@
 	"dialog_news_publication_date" : "<i>Publication date: {0}</i>",
 	"dialog_enents_no_events" : "There are currently no events taking place in the town",
 	"dialog_shop_select_category_header" : "<i>Select a category:</i>",
+	"dialog_shop_category_offers" : "Offers",
 	"dialog_shop_category_premium" : "Premium",
 	"dialog_shop_category_treasures" : "Treasures",
 	"dialog_shop_category_diamonds" : "Diamonds",
@@ -1177,11 +1178,12 @@
 	
 	"offer_start_with_premium_title" : "Start the game with Premium!",
 	"offer_start_with_premium_description" : "With a premium, you will instantly restore health after each battle, build buildings faster and get more rewards!",
+	"offer_about_premium_button" : "What gives a premium?",
 	"offer_diamond_madness_title" : "Diamond madness",
-	"offer_diamond_madness_description" : "The most profitable purchase of diamonds in 'Russian Lands'",
+	"offer_diamond_madness_description" : "The most profitable purchase of diamonds in 'Russian Lands'.",
 	
 	"offer_best_buy_only_for_new_players" : "<b>Only for new players</b>",
-	"offer_best_buy_good_choice" : "<b>Profitable offer!</b>",
+	"offer_best_buy_good_choice" : "<b>Profitable offer</b>",
 	"offer_end_time_label" : "<i>Offer will expire in\n{0}</i>",
 	"offer_price_without_offer" : "<b>Common price:</b> <s>{0}</s>",
 	"offer_price_with_offer" : "<b>Price now:</b> {0}",

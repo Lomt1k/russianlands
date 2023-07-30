@@ -1,5 +1,7 @@
 ﻿using MarkOne.Scripts.Bot;
+using MarkOne.Scripts.GameCore.Dialogs.Town.Shop;
 using MarkOne.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.GameCore.Resources;
 using MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
 using MarkOne.Scripts.GameCore.Shop.Offers;
 using System.Text;
@@ -48,7 +50,21 @@ public class PremiumOfferDialogPanel : DialogPanelBase
 
         ClearButtons();
         RegisterLinkButton(Localization.Get(session, "menu_item_buy_button", priceView), paymentData.url);
+        RegisterButton(Emojis.ElementInfo + Localization.Get(session, "offer_about_premium_button"), ShowPremiumAbout);
 
         await SendPanelMessage(sb, GetMultilineKeyboard()).FastAwait();
     }
+
+    private async Task ShowPremiumAbout()
+    {
+        var text = Localization.Get(session, "dialog_shop_premium_description", Emojis.ElementSmallBlack, Emojis.StatPremium,
+            ShopDialogPanel.premiumDailyRewards[0].GetLocalizedView(session, showCountIfSingle: false),
+            ShopDialogPanel.premiumDailyRewards[1].GetCompactView());
+
+        ClearButtons();
+        RegisterBackButton(Start);
+
+        await SendPanelMessage(text, GetOneLineKeyboard()).FastAwait();
+    }
+
 }

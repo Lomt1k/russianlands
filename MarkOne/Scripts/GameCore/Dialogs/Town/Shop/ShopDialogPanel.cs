@@ -5,13 +5,15 @@ using MarkOne.Scripts.GameCore.Resources;
 using MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
 using MarkOne.Scripts.GameCore.Sessions;
 using MarkOne.Scripts.GameCore.Shop;
+using MarkOne.Scripts.GameCore.Shop.Offers;
 using System;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace MarkOne.Scripts.GameCore.Dialogs.Town.Shop;
 
-public enum ShopCategory : byte { None = 0, Premium, Main, Diamonds }
+public enum ShopCategory : byte { None = 0, Offers, Premium, Main, Diamonds }
 
 internal class ShopDialogPanel : DialogPanelBase
 {
@@ -41,6 +43,13 @@ internal class ShopDialogPanel : DialogPanelBase
     private async Task ShowCategories()
     {
         ClearButtons();
+
+        var hasActiveOffers = session.profile.dynamicData.offers.Any(x => x.IsActive());
+        if (hasActiveOffers)
+        {
+            RegisterCategory(ShopCategory.Offers);
+        }
+
         RegisterCategory(ShopCategory.Premium);
         if (shopSettings.lootboxCategoryItems.Count > 0)
         {
@@ -71,6 +80,7 @@ internal class ShopDialogPanel : DialogPanelBase
     {
         return category switch
         {
+            ShopCategory.Offers => Emojis.ElementWarning + Localization.Get(session, "dialog_shop_category_offers"),
             ShopCategory.Premium => Emojis.StatPremium + Localization.Get(session, "dialog_shop_category_premium"),
             ShopCategory.Main => Localization.Get(session, "dialog_shop_category_treasures"),
             ShopCategory.Diamonds => Emojis.ResourceDiamond + Localization.Get(session, "dialog_shop_category_diamonds"),
@@ -83,6 +93,9 @@ internal class ShopDialogPanel : DialogPanelBase
         _currentCategory = category;
         switch (category)
         {
+            case ShopCategory.Offers:
+                await ShowOffersCategory().FastAwait();
+                return;
             case ShopCategory.Premium:
                 await ShowPremiumCategory().FastAwait();
                 return;
@@ -93,6 +106,31 @@ internal class ShopDialogPanel : DialogPanelBase
                 await ShowDiamondsCategory().FastAwait();
                 return;
         }
+    }
+
+    private async Task ShowOffersCategory()
+    {
+        var activeOffers = session.profile.dynamicData.offers
+            .Where(x => x.IsActive())
+            .OrderBy(x => x.GetTimeToEnd())
+            .ToArray();
+
+        ClearButtons();
+        foreach (var offerItem in activeOffers)
+        {
+            var timeToEnd = offerItem.GetTimeToEnd();
+            var offerData = offerItem.GetData();
+            var buttonText = $"{timeToEnd.GetShortView(session)} | {offerData.GetTitle(session)}";
+            RegisterButton(buttonText, () => ShowOffer(offerItem));
+        }
+        RegisterBackButton(Localization.Get(session, "menu_item_shop") + Emojis.ElementScales, ShowCategories);
+        await SendPanelMessage(GetCategoryName(_currentCategory, session), GetMultilineKeyboard()).FastAwait();
+    }
+
+    private async Task ShowOffer(OfferItem offerItem)
+    {
+        var offerData = offerItem.GetData();
+        await offerData.StartOfferDialog(session, offerItem, () => new ShopDialog(session).StartWithCategory(_currentCategory));
     }
 
     private async Task ShowPremiumCategory()

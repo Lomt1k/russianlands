@@ -72,7 +72,7 @@ public class OfferItem
 
     public TimeSpan GetTimeToEnd()
     {
-        return DateTime.UtcNow - lastEndTime;
+        return lastEndTime - DateTime.UtcNow;
     }
 
     public bool IsActivationsLimitReached()
