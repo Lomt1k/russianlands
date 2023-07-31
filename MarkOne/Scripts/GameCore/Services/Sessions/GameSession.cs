@@ -14,6 +14,7 @@ using MarkOne.Scripts.GameCore.Commands;
 using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Services.BotData.SerializableData.DataTypes;
 using FastTelegramBot.DataTypes;
+using System.Linq;
 
 namespace MarkOne.Scripts.GameCore.Sessions;
 
@@ -122,6 +123,11 @@ public class GameSession
         if (BotController.config.logSettings.logUpdates && message.Text != null)
         {
             Program.logger.Info($"UPDATE :: {actualUser}: {message.Text}");
+        }
+        if (message.Photo is not null && message.Photo.Length > 0)
+        {
+            var maxSize = message.Photo.OrderByDescending(x => x.Width).FirstOrDefault();
+            Program.logger.Debug("fileId: " + maxSize.FileId);
         }
 
         if (message.Text != null && message.Text.StartsWith('/'))

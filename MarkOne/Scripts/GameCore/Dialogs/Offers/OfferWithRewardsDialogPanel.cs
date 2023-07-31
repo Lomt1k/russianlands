@@ -1,4 +1,5 @@
-﻿using MarkOne.Scripts.Bot;
+﻿using FastTelegramBot.DataTypes.InputFiles;
+using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
 using MarkOne.Scripts.GameCore.Shop.Offers;
@@ -48,6 +49,14 @@ public class OfferWithRewardsDialogPanel : DialogPanelBase
         ClearButtons();
         RegisterLinkButton(Localization.Get(session, "menu_item_buy_button", priceView), paymentData.url);
 
-        await SendPanelMessage(sb, GetMultilineKeyboard()).FastAwait();
+        if (string.IsNullOrWhiteSpace(_offerData.imageKey))
+        {
+            await SendPanelMessage(sb, GetMultilineKeyboard()).FastAwait();
+        }
+        else
+        {
+            var photo = InputFile.FromFileId(Localization.Get(session, _offerData.imageKey));
+            await SendPanelPhotoMessage(photo, sb, GetMultilineKeyboard()).FastAwait();
+        }
     }
 }

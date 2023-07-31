@@ -20,6 +20,8 @@
         <TextBox Text="{Binding offer.descriptionKey}"/>
         <TextBlock Text="BestBuy Key"/>
         <TextBox Text="{Binding offer.bestBuyKey}"/>
+        <TextBlock Text="Image Key"/>
+        <TextBox Text="{Binding offer.imageKey}"/>
         <TextBlock Text="Price (Rubles)"/>
         <TextBox Text="{Binding offer.priceRubles}"/>
         <TextBlock Text="Visual price without offer (Rubles)"/>

@@ -17,6 +17,7 @@ public abstract class OfferData : IGameDataWithId<int>
     public string titleKey { get; set; } = string.Empty;
     public string descriptionKey { get; set; } = string.Empty;
     public string bestBuyKey { get; set; } = string.Empty;
+    public string imageKey { get; set; } = string.Empty;
     public uint visualPriceWithoutOffer { get; set; }
     public uint priceRubles { get; set; }
     public int activityHours { get; set; }
