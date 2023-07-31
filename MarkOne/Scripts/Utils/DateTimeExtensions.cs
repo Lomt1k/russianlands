@@ -83,6 +83,38 @@ public static class DateTimeExtensions
         return Emojis.ElementClock + result;
     }
 
+    public static string GetShortViewFloor(this TimeSpan timeSpan, GameSession session)
+    {
+        return timeSpan.GetShortViewFloor(session.language);
+    }
+
+    public static string GetShortViewFloor(this TimeSpan timeSpan, LanguageCode languageCode)
+    {
+        string? result;
+        if (timeSpan.TotalDays >= 1)
+        {
+            var days = (int)timeSpan.TotalDays;
+            result = days + Localization.Get(languageCode, "time_span_days");
+        }
+        else if (timeSpan.TotalHours >= 1)
+        {
+            var hours = (int)timeSpan.TotalHours;
+            result = hours + Localization.Get(languageCode, "time_span_hours");
+        }
+        else if (timeSpan.TotalMinutes >= 1)
+        {
+            var minutes = timeSpan.TotalMinutes;
+            result = minutes + Localization.Get(languageCode, "time_span_minutes");
+        }
+        else
+        {
+            var seconds = timeSpan.TotalSeconds;
+            result = seconds + Localization.Get(languageCode, "time_span_seconds");
+        }
+
+        return Emojis.ElementClock + result;
+    }
+
     public static string AsDateTimeString(this DateTime dt)
     {
         return dt.ToString("dd.MM.yyyy H:mm:ss");

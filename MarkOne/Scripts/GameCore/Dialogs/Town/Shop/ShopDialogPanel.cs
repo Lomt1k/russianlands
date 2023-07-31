@@ -118,9 +118,7 @@ internal class ShopDialogPanel : DialogPanelBase
         ClearButtons();
         foreach (var offerItem in activeOffers)
         {
-            var timeToEnd = offerItem.GetTimeToEnd();
-            var offerData = offerItem.GetData();
-            var buttonText = $"{timeToEnd.GetShortView(session)} | {offerData.GetTitle(session)}";
+            var buttonText = offerItem.GetTitleForList(session);
             RegisterButton(buttonText, () => ShowOffer(offerItem));
         }
         RegisterBackButton(Localization.Get(session, "menu_item_shop") + Emojis.ElementScales, ShowCategories);

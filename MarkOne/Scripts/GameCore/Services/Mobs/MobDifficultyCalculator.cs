@@ -91,18 +91,19 @@ public static class MobDifficultyCalculator
     private static MobDifficulty GetMinimumDifficultyByPlayerItems(Player player)
     {
         var invenory = player.inventory;
+        var level = player.level;
 
         var itemsToView = new List<InventoryItem>();
-        itemsToView.AddRange(GetBestItems(invenory.GetItemsByType(ItemType.Sword), 1));
-        itemsToView.AddRange(GetBestItems(invenory.GetItemsByType(ItemType.Bow), 1));
-        itemsToView.AddRange(GetBestItems(invenory.GetItemsByType(ItemType.Stick), 1));
-        itemsToView.AddRange(GetBestItems(invenory.GetItemsByType(ItemType.Helmet), 1));
-        itemsToView.AddRange(GetBestItems(invenory.GetItemsByType(ItemType.Armor), 1));
-        itemsToView.AddRange(GetBestItems(invenory.GetItemsByType(ItemType.Boots), 1));
-        itemsToView.AddRange(GetBestItems(invenory.GetItemsByType(ItemType.Shield), 1));
-        itemsToView.AddRange(GetBestItems(invenory.GetItemsByType(ItemType.Amulet), 1));
-        itemsToView.AddRange(GetBestItems(invenory.GetItemsByType(ItemType.Ring), 2));
-        itemsToView.AddRange(GetBestItems(invenory.GetItemsByType(ItemType.Scroll), 3));
+        itemsToView.AddRange(GetBestItems(invenory.GetItemsByType(ItemType.Sword), level, 1));
+        itemsToView.AddRange(GetBestItems(invenory.GetItemsByType(ItemType.Bow), level, 1));
+        itemsToView.AddRange(GetBestItems(invenory.GetItemsByType(ItemType.Stick), level, 1));
+        itemsToView.AddRange(GetBestItems(invenory.GetItemsByType(ItemType.Helmet), level, 1));
+        itemsToView.AddRange(GetBestItems(invenory.GetItemsByType(ItemType.Armor), level, 1));
+        itemsToView.AddRange(GetBestItems(invenory.GetItemsByType(ItemType.Boots), level, 1));
+        itemsToView.AddRange(GetBestItems(invenory.GetItemsByType(ItemType.Shield), level, 1));
+        itemsToView.AddRange(GetBestItems(invenory.GetItemsByType(ItemType.Amulet), level, 1));
+        itemsToView.AddRange(GetBestItems(invenory.GetItemsByType(ItemType.Ring), level, 2));
+        itemsToView.AddRange(GetBestItems(invenory.GetItemsByType(ItemType.Scroll), level, 3));
         var averageInfo = GetAverageItemsInfo(itemsToView);
 
         switch (averageInfo.townHall)
@@ -133,9 +134,14 @@ public static class MobDifficultyCalculator
         }
     }
 
-    private static List<InventoryItem> GetBestItems(IEnumerable<InventoryItem> items, int count)
+    private static List<InventoryItem> GetBestItems(IEnumerable<InventoryItem> items, byte playerLevel, int count)
     {
-        var sortedItems = items.OrderByDescending(x => x.data.requiredTownHall).OrderByDescending(x => x.data.itemRarity).ToList();
+        var sortedItems = items
+            .Where(x => x.data.requiredLevel <= playerLevel)
+            .OrderByDescending(x => x.data.itemRarity)
+            .OrderByDescending(x => x.data.requiredLevel)
+            .ToList();
+
         if (sortedItems.Count <= count)
         {
             return sortedItems;
@@ -151,6 +157,11 @@ public static class MobDifficultyCalculator
 
     private static (byte townHall, Rarity rarity) GetAverageItemsInfo(List<InventoryItem> itemsToView)
     {
+        if (itemsToView.Count < 1)
+        {
+            return (1, Rarity.Common);
+        }
+
         var townHallSum = 0;
         var raritySum = 0;
         foreach (var item in itemsToView)

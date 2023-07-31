@@ -13,6 +13,8 @@ using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Sessions;
 using FastTelegramBot.DataTypes;
 using FastTelegramBot.DataTypes.Keyboards;
+using FastTelegramBot.DataTypes.InputFiles;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace MarkOne.Scripts.GameCore.Dialogs;
 
@@ -171,15 +173,28 @@ public abstract class DialogPanelBase
 
     protected async Task<MessageId> SendPanelMessage(string text, InlineKeyboardMarkup? inlineMarkup)
     {
-        _resendLastMessageFunc = async () => await messageSender.SendTextMessage(session.chatId, text, inlineMarkup, cancellationToken: session.cancellationToken).FastAwait();
+        _resendLastMessageFunc = async () => await messageSender.SendTextMessage(session.chatId, text, inlineMarkup, disableWebPagePreview: true, cancellationToken: session.cancellationToken).FastAwait();
         if (lastMessageId is null)
         {
-            lastMessageId = await messageSender.SendTextMessage(session.chatId, text, inlineMarkup, disableWebPagePreview: true, cancellationToken: session.cancellationToken).FastAwait();
+            lastMessageId = await _resendLastMessageFunc().FastAwait();
         }
         else
         {
             await messageSender.EditTextMessage(session.chatId, lastMessageId.Value, text, inlineMarkup, disableWebPagePreview: true, cancellationToken: session.cancellationToken).FastAwait();
         }
+        _withMarkup = inlineMarkup is not null;
+        return lastMessageId.Value;
+    }
+
+    protected async Task<MessageId> SendPanelPhotoMessage(InputFile photo, StringBuilder sb, InlineKeyboardMarkup? inlineMarkup)
+    {
+        return await SendPanelPhotoMessage(photo, sb.ToString(), inlineMarkup).FastAwait();
+    }
+
+    protected async Task<MessageId> SendPanelPhotoMessage(InputFile photo, string text, InlineKeyboardMarkup? inlineMarkup)
+    {
+        _resendLastMessageFunc = async () => await messageSender.SendPhotoMessage(session.chatId, photo, text, inlineMarkup, cancellationToken: session.cancellationToken).FastAwait();
+        lastMessageId = await _resendLastMessageFunc().FastAwait();
         _withMarkup = inlineMarkup is not null;
         return lastMessageId.Value;
     }

@@ -82,7 +82,7 @@
   {
     "id": "HALL_5_START",
     "maxPlayerLevel": 15,
-    "maxSkillLevel": 5,
+    "maxSkillLevel": 3,
     "targetWins": 3,
     "generalMatchMakingTime": 15,
     "additionalMatchMakingTime": 10,
@@ -90,7 +90,7 @@
       "minPlayerLevel": 14,
       "maxPlayerLevel": 15,
       "minSkillLevel": 0,
-      "maxSkillLevel": 5,
+      "maxSkillLevel": 3,
       "minItemLevel": 10,
       "itemRarities": [
         {
@@ -124,15 +124,15 @@
   {
     "id": "HALL_5_MID",
     "maxPlayerLevel": 15,
-    "maxSkillLevel": 15,
+    "maxSkillLevel": 9,
     "targetWins": 3,
     "generalMatchMakingTime": 20,
     "additionalMatchMakingTime": 10,
     "defaultPlayerGenerationSettings": {
       "minPlayerLevel": 15,
       "maxPlayerLevel": 15,
-      "minSkillLevel": 6,
-      "maxSkillLevel": 15,
+      "minSkillLevel": 3,
+      "maxSkillLevel": 9,
       "minItemLevel": 11,
       "itemRarities": [
         {
@@ -146,18 +146,18 @@
       ]
     },
     "weakPlayerGenerationSettings": {
-      "minPlayerLevel": 14,
+      "minPlayerLevel": 15,
       "maxPlayerLevel": 15,
-      "minSkillLevel": 6,
-      "maxSkillLevel": 15,
+      "minSkillLevel": 3,
+      "maxSkillLevel": 5,
       "minItemLevel": 11,
       "itemRarities": [
         {
-          "weight": 15,
+          "weight": 20,
           "rarity": 2
         },
         {
-          "weight": 85,
+          "weight": 80,
           "rarity": 1
         }
       ]
@@ -173,7 +173,7 @@
     "defaultPlayerGenerationSettings": {
       "minPlayerLevel": 15,
       "maxPlayerLevel": 15,
-      "minSkillLevel": 16,
+      "minSkillLevel": 10,
       "maxSkillLevel": 25,
       "minItemLevel": 11,
       "itemRarities": [
@@ -186,8 +186,8 @@
     "weakPlayerGenerationSettings": {
       "minPlayerLevel": 15,
       "maxPlayerLevel": 15,
-      "minSkillLevel": 16,
-      "maxSkillLevel": 20,
+      "minSkillLevel": 7,
+      "maxSkillLevel": 12,
       "minItemLevel": 11,
       "itemRarities": [
         {
@@ -211,16 +211,16 @@
     "defaultPlayerGenerationSettings": {
       "minPlayerLevel": 19,
       "maxPlayerLevel": 20,
-      "minSkillLevel": 10,
-      "maxSkillLevel": 20,
+      "minSkillLevel": 7,
+      "maxSkillLevel": 15,
       "minItemLevel": 11,
       "itemRarities": [
         {
-          "weight": 60,
+          "weight": 75,
           "rarity": 2
         },
         {
-          "weight": 40,
+          "weight": 25,
           "rarity": 1
         }
       ]
@@ -228,16 +228,16 @@
     "weakPlayerGenerationSettings": {
       "minPlayerLevel": 16,
       "maxPlayerLevel": 18,
-      "minSkillLevel": 0,
-      "maxSkillLevel": 15,
+      "minSkillLevel": 3,
+      "maxSkillLevel": 12,
       "minItemLevel": 11,
       "itemRarities": [
         {
-          "weight": 25,
+          "weight": 50,
           "rarity": 2
         },
         {
-          "weight": 75,
+          "weight": 50,
           "rarity": 1
         }
       ]
@@ -246,15 +246,15 @@
   {
     "id": "HALL_6_MID",
     "maxPlayerLevel": 20,
-    "maxSkillLevel": 35,
+    "maxSkillLevel": 30,
     "targetWins": 3,
     "generalMatchMakingTime": 25,
     "additionalMatchMakingTime": 10,
     "defaultPlayerGenerationSettings": {
       "minPlayerLevel": 20,
       "maxPlayerLevel": 20,
-      "minSkillLevel": 25,
-      "maxSkillLevel": 35,
+      "minSkillLevel": 15,
+      "maxSkillLevel": 30,
       "minItemLevel": 16,
       "itemRarities": [
         {
@@ -270,16 +270,16 @@
     "weakPlayerGenerationSettings": {
       "minPlayerLevel": 16,
       "maxPlayerLevel": 18,
-      "minSkillLevel": 20,
-      "maxSkillLevel": 30,
+      "minSkillLevel": 10,
+      "maxSkillLevel": 15,
       "minItemLevel": 11,
       "itemRarities": [
         {
-          "weight": 70,
+          "weight": 80,
           "rarity": 2
         },
         {
-          "weight": 30,
+          "weight": 20,
           "rarity": 1
         }
       ]
@@ -295,7 +295,7 @@
     "defaultPlayerGenerationSettings": {
       "minPlayerLevel": 20,
       "maxPlayerLevel": 20,
-      "minSkillLevel": 36,
+      "minSkillLevel": 25,
       "maxSkillLevel": 50,
       "minItemLevel": 16,
       "itemRarities": [
@@ -312,8 +312,8 @@
     "weakPlayerGenerationSettings": {
       "minPlayerLevel": 20,
       "maxPlayerLevel": 20,
-      "minSkillLevel": 36,
-      "maxSkillLevel": 43,
+      "minSkillLevel": 20,
+      "maxSkillLevel": 40,
       "minItemLevel": 16,
       "itemRarities": [
         {
@@ -329,16 +329,16 @@
   },
   {
     "id": "HALL_7_START",
-    "maxPlayerLevel": 25,
-    "maxSkillLevel": 45,
+    "maxPlayerLevel": 28,
+    "maxSkillLevel": 40,
     "targetWins": 3,
     "generalMatchMakingTime": 35,
     "additionalMatchMakingTime": 15,
     "defaultPlayerGenerationSettings": {
-      "minPlayerLevel": 24,
-      "maxPlayerLevel": 25,
-      "minSkillLevel": 35,
-      "maxSkillLevel": 45,
+      "minPlayerLevel": 26,
+      "maxPlayerLevel": 28,
+      "minSkillLevel": 20,
+      "maxSkillLevel": 35,
       "minItemLevel": 16,
       "itemRarities": [
         {
@@ -353,9 +353,9 @@
     },
     "weakPlayerGenerationSettings": {
       "minPlayerLevel": 21,
-      "maxPlayerLevel": 23,
-      "minSkillLevel": 25,
-      "maxSkillLevel": 40,
+      "maxPlayerLevel": 25,
+      "minSkillLevel": 15,
+      "maxSkillLevel": 30,
       "minItemLevel": 16,
       "itemRarities": [
         {
@@ -377,10 +377,10 @@
     "generalMatchMakingTime": 35,
     "additionalMatchMakingTime": 15,
     "defaultPlayerGenerationSettings": {
-      "minPlayerLevel": 27,
+      "minPlayerLevel": 28,
       "maxPlayerLevel": 28,
-      "minSkillLevel": 45,
-      "maxSkillLevel": 55,
+      "minSkillLevel": 30,
+      "maxSkillLevel": 50,
       "minItemLevel": 21,
       "itemRarities": [
         {
@@ -396,8 +396,8 @@
     "weakPlayerGenerationSettings": {
       "minPlayerLevel": 26,
       "maxPlayerLevel": 28,
-      "minSkillLevel": 30,
-      "maxSkillLevel": 45,
+      "minSkillLevel": 20,
+      "maxSkillLevel": 35,
       "minItemLevel": 21,
       "itemRarities": [
         {
@@ -421,7 +421,7 @@
     "defaultPlayerGenerationSettings": {
       "minPlayerLevel": 28,
       "maxPlayerLevel": 28,
-      "minSkillLevel": 56,
+      "minSkillLevel": 55,
       "maxSkillLevel": 75,
       "minItemLevel": 21,
       "itemRarities": [
@@ -438,7 +438,7 @@
     "weakPlayerGenerationSettings": {
       "minPlayerLevel": 28,
       "maxPlayerLevel": 28,
-      "minSkillLevel": 56,
+      "minSkillLevel": 50,
       "maxSkillLevel": 65,
       "minItemLevel": 21,
       "itemRarities": [
@@ -455,16 +455,16 @@
   },
   {
     "id": "HALL_8_START",
-    "maxPlayerLevel": 33,
+    "maxPlayerLevel": 35,
     "maxSkillLevel": 60,
     "targetWins": 2,
     "generalMatchMakingTime": 40,
     "additionalMatchMakingTime": 20,
     "defaultPlayerGenerationSettings": {
-      "minPlayerLevel": 32,
-      "maxPlayerLevel": 33,
-      "minSkillLevel": 48,
-      "maxSkillLevel": 60,
+      "minPlayerLevel": 33,
+      "maxPlayerLevel": 35,
+      "minSkillLevel": 35,
+      "maxSkillLevel": 55,
       "minItemLevel": 21,
       "itemRarities": [
         {
@@ -479,8 +479,8 @@
     },
     "weakPlayerGenerationSettings": {
       "minPlayerLevel": 29,
-      "maxPlayerLevel": 31,
-      "minSkillLevel": 35,
+      "maxPlayerLevel": 32,
+      "minSkillLevel": 30,
       "maxSkillLevel": 50,
       "minItemLevel": 21,
       "itemRarities": [
@@ -503,10 +503,10 @@
     "generalMatchMakingTime": 40,
     "additionalMatchMakingTime": 20,
     "defaultPlayerGenerationSettings": {
-      "minPlayerLevel": 34,
+      "minPlayerLevel": 35,
       "maxPlayerLevel": 35,
-      "minSkillLevel": 65,
-      "maxSkillLevel": 75,
+      "minSkillLevel": 55,
+      "maxSkillLevel": 70,
       "minItemLevel": 29,
       "itemRarities": [
         {
@@ -520,10 +520,10 @@
       ]
     },
     "weakPlayerGenerationSettings": {
-      "minPlayerLevel": 33,
+      "minPlayerLevel": 34,
       "maxPlayerLevel": 35,
-      "minSkillLevel": 50,
-      "maxSkillLevel": 65,
+      "minSkillLevel": 45,
+      "maxSkillLevel": 60,
       "minItemLevel": 29,
       "itemRarities": [
         {

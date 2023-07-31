@@ -83,8 +83,7 @@ public class TownDialog : DialogBase
 
         var randIndex = new Random().Next(activeOffers.Length);
         var offer = activeOffers[randIndex];
-        var timeToEnd = offer.GetTimeToEnd();
-        var buttonText = $"{timeToEnd.GetShortView(session)} | {offer.GetData().GetTitle(session)}";
+        var buttonText = offer.GetTitleForList(session);
         RegisterButton(buttonText, () => ShowOffer(offer));
         return true;
     }

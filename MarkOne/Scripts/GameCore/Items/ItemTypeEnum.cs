@@ -99,7 +99,7 @@ static class ItemTypeExtensions
             ItemType.Amulet => Emojis.ItemAmulet,
             ItemType.Scroll => Emojis.ItemScroll,
             ItemType.Equipped => Emojis.ItemEquipped,
-            _ => Emojis.Empty
+            _ => Emojis.ItemUnknown
         };
     }
 

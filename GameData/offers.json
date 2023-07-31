@@ -11,12 +11,14 @@
     "titleKey": "offer_start_with_premium_title",
     "descriptionKey": "offer_start_with_premium_description",
     "bestBuyKey": "offer_best_buy_only_for_new_players",
+    "imageKey": "",
     "visualPriceWithoutOffer": 449,
     "priceRubles": 99,
     "activityHours": 96,
     "cooldownInDays": 0,
     "activationsLimit": 1,
-    "priority": 1000
+    "priority": 1000,
+    "vendorCode": "offer-1"
   },
   {
     "$type": "OfferWithRewardsData",
@@ -33,11 +35,13 @@
     "titleKey": "offer_diamond_madness_title",
     "descriptionKey": "offer_diamond_madness_description",
     "bestBuyKey": "offer_best_buy_good_choice",
+    "imageKey": "photo_fileId_offer_diamonds",
     "visualPriceWithoutOffer": 9490,
     "priceRubles": 499,
     "activityHours": 72,
     "cooldownInDays": 0,
     "activationsLimit": 1,
-    "priority": 900
+    "priority": 900,
+    "vendorCode": "offer-2"
   }
 ]
