@@ -74,6 +74,12 @@ public class OfferItem
         return lastEndTime - DateTime.UtcNow;
     }
 
+    public string GetTitleForList(GameSession session)
+    {
+        var timeToEnd = GetTimeToEnd();
+        return $"{timeToEnd.GetShortViewFloor(session)} | {GetData().GetTitle(session)}";
+    }
+
     public bool IsActivationsLimitReached()
     {
         return _activationsCount >= GetData().activationsLimit;

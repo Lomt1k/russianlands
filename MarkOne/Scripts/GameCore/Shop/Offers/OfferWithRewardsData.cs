@@ -1,5 +1,8 @@
-﻿using MarkOne.Scripts.GameCore.Dialogs.Offers;
+﻿using MarkOne.Scripts.Bot;
+using MarkOne.Scripts.GameCore.Dialogs.Offers;
+using MarkOne.Scripts.GameCore.Items;
 using MarkOne.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.GameCore.Resources;
 using MarkOne.Scripts.GameCore.Rewards;
 using MarkOne.Scripts.GameCore.Sessions;
 using System;
@@ -18,7 +21,25 @@ public class OfferWithRewardsData : OfferData
 
     public override string GetTitle(GameSession session)
     {
-        return Localization.Get(session, titleKey);
+        return Localization.Get(session, titleKey) + GetTitlePostfix();
+    }
+
+    private string GetTitlePostfix()
+    {
+        if (rewards.Count == 1)
+        {
+            var reward = rewards[0];
+            return reward switch
+            {
+                ResourceReward resourceReward => " " + resourceReward.resourceId.GetEmoji(),
+                ResourceRangeReward resourceRangeReward => " " + resourceRangeReward.resourceId.GetEmoji(),
+                ItemWithCodeReward itemWithCodeReward => " " + itemWithCodeReward.itemTemplate.data.itemType.GetEmoji(),
+                RandomItemReward randomItemReward => " " + randomItemReward.itemType.GetEmoji(),
+                RandomFruitsReward _ => " " + Emojis.ResourceFruitApple,
+                _ => string.Empty
+            };
+        }
+        return string.Empty;
     }
 
     public override string GetDescription(GameSession session)
