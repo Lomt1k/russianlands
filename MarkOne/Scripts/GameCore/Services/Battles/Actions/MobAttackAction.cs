@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Items;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Sessions;
@@ -31,7 +32,9 @@ public class MobAttackAction : IBattleAction
 
     public string GetHeader(GameSession session)
     {
-        return Localization.Get(session, _mobAttack.localizationKey).Bold();
+        var header = Localization.Get(session, _mobAttack.localizationKey)
+            + (_mobAttack.manaCost > 0 ? $" {Emojis.StatMana}{_mobAttack.manaCost}" : string.Empty);
+        return header.Bold();
     }
 
     public string GetDescription(GameSession session)
