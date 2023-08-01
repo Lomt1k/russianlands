@@ -5,7 +5,7 @@
     "localizationKey": "mob_name_robbery",
     "statsSettings": {
       "level": 1,
-      "health": 100,
+      "health": 80,
       "physicalResist": 0,
       "fireResist": 0,
       "coldResist": 0,
@@ -32,7 +32,7 @@
     "localizationKey": "mob_name_young_wolf",
     "statsSettings": {
       "level": 1,
-      "health": 130,
+      "health": 100,
       "physicalResist": 0,
       "fireResist": 0,
       "coldResist": 0,

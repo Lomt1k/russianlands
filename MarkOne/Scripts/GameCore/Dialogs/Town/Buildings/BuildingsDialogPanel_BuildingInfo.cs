@@ -303,7 +303,7 @@ public partial class BuildingsDialogPanel : DialogPanelBase
             sb.AppendLine(Localization.Get(session, "dialog_buildings_construction_limit_can_buy_premium", maxConstructionsPremium));
             RegisterButton(Emojis.ButtonShop + Localization.Get(session, "menu_item_shop"), () => new ShopDialog(session).Start());
         }
-        RegisterBackButton(() => ShowBuildingCurrentLevelInfo(building));
+        RegisterBackButton(() => ShowBuilding(building));
 
         await SendPanelMessage(sb, GetMultilineKeyboard()).FastAwait();
     }

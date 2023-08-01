@@ -1,4 +1,5 @@
-﻿using MarkOne.Scripts.Bot;
+﻿using FastTelegramBot.DataTypes.InputFiles;
+using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Dialogs.Town.Shop;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Resources;
@@ -52,7 +53,15 @@ public class PremiumOfferDialogPanel : DialogPanelBase
         RegisterLinkButton(Localization.Get(session, "menu_item_buy_button", priceView), paymentData.url);
         RegisterButton(Emojis.ElementInfo + Localization.Get(session, "offer_about_premium_button"), ShowPremiumAbout);
 
-        await SendPanelMessage(sb, GetMultilineKeyboard()).FastAwait();
+        if (string.IsNullOrWhiteSpace(_offerData.imageKey))
+        {
+            await SendPanelMessage(sb, GetMultilineKeyboard()).FastAwait();
+        }
+        else
+        {
+            var photo = InputFile.FromFileId(Localization.Get(session, _offerData.imageKey));
+            await SendPanelPhotoMessage(photo, sb, GetMultilineKeyboard()).FastAwait();
+        }
     }
 
     private async Task ShowPremiumAbout()
@@ -64,7 +73,14 @@ public class PremiumOfferDialogPanel : DialogPanelBase
         ClearButtons();
         RegisterBackButton(Start);
 
-        await SendPanelMessage(text, GetOneLineKeyboard()).FastAwait();
+        if (string.IsNullOrWhiteSpace(_offerData.imageKey))
+        {
+            await SendPanelMessage(text, GetOneLineKeyboard()).FastAwait();
+        }
+        else
+        {
+            await EditPhotoMessageCaption(text, GetOneLineKeyboard()).FastAwait();
+        }
     }
 
 }

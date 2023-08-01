@@ -69,16 +69,12 @@ public class HttpAdminService : IHttpService
         var sessionId = await CheckLoginStatus(request, response).FastAwait();
         if (sessionId is null)
         {
-            try
+            if (response == null)
             {
-                response.AsText(GetLoginPage());
-                response.Close();
+                return;
             }
-            catch (ObjectDisposedException)
-            {
-                //ignored
-            }
-            return;
+            response.AsText(GetLoginPage());
+            response.Close();
         }
 
         var sessionInfo = _sessions[sessionId];
@@ -121,6 +117,7 @@ public class HttpAdminService : IHttpService
             {
                 response.AsTextUTF8("<h3>Telegram login fail.</h3>");
                 response.StatusCode = 403;
+                response.Close();
                 return null;
             }
 
