@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FastTelegramBot.DataTypes.InputFiles;
@@ -156,8 +157,9 @@ public class NotificationsManager : Service
             }
         }
 
-        // offers
+        // offers: start new offer
         var dtNow = DateTime.UtcNow;
+        var isNewOfferStarted = false;
         if ((dtNow - session.lastStartOfferTime).TotalMinutes > 10)
         {
             var newOffer = await offersManager.TryStartNextOffer(session).FastAwait();
@@ -165,7 +167,24 @@ public class NotificationsManager : Service
             {
                 Program.logger.Info($"Started offer '{newOffer.GetData().GetTitle(session)}' (ID {newOffer.id}) for user {session.actualUser}");
                 session.lastStartOfferTime = dtNow;
+                isNewOfferStarted = true;
                 await newOffer.GetData().StartOfferDialog(session, newOffer, () => ShowTownNotificationsAndEntryTown(session, reason)).FastAwait();
+                return;
+            }
+        }
+
+        // offers: reminder
+        if (!isNewOfferStarted && session.profile.data.lastOfferReminderTime.Date != dtNow.Date)
+        {
+            session.profile.data.lastOfferReminderTime = dtNow;
+            var offer = session.profile.dynamicData.offers
+                .Where(x => x.IsActive())
+                .OrderBy(x => x.GetTimeToEnd())
+                .FirstOrDefault();
+
+            if (offer is not null)
+            {
+                await offer.GetData().StartOfferDialog(session, offer, () => ShowTownNotificationsAndEntryTown(session, reason)).FastAwait();
                 return;
             }
         }

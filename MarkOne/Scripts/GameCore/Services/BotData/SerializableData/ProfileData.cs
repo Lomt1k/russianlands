@@ -29,6 +29,7 @@ public class ProfileData : DataWithSession
     public byte freeNickChanges { get; set; } = 1;
     public DateTime endPremiumTime { get; set; }
     public DateTime lastPremiumDailyRewardTime { get; set; }
+    public DateTime lastOfferReminderTime { get; set; }
     public int lastNewsId { get; set; } = -1;
     public string specialNotification { get; set; } = string.Empty;
     public uint revenueRUB { get; set; }
