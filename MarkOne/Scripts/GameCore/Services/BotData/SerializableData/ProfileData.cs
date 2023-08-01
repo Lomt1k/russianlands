@@ -91,10 +91,13 @@ public class ProfileData : DataWithSession
 
     public ProfileData SetupNewProfile(User user, string messageText = "")
     {
+        var dtNow = DateTime.UtcNow;
+
         telegram_id = user.Id;
-        regDate = DateTime.UtcNow;
+        regDate = dtNow;
         regVersion = ProjectVersion.Current.ToString();
         regInfo = messageText.Contains("/start ") ? messageText.Replace("/start ", string.Empty) : "organic";
+        lastOfferReminderTime = dtNow;
         lastVersion = regVersion;
         username = user.Username;
         firstName = user.FirstName;
