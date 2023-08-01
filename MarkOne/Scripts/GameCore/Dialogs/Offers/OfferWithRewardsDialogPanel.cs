@@ -24,7 +24,7 @@ public class OfferWithRewardsDialogPanel : DialogPanelBase
             .AppendLine(_offerData.GetTitle(session).Bold())
             .AppendLine(_offerData.GetBestBuyLabel(session).CodeBlock())
             .AppendLine()
-            .AppendLine(_offerData.GetDescription(session));
+            .Append(_offerData.GetDescription(session));
 
         var oldPriceView = _offerData.GetPriceWithoutOfferView();
         var priceView = _offerData.GetPriceView();
