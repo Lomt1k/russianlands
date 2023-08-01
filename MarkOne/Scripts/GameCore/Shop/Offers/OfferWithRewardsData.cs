@@ -47,7 +47,7 @@ public class OfferWithRewardsData : OfferData
         var sb = new StringBuilder()
             .AppendLine(Localization.Get(session, descriptionKey))
             .AppendLine()
-            .AppendLine(Localization.Get(session, "dialog_shop_item_view_contains_header"));
+            .Append(Localization.Get(session, "dialog_shop_item_view_contains_header"));
 
         foreach (var reward in rewards)
         {

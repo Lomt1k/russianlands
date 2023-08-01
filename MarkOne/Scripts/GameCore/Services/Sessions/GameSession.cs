@@ -124,11 +124,11 @@ public class GameSession
         {
             Program.logger.Info($"UPDATE :: {actualUser}: {message.Text}");
         }
-        if (message.Photo is not null && message.Photo.Length > 0)
-        {
-            var maxSize = message.Photo.OrderByDescending(x => x.Width).FirstOrDefault();
-            Program.logger.Debug("fileId: " + maxSize.FileId);
-        }
+        //if (message.Photo is not null && message.Photo.Length > 0)
+        //{
+        //    var maxSize = message.Photo.OrderByDescending(x => x.Width).FirstOrDefault();
+        //    Program.logger.Debug("UPDATE :: fileId: " + maxSize.FileId);
+        //}
 
         if (message.Text != null && message.Text.StartsWith('/'))
         {

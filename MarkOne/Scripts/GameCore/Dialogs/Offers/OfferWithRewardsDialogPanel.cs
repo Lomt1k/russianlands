@@ -30,6 +30,7 @@ public class OfferWithRewardsDialogPanel : DialogPanelBase
         var priceView = _offerData.GetPriceView();
         if (_offerData.visualPriceWithoutOffer > 0)
         {
+            sb.AppendLine();
             sb.AppendLine(Localization.Get(session, "offer_price_without_offer", oldPriceView));
             sb.AppendLine(Localization.Get(session, "offer_price_with_offer", priceView));
         }

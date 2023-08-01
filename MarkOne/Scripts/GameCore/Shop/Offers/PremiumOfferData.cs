@@ -27,7 +27,7 @@ public class PremiumOfferData : OfferData
             .AppendLine(Localization.Get(session, descriptionKey))
             .AppendLine()
             .AppendLine(Localization.Get(session, "dialog_shop_item_view_contains_header"))
-            .AppendLine(Localization.Get(session, "premium_reward", premiumReward.timeSpan.GetView(session)))
+            .Append(Localization.Get(session, "premium_reward", premiumReward.timeSpan.GetView(session)))
             .ToString();
     }
 

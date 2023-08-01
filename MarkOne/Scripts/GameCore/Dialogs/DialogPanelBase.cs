@@ -194,9 +194,22 @@ public abstract class DialogPanelBase
     protected async Task<MessageId> SendPanelPhotoMessage(InputFile photo, string text, InlineKeyboardMarkup? inlineMarkup)
     {
         _resendLastMessageFunc = async () => await messageSender.SendPhotoMessage(session.chatId, photo, text, inlineMarkup, cancellationToken: session.cancellationToken).FastAwait();
-        lastMessageId = await _resendLastMessageFunc().FastAwait();
+        if (lastMessageId is null)
+        {
+            lastMessageId = await _resendLastMessageFunc().FastAwait();
+        }
+        else
+        {
+            await messageSender.EditPhotoMessageCaption(session.chatId, lastMessageId.Value, text, inlineMarkup, disableWebPagePreview: true, cancellationToken: session.cancellationToken).FastAwait();
+        }
         _withMarkup = inlineMarkup is not null;
         return lastMessageId.Value;
+    }
+
+    protected async Task EditPhotoMessageCaption(string text, InlineKeyboardMarkup? inlineMarkup)
+    {
+        await messageSender.EditPhotoMessageCaption(session.chatId, lastMessageId.Value, text, inlineMarkup, disableWebPagePreview: true, cancellationToken: session.cancellationToken).FastAwait();
+        _withMarkup = inlineMarkup is not null;
     }
 
     public virtual void OnDialogClose()
