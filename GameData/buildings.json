@@ -34,7 +34,7 @@
       },
       {
         "$type": "TownhallLevelInfo",
-        "requireCompletedQuest": 0,
+        "requireCompletedQuest": 3,
         "requiredTownHall": 3,
         "constructionTime": 1800,
         "isBoostAvailable": false,
