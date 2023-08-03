@@ -5,20 +5,24 @@ namespace MarkOne.Scripts.GameCore.Arena;
 
 [SQLite.StoreAsText]
 [JsonConverter(typeof(StringEnumConverter))]
-public enum LeagueId
+public enum LeagueId : byte
 {
-    HALL_3,
-    HALL_4,
-    HALL_5_START,
-    HALL_5_MID,
-    HALL_5_END,
-    HALL_6_START,
-    HALL_6_MID,
-    HALL_6_END,
-    HALL_7_START,
-    HALL_7_MID,
-    HALL_7_END,
-    HALL_8_START,
-    HALL_8_MID,
-    HALL_8_END,
+    HALL_3 = 30,
+    HALL_3_MID = 31,
+    HALL_3_END = 32,
+    HALL_4 = 40,
+    HALL_4_MID = 41,
+    HALL_4_END = 42,
+    HALL_5_START = 50,
+    HALL_5_MID = 51,
+    HALL_5_END = 52,
+    HALL_6_START = 60,
+    HALL_6_MID = 61,
+    HALL_6_END = 62,
+    HALL_7_START = 70,
+    HALL_7_MID = 71,
+    HALL_7_END = 72,
+    HALL_8_START = 80,
+    HALL_8_MID = 81,
+    HALL_8_END = 82,
 }

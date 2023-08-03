@@ -4,6 +4,7 @@ using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Services.BotData.SerializableData.DataTypes;
 using FastTelegramBot.DataTypes;
+using MarkOne.Scripts.GameCore.Arena;
 
 namespace MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
 
@@ -35,6 +36,8 @@ public class ProfileData : DataWithSession
     public uint revenueRUB { get; set; }
     public bool hasWaitingGoods { get; set; }
     public bool isDoubleDiamondsBonusUsed { get; set; }
+    public LeagueId lastArenaLeagueId { get; set; }
+    public int lastArenaLeagueFarmedChips { get; set; }
 
 
     // resources

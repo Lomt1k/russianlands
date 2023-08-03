@@ -3,6 +3,7 @@
     "id": "HALL_3",
     "maxPlayerLevel": 7,
     "maxSkillLevel": 0,
+    "maxFarmedChips": 150,
     "targetWins": 4,
     "generalMatchMakingTime": 10,
     "additionalMatchMakingTime": 10,
@@ -41,6 +42,7 @@
     "id": "HALL_4",
     "maxPlayerLevel": 10,
     "maxSkillLevel": 0,
+    "maxFarmedChips": 150,
     "targetWins": 4,
     "generalMatchMakingTime": 15,
     "additionalMatchMakingTime": 10,
@@ -83,6 +85,7 @@
     "id": "HALL_5_START",
     "maxPlayerLevel": 15,
     "maxSkillLevel": 3,
+    "maxFarmedChips": 600,
     "targetWins": 3,
     "generalMatchMakingTime": 15,
     "additionalMatchMakingTime": 10,
@@ -125,6 +128,7 @@
     "id": "HALL_5_MID",
     "maxPlayerLevel": 15,
     "maxSkillLevel": 9,
+    "maxFarmedChips": 0,
     "targetWins": 3,
     "generalMatchMakingTime": 20,
     "additionalMatchMakingTime": 10,
@@ -167,6 +171,7 @@
     "id": "HALL_5_END",
     "maxPlayerLevel": 15,
     "maxSkillLevel": 25,
+    "maxFarmedChips": 0,
     "targetWins": 2,
     "generalMatchMakingTime": 25,
     "additionalMatchMakingTime": 15,
@@ -205,6 +210,7 @@
     "id": "HALL_6_START",
     "maxPlayerLevel": 20,
     "maxSkillLevel": 20,
+    "maxFarmedChips": 1000,
     "targetWins": 3,
     "generalMatchMakingTime": 20,
     "additionalMatchMakingTime": 10,
@@ -247,6 +253,7 @@
     "id": "HALL_6_MID",
     "maxPlayerLevel": 20,
     "maxSkillLevel": 30,
+    "maxFarmedChips": 0,
     "targetWins": 3,
     "generalMatchMakingTime": 25,
     "additionalMatchMakingTime": 10,
@@ -275,12 +282,16 @@
       "minItemLevel": 11,
       "itemRarities": [
         {
-          "weight": 80,
+          "weight": 75,
           "rarity": 2
         },
         {
           "weight": 20,
           "rarity": 1
+        },
+        {
+          "weight": 5,
+          "rarity": 3
         }
       ]
     }
@@ -289,6 +300,7 @@
     "id": "HALL_6_END",
     "maxPlayerLevel": 20,
     "maxSkillLevel": 50,
+    "maxFarmedChips": 0,
     "targetWins": 2,
     "generalMatchMakingTime": 30,
     "additionalMatchMakingTime": 15,
@@ -331,6 +343,7 @@
     "id": "HALL_7_START",
     "maxPlayerLevel": 28,
     "maxSkillLevel": 40,
+    "maxFarmedChips": 1500,
     "targetWins": 3,
     "generalMatchMakingTime": 35,
     "additionalMatchMakingTime": 15,
@@ -373,6 +386,7 @@
     "id": "HALL_7_MID",
     "maxPlayerLevel": 28,
     "maxSkillLevel": 55,
+    "maxFarmedChips": 0,
     "targetWins": 2,
     "generalMatchMakingTime": 35,
     "additionalMatchMakingTime": 15,
@@ -415,6 +429,7 @@
     "id": "HALL_7_END",
     "maxPlayerLevel": 28,
     "maxSkillLevel": 75,
+    "maxFarmedChips": 0,
     "targetWins": 2,
     "generalMatchMakingTime": 35,
     "additionalMatchMakingTime": 15,
@@ -457,6 +472,7 @@
     "id": "HALL_8_START",
     "maxPlayerLevel": 35,
     "maxSkillLevel": 60,
+    "maxFarmedChips": 2000,
     "targetWins": 2,
     "generalMatchMakingTime": 40,
     "additionalMatchMakingTime": 20,
@@ -499,6 +515,7 @@
     "id": "HALL_8_MID",
     "maxPlayerLevel": 35,
     "maxSkillLevel": 75,
+    "maxFarmedChips": 0,
     "targetWins": 2,
     "generalMatchMakingTime": 40,
     "additionalMatchMakingTime": 20,
@@ -541,6 +558,7 @@
     "id": "HALL_8_END",
     "maxPlayerLevel": 35,
     "maxSkillLevel": 100,
+    "maxFarmedChips": 0,
     "targetWins": 1,
     "generalMatchMakingTime": 45,
     "additionalMatchMakingTime": 30,
@@ -571,6 +589,170 @@
         {
           "weight": 25,
           "rarity": 2
+        }
+      ]
+    }
+  },
+  {
+    "id": "HALL_3_MID",
+    "maxPlayerLevel": 7,
+    "maxSkillLevel": 0,
+    "maxFarmedChips": 1000,
+    "targetWins": 3,
+    "generalMatchMakingTime": 15,
+    "additionalMatchMakingTime": 10,
+    "defaultPlayerGenerationSettings": {
+      "minPlayerLevel": 7,
+      "maxPlayerLevel": 7,
+      "minSkillLevel": 0,
+      "maxSkillLevel": 0,
+      "minItemLevel": 5,
+      "itemRarities": [
+        {
+          "weight": 30,
+          "rarity": 0
+        },
+        {
+          "weight": 70,
+          "rarity": 1
+        }
+      ]
+    },
+    "weakPlayerGenerationSettings": {
+      "minPlayerLevel": 6,
+      "maxPlayerLevel": 7,
+      "minSkillLevel": 0,
+      "maxSkillLevel": 0,
+      "minItemLevel": 3,
+      "itemRarities": [
+        {
+          "weight": 75,
+          "rarity": 0
+        },
+        {
+          "weight": 25,
+          "rarity": 1
+        }
+      ]
+    }
+  },
+  {
+    "id": "HALL_3_END",
+    "maxPlayerLevel": 7,
+    "maxSkillLevel": 0,
+    "maxFarmedChips": 0,
+    "targetWins": 2,
+    "generalMatchMakingTime": 30,
+    "additionalMatchMakingTime": 15,
+    "defaultPlayerGenerationSettings": {
+      "minPlayerLevel": 7,
+      "maxPlayerLevel": 7,
+      "minSkillLevel": 0,
+      "maxSkillLevel": 0,
+      "minItemLevel": 5,
+      "itemRarities": [
+        {
+          "weight": 100,
+          "rarity": 1
+        }
+      ]
+    },
+    "weakPlayerGenerationSettings": {
+      "minPlayerLevel": 7,
+      "maxPlayerLevel": 7,
+      "minSkillLevel": 0,
+      "maxSkillLevel": 0,
+      "minItemLevel": 5,
+      "itemRarities": [
+        {
+          "weight": 35,
+          "rarity": 0
+        },
+        {
+          "weight": 65,
+          "rarity": 1
+        }
+      ]
+    }
+  },
+  {
+    "id": "HALL_4_END",
+    "maxPlayerLevel": 10,
+    "maxSkillLevel": 0,
+    "maxFarmedChips": 0,
+    "targetWins": 2,
+    "generalMatchMakingTime": 30,
+    "additionalMatchMakingTime": 15,
+    "defaultPlayerGenerationSettings": {
+      "minPlayerLevel": 10,
+      "maxPlayerLevel": 10,
+      "minSkillLevel": 0,
+      "maxSkillLevel": 0,
+      "minItemLevel": 8,
+      "itemRarities": [
+        {
+          "weight": 100,
+          "rarity": 1
+        }
+      ]
+    },
+    "weakPlayerGenerationSettings": {
+      "minPlayerLevel": 10,
+      "maxPlayerLevel": 10,
+      "minSkillLevel": 0,
+      "maxSkillLevel": 0,
+      "minItemLevel": 8,
+      "itemRarities": [
+        {
+          "weight": 35,
+          "rarity": 0
+        },
+        {
+          "weight": 65,
+          "rarity": 1
+        }
+      ]
+    }
+  },
+  {
+    "id": "HALL_4_MID",
+    "maxPlayerLevel": 10,
+    "maxSkillLevel": 0,
+    "maxFarmedChips": 1000,
+    "targetWins": 3,
+    "generalMatchMakingTime": 20,
+    "additionalMatchMakingTime": 10,
+    "defaultPlayerGenerationSettings": {
+      "minPlayerLevel": 10,
+      "maxPlayerLevel": 10,
+      "minSkillLevel": 0,
+      "maxSkillLevel": 0,
+      "minItemLevel": 8,
+      "itemRarities": [
+        {
+          "weight": 30,
+          "rarity": 0
+        },
+        {
+          "weight": 70,
+          "rarity": 1
+        }
+      ]
+    },
+    "weakPlayerGenerationSettings": {
+      "minPlayerLevel": 9,
+      "maxPlayerLevel": 10,
+      "minSkillLevel": 0,
+      "maxSkillLevel": 0,
+      "minItemLevel": 6,
+      "itemRarities": [
+        {
+          "weight": 75,
+          "rarity": 0
+        },
+        {
+          "weight": 25,
+          "rarity": 1
         }
       ]
     }
