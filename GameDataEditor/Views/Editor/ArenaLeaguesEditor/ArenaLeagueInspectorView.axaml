@@ -19,6 +19,8 @@
       <TextBox Text="{Binding league.maxPlayerLevel}"/>
       <TextBlock Text="Max Skill Level"/>
       <TextBox Text="{Binding league.maxSkillLevel}"/>
+      <TextBlock Text="Max Farmed Chips"/>
+      <TextBox Text="{Binding league.maxFarmedChips}"/>
       <TextBlock Text="Target Wins"/>
       <TextBox Text="{Binding league.targetWins}"/>
 

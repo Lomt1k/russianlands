@@ -103,12 +103,12 @@ public static class DateTimeExtensions
         }
         else if (timeSpan.TotalMinutes >= 1)
         {
-            var minutes = timeSpan.TotalMinutes;
+            var minutes = (int)timeSpan.TotalMinutes;
             result = minutes + Localization.Get(languageCode, "time_span_minutes");
         }
         else
         {
-            var seconds = timeSpan.TotalSeconds;
+            var seconds = (int)timeSpan.TotalSeconds;
             result = seconds + Localization.Get(languageCode, "time_span_seconds");
         }
 

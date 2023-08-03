@@ -298,6 +298,8 @@ public sealed class ArenaDialog : DialogBase
         Program.logger.Info($"User {session.actualUser} completed the Arena");
         session.player.resources.Add(totalRewardsList);
         session.profile.dynamicData.arenaProgress = null;
+        session.profile.data.lastArenaLeagueFarmedChips += totalRewards[ResourceId.ArenaChip];
+        ArenaHelper.TryUpLeagueByFarmedChips(session.player);
 
         RegisterButton(Localization.Get(session, "menu_item_continue_button"), Start);
         await SendDialogMessage(sb, GetOneLineKeyboard()).FastAwait();

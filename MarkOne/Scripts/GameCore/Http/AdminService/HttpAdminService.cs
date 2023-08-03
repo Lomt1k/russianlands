@@ -75,6 +75,7 @@ public class HttpAdminService : IHttpService
             }
             response.AsText(GetLoginPage());
             response.Close();
+            return;
         }
 
         var sessionInfo = _sessions[sessionId];

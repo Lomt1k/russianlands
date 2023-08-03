@@ -32,7 +32,7 @@ public class ProfileDailyData : DataWithSession
     public ushort arenaWins { get; set; }
     public ushort arenaDraws { get; set; }
     public ushort arenaLoses => (ushort)(arenaBattles - arenaWins - arenaDraws);
-    public LeagueId arenaLeagueId => session is not null ? ArenaHelper.GetActualLeagueForPlayer(session.player) : LeagueId.HALL_3;
+    public LeagueId arenaLeagueId => session?.profile.data.lastArenaLeagueId ?? LeagueId.HALL_3;
 
     // game data
     public MobDifficulty? locationMobsDifficulty { get; set; }
