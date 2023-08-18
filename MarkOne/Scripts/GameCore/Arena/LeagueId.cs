@@ -7,9 +7,9 @@ namespace MarkOne.Scripts.GameCore.Arena;
 [JsonConverter(typeof(StringEnumConverter))]
 public enum LeagueId : byte
 {
-    HALL_3 = 30,
-    HALL_3_MID = 31,
-    HALL_3_END = 32,
+    HALL_3 = 0,
+    HALL_3_MID = 1,
+    HALL_3_END = 2,
     HALL_4 = 40,
     HALL_4_MID = 41,
     HALL_4_END = 42,

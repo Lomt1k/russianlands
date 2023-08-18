@@ -39,7 +39,7 @@ public class MobActionHandler : IBattleActionHandler
         var result = new List<MobAttack>();
         foreach (var attack in mob.mobData.mobAttacks)
         {
-            if (attack.manaCost <= mob.unitStats.currentMana)
+            if (attack.manaCost < 1 || attack.manaCost <= mob.unitStats.currentMana)
             {
                 result.Add(attack);
             }

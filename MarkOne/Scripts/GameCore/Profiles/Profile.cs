@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using FastTelegramBot.DataTypes;
 using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Services;
 using MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
@@ -44,40 +45,66 @@ public class Profile
 
     public async Task SaveProfile()
     {
-        var attemptsCount = 20;
-        Exception? cachedException = null;
-        for (int i = 1; i <= attemptsCount; i++)
+        //var attemptsCount = 20;
+        //Exception? cachedException = null;
+        //for (int i = 1; i <= attemptsCount; i++)
+        //{
+        //    try
+        //    {
+        //        var db = BotController.dataBase.db;
+        //        db.Update(data);
+
+        //        var rawDynamicData = new RawProfileDynamicData();
+        //        rawDynamicData.Fill(dynamicData);
+        //        db.Update(rawDynamicData);
+
+        //        db.Update(buildingsData);
+
+        //        var rawDailyData = new RawProfileDailyData();
+        //        rawDailyData.Fill(dailyData);
+        //        db.InsertOrReplace(rawDailyData);
+
+        //        lastSaveProfileTime = DateTime.UtcNow;
+        //        var user = session?.actualUser.ToString() ?? $"(ID {data.telegram_id})";
+        //        Program.logger.Info($"Profile saved for {user}");
+        //        return;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        cachedException ??= ex;
+        //        if (i < attemptsCount)
+        //        {
+        //            await Task.Delay(15);
+        //            continue;
+        //        }
+        //        throw cachedException;
+        //    }
+        //}
+
+        try
         {
-            try
-            {
-                var db = BotController.dataBase.db;
-                db.Update(data);
+            var db = BotController.dataBase.db;
+            db.Update(data);
 
-                var rawDynamicData = new RawProfileDynamicData();
-                rawDynamicData.Fill(dynamicData);
-                db.Update(rawDynamicData);
+            var rawDynamicData = new RawProfileDynamicData();
+            rawDynamicData.Fill(dynamicData);
+            db.Update(rawDynamicData);
 
-                db.Update(buildingsData);
+            db.Update(buildingsData);
 
-                var rawDailyData = new RawProfileDailyData();
-                rawDailyData.Fill(dailyData);
-                db.InsertOrReplace(rawDailyData);
+            var rawDailyData = new RawProfileDailyData();
+            rawDailyData.Fill(dailyData);
+            db.InsertOrReplace(rawDailyData);
 
-                lastSaveProfileTime = DateTime.UtcNow;
-                var user = session?.actualUser.ToString() ?? $"(ID {data.telegram_id})";
-                Program.logger.Info($"Profile saved for {user}");
-                return;
-            }
-            catch (Exception ex)
-            {
-                cachedException ??= ex;
-                if (i < attemptsCount)
-                {
-                    await Task.Delay(15);
-                    continue;
-                }
-                throw cachedException;
-            }
+            lastSaveProfileTime = DateTime.UtcNow;
+            var user = session?.actualUser.ToString() ?? $"(ID {data.telegram_id})";
+            Program.logger.Info($"Profile saved for {user}");
+            return;
+        }
+        catch (Exception ex)
+        {
+            var user = session?.actualUser.ToString() ?? $"(ID {data.telegram_id})";
+            Program.logger.Info($"Catched exception on save profile for {user}\n{ex}");
         }
     }
 
