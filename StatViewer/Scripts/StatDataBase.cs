@@ -146,15 +146,17 @@ internal static class StatDataBase
         var maxDate = allData.Max(x => x.date);
         var daysCount = (maxDate - minDate).Days + 1;
 
-        var date = maxDate;
-        var lastMonth = date.Month + 1;
+        var lastMonth = -1;
+        var lastYear = -1;
         for (var i = 0; i < daysCount; i++)
         {
-            if (date.Month == lastMonth)
+            var date = minDate.AddDays(i);
+            if (date.Month == lastMonth && date.Year == lastYear)
             {
                 continue;
             }
             lastMonth = date.Month;
+            lastYear = date.Year;
 
             var selectedData = allData.Where(x => x.date.Year == date.Year && x.date.Month == date.Month).ToArray();
             var hashset = new HashSet<long>();
@@ -164,7 +166,6 @@ internal static class StatDataBase
             }
             string monthName = date.ToString("MMMM", CultureInfo.InvariantCulture);
             table.Add(new List<string>() { $"{date.Year}-{monthName}", hashset.Count.ToString() });
-            date = date.AddDays(-1);
         }
     }
 
