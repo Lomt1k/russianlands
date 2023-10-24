@@ -19,7 +19,7 @@ public class QuestStageWithBattle : QuestStage
     public int mobId { get; set; }
     public int nextStageIfWin { get; set; }
     public int nextStageIfLose { get; set; }
-    public List<RewardBase> rewards { get; set; } = new List<RewardBase>();
+    public List<RewardBase> rewards { get; set; } = new();
 
     public override Task InvokeStage(GameSession session)
     {

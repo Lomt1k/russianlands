@@ -10,7 +10,7 @@ namespace MarkOne.Scripts.GameCore.Quests.QuestStages;
 [JsonObject]
 public class QuestStageWithReplica : QuestStage
 {
-    public Replica replica { get; set; } = new Replica();
+    public Replica replica { get; set; } = new();
 
     public override async Task InvokeStage(GameSession session)
     {

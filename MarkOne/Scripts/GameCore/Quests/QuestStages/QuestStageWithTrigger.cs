@@ -11,9 +11,9 @@ namespace MarkOne.Scripts.GameCore.Quests.QuestStages;
 [JsonObject]
 public class QuestStageWithTrigger : QuestStage
 {
-    public List<StageActionBase> questActions { get; set; } = new List<StageActionBase>();
-    public List<Tooltip> tooltips { get; set; } = new List<Tooltip>();
-    public List<TriggerBase> nextStageTriggers { get; set; } = new List<TriggerBase>();
+    public List<StageActionBase> questActions { get; set; } = new();
+    public List<Tooltip> tooltips { get; set; } = new();
+    public List<TriggerBase> nextStageTriggers { get; set; } = new();
 
     public override async Task InvokeStage(GameSession session)
     {

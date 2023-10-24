@@ -22,7 +22,7 @@ public class QuestStageWithBattlePoint : QuestStage
     public bool backButtonAvailable { get; set; } = true;
     public int nextStageIfWin { get; set; }
     public int nextStageIfLose { get; set; }
-    public List<RewardBase> rewards { get; set; } = new List<RewardBase>();
+    public List<RewardBase> rewards { get; set; } = new();
 
     public override async Task InvokeStage(GameSession session)
     {

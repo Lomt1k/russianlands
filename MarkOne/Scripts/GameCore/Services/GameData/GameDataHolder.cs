@@ -5,6 +5,7 @@ using System.Linq;
 using MarkOne.Scripts.GameCore.Arena;
 using MarkOne.Scripts.GameCore.Buildings;
 using MarkOne.Scripts.GameCore.Buildings.Data;
+using MarkOne.Scripts.GameCore.DailyBonus;
 using MarkOne.Scripts.GameCore.Items;
 using MarkOne.Scripts.GameCore.Locations;
 using MarkOne.Scripts.GameCore.Potions;
@@ -31,6 +32,7 @@ public class GameDataHolder : Service
     public GameDataDictionary<LeagueId, ArenaLeagueSettings> arenaLeagueSettings { get; private set; }
     public GameDataDictionary<byte,ArenaShopSettings> arenaShopSettings { get; private set; }
     public GameDataDictionary<byte, ShopSettings> shopSettings { get; private set; }
+    public GameDataDictionary<byte, DailyBonusData> dailyBonuses { get; private set; }
     public GameDataDictionary<int, OfferData> offers { get; private set; }
     public IReadOnlyList<string> botnames { get; private set; }
 
@@ -65,6 +67,7 @@ public class GameDataHolder : Service
         arenaLeagueSettings = LoadGameDataDictionary<LeagueId, ArenaLeagueSettings>("arenaLeagueSettings");
         arenaShopSettings = LoadGameDataDictionary<byte, ArenaShopSettings>("arenaShopSettings");
         shopSettings = LoadGameDataDictionary<byte, ShopSettings>("shopSettings");
+        dailyBonuses = LoadGameDataDictionary<byte, DailyBonusData>("dailyBonuses");
         offers = LoadGameDataDictionary<int, OfferData>("offers");
 
         RefreshShopItemsCache();
@@ -164,6 +167,7 @@ public class GameDataHolder : Service
         arenaLeagueSettings.Save();
         arenaShopSettings.Save();
         shopSettings.Save();
+        dailyBonuses.Save();
         offers.Save();
     }
 

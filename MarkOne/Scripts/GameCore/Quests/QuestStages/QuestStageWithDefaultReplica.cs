@@ -29,7 +29,7 @@ public class QuestStageWithDefaultReplica : QuestStage
     public int nextStage { get; set; }
 
     [JsonIgnore]
-    public Replica replica = new Replica();
+    public Replica replica = new();
 
     public override async Task InvokeStage(GameSession session)
     {

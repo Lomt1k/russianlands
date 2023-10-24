@@ -15,7 +15,7 @@ public class AvatarsDialog : DialogBase
 
     public override async Task Start()
     {
-        var text = "Возможность смены аватарок появится в ближайшем обновлении"; // заглушка
+        var text = "Возможность смены аватарок появится в следующих обновлениях"; // заглушка
         await SendDialogMessage(text, GetOneLineKeyboard()).FastAwait();
     }
 }
