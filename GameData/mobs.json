@@ -4447,7 +4447,7 @@
         "maxLightningDamage": 0
       },
       {
-        "localizationKey": "battle_action_mob_normal_attack",
+        "localizationKey": "battle_action_mob_strong_attack",
         "manaCost": 3,
         "minPhysicalDamage": 0,
         "maxPhysicalDamage": 0,
