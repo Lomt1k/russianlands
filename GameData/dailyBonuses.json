@@ -1,1 +1,284 @@
-﻿[]
+﻿[
+  {
+    "id": 1,
+    "rewards": [
+      {
+        "$type": "PremiumReward",
+        "seconds": 86400
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "rewards": [
+      {
+        "$type": "ResourceReward",
+        "resourceId": 0,
+        "amount": 7500
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "rewards": [
+      {
+        "$type": "RandomItemReward",
+        "townhallLevel": 4,
+        "rarity": 1,
+        "itemType": -1,
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "rewards": [
+      {
+        "$type": "ResourceReward",
+        "resourceId": 23,
+        "amount": 3
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "rewards": [
+      {
+        "$type": "RandomItemReward",
+        "townhallLevel": 5,
+        "rarity": 2,
+        "itemType": -1,
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "rewards": [
+      {
+        "$type": "ResourceReward",
+        "resourceId": 24,
+        "amount": 50
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "rewards": [
+      {
+        "$type": "PremiumReward",
+        "seconds": 172800
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "rewards": [
+      {
+        "$type": "ResourceReward",
+        "resourceId": 3,
+        "amount": 5000
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "rewards": [
+      {
+        "$type": "RandomFruitsReward",
+        "amount": 10
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "rewards": [
+      {
+        "$type": "ResourceReward",
+        "resourceId": 2,
+        "amount": 100
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "rewards": [
+      {
+        "$type": "ResourceReward",
+        "resourceId": 23,
+        "amount": 3
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "rewards": [
+      {
+        "$type": "PremiumReward",
+        "seconds": 172800
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "rewards": [
+      {
+        "$type": "ResourceReward",
+        "resourceId": 24,
+        "amount": 150
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "rewards": [
+      {
+        "$type": "ResourceReward",
+        "resourceId": 4,
+        "amount": 100000
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "rewards": [
+      {
+        "$type": "RandomItemReward",
+        "townhallLevel": 6,
+        "rarity": 3,
+        "itemType": -1,
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "rewards": [
+      {
+        "$type": "RandomFruitsReward",
+        "amount": 15
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "rewards": [
+      {
+        "$type": "ResourceReward",
+        "resourceId": 7,
+        "amount": 10
+      }
+    ]
+  },
+  {
+    "id": 18,
+    "rewards": [
+      {
+        "$type": "ResourceReward",
+        "resourceId": 23,
+        "amount": 3
+      }
+    ]
+  },
+  {
+    "id": 19,
+    "rewards": [
+      {
+        "$type": "PremiumReward",
+        "seconds": 172800
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "rewards": [
+      {
+        "$type": "ResourceReward",
+        "resourceId": 8,
+        "amount": 5
+      }
+    ]
+  },
+  {
+    "id": 21,
+    "rewards": [
+      {
+        "$type": "RandomItemReward",
+        "townhallLevel": 7,
+        "rarity": 3,
+        "itemType": -1,
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": 22,
+    "rewards": [
+      {
+        "$type": "ResourceReward",
+        "resourceId": 2,
+        "amount": 150
+      }
+    ]
+  },
+  {
+    "id": 23,
+    "rewards": [
+      {
+        "$type": "RandomFruitsReward",
+        "amount": 20
+      }
+    ]
+  },
+  {
+    "id": 24,
+    "rewards": [
+      {
+        "$type": "ResourceReward",
+        "resourceId": 23,
+        "amount": 5
+      }
+    ]
+  },
+  {
+    "id": 25,
+    "rewards": [
+      {
+        "$type": "ResourceReward",
+        "resourceId": 24,
+        "amount": 250
+      }
+    ]
+  },
+  {
+    "id": 26,
+    "rewards": [
+      {
+        "$type": "PremiumReward",
+        "seconds": 172800
+      }
+    ]
+  },
+  {
+    "id": 27,
+    "rewards": [
+      {
+        "$type": "ResourceReward",
+        "resourceId": 2,
+        "amount": 500
+      }
+    ]
+  },
+  {
+    "id": 28,
+    "rewards": [
+      {
+        "$type": "RandomItemReward",
+        "townhallLevel": 8,
+        "rarity": 3,
+        "itemType": -1,
+        "count": 1
+      }
+    ]
+  }
+]
