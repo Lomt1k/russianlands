@@ -57,7 +57,8 @@ public static class Emojis
     public static readonly Emoji ButtonArena = new Emoji("\ud83c\udfdf");
     public static readonly Emoji ButtonCrossroads = new Emoji("\ud83e\udea8");
     public static readonly Emoji ButtonPay = new Emoji(char.ConvertFromUtf32(0x1F4B3));
-
+    public static readonly Emoji ButtonEvents = new Emoji(char.ConvertFromUtf32(0x1F4E3));
+    public static readonly Emoji ButtonDailyBonus = new Emoji(char.ConvertFromUtf32(0x1F4C5));
 
     // --- Stats
     public static readonly Emoji StatHealth = new Emoji("\u2764\ufe0f");

@@ -175,7 +175,8 @@
 	"dialog_news_no_news" : "At the moment, the administrators have not added any news",
 	"dialog_news_last_news" : "Last news",
 	"dialog_news_publication_date" : "<i>Publication date: {0}</i>",
-	"dialog_enents_no_events" : "There are currently no events taking place in the town",
+	"dialog_events_no_events" : "There are currently no events taking place in the town",
+	"dialog_events_available_events" : "<i>Select the event that interests you:</i>",
 	"dialog_shop_select_category_header" : "<i>Select a category:</i>",
 	"dialog_shop_category_offers" : "Offers",
 	"dialog_shop_category_premium" : "Premium",
@@ -189,6 +190,7 @@
 	"dialog_shop_error_on_create_payment" : "An error occurred while invoicing. Please try again later or contact technical support...",
 	"dialog_shop_double_diamonds_bonus" : "<b>Promotion:</b>\nWith the first purchase of diamonds, you will receive twice as much as it is written!",
 	"dialog_shop_first_purchase_bonus" : "<pre>First Purchase Bonus:</pre>",
+	"dialog_daily_bonus_event_header" : "Daily Rewards",
 	
 	"building_category_general" : "General",
 	"building_category_storages" : "Storages",

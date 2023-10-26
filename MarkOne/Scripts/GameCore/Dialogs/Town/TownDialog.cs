@@ -67,7 +67,7 @@ public class TownDialog : DialogBase
             + Localization.Get(session, "menu_item_news");
         RegisterButton(newsButton, () => new News.NewsDialog(session).Start());
 
-        RegisterButton(Emojis.ElementLocked + Localization.Get(session, "menu_item_events"), () => new Events.EventsDialog(session).Start());
+        RegisterButton(Emojis.ButtonEvents + Localization.Get(session, "menu_item_events"), () => new Events.EventsDialog(session).Start());
 
         var hasOfferButton = TryRegisterRandomOfferButton();
         _keyboard = hasOfferButton ? GetKeyboardWithRowSizes(1, 2, 3, 1) : GetKeyboardWithRowSizes(1, 2, 3);

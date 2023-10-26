@@ -38,6 +38,8 @@ public class ProfileData : DataWithSession
     public bool isDoubleDiamondsBonusUsed { get; set; }
     public LeagueId lastArenaLeagueId { get; set; }
     public int lastArenaLeagueFarmedChips { get; set; }
+    public byte lastDailyBonusId { get; set; }
+    public DateTime lastDailyBonusReceivedTime { get; set; }
 
 
     // resources
@@ -101,13 +103,15 @@ public class ProfileData : DataWithSession
         regVersion = ProjectVersion.Current.ToString();
         regInfo = messageText.Contains("/start ") ? messageText.Replace("/start ", string.Empty) : "organic";
         lastOfferReminderTime = dtNow;
+        lastDailyBonusReceivedTime = dtNow;
         lastVersion = regVersion;
         username = user.Username;
         firstName = user.FirstName;
         lastName = user.LastName;
         SetupDefaultNickname(user);
+
         // Для рандомизации сообщения в окне города
-        resourceGold += new Random().Next(11) * 50;
+        resourceGold += new Random().Next(11) * 50;        
 
         return this;
     }

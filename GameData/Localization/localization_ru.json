@@ -175,7 +175,8 @@
 	"dialog_news_no_news" : "На данный момент администраторы не добавили ни одной новости",
 	"dialog_news_last_news" : "Последние новости",
 	"dialog_news_publication_date" : "<i>Дата публикации: {0}</i>",
-	"dialog_enents_no_events" : "На данный момент в городе не проводится никаких событий",
+	"dialog_events_no_events" : "На данный момент в городе не проводится никаких событий",
+	"dialog_events_available_events" : "<i>Выберите событие, которое вас интересует:</i>",
 	"dialog_shop_select_category_header" : "<i>Выберите категорию товаров:</i>",
 	"dialog_shop_category_offers" : "Акции",
 	"dialog_shop_category_premium" : "Премиум",
@@ -189,6 +190,7 @@
 	"dialog_shop_error_on_create_payment" : "Произошла ошибка при выставлении счёта. Пожалуйста, попробуйте повторить позднее или обратитесь в техническую поддержку...",
 	"dialog_shop_double_diamonds_bonus" : "<b>Акция:</b>\nПри первой покупке алмазов вы получите в два раза больше, чем написано!",
 	"dialog_shop_first_purchase_bonus" : "<pre>Бонус за первую покупку:</pre>",
+	"dialog_daily_bonus_event_header" : "Ежедневные награды",
 	
 	"building_category_general" : "Основные",
 	"building_category_storages" : "Хранилища",
