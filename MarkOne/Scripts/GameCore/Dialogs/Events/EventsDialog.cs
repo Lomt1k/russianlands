@@ -24,7 +24,7 @@ public class EventsDialog : DialogBase
 
     private void TryRegisterDailyBonusEvent()
     {
-        if (!DailyBonusDialog.IsDailyBonusEventAvailable(session))
+        if (!DailyBonusDialog.IsEventAvailable(session))
         {
             return;
         }

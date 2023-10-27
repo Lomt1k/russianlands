@@ -191,6 +191,9 @@
 	"dialog_shop_double_diamonds_bonus" : "<b>Акция:</b>\nПри первой покупке алмазов вы получите в два раза больше, чем написано!",
 	"dialog_shop_first_purchase_bonus" : "<pre>Бонус за первую покупку:</pre>",
 	"dialog_daily_bonus_event_header" : "Ежедневные награды",
+	"dialog_daily_bonus_description" : "<i>Заходи каждый день, чтобы получать награды!</i>",
+	"dialog_daily_bonus_reward_claimed" : "Вы получили ежедневную награду за вход в игру",
+	"dialog_daily_bonus_reward_claimed_footer" : "<i>Возвращайтесь завтра за следующей наградой.\n\nПосмотреть все награды можно в разделе <b>События</b> -> <b>Ежедневные награды</b></i>",
 	
 	"building_category_general" : "Основные",
 	"building_category_storages" : "Хранилища",

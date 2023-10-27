@@ -1,7 +1,10 @@
-﻿using MarkOne.Scripts.GameCore.Rewards;
+﻿using MarkOne.Scripts.Bot;
+using MarkOne.Scripts.GameCore.Rewards;
 using MarkOne.Scripts.GameCore.Services.GameData;
+using MarkOne.Scripts.GameCore.Sessions;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Text;
 
 namespace MarkOne.Scripts.GameCore.DailyBonus;
 
@@ -19,5 +22,17 @@ public class DailyBonusData : IGameDataWithId<byte>
     public void OnBotAppStarted()
     {
         // ignored
+    }
+
+    public bool IsClaimed(GameSession session)
+    {
+        return session.profile.data.lastDailyBonusId >= id;
+    }
+
+    public string GetView(GameSession session)
+    {
+        return IsClaimed(session)
+            ? Emojis.ElementCheckMark + rewards.GetPossibleRewardsView(session)
+            : $"{id}. " + rewards.GetPossibleRewardsView(session);
     }
 }

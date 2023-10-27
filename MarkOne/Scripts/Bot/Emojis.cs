@@ -216,6 +216,7 @@ public static class Emojis
     public static readonly Emoji ElementArrowUp = new Emoji("\u2b06\ufe0f");
     public static readonly Emoji ElementArrowRight = new Emoji("\u27a1\ufe0f");
     public static readonly Emoji ElementScales = new Emoji("\u2696\ufe0f");
+    public static readonly Emoji ElementCheckMark = new Emoji(char.ConvertFromUtf32(0x2705));
 
     public static Emoji GetNumeric(int value)
     {

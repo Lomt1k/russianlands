@@ -191,6 +191,9 @@
 	"dialog_shop_double_diamonds_bonus" : "<b>Promotion:</b>\nWith the first purchase of diamonds, you will receive twice as much as it is written!",
 	"dialog_shop_first_purchase_bonus" : "<pre>First Purchase Bonus:</pre>",
 	"dialog_daily_bonus_event_header" : "Daily Rewards",
+	"dialog_daily_bonus_description" : "<i>Login every day to receive rewards!</i>",
+	"dialog_daily_bonus_reward_claimed" : "You received a daily reward for logging into the game",
+	"dialog_daily_bonus_reward_claimed_footer" : "<i>Come back tomorrow for your next reward.\n\nYou can view all rewards in the <b>Events</b> -> <b>Daily rewards</b> section</i>",
 	
 	"building_category_general" : "General",
 	"building_category_storages" : "Storages",
