@@ -26,7 +26,8 @@
       {
         "$type": "ResourceReward",
         "resourceId": 2,
-        "amount": 15000
+        "amount": 15000,
+        "forceAdd": false
       }
     ],
     "id": 2,

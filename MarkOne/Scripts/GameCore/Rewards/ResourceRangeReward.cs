@@ -15,7 +15,7 @@ public class ResourceRangeReward : ResourceRewardBase
     public int amountMin { get; set; }
     public int amountMax { get; set; }
 
-    public ResourceRangeReward(ResourceId _resourceId, int _amountMin, int _amountMax)
+    public ResourceRangeReward(ResourceId _resourceId, int _amountMin, int _amountMax, bool _forceAdd = false) : base(_forceAdd)
     {
         resourceId = _resourceId;
         amountMin = _amountMin;
@@ -26,7 +26,9 @@ public class ResourceRangeReward : ResourceRewardBase
     {
         var amount = new Random().Next(amountMin, amountMax + 1);
         var resourceData = new ResourceData(resourceId, amount);
-        var addedResource = session.player.resources.Add(resourceData);
+        var addedResource = forceAdd
+            ? session.player.resources.ForceAdd(resourceData)
+            : session.player.resources.Add(resourceData);
         var text = resourceData.GetLocalizedView(session)
             + (addedResource.amount < resourceData.amount ? Localization.Get(session, "resource_full_storage_prefix") : string.Empty);
         return Task.FromResult(text);
@@ -42,7 +44,9 @@ public class ResourceRangeReward : ResourceRewardBase
         }
 
         var resourceData = new ResourceData(resourceId, amount);
-        var addedResource = session.player.resources.Add(resourceData);
+        var addedResource = forceAdd
+            ? session.player.resources.ForceAdd(resourceData)
+            : session.player.resources.Add(resourceData);
         var text = resourceData.GetLocalizedView(session)
             + (addedResource.amount < resourceData.amount ? Localization.Get(session, "resource_full_storage_prefix") : string.Empty);
         return Task.FromResult(text);

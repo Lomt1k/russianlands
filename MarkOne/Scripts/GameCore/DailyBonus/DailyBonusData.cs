@@ -31,7 +31,7 @@ public class DailyBonusData : IGameDataWithId<byte>
     public string GetView(GameSession session)
     {
         return IsClaimed(session)
-            ? Emojis.ElementCheckMarkBlack + rewards.GetPossibleRewardsView(session)
+            ? Emojis.ElementCheckMarkBlack.ToString() + rewards.GetPossibleRewardsView(session)
             : $"{id}. " + rewards.GetPossibleRewardsView(session);
     }
 }

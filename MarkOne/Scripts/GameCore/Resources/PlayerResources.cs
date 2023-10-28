@@ -208,7 +208,7 @@ public class PlayerResources
     /// <summary>
     /// Добавляет ресурс даже если будет превышен лимит хранилища
     /// </summary>
-    public void ForceAdd(ResourceData resourceData)
+    public ResourceData ForceAdd(ResourceData resourceData)
     {
         var resource = ResourcesDictionary.Get(resourceData.resourceId);
         var currentValue = resource.GetValue(_profileData);
@@ -218,17 +218,20 @@ public class PlayerResources
         resource.AddValue(_profileData, reallyAdded);
 
         Program.logger.Info($"RESOURCE ADD | {_session.actualUser} : {resourceData.resourceId} ({reallyAdded})");
+
+        return resourceData;
     }
 
     /// <summary>
     /// Добавляет ресурсы даже если будет превышен лимит хранилища
     /// </summary>
-    public void ForceAdd(IEnumerable<ResourceData> resources)
+    public IEnumerable<ResourceData> ForceAdd(IEnumerable<ResourceData> resources)
     {
         foreach (var resource in resources)
         {
             ForceAdd(resource);
         }
+        return resources;
     }
 
     /// <summary>

@@ -169,7 +169,8 @@
         "resourceReward": {
           "$type": "ResourceReward",
           "resourceId": 24,
-          "amount": 21
+          "amount": 21,
+          "forceAdd": false
         },
         "vendorCode": "arena-hall3-echange-tickets-to-chips-1",
         "price": {
@@ -184,7 +185,8 @@
         "resourceReward": {
           "$type": "ResourceReward",
           "resourceId": 24,
-          "amount": 230
+          "amount": 230,
+          "forceAdd": false
         },
         "vendorCode": "arena-hall3-echange-tickets-to-chips-10",
         "price": {
@@ -199,7 +201,8 @@
         "resourceReward": {
           "$type": "ResourceReward",
           "resourceId": 24,
-          "amount": 750
+          "amount": 750,
+          "forceAdd": false
         },
         "vendorCode": "arena-hall3-echange-tickets-to-chips-30",
         "price": {
@@ -385,7 +388,8 @@
         "resourceReward": {
           "$type": "ResourceReward",
           "resourceId": 24,
-          "amount": 21
+          "amount": 21,
+          "forceAdd": false
         },
         "vendorCode": "arena-hall4-echange-tickets-to-chips-1",
         "price": {
@@ -400,7 +404,8 @@
         "resourceReward": {
           "$type": "ResourceReward",
           "resourceId": 24,
-          "amount": 230
+          "amount": 230,
+          "forceAdd": false
         },
         "vendorCode": "arena-hall4-echange-tickets-to-chips-10",
         "price": {
@@ -415,7 +420,8 @@
         "resourceReward": {
           "$type": "ResourceReward",
           "resourceId": 24,
-          "amount": 750
+          "amount": 750,
+          "forceAdd": false
         },
         "vendorCode": "arena-hall4-echange-tickets-to-chips-30",
         "price": {
@@ -695,7 +701,8 @@
         "resourceReward": {
           "$type": "ResourceReward",
           "resourceId": 24,
-          "amount": 21
+          "amount": 21,
+          "forceAdd": false
         },
         "vendorCode": "arena-hall5-echange-tickets-to-chips-1",
         "price": {
@@ -710,7 +717,8 @@
         "resourceReward": {
           "$type": "ResourceReward",
           "resourceId": 24,
-          "amount": 230
+          "amount": 230,
+          "forceAdd": false
         },
         "vendorCode": "arena-hall5-echange-tickets-to-chips-10",
         "price": {
@@ -725,7 +733,8 @@
         "resourceReward": {
           "$type": "ResourceReward",
           "resourceId": 24,
-          "amount": 750
+          "amount": 750,
+          "forceAdd": false
         },
         "vendorCode": "arena-hall5-echange-tickets-to-chips-30",
         "price": {
@@ -991,7 +1000,8 @@
         "resourceReward": {
           "$type": "ResourceReward",
           "resourceId": 24,
-          "amount": 21
+          "amount": 21,
+          "forceAdd": false
         },
         "vendorCode": "arena-hall6-echange-tickets-to-chips-1",
         "price": {
@@ -1006,7 +1016,8 @@
         "resourceReward": {
           "$type": "ResourceReward",
           "resourceId": 24,
-          "amount": 230
+          "amount": 230,
+          "forceAdd": false
         },
         "vendorCode": "arena-hall6-echange-tickets-to-chips-10",
         "price": {
@@ -1021,7 +1032,8 @@
         "resourceReward": {
           "$type": "ResourceReward",
           "resourceId": 24,
-          "amount": 750
+          "amount": 750,
+          "forceAdd": false
         },
         "vendorCode": "arena-hall6-echange-tickets-to-chips-30",
         "price": {
@@ -1292,7 +1304,8 @@
         "resourceReward": {
           "$type": "ResourceReward",
           "resourceId": 24,
-          "amount": 21
+          "amount": 21,
+          "forceAdd": false
         },
         "vendorCode": "arena-hall7-echange-tickets-to-chips-1",
         "price": {
@@ -1307,7 +1320,8 @@
         "resourceReward": {
           "$type": "ResourceReward",
           "resourceId": 24,
-          "amount": 230
+          "amount": 230,
+          "forceAdd": false
         },
         "vendorCode": "arena-hall7-echange-tickets-to-chips-10",
         "price": {
@@ -1322,7 +1336,8 @@
         "resourceReward": {
           "$type": "ResourceReward",
           "resourceId": 24,
-          "amount": 750
+          "amount": 750,
+          "forceAdd": false
         },
         "vendorCode": "arena-hall7-echange-tickets-to-chips-30",
         "price": {
@@ -1593,7 +1608,8 @@
         "resourceReward": {
           "$type": "ResourceReward",
           "resourceId": 24,
-          "amount": 21
+          "amount": 21,
+          "forceAdd": false
         },
         "vendorCode": "arena-hall8-echange-tickets-to-chips-1",
         "price": {
@@ -1608,7 +1624,8 @@
         "resourceReward": {
           "$type": "ResourceReward",
           "resourceId": 24,
-          "amount": 230
+          "amount": 230,
+          "forceAdd": false
         },
         "vendorCode": "arena-hall8-echange-tickets-to-chips-10",
         "price": {
@@ -1623,7 +1640,8 @@
         "resourceReward": {
           "$type": "ResourceReward",
           "resourceId": 24,
-          "amount": 750
+          "amount": 750,
+          "forceAdd": false
         },
         "vendorCode": "arena-hall8-echange-tickets-to-chips-30",
         "price": {

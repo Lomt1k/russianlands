@@ -17,6 +17,9 @@
         <TextBox Text="{Binding reward.amountMin}"/>
         <TextBlock Text="amountMax"/>
         <TextBox Text="{Binding reward.amountMax}"/>
+        
+        <CheckBox Content="force add"
+          IsChecked="{Binding reward.forceAdd}"/>
 
       </StackPanel>
     </Border>

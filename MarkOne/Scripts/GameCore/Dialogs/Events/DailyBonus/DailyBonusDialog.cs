@@ -22,7 +22,7 @@ public class DailyBonusDialog : DialogBase
         AppendRewardsList(sb);
 
         ClearButtons();
-        RegisterBackButton(Emojis.ButtonEvents + Localization.Get(session, "menu_item_events"), () => new EventsDialog(session).Start());
+        RegisterBackButton(Localization.Get(session, "menu_item_events") + Emojis.ButtonEvents, () => new EventsDialog(session).Start());
         RegisterTownButton(isDoubleBack: true);
 
         await SendDialogMessage(sb, GetOneLineKeyboard()).FastAwait();

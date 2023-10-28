@@ -16,6 +16,9 @@
         <TextBlock Text="amount"/>
         <TextBox Text="{Binding reward.amount}"/>
         
+        <CheckBox Content="force add"
+          IsChecked="{Binding reward.forceAdd}"/>
+        
       </StackPanel>
     </Border>
   </Border>

@@ -17,7 +17,7 @@ public class ResourceReward : ResourceRewardBase
     [JsonIgnore]
     public ResourceData resourceData { get; private set; }
 
-    public ResourceReward(ResourceId _resourceId, int _amount)
+    public ResourceReward(ResourceId _resourceId, int _amount, bool _forceAdd = false) : base(_forceAdd)
     {
         resourceId = _resourceId;
         amount = _amount;
@@ -32,7 +32,9 @@ public class ResourceReward : ResourceRewardBase
 
     public override Task<string> AddReward(GameSession session)
     {
-        var addedResource = session.player.resources.Add(resourceData);
+        var addedResource = forceAdd
+            ? session.player.resources.ForceAdd(resourceData)
+            : session.player.resources.Add(resourceData);
         var result = resourceData.GetLocalizedView(session)
             + (addedResource.amount < resourceData.amount ? Localization.Get(session, "resource_full_storage_prefix") : string.Empty);
         return Task.FromResult(result);

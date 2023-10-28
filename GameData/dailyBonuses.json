@@ -14,7 +14,8 @@
       {
         "$type": "ResourceReward",
         "resourceId": 0,
-        "amount": 7500
+        "amount": 7500,
+        "forceAdd": true
       }
     ]
   },
@@ -36,7 +37,8 @@
       {
         "$type": "ResourceReward",
         "resourceId": 23,
-        "amount": 3
+        "amount": 3,
+        "forceAdd": true
       }
     ]
   },
@@ -47,7 +49,7 @@
         "$type": "RandomItemReward",
         "townhallLevel": 5,
         "rarity": 2,
-        "itemType": -1,
+        "itemType": 3,
         "count": 1
       }
     ]
@@ -58,7 +60,8 @@
       {
         "$type": "ResourceReward",
         "resourceId": 24,
-        "amount": 50
+        "amount": 50,
+        "forceAdd": true
       }
     ]
   },
@@ -77,7 +80,8 @@
       {
         "$type": "ResourceReward",
         "resourceId": 3,
-        "amount": 5000
+        "amount": 5000,
+        "forceAdd": true
       }
     ]
   },
@@ -96,7 +100,8 @@
       {
         "$type": "ResourceReward",
         "resourceId": 2,
-        "amount": 100
+        "amount": 100,
+        "forceAdd": true
       }
     ]
   },
@@ -106,7 +111,8 @@
       {
         "$type": "ResourceReward",
         "resourceId": 23,
-        "amount": 3
+        "amount": 3,
+        "forceAdd": true
       }
     ]
   },
@@ -125,7 +131,8 @@
       {
         "$type": "ResourceReward",
         "resourceId": 24,
-        "amount": 150
+        "amount": 150,
+        "forceAdd": true
       }
     ]
   },
@@ -135,7 +142,8 @@
       {
         "$type": "ResourceReward",
         "resourceId": 4,
-        "amount": 100000
+        "amount": 100000,
+        "forceAdd": true
       }
     ]
   },
@@ -146,7 +154,7 @@
         "$type": "RandomItemReward",
         "townhallLevel": 6,
         "rarity": 3,
-        "itemType": -1,
+        "itemType": 0,
         "count": 1
       }
     ]
@@ -166,7 +174,8 @@
       {
         "$type": "ResourceReward",
         "resourceId": 7,
-        "amount": 10
+        "amount": 10,
+        "forceAdd": true
       }
     ]
   },
@@ -176,7 +185,8 @@
       {
         "$type": "ResourceReward",
         "resourceId": 23,
-        "amount": 3
+        "amount": 3,
+        "forceAdd": true
       }
     ]
   },
@@ -195,7 +205,8 @@
       {
         "$type": "ResourceReward",
         "resourceId": 8,
-        "amount": 5
+        "amount": 5,
+        "forceAdd": true
       }
     ]
   },
@@ -206,7 +217,7 @@
         "$type": "RandomItemReward",
         "townhallLevel": 7,
         "rarity": 3,
-        "itemType": -1,
+        "itemType": 8,
         "count": 1
       }
     ]
@@ -217,7 +228,8 @@
       {
         "$type": "ResourceReward",
         "resourceId": 2,
-        "amount": 150
+        "amount": 150,
+        "forceAdd": true
       }
     ]
   },
@@ -236,7 +248,8 @@
       {
         "$type": "ResourceReward",
         "resourceId": 23,
-        "amount": 5
+        "amount": 5,
+        "forceAdd": true
       }
     ]
   },
@@ -246,7 +259,8 @@
       {
         "$type": "ResourceReward",
         "resourceId": 24,
-        "amount": 250
+        "amount": 250,
+        "forceAdd": true
       }
     ]
   },
@@ -265,7 +279,8 @@
       {
         "$type": "ResourceReward",
         "resourceId": 2,
-        "amount": 500
+        "amount": 500,
+        "forceAdd": true
       }
     ]
   },
@@ -276,7 +291,7 @@
         "$type": "RandomItemReward",
         "townhallLevel": 8,
         "rarity": 3,
-        "itemType": -1,
+        "itemType": 6,
         "count": 1
       }
     ]

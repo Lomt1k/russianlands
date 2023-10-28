@@ -17,7 +17,8 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 1800,
-            "amountMax": 2200
+            "amountMax": 2200,
+            "forceAdd": false
           }
         ],
         "locationRewards": [
@@ -31,12 +32,14 @@
           {
             "$type": "ResourceReward",
             "resourceId": 23,
-            "amount": 1
+            "amount": 1,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 5
+            "amount": 5,
+            "forceAdd": false
           }
         ]
       },
@@ -54,7 +57,8 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 3600,
-            "amountMax": 4400
+            "amountMax": 4400,
+            "forceAdd": false
           }
         ],
         "locationRewards": [
@@ -68,12 +72,14 @@
           {
             "$type": "ResourceReward",
             "resourceId": 23,
-            "amount": 1
+            "amount": 1,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 5
+            "amount": 5,
+            "forceAdd": false
           }
         ]
       },
@@ -91,7 +97,8 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 5400,
-            "amountMax": 6600
+            "amountMax": 6600,
+            "forceAdd": false
           }
         ],
         "locationRewards": [
@@ -105,12 +112,14 @@
           {
             "$type": "ResourceReward",
             "resourceId": 23,
-            "amount": 1
+            "amount": 1,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 5
+            "amount": 5,
+            "forceAdd": false
           }
         ]
       },
@@ -120,19 +129,22 @@
           {
             "$type": "ResourceReward",
             "resourceId": 6,
-            "amount": 1
+            "amount": 1,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 7200,
-            "amountMax": 8800
+            "amountMax": 8800,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 4,
             "amountMin": 1620,
-            "amountMax": 1980
+            "amountMax": 1980,
+            "forceAdd": false
           }
         ],
         "locationRewards": [
@@ -146,12 +158,14 @@
           {
             "$type": "ResourceReward",
             "resourceId": 23,
-            "amount": 1
+            "amount": 1,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 5
+            "amount": 5,
+            "forceAdd": false
           }
         ]
       },
@@ -161,19 +175,22 @@
           {
             "$type": "ResourceReward",
             "resourceId": 6,
-            "amount": 1
+            "amount": 1,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 12600,
-            "amountMax": 15400
+            "amountMax": 15400,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 4,
             "amountMin": 4590,
-            "amountMax": 5610
+            "amountMax": 5610,
+            "forceAdd": false
           }
         ],
         "locationRewards": [
@@ -187,12 +204,14 @@
           {
             "$type": "ResourceReward",
             "resourceId": 23,
-            "amount": 1
+            "amount": 1,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 5
+            "amount": 5,
+            "forceAdd": false
           }
         ]
       },
@@ -202,19 +221,22 @@
           {
             "$type": "ResourceReward",
             "resourceId": 6,
-            "amount": 1
+            "amount": 1,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 21600,
-            "amountMax": 26400
+            "amountMax": 26400,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 4,
             "amountMin": 7470,
-            "amountMax": 9130
+            "amountMax": 9130,
+            "forceAdd": false
           }
         ],
         "locationRewards": [
@@ -228,12 +250,14 @@
           {
             "$type": "ResourceReward",
             "resourceId": 23,
-            "amount": 1
+            "amount": 1,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 5
+            "amount": 5,
+            "forceAdd": false
           }
         ]
       }
@@ -250,7 +274,8 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 7200,
-            "amountMax": 8800
+            "amountMax": 8800,
+            "forceAdd": false
           }
         ],
         "locationRewards": [
@@ -264,7 +289,8 @@
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 5
+            "amount": 5,
+            "forceAdd": false
           }
         ]
       },
@@ -275,13 +301,15 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 13500,
-            "amountMax": 16500
+            "amountMax": 16500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 3,
             "amountMin": 2700,
-            "amountMax": 3300
+            "amountMax": 3300,
+            "forceAdd": false
           }
         ],
         "locationRewards": [
@@ -295,7 +323,8 @@
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 5
+            "amount": 5,
+            "forceAdd": false
           }
         ]
       },
@@ -306,13 +335,15 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 18000,
-            "amountMax": 22000
+            "amountMax": 22000,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 3,
             "amountMin": 4950,
-            "amountMax": 6050
+            "amountMax": 6050,
+            "forceAdd": false
           }
         ],
         "locationRewards": [
@@ -330,7 +361,8 @@
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 5
+            "amount": 5,
+            "forceAdd": false
           }
         ]
       },
@@ -341,19 +373,22 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 36000,
-            "amountMax": 44000
+            "amountMax": 44000,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 3,
             "amountMin": 8100,
-            "amountMax": 9900
+            "amountMax": 9900,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 4,
             "amountMin": 9000,
-            "amountMax": 11000
+            "amountMax": 11000,
+            "forceAdd": false
           }
         ],
         "locationRewards": [
@@ -371,7 +406,8 @@
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 5
+            "amount": 5,
+            "forceAdd": false
           }
         ]
       },
@@ -382,19 +418,22 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 45000,
-            "amountMax": 55000
+            "amountMax": 55000,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 3,
             "amountMin": 8550,
-            "amountMax": 10450
+            "amountMax": 10450,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 4,
             "amountMin": 18000,
-            "amountMax": 22000
+            "amountMax": 22000,
+            "forceAdd": false
           }
         ],
         "locationRewards": [
@@ -412,7 +451,8 @@
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 5
+            "amount": 5,
+            "forceAdd": false
           }
         ]
       },
@@ -423,19 +463,22 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 58500,
-            "amountMax": 71500
+            "amountMax": 71500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 3,
             "amountMin": 9000,
-            "amountMax": 11000
+            "amountMax": 11000,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 4,
             "amountMin": 23850,
-            "amountMax": 29150
+            "amountMax": 29150,
+            "forceAdd": false
           }
         ],
         "locationRewards": [
@@ -453,7 +496,8 @@
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 5
+            "amount": 5,
+            "forceAdd": false
           }
         ]
       }
@@ -470,7 +514,8 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 7200,
-            "amountMax": 8800
+            "amountMax": 8800,
+            "forceAdd": false
           }
         ],
         "locationRewards": [
@@ -484,7 +529,8 @@
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 5
+            "amount": 5,
+            "forceAdd": false
           }
         ]
       },
@@ -495,13 +541,15 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 13500,
-            "amountMax": 16500
+            "amountMax": 16500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 3,
             "amountMin": 2700,
-            "amountMax": 3300
+            "amountMax": 3300,
+            "forceAdd": false
           }
         ],
         "locationRewards": [
@@ -515,7 +563,8 @@
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 5
+            "amount": 5,
+            "forceAdd": false
           }
         ]
       },
@@ -526,13 +575,15 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 18000,
-            "amountMax": 22000
+            "amountMax": 22000,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 3,
             "amountMin": 4950,
-            "amountMax": 6050
+            "amountMax": 6050,
+            "forceAdd": false
           }
         ],
         "locationRewards": [
@@ -550,7 +601,8 @@
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 5
+            "amount": 5,
+            "forceAdd": false
           }
         ]
       },
@@ -561,19 +613,22 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 36000,
-            "amountMax": 44000
+            "amountMax": 44000,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 3,
             "amountMin": 8100,
-            "amountMax": 9900
+            "amountMax": 9900,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 4,
             "amountMin": 9000,
-            "amountMax": 11000
+            "amountMax": 11000,
+            "forceAdd": false
           }
         ],
         "locationRewards": [
@@ -591,7 +646,8 @@
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 5
+            "amount": 5,
+            "forceAdd": false
           }
         ]
       },
@@ -602,19 +658,22 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 45000,
-            "amountMax": 55000
+            "amountMax": 55000,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 3,
             "amountMin": 8550,
-            "amountMax": 10450
+            "amountMax": 10450,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 4,
             "amountMin": 18000,
-            "amountMax": 22000
+            "amountMax": 22000,
+            "forceAdd": false
           }
         ],
         "locationRewards": [
@@ -632,7 +691,8 @@
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 5
+            "amount": 5,
+            "forceAdd": false
           }
         ]
       },
@@ -643,19 +703,22 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 58500,
-            "amountMax": 71500
+            "amountMax": 71500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 3,
             "amountMin": 9000,
-            "amountMax": 11000
+            "amountMax": 11000,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 4,
             "amountMin": 23850,
-            "amountMax": 29150
+            "amountMax": 29150,
+            "forceAdd": false
           }
         ],
         "locationRewards": [
@@ -673,7 +736,8 @@
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 5
+            "amount": 5,
+            "forceAdd": false
           }
         ]
       }
@@ -690,7 +754,8 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 7200,
-            "amountMax": 8800
+            "amountMax": 8800,
+            "forceAdd": false
           }
         ],
         "locationRewards": [
@@ -704,7 +769,8 @@
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 5
+            "amount": 5,
+            "forceAdd": false
           }
         ]
       },
@@ -715,13 +781,15 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 13500,
-            "amountMax": 16500
+            "amountMax": 16500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 3,
             "amountMin": 2700,
-            "amountMax": 3300
+            "amountMax": 3300,
+            "forceAdd": false
           }
         ],
         "locationRewards": [
@@ -735,7 +803,8 @@
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 5
+            "amount": 5,
+            "forceAdd": false
           }
         ]
       },
@@ -746,13 +815,15 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 18000,
-            "amountMax": 22000
+            "amountMax": 22000,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 3,
             "amountMin": 4950,
-            "amountMax": 6050
+            "amountMax": 6050,
+            "forceAdd": false
           }
         ],
         "locationRewards": [
@@ -770,7 +841,8 @@
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 5
+            "amount": 5,
+            "forceAdd": false
           }
         ]
       },
@@ -781,19 +853,22 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 36000,
-            "amountMax": 44000
+            "amountMax": 44000,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 3,
             "amountMin": 8100,
-            "amountMax": 9900
+            "amountMax": 9900,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 4,
             "amountMin": 9000,
-            "amountMax": 11000
+            "amountMax": 11000,
+            "forceAdd": false
           }
         ],
         "locationRewards": [
@@ -811,7 +886,8 @@
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 5
+            "amount": 5,
+            "forceAdd": false
           }
         ]
       },
@@ -822,19 +898,22 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 45000,
-            "amountMax": 55000
+            "amountMax": 55000,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 3,
             "amountMin": 8550,
-            "amountMax": 10450
+            "amountMax": 10450,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 4,
             "amountMin": 18000,
-            "amountMax": 22000
+            "amountMax": 22000,
+            "forceAdd": false
           }
         ],
         "locationRewards": [
@@ -852,7 +931,8 @@
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 5
+            "amount": 5,
+            "forceAdd": false
           }
         ]
       },
@@ -863,19 +943,22 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 58500,
-            "amountMax": 71500
+            "amountMax": 71500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 3,
             "amountMin": 9000,
-            "amountMax": 11000
+            "amountMax": 11000,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 4,
             "amountMin": 23850,
-            "amountMax": 29150
+            "amountMax": 29150,
+            "forceAdd": false
           }
         ],
         "locationRewards": [
@@ -893,7 +976,8 @@
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 5
+            "amount": 5,
+            "forceAdd": false
           }
         ]
       }
@@ -910,7 +994,8 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 7200,
-            "amountMax": 8800
+            "amountMax": 8800,
+            "forceAdd": false
           }
         ],
         "locationRewards": [
@@ -924,7 +1009,8 @@
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 5
+            "amount": 5,
+            "forceAdd": false
           }
         ]
       },
@@ -935,13 +1021,15 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 13500,
-            "amountMax": 16500
+            "amountMax": 16500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 3,
             "amountMin": 2700,
-            "amountMax": 3300
+            "amountMax": 3300,
+            "forceAdd": false
           }
         ],
         "locationRewards": [
@@ -955,7 +1043,8 @@
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 5
+            "amount": 5,
+            "forceAdd": false
           }
         ]
       },
@@ -966,13 +1055,15 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 18000,
-            "amountMax": 22000
+            "amountMax": 22000,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 3,
             "amountMin": 4950,
-            "amountMax": 6050
+            "amountMax": 6050,
+            "forceAdd": false
           }
         ],
         "locationRewards": [
@@ -990,7 +1081,8 @@
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 5
+            "amount": 5,
+            "forceAdd": false
           }
         ]
       },
@@ -1001,19 +1093,22 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 36000,
-            "amountMax": 44000
+            "amountMax": 44000,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 3,
             "amountMin": 8100,
-            "amountMax": 9900
+            "amountMax": 9900,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 4,
             "amountMin": 9000,
-            "amountMax": 11000
+            "amountMax": 11000,
+            "forceAdd": false
           }
         ],
         "locationRewards": [
@@ -1031,7 +1126,8 @@
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 5
+            "amount": 5,
+            "forceAdd": false
           }
         ]
       },
@@ -1042,19 +1138,22 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 45000,
-            "amountMax": 55000
+            "amountMax": 55000,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 3,
             "amountMin": 8550,
-            "amountMax": 10450
+            "amountMax": 10450,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 4,
             "amountMin": 18000,
-            "amountMax": 22000
+            "amountMax": 22000,
+            "forceAdd": false
           }
         ],
         "locationRewards": [
@@ -1072,7 +1171,8 @@
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 5
+            "amount": 5,
+            "forceAdd": false
           }
         ]
       },
@@ -1083,19 +1183,22 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 58500,
-            "amountMax": 71500
+            "amountMax": 71500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 3,
             "amountMin": 9000,
-            "amountMax": 11000
+            "amountMax": 11000,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 4,
             "amountMin": 23850,
-            "amountMax": 29150
+            "amountMax": 29150,
+            "forceAdd": false
           }
         ],
         "locationRewards": [
@@ -1113,7 +1216,8 @@
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 5
+            "amount": 5,
+            "forceAdd": false
           }
         ]
       }
@@ -1130,7 +1234,8 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 7200,
-            "amountMax": 8800
+            "amountMax": 8800,
+            "forceAdd": false
           }
         ],
         "locationRewards": [
@@ -1144,7 +1249,8 @@
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 5
+            "amount": 5,
+            "forceAdd": false
           }
         ]
       },
@@ -1155,13 +1261,15 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 13500,
-            "amountMax": 16500
+            "amountMax": 16500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 3,
             "amountMin": 2700,
-            "amountMax": 3300
+            "amountMax": 3300,
+            "forceAdd": false
           }
         ],
         "locationRewards": [
@@ -1175,7 +1283,8 @@
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 5
+            "amount": 5,
+            "forceAdd": false
           }
         ]
       },
@@ -1186,13 +1295,15 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 18000,
-            "amountMax": 22000
+            "amountMax": 22000,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 3,
             "amountMin": 4950,
-            "amountMax": 6050
+            "amountMax": 6050,
+            "forceAdd": false
           }
         ],
         "locationRewards": [
@@ -1210,7 +1321,8 @@
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 5
+            "amount": 5,
+            "forceAdd": false
           }
         ]
       },
@@ -1221,19 +1333,22 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 36000,
-            "amountMax": 44000
+            "amountMax": 44000,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 3,
             "amountMin": 8100,
-            "amountMax": 9900
+            "amountMax": 9900,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 4,
             "amountMin": 9000,
-            "amountMax": 11000
+            "amountMax": 11000,
+            "forceAdd": false
           }
         ],
         "locationRewards": [
@@ -1251,7 +1366,8 @@
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 5
+            "amount": 5,
+            "forceAdd": false
           }
         ]
       },
@@ -1262,19 +1378,22 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 45000,
-            "amountMax": 55000
+            "amountMax": 55000,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 3,
             "amountMin": 8550,
-            "amountMax": 10450
+            "amountMax": 10450,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 4,
             "amountMin": 18000,
-            "amountMax": 22000
+            "amountMax": 22000,
+            "forceAdd": false
           }
         ],
         "locationRewards": [
@@ -1292,7 +1411,8 @@
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 5
+            "amount": 5,
+            "forceAdd": false
           }
         ]
       },
@@ -1303,19 +1423,22 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 58500,
-            "amountMax": 71500
+            "amountMax": 71500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 3,
             "amountMin": 9000,
-            "amountMax": 11000
+            "amountMax": 11000,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 4,
             "amountMin": 23850,
-            "amountMax": 29150
+            "amountMax": 29150,
+            "forceAdd": false
           }
         ],
         "locationRewards": [
@@ -1333,7 +1456,8 @@
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 5
+            "amount": 5,
+            "forceAdd": false
           }
         ]
       }
@@ -1350,7 +1474,8 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 7200,
-            "amountMax": 8800
+            "amountMax": 8800,
+            "forceAdd": false
           }
         ],
         "locationRewards": [
@@ -1364,7 +1489,8 @@
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 5
+            "amount": 5,
+            "forceAdd": false
           }
         ]
       },
@@ -1375,13 +1501,15 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 13500,
-            "amountMax": 16500
+            "amountMax": 16500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 3,
             "amountMin": 2700,
-            "amountMax": 3300
+            "amountMax": 3300,
+            "forceAdd": false
           }
         ],
         "locationRewards": [
@@ -1395,7 +1523,8 @@
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 5
+            "amount": 5,
+            "forceAdd": false
           }
         ]
       },
@@ -1406,13 +1535,15 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 18000,
-            "amountMax": 22000
+            "amountMax": 22000,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 3,
             "amountMin": 4950,
-            "amountMax": 6050
+            "amountMax": 6050,
+            "forceAdd": false
           }
         ],
         "locationRewards": [
@@ -1430,7 +1561,8 @@
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 5
+            "amount": 5,
+            "forceAdd": false
           }
         ]
       },
@@ -1441,19 +1573,22 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 36000,
-            "amountMax": 44000
+            "amountMax": 44000,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 3,
             "amountMin": 8100,
-            "amountMax": 9900
+            "amountMax": 9900,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 4,
             "amountMin": 9000,
-            "amountMax": 11000
+            "amountMax": 11000,
+            "forceAdd": false
           }
         ],
         "locationRewards": [
@@ -1471,7 +1606,8 @@
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 5
+            "amount": 5,
+            "forceAdd": false
           }
         ]
       },
@@ -1482,19 +1618,22 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 45000,
-            "amountMax": 55000
+            "amountMax": 55000,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 3,
             "amountMin": 8550,
-            "amountMax": 10450
+            "amountMax": 10450,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 4,
             "amountMin": 18000,
-            "amountMax": 22000
+            "amountMax": 22000,
+            "forceAdd": false
           }
         ],
         "locationRewards": [
@@ -1512,7 +1651,8 @@
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 5
+            "amount": 5,
+            "forceAdd": false
           }
         ]
       },
@@ -1523,19 +1663,22 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 58500,
-            "amountMax": 71500
+            "amountMax": 71500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 3,
             "amountMin": 9000,
-            "amountMax": 11000
+            "amountMax": 11000,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 4,
             "amountMin": 23850,
-            "amountMax": 29150
+            "amountMax": 29150,
+            "forceAdd": false
           }
         ],
         "locationRewards": [
@@ -1553,7 +1696,8 @@
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 5
+            "amount": 5,
+            "forceAdd": false
           }
         ]
       }

@@ -31,6 +31,9 @@
         <TextBlock Text="bonus B: Max"/>
         <TextBox Text="{Binding reward.bonusB_max}"/>
 
+        <CheckBox Content="force add"
+          IsChecked="{Binding reward.forceAdd}"/>
+
       </StackPanel>
     </Border>
   </Border>

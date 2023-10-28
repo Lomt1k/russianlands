@@ -136,7 +136,8 @@
           {
             "$type": "ResourceReward",
             "resourceId": 0,
-            "amount": 100
+            "amount": 100,
+            "forceAdd": false
           }
         ],
         "id": 600,
@@ -328,7 +329,8 @@
           {
             "$type": "ResourceReward",
             "resourceId": 0,
-            "amount": 300
+            "amount": 300,
+            "forceAdd": false
           }
         ],
         "id": 1000,
@@ -654,12 +656,14 @@
           {
             "$type": "ResourceReward",
             "resourceId": 0,
-            "amount": 500
+            "amount": 500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 250
+            "amount": 250,
+            "forceAdd": false
           }
         ],
         "id": 2400,
@@ -1020,13 +1024,15 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 525,
-            "amountMax": 575
+            "amountMax": 575,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 60,
-            "amountMax": 70
+            "amountMax": 70,
+            "forceAdd": false
           }
         ],
         "id": 5300,
@@ -1239,13 +1245,15 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 625,
-            "amountMax": 675
+            "amountMax": 675,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 1,
             "amountMin": 60,
-            "amountMax": 70
+            "amountMax": 70,
+            "forceAdd": false
           }
         ],
         "id": 6600,
@@ -1387,13 +1395,15 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 625,
-            "amountMax": 675
+            "amountMax": 675,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 1,
             "amountMin": 60,
-            "amountMax": 70
+            "amountMax": 70,
+            "forceAdd": false
           }
         ],
         "id": 7300,
@@ -1496,18 +1506,21 @@
           {
             "$type": "ResourceReward",
             "resourceId": 0,
-            "amount": 1500
+            "amount": 1500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 1,
             "amountMin": 60,
-            "amountMax": 70
+            "amountMax": 70,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 5
+            "amount": 5,
+            "forceAdd": false
           }
         ],
         "id": 7800,
@@ -1793,13 +1806,15 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 775,
-            "amountMax": 825
+            "amountMax": 825,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 1,
             "amountMin": 60,
-            "amountMax": 70
+            "amountMax": 70,
+            "forceAdd": false
           }
         ],
         "id": 9200,
@@ -2046,18 +2061,21 @@
           {
             "$type": "ResourceReward",
             "resourceId": 0,
-            "amount": 2000
+            "amount": 2000,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 1,
             "amountMin": 60,
-            "amountMax": 70
+            "amountMax": 70,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 5
+            "amount": 5,
+            "forceAdd": false
           }
         ],
         "id": 10400,
@@ -2207,13 +2225,15 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 850,
-            "amountMax": 900
+            "amountMax": 900,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 1,
             "amountMin": 60,
-            "amountMax": 70
+            "amountMax": 70,
+            "forceAdd": false
           }
         ],
         "id": 11100,
@@ -2273,13 +2293,15 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 850,
-            "amountMax": 900
+            "amountMax": 900,
+            "forceAdd": false
           },
           {
             "$type": "ResourceRangeReward",
             "resourceId": 1,
             "amountMin": 60,
-            "amountMax": 70
+            "amountMax": 70,
+            "forceAdd": false
           }
         ],
         "id": 11400,
@@ -2360,12 +2382,14 @@
           {
             "$type": "ResourceReward",
             "resourceId": 0,
-            "amount": 2500
+            "amount": 2500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 40
+            "amount": 40,
+            "forceAdd": false
           }
         ],
         "id": 11800,
@@ -2556,12 +2580,14 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 1650,
-            "amountMax": 1950
+            "amountMax": 1950,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 125
+            "amount": 125,
+            "forceAdd": false
           }
         ],
         "id": 600,
@@ -2673,12 +2699,14 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 1750,
-            "amountMax": 2050
+            "amountMax": 2050,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 125
+            "amount": 125,
+            "forceAdd": false
           }
         ],
         "id": 1200,
@@ -2736,12 +2764,14 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 1850,
-            "amountMax": 2150
+            "amountMax": 2150,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 125
+            "amount": 125,
+            "forceAdd": false
           }
         ],
         "id": 1500,
@@ -2853,12 +2883,14 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 1950,
-            "amountMax": 2250
+            "amountMax": 2250,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 125
+            "amount": 125,
+            "forceAdd": false
           }
         ],
         "id": 2100,
@@ -2944,17 +2976,20 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 2050,
-            "amountMax": 2350
+            "amountMax": 2350,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 125
+            "amount": 125,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 6
+            "amount": 6,
+            "forceAdd": false
           }
         ],
         "id": 2500,
@@ -3012,12 +3047,14 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 2150,
-            "amountMax": 2450
+            "amountMax": 2450,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 125
+            "amount": 125,
+            "forceAdd": false
           }
         ],
         "id": 2800,
@@ -3075,12 +3112,14 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 2250,
-            "amountMax": 2550
+            "amountMax": 2550,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 125
+            "amount": 125,
+            "forceAdd": false
           }
         ],
         "id": 3100,
@@ -3210,12 +3249,14 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 2350,
-            "amountMax": 2650
+            "amountMax": 2650,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 125
+            "amount": 125,
+            "forceAdd": false
           }
         ],
         "id": 3800,
@@ -3273,12 +3314,14 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 2350,
-            "amountMax": 2650
+            "amountMax": 2650,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 125
+            "amount": 125,
+            "forceAdd": false
           }
         ],
         "id": 4100,
@@ -3407,17 +3450,20 @@
           {
             "$type": "ResourceReward",
             "resourceId": 0,
-            "amount": 2500
+            "amount": 2500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 125
+            "amount": 125,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 6
+            "amount": 6,
+            "forceAdd": false
           }
         ],
         "id": 4800,
@@ -3493,12 +3539,14 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 2450,
-            "amountMax": 2750
+            "amountMax": 2750,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 125
+            "amount": 125,
+            "forceAdd": false
           }
         ],
         "id": 5200,
@@ -3556,12 +3604,14 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 2550,
-            "amountMax": 2850
+            "amountMax": 2850,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 125
+            "amount": 125,
+            "forceAdd": false
           }
         ],
         "id": 5500,
@@ -3619,12 +3669,14 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 2650,
-            "amountMax": 2950
+            "amountMax": 2950,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 125
+            "amount": 125,
+            "forceAdd": false
           }
         ],
         "id": 5800,
@@ -3736,12 +3788,14 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 2750,
-            "amountMax": 3050
+            "amountMax": 3050,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 125
+            "amount": 125,
+            "forceAdd": false
           }
         ],
         "id": 6400,
@@ -3862,12 +3916,14 @@
           {
             "$type": "ResourceReward",
             "resourceId": 0,
-            "amount": 3000
+            "amount": 3000,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 6
+            "amount": 6,
+            "forceAdd": false
           }
         ],
         "id": 7000,
@@ -3974,12 +4030,14 @@
           {
             "$type": "ResourceReward",
             "resourceId": 0,
-            "amount": 3500
+            "amount": 3500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 50
+            "amount": 50,
+            "forceAdd": false
           }
         ],
         "id": 7500,
@@ -4178,12 +4236,14 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 3250,
-            "amountMax": 3750
+            "amountMax": 3750,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 250
+            "amount": 250,
+            "forceAdd": false
           }
         ],
         "id": 500,
@@ -4241,12 +4301,14 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 3250,
-            "amountMax": 3750
+            "amountMax": 3750,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 250
+            "amount": 250,
+            "forceAdd": false
           }
         ],
         "id": 800,
@@ -4304,12 +4366,14 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 3250,
-            "amountMax": 3750
+            "amountMax": 3750,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 450
+            "amount": 450,
+            "forceAdd": false
           }
         ],
         "id": 1100,
@@ -4444,12 +4508,14 @@
           {
             "$type": "ResourceReward",
             "resourceId": 0,
-            "amount": 4000
+            "amount": 4000,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 7
+            "amount": 7,
+            "forceAdd": false
           }
         ],
         "id": 1700,
@@ -4507,12 +4573,14 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 3800,
-            "amountMax": 4200
+            "amountMax": 4200,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 450
+            "amount": 450,
+            "forceAdd": false
           }
         ],
         "id": 2000,
@@ -4570,12 +4638,14 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 3800,
-            "amountMax": 4200
+            "amountMax": 4200,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 450
+            "amount": 450,
+            "forceAdd": false
           }
         ],
         "id": 2300,
@@ -4633,12 +4703,14 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 3800,
-            "amountMax": 4200
+            "amountMax": 4200,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 450
+            "amount": 450,
+            "forceAdd": false
           }
         ],
         "id": 2600,
@@ -4696,12 +4768,14 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 3800,
-            "amountMax": 4200
+            "amountMax": 4200,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 450
+            "amount": 450,
+            "forceAdd": false
           }
         ],
         "id": 2900,
@@ -4804,12 +4878,14 @@
           {
             "$type": "ResourceReward",
             "resourceId": 0,
-            "amount": 4500
+            "amount": 4500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 7
+            "amount": 7,
+            "forceAdd": false
           }
         ],
         "id": 3400,
@@ -4939,12 +5015,14 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 3800,
-            "amountMax": 4200
+            "amountMax": 4200,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 450
+            "amount": 450,
+            "forceAdd": false
           }
         ],
         "id": 4100,
@@ -5002,12 +5080,14 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 3800,
-            "amountMax": 4200
+            "amountMax": 4200,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 450
+            "amount": 450,
+            "forceAdd": false
           }
         ],
         "id": 4400,
@@ -5065,12 +5145,14 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 3800,
-            "amountMax": 4200
+            "amountMax": 4200,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 450
+            "amount": 450,
+            "forceAdd": false
           }
         ],
         "id": 4700,
@@ -5128,12 +5210,14 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 3800,
-            "amountMax": 4200
+            "amountMax": 4200,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 450
+            "amount": 450,
+            "forceAdd": false
           }
         ],
         "id": 5000,
@@ -5272,12 +5356,14 @@
           {
             "$type": "ResourceReward",
             "resourceId": 0,
-            "amount": 5000
+            "amount": 5000,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 7
+            "amount": 7,
+            "forceAdd": false
           }
         ],
         "id": 5700,
@@ -5371,12 +5457,14 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 3800,
-            "amountMax": 4200
+            "amountMax": 4200,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 450
+            "amount": 450,
+            "forceAdd": false
           }
         ],
         "id": 6200,
@@ -5434,12 +5522,14 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 3800,
-            "amountMax": 4200
+            "amountMax": 4200,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 450
+            "amount": 450,
+            "forceAdd": false
           }
         ],
         "id": 6500,
@@ -5497,12 +5587,14 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 3800,
-            "amountMax": 4200
+            "amountMax": 4200,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 450
+            "amount": 450,
+            "forceAdd": false
           }
         ],
         "id": 6800,
@@ -5560,12 +5652,14 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 3800,
-            "amountMax": 4200
+            "amountMax": 4200,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 450
+            "amount": 450,
+            "forceAdd": false
           }
         ],
         "id": 7100,
@@ -5672,12 +5766,14 @@
           {
             "$type": "ResourceReward",
             "resourceId": 0,
-            "amount": 6000
+            "amount": 6000,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 60
+            "amount": 60,
+            "forceAdd": false
           }
         ],
         "id": 7600,
@@ -5869,12 +5965,14 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 9500,
-            "amountMax": 10500
+            "amountMax": 10500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 1100
+            "amount": 1100,
+            "forceAdd": false
           }
         ],
         "id": 600,
@@ -5989,12 +6087,14 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 9500,
-            "amountMax": 10500
+            "amountMax": 10500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 1100
+            "amount": 1100,
+            "forceAdd": false
           }
         ],
         "id": 1200,
@@ -6055,12 +6155,14 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 9500,
-            "amountMax": 10500
+            "amountMax": 10500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 1100
+            "amount": 1100,
+            "forceAdd": false
           }
         ],
         "id": 1500,
@@ -6157,12 +6259,14 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 9500,
-            "amountMax": 10500
+            "amountMax": 10500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 1100
+            "amount": 1100,
+            "forceAdd": false
           }
         ],
         "id": 2000,
@@ -6269,17 +6373,20 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 10500,
-            "amountMax": 11500
+            "amountMax": 11500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 1100
+            "amount": 1100,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 8
+            "amount": 8,
+            "forceAdd": false
           }
         ],
         "id": 2500,
@@ -6358,12 +6465,14 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 9500,
-            "amountMax": 10500
+            "amountMax": 10500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 1100
+            "amount": 1100,
+            "forceAdd": false
           }
         ],
         "id": 2900,
@@ -6424,12 +6533,14 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 9500,
-            "amountMax": 10500
+            "amountMax": 10500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 1100
+            "amount": 1100,
+            "forceAdd": false
           }
         ],
         "id": 3200,
@@ -6508,12 +6619,14 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 9500,
-            "amountMax": 10500
+            "amountMax": 10500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 1100
+            "amount": 1100,
+            "forceAdd": false
           }
         ],
         "id": 3600,
@@ -6574,12 +6687,14 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 9500,
-            "amountMax": 10500
+            "amountMax": 10500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 1100
+            "amount": 1100,
+            "forceAdd": false
           }
         ],
         "id": 3900,
@@ -6668,17 +6783,20 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 11500,
-            "amountMax": 12500
+            "amountMax": 12500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 1100
+            "amount": 1100,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 8
+            "amount": 8,
+            "forceAdd": false
           }
         ],
         "id": 4300,
@@ -6757,12 +6875,14 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 9500,
-            "amountMax": 10500
+            "amountMax": 10500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 1100
+            "amount": 1100,
+            "forceAdd": false
           }
         ],
         "id": 4700,
@@ -6823,12 +6943,14 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 9500,
-            "amountMax": 10500
+            "amountMax": 10500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 1100
+            "amount": 1100,
+            "forceAdd": false
           }
         ],
         "id": 5000,
@@ -6889,12 +7011,14 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 9500,
-            "amountMax": 10500
+            "amountMax": 10500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 1100
+            "amount": 1100,
+            "forceAdd": false
           }
         ],
         "id": 5300,
@@ -7009,12 +7133,14 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 9500,
-            "amountMax": 10500
+            "amountMax": 10500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 1100
+            "amount": 1100,
+            "forceAdd": false
           }
         ],
         "id": 5900,
@@ -7103,17 +7229,20 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 12500,
-            "amountMax": 13500
+            "amountMax": 13500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 1100
+            "amount": 1100,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 8
+            "amount": 8,
+            "forceAdd": false
           }
         ],
         "id": 6300,
@@ -7192,12 +7321,14 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 9500,
-            "amountMax": 10500
+            "amountMax": 10500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 1100
+            "amount": 1100,
+            "forceAdd": false
           }
         ],
         "id": 6700,
@@ -7258,12 +7389,14 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 9500,
-            "amountMax": 10500
+            "amountMax": 10500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 1100
+            "amount": 1100,
+            "forceAdd": false
           }
         ],
         "id": 7000,
@@ -7342,12 +7475,14 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 9500,
-            "amountMax": 10500
+            "amountMax": 10500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 1100
+            "amount": 1100,
+            "forceAdd": false
           }
         ],
         "id": 7400,
@@ -7408,12 +7543,14 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 9500,
-            "amountMax": 10500
+            "amountMax": 10500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 1100
+            "amount": 1100,
+            "forceAdd": false
           }
         ],
         "id": 7700,
@@ -7502,17 +7639,20 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 13500,
-            "amountMax": 14500
+            "amountMax": 14500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 1100
+            "amount": 1100,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 8
+            "amount": 8,
+            "forceAdd": false
           }
         ],
         "id": 8100,
@@ -7609,12 +7749,14 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 9500,
-            "amountMax": 10500
+            "amountMax": 10500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 1100
+            "amount": 1100,
+            "forceAdd": false
           }
         ],
         "id": 8600,
@@ -7675,12 +7817,14 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 9500,
-            "amountMax": 10500
+            "amountMax": 10500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 1100
+            "amount": 1100,
+            "forceAdd": false
           }
         ],
         "id": 8900,
@@ -7741,12 +7885,14 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 9500,
-            "amountMax": 10500
+            "amountMax": 10500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 1100
+            "amount": 1100,
+            "forceAdd": false
           }
         ],
         "id": 9200,
@@ -7843,12 +7989,14 @@
             "$type": "ResourceRangeReward",
             "resourceId": 0,
             "amountMin": 9500,
-            "amountMax": 10500
+            "amountMax": 10500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 1100
+            "amount": 1100,
+            "forceAdd": false
           }
         ],
         "id": 9700,
@@ -7925,12 +8073,14 @@
           {
             "$type": "ResourceReward",
             "resourceId": 0,
-            "amount": 15000
+            "amount": 15000,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 70
+            "amount": 70,
+            "forceAdd": false
           }
         ],
         "id": 10000,
@@ -8101,12 +8251,14 @@
             "bonusA_min": 8500,
             "bonusA_max": 9500,
             "bonusB_min": 2250,
-            "bonusB_max": 2750
+            "bonusB_max": 2750,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 1350
+            "amount": 1350,
+            "forceAdd": false
           }
         ],
         "id": 600,
@@ -8218,12 +8370,14 @@
             "bonusA_min": 8500,
             "bonusA_max": 9500,
             "bonusB_min": 2250,
-            "bonusB_max": 2750
+            "bonusB_max": 2750,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 1350
+            "amount": 1350,
+            "forceAdd": false
           }
         ],
         "id": 1100,
@@ -8299,12 +8453,14 @@
             "bonusA_min": 8500,
             "bonusA_max": 9500,
             "bonusB_min": 2250,
-            "bonusB_max": 2750
+            "bonusB_max": 2750,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 1350
+            "amount": 1350,
+            "forceAdd": false
           }
         ],
         "id": 1400,
@@ -8380,12 +8536,14 @@
             "bonusA_min": 8500,
             "bonusA_max": 9500,
             "bonusB_min": 2250,
-            "bonusB_max": 2750
+            "bonusB_max": 2750,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 1350
+            "amount": 1350,
+            "forceAdd": false
           }
         ],
         "id": 1700,
@@ -8515,17 +8673,20 @@
             "bonusA_min": 8500,
             "bonusA_max": 9500,
             "bonusB_min": 2250,
-            "bonusB_max": 2750
+            "bonusB_max": 2750,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 1350
+            "amount": 1350,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 9
+            "amount": 9,
+            "forceAdd": false
           }
         ],
         "id": 2300,
@@ -8717,12 +8878,14 @@
             "bonusA_min": 8500,
             "bonusA_max": 9500,
             "bonusB_min": 2250,
-            "bonusB_max": 2750
+            "bonusB_max": 2750,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 1350
+            "amount": 1350,
+            "forceAdd": false
           }
         ],
         "id": 3300,
@@ -8788,12 +8951,14 @@
             "bonusA_min": 8500,
             "bonusA_max": 9500,
             "bonusB_min": 2250,
-            "bonusB_max": 2750
+            "bonusB_max": 2750,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 1350
+            "amount": 1350,
+            "forceAdd": false
           }
         ],
         "id": 3600,
@@ -8859,12 +9024,14 @@
             "bonusA_min": 8500,
             "bonusA_max": 9500,
             "bonusB_min": 2250,
-            "bonusB_max": 2750
+            "bonusB_max": 2750,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 1350
+            "amount": 1350,
+            "forceAdd": false
           }
         ],
         "id": 3900,
@@ -8984,12 +9151,14 @@
             "bonusA_min": 8500,
             "bonusA_max": 9500,
             "bonusB_min": 2250,
-            "bonusB_max": 2750
+            "bonusB_max": 2750,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 1350
+            "amount": 1350,
+            "forceAdd": false
           }
         ],
         "id": 4500,
@@ -9137,17 +9306,20 @@
             "bonusA_min": 8500,
             "bonusA_max": 9500,
             "bonusB_min": 2250,
-            "bonusB_max": 2750
+            "bonusB_max": 2750,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 1350
+            "amount": 1350,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 9
+            "amount": 9,
+            "forceAdd": false
           }
         ],
         "id": 5200,
@@ -9241,12 +9413,14 @@
             "bonusA_min": 8500,
             "bonusA_max": 9500,
             "bonusB_min": 2250,
-            "bonusB_max": 2750
+            "bonusB_max": 2750,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 1350
+            "amount": 1350,
+            "forceAdd": false
           }
         ],
         "id": 5600,
@@ -9322,12 +9496,14 @@
             "bonusA_min": 8500,
             "bonusA_max": 9500,
             "bonusB_min": 2250,
-            "bonusB_max": 2750
+            "bonusB_max": 2750,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 1350
+            "amount": 1350,
+            "forceAdd": false
           }
         ],
         "id": 5900,
@@ -9403,12 +9579,14 @@
             "bonusA_min": 8500,
             "bonusA_max": 9500,
             "bonusB_min": 2250,
-            "bonusB_max": 2750
+            "bonusB_max": 2750,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 1350
+            "amount": 1350,
+            "forceAdd": false
           }
         ],
         "id": 6200,
@@ -9484,12 +9662,14 @@
             "bonusA_min": 8500,
             "bonusA_max": 9500,
             "bonusB_min": 2250,
-            "bonusB_max": 2750
+            "bonusB_max": 2750,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 1350
+            "amount": 1350,
+            "forceAdd": false
           }
         ],
         "id": 6500,
@@ -9583,17 +9763,20 @@
             "bonusA_min": 8500,
             "bonusA_max": 9500,
             "bonusB_min": 2250,
-            "bonusB_max": 2750
+            "bonusB_max": 2750,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 1350
+            "amount": 1350,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 9
+            "amount": 9,
+            "forceAdd": false
           }
         ],
         "id": 6900,
@@ -9695,12 +9878,14 @@
             "bonusA_min": 8500,
             "bonusA_max": 9500,
             "bonusB_min": 2250,
-            "bonusB_max": 2750
+            "bonusB_max": 2750,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 1350
+            "amount": 1350,
+            "forceAdd": false
           }
         ],
         "id": 7400,
@@ -9820,12 +10005,14 @@
             "bonusA_min": 8500,
             "bonusA_max": 9500,
             "bonusB_min": 2250,
-            "bonusB_max": 2750
+            "bonusB_max": 2750,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 1350
+            "amount": 1350,
+            "forceAdd": false
           }
         ],
         "id": 8000,
@@ -9891,12 +10078,14 @@
             "bonusA_min": 8500,
             "bonusA_max": 9500,
             "bonusB_min": 2250,
-            "bonusB_max": 2750
+            "bonusB_max": 2750,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 1350
+            "amount": 1350,
+            "forceAdd": false
           }
         ],
         "id": 8300,
@@ -9962,12 +10151,14 @@
             "bonusA_min": 8500,
             "bonusA_max": 9500,
             "bonusB_min": 2250,
-            "bonusB_max": 2750
+            "bonusB_max": 2750,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 1350
+            "amount": 1350,
+            "forceAdd": false
           }
         ],
         "id": 8600,
@@ -10097,17 +10288,20 @@
             "bonusA_min": 8500,
             "bonusA_max": 9500,
             "bonusB_min": 2250,
-            "bonusB_max": 2750
+            "bonusB_max": 2750,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 1350
+            "amount": 1350,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 9
+            "amount": 9,
+            "forceAdd": false
           }
         ],
         "id": 9200,
@@ -10237,12 +10431,14 @@
             "bonusA_min": 8500,
             "bonusA_max": 9500,
             "bonusB_min": 2250,
-            "bonusB_max": 2750
+            "bonusB_max": 2750,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 1350
+            "amount": 1350,
+            "forceAdd": false
           }
         ],
         "id": 9800,
@@ -10318,12 +10514,14 @@
             "bonusA_min": 8500,
             "bonusA_max": 9500,
             "bonusB_min": 2250,
-            "bonusB_max": 2750
+            "bonusB_max": 2750,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 1350
+            "amount": 1350,
+            "forceAdd": false
           }
         ],
         "id": 10100,
@@ -10399,12 +10597,14 @@
             "bonusA_min": 8500,
             "bonusA_max": 9500,
             "bonusB_min": 2250,
-            "bonusB_max": 2750
+            "bonusB_max": 2750,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 1350
+            "amount": 1350,
+            "forceAdd": false
           }
         ],
         "id": 10400,
@@ -10480,12 +10680,14 @@
             "bonusA_min": 8500,
             "bonusA_max": 9500,
             "bonusB_min": 2250,
-            "bonusB_max": 2750
+            "bonusB_max": 2750,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 1350
+            "amount": 1350,
+            "forceAdd": false
           }
         ],
         "id": 10700,
@@ -10608,17 +10810,20 @@
           {
             "$type": "ResourceReward",
             "resourceId": 0,
-            "amount": 30000
+            "amount": 30000,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 4,
-            "amount": 15000
+            "amount": 15000,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 80
+            "amount": 80,
+            "forceAdd": false
           }
         ],
         "id": 11200,
@@ -10825,12 +11030,14 @@
             "bonusA_min": 13500,
             "bonusA_max": 16500,
             "bonusB_min": 4500,
-            "bonusB_max": 5500
+            "bonusB_max": 5500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 2700
+            "amount": 2700,
+            "forceAdd": false
           }
         ],
         "id": 400,
@@ -10950,12 +11157,14 @@
             "bonusA_min": 13500,
             "bonusA_max": 16500,
             "bonusB_min": 4500,
-            "bonusB_max": 5500
+            "bonusB_max": 5500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 2700
+            "amount": 2700,
+            "forceAdd": false
           }
         ],
         "id": 1000,
@@ -11021,12 +11230,14 @@
             "bonusA_min": 13500,
             "bonusA_max": 16500,
             "bonusB_min": 4500,
-            "bonusB_max": 5500
+            "bonusB_max": 5500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 2700
+            "amount": 2700,
+            "forceAdd": false
           }
         ],
         "id": 1300,
@@ -11092,12 +11303,14 @@
             "bonusA_min": 13500,
             "bonusA_max": 16500,
             "bonusB_min": 4500,
-            "bonusB_max": 5500
+            "bonusB_max": 5500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 2700
+            "amount": 2700,
+            "forceAdd": false
           }
         ],
         "id": 1600,
@@ -11232,17 +11445,20 @@
             "bonusA_min": 13500,
             "bonusA_max": 16500,
             "bonusB_min": 4500,
-            "bonusB_max": 5500
+            "bonusB_max": 5500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 2700
+            "amount": 2700,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 10
+            "amount": 10,
+            "forceAdd": false
           }
         ],
         "id": 2200,
@@ -11326,12 +11542,14 @@
             "bonusA_min": 13500,
             "bonusA_max": 16500,
             "bonusB_min": 4500,
-            "bonusB_max": 5500
+            "bonusB_max": 5500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 2700
+            "amount": 2700,
+            "forceAdd": false
           }
         ],
         "id": 2600,
@@ -11397,12 +11615,14 @@
             "bonusA_min": 13500,
             "bonusA_max": 16500,
             "bonusB_min": 4500,
-            "bonusB_max": 5500
+            "bonusB_max": 5500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 2700
+            "amount": 2700,
+            "forceAdd": false
           }
         ],
         "id": 2900,
@@ -11504,12 +11724,14 @@
             "bonusA_min": 13500,
             "bonusA_max": 16500,
             "bonusB_min": 4500,
-            "bonusB_max": 5500
+            "bonusB_max": 5500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 2700
+            "amount": 2700,
+            "forceAdd": false
           }
         ],
         "id": 3400,
@@ -11575,12 +11797,14 @@
             "bonusA_min": 13500,
             "bonusA_max": 16500,
             "bonusB_min": 4500,
-            "bonusB_max": 5500
+            "bonusB_max": 5500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 2700
+            "amount": 2700,
+            "forceAdd": false
           }
         ],
         "id": 3700,
@@ -11692,17 +11916,20 @@
             "bonusA_min": 13500,
             "bonusA_max": 16500,
             "bonusB_min": 4500,
-            "bonusB_max": 5500
+            "bonusB_max": 5500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 2700
+            "amount": 2700,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 10
+            "amount": 10,
+            "forceAdd": false
           }
         ],
         "id": 4200,
@@ -11786,12 +12013,14 @@
             "bonusA_min": 13500,
             "bonusA_max": 16500,
             "bonusB_min": 4500,
-            "bonusB_max": 5500
+            "bonusB_max": 5500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 2700
+            "amount": 2700,
+            "forceAdd": false
           }
         ],
         "id": 4600,
@@ -11857,12 +12086,14 @@
             "bonusA_min": 13500,
             "bonusA_max": 16500,
             "bonusB_min": 4500,
-            "bonusB_max": 5500
+            "bonusB_max": 5500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 2700
+            "amount": 2700,
+            "forceAdd": false
           }
         ],
         "id": 4900,
@@ -11928,12 +12159,14 @@
             "bonusA_min": 13500,
             "bonusA_max": 16500,
             "bonusB_min": 4500,
-            "bonusB_max": 5500
+            "bonusB_max": 5500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 2700
+            "amount": 2700,
+            "forceAdd": false
           }
         ],
         "id": 5200,
@@ -11999,12 +12232,14 @@
             "bonusA_min": 13500,
             "bonusA_max": 16500,
             "bonusB_min": 4500,
-            "bonusB_max": 5500
+            "bonusB_max": 5500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 2700
+            "amount": 2700,
+            "forceAdd": false
           }
         ],
         "id": 5500,
@@ -12124,17 +12359,20 @@
             "bonusA_min": 13500,
             "bonusA_max": 16500,
             "bonusB_min": 4500,
-            "bonusB_max": 5500
+            "bonusB_max": 5500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 2700
+            "amount": 2700,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 10
+            "amount": 10,
+            "forceAdd": false
           }
         ],
         "id": 6100,
@@ -12290,12 +12528,14 @@
             "bonusA_min": 13500,
             "bonusA_max": 16500,
             "bonusB_min": 4500,
-            "bonusB_max": 5500
+            "bonusB_max": 5500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 2700
+            "amount": 2700,
+            "forceAdd": false
           }
         ],
         "id": 6900,
@@ -12361,12 +12601,14 @@
             "bonusA_min": 13500,
             "bonusA_max": 16500,
             "bonusB_min": 4500,
-            "bonusB_max": 5500
+            "bonusB_max": 5500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 2700
+            "amount": 2700,
+            "forceAdd": false
           }
         ],
         "id": 7200,
@@ -12486,12 +12728,14 @@
             "bonusA_min": 13500,
             "bonusA_max": 16500,
             "bonusB_min": 4500,
-            "bonusB_max": 5500
+            "bonusB_max": 5500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 2700
+            "amount": 2700,
+            "forceAdd": false
           }
         ],
         "id": 7800,
@@ -12557,12 +12801,14 @@
             "bonusA_min": 13500,
             "bonusA_max": 16500,
             "bonusB_min": 4500,
-            "bonusB_max": 5500
+            "bonusB_max": 5500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 2700
+            "amount": 2700,
+            "forceAdd": false
           }
         ],
         "id": 8100,
@@ -12682,17 +12928,20 @@
             "bonusA_min": 13500,
             "bonusA_max": 16500,
             "bonusB_min": 4500,
-            "bonusB_max": 5500
+            "bonusB_max": 5500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 2700
+            "amount": 2700,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 10
+            "amount": 10,
+            "forceAdd": false
           }
         ],
         "id": 8700,
@@ -12794,12 +13043,14 @@
             "bonusA_min": 13500,
             "bonusA_max": 16500,
             "bonusB_min": 4500,
-            "bonusB_max": 5500
+            "bonusB_max": 5500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 2700
+            "amount": 2700,
+            "forceAdd": false
           }
         ],
         "id": 9200,
@@ -12865,12 +13116,14 @@
             "bonusA_min": 13500,
             "bonusA_max": 16500,
             "bonusB_min": 4500,
-            "bonusB_max": 5500
+            "bonusB_max": 5500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 2700
+            "amount": 2700,
+            "forceAdd": false
           }
         ],
         "id": 9500,
@@ -12936,12 +13189,14 @@
             "bonusA_min": 13500,
             "bonusA_max": 16500,
             "bonusB_min": 4500,
-            "bonusB_max": 5500
+            "bonusB_max": 5500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 2700
+            "amount": 2700,
+            "forceAdd": false
           }
         ],
         "id": 9800,
@@ -13061,12 +13316,14 @@
             "bonusA_min": 13500,
             "bonusA_max": 16500,
             "bonusB_min": 4500,
-            "bonusB_max": 5500
+            "bonusB_max": 5500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 2700
+            "amount": 2700,
+            "forceAdd": false
           }
         ],
         "id": 10400,
@@ -13150,17 +13407,20 @@
             "bonusA_min": 13500,
             "bonusA_max": 16500,
             "bonusB_min": 4500,
-            "bonusB_max": 5500
+            "bonusB_max": 5500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 2700
+            "amount": 2700,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 10
+            "amount": 10,
+            "forceAdd": false
           }
         ],
         "id": 10800,
@@ -13244,12 +13504,14 @@
             "bonusA_min": 13500,
             "bonusA_max": 16500,
             "bonusB_min": 4500,
-            "bonusB_max": 5500
+            "bonusB_max": 5500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 2700
+            "amount": 2700,
+            "forceAdd": false
           }
         ],
         "id": 11200,
@@ -13315,12 +13577,14 @@
             "bonusA_min": 13500,
             "bonusA_max": 16500,
             "bonusB_min": 4500,
-            "bonusB_max": 5500
+            "bonusB_max": 5500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 2700
+            "amount": 2700,
+            "forceAdd": false
           }
         ],
         "id": 11500,
@@ -13386,12 +13650,14 @@
             "bonusA_min": 13500,
             "bonusA_max": 16500,
             "bonusB_min": 4500,
-            "bonusB_max": 5500
+            "bonusB_max": 5500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 2700
+            "amount": 2700,
+            "forceAdd": false
           }
         ],
         "id": 11800,
@@ -13493,12 +13759,14 @@
             "bonusA_min": 13500,
             "bonusA_max": 16500,
             "bonusB_min": 4500,
-            "bonusB_max": 5500
+            "bonusB_max": 5500,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 2700
+            "amount": 2700,
+            "forceAdd": false
           }
         ],
         "id": 12300,
@@ -13619,17 +13887,20 @@
           {
             "$type": "ResourceReward",
             "resourceId": 0,
-            "amount": 50000
+            "amount": 50000,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 4,
-            "amount": 25000
+            "amount": 25000,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 90
+            "amount": 90,
+            "forceAdd": false
           }
         ],
         "id": 12900,
@@ -13836,12 +14107,14 @@
             "bonusA_min": 22500,
             "bonusA_max": 27500,
             "bonusB_min": 6750,
-            "bonusB_max": 7250
+            "bonusB_max": 7250,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 6000
+            "amount": 6000,
+            "forceAdd": false
           }
         ],
         "id": 400,
@@ -13907,12 +14180,14 @@
             "bonusA_min": 22500,
             "bonusA_max": 27500,
             "bonusB_min": 6750,
-            "bonusB_max": 8250
+            "bonusB_max": 8250,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 6000
+            "amount": 6000,
+            "forceAdd": false
           }
         ],
         "id": 700,
@@ -13978,12 +14253,14 @@
             "bonusA_min": 22500,
             "bonusA_max": 27500,
             "bonusB_min": 6750,
-            "bonusB_max": 8250
+            "bonusB_max": 8250,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 6000
+            "amount": 6000,
+            "forceAdd": false
           }
         ],
         "id": 1000,
@@ -14085,12 +14362,14 @@
             "bonusA_min": 22500,
             "bonusA_max": 27500,
             "bonusB_min": 6750,
-            "bonusB_max": 8250
+            "bonusB_max": 8250,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 6000
+            "amount": 6000,
+            "forceAdd": false
           }
         ],
         "id": 1500,
@@ -14210,17 +14489,20 @@
             "bonusA_min": 22500,
             "bonusA_max": 27500,
             "bonusB_min": 6750,
-            "bonusB_max": 8250
+            "bonusB_max": 8250,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 6000
+            "amount": 6000,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 12
+            "amount": 12,
+            "forceAdd": false
           }
         ],
         "id": 2100,
@@ -14286,12 +14568,14 @@
             "bonusA_min": 22500,
             "bonusA_max": 27500,
             "bonusB_min": 6750,
-            "bonusB_max": 8250
+            "bonusB_max": 8250,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 6000
+            "amount": 6000,
+            "forceAdd": false
           }
         ],
         "id": 2400,
@@ -14357,12 +14641,14 @@
             "bonusA_min": 22500,
             "bonusA_max": 27500,
             "bonusB_min": 6750,
-            "bonusB_max": 8250
+            "bonusB_max": 8250,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 6000
+            "amount": 6000,
+            "forceAdd": false
           }
         ],
         "id": 2700,
@@ -14428,12 +14714,14 @@
             "bonusA_min": 22500,
             "bonusA_max": 27500,
             "bonusB_min": 6750,
-            "bonusB_max": 8250
+            "bonusB_max": 8250,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 6000
+            "amount": 6000,
+            "forceAdd": false
           }
         ],
         "id": 3000,
@@ -14553,12 +14841,14 @@
             "bonusA_min": 22500,
             "bonusA_max": 27500,
             "bonusB_min": 6750,
-            "bonusB_max": 8250
+            "bonusB_max": 8250,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 6000
+            "amount": 6000,
+            "forceAdd": false
           }
         ],
         "id": 3600,
@@ -14652,17 +14942,20 @@
             "bonusA_min": 22500,
             "bonusA_max": 27500,
             "bonusB_min": 6750,
-            "bonusB_max": 8250
+            "bonusB_max": 8250,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 6000
+            "amount": 6000,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 12
+            "amount": 12,
+            "forceAdd": false
           }
         ],
         "id": 4000,
@@ -14746,12 +15039,14 @@
             "bonusA_min": 22500,
             "bonusA_max": 27500,
             "bonusB_min": 6750,
-            "bonusB_max": 8250
+            "bonusB_max": 8250,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 6000
+            "amount": 6000,
+            "forceAdd": false
           }
         ],
         "id": 4400,
@@ -14817,12 +15112,14 @@
             "bonusA_min": 22500,
             "bonusA_max": 27500,
             "bonusB_min": 6750,
-            "bonusB_max": 8250
+            "bonusB_max": 8250,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 6000
+            "amount": 6000,
+            "forceAdd": false
           }
         ],
         "id": 4700,
@@ -14888,12 +15185,14 @@
             "bonusA_min": 22500,
             "bonusA_max": 27500,
             "bonusB_min": 6750,
-            "bonusB_max": 8250
+            "bonusB_max": 8250,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 6000
+            "amount": 6000,
+            "forceAdd": false
           }
         ],
         "id": 5000,
@@ -15013,12 +15312,14 @@
             "bonusA_min": 22500,
             "bonusA_max": 27500,
             "bonusB_min": 6750,
-            "bonusB_max": 8250
+            "bonusB_max": 8250,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 6000
+            "amount": 6000,
+            "forceAdd": false
           }
         ],
         "id": 5600,
@@ -15120,17 +15421,20 @@
             "bonusA_min": 22500,
             "bonusA_max": 27500,
             "bonusB_min": 6750,
-            "bonusB_max": 8250
+            "bonusB_max": 8250,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 6000
+            "amount": 6000,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 12
+            "amount": 12,
+            "forceAdd": false
           }
         ],
         "id": 6100,
@@ -15196,12 +15500,14 @@
             "bonusA_min": 22500,
             "bonusA_max": 27500,
             "bonusB_min": 6750,
-            "bonusB_max": 8250
+            "bonusB_max": 8250,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 6000
+            "amount": 6000,
+            "forceAdd": false
           }
         ],
         "id": 6400,
@@ -15267,12 +15573,14 @@
             "bonusA_min": 22500,
             "bonusA_max": 27500,
             "bonusB_min": 6750,
-            "bonusB_max": 8250
+            "bonusB_max": 8250,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 6000
+            "amount": 6000,
+            "forceAdd": false
           }
         ],
         "id": 6700,
@@ -15338,12 +15646,14 @@
             "bonusA_min": 22500,
             "bonusA_max": 27500,
             "bonusB_min": 6750,
-            "bonusB_max": 8250
+            "bonusB_max": 8250,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 6000
+            "amount": 6000,
+            "forceAdd": false
           }
         ],
         "id": 7000,
@@ -15409,12 +15719,14 @@
             "bonusA_min": 22500,
             "bonusA_max": 27500,
             "bonusB_min": 6750,
-            "bonusB_max": 8250
+            "bonusB_max": 8250,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 6000
+            "amount": 6000,
+            "forceAdd": false
           }
         ],
         "id": 7300,
@@ -15516,17 +15828,20 @@
             "bonusA_min": 22500,
             "bonusA_max": 27500,
             "bonusB_min": 6750,
-            "bonusB_max": 8250
+            "bonusB_max": 8250,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 6000
+            "amount": 6000,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 12
+            "amount": 12,
+            "forceAdd": false
           }
         ],
         "id": 7800,
@@ -15592,12 +15907,14 @@
             "bonusA_min": 22500,
             "bonusA_max": 27500,
             "bonusB_min": 6750,
-            "bonusB_max": 8250
+            "bonusB_max": 8250,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 6000
+            "amount": 6000,
+            "forceAdd": false
           }
         ],
         "id": 8100,
@@ -15663,12 +15980,14 @@
             "bonusA_min": 22500,
             "bonusA_max": 27500,
             "bonusB_min": 6750,
-            "bonusB_max": 8250
+            "bonusB_max": 8250,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 6000
+            "amount": 6000,
+            "forceAdd": false
           }
         ],
         "id": 8400,
@@ -15734,12 +16053,14 @@
             "bonusA_min": 22500,
             "bonusA_max": 27500,
             "bonusB_min": 6750,
-            "bonusB_max": 8250
+            "bonusB_max": 8250,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 6000
+            "amount": 6000,
+            "forceAdd": false
           }
         ],
         "id": 8700,
@@ -15805,12 +16126,14 @@
             "bonusA_min": 22500,
             "bonusA_max": 27500,
             "bonusB_min": 6750,
-            "bonusB_max": 8250
+            "bonusB_max": 8250,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 6000
+            "amount": 6000,
+            "forceAdd": false
           }
         ],
         "id": 9000,
@@ -15912,17 +16235,20 @@
             "bonusA_min": 22500,
             "bonusA_max": 27500,
             "bonusB_min": 6750,
-            "bonusB_max": 8250
+            "bonusB_max": 8250,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 6000
+            "amount": 6000,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 12
+            "amount": 12,
+            "forceAdd": false
           }
         ],
         "id": 9500,
@@ -15988,12 +16314,14 @@
             "bonusA_min": 22500,
             "bonusA_max": 27500,
             "bonusB_min": 6750,
-            "bonusB_max": 8250
+            "bonusB_max": 8250,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 6000
+            "amount": 6000,
+            "forceAdd": false
           }
         ],
         "id": 9800,
@@ -16059,12 +16387,14 @@
             "bonusA_min": 22500,
             "bonusA_max": 27500,
             "bonusB_min": 6750,
-            "bonusB_max": 8250
+            "bonusB_max": 8250,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 6000
+            "amount": 6000,
+            "forceAdd": false
           }
         ],
         "id": 10100,
@@ -16130,12 +16460,14 @@
             "bonusA_min": 22500,
             "bonusA_max": 27500,
             "bonusB_min": 6750,
-            "bonusB_max": 8250
+            "bonusB_max": 8250,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 6000
+            "amount": 6000,
+            "forceAdd": false
           }
         ],
         "id": 10400,
@@ -16201,12 +16533,14 @@
             "bonusA_min": 22500,
             "bonusA_max": 27500,
             "bonusB_min": 6750,
-            "bonusB_max": 8250
+            "bonusB_max": 8250,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 1,
-            "amount": 6000
+            "amount": 6000,
+            "forceAdd": false
           }
         ],
         "id": 10700,
@@ -16319,17 +16653,20 @@
           {
             "$type": "ResourceReward",
             "resourceId": 0,
-            "amount": 100000
+            "amount": 100000,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 4,
-            "amount": 50000
+            "amount": 50000,
+            "forceAdd": false
           },
           {
             "$type": "ResourceReward",
             "resourceId": 2,
-            "amount": 100
+            "amount": 100,
+            "forceAdd": false
           }
         ],
         "id": 11200,

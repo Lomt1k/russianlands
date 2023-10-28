@@ -23,6 +23,9 @@ public class ResourceABWithOneBonusReward : ResourceRewardBase
     public int bonusB_min { get; set; }
     public int bonusB_max { get; set; }
 
+    public ResourceABWithOneBonusReward(bool _forceAdd = false) : base(_forceAdd)
+    {
+    }
 
     public override Task<string?> AddReward(GameSession session)
     {
@@ -30,7 +33,9 @@ public class ResourceABWithOneBonusReward : ResourceRewardBase
         var sb = new StringBuilder();
         foreach (var reward in rewards)
         {
-            var addedResource = session.player.resources.Add(reward);
+            var addedResource = forceAdd
+                ? session.player.resources.ForceAdd(reward)
+                : session.player.resources.Add(reward);
             sb.AppendLine(reward.GetLocalizedView(session) + (addedResource.amount < reward.amount ? Localization.Get(session, "resource_full_storage_prefix") : string.Empty));
         }
         return Task.FromResult(sb.ToString());
@@ -51,7 +56,9 @@ public class ResourceABWithOneBonusReward : ResourceRewardBase
         var sb = new StringBuilder();
         foreach (var reward in rewards)
         {
-            var addedResource = session.player.resources.Add(reward);
+            var addedResource = forceAdd
+                ? session.player.resources.ForceAdd(reward)
+                : session.player.resources.Add(reward);
             sb.AppendLine(reward.GetLocalizedView(session) + (addedResource.amount < reward.amount ? Localization.Get(session, "resource_full_storage_prefix") : string.Empty));
         }
         return Task.FromResult(sb.ToString());
