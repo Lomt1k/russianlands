@@ -9,6 +9,14 @@
 	"daily_reminder_variant_4" : "Ilya Muromets spent 33 years on the stove. But you don't have to wait that long! Get back in the game, hero!",
 	"daily_reminder_variant_5" : "Adventure Road is waiting for you! Are you ready to hit the road?",
 	
+	"daily_reminder_reward_available_variant_1" : "There is a reward waiting for you. Take it!",
+	"daily_reminder_reward_available_variant_2" : "A free reward is available. Log into the game to claim it!",
+	"daily_reminder_reward_available_variant_3" : "You have a new reward. You can get it in the town.",
+	
+	"daily_reminder_reward_available_after_turor_variant_1" : "A reward awaits you. Complete the tutorial to receive it!",
+	"daily_reminder_reward_available_after_turor_variant_2" : "Hard to learn, easy to fight! Complete the training and receive an additional reward.",
+	"daily_reminder_reward_available_after_turor_variant_3" : "You have a new reward. You can get it after completing the tutorial.",
+	
 	"dialog_tooltip_header" : "<b>Tutorial:</b>",
 	"dialog_tooltip_press_button" : "Press on the button: <b>{0}</b>",
 	"dialog_town_text_newSession" : "You woke up in the town after a good sleep and ready for new adventures!",

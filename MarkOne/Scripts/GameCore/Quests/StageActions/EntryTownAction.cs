@@ -9,7 +9,7 @@ namespace MarkOne.Scripts.GameCore.Quests.StageActions;
 [JsonObject]
 public class EntryTownAction : StageActionBase
 {
-    private static readonly NotificationsManager notificationsManager = Services.ServiceLocator.Get<NotificationsManager>();
+    private static readonly NotificationsManager notificationsManager = ServiceLocator.Get<NotificationsManager>();
 
     public override async Task Execute(GameSession session)
     {

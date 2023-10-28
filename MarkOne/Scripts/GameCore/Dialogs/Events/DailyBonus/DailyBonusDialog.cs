@@ -1,5 +1,6 @@
 ﻿using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Localizations;
+using MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
 using MarkOne.Scripts.GameCore.Sessions;
 using System;
 using System.Text;
@@ -69,7 +70,12 @@ public class DailyBonusDialog : DialogBase
 
     public static bool IsEventAvailable(GameSession session)
     {
-        return session.profile.data.lastDailyBonusId < gameDataHolder.dailyBonuses.count;
+        return IsEventAvailable(session.profile.data);
+    }
+
+    public static bool IsEventAvailable(ProfileData profileData)
+    {
+        return profileData.lastDailyBonusId < gameDataHolder.dailyBonuses.count;
     }
 
     public static bool IsNewRewardAvailable(GameSession session)

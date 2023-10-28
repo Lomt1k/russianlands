@@ -4,6 +4,7 @@ using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Quests;
 using MarkOne.Scripts.GameCore.Quests.NextStageTriggers;
 using MarkOne.Scripts.GameCore.Services;
+using MarkOne.Scripts.GameCore.Services.DailyReminders;
 using MarkOne.Scripts.GameCore.Sessions;
 
 namespace MarkOne.Scripts.GameCore.Dialogs.Quests.MainQuest;
@@ -37,7 +38,7 @@ public class SelectLanguageDialog : DialogBase
     private async Task SetupLanguage(LanguageCode language)
     {
         session.profile.data.language = language;
-        await remindersManager.ScheduleReminder(session.profile.data).FastAwait();
+        await remindersManager.ScheduleReminderSequence(session.profile).FastAwait();
         await QuestManager.TryInvokeTrigger(session, TriggerType.InvokeFromCode).FastAwait();
     }
 }

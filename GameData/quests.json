@@ -981,6 +981,9 @@
             "$type": "RestoreFullHealthAction"
           },
           {
+            "$type": "ScheduleDailyReminderAction"
+          },
+          {
             "$type": "EntryTownAction"
           }
         ],

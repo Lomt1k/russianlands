@@ -92,6 +92,7 @@ public class StageWithTriggerViewModel : ViewModelBase
             {"Add Item To Inventory", () => { stage.questActions.Add(new AddItemToInventoryAction()); RefillActionsCollection(); } },
             {"Complete Quest", () => { stage.questActions.Add(new CompleteQuestAction()); RefillActionsCollection(); } },
             {"Start New Quest", () => { stage.questActions.Add(new StartNewQuestAction()); RefillActionsCollection(); } },
+            {"Schedule Daily Reminder", () => { stage.questActions.Add(new ScheduleDailyReminderAction()); RefillActionsCollection(); } },
         });
     }
 

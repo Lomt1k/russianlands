@@ -5,6 +5,7 @@ using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Services;
 using MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
 using MarkOne.Scripts.GameCore.Services.DailyDataManagers;
+using MarkOne.Scripts.GameCore.Services.DailyReminders;
 using MarkOne.Scripts.GameCore.Sessions;
 
 namespace MarkOne.Scripts.GameCore.Profiles;
@@ -45,42 +46,6 @@ public class Profile
 
     public async Task SaveProfile()
     {
-        //var attemptsCount = 20;
-        //Exception? cachedException = null;
-        //for (int i = 1; i <= attemptsCount; i++)
-        //{
-        //    try
-        //    {
-        //        var db = BotController.dataBase.db;
-        //        db.Update(data);
-
-        //        var rawDynamicData = new RawProfileDynamicData();
-        //        rawDynamicData.Fill(dynamicData);
-        //        db.Update(rawDynamicData);
-
-        //        db.Update(buildingsData);
-
-        //        var rawDailyData = new RawProfileDailyData();
-        //        rawDailyData.Fill(dailyData);
-        //        db.InsertOrReplace(rawDailyData);
-
-        //        lastSaveProfileTime = DateTime.UtcNow;
-        //        var user = session?.actualUser.ToString() ?? $"(ID {data.telegram_id})";
-        //        Program.logger.Info($"Profile saved for {user}");
-        //        return;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        cachedException ??= ex;
-        //        if (i < attemptsCount)
-        //        {
-        //            await Task.Delay(15);
-        //            continue;
-        //        }
-        //        throw cachedException;
-        //    }
-        //}
-
         try
         {
             var db = BotController.dataBase.db;
@@ -129,17 +94,17 @@ public class Profile
         var db = BotController.dataBase.db;
         var query = db.Table<ProfileData>().Where(x => x.telegram_id == session.actualUser.Id);
         var profileData = query.FirstOrDefault();
+        var isNewProfile = false;
         if (profileData == null)
         {
             profileData = new ProfileData().SetupNewProfile(session.actualUser, messageText);
             db.Insert(profileData);
             var registrations = serverDailyDataManager.GetIntegerValue("registrations");
             serverDailyDataManager.SetIntegerValue("registrations", registrations + 1);
+            isNewProfile = true;
         }
         else
         {
-            // В первой сессии remindersManager срабатывает только после выбора языка
-            await remindersManager.ScheduleReminder(profileData).FastAwait();
             // обновляем firstName, lastName, username в начале сессии
             profileData.firstName = session.actualUser.FirstName;
             profileData.lastName = session.actualUser.LastName;
@@ -181,6 +146,11 @@ public class Profile
         }
 
         var profile = new Profile(session, profileData, profileDynamicData, profileBuildingsData, dailyData);
+        if (!isNewProfile)
+        {
+            // В первой сессии remindersManager вызываем только после выбора языка
+            await remindersManager.ScheduleReminderSequence(profile).FastAwait();
+        }
         return profile;
     }
 

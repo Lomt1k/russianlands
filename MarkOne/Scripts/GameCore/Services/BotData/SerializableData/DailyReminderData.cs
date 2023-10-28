@@ -12,4 +12,7 @@ public class DailyReminderData
     public long userId { get; set; }
     public DateTime timeToSend { get; set; }
     public LanguageCode languageCode { get; set; }
+    public byte notificationIndex { get; set; }
+    public byte lastLoginTownhall { get; set; }
+    public bool isDailyBonusAvailable { get; set; }
 }
