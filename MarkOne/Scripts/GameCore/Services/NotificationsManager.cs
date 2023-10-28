@@ -7,6 +7,7 @@ using FastTelegramBot.DataTypes.InputFiles;
 using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Buildings;
 using MarkOne.Scripts.GameCore.Dialogs;
+using MarkOne.Scripts.GameCore.Dialogs.Events.DailyBonus;
 using MarkOne.Scripts.GameCore.Dialogs.Town;
 using MarkOne.Scripts.GameCore.Dialogs.Town.Buildings;
 using MarkOne.Scripts.GameCore.Dialogs.Town.Shop;
@@ -139,6 +140,14 @@ public class NotificationsManager : Service
             await paymentManager.GetNextWaitingGoods(session, () => ShowTownNotificationsAndEntryTown(session, reason)).FastAwait();
             return;
         }
+
+        // daily reward
+        if (DailyBonusDialog.IsNewRewardAvailable(session))
+        {
+            await DailyBonusDialog.ClaimNewRewardAndShowNotification(session, () => ShowTownNotificationsAndEntryTown(session, reason)).FastAwait();
+            return;
+        }
+
 
         // premium daily reward
         if (session.player.IsPremiumActive())

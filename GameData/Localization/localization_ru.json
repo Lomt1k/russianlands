@@ -193,7 +193,7 @@
 	"dialog_daily_bonus_event_header" : "Ежедневные награды",
 	"dialog_daily_bonus_description" : "<i>Заходи каждый день, чтобы получать награды!</i>",
 	"dialog_daily_bonus_reward_claimed" : "Вы получили ежедневную награду за вход в игру",
-	"dialog_daily_bonus_reward_claimed_footer" : "<i>Возвращайтесь завтра за следующей наградой.\n\nПосмотреть все награды можно в разделе <b>События</b> -> <b>Ежедневные награды</b></i>",
+	"dialog_daily_bonus_reward_claimed_footer" : "<i>Посмотреть все награды можно в разделе <b>События</b> -> <b>Ежедневные награды</b></i>",
 	
 	"building_category_general" : "Основные",
 	"building_category_storages" : "Хранилища",
