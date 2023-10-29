@@ -1179,18 +1179,6 @@
 	"time_span_minutes" : "m",
 	"time_span_seconds" : "s",
 	
-	"photo_fileId_loc_01" : "AgACAgIAAxkBAAET0GtkxRnPf1UkFAUk6CcQP15yIpzFDgACB84xG8M2KEoU2Mtz4WHCPgEAAwIAA3gAAy8E",
-	"photo_fileId_loc_02" : "AgACAgIAAxkBAAET0HBkxRnSS8IwwgbKwQ1TY84m-697hgACCM4xG8M2KEovk-cG7V9I-wEAAwIAA3gAAy8E",
-	"photo_fileId_loc_03" : "AgACAgIAAxkBAAET0HNkxRnVGxezj-oE6WPr8VX0-QaHvAACCs4xG8M2KErrCGWqhtAgrAEAAwIAA3gAAy8E",
-	"photo_fileId_loc_04" : "AgACAgIAAxkBAAET0HVkxRnXDZntZsmTmnnB-hA87gaZXwACDM4xG8M2KEpVbK_ALZ8O2gEAAwIAA3gAAy8E",
-	"photo_fileId_loc_05" : "AgACAgIAAxkBAAET0HtkxRnZSUC3x1LJLGz4TxdcwGv4MAACDc4xG8M2KEod1TyGRRbLKgEAAwIAA3gAAy8E",
-	"photo_fileId_loc_06" : "AgACAgIAAxkBAAET0IJkxRncNAABW1f1_4vNnHByaMJB27kAAg7OMRvDNihK3qsKMnFSyM8BAAMCAAN4AAMvBA",
-	"photo_fileId_loc_07" : "AgACAgIAAxkBAAET0IVkxRnfGpDJn6mhNr3raMiDuNOjFwACD84xG8M2KErDUgwRUNx7rgEAAwIAA3gAAy8E",
-	"photo_fileId_loc_arena" : "AgACAgIAAxkBAAET0GZkxRnLp0bSMJZlPwSs9EEqpJckGwACBs4xG8M2KEpHwYBd3rJEMwEAAwIAA3gAAy8E",
-	"photo_fileId_loc_crossroads" : "AgACAgIAAxkBAAET0F1kxRnCRbvxZTgD2clPScb3bdm21QACBc4xG8M2KEr7IG3a6UBRPgEAAwIAA3gAAy8E",
-	"photo_fileId_offer_diamonds" : "AgACAgIAAxkBAAECE-xkxz8JjOA6PKrcKn_O51d7kw7lnwACqscxG7HYQUqNJUYhCTHt3AEAAwIAA3gAAy8E",
-	"photo_fileId_premium_offer" : "AgACAgIAAxkBAAECFS1kyIq7YGh7vtXqPCQ3O5MHnC-72QACUc0xG-h1QUomtlZZbeQr4AEAAwIAA3gAAy8E",
-	
 	"offer_start_with_premium_title" : "Start the game with Premium!",
 	"offer_start_with_premium_description" : "With a premium, you will instantly restore health after each battle, build buildings faster and get more rewards!",
 	"offer_about_premium_button" : "What gives a premium?",

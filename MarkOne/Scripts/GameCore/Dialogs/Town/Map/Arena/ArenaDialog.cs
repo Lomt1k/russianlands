@@ -4,6 +4,7 @@ using MarkOne.Scripts.GameCore.Arena;
 using MarkOne.Scripts.GameCore.Buildings;
 using MarkOne.Scripts.GameCore.Dialogs.Battle;
 using MarkOne.Scripts.GameCore.Dialogs.Resources;
+using MarkOne.Scripts.GameCore.Input;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Resources;
 using MarkOne.Scripts.GameCore.Services;
@@ -168,8 +169,7 @@ public sealed class ArenaDialog : DialogBase
 
         ClearButtons();
         RegisterButton(Emojis.ElementCancel + Localization.Get(session, "dialog_arena_cancel_match_making_button"), TryCancelNextBattle);
-        var photo = InputFile.FromFileId(Localization.Get(session, "photo_fileId_loc_arena"));
-        await SendDialogPhotoMessage(photo, sb.ToString(), GetOneLineKeyboard()).FastAwait();
+        await SendDialogPhotoMessage(InputFiles.Photo_Arena, sb.ToString(), GetOneLineKeyboard()).FastAwait();
     }
 
     private IEnumerable<ResourceData> GetRewardsForWinAllBattles(bool byTicket)

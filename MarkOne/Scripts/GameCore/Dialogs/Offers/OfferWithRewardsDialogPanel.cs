@@ -1,5 +1,6 @@
 ﻿using FastTelegramBot.DataTypes.InputFiles;
 using MarkOne.Scripts.Bot;
+using MarkOne.Scripts.GameCore.Input;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
 using MarkOne.Scripts.GameCore.Shop.Offers;
@@ -56,7 +57,7 @@ public class OfferWithRewardsDialogPanel : DialogPanelBase
         }
         else
         {
-            var photo = InputFile.FromFileId(Localization.Get(session, _offerData.imageKey));
+            var photo = InputFiles.Get(_offerData.imageKey);
             await SendPanelPhotoMessage(photo, sb, GetMultilineKeyboard()).FastAwait();
         }
     }

@@ -78,7 +78,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_main_start_journey_replica",
-          "imageKey": "photo_fileId_loc_crossroads",
+          "imageKey": "crossroads.webp",
           "answers": [
             {
               "comment": "[ПРОДОЛЖИТЬ]",
@@ -305,7 +305,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_01_point_01_travel_replica",
-          "imageKey": "photo_fileId_loc_01",
+          "imageKey": "loc_01.webp",
           "answers": [
             {
               "comment": "[ПРОДОЛЖИТЬ]",
@@ -2536,7 +2536,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_02_point_01_travel_replica",
-          "imageKey": "photo_fileId_loc_02",
+          "imageKey": "loc_02.webp",
           "answers": [
             {
               "comment": "Продолжить",
@@ -4210,7 +4210,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_03_point_01_travel_replica",
-          "imageKey": "photo_fileId_loc_03",
+          "imageKey": "loc_03.webp",
           "answers": [
             {
               "comment": "Продолжить",
@@ -8585,7 +8585,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_05_point_05_travel_replica",
-          "imageKey": "photo_fileId_loc_05",
+          "imageKey": "loc_05.webp",
           "answers": [
             {
               "comment": "Продолжить",
@@ -10996,7 +10996,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_06_travel_point_01_replica",
-          "imageKey": "photo_fileId_loc_06",
+          "imageKey": "loc_06.webp",
           "answers": [
             {
               "comment": "Продолжить",
@@ -14073,7 +14073,7 @@
         "replica": {
           "characterType": 0,
           "localizationKey": "quest_loc_07_travel_point_01_replica",
-          "imageKey": "photo_fileId_loc_07",
+          "imageKey": "loc_07.webp",
           "answers": [
             {
               "comment": "Продолжить",

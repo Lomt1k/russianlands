@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using System.Threading.Tasks;
 using FastTelegramBot.DataTypes.InputFiles;
+using MarkOne.Scripts.GameCore.Input;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Quests.Characters;
 using MarkOne.Scripts.GameCore.Quests.QuestStages;
@@ -52,8 +53,8 @@ public class QuestReplicaDialog : DialogBase
         var imageKey = _replica.imageKey;
         if (!string.IsNullOrWhiteSpace(imageKey))
         {
-            var fileId = Localization.Get(session, imageKey);
-            await messageSender.SendPhotoDialog(session.chatId, InputFile.FromFileId(fileId), GetText(), GetMultilineKeyboard()).FastAwait();
+            var photo = InputFiles.Get(imageKey);
+            await messageSender.SendPhotoDialog(session.chatId, photo, GetText(), GetMultilineKeyboard()).FastAwait();
             return;
         }
 

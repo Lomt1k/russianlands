@@ -1,4 +1,5 @@
 ﻿using FastTelegramBot.DataTypes.InputFiles;
+using MarkOne.Scripts.GameCore.Input;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Quests;
 using MarkOne.Scripts.GameCore.Quests.QuestStages;
@@ -56,20 +57,17 @@ public static class LocationExtensions
 
     public static InputFile? GetPhoto(this LocationId locationId, GameSession session)
     {
-        var imageKey = locationId switch
+        return locationId switch
         {
-            LocationId.Loc_01 => $"photo_fileId_loc_01",
-            LocationId.Loc_02 => $"photo_fileId_loc_02",
-            LocationId.Loc_03 => $"photo_fileId_loc_03",
-            LocationId.Loc_04 => $"photo_fileId_loc_04",
-            LocationId.Loc_05 => $"photo_fileId_loc_05",
-            LocationId.Loc_06 => $"photo_fileId_loc_06",
-            LocationId.Loc_07 => $"photo_fileId_loc_07",
-            _ => string.Empty
+            LocationId.Loc_01 => InputFiles.Photo_Loc01,
+            LocationId.Loc_02 => InputFiles.Photo_Loc02,
+            LocationId.Loc_03 => InputFiles.Photo_Loc03,
+            LocationId.Loc_04 => InputFiles.Photo_Loc04,
+            LocationId.Loc_05 => InputFiles.Photo_Loc05,
+            LocationId.Loc_06 => InputFiles.Photo_Loc06,
+            LocationId.Loc_07 => InputFiles.Photo_Loc07,
+            _ => null
         };
-        return imageKey is not null
-            ? InputFile.FromFileId(Localization.Get(session, imageKey))
-            : null;
     }
 
 }
