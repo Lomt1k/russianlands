@@ -3,6 +3,7 @@ using FastTelegramBot.DataTypes.InputFiles;
 using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Buildings;
 using MarkOne.Scripts.GameCore.Dialogs.Town.Map.Arena;
+using MarkOne.Scripts.GameCore.Input;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Locations;
 using MarkOne.Scripts.GameCore.Sessions;
@@ -48,8 +49,7 @@ public class MapDialog : DialogWithPanel
         if (townhallLevel < arenaRequiredTownhall)
         {
             var notification = Emojis.ButtonArena + Localization.Get(session, "dialog_map_arena_is_locked", arenaRequiredTownhall);
-            var photo = InputFile.FromFileId(Localization.Get(session, "photo_fileId_loc_arena"));
-            await notificationsManager.ShowNotification(session, photo, notification, () => new MapDialog(session).Start()).FastAwait();
+            await notificationsManager.ShowNotification(session, InputFiles.Photo_Arena, notification, () => new MapDialog(session).Start()).FastAwait();
             return;
         }
         await new ArenaDialog(session).Start().FastAwait();
@@ -61,8 +61,7 @@ public class MapDialog : DialogWithPanel
         if (townhallLevel < crossroadRequiredTownhall)
         {
             var notification = Emojis.ButtonCrossroads + Localization.Get(session, "dialog_map_crossroads_is_locked", crossroadRequiredTownhall);
-            var photo = InputFile.FromFileId(Localization.Get(session, "photo_fileId_loc_crossroads"));
-            await notificationsManager.ShowNotification(session, photo, notification, () => new MapDialog(session).Start()).FastAwait();
+            await notificationsManager.ShowNotification(session, InputFiles.Photo_Crossroads, notification, () => new MapDialog(session).Start()).FastAwait();
             return;
         }
         await new Crossroads.CrossroadsDialog(session).Start().FastAwait();

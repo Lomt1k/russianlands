@@ -99,19 +99,19 @@ public class QuestStageWithDefaultReplica : QuestStage
         switch (replicaType)
         {
             case ReplicaType.StartTravelToEnemyLoc01:
-                return $"photo_fileId_loc_01";
+                return $"loc_01.webp";
             case ReplicaType.StartTravelToEnemyLoc02:
-                return $"photo_fileId_loc_02";
+                return $"loc_02.webp";
             case ReplicaType.StartTravelToEnemyLoc03:
-                return $"photo_fileId_loc_03";
+                return $"loc_03.webp";
             case ReplicaType.StartTravelToEnemyLoc04:
-                return $"photo_fileId_loc_04";
+                return $"loc_04.webp";
             case ReplicaType.StartTravelToEnemyLoc05:
-                return $"photo_fileId_loc_05";
+                return $"loc_05.webp";
             case ReplicaType.StartTravelToEnemyLoc06:
-                return $"photo_fileId_loc_06";
+                return $"loc_06.webp";
             case ReplicaType.StartTravelToEnemyLoc07:
-                return $"photo_fileId_loc_07";
+                return $"loc_07.webp";
 
             default:
                 return string.Empty;

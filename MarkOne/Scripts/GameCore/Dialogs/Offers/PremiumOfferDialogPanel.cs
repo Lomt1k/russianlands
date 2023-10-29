@@ -1,6 +1,7 @@
 ﻿using FastTelegramBot.DataTypes.InputFiles;
 using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Dialogs.Town.Shop;
+using MarkOne.Scripts.GameCore.Input;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Resources;
 using MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
@@ -59,7 +60,7 @@ public class PremiumOfferDialogPanel : DialogPanelBase
         }
         else
         {
-            var photo = InputFile.FromFileId(Localization.Get(session, _offerData.imageKey));
+            var photo = InputFiles.Get(_offerData.imageKey);
             await SendPanelPhotoMessage(photo, sb, GetMultilineKeyboard()).FastAwait();
         }
     }
