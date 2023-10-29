@@ -166,7 +166,7 @@ public static class StringExtensions
     }
 
     /// <summary>
-    /// Оборачивает текст в html тэг <pre> (форматированный текст)
+    /// Оборачивает текст в html тэг <pre> (форматированный текст, имеет кнопку copy на ПК)
     /// </summary>
     public static string Preformatted(this string input)
     {

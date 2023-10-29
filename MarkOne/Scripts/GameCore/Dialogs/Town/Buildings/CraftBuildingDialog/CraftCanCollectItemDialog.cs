@@ -28,7 +28,7 @@ public class CraftCanCollectItemDialog : DialogBase
 
         var sb = new StringBuilder();
         sb.AppendLine(itemType.GetEmoji() + itemType.GetLocalization(session).Bold());
-        sb.AppendLine($"<pre>{rarity.GetView(session)}</pre>");
+        sb.AppendLine(rarity.GetView(session).CodeBlock());
 
         sb.AppendLine();
         sb.AppendLine(Localization.Get(session, "item_view_possible_requirments"));

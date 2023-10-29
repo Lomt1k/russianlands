@@ -60,7 +60,7 @@ public class MobAttack
     {
         var sb = new StringBuilder();
         var header = Localization.Get(session, localizationKey) + ':';
-        sb.Append(header.Preformatted());
+        sb.Append(header.CodeBlock());
         if (maxPhysicalDamage > 0)
         {
             sb.AppendLine();

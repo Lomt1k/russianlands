@@ -58,8 +58,8 @@ public class NotificationsManager : Service
             if (!building.HasImportantUpdates(buildingsData))
                 continue;
 
-            var header = $"<pre>{building.GetLocalizedName(session, session.profile.buildingsData)}:</pre>";
-            notification.AppendLine(header);
+            var header = building.GetLocalizedName(session, session.profile.buildingsData) + ':';
+            notification.AppendLine(header.CodeBlock());
 
             var updates = building.GetUpdates(session, buildingsData, onlyImportant: true);
             

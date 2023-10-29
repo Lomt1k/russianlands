@@ -557,7 +557,7 @@ public class CheatsDialog : DialogBase
         var sb = new StringBuilder();
         sb.AppendLine("Account has been imported");
         sb.AppendLine();
-        sb.AppendLine("Account data: ".Preformatted());
+        sb.AppendLine("Account data: ".CodeBlock());
         sb.AppendLine("Env: ".Bold() + profileState.environment);
         sb.AppendLine("Nickname: ".Bold() + profileState.nickname);
         sb.AppendLine("Database Id: ".Bold() + profileState.databaseId);
@@ -565,7 +565,7 @@ public class CheatsDialog : DialogBase
         sb.AppendLine("Last Version: ".Bold() + profileState.lastVersion);
         sb.AppendLine("Last Date: ".Bold() + profileState.lastDate);
         sb.AppendLine();
-        sb.AppendLine("Applied for: ".Preformatted());
+        sb.AppendLine("Applied for: ".CodeBlock());
         sb.AppendLine("Database Id: ".Bold() + dbid);
         sb.AppendLine("Telegram Id: ".Bold() + telegramId);
         _onReceivedFileFromUser = null;
