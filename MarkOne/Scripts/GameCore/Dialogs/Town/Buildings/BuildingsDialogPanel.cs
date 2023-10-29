@@ -36,7 +36,7 @@ public partial class BuildingsDialogPanel : DialogPanelBase
             if (updates.Count < 1)
                 continue;
 
-            var header = $"<pre>{building.GetLocalizedName(session, session.profile.buildingsData)}:</pre>";
+            var header = building.GetLocalizedName(session, session.profile.buildingsData).Italic() + ':';
             sb.AppendLine(header);
 
             foreach (var update in updates)

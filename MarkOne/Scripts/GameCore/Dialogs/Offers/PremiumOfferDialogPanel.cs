@@ -1,5 +1,4 @@
-﻿using FastTelegramBot.DataTypes.InputFiles;
-using MarkOne.Scripts.Bot;
+﻿using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Dialogs.Town.Shop;
 using MarkOne.Scripts.GameCore.Input;
 using MarkOne.Scripts.GameCore.Localizations;
