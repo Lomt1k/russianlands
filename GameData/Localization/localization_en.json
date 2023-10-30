@@ -1088,6 +1088,7 @@
 	"battle_result_description_draw" : "No one has won the battle",
 	"battle_result_header_rewards" : "<code>Your rewards:</code>",
 	"battle_result_header_premium_rewards" : "<code>Premium Reward:</code>",
+	"battle_result_header_premium_rewards_locked" : "<code>Get more rewards by activating Premium:</code>",
 	"battle_result_continue_button" : "Continue",
 	"battle_not_enough_mana" : "<b>You don't have enough mana to use scrolls</b>",
 	"battle_potion_selection" : "Choose the potion you want to use:",

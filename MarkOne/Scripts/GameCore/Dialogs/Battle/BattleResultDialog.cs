@@ -2,6 +2,7 @@
 using System.Text;
 using System.Threading.Tasks;
 using MarkOne.Scripts.Bot;
+using MarkOne.Scripts.GameCore.Buildings;
 using MarkOne.Scripts.GameCore.Dialogs.Town;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Rewards;
@@ -37,7 +38,7 @@ public class BattleResultDialog : DialogBase
             var premiumRewards = new List<ResourceReward>();
             foreach (var reward in _data.rewards)
             {
-                var addedReward = session.player.IsPremiumActive() && reward is ResourceRewardBase resourceRewardBase
+                var addedReward =  reward is ResourceRewardBase resourceRewardBase
                     ? await resourceRewardBase.AddRewardWithAddPossiblePremiumRewardToList(session, premiumRewards).FastAwait()
                     : await reward.AddReward(session).FastAwait();
                 if (!string.IsNullOrEmpty(addedReward))
@@ -45,17 +46,29 @@ public class BattleResultDialog : DialogBase
                     sb.AppendLine(addedReward);
                 }
             }
-            
-            if (premiumRewards.Count > 0)
+
+            if (premiumRewards.Count > 0 && session.player.buildings.GetBuildingLevel(BuildingId.TownHall) >= 2)
             {
                 sb.AppendLine();
-                sb.AppendLine(Localization.Get(session, "battle_result_header_premium_rewards"));
-                foreach (var reward in premiumRewards)
+                if (session.player.IsPremiumActive())
                 {
-                    var addedReward = await reward.AddReward(session).FastAwait();
-                    if (!string.IsNullOrEmpty(addedReward))
+                    sb.AppendLine(Localization.Get(session, "battle_result_header_premium_rewards"));
+                    foreach (var reward in premiumRewards)
                     {
-                        sb.AppendLine(addedReward);
+                        var addedReward = await reward.AddReward(session).FastAwait();
+                        if (!string.IsNullOrEmpty(addedReward))
+                        {
+                            sb.AppendLine(addedReward);
+                        }
+                    }
+                }
+                else
+                {
+                    sb.AppendLine(Localization.Get(session, "battle_result_header_premium_rewards_locked"));
+                    foreach (var reward in premiumRewards)
+                    {
+                        var possibleReward = reward.GetPossibleRewardsView(session);
+                        sb.AppendLine(Emojis.ElementLocked + possibleReward);
                     }
                 }
             }

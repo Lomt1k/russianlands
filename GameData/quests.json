@@ -1032,7 +1032,7 @@
           },
           {
             "$type": "ResourceRangeReward",
-            "resourceId": 0,
+            "resourceId": 1,
             "amountMin": 60,
             "amountMax": 70,
             "forceAdd": false
