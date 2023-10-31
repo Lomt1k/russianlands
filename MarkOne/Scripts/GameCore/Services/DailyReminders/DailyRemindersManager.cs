@@ -184,7 +184,7 @@ public class DailyRemindersManager : Service
             {
                 notificationIndex++;
                 reminderData.notificationIndex = notificationIndex;
-                reminderData.timeToSend = reminderData.timeToSend.AddHours(notificationsSequence[notificationIndex].hoursDelay);
+                reminderData.timeToSend = DateTime.UtcNow.AddHours(notificationsSequence[notificationIndex].hoursDelay);
                 BotController.dataBase.db.Update(reminderData);
             }
         }
