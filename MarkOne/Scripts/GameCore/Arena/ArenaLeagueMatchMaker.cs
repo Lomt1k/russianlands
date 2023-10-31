@@ -151,7 +151,7 @@ public class ArenaLeagueMatchMaker
             },
             onContinueButtonFunc: async (player, battleResult) =>
             {
-                await new ArenaDialog(player.session).StartAfterBattleEnd().FastAwait();
+                await new ArenaDialog(player.session).Start().FastAwait();
             });
     }
 
@@ -179,7 +179,7 @@ public class ArenaLeagueMatchMaker
             },
             onContinueButtonFunc: async (player, battleResult) =>
             {
-                await new ArenaDialog(player.session).StartAfterBattleEnd().FastAwait();
+                await new ArenaDialog(player.session).Start().FastAwait();
             });
     }
 

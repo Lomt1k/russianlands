@@ -38,6 +38,12 @@ public sealed class ArenaDialog : DialogBase
         if (hasArenaProgress)
         {
             var arenaProgress = session.profile.dynamicData.arenaProgress.EnsureNotNull();
+            if (arenaProgress.results.Count >= targetBattlesCount)
+            {
+                await ShowResults().FastAwait();
+                return;
+            }
+
             var registrationType = arenaProgress.byTicket
                 ? Localization.Get(session, "dialog_arena_registered_by_ticket")
                 : Localization.Get(session, "dialog_arena_registered_by_food");
@@ -205,16 +211,9 @@ public sealed class ArenaDialog : DialogBase
         }
     }
 
-    public async Task StartAfterBattleEnd()
+    private async Task ShowResults()
     {
         var arenaProgress = session.profile.dynamicData.arenaProgress.EnsureNotNull();
-        var battlesCount = arenaProgress.results.Count;
-        if (battlesCount < targetBattlesCount)
-        {
-            await Start().FastAwait();
-            return;
-        }
-
         var rewardSetiings = arenaProgress.byTicket
             ? gameDataHolder.arenaSettings.battleRewardsForTicket
             : gameDataHolder.arenaSettings.battleRewardsForFood;
