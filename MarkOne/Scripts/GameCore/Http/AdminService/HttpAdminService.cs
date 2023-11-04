@@ -18,7 +18,7 @@ using Authorization = Telegram.Bot.Extensions.LoginWidget.Authorization;
 namespace MarkOne.Scripts.GameCore.Http.AdminService;
 public class HttpAdminService : IHttpService
 {
-    private const int SESSION_TIMEOUT = 3600;
+    private const int SESSION_TIMEOUT = 36_000;
 
     private Dictionary<string, HttpAdminSessionInfo> _sessions = new();
     private Dictionary<string, IHtmlPage> _htmlPages = new();
