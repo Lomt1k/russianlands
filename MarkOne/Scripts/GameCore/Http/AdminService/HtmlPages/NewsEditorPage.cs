@@ -34,7 +34,7 @@ public class NewsEditorPage : IHtmlPage
     private Task ShowNewsList(HttpListenerResponse response, HttpAdminSessionInfo sessionInfo, NameValueCollection query, string localPath)
     {
         var db = BotController.dataBase.db;
-        var allNews = db.Table<NewsData>().OrderByDescending(x => x.id).ToArray();
+        var allNews = db.Table<RawNewsData>().OrderByDescending(x => x.id).ToArray();
 
         var document = HtmlHelper.CreateDocument("News Editor");
         var table = document["html"]["body"].Add("table", new HProp("cellpadding", "10"), new HProp("style", "border-collapse: collapse;"));
@@ -43,6 +43,7 @@ public class NewsEditorPage : IHtmlPage
         headers.Add("th", "Date", new HProp("align", "left"));
         headers.Add("th", "Title", new HProp("align", "left"));
         headers.Add("th", "Description", new HProp("align", "left"));
+        headers.Add("th", "Mailing Status", new HProp("align", "left"));
         headers.Add("th", "&nbsp;");
         headers.Add("th", "&nbsp;");
 
@@ -53,6 +54,12 @@ public class NewsEditorPage : IHtmlPage
             row.Add("td", news.date.ToShortDateString());
             row.Add("td").Add("b", news.title);
             row.Add("td", news.description.Substring(0, Math.Min(140, news.description.Length)));
+
+            var status = news.IsMailingCompleted()
+                ? "[COMPLETED]"
+                : $"{news.currentMailsCount} / {news.totalMailsCount} ({news.GetMailingProgress() * 100:F0}%)";
+            row.Add("td", status);
+
             row.Add("td").Add(HtmlHelper.CreateLinkButton("Edit", localPath + $"?page={page}&mode=showEditForm&newsId={news.id}", color: "#007FFF", size: 10));
             row.Add("td").Add(HtmlHelper.CreateLinkButton("Delete", localPath + $"?page={page}&mode=tryDelete&newsId={news.id}", color: "#CC0000", size: 10));
         }

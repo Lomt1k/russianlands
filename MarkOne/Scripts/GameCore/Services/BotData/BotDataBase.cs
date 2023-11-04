@@ -64,7 +64,7 @@ public class BotDataBase
         db.CreateTable<DailyReminderData>();
         db.CreateTable<ServerDailyData>();
         db.CreateTable<RawProfileDailyData>();
-        db.CreateTable<NewsData>();
+        db.CreateTable<RawNewsData>();
         db.CreateTable<PaymentData>();
     }
 

@@ -73,7 +73,7 @@ public class DailyRemindersManager : Service
         },
     };
 
-    private CancellationTokenSource _cts = new CancellationTokenSource();
+    private CancellationTokenSource _cts = new();
     private bool _isLogRequired = false;
 
     public override Task OnBotStarted()

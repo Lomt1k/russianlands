@@ -32,6 +32,7 @@ public class GameSession
     public ChatId? fakeChatId { get; }
     public DateTime startTime { get; }
     public DateTime lastActivityTime { get; private set; }
+    public DateTime lastStartOfferTime { get; set; }
     public User actualUser { get; private set; }
     public Profile profile { get; private set; }
     public Player player { get; private set; }
@@ -40,7 +41,7 @@ public class GameSession
     public TooltipController tooltipController { get; } = new TooltipController();
     public CancellationToken cancellationToken { get; }
     public bool isAdmin => profile.data.adminStatus >= AdminStatus.Admin;
-    public DateTime lastStartOfferTime { get; set; }
+    public bool isTutorialCompleted => player.buildings.GetBuildingLevel(Buildings.BuildingId.TownHall) >= 2;
 
     public GameSession(User user, ChatId? _fakeChatId = null)
     {
