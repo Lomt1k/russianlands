@@ -16,6 +16,7 @@ using GameDataEditor.Views.Editor.ArenaShopSettingsEditor;
 using GameDataEditor.Views.Editor.ShopSettingsEditor;
 using GameDataEditor.Views.Editor.OffersEditor;
 using GameDataEditor.Views.Editor.DailyBonusEditor;
+using GameDataEditor.Views.Editor.ReferralBonusEditor;
 
 namespace GameDataEditor.ViewModels;
 
@@ -65,6 +66,7 @@ public class MainViewModel : ViewModelBase
         categories.Add(new MainEditorCategory("Shop Settings", new ShopSettingsEditorView()));
         categories.Add(new MainEditorCategory("Offers", new OffersEditorView()));
         categories.Add(new MainEditorCategory("Daily Bonuses", new DailyBonusEditorView()));
+        categories.Add(new MainEditorCategory("Referral Bonuses", new ReferralBonusEditorView()));
     }
 
     private void SaveCommand()

@@ -40,6 +40,8 @@ public class ProfileData : DataWithSession
     public int lastArenaLeagueFarmedChips { get; set; }
     public byte lastDailyBonusId { get; set; }
     public DateTime lastDailyBonusReceivedTime { get; set; }
+    public byte lastReferralBonusId { get; set; }
+    public ushort totalReferralsCount { get; set; }
 
 
     // resources

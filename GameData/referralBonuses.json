@@ -1,0 +1,79 @@
+﻿[
+  {
+    "id": 1,
+    "rewards": [
+      {
+        "$type": "ResourceReward",
+        "resourceId": 0,
+        "amount": 555,
+        "forceAdd": true
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "rewards": [
+      {
+        "$type": "ResourceReward",
+        "resourceId": 0,
+        "amount": 555,
+        "forceAdd": true
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "rewards": [
+      {
+        "$type": "ResourceReward",
+        "resourceId": 0,
+        "amount": 555,
+        "forceAdd": true
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "rewards": [
+      {
+        "$type": "ResourceReward",
+        "resourceId": 0,
+        "amount": 555,
+        "forceAdd": true
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "rewards": [
+      {
+        "$type": "ResourceReward",
+        "resourceId": 0,
+        "amount": 555,
+        "forceAdd": true
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "rewards": [
+      {
+        "$type": "ResourceReward",
+        "resourceId": 0,
+        "amount": 555,
+        "forceAdd": true
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "rewards": [
+      {
+        "$type": "ResourceReward",
+        "resourceId": 0,
+        "amount": 555,
+        "forceAdd": true
+      }
+    ]
+  }
+]
