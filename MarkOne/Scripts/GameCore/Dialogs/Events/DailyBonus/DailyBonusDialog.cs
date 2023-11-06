@@ -31,6 +31,7 @@ public class DailyBonusDialog : DialogBase
 
     private void AppendRewardsList(StringBuilder sb)
     {
+        sb.AppendLine(Localization.Get(session, "reward_list_header"));
         var dailyBonusDatas = gameDataHolder.dailyBonuses.GetAllData();
         foreach (var data in dailyBonusDatas)
         {

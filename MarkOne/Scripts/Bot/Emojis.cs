@@ -150,6 +150,7 @@ public static class Emojis
     public static readonly Emoji AvatarBuilderA = new Emoji("\ud83d\udc77\ud83c\udffc\u200d\u2642\ufe0f");
     public static readonly Emoji AvatarBuilderB = new Emoji("\ud83d\udc77\ud83c\udffd");
     public static readonly Emoji AvatarAbstract = new Emoji("\ud83d\ude4e\u200d\u2642\ufe0f");
+    public static readonly Emoji AvatarSmirkCat = new Emoji(char.ConvertFromUtf32(0x1F63C));
 
     // --- Smiles
     public static readonly Emoji SmileSad = new Emoji("\ud83d\ude15");

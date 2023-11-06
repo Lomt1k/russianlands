@@ -1,5 +1,6 @@
 ﻿using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Dialogs.Events.DailyBonus;
+using MarkOne.Scripts.GameCore.Dialogs.Events.ReferralSystem;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Sessions;
 using System.Text;
@@ -20,6 +21,7 @@ public class EventsDialog : DialogBase
     {
         _eventsCount = 0;
         TryRegisterDailyBonusEvent();
+        TryRegisterReferralSystemEvent();
     }
 
     private void TryRegisterDailyBonusEvent()
@@ -30,6 +32,17 @@ public class EventsDialog : DialogBase
         }
         RegisterButton(Emojis.ButtonDailyBonus + Localization.Get(session, "dialog_daily_bonus_event_header"),
             () => new DailyBonusDialog(session).Start());
+        _eventsCount++;
+    }
+
+    private void TryRegisterReferralSystemEvent()
+    {
+        if (!ReferralSystemDialog.IsEventAvailable(session))
+        {
+            return;
+        }
+        RegisterButton(Emojis.AvatarSmirkCat + Localization.Get(session, "dialog_referral_system_header"),
+            () => new ReferralSystemDialog(session).Start());
         _eventsCount++;
     }
 

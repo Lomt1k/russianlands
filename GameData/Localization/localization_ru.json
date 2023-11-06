@@ -202,6 +202,10 @@
 	"dialog_daily_bonus_description" : "<i>Заходи каждый день, чтобы получать награды!</i>",
 	"dialog_daily_bonus_reward_claimed" : "Вы получили ежедневную награду за вход в игру",
 	"dialog_daily_bonus_reward_claimed_footer" : "<i>Посмотреть все награды можно в разделе <b>События</b> -> <b>Ежедневные награды</b></i>",
+	"dialog_referral_system_header" : "Богатырская дружина",
+	"dialog_referral_system_description" : "Приглашайте в игру своих друзей! Вы получите награду за каждого, кто зарегистрируется по вашей ссылке и пройдёт локацию <i>Тёмный лес</i>\n\nВаша ссылка:\n<a href='{0}'>{0}</a>",
+	"dialog_referral_system_reward_claimed" : "Вы получили награду за приглашение друзей в игру",
+	"dialog_referral_system_reward_claimed_footer" : "<i>Посмотреть все награды можно в разделе <b>События</b> -> <b>Богатырская дружина</b></i>",
 	
 	"building_category_general" : "Основные",
 	"building_category_storages" : "Хранилища",
@@ -439,6 +443,7 @@
 	"premium_reward" : "<b>Премиум:</b> {0}",
 	"reward_random_fruit" : "<b>Случайный фрукт</b>",
 	"reward_random_fruits" : "<b>Случайные фрукты:</b> {0}",
+	"reward_list_header" : "<code>Список наград:</code>",
 	
 	"item_rarity_common" : "Обычный",
 	"item_rarity_rare" : "Редкий",

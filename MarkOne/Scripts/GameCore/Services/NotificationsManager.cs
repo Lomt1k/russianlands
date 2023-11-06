@@ -8,6 +8,7 @@ using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Buildings;
 using MarkOne.Scripts.GameCore.Dialogs;
 using MarkOne.Scripts.GameCore.Dialogs.Events.DailyBonus;
+using MarkOne.Scripts.GameCore.Dialogs.Events.ReferralSystem;
 using MarkOne.Scripts.GameCore.Dialogs.Town;
 using MarkOne.Scripts.GameCore.Dialogs.Town.Buildings;
 using MarkOne.Scripts.GameCore.Dialogs.Town.Shop;
@@ -148,6 +149,12 @@ public class NotificationsManager : Service
             return;
         }
 
+        // referral system rewards
+        if (ReferralSystemDialog.IsNewRewardAvailable(session))
+        {
+            await ReferralSystemDialog.ClaimNewRewardAndShowNotification(session, () => ShowTownNotificationsAndEntryTown(session, reason)).FastAwait();
+            return;
+        }
 
         // premium daily reward
         if (session.player.IsPremiumActive())

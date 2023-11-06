@@ -202,6 +202,10 @@
 	"dialog_daily_bonus_description" : "<i>Login every day to receive rewards!</i>",
 	"dialog_daily_bonus_reward_claimed" : "You received a daily reward for logging into the game",
 	"dialog_daily_bonus_reward_claimed_footer" : "<i>You can view all rewards in the <b>Events</b> -> <b>Daily rewards</b> section</i>",
+	"dialog_referral_system_header" : "Hero squad",
+	"dialog_referral_system_description" : "Invite your friends to the game! You will receive a reward for everyone who registers using your link and completes the location <i>Dark Forest</i>\n\nYour link:\n<a href='{0}'>{0}</a>",
+	"dialog_referral_system_reward_claimed" : "You received a reward for inviting friends to the game",
+	"dialog_referral_system_reward_claimed_footer" : "<i>You can view all awards in the <b>Events</b> section -> <b>Hero squad</b></i>",
 	
 	"building_category_general" : "General",
 	"building_category_storages" : "Storages",
@@ -439,6 +443,7 @@
 	"premium_reward" : "<b>Premium:</b> {0}",
 	"reward_random_fruit" : "<b>Random fruit</b>",
 	"reward_random_fruits" : "<b>Random fruits:</b> {0}",
+	"reward_list_header" : "<code>List of awards:</code>",
 	
 	"item_rarity_common" : "Common",
 	"item_rarity_rare" : "Rare",
