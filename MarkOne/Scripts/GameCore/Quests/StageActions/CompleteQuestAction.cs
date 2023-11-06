@@ -11,7 +11,7 @@ public class CompleteQuestAction : StageActionBase
     private static readonly GameDataHolder gameDataHolder = Services.ServiceLocator.Get<GameDataHolder>();
 
     [JsonProperty]
-    public QuestId questId;
+    public QuestId questId { get; set; }
 
     public override async Task Execute(GameSession session)
     {

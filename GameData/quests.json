@@ -2461,6 +2461,9 @@
             "questId": 2
           },
           {
+            "$type": "CountReferralAction"
+          },
+          {
             "$type": "StartNewQuestAction",
             "questId": 3
           }

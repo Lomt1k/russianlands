@@ -9,11 +9,11 @@ namespace MarkOne.Scripts.GameCore.Quests.StageActions;
 public class AddItemToInventoryAction : StageActionBase
 {
     [JsonProperty]
-    public int itemId;
+    public int itemId { get; set; }
     [JsonProperty]
-    public bool forceEquip;
+    public bool forceEquip { get; set; }
     [JsonProperty]
-    public int slotIdForMultiSlot;
+    public int slotIdForMultiSlot { get; set; }
 
     public override Task Execute(GameSession session)
     {

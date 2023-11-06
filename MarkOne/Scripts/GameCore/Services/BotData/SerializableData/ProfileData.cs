@@ -41,7 +41,7 @@ public class ProfileData : DataWithSession
     public byte lastDailyBonusId { get; set; }
     public DateTime lastDailyBonusReceivedTime { get; set; }
     public byte lastReferralBonusId { get; set; }
-    public ushort totalReferralsCount { get; set; }
+    public short totalReferralsCount { get; set; } = -1;
 
 
     // resources

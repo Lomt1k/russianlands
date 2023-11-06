@@ -25,6 +25,7 @@ public class ReferralSystemDialog : DialogBase
         ClearButtons();
         RegisterBackButton(Localization.Get(session, "menu_item_events") + Emojis.ButtonEvents, () => new EventsDialog(session).Start());
         RegisterTownButton(isDoubleBack: true);
+        MarkAsViewed(session);
 
         await SendDialogMessage(sb, GetOneLineKeyboard()).FastAwait();
     }
@@ -84,6 +85,19 @@ public class ReferralSystemDialog : DialogBase
     {
         var profileData = session.profile.data;
         return IsEventAvailable(session) && profileData.lastReferralBonusId < profileData.totalReferralsCount;
+    }
+
+    public static bool HasNew(GameSession session)
+    {
+        return session.profile.data.totalReferralsCount == -1;
+    }
+
+    public static void MarkAsViewed(GameSession session)
+    {
+        if (session.profile.data.totalReferralsCount == -1)
+        {
+            session.profile.data.totalReferralsCount = 0;
+        }
     }
 
 }

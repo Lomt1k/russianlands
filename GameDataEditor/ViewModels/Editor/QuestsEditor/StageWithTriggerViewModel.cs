@@ -93,6 +93,7 @@ public class StageWithTriggerViewModel : ViewModelBase
             {"Complete Quest", () => { stage.questActions.Add(new CompleteQuestAction()); RefillActionsCollection(); } },
             {"Start New Quest", () => { stage.questActions.Add(new StartNewQuestAction()); RefillActionsCollection(); } },
             {"Schedule Daily Reminder", () => { stage.questActions.Add(new ScheduleDailyReminderAction()); RefillActionsCollection(); } },
+            {"Count Referral", () => { stage.questActions.Add(new CountReferralAction()); RefillActionsCollection(); } },
         });
     }
 

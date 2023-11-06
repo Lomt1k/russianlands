@@ -162,7 +162,6 @@ public class NotificationsManager : Service
             var now = DateTime.UtcNow;
             if (session.profile.data.lastPremiumDailyRewardTime.Date != now.Date)
             {
-                Program.logger.Info($"User {session.actualUser} get premium daily reward");
                 var dailyRewards = ShopDialogPanel.premiumDailyRewards;
                 session.profile.data.lastPremiumDailyRewardTime = now;
                 session.player.resources.ForceAdd(dailyRewards);

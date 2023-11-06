@@ -41,8 +41,10 @@ public class EventsDialog : DialogBase
         {
             return;
         }
-        RegisterButton(Emojis.AvatarSmirkCat + Localization.Get(session, "dialog_referral_system_header"),
-            () => new ReferralSystemDialog(session).Start());
+
+        var button = Emojis.AvatarSmirkCat + Localization.Get(session, "dialog_referral_system_header")
+            + (ReferralSystemDialog.HasNew(session) ? Emojis.ElementWarningRed.ToString() : string.Empty);
+        RegisterButton(button, () => new ReferralSystemDialog(session).Start());
         _eventsCount++;
     }
 
@@ -61,6 +63,11 @@ public class EventsDialog : DialogBase
         return _eventsCount > 0
             ? Localization.Get(session, "dialog_events_available_events")
             : Localization.Get(session, "dialog_events_no_events");
+    }
+
+    public static bool HasNew(GameSession session)
+    {
+        return ReferralSystemDialog.HasNew(session);
     }
 
 }

@@ -12,6 +12,7 @@ using System.Linq;
 using System;
 using MarkOne.Scripts.GameCore.Shop.Offers;
 using MarkOne.Scripts.GameCore.Dialogs.Town.Shop;
+using MarkOne.Scripts.GameCore.Dialogs.Events;
 
 namespace MarkOne.Scripts.GameCore.Dialogs.Town;
 
@@ -67,7 +68,9 @@ public class TownDialog : DialogBase
             + Localization.Get(session, "menu_item_news");
         RegisterButton(newsButton, () => new News.NewsDialog(session).Start());
 
-        RegisterButton(Emojis.ButtonEvents + Localization.Get(session, "menu_item_events"), () => new Events.EventsDialog(session).Start());
+        var eventsButton = (EventsDialog.HasNew(session) && !hasTooltip ? Emojis.ElementWarningRed.ToString() : Emojis.ButtonEvents)
+            + Localization.Get(session, "menu_item_events");
+        RegisterButton(eventsButton, () => new EventsDialog(session).Start());
 
         var hasOfferButton = TryRegisterRandomOfferButton();
         _keyboard = hasOfferButton ? GetKeyboardWithRowSizes(1, 2, 3, 1) : GetKeyboardWithRowSizes(1, 2, 3);
