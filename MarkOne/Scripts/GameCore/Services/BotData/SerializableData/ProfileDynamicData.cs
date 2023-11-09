@@ -7,6 +7,7 @@ using MarkOne.Scripts.GameCore.Quests;
 using MarkOne.Scripts.GameCore.Sessions;
 using MarkOne.Scripts.GameCore.Arena;
 using MarkOne.Scripts.GameCore.Shop.Offers;
+using MarkOne.Scripts.GameCore.Units;
 
 namespace MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
 
@@ -19,6 +20,7 @@ public class ProfileDynamicData : DataWithSession
     public List<ItemType> lastGeneratedItemTypes { get; init; } = new();
     public PlayerArenaProgress? arenaProgress { get; set; } = null;
     public List<OfferItem> offers { get; init; } = new();
+    public HashSet<AvatarId> avatars { get; init; } = new();
 
     public ProfileDynamicData(long _dbid)
     {
@@ -41,6 +43,7 @@ public class ProfileDynamicData : DataWithSession
             lastGeneratedItemTypes = JsonConvert.DeserializeObject<List<ItemType>>(rawData.lastGeneratedItemTypes),
             arenaProgress = rawData.arenaProgress != null ? JsonConvert.DeserializeObject<PlayerArenaProgress>(rawData.arenaProgress) : null,
             offers = JsonConvert.DeserializeObject<List<OfferItem>>(rawData.offers),
+            avatars = JsonConvert.DeserializeObject<HashSet<AvatarId>>(rawData.avatars),
         };
     }
 

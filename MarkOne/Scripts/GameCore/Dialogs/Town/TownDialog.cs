@@ -13,6 +13,7 @@ using System;
 using MarkOne.Scripts.GameCore.Shop.Offers;
 using MarkOne.Scripts.GameCore.Dialogs.Town.Shop;
 using MarkOne.Scripts.GameCore.Dialogs.Events;
+using MarkOne.Scripts.GameCore.Units;
 
 namespace MarkOne.Scripts.GameCore.Dialogs.Town;
 
@@ -57,7 +58,7 @@ public class TownDialog : DialogBase
         RegisterButton(Emojis.ButtonBuildings + Localization.Get(session, "menu_item_buildings"),
             () => notificationsManager.GetNotificationsAndOpenBuildingsDialog(session));
 
-        var characterButton = Emojis.AvatarMale + Localization.Get(session, "menu_item_character")
+        var characterButton = session.player.avatarId.GetEmoji() + Localization.Get(session, "menu_item_character")
             + (player.inventory.hasAnyNewItem && !hasTooltip ? Emojis.ElementWarningRed.ToString() : string.Empty);
         RegisterButton(characterButton, () => new Character.CharacterDialog(session).Start());
 

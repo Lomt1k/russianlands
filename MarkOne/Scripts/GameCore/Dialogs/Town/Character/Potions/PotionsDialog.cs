@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
 using MarkOne.Scripts.Bot;
-using MarkOne.Scripts.Bot.Dialogs.Town.Character;
 using MarkOne.Scripts.Bot.Dialogs.Town.Character.Potions;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Potions;
 using MarkOne.Scripts.GameCore.Sessions;
+using MarkOne.Scripts.GameCore.Units;
 
 namespace MarkOne.Scripts.GameCore.Dialogs.Town.Character.Potions;
 
@@ -16,7 +16,7 @@ public class PotionsDialog : DialogWithPanel
     public PotionsDialog(GameSession session) : base(session)
     {
         _potionsPanel = new PotionsDialogPanel(this);
-        RegisterBackButton(Localization.Get(session, "menu_item_character") + Emojis.AvatarMale,
+        RegisterBackButton(Localization.Get(session, "menu_item_character") + session.player.avatarId.GetEmoji(),
             () => new CharacterDialog(session).Start());
         RegisterTownButton(isDoubleBack: true);
     }

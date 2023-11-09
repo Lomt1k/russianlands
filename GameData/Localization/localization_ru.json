@@ -206,6 +206,8 @@
 	"dialog_referral_system_description" : "Приглашайте в игру своих друзей! Вы получите награду за каждого, кто зарегистрируется по вашей ссылке и пройдёт локацию <i>Тёмный лес</i>\n\nВаша ссылка:\n<a href='{0}'>{0}</a>",
 	"dialog_referral_system_reward_claimed" : "Вы получили награду за приглашение друзей в игру",
 	"dialog_referral_system_reward_claimed_footer" : "<i>Посмотреть все награды можно в разделе <b>События</b> -> <b>Богатырская дружина</b></i>",
+	"dialog_avatars_description" : "<i>Выберите аватар для вашего персонажа:</i>",
+	"dialog_avatars_on_avatar_changed" : "Вы изменили вашу автарку:\n\n{0}",
 	
 	"building_category_general" : "Основные",
 	"building_category_storages" : "Хранилища",

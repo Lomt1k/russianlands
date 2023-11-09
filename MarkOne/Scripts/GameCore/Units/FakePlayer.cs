@@ -20,14 +20,14 @@ public class FakePlayer : IBattleUnit
     public FakePlayerSkills skills { get; }
     public byte level { get; }
     public byte townhallLevel { get; }
+    public AvatarId? avatarId { get; }
     public string nickname { get; }
     public UnitStats unitStats { get; }
     public IBattleActionHandler actionHandler { get; }
     public bool isPremium { get; }
-    public Emoji avatar { get; }
 
     public FakePlayer(IEnumerable<InventoryItem> _items, Dictionary<ItemType, byte> _skills, byte _level, string _nickname,
-        bool _isPremium = false, Emoji? _avatar = null)
+        bool _isPremium = false, AvatarId? _avatarId = null)
     {
         equippedItems = new EquippedItems(_items);
         skills = new FakePlayerSkills(this, _skills); // before unitStats!
@@ -37,7 +37,7 @@ public class FakePlayer : IBattleUnit
         unitStats = new FakePlayerStats(this);
         actionHandler = new FakePlayerActionHandler(this);
         isPremium = _isPremium;
-        avatar = _avatar ?? Emojis.AvatarMale;
+        avatarId = _avatarId ?? AvatarId.Male_00;
     }
 
     private byte GetPlayerTownhallLevel(byte playerLevel)
@@ -59,7 +59,7 @@ public class FakePlayer : IBattleUnit
     public string GetGeneralUnitInfoView(GameSession sessionToSend)
     {
         return new StringBuilder()
-            .AppendLine(Emojis.AvatarMale + nickname.Bold() + (isPremium ? Emojis.StatPremium : Emojis.Empty))
+            .AppendLine(avatarId.GetEmoji() + nickname.Bold() + (isPremium ? Emojis.StatPremium : Emojis.Empty))
             .AppendLine(Localization.Get(sessionToSend, "unit_view_level", level))
             .ToString();
     }

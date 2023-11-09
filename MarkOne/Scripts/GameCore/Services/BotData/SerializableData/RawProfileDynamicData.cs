@@ -14,6 +14,7 @@ public class RawProfileDynamicData : RawDynamicData<ProfileDynamicData>
     public string lastGeneratedItemTypes { get; set; } = "[]";
     public string? arenaProgress { get; set; } = null;
     public string offers { get; set; } = "[]";
+    public string avatars { get; set; } = "[]";
 
     public override void Fill(ProfileDynamicData data)
     {
@@ -24,6 +25,7 @@ public class RawProfileDynamicData : RawDynamicData<ProfileDynamicData>
         lastGeneratedItemTypes = JsonConvert.SerializeObject(data.lastGeneratedItemTypes);
         arenaProgress = JsonConvert.SerializeObject(data.arenaProgress);
         offers = JsonConvert.SerializeObject(data.offers);
+        avatars = JsonConvert.SerializeObject(data.avatars);
     }
 
 }

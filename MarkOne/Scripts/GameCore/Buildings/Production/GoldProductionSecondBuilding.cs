@@ -9,8 +9,8 @@ public class GoldProductionSecondBuilding : ProductionBuildingBase
 {
     public override ResourceId resourceId => ResourceId.Gold;
     public override BuildingId buildingId => BuildingId.GoldProductionSecond;
-    public override Avatar firstWorkerIcon => Avatar.Male;
-    public override Avatar secondWorkerIcon => Avatar.MaleD;
+    public override AvatarId firstWorkerIcon => AvatarId.Male_00;
+    public override AvatarId secondWorkerIcon => AvatarId.Male_03;
 
     public override byte GetCurrentLevel(ProfileBuildingsData data)
     {

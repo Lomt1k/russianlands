@@ -8,6 +8,7 @@ namespace MarkOne.Scripts.GameCore.Units;
 
 public interface IBattleUnit
 {
+    public AvatarId? avatarId { get; }
     public string nickname { get; }
     public UnitStats unitStats { get; }
     public IBattleActionHandler actionHandler { get; }

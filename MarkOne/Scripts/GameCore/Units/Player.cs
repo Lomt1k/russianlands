@@ -36,6 +36,7 @@ public class Player : IBattleUnit
     public Profile profile => session.profile;
     public PlayerInventory inventory => profile.dynamicData.inventory;
     public List<PotionItem> potions => profile.dynamicData.potions;
+    public AvatarId? avatarId => profile.data.avatarId;
     public string nickname => profile.data.nickname;
     public byte level => profile.data.level;
     public long dbid => profile.data.dbid;
@@ -56,7 +57,7 @@ public class Player : IBattleUnit
     {
         var isPremium = session.profile.data.IsPremiumActive();
         return new StringBuilder()
-            .AppendLine(Emojis.AvatarMale + nickname.Bold() + (isPremium ? Emojis.StatPremium : Emojis.Empty))
+            .AppendLine(avatarId.GetEmoji() + nickname.Bold() + (isPremium ? Emojis.StatPremium : Emojis.Empty))
             .AppendLine(Localization.Get(sessionToSend, "unit_view_level", level))
             .ToString();
     }

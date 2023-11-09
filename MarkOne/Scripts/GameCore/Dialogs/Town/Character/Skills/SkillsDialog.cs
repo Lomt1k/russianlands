@@ -10,6 +10,7 @@ using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Resources;
 using MarkOne.Scripts.GameCore.Sessions;
 using MarkOne.Scripts.GameCore.Skills;
+using MarkOne.Scripts.GameCore.Units;
 
 namespace MarkOne.Scripts.GameCore.Dialogs.Town.Character.Skills;
 
@@ -50,7 +51,7 @@ internal class SkillsDialog : DialogBase
 
         ClearButtons();
         RegisterSkillButtons();
-        RegisterBackButton(Localization.Get(session, "menu_item_character") + Emojis.AvatarMale,
+        RegisterBackButton(Localization.Get(session, "menu_item_character") + session.player.avatarId.GetEmoji(),
             () => new CharacterDialog(session).Start());
         RegisterTownButton(isDoubleBack: true);
 

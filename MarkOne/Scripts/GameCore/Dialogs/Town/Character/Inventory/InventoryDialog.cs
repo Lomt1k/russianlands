@@ -3,6 +3,7 @@ using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.Bot.Dialogs.Town.Character.Inventory;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Sessions;
+using MarkOne.Scripts.GameCore.Units;
 
 namespace MarkOne.Scripts.GameCore.Dialogs.Town.Character.Inventory;
 
@@ -14,7 +15,7 @@ public class InventoryDialog : DialogWithPanel
     public InventoryDialog(GameSession _session) : base(_session)
     {
         _inspectorPanel = new InventoryInspectorDialogPanel(this);
-        RegisterBackButton(Localization.Get(session, "menu_item_character") + Emojis.AvatarMale,
+        RegisterBackButton(Localization.Get(session, "menu_item_character") + session.player.avatarId.GetEmoji(),
             () => new CharacterDialog(session).Start());
         RegisterTownButton(isDoubleBack: true);
     }

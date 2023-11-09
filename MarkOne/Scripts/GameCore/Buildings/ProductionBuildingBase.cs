@@ -13,8 +13,8 @@ namespace MarkOne.Scripts.GameCore.Buildings;
 public abstract class ProductionBuildingBase : BuildingBase
 {
     public abstract ResourceId resourceId { get; }
-    public abstract Avatar firstWorkerIcon { get; }
-    public abstract Avatar secondWorkerIcon { get; }
+    public abstract AvatarId firstWorkerIcon { get; }
+    public abstract AvatarId secondWorkerIcon { get; }
 
     public string resourcePrefix;
 

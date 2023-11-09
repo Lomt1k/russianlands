@@ -6,6 +6,7 @@ using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Resources;
 using MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
 using MarkOne.Scripts.GameCore.Sessions;
+using MarkOne.Scripts.GameCore.Units;
 using MarkOne.Scripts.GameCore.Units.Stats;
 
 namespace MarkOne.Scripts.GameCore.Buildings.Training;
@@ -46,7 +47,7 @@ public class WarriorTrainingBuilding : TrainingBuildingBase
 
     public override string GetUnitIcon(ProfileBuildingsData data, sbyte unitIndex)
     {
-        return Emojis.AvatarMale.ToString();
+        return data.session.player.avatarId.GetEmoji().ToString();
     }
 
     public override byte GetUnitLevel(ProfileBuildingsData data, sbyte unitIndex)

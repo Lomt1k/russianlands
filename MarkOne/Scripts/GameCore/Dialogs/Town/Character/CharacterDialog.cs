@@ -8,6 +8,7 @@ using MarkOne.Scripts.GameCore.Dialogs.Town.Character.Potions;
 using MarkOne.Scripts.GameCore.Dialogs.Town.Character.Skills;
 using MarkOne.Scripts.GameCore.Localizations;
 using MarkOne.Scripts.GameCore.Sessions;
+using MarkOne.Scripts.GameCore.Units;
 
 namespace MarkOne.Scripts.GameCore.Dialogs.Town.Character;
 
@@ -31,7 +32,7 @@ public class CharacterDialog : DialogBase
         var skillsEmoji = IsSkillsDialogAvailable() ? Emojis.ButtonSkills : Emojis.ElementLocked;
         RegisterButton(skillsEmoji + Localization.Get(session, "menu_item_skills"), TryShowSkillsDialog);
 
-        RegisterButton(Emojis.AvatarMale + Localization.Get(session, "menu_item_avatar"), 
+        RegisterButton(Emojis.ButtonAvatar + Localization.Get(session, "menu_item_avatar"), 
             () => new Avatars.AvatarsDialog(session).Start());
         RegisterButton(Emojis.ButtonNameChange + Localization.Get(session, "menu_item_namechange"),
             () => new EnterNameDialog(session).Start());

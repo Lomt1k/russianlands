@@ -15,7 +15,7 @@ public class Mob : IBattleUnit
     public UnitStats unitStats { get; }
     public IBattleActionHandler actionHandler { get; }
     public IMobData mobData { get; }
-
+    public AvatarId? avatarId => null;
     public string nickname => Localization.Get(session, mobData.localizationKey);
 
     public Mob(GameSession _session, IMobData _data)

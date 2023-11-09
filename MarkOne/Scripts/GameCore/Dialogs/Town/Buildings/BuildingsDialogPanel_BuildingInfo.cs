@@ -287,7 +287,7 @@ public partial class BuildingsDialogPanel : DialogPanelBase
 
         for (var i = 0; i < constructions.Length; i++)
         {
-            var charIcon = i % 2 == 0 ? Avatar.BuilderA : Avatar.BuilderB;
+            var charIcon = i % 2 == 0 ? AvatarId.BuilderA : AvatarId.BuilderB;
             sb.Append(charIcon.GetEmoji() + Localization.Get(session, $"dialog_buildings_worker_{i}_name").Bold());
 
             var buildingName = constructions[i].GetLocalizedName(session, data);

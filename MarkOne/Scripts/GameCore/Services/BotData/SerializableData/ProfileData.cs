@@ -5,6 +5,7 @@ using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Services.BotData.SerializableData.DataTypes;
 using FastTelegramBot.DataTypes;
 using MarkOne.Scripts.GameCore.Arena;
+using MarkOne.Scripts.GameCore.Units;
 
 namespace MarkOne.Scripts.GameCore.Services.BotData.SerializableData;
 
@@ -42,6 +43,7 @@ public class ProfileData : DataWithSession
     public DateTime lastDailyBonusReceivedTime { get; set; }
     public byte lastReferralBonusId { get; set; }
     public short totalReferralsCount { get; set; } = -1;
+    public AvatarId avatarId { get; set; } = AvatarId.Male_00;
 
 
     // resources

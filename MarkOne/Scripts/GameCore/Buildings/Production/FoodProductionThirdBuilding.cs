@@ -9,8 +9,8 @@ public class FoodProductionThirdBuilding : ProductionBuildingBase
 {
     public override ResourceId resourceId => ResourceId.Food;
     public override BuildingId buildingId => BuildingId.FoodProductionThird;
-    public override Avatar firstWorkerIcon => Avatar.FemaleD;
-    public override Avatar secondWorkerIcon => Avatar.MaleD;
+    public override AvatarId firstWorkerIcon => AvatarId.Female_03;
+    public override AvatarId secondWorkerIcon => AvatarId.Male_03;
 
     public override byte GetCurrentLevel(ProfileBuildingsData data)
     {
