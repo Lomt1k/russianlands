@@ -29,10 +29,11 @@ public static class CommandHandler
             { "/win", new Cheats.WinCommand() },
             { "/lose", new Cheats.LoseCommand() },
             { "/draw", new Cheats.DrawCommand() },
-            { "/status", new Admin.StatusCommand() },
+            { "/emoji", new Cheats.EmojiCommand() },
+            
 
             // admin commands
-            // --- empty for now
+            { "/status", new Admin.StatusCommand() },
         };
     }
 

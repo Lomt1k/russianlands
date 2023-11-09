@@ -12,7 +12,7 @@ public class StatusCommand : CommandBase
     private static readonly SessionManager sessionManager = ServiceLocator.Get<SessionManager>();
     private static readonly PerformanceManager pm = ServiceLocator.Get<PerformanceManager>();
 
-    public override CommandGroup commandGroup => CommandGroup.Cheat;
+    public override CommandGroup commandGroup => CommandGroup.Admin;
 
     public override async Task Execute(GameSession session, string[] args)
     {
