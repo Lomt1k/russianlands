@@ -5,27 +5,28 @@ namespace MarkOne.Scripts.GameCore.Units;
 public enum AvatarId : ushort
 {
     Male_00 = 0,
-    Male_01,
-    Male_02,
-    Male_03,
-    Male_04,
-    Male_05,
-    Male_06,
-    Male_07,
-    Male_08,
+    Male_01 = 1,
+    Male_02 = 2,
+    Male_03 = 3,
+    Male_04 = 4,
+    Male_05 = 5,
+    Male_06 = 6,
+    Male_07 = 7,
+    Male_08 = 8,
 
-    Female_00,
-    Female_01,
-    Female_02,
-    Female_03,
-    Female_04,
-    Female_05,
-    Female_06,
-    Female_07,
-    Female_08,
+    Female_00 = 9,
+    Female_01 = 10,
+    Female_02 = 11,
+    Female_03 = 12,
+    Female_04 = 13,
+    Female_05 = 14,
+    Female_06 = 15,
+    Female_07 = 16,
+    Female_08 = 17,
 
-    BuilderA,
-    BuilderB,
+    BuilderA = 18,
+    BuilderB = 19,
+    SmirkCat = 20,
 }
 
 public static class Avatars
@@ -64,6 +65,7 @@ public static class Avatars
 
             AvatarId.BuilderA => Emojis.AvatarBuilderA,
             AvatarId.BuilderB => Emojis.AvatarBuilderB,
+            AvatarId.SmirkCat => Emojis.AvatarSmirkCat,
 
             _ => Emojis.AvatarAbstract
         };

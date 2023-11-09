@@ -446,6 +446,7 @@
 	"reward_random_fruit" : "<b>Random fruit</b>",
 	"reward_random_fruits" : "<b>Random fruits:</b> {0}",
 	"reward_list_header" : "<code>List of awards:</code>",
+	"reward_avatar" : "<b>Unique avatar</b>",
 	
 	"item_rarity_common" : "Common",
 	"item_rarity_rare" : "Rare",

@@ -4,8 +4,8 @@
     "rewards": [
       {
         "$type": "ResourceReward",
-        "resourceId": 0,
-        "amount": 555,
+        "resourceId": 2,
+        "amount": 300,
         "forceAdd": true
       }
     ]
@@ -15,8 +15,8 @@
     "rewards": [
       {
         "$type": "ResourceReward",
-        "resourceId": 0,
-        "amount": 555,
+        "resourceId": 23,
+        "amount": 5,
         "forceAdd": true
       }
     ]
@@ -25,10 +25,8 @@
     "id": 3,
     "rewards": [
       {
-        "$type": "ResourceReward",
-        "resourceId": 0,
-        "amount": 555,
-        "forceAdd": true
+        "$type": "PremiumReward",
+        "seconds": 1209600
       }
     ]
   },
@@ -37,8 +35,8 @@
     "rewards": [
       {
         "$type": "ResourceReward",
-        "resourceId": 0,
-        "amount": 555,
+        "resourceId": 2,
+        "amount": 500,
         "forceAdd": true
       }
     ]
@@ -47,10 +45,8 @@
     "id": 5,
     "rewards": [
       {
-        "$type": "ResourceReward",
-        "resourceId": 0,
-        "amount": 555,
-        "forceAdd": true
+        "$type": "RandomFruitsReward",
+        "amount": 25
       }
     ]
   },
@@ -58,10 +54,8 @@
     "id": 6,
     "rewards": [
       {
-        "$type": "ResourceReward",
-        "resourceId": 0,
-        "amount": 555,
-        "forceAdd": true
+        "$type": "PremiumReward",
+        "seconds": 1209600
       }
     ]
   },
@@ -69,10 +63,8 @@
     "id": 7,
     "rewards": [
       {
-        "$type": "ResourceReward",
-        "resourceId": 0,
-        "amount": 555,
-        "forceAdd": true
+        "$type": "AvatarReward",
+        "avatarId": 20
       }
     ]
   }
