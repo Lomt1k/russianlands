@@ -89,7 +89,7 @@ public class ReferralSystemDialog : DialogBase
 
     public static bool HasNew(GameSession session)
     {
-        return session.profile.data.totalReferralsCount == -1;
+        return IsEventAvailable(session) && session.profile.data.totalReferralsCount == -1;
     }
 
     public static void MarkAsViewed(GameSession session)
