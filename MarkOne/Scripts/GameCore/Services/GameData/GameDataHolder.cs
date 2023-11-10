@@ -13,6 +13,7 @@ using MarkOne.Scripts.GameCore.Quests;
 using MarkOne.Scripts.GameCore.ReferralSystem;
 using MarkOne.Scripts.GameCore.Shop;
 using MarkOne.Scripts.GameCore.Shop.Offers;
+using MarkOne.Scripts.GameCore.Units;
 using MarkOne.Scripts.GameCore.Units.Mobs;
 
 namespace MarkOne.Scripts.GameCore.Services.GameData;
@@ -36,7 +37,7 @@ public class GameDataHolder : Service
     public GameDataDictionary<byte, DailyBonusData> dailyBonuses { get; private set; }
     public GameDataDictionary<byte, ReferralBonusData> referralBonuses { get; private set; }
     public GameDataDictionary<int, OfferData> offers { get; private set; }
-    public IReadOnlyList<string> botnames { get; private set; }
+    public GameDataDictionary<int, FakePlayerGenerationData> fakePlayers { get; private set; }
 
     // cache
     public Dictionary<string, ShopItemBase> shopItemsCache { get; private set; } = new();
@@ -72,12 +73,12 @@ public class GameDataHolder : Service
         dailyBonuses = LoadGameDataDictionary<byte, DailyBonusData>("dailyBonuses");
         referralBonuses = LoadGameDataDictionary<byte, ReferralBonusData>("referralBonuses");
         offers = LoadGameDataDictionary<int, OfferData>("offers");
+        fakePlayers = LoadGameDataDictionary<int, FakePlayerGenerationData>("fakePlayers");
 
         RefreshShopItemsCache();
         offersOrderedByPriority = offers.GetAllData().OrderByDescending(x => x.priority).ToArray();
 
         Localizations.Localization.LoadAll(gameDataPath);
-        botnames = File.ReadAllLines(Path.Combine(gameDataPath, "botnames.txt"));
 
         Console.WriteLine("Game data loaded");
         onDataReloaded?.Invoke();
@@ -173,6 +174,7 @@ public class GameDataHolder : Service
         dailyBonuses.Save();
         referralBonuses.Save();
         offers.Save();
+        fakePlayers.Save();
     }
 
 }

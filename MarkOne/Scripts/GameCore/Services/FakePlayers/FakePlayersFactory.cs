@@ -22,9 +22,11 @@ public sealed class FakePlayersFactory : Service
         var playerLevel = GeneratePlayerLevel(random, settings);
         var items = GeneratePlayerItems(random, settings, playerLevel);
         var skills = GeneratePlayerSkillls(random, settings);
-        var nickname = GenerateRandomName(random);
+        var fakePlayerData = GetRandomPlayerGenerationData(random);
+        var nickname = fakePlayerData.nickname;
+        var avatarId = GenerateRandomAvatar(random, fakePlayerData);
         var isPremium = Randomizer.TryPercentage(premiumPercentageChance);
-        return new FakePlayer(items, skills, playerLevel, nickname, isPremium);
+        return new FakePlayer(items, skills, playerLevel, nickname, isPremium, avatarId);
     }
 
     private byte GeneratePlayerLevel(Random random, FakePlayerGenerationSettings settings)
@@ -67,10 +69,18 @@ public sealed class FakePlayersFactory : Service
         return skills;
     }
 
-    private string GenerateRandomName(Random random)
+    private FakePlayerGenerationData GetRandomPlayerGenerationData(Random random)
     {
-        var botnames = gameDataHolder.botnames;
-        return botnames[random.Next(botnames.Count)];
+        var datas = gameDataHolder.fakePlayers;
+        return datas[random.Next(datas.count)];
+    }
+
+    private AvatarId GenerateRandomAvatar(Random random, FakePlayerGenerationData data)
+    {
+        var avatarsArray = data.isFemale
+            ? Avatars.fakeFemaleAvatars
+            : Avatars.fakeMaleAvatars;
+        return avatarsArray[random.Next(avatarsArray.Length)];
     }
 
 }

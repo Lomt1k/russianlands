@@ -94,4 +94,30 @@ public static class Avatars
         AvatarId.Female_08,
     };
 
+    public static readonly AvatarId[] fakeMaleAvatars = new AvatarId[]
+    {
+        AvatarId.Male_00,
+        AvatarId.Male_01,
+        AvatarId.Male_02,
+        AvatarId.Male_03,
+        AvatarId.Male_04,
+        AvatarId.Male_05,
+        AvatarId.Male_06,
+        AvatarId.Male_07,
+        AvatarId.Male_08,
+    };
+
+    public static readonly AvatarId[] fakeFemaleAvatars = new AvatarId[]
+    {
+        AvatarId.Female_00,
+        AvatarId.Female_01,
+        AvatarId.Female_02,
+        AvatarId.Female_03,
+        AvatarId.Female_04,
+        AvatarId.Female_05,
+        AvatarId.Female_06,
+        AvatarId.Female_07,
+        AvatarId.Female_08,
+    };
+
 }
