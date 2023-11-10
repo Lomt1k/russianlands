@@ -3146,8 +3146,8 @@
         "manaCost": 0,
         "minPhysicalDamage": 0,
         "maxPhysicalDamage": 0,
-        "minFireDamage": 250,
-        "maxFireDamage": 285,
+        "minFireDamage": 285,
+        "maxFireDamage": 320,
         "minColdDamage": 0,
         "maxColdDamage": 0,
         "minLightningDamage": 0,
@@ -3160,8 +3160,8 @@
         "maxPhysicalDamage": 0,
         "minFireDamage": 0,
         "maxFireDamage": 0,
-        "minColdDamage": 250,
-        "maxColdDamage": 285,
+        "minColdDamage": 285,
+        "maxColdDamage": 320,
         "minLightningDamage": 0,
         "maxLightningDamage": 0
       },
@@ -3174,8 +3174,8 @@
         "maxFireDamage": 0,
         "minColdDamage": 0,
         "maxColdDamage": 0,
-        "minLightningDamage": 320,
-        "maxLightningDamage": 340
+        "minLightningDamage": 340,
+        "maxLightningDamage": 365
       }
     ]
   },
@@ -4232,7 +4232,7 @@
     "localizationKey": "character_commissioner_name",
     "statsSettings": {
       "level": 28,
-      "health": 2800,
+      "health": 3200,
       "physicalResist": 300,
       "fireResist": 400,
       "coldResist": 400,
@@ -4244,24 +4244,24 @@
         "manaCost": 0,
         "minPhysicalDamage": 0,
         "maxPhysicalDamage": 0,
-        "minFireDamage": 200,
-        "maxFireDamage": 220,
-        "minColdDamage": 200,
-        "maxColdDamage": 220,
-        "minLightningDamage": 200,
-        "maxLightningDamage": 220
+        "minFireDamage": 260,
+        "maxFireDamage": 290,
+        "minColdDamage": 260,
+        "maxColdDamage": 290,
+        "minLightningDamage": 260,
+        "maxLightningDamage": 290
       },
       {
         "localizationKey": "battle_action_mob_strong_attack",
-        "manaCost": 3,
+        "manaCost": 2,
         "minPhysicalDamage": 0,
         "maxPhysicalDamage": 0,
-        "minFireDamage": 280,
-        "maxFireDamage": 300,
-        "minColdDamage": 280,
-        "maxColdDamage": 300,
-        "minLightningDamage": 280,
-        "maxLightningDamage": 300
+        "minFireDamage": 350,
+        "maxFireDamage": 380,
+        "minColdDamage": 350,
+        "maxColdDamage": 380,
+        "minLightningDamage": 350,
+        "maxLightningDamage": 380
       }
     ]
   },
