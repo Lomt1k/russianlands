@@ -180,7 +180,7 @@ internal static class StatDataBase
         var date = maxDate;
         for (var i = 0; i < daysCount; i++)
         {
-            var revenue = allData.Sum(x => x.revenueRUB);
+            var revenue = allData.Where(x => x.date == date).Sum(x => x.revenueRUB);
             table.Add(new List<string>() { date.ToLongDateString(), $"RUB {revenue}" });
             date = date.AddDays(-1);
         }
