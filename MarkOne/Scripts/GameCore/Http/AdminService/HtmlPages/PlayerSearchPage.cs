@@ -207,7 +207,8 @@ internal class PlayerSearchPage : IHtmlPage
         headers.Add("th", "First Name", new HProp("align", "left"));
         headers.Add("th", "Last Name", new HProp("align", "left"));
         headers.Add("th", "Username", new HProp("align", "left"));
-        headers.Add("th", "Last Active", new HProp("align", "left"));
+        headers.Add("th", "RegDate", new HProp("align", "left"));
+        headers.Add("th", "RegInfo", new HProp("align", "left"));
         headers.Add("th", "&nbsp;");
 
         foreach ( var profileData in profileDatas )
@@ -219,7 +220,8 @@ internal class PlayerSearchPage : IHtmlPage
             row.Add("td", profileData.firstName);
             row.Add("td", profileData.lastName ?? string.Empty);
             row.Add("td", profileData.username ?? string.Empty);
-            row.Add("td", profileData.lastActivityTime.ToShortDateString());
+            row.Add("td", profileData.regDate.ToShortDateString());
+            row.Add("td", profileData.regInfo);
             row.Add("td").Add(HtmlHelper.CreateLinkButton("View", $"{localPath}?page={page}&telegramId={profileData.telegram_id}"
                 + (showActivePlayers ? "&showActivePlayers=" : string.Empty), size: 14));
         }
@@ -302,6 +304,7 @@ internal class PlayerSearchPage : IHtmlPage
 
                 CreateTableRow("Registration Date", profileData.regDate.AsDateString()),
                 CreateTableRow("Registration Version", profileData.regVersion),
+                CreateTableRow("Registration Info", profileData.regInfo),
                 CreateTableRow("Last Version", profileData.lastVersion),
                 CreateTableRow("Last Activity Time", profileData.lastActivityTime.AsDateString()),
 
