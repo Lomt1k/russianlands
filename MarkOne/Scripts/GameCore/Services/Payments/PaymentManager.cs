@@ -54,7 +54,7 @@ public class PaymentManager : Service
         {
             return paymentData;
         }
-        return await TryCreatePayment(session, rubblePrice, vendorCode, comment).FastAwait();
+        return await TryCreatePayment(session, rubblePrice, vendorCode, comment, expireDate).FastAwait();
     }
 
     private async Task<PaymentData?> TryCreatePayment(GameSession session, double rubblePrice, string vendorCode, string comment, DateTime? expireDate = null)

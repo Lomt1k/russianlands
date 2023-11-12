@@ -31,6 +31,7 @@ internal class LavaPaymentProvider : IPaymentProvider
             var hookSignature = GetSignature(new Random().Next(1_000_000_000).ToString(), settings.secondaryKey);
             var hookUrl = $"{defaultWebHookPath}?signature={hookSignature}";
 
+            var expireTimeInMinutes = (paymentData.expireDate - DateTime.UtcNow).TotalMinutes;
             var jsonBuilder = new StringBuilder();
             using (var textWriter = new StringWriter(jsonBuilder))
             {
@@ -44,7 +45,7 @@ internal class LavaPaymentProvider : IPaymentProvider
                 jsonWriter.WritePropertyName("orderId");
                 jsonWriter.WriteValue(paymentData.orderId);
                 jsonWriter.WritePropertyName("expire");
-                jsonWriter.WriteValue(settings.expireTimeInMinutes);
+                jsonWriter.WriteValue(expireTimeInMinutes);
                 jsonWriter.WritePropertyName("customFields");
                 jsonWriter.WriteValue(paymentData.vendorCode);
                 jsonWriter.WritePropertyName("comment");
