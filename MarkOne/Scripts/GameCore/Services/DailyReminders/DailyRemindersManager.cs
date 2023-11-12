@@ -172,7 +172,7 @@ public class DailyRemindersManager : Service
             await messageSender.SendTextDialog(reminderData.userId, text, keyboard, cancellationToken: cancellationToken).FastAwait();
             if (_isLogRequired)
             {
-                Program.logger.Info($"Daily notification #{notificationIndex} sended for {reminderData.userId}");
+                Program.logger.Info($"Daily notification #{notificationIndex} sended for (ID {reminderData.userId})");
             }
 
             // schedule next reminder
