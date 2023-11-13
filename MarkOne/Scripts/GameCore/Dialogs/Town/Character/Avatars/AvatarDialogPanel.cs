@@ -14,7 +14,7 @@ public class AvatarDialogPanel : DialogPanelBase
         ClearButtons();
         RegisterAvailableAvatars();
         var text = Localization.Get(session, "dialog_avatars_description");
-        await SendPanelMessage(text, GetKeyboardWithFixedRowSize(5)).FastAwait();
+        await SendPanelMessage(text, GetKeyboardWithFixedRowSize(6)).FastAwait();
     }
 
     private void RegisterAvailableAvatars()
