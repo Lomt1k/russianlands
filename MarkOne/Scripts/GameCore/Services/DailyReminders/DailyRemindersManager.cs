@@ -36,38 +36,9 @@ public class DailyRemindersManager : Service
         // Второе уведомление
         new ReminderNoticifationSettings()
         {
-            hoursDelay = 10,
+            hoursDelay = 24,
             messageCreators = new IDailyReminderMessageCreator[]
             {
-                DefaultDailyReminderMessageCreator.Instance,
-            }
-        },
-        // Третье уведомление
-        new ReminderNoticifationSettings()
-        {
-            hoursDelay = 14,
-            messageCreators = new IDailyReminderMessageCreator[]
-            {
-                DailyBonusReminderMessageCreator.Instance,
-                DefaultDailyReminderMessageCreator.Instance,
-            }
-        },
-        // Четвёртое уведомление
-        new ReminderNoticifationSettings()
-        {
-            hoursDelay = 10,
-            messageCreators = new IDailyReminderMessageCreator[]
-            {
-                DefaultDailyReminderMessageCreator.Instance,
-            }
-        },
-        // Пятое уведомление
-        new ReminderNoticifationSettings()
-        {
-            hoursDelay = 14,
-            messageCreators = new IDailyReminderMessageCreator[]
-            {
-                DailyBonusReminderMessageCreator.Instance,
                 DefaultDailyReminderMessageCreator.Instance,
             }
         },
