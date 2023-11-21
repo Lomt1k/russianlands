@@ -9,13 +9,13 @@
 	"daily_reminder_variant_4" : "Говорят, что Илья Муромец 33 года провёл на печи. Но столько ждать необязательно! Возвращайтесь в игру, богатырь!",
 	"daily_reminder_variant_5" : "Дорога приключений ждёт вас! Готовы ли вы к новым подвигам?",
 	
-	"daily_reminder_reward_available_variant_1" : "<b>Тебя ждёт награда<b>\nЗабери её!",
-	"daily_reminder_reward_available_variant_2" : "<b>Доступна бесплатная награда</b>\nЗайди в игру, чтобы получить её!",
-	"daily_reminder_reward_available_variant_3" : "<b>У вас новая награда</b>\nПолучить её можно в городе.",
+	"daily_reminder_reward_available_variant_1" : "<b>Вас ждёт награда</b>\nЗайдите в игру, чтобы получить её!",
+	"daily_reminder_reward_available_variant_2" : "<b>Доступна бесплатная награда</b>\nЗабери её!",
+	"daily_reminder_reward_available_variant_3" : "<b>У тебя новая награда</b>\nПолучить её можно в городе.",
 	
-	"daily_reminder_reward_available_after_turor_variant_1" : "<b>Тебя ждёт награда</b>\nЗаверши обучение, чтобы получить её!",
-	"daily_reminder_reward_available_after_turor_variant_2" : "<b>Тяжело в учении - легко в бою!</b>\nЗавершите обучение и получите дополнительную награду.",
-	"daily_reminder_reward_available_after_turor_variant_3" : "<b>У вас новая награда</b>\nПолучить её можно после прохождения обучения.",
+	"daily_reminder_reward_available_after_turor_variant_1" : "<b>Вас ждёт награда/b>\nЗавершите обучение, чтобы получить её!",
+	"daily_reminder_reward_available_after_turor_variant_2" : "<b>Тяжело в учении - легко в бою!</b>\nЗавершите обучение и получите награду.",
+	"daily_reminder_reward_available_after_turor_variant_3" : "<b>У тебя новая награда</b>\nПолучить её можно после прохождения обучения.",
 	
 	"dialog_tooltip_header" : "<b>Обучение:</b>",
 	"dialog_tooltip_press_button" : "Нажмите на кнопку: <b>{0}</b>",
