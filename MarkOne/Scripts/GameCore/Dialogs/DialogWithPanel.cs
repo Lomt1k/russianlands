@@ -20,7 +20,7 @@ public abstract class DialogWithPanel : DialogBase
 
     public virtual async Task HandleCallbackQuery(string queryId, DialogPanelButtonCallbackData callback)
     {
-        await DialogPanel.HandleButtonPress(callback.buttonId, queryId).FastAwait();
+        await DialogPanel.HandleButtonPress(callback, queryId).FastAwait();
     }
 
     public override void OnClose()

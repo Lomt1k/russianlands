@@ -145,25 +145,34 @@ public class GameSession
         switch (callbackData)
         {
             case DialogPanelButtonCallbackData dialogPanelButtonCallback:
-                if (dialogPanelButtonCallback.sessionTime != startTime.Ticks)
-                {
-                    return;
-                }
                 if (currentDialog != null && currentDialog is DialogWithPanel dialogWithPanel)
                 {
                     await dialogWithPanel.HandleCallbackQuery(query.Id, dialogPanelButtonCallback).FastAwait();
+                    return;
                 }
+                await AnswerInvalidQueryAsync(query.Id).FastAwait();
                 return;
 
             case BattleTooltipCallbackData battleTooltipCallback:
                 if (player == null)
+                {
+                    await AnswerInvalidQueryAsync(query.Id).FastAwait();
                     return;
+                }
                 var currentBattle = battleManager.GetCurrentBattle(player);
                 if (currentBattle == null)
+                {
+                    await AnswerInvalidQueryAsync(query.Id).FastAwait();
                     return;
+                }
                 await currentBattle.HandleBattleTooltipCallback(player, query.Id, battleTooltipCallback).FastAwait();
                 return;
         }
+    }
+
+    private async Task AnswerInvalidQueryAsync(string queryId)
+    {
+        await messageSender.AnswerQuery(queryId, Localization.Get(this, "invalid_query_answer")).FastAwait();
     }
 
     private async Task OnStartNewSession(Update update)
