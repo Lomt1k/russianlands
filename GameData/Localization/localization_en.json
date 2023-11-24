@@ -2,6 +2,7 @@
 	"maintenance_message" : "<b>Maintenance</b>\n\nMaintenance work in progress. Please try restarting the game later...",
 	"restart_button" : "Restart",
 	"invalid_query_answer" : "The button is not available: this message is outdated...",
+	"handle_update_timeout_error" : "An error occurred while trying to process your request. Send any message and the game will restart. Your progress is saved.",
 	
 	"daily_reminder_variant_0" : "Hero! We need you! Get back to work soon!",
 	"daily_reminder_variant_1" : "New enemies have been discovered on the map! Equip your best weapons and fight them!",

@@ -149,7 +149,7 @@ public class SessionManager : Service
 
     private async Task SendMaintenanceNotifications(GameSession[] lastActivePlayers)
     {
-        if (!BotController.config.performanceSettings.sendMaintenanceNotificationsOnStop)
+        if (!BotController.config.performanceSettings.sendMaintenanceOnStop)
             return;
 
         Program.logger.Info("Sending notifications for active players...");

@@ -60,8 +60,9 @@ public class BotConfig
         public int responceMsDelayWhenCpuHighload = 500;
         public int appRamUsageLimitInMegabytes = 0;
         public int totalRamUsageLimitInPercents = 95;
-        public bool sendMaintenanceNotificationsOnStop = true;
+        public bool sendMaintenanceOnStop = true;
         public int secondsLimitForSendMaintenance = 30;
+        public int handleUpdateTimeoutInSeconds = 120;
     }
 
     [JsonObject]
