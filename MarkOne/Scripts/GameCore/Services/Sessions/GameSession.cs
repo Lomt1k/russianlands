@@ -172,7 +172,7 @@ public class GameSession
 
     private async Task AnswerInvalidQueryAsync(string queryId)
     {
-        await messageSender.AnswerQuery(queryId, Localization.Get(this, "invalid_query_answer")).FastAwait();
+        await messageSender.AnswerQuery(queryId, Localization.Get(this, "invalid_query_answer"), cancellationToken).FastAwait();
     }
 
     private async Task OnStartNewSession(Update update)
