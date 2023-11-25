@@ -26,7 +26,8 @@ public class GameSession
     private static readonly MessageSender messageSender = ServiceLocator.Get<MessageSender>();
 
     private bool _isHandlingUpdate;
-    private readonly CancellationTokenSource _sessionTasksCTS = new CancellationTokenSource();
+    private readonly CancellationTokenSource _sessionTasksCTS = new();
+    private CancellationTokenSource _handleUpdateTimeoutCTS = new();
 
     public ChatId chatId { get; }
     public ChatId? fakeChatId { get; }
@@ -85,9 +86,14 @@ public class GameSession
             var previousActivity = lastActivityTime;
             lastActivityTime = DateTime.UtcNow;
             actualUser = refreshedUser;
+
+            _handleUpdateTimeoutCTS = new();
+            Task.Run(() => HandleUpdateTimeout(_handleUpdateTimeoutCTS.Token));
+
             if (profile == null)
             {
                 await OnStartNewSession(update).FastAwait();
+                _handleUpdateTimeoutCTS.Cancel();
                 _isHandlingUpdate = false;
                 return;
             }
@@ -114,11 +120,29 @@ public class GameSession
         {
             await sessionExceptionHandler.HandleException(refreshedUser, ex);
         }
+
+        _handleUpdateTimeoutCTS.Cancel();
         _isHandlingUpdate = false;
     }
 
+    /* Есть предположение, что иногда виснет _isHandlingUpdate == true, из-за чего апдейты юзера перестают обрабатываться.
+     * Этот таймаут должен починить игру не дожидаясь обычного таймаута сессии
+     */
+    private async Task HandleUpdateTimeout(CancellationToken cancellationToken)
+    {
+        await Task.Delay(BotController.config.performanceSettings.handleUpdateTimeoutInSeconds * 1000, CancellationToken.None).FastAwait();
+        if (cancellationToken.IsCancellationRequested || this.cancellationToken.IsCancellationRequested)
+        {
+            return;
+        }
 
-    public async Task HandleMessageAsync(Message message)
+        Program.logger.Error($"Catched handle update timeout for {actualUser}");
+        await sessionManager.CloseSession(actualUser.Id, true, "HANDLE UPDATE TIMEOUT").FastAwait();
+        var text = Localization.Get(language, "handle_update_timeout_error");
+        Task.Run(() => messageSender.SendErrorMessage(actualUser.Id, text));
+    }
+
+    private async Task HandleMessageAsync(Message message)
     {
         if (BotController.config.logSettings.logUpdates && message.Text != null)
         {
@@ -136,7 +160,7 @@ public class GameSession
         }
     }
 
-    public async Task HandleQueryAsync(CallbackQuery query)
+    private async Task HandleQueryAsync(CallbackQuery query)
     {
         if (query == null || query.Data == null)
             return;
@@ -145,25 +169,34 @@ public class GameSession
         switch (callbackData)
         {
             case DialogPanelButtonCallbackData dialogPanelButtonCallback:
-                if (dialogPanelButtonCallback.sessionTime != startTime.Ticks)
-                {
-                    return;
-                }
                 if (currentDialog != null && currentDialog is DialogWithPanel dialogWithPanel)
                 {
                     await dialogWithPanel.HandleCallbackQuery(query.Id, dialogPanelButtonCallback).FastAwait();
+                    return;
                 }
+                await AnswerInvalidQueryAsync(query.Id).FastAwait();
                 return;
 
             case BattleTooltipCallbackData battleTooltipCallback:
                 if (player == null)
+                {
+                    await AnswerInvalidQueryAsync(query.Id).FastAwait();
                     return;
+                }
                 var currentBattle = battleManager.GetCurrentBattle(player);
                 if (currentBattle == null)
+                {
+                    await AnswerInvalidQueryAsync(query.Id).FastAwait();
                     return;
+                }
                 await currentBattle.HandleBattleTooltipCallback(player, query.Id, battleTooltipCallback).FastAwait();
                 return;
         }
+    }
+
+    private async Task AnswerInvalidQueryAsync(string queryId)
+    {
+        await messageSender.AnswerQuery(queryId, Localization.Get(this, "invalid_query_answer"), cancellationToken).FastAwait();
     }
 
     private async Task OnStartNewSession(Update update)

@@ -14,7 +14,6 @@ using MarkOne.Scripts.GameCore.Sessions;
 using FastTelegramBot.DataTypes;
 using FastTelegramBot.DataTypes.Keyboards;
 using FastTelegramBot.DataTypes.InputFiles;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace MarkOne.Scripts.GameCore.Dialogs;
 
@@ -28,14 +27,14 @@ public abstract class DialogPanelBase
     public GameSession session { get; }
     public Tooltip? tooltip { get; private set; }
 
-    protected MessageId? lastMessageId { get; set; } // необходимо присваивать, чтобы при выходе из диалога удалялся InlineKeyboard
     private Func<Task<MessageId>>? _resendLastMessageFunc;
+    private MessageId? _lastMessageId;
+    private int _aliveQueryHash;
 
     private readonly Dictionary<int, InlineKeyboardButton> _registeredButtons = new Dictionary<int, InlineKeyboardButton>();
     private readonly Dictionary<int, Func<Task>?> _registeredCallbacks = new Dictionary<int, Func<Task>?>();
     private readonly Dictionary<int, Func<string?>> _registeredQueryAnswers = new Dictionary<int, Func<string?>>();
     private int _freeButtonId;
-    private bool _withMarkup;
 
     protected int buttonsCount => _registeredButtons.Count;
 
@@ -43,6 +42,7 @@ public abstract class DialogPanelBase
     {
         dialog = _dialog;
         session = _dialog.session;
+        _aliveQueryHash = GetHashCode();
     }
 
     protected void RegisterBackButton(Func<Task> callback, Func<string?>? queryAnswer = null)
@@ -64,7 +64,7 @@ public abstract class DialogPanelBase
     {
         var callbackData = new DialogPanelButtonCallbackData()
         {
-            sessionTime = session.startTime.Ticks,
+            aliveQueryHash = _aliveQueryHash,
             buttonId = _freeButtonId,
         };
         var callbackDataJson = JsonConvert.SerializeObject(callbackData);
@@ -173,17 +173,22 @@ public abstract class DialogPanelBase
 
     protected async Task<MessageId> SendPanelMessage(string text, InlineKeyboardMarkup? inlineMarkup)
     {
-        _resendLastMessageFunc = async () => await messageSender.SendTextMessage(session.chatId, text, inlineMarkup, disableWebPagePreview: true, cancellationToken: session.cancellationToken).FastAwait();
-        if (lastMessageId is null)
+
+        _resendLastMessageFunc = async () =>
         {
-            lastMessageId = await _resendLastMessageFunc().FastAwait();
+            RefreshAliveQueryHashInButtons(inlineMarkup);
+            return await messageSender.SendTextMessage(session.chatId, text, inlineMarkup, disableWebPagePreview: true, cancellationToken: session.cancellationToken).FastAwait();
+        };
+
+        if (_lastMessageId is null)
+        {
+            _lastMessageId = await _resendLastMessageFunc().FastAwait();
         }
         else
         {
-            await messageSender.EditTextMessage(session.chatId, lastMessageId.Value, text, inlineMarkup, disableWebPagePreview: true, cancellationToken: session.cancellationToken).FastAwait();
+            await messageSender.EditTextMessage(session.chatId, _lastMessageId.Value, text, inlineMarkup, disableWebPagePreview: true, cancellationToken: session.cancellationToken).FastAwait();
         }
-        _withMarkup = inlineMarkup is not null;
-        return lastMessageId.Value;
+        return _lastMessageId.Value;
     }
 
     protected async Task<MessageId> SendPanelPhotoMessage(InputFile photo, StringBuilder sb, InlineKeyboardMarkup? inlineMarkup)
@@ -193,44 +198,72 @@ public abstract class DialogPanelBase
 
     protected async Task<MessageId> SendPanelPhotoMessage(InputFile photo, string text, InlineKeyboardMarkup? inlineMarkup)
     {
-        _resendLastMessageFunc = async () => await messageSender.SendPhotoMessage(session.chatId, photo, text, inlineMarkup, cancellationToken: session.cancellationToken).FastAwait();
-        if (lastMessageId is null)
+        RefreshAliveQueryHashInButtons(inlineMarkup);
+        _resendLastMessageFunc = async () =>
         {
-            lastMessageId = await _resendLastMessageFunc().FastAwait();
+            RefreshAliveQueryHashInButtons(inlineMarkup);
+            return await messageSender.SendPhotoMessage(session.chatId, photo, text, inlineMarkup, cancellationToken: session.cancellationToken).FastAwait();
+        };
+
+        if (_lastMessageId is null)
+        {
+            _lastMessageId = await _resendLastMessageFunc().FastAwait();
         }
         else
         {
-            await messageSender.EditPhotoMessageCaption(session.chatId, lastMessageId.Value, text, inlineMarkup, disableWebPagePreview: true, cancellationToken: session.cancellationToken).FastAwait();
+            await messageSender.EditPhotoMessageCaption(session.chatId, _lastMessageId.Value, text, inlineMarkup, disableWebPagePreview: true, cancellationToken: session.cancellationToken).FastAwait();
         }
-        _withMarkup = inlineMarkup is not null;
-        return lastMessageId.Value;
+        return _lastMessageId.Value;
     }
 
     protected async Task EditPhotoMessageCaption(string text, InlineKeyboardMarkup? inlineMarkup)
     {
-        await messageSender.EditPhotoMessageCaption(session.chatId, lastMessageId.Value, text, inlineMarkup, disableWebPagePreview: true, cancellationToken: session.cancellationToken).FastAwait();
-        _withMarkup = inlineMarkup is not null;
+        await messageSender.EditPhotoMessageCaption(session.chatId, _lastMessageId.Value, text, inlineMarkup, disableWebPagePreview: true, cancellationToken: session.cancellationToken).FastAwait();
+    }
+
+    private void RefreshAliveQueryHashInButtons(InlineKeyboardMarkup? inlineMarkup)
+    {
+        if (inlineMarkup is null)
+        {
+            return;
+        }
+
+        _aliveQueryHash = _lastMessageId?.Id.GetHashCode() ?? GetHashCode();
+        foreach (var row in inlineMarkup.InlineKeyboard)
+        {
+            foreach (var button in row)
+            {
+                if (!string.IsNullOrEmpty(button.CallbackData))
+                {
+                    var callback = JsonConvert.DeserializeObject<DialogPanelButtonCallbackData>(button.CallbackData);
+                    if (callback is not null)
+                    {
+                        callback.aliveQueryHash = _aliveQueryHash;
+                        button.CallbackData = JsonConvert.SerializeObject(callback);
+                    }
+                }
+            }
+        }
     }
 
     public virtual void OnDialogClose()
     {
-        Task.Run(RemoveKeyboardFromLastMessage);
+        // ignored
     }
 
-    protected async Task RemoveKeyboardFromLastMessage()
+    public virtual async Task HandleButtonPress(DialogPanelButtonCallbackData callbackData, string queryId)
     {
-        ClearButtons();
-        if (lastMessageId is not null && _withMarkup)
+        if (callbackData.aliveQueryHash != _aliveQueryHash)
         {
-            await messageSender.RemoveInlineKeyboardAsync(session.chatId, lastMessageId.Value, session.cancellationToken).FastAwait();
-            _withMarkup = false;
-        }
-    }
-
-    public virtual async Task HandleButtonPress(int buttonId, string queryId)
-    {
-        if (!_registeredCallbacks.TryGetValue(buttonId, out var callback))
+            await messageSender.AnswerQuery(queryId, Localization.Get(session, "invalid_query_answer"), session.cancellationToken).FastAwait();
             return;
+        }
+
+        var buttonId = callbackData.buttonId;
+        if (!_registeredCallbacks.TryGetValue(buttonId, out var callback))
+        {
+            return;
+        }
 
         if (BotController.config.logSettings.logUpdates)
         {
@@ -337,11 +370,13 @@ public abstract class DialogPanelBase
 
     public async Task ResendLastMessageAsNew()
     {
-        if (lastMessageId is null || _resendLastMessageFunc is null)
+        if (_lastMessageId is null || _resendLastMessageFunc is null)
+        {
             return;
+        }
 
-        await messageSender.RemoveInlineKeyboardAsync(session.chatId, lastMessageId.Value).FastAwait();
-        lastMessageId = await _resendLastMessageFunc().FastAwait();
+        _aliveQueryHash = _lastMessageId.Value.Id.GetHashCode();
+        _lastMessageId = await _resendLastMessageFunc().FastAwait();
     }
 
 }

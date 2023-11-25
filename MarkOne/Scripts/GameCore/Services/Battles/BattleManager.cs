@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,12 +6,13 @@ using MarkOne.Scripts.GameCore.Dialogs.Battle;
 using MarkOne.Scripts.GameCore.Rewards;
 using MarkOne.Scripts.GameCore.Units;
 using MarkOne.Scripts.GameCore.Units.Mobs;
+using MarkOne.Scripts.Utils;
 
 namespace MarkOne.Scripts.GameCore.Services.Battles;
 
 public class BattleManager : Service
 {
-    private readonly ConcurrentDictionary<Player, Battle> _battlesByPlayers = new();
+    private readonly LockedDictionary<Player, Battle> _battlesByPlayers = new();
 
     public Battle StartBattle(Player player, IMobData mobData, IEnumerable<RewardBase>? rewards = null,
         Func<Player, BattleResult, Task>? onBattleEndFunc = null,
@@ -65,11 +65,11 @@ public class BattleManager : Service
     {
         if (battle.firstUnit is Player firstPlayer)
         {
-            _battlesByPlayers.TryRemove(firstPlayer, out _);
+            _battlesByPlayers.Remove(firstPlayer);
         }
         if (battle.secondUnit is Player secondPlayer)
         {
-            _battlesByPlayers.TryRemove(secondPlayer, out _);
+            _battlesByPlayers.Remove(secondPlayer);
         }
     }
 

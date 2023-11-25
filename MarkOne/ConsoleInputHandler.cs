@@ -63,7 +63,7 @@ public class ConsoleInputHandler
             if (input.ToLower().Equals("exit"))
                 return; //exit
 
-            botDataPath = Path.Combine(botDataFolder, input);
+            botDataPath = string.IsNullOrEmpty(input) ? string.Empty : Path.Combine(botDataFolder, input);
         }
 
         StartWithBotData(botDataPath);
