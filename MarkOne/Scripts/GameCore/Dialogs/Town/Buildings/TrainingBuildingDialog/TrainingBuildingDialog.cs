@@ -54,7 +54,7 @@ public class TrainingBuildingDialog : DialogBase
         var units = _building.GetAllUnits(_data);
         foreach (var unit in units)
         {
-            var button = $"{_building.GetUnitIcon(_data, unit)} {_building.GetUnitName(session, _data, unit)}";
+            var button = $"{_building.GetUnitIcon(_data, unit)} {_building.GetUnitName(session, _data, unit)} ({_building.GetUnitLevel(_data, unit)})";
             RegisterButton(button, () => ShowCurrentUnit(unit, fromUnitsList: true));
         }
 
