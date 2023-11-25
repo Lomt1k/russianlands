@@ -42,8 +42,11 @@ public class ShopInventoryItem : ShopItemBase
 
     public override string GetMessageText(GameSession session)
     {
+        var itemForView = itemWithCodeReward.itemTemplate.Clone();
+        itemForView.RecalculateDataWithPlayerSkills(session.player.skills);
+
         var sb = new StringBuilder()
-            .AppendLine(itemWithCodeReward.itemTemplate.GetView(session));
+            .AppendLine(itemForView.GetView(session));
 
         if (price != null)
         {
