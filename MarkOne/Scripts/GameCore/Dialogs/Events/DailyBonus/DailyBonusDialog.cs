@@ -57,7 +57,7 @@ public class DailyBonusDialog : DialogBase
                 sb.AppendLine(addedReward);
             }
         }
-        session.profile.data.lastDailyBonusReceivedTime = DateTime.Now;
+        session.profile.data.lastDailyBonusReceivedTime = DateTime.UtcNow;
         session.profile.data.lastDailyBonusId = rewardId;
 
         if (IsEventAvailable(session))
@@ -81,8 +81,14 @@ public class DailyBonusDialog : DialogBase
 
     public static bool IsNewRewardAvailable(GameSession session)
     {
-        return IsEventAvailable(session)
-            && session.profile.data.lastDailyBonusReceivedTime.Date.Day < DateTime.UtcNow.Date.Day;
+        if (!IsEventAvailable(session))
+        {
+            return false;
+        }
+
+        var now = DateTime.UtcNow.Date;
+        var lastTime = session.profile.data.lastDailyBonusReceivedTime.Date;
+        return (now - lastTime).TotalDays > 1;
     }
 
 }
