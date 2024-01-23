@@ -255,7 +255,7 @@ public abstract class DialogPanelBase
     {
         if (callbackData.aliveQueryHash != _aliveQueryHash)
         {
-            await messageSender.AnswerQuery(queryId, Localization.Get(session, "invalid_query_answer"), session.cancellationToken).FastAwait();
+            await messageSender.AnswerQuery(queryId, Localization.Get(session, "invalid_query_answer")).FastAwait();
             return;
         }
 
