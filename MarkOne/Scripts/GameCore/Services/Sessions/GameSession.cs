@@ -14,6 +14,7 @@ using MarkOne.Scripts.GameCore.Commands;
 using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Services.BotData.SerializableData.DataTypes;
 using FastTelegramBot.DataTypes;
+using static System.Collections.Specialized.BitVector32;
 
 namespace MarkOne.Scripts.GameCore.Sessions;
 

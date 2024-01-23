@@ -8,7 +8,7 @@ using MarkOne.Scripts.GameCore.Services;
 using MarkOne.Scripts.Bot;
 using FastTelegramBot.DataTypes;
 using FastTelegramBot.DataTypes.Keyboards;
-using MarkOne.Scripts.Utils;
+using System.Collections.Concurrent;
 
 namespace MarkOne.Scripts.GameCore.Sessions;
 
@@ -20,7 +20,7 @@ public class SessionManager : Service
 
     private int _periodicSaveDatabaseInMs;
     private CancellationTokenSource _allSessionsTasksCTS = new CancellationTokenSource();
-    private readonly LockedDictionary<ChatId, GameSession> _sessions = new();
+    private readonly ConcurrentDictionary<ChatId, GameSession> _sessions = new();
 
     public int sessionsCount => _sessions.Count;
     public CancellationTokenSource allSessionsTasksCTS => _allSessionsTasksCTS;
@@ -36,16 +36,10 @@ public class SessionManager : Service
 
     public GameSession GetOrCreateSession(User user)
     {
-        lock ($"user_{user.Id}")
+        return _sessions.GetOrAdd(user.Id, (chatId) =>
         {
-            if (_sessions.TryGetValue(user.Id, out var session))
-            {
-                return session;
-            }
-            session = new GameSession(user);
-            _sessions.Add(user.Id, session);
-            return session;
-        }
+            return new GameSession(user);
+        });
     }
 
     public bool IsSessionExists(ChatId id)
@@ -121,7 +115,7 @@ public class SessionManager : Service
     {
         if (_sessions.TryGetValue(chatId, out var session))
         {
-            _sessions.Remove(chatId);
+            _sessions.TryRemove(chatId, out _);
             await session.OnCloseSession(onError, errorMessage).FastAwait();
         }
     }
