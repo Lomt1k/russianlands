@@ -14,6 +14,7 @@ using MarkOne.Scripts.GameCore.Commands;
 using MarkOne.Scripts.Bot;
 using MarkOne.Scripts.GameCore.Services.BotData.SerializableData.DataTypes;
 using FastTelegramBot.DataTypes;
+using static System.Collections.Specialized.BitVector32;
 
 namespace MarkOne.Scripts.GameCore.Sessions;
 
@@ -196,7 +197,7 @@ public class GameSession
 
     private async Task AnswerInvalidQueryAsync(string queryId)
     {
-        await messageSender.AnswerQuery(queryId, Localization.Get(this, "invalid_query_answer")).FastAwait();
+        await messageSender.AnswerQuery(queryId, Localization.Get(this, "invalid_query_answer"), cancellationToken).FastAwait();
     }
 
     private async Task OnStartNewSession(Update update)
